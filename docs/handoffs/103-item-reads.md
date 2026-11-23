@@ -190,3 +190,38 @@ The lead answered all four 103 requests. Their files are now removed, so the ref
  Test Files  4 passed (4)
       Tests  131 passed (131)
 ```
+
+## Review round (PR #9)
+
+Merged lane/platform-102 (8eab0d7, which includes phase-0/foundations 94849c9) at 1612ede.
+
+**B1 (blocking): updateItem could save the columns and then have its tags refused.**
+- The tag sets are now worked out before any write:
+  - the sent set;
+  - the set kept from the item's current tags, read with their kinds.
+- The merged distinct total is checked against `limits.tags.perItem`. Over the limit, updateItem returns `invalid` (field `tags` or `referenceTags`) without writing anything.
+- New test: an item has 2 reference tags, and the owner sends a title plus 8 tags. The result is invalid, with no UPDATE, no `set_item_tags`, and the title unchanged.
+
+**A1.** Item page redirects now use `redirect()` (307) instead of `permanentRedirect`, because a renamed item can get an earlier slug back.
+
+**A2.** Owner views (getOwnItem, and updateItem's returned item) go through `toOwnItem`. It maps flaggedReason through `reasonText`, which moved to rows.ts: a worker reason code becomes plain language, and anything else becomes the `internal` text. Tested for both actions.
+
+**A3.** Done by the lead (`sameSitePathSchema`). Picked up through the merge.
+
+**A5.** `KIT_PADS` and `MORE_FROM_OWNER` are now read from the contract schemas' `.max()` (the playableSchema kit pads and itemPageSchema moreFromOwner), and a test pins both at 16 and 10.
+
+**Test advisories.**
+- A new database test selects the exported `ITEM_COLUMNS`, `FILE_COLUMNS`, `SAMPLE_COLUMNS` and `PROFILE_COLUMNS` as anon and as the owner.
+- The fixture's peaks meta was already `{ points, peaks }` (peaksFileMetaSchema, from the decision 0015 round).
+- A new unit test asserts the `lt("position", 16)` filter on every pad read of kit_samples.
+
+A4 and A6 are left for 135 and 203.
+
+`pnpm check && pnpm test && pnpm db:test`, exit 0:
+```
+ Test Files  14 passed | 1 skipped (15)
+      Tests  298 passed | 7 skipped (305)
+ Test Files  4 passed (4)
+      Tests  136 passed (136)
+```
+The 7 skipped tests are the SeaweedFS suite, which skips without storage.
