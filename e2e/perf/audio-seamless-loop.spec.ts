@@ -21,6 +21,43 @@ const cases = [...loops, reencoded].map((f) => ({
   item: { kind: "loop" as const, id: f.path, previewUrl: "https://previews.invalid/loop", loopSamples: f.expect.loopSamples!, sampleRate: f.expect.sampleRate!, bpm: f.expect.bpm! },
   b64: bytesFor(f.path).toString("base64"),
 }));
+// A decode that runs past the loop, as a preview with an export tail would: the midnight_keys WAV
+// with 0.75 s of a loud sine after the loop. Looping on the decoded length would play the sine.
+{
+  const base = cases.find((c) => c.name === "midnight_keys_140bpm_Am.wav")!;
+  cases.push({ ...base, name: "midnight_keys_with_tail.wav", b64: withTail(Buffer.from(base.b64, "base64"), 0.75).toString("base64") });
+}
+
+/** A 16-bit PCM WAV with `seconds` of a 440 Hz sine at half scale appended to its data. */
+function withTail(wav: Buffer, seconds: number): Buffer {
+  if (wav.toString("ascii", 0, 4) !== "RIFF" || wav.toString("ascii", 8, 12) !== "WAVE") throw new Error("not WAV");
+  let channels = 0;
+  let rate = 0;
+  for (let o = 12; o + 8 <= wav.length; ) {
+    const id = wav.toString("ascii", o, o + 4);
+    const size = wav.readUInt32LE(o + 4);
+    if (id === "fmt ") {
+      if (wav.readUInt16LE(o + 8) !== 1 || wav.readUInt16LE(o + 22) !== 16) throw new Error("not 16-bit PCM");
+      channels = wav.readUInt16LE(o + 10);
+      rate = wav.readUInt32LE(o + 12);
+    }
+    if (id === "data") {
+      if (o + 8 + size !== wav.length) throw new Error("data is not the last chunk");
+      const frames = Math.round(seconds * rate);
+      const tail = Buffer.alloc(frames * channels * 2);
+      for (let i = 0; i < frames; i++) {
+        const v = Math.round(16383 * Math.sin((2 * Math.PI * 440 * i) / rate));
+        for (let c = 0; c < channels; c++) tail.writeInt16LE(v, (i * channels + c) * 2);
+      }
+      const out = Buffer.concat([wav, tail]);
+      out.writeUInt32LE(size + tail.length, o + 4);
+      out.writeUInt32LE(out.length - 8, 4);
+      return out;
+    }
+    o += 8 + size + (size % 2);
+  }
+  throw new Error("no data chunk");
+}
 
 /** Chromium cannot decode AIFF, so AIFF fixtures are rewritten as WAV with the same samples. */
 function bytesFor(path: string): Buffer {
@@ -146,6 +183,11 @@ for (const c of cases) {
       const j = r.join.report;
       console.log(`plain   ${c.name} @${rate}: loopFrames ${r.loopFrames}, maxDiff ${fmt(r.maxDiff)}, join step ${fmt(j.stepAtJoin)} vs ${fmt(j.maxStepElsewhere)}, min rms ${fmt(j.minRmsNearJoin)} vs ${fmt(j.minRmsElsewhere)}`);
       expect(r.status).toBe("playing");
+      // From the contract's numbers alone, not from the engine's own loopFrames: within one frame of
+      // the exact length. (At 48 kHz midnight_keys is 329142.86 frames, and Chromium decodes the
+      // exact-length WAV to 329142, so the loop cannot be 329143 there.)
+      const exact = (c.item.loopSamples * rate) / c.item.sampleRate;
+      expect(Math.abs(r.loopFrames - exact), `loop length at ${rate} Hz: ${r.loopFrames} frames for ${exact.toFixed(2)}`).toBeLessThan(1);
       expect(r.maxDiff, `sample-exact at ${rate} Hz`).toBeLessThan(1e-6);
       expect(r.join.faults, `join at ${rate} Hz`).toEqual({ gap: false, click: false });
     }
