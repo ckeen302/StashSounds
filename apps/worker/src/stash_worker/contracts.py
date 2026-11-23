@@ -40,3 +40,12 @@ def validate(name: str, value: Any) -> None:
 
 def is_valid(name: str, value: Any) -> bool:
     return _validator(name).is_valid(value)
+
+
+@cache
+def worker_reasons() -> frozenset[str]:
+    """The reasons the worker may give (contracts: workerReasonSchema), read from the generated
+    worker-result schema so the list is never retyped here."""
+    schema = json.loads((CONTRACTS / "generated" / "worker-result.schema.json").read_text())
+    flag = schema["oneOf"][0]["properties"]["flag"]["anyOf"][0]
+    return frozenset(flag["properties"]["reason"]["enum"])
