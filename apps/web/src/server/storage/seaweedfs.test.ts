@@ -54,7 +54,7 @@ describe.skipIf(!available)("SeaweedFS (local storage)", () => {
 
   it("single upload: the presigned PUT stores the object at the declared size", async () => {
     const k = key();
-    const body = Buffer.alloc(1000, 7);
+    const body = new Uint8Array(1000).fill(7);
     const { url } = await storage.presignPut(k, body.length);
     expect((await fetch(url, { method: "PUT", body })).status).toBe(200);
     expect(await storage.head(k)).toEqual({ bytes: 1000 });
@@ -63,7 +63,7 @@ describe.skipIf(!available)("SeaweedFS (local storage)", () => {
   it("a body of another size is refused by the signature", async () => {
     const k = key();
     const { url } = await storage.presignPut(k, 1000);
-    const r = await fetch(url, { method: "PUT", body: Buffer.alloc(2000, 7) });
+    const r = await fetch(url, { method: "PUT", body: new Uint8Array(2000).fill(7) });
     expect(r.status).toBeGreaterThanOrEqual(400);
     expect(await storage.head(k)).toBeNull();
   });
@@ -73,7 +73,7 @@ describe.skipIf(!available)("SeaweedFS (local storage)", () => {
     const { url } = await storage.presignPut(k, 10);
     const other = new URL(url);
     other.pathname = other.pathname.replace(/original\.wav$/, "other.wav");
-    expect((await fetch(other, { method: "PUT", body: Buffer.alloc(10) })).status).toBeGreaterThanOrEqual(400);
+    expect((await fetch(other, { method: "PUT", body: new Uint8Array(10) })).status).toBeGreaterThanOrEqual(400);
   });
 
   it("multipart upload: parts and completion give one object", async () => {
@@ -81,7 +81,7 @@ describe.skipIf(!available)("SeaweedFS (local storage)", () => {
     const partBytes = 5 * 1024 * 1024; // S3's minimum part size
     const total = partBytes + 1234;
     const m = await storage.startMultipart(k, total, partBytes);
-    const data = Buffer.alloc(total, 3);
+    const data = new Uint8Array(total).fill(3);
     const parts = [];
     for (const [i, p] of m.parts.entries()) {
       const r = await fetch(p.url, { method: "PUT", body: data.subarray(i * partBytes, (i + 1) * partBytes) });

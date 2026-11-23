@@ -32,7 +32,7 @@ beforeEach(() => {
   stub.requests.length = 0;
 });
 
-const put = (url: string, body: Buffer | string) => fetch(url, { method: "PUT", body });
+const put = (url: string, body: Buffer | string) => fetch(url, { method: "PUT", body: typeof body === "string" ? body : new Uint8Array(body) });
 
 describe("presignPut", () => {
   it("signs one object, its length, and expires after limits.urls.uploadTtlSeconds", async () => {
