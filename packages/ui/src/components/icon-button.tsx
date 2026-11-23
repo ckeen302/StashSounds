@@ -19,9 +19,9 @@ export type IconButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, "chi
 
 const variants: Record<IconButtonVariant, string> = {
   ghost:
-    "border-transparent bg-transparent text-text-muted ui-hover:bg-raised ui-hover:text-text ui-active:bg-bg ui-active:text-text aria-pressed:text-text",
+    "border-transparent bg-transparent text-text-muted ui-hover:bg-raised ui-hover:text-text ui-active:bg-bg ui-active:text-text aria-pressed:bg-raised aria-pressed:text-text disabled:border-transparent",
   // The pad: a square, slightly inset control with a hairline border (design spec, Concept).
-  pad: "border-border-strong bg-bg text-text not-aria-pressed:ui-hover:bg-raised not-aria-pressed:ui-active:border-text aria-pressed:border-accent aria-pressed:bg-accent aria-pressed:text-bg",
+  pad: "border-border-strong bg-bg text-text not-aria-pressed:ui-hover:bg-raised not-aria-pressed:ui-active:border-text aria-pressed:border-accent aria-pressed:bg-accent aria-pressed:text-bg disabled:border-border",
 };
 
 export function IconButton({
@@ -46,7 +46,7 @@ export function IconButton({
         transition,
         size === "sm" ? "size-8 pointer-coarse:size-10" : "size-10",
         variants[variant],
-        "disabled:cursor-not-allowed disabled:border-border disabled:bg-transparent disabled:text-border-strong",
+        "disabled:cursor-not-allowed disabled:bg-transparent disabled:text-border-strong",
         className,
       )}
       {...rest}

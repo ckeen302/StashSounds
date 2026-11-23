@@ -26,6 +26,21 @@ import {
   UploaderCard,
   Waveform,
   formatCount,
+  describeRow,
+  MenuPreview,
+  ResultRowSkeleton,
+  ResultListSkeleton,
+  SkeletonCard,
+  SkeletonText,
+  Tab,
+  TabList,
+  TabPanel,
+  Tabs,
+  ToastPreview,
+  Tooltip,
+  TooltipSurface,
+  uploadStepFor,
+  type MenuEntry,
   type LinkLikeProps,
 } from "../src/index.ts";
 
@@ -65,7 +80,10 @@ describe("Button", () => {
     expect(out).toContain("Publishing");
   });
   it("disabled is disabled", () => {
-    expect(html(h(Button, { disabled: true, children: "Save" }))).toContain("disabled");
+    const out = html(h(Button, { disabled: true, children: "Save" }));
+    // The attribute itself, not the word in a class name such as disabled:bg-surface.
+    expect(out).toMatch(/^<button type="button" disabled=""/);
+    expect(html(h(Button, { children: "Save" }))).not.toMatch(/<button[^>]* disabled=""/);
   });
 });
 

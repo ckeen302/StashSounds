@@ -29,8 +29,13 @@ const variants: Record<ButtonVariant, string> = {
   danger: "border-type-kit bg-transparent text-type-kit ui-hover:bg-raised ui-active:bg-type-kit/16",
 };
 
-const disabledClass =
-  "disabled:cursor-not-allowed disabled:border-border disabled:bg-surface disabled:text-text-muted";
+/** Disabled keeps each variant's outline: a ghost stays borderless, the others go to the plain hairline. */
+const disabledClass: Record<ButtonVariant, string> = {
+  primary: "disabled:border-border disabled:bg-surface",
+  secondary: "disabled:border-border disabled:bg-surface",
+  ghost: "disabled:border-transparent disabled:bg-transparent",
+  danger: "disabled:border-border disabled:bg-transparent",
+};
 
 export const buttonSizes: Record<ButtonSize, string> = {
   sm: "h-8 gap-2 px-3 pointer-coarse:h-10",
@@ -63,7 +68,8 @@ export function Button({
         transition,
         buttonSizes[size],
         variants[variant],
-        disabledClass,
+        "disabled:cursor-not-allowed disabled:text-text-muted",
+        disabledClass[variant],
         loading && "cursor-progress",
         className,
       )}

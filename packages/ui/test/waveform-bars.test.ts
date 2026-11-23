@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { decodePeaks, encodePeaks } from "@stash/contracts";
-import { barHeight, barLayout, barValues, formatTime, fractionAt, MIN_BAR_HEIGHT } from "../src/components/waveform-bars.ts";
+import { barHeight, barLayout, barValues, clamp01, formatTime, fractionAt, loudness, MIN_BAR_HEIGHT, seekFromKey } from "../src/components/waveform-bars.ts";
 
 describe("waveform bars (design spec: Waveform)", () => {
   it("fits 2 px bars with a 1 px gap into the 200 px mini", () => {
@@ -54,6 +54,49 @@ describe("waveform bars (design spec: Waveform)", () => {
     expect(fractionAt(-10, 200)).toBe(0);
     expect(fractionAt(250, 200)).toBe(1);
     expect(fractionAt(10, 0)).toBe(0);
+  });
+
+  it("reads peaks on a square-root scale so tails stay visible, clamped to 0 to 1", () => {
+    expect(loudness(0)).toBe(0);
+    expect(loudness(1)).toBe(1);
+    expect(loudness(0.25)).toBeCloseTo(0.5);
+    expect(loudness(-0.5)).toBe(0);
+    expect(loudness(4)).toBe(1);
+    expect(loudness(Number.NaN)).toBe(0);
+    // A quiet value still keeps the 2 px floor.
+    expect(barHeight(loudness(0.0001), 32)).toBe(2);
+  });
+
+  it("clamps fractions, including non-numbers", () => {
+    expect(clamp01(-1)).toBe(0);
+    expect(clamp01(1.5)).toBe(1);
+    expect(clamp01(0.3)).toBe(0.3);
+    expect(clamp01(Number.POSITIVE_INFINITY)).toBe(0);
+  });
+
+  it("maps seek keys to positions: arrows 5 percent, Shift 20, Home and End to the ends", () => {
+    expect(seekFromKey("ArrowRight", 0.42)).toBeCloseTo(0.47);
+    expect(seekFromKey("ArrowUp", 0.42)).toBeCloseTo(0.47);
+    expect(seekFromKey("ArrowLeft", 0.42)).toBeCloseTo(0.37);
+    expect(seekFromKey("ArrowDown", 0.42)).toBeCloseTo(0.37);
+    expect(seekFromKey("ArrowRight", 0.42, true)).toBeCloseTo(0.62);
+    expect(seekFromKey("ArrowLeft", 0.42, true)).toBeCloseTo(0.22);
+    expect(seekFromKey("Home", 0.42)).toBe(0);
+    expect(seekFromKey("End", 0.42)).toBe(1);
+  });
+
+  it("clamps seeks at both ends and from out-of-range positions", () => {
+    expect(seekFromKey("ArrowRight", 0.98)).toBe(1);
+    expect(seekFromKey("ArrowLeft", 0.02)).toBe(0);
+    expect(seekFromKey("ArrowRight", 0.9, true)).toBe(1);
+    expect(seekFromKey("ArrowLeft", 1.7)).toBeCloseTo(0.95);
+    expect(seekFromKey("ArrowRight", -3)).toBeCloseTo(0.05);
+  });
+
+  it("leaves other keys to the page", () => {
+    expect(seekFromKey("Tab", 0.5)).toBeNull();
+    expect(seekFromKey(" ", 0.5)).toBeNull();
+    expect(seekFromKey("l", 0.5)).toBeNull();
   });
 
   it("formats time as m:ss", () => {

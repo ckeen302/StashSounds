@@ -5,7 +5,18 @@ import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent, 
 import { color, typeColor, WAVEFORM_UNPLAYED_OPACITY } from "../tokens.ts";
 import type {} from "./css-vars.ts";
 import { cx } from "./cx.ts";
-import { barHeight, barLayout, barValues, formatTime, fractionAt, WAVEFORM_GEOMETRY, type WaveformVariant } from "./waveform-bars.ts";
+import {
+  barHeight,
+  barLayout,
+  barValues,
+  clamp01,
+  formatTime,
+  fractionAt,
+  loudness,
+  seekFromKey,
+  WAVEFORM_GEOMETRY,
+  type WaveformVariant,
+} from "./waveform-bars.ts";
 
 /** Base64 peak bytes as contracts' peaksSchema validates them. */
 export type Peaks = NonNullable<ItemRow["peaks"]>;
@@ -61,7 +72,7 @@ export function Waveform({
   peaks,
   type,
   variant = "mini",
-  progress = 0,
+  progress: rawProgress = 0,
   playing = false,
   error = false,
   durationMs,
@@ -76,7 +87,8 @@ export function Waveform({
   const [hoverAt, setHoverAt] = useState<number | null>(null);
   const [scrubbing, setScrubbing] = useState(false);
   const hero = variant === "hero";
-  const pointer = pointerPreview ?? hoverAt;
+  const progress = clamp01(rawProgress);
+  const pointer = pointerPreview === undefined ? hoverAt : clamp01(pointerPreview);
 
   const decoded = useMemo(() => {
     if (!peaks) return null;
@@ -90,7 +102,7 @@ export function Waveform({
   const values = useMemo(() => {
     if (error) return new Float32Array(layout.count);
     if (!decoded) return new Float32Array(layout.count).fill(LOADING_VALUE);
-    return barValues(decoded, layout.count);
+    return barValues(decoded, layout.count).map(loudness);
   }, [decoded, error, layout.count]);
 
   useEffect(() => {
@@ -139,15 +151,13 @@ export function Waveform({
   const interactive = Boolean(onScrub) && !error;
 
   const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
-    if (!onScrub) return;
-    const step = e.shiftKey ? 0.2 : 0.05;
-    const next = { ArrowRight: progress + step, ArrowUp: progress + step, ArrowLeft: progress - step, ArrowDown: progress - step, Home: 0, End: 1 }[e.key];
-    if (next === undefined) return;
+    const next = onScrub ? seekFromKey(e.key, progress, e.shiftKey) : null;
+    if (next === null) return;
     e.preventDefault();
-    onScrub(Math.min(1, Math.max(0, next)));
+    onScrub?.(next);
   };
 
-  const ms = durationMs ?? 0;
+  const ms = durationMs && Number.isFinite(durationMs) && durationMs > 0 ? durationMs : 0;
   const timeAt = (f: number) => formatTime(f * ms);
   const edge = (f: number) => (f < 0.08 ? "translate-x-0" : f > 0.92 ? "-translate-x-full" : "-translate-x-1/2");
   const showPlayhead = hero && (playing || progress > 0) && !error && ms > 0;
@@ -202,7 +212,7 @@ export function Waveform({
       >
         <canvas ref={canvasRef} aria-hidden="true" className="block size-full" />
         {error && hero && (
-          <span className="absolute inset-0 flex items-center justify-center text-small text-text-muted">Waveform unavailable</span>
+          <span className="absolute inset-0 flex items-center justify-center text-small text-text-muted">Waveform unavailable. Play still works.</span>
         )}
       </div>
     </div>

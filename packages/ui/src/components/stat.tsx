@@ -21,7 +21,7 @@ export function Stat({
   className?: string;
 }) {
   return (
-    <dl className={cx("flex min-w-0 flex-col", className)} aria-busy={loading || undefined}>
+    <dl className={cx("flex min-w-0 flex-col", className)} aria-busy={loading || value === undefined || undefined}>
       <dt className="text-label text-label-caps text-text-muted">{label}</dt>
       <dd className="flex h-5 items-center font-mono text-numeric tabular text-text">
         {loading || value === undefined ? (

@@ -1,3 +1,4 @@
+import type { ItemStatus, OwnItem } from "@stash/contracts";
 import type {} from "./css-vars.ts";
 import { cx } from "./cx.ts";
 import { Check, CircleExclamationPoint, Flag, Icon } from "./icon.tsx";
@@ -6,6 +7,28 @@ import { Spinner } from "./spinner.tsx";
 /** Where an upload card is. Design spec: Upload (uploading, analyzing, ready) plus flagged. */
 export type UploadStep = "uploading" | "analyzing" | "ready" | "flagged";
 export type StepStatus = "active" | "done" | "failed";
+
+/**
+ * Where an upload card is, from the item's status and its processing job (contracts OwnItem). Null
+ * for a removed item, which has no upload card. Before the worker has a job, the file is still on
+ * its way up; a failed job fails the analyze step.
+ */
+export function uploadStepFor(status: ItemStatus, job: OwnItem["job"]): { step: UploadStep; status: StepStatus } | null {
+  switch (status) {
+    case "draft":
+      if (!job) return { step: "uploading", status: "active" };
+      return { step: "analyzing", status: job.status === "failed" ? "failed" : "active" };
+    case "processing":
+      return { step: "analyzing", status: job?.status === "failed" ? "failed" : "active" };
+    case "ready":
+    case "published":
+      return { step: "ready", status: "done" };
+    case "flagged":
+      return { step: "flagged", status: "done" };
+    case "removed":
+      return null;
+  }
+}
 
 type StepView = { key: string; label: string; state: "pending" | "active" | "done" | "failed" | "flagged" };
 
@@ -24,7 +47,7 @@ function views(step: UploadStep, status: StepStatus): StepView[] {
   return ORDER.map((key, i) => ({
     key,
     label: LABELS[key],
-    state: i < at ? "done" : i > at ? "pending" : step === "ready" && status === "active" ? "done" : status,
+    state: i < at ? "done" : i > at ? "pending" : step === "ready" && status !== "failed" ? "done" : status,
   }));
 }
 
@@ -41,7 +64,8 @@ function Marker({ state }: { state: StepView["state"] }) {
   if (state === "active") return <span className={cx(base, "border-transparent text-text")}><Spinner size={20} /></span>;
   if (state === "done") return <span className={cx(base, "border-type-preset text-type-preset")}><Icon icon={Check} /></span>;
   if (state === "failed") return <span className={cx(base, "border-type-kit text-type-kit")}><Icon icon={CircleExclamationPoint} /></span>;
-  if (state === "flagged") return <span className={cx(base, "border-type-kit text-type-kit")}><Icon icon={Flag} /></span>;
+  // Flagged is a review, not a failure: neutral, with the flag and the words carrying it.
+  if (state === "flagged") return <span className={cx(base, "border-border-strong text-text")}><Icon icon={Flag} /></span>;
   return <span className={cx(base, "border-border-strong")} />;
 }
 
@@ -66,8 +90,9 @@ export function ProgressSteps({
 }) {
   const items = views(step, status);
   const uploading = step === "uploading" && status === "active" && progress !== undefined;
-  const pct = Math.round((progress ?? 0) * 100);
-  const failed = status === "failed" || step === "flagged";
+  const fraction = Number.isFinite(progress) ? Math.min(1, Math.max(0, progress ?? 0)) : 0;
+  const pct = Math.round(fraction * 100);
+  const failed = status === "failed";
   return (
     <div className={cx("flex min-w-0 flex-col gap-3", className)}>
       <ol aria-label="Upload progress" className="flex items-center gap-3">
@@ -83,7 +108,7 @@ export function ProgressSteps({
       {uploading && (
         <div className="flex items-center gap-3">
           <div role="progressbar" aria-label="Uploading" aria-valuemin={0} aria-valuemax={100} aria-valuenow={pct} className="h-1 flex-1 overflow-hidden rounded-full bg-raised">
-            <div style={{ "--progress": progress }} className="h-full w-progress rounded-full bg-text transition-all duration-control" />
+            <div style={{ "--progress": fraction }} className="h-full w-progress rounded-full bg-text transition-all duration-control" />
           </div>
           <span className="w-10 text-right font-mono text-numeric tabular text-text-muted">{pct}%</span>
         </div>

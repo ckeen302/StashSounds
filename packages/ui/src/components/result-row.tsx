@@ -2,7 +2,7 @@
 
 import { formatKey, type ItemRow } from "@stash/contracts";
 import { useState, type ReactNode } from "react";
-import { TagChip } from "./chip.tsx";
+import { TagChip, TYPE_LABEL } from "./chip.tsx";
 import { cx, transition, type PreviewState } from "./cx.ts";
 import { Download, Ellipsis, Heart } from "./icon.tsx";
 import { IconButton } from "./icon-button.tsx";
@@ -30,7 +30,7 @@ const col = {
 const rowGrid = "flex items-center gap-4 px-3";
 
 /** Engraved column labels over a list of rows. Visual only: each cell names itself to screen readers. */
-export function ResultHeader({ className }: { className?: string }) {
+export function ResultHeader({ lengthLabel = "Bars", className }: { lengthLabel?: string; className?: string }) {
   const label = "text-label text-label-caps text-text-muted";
   return (
     <div aria-hidden="true" className={cx(rowGrid, "h-8 border-b border-border", className)}>
@@ -40,32 +40,54 @@ export function ResultHeader({ className }: { className?: string }) {
       <span className={cx(col.tags, label)}>Tags</span>
       <span className={cx(col.key, label)}>Key</span>
       <span className={cx(col.bpm, label)}>BPM</span>
-      <span className={cx(col.len, label)}>Bars</span>
+      <span className={cx(col.len, label)}>{lengthLabel}</span>
       <span className={col.actions} />
     </div>
   );
 }
 
 /** The panel that holds a header and rows. */
-export function ResultList({ label, children, className }: { label: string; children: ReactNode; className?: string }) {
+export function ResultList({
+  label,
+  lengthLabel,
+  children,
+  className,
+}: {
+  label: string;
+  /** The length column's engraved label: Bars for loops (the default), Len for mixed lists. */
+  lengthLabel?: string;
+  children: ReactNode;
+  className?: string;
+}) {
   return (
     <div className={cx("overflow-hidden rounded-panel border border-border bg-surface", className)}>
-      <ResultHeader />
+      <ResultHeader lengthLabel={lengthLabel} />
       <ul aria-label={label}>{children}</ul>
     </div>
   );
 }
 
-function lengthText(row: ItemRow): string {
+/** The length in words, for screen readers and the waveform's description: "4 bars". */
+export function lengthText(row: Pick<ItemRow, "length">): string {
   if (!row.length) return "";
   const { unit, value } = row.length;
   if (unit === "bars") return `${value} ${value === 1 ? "bar" : "bars"}`;
+  if (unit === "samples") return `${value} ${value === 1 ? "sample" : "samples"}`;
+  return `${value.toFixed(1)} seconds`;
+}
+
+/** The length cell: bare bars under the BARS label; samples and seconds keep a short unit. */
+function lengthCell(row: Pick<ItemRow, "length">): string {
+  if (!row.length) return "";
+  const { unit, value } = row.length;
+  if (unit === "bars") return String(value);
   if (unit === "samples") return `${value} smp`;
   return `${value.toFixed(1)}s`;
 }
 
-function describe(row: ItemRow): string {
-  return ["Loop", lengthText(row), row.bpm ? `${row.bpm} BPM` : "", row.key ? formatKey(row.key) : ""].filter(Boolean).join(", ");
+/** "Loop, 4 bars, 140 BPM, Am": waveforms are described in text (design spec, Accessibility). */
+export function describeRow(row: Pick<ItemRow, "type" | "length" | "bpm" | "key">): string {
+  return [TYPE_LABEL[row.type], lengthText(row), row.bpm ? `${row.bpm} BPM` : "", row.key ? formatKey(row.key) : ""].filter(Boolean).join(", ");
 }
 
 function LikeButton({ liked, title, onLike }: { liked: boolean; title: string; onLike?: (liked: boolean) => void }) {
@@ -140,7 +162,7 @@ export function ResultRow({
         <PlayButton title={row.title} state={playState} onClick={onPlay} />
       </div>
       <div className={col.wave}>
-        <Waveform peaks={row.peaks} type={row.type} progress={progress} onScrub={onScrub} label={describe(row)} durationMs={row.durationMs} />
+        <Waveform peaks={row.peaks} type={row.type} progress={progress} onScrub={onScrub} label={describeRow(row)} durationMs={row.durationMs} />
       </div>
       <div className={cx(col.title, "flex flex-col")}>
         <UiLink href={row.href} className="truncate rounded-control text-body-strong text-text ui-hover:underline">
@@ -165,7 +187,10 @@ export function ResultRow({
         {/* Key merges with BPM on phone. */}
         {keyText && <span aria-hidden="true" className="text-text-muted tablet:hidden">{keyText}</span>}
       </div>
-      <div className={cx(col.len, "font-mono text-numeric tabular text-text-muted")}>{lengthText(row)}</div>
+      <div className={cx(col.len, "font-mono text-numeric tabular text-text-muted")}>
+        <span aria-hidden="true">{lengthCell(row)}</span>
+        <span className="sr-only">{lengthText(row)}</span>
+      </div>
       <div
         className={cx(
           col.actions,

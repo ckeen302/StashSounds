@@ -35,6 +35,10 @@
     outline: 2px solid var(--color-accent);
     outline-offset: 2px;
   }
+  /* Tabs draw their ring inset (the tab list scrolls and would clip an outset ring). */
+  [role="tab"][data-focus] {
+    outline-offset: -2px;
+  }
   /* The search field draws its own clear button. */
   input[type="search"]::-webkit-search-cancel-button {
     appearance: none;

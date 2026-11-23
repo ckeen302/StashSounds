@@ -19,13 +19,13 @@ import {
   Link as LinkIcon,
   Menu,
   MenuPreview,
+  Play,
   PlayButton,
   Plus,
   ProgressSteps,
   ResultList,
   ResultListSkeleton,
   ResultRow,
-  RotateCw,
   SearchInput,
   Share2,
   SkeletonCard,
@@ -90,6 +90,15 @@ const menuEntries: MenuEntry[] = [
   { label: "Download stems", icon: Download, disabled: true },
   { separator: true },
   { label: "Report", icon: Flag, destructive: true },
+];
+
+/** The right-click and long-press menu on a row: the row's own actions first, with their keys. */
+const contextEntries: MenuEntry[] = [
+  { label: "Play", icon: Play, shortcut: "Space" },
+  { label: "Like", icon: Heart, shortcut: "L" },
+  { label: "Download", icon: Download, shortcut: "D" },
+  { separator: true },
+  ...menuEntries,
 ];
 
 function LiveDialogs() {
@@ -164,7 +173,7 @@ function LiveRows() {
             setProgress(f);
           }}
           onLike={(v) => setLiked((m) => ({ ...m, [r.id]: v }))}
-          menu={menuEntries}
+          menu={contextEntries}
         />
       ))}
     </ResultList>
@@ -237,7 +246,7 @@ export function ComponentGallery() {
                 <IconButton variant={v} icon={Heart} label="Like" disabled />
               </Specimen>
               <Specimen label="on">
-                <IconButton variant={v} icon={RotateCw} label="Loop" on />
+                <IconButton variant={v} icon={Heart} label="Like" on />
               </Specimen>
             </div>
           ))}
@@ -463,6 +472,11 @@ export function ComponentGallery() {
               <MenuPreview entries={menuEntries} highlighted="Copy link" />
             </div>
           </Specimen>
+          <Specimen label="context, open">
+            <div inert>
+              <MenuPreview entries={contextEntries} highlighted="Like" />
+            </div>
+          </Specimen>
           <Specimen label="live overflow">
             <Menu entries={menuEntries} trigger={<IconButton icon={Ellipsis} label="More for Midnight keys" />} />
           </Specimen>
@@ -473,7 +487,7 @@ export function ComponentGallery() {
         <Grid cols="desktop:grid-cols-3">
           <Specimen label="with shortcut">
             <TooltipSurface shortcut="L">Like</TooltipSurface>
-            <TooltipSurface shortcut="Shift+D">Download</TooltipSurface>
+            <TooltipSurface shortcut="D">Download</TooltipSurface>
           </Specimen>
           <Specimen label="plain">
             <TooltipSurface>Copy link</TooltipSurface>

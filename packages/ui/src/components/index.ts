@@ -24,8 +24,22 @@ export { Tooltip, TooltipProvider, TooltipSurface } from "./tooltip.tsx";
 export { ToastPreview, ToastProvider, ToastSurface, useToast, type ToastOptions, type ToastTone } from "./toast.tsx";
 export { SkeletonBlock, SkeletonCard, SkeletonText } from "./skeleton.tsx";
 export { EmptyState, ErrorState } from "./states.tsx";
-export { ProgressSteps, type StepStatus, type UploadStep } from "./progress-steps.tsx";
-export { ResultHeader, ResultList, ResultListSkeleton, ResultRow, ResultRowSkeleton, type ResultRowProps } from "./result-row.tsx";
+export { ProgressSteps, uploadStepFor, type StepStatus, type UploadStep } from "./progress-steps.tsx";
+export { describeRow, lengthText, ResultHeader, ResultList, ResultListSkeleton, ResultRow, ResultRowSkeleton, type ResultRowProps } from "./result-row.tsx";
 export { Waveform, type Peaks, type WaveformProps } from "./waveform.tsx";
-export { barHeight, barLayout, barValues, formatTime, fractionAt, MIN_BAR_HEIGHT, WAVEFORM_GEOMETRY, type WaveformVariant } from "./waveform-bars.ts";
+export {
+  barHeight,
+  barLayout,
+  barValues,
+  clamp01,
+  formatTime,
+  fractionAt,
+  loudness,
+  MIN_BAR_HEIGHT,
+  SEEK_STEP,
+  SEEK_STEP_LARGE,
+  seekFromKey,
+  WAVEFORM_GEOMETRY,
+  type WaveformVariant,
+} from "./waveform-bars.ts";
 export { LinkProvider, UiLink, type LinkLike, type LinkLikeProps } from "./link.tsx";

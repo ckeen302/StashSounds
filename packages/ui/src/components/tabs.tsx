@@ -28,7 +28,7 @@ export function Tabs({
 
 export function TabList({ label, children, className }: { label: string; children: ReactNode; className?: string }) {
   return (
-    <T.List aria-label={label} className={cx("flex gap-6 overflow-x-auto border-b border-border", className)}>
+    <T.List aria-label={label} className={cx("-mx-2 flex gap-2 overflow-x-auto border-b border-border", className)}>
       {children}
     </T.List>
   );
@@ -46,10 +46,11 @@ export function Tab({
       value={value}
       disabled={disabled}
       className={cx(
-        "relative inline-flex h-10 shrink-0 items-center gap-2 rounded-control text-body-strong text-text-muted",
+        // The ring is drawn inside the tab so the scrolling list cannot clip it.
+        "relative inline-flex h-10 shrink-0 items-center gap-2 rounded-control px-2 text-body-strong text-text-muted -outline-offset-2",
         transition,
         "ui-hover:text-text aria-selected:text-text",
-        "after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:rounded-full after:bg-transparent aria-selected:after:bg-text",
+        "after:absolute after:inset-x-2 after:bottom-0 after:h-0.5 after:rounded-full after:bg-transparent aria-selected:after:bg-text",
         "disabled:cursor-not-allowed disabled:text-border-strong",
       )}
       {...preview}
