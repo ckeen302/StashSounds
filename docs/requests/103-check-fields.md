@@ -16,7 +16,7 @@ build-spec says detected BPM and key are marked "check this" when the sources di
 
 ## Provisional choice in 103
 `checkFields` in items/rows.ts marks:
-- bpm when bpmAgreed is false and bpmSource is neither filename nor uploader;
+- bpm when bpmAgreed is false and bpmSource is not filename, midi_file or uploader (a MIDI file's tempo event is exact);
 - key when keySource is chroma and keyConfidence is below 0.15 (constant `KEY_CONFIDENCE_MIN`);
 - rootNote when rootNoteSource is pitch_tracking.
 
