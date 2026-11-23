@@ -57,6 +57,8 @@ export const limitsSchema = z.object({
     maxAttempts: positiveInt,
     backoffSeconds: z.array(positiveInt).min(1),
     fingerprintThreshold: z.number().gt(0).lte(1),
+    /** Address-space cap for one job's process group (ffmpeg and fpcalc included). */
+    memoryMb: positiveInt,
   }),
   lists: z.object({ pageSize: positiveInt, trendingWindowDays: positiveInt }),
   moderation: z.object({ upheldTakedownsBeforeSuspension: positiveInt, openReportsToQueue: positiveInt }),
