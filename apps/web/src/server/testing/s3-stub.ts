@@ -1,6 +1,6 @@
 /**
- * A tiny in-process S3 endpoint for unit tests: path-style buckets, PUT, HEAD, DELETE and the
- * multipart calls, kept in memory. It checks what the SDK and a browser actually send (methods,
+ * A tiny in-process S3 endpoint for unit tests: path-style buckets, PUT, copy, HEAD, DELETE and
+ * the multipart calls, kept in memory. It checks what the SDK and a browser actually send (methods,
  * paths, query strings, XML bodies and presigned expiry), so the storage code is tested over real
  * HTTP. It does not verify signatures or the signed length; the SeaweedFS suite does.
  */
@@ -11,6 +11,8 @@ export type StubRequest = { method: string; path: string; query: Record<string, 
 
 export class S3Stub {
   readonly objects = new Map<string, Buffer>();
+  /** Content-Type stored with each object. */
+  readonly contentTypes = new Map<string, string>();
   readonly uploads = new Map<string, { key: string; parts: Map<number, Buffer> }>();
   readonly requests: StubRequest[] = [];
   private server: Server | null = null;
@@ -60,8 +62,19 @@ export class S3Stub {
       up.parts.set(Number(query.partNumber), body);
       return { status: 200, headers: { ETag: `"part-${query.partNumber}"` } };
     }
+    const copySource = req.headers["x-amz-copy-source"];
+    if (req.method === "PUT" && typeof copySource === "string") {
+      const from = decodeURIComponent(copySource).replace(/^\/+/, "");
+      const source = this.objects.get(from);
+      if (!source) return error(404, "NoSuchKey", "no such key");
+      const replace = req.headers["x-amz-metadata-directive"] === "REPLACE";
+      this.objects.set(key, Buffer.from(source));
+      this.contentTypes.set(key, replace ? String(req.headers["content-type"] ?? "binary/octet-stream") : (this.contentTypes.get(from) ?? "binary/octet-stream"));
+      return xml(`<CopyObjectResult><ETag>"copy"</ETag><LastModified>${new Date().toISOString()}</LastModified></CopyObjectResult>`);
+    }
     if (req.method === "PUT") {
       this.objects.set(key, body);
+      this.contentTypes.set(key, String(req.headers["content-type"] ?? "binary/octet-stream"));
       return { status: 200, headers: { ETag: '"object"' } };
     }
     if (req.method === "POST" && "uploads" in query) {
@@ -79,6 +92,7 @@ export class S3Stub {
       }));
       for (const p of listed) if (!up.parts.has(p.n) || p.etag !== `"part-${p.n}"`) return error(400, "InvalidPart", `part ${p.n}`);
       this.objects.set(key, Buffer.concat(listed.map((p) => up.parts.get(p.n)!)));
+      this.contentTypes.set(key, "binary/octet-stream");
       this.uploads.delete(query.uploadId);
       return xml(`<CompleteMultipartUploadResult><Key>${key}</Key><ETag>"done"</ETag></CompleteMultipartUploadResult>`);
     }
@@ -88,11 +102,14 @@ export class S3Stub {
     }
     if (req.method === "DELETE") {
       this.objects.delete(key);
+      this.contentTypes.delete(key);
       return { status: 204 };
     }
     if (req.method === "HEAD") {
       const o = this.objects.get(key);
-      return o ? { status: 200, headers: { "Content-Length": String(o.length), ETag: '"object"' } } : { status: 404 };
+      return o
+        ? { status: 200, headers: { "Content-Length": String(o.length), "Content-Type": this.contentTypes.get(key) ?? "binary/octet-stream", ETag: '"object"' } }
+        : { status: 404 };
     }
     return error(400, "NotImplemented", `${req.method} ${path}`);
   }

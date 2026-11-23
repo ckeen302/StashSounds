@@ -1,6 +1,12 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { createUploadSlotInput, createUploadSlotOutput, err, limits, ok } from "@stash/contracts";
+import { z } from "zod";
+import { createUploadSlotInput, createUploadSlotOutput, err, limits, ok, uuidSchema } from "@stash/contracts";
 import { defineAction } from "../action.ts";
+import { stagingKey } from "../storage/originals.ts";
+
+/** What the upload functions return. Parsed so a schema change fails loudly before anything is signed. */
+const draftRowSchema = z.object({ item_id: uuidSchema, file_id: uuidSchema, path: z.string().min(1) });
+const demoRowSchema = draftRowSchema.omit({ item_id: true });
 
 /** "C:\loops\Night Drive.flac" → { title: "Night Drive", ext: "flac" }. */
 export function splitFileName(fileName: string): { title: string; ext: string } {
@@ -18,9 +24,11 @@ export function splitFileName(fileName: string): { title: string; ext: string } 
  * day and quota. They take the extension, never the browser's MIME type (decision 0008): `mime`
  * in the input is accepted for the contract and ignored.
  *
- * Then storage: one presigned PUT for the file's path, or, above limits.multipart.thresholdBytes,
- * a multipart upload whose id is kept on the file row (meta.uploadId) for completeUpload. Nothing
- * is processed until completeUpload queues the worker.
+ * Then storage: one presigned PUT, or, above limits.multipart.thresholdBytes, a multipart upload
+ * whose id is kept on the file row (meta.uploadId) for completeUpload. Either is signed for the
+ * file's staging key (storage/originals.ts stagingKey), never for the row's path: completeUpload
+ * copies the staged object there, so a URL that is still valid afterwards cannot change what the
+ * worker checked. Nothing is processed until completeUpload queues the worker.
  */
 export const createUploadSlot = defineAction({
   name: "createUploadSlot",
@@ -33,7 +41,6 @@ export const createUploadSlot = defineAction({
 
     let itemId: string;
     let fileId: string;
-    let path: string;
     if (input.role === "demo") {
       if (!input.itemId) return err("invalid", "A demo belongs to a preset draft.", { itemId: "A demo belongs to a preset draft." });
       if (input.type !== "preset") return err("invalid", "Only presets take a demo.", { type: "Only presets take a demo." });
@@ -44,10 +51,9 @@ export const createUploadSlot = defineAction({
         p_file_name: input.fileName,
       });
       if (error) throw error;
-      const row = firstRow<{ file_id: string; path: string }>(data);
+      const row = parseRow("add_demo_file", demoRowSchema, data);
       itemId = input.itemId;
       fileId = row.file_id;
-      path = row.path;
     } else {
       if (input.itemId) return err("invalid", "An original starts a new draft.", { itemId: "An original starts a new draft." });
       const { data, error } = await ctx.supabase.rpc("create_upload_draft", {
@@ -58,25 +64,25 @@ export const createUploadSlot = defineAction({
         p_file_name: input.fileName,
       });
       if (error) throw error;
-      const row = firstRow<{ item_id: string; file_id: string; path: string }>(data);
+      const row = parseRow("create_upload_draft", draftRowSchema, data);
       itemId = row.item_id;
       fileId = row.file_id;
-      path = row.path;
     }
 
     const expiresAt = new Date(Date.now() + limits.urls.uploadTtlSeconds * 1000).toISOString();
     const storage = ctx.storage();
+    const key = stagingKey(ctx.session.user.id, itemId, fileId);
 
     if (input.bytes <= limits.multipart.thresholdBytes) {
-      const { url, headers } = await storage.presignPut(path, input.bytes);
+      const { url, headers } = await storage.presignPut(key, input.bytes);
       return ok({ itemId, fileId, upload: { kind: "single" as const, url, headers }, expiresAt });
     }
 
-    const m = await storage.startMultipart(path, input.bytes);
+    const m = await storage.startMultipart(key, input.bytes);
     try {
       await rememberUploadId(ctx.service(), fileId, m.uploadId);
     } catch (e) {
-      await storage.abortMultipart(path, m.uploadId).catch(() => {});
+      await storage.abortMultipart(key, m.uploadId).catch(() => {});
       throw e;
     }
     return ok({ itemId, fileId, upload: { kind: "multipart" as const, uploadId: m.uploadId, partBytes: m.partBytes, parts: m.parts }, expiresAt });
@@ -94,8 +100,8 @@ async function rememberUploadId(service: SupabaseClient, fileId: string, uploadI
   if (updateError) throw updateError;
 }
 
-function firstRow<T>(data: unknown): T {
-  const row = Array.isArray(data) ? data[0] : data;
-  if (!row) throw new Error("upload function returned no row");
-  return row as T;
+function parseRow<T extends z.ZodType>(fn: string, schema: T, data: unknown): z.output<T> {
+  const r = schema.safeParse(Array.isArray(data) ? data[0] : data);
+  if (!r.success) throw new Error(`${fn} returned an unexpected row: ${r.error.message}`);
+  return r.data;
 }

@@ -4,6 +4,9 @@ import type { MultipartStart, OriginalsStorage } from "../storage/originals.ts";
 
 export function fakeStorage(objects: Record<string, number> = {}) {
   const sizes = new Map(Object.entries(objects));
+  const types = new Map<string, string>();
+  /** Multipart completions storage refuses, by upload id. */
+  const refuseParts = new Set<string>();
   const uploads = new Map<string, { key: string; bytes: number }>();
   let next = 1;
   const storage = {
@@ -23,6 +26,7 @@ export function fakeStorage(objects: Record<string, number> = {}) {
     completeMultipart: vi.fn(async (key: string, uploadId: string) => {
       const up = uploads.get(uploadId);
       if (!up || up.key !== key) return "gone" as const;
+      if (refuseParts.has(uploadId)) return "invalid_parts" as const;
       uploads.delete(uploadId);
       sizes.set(key, up.bytes);
       return "completed" as const;
@@ -30,10 +34,16 @@ export function fakeStorage(objects: Record<string, number> = {}) {
     abortMultipart: vi.fn(async (_key: string, uploadId: string) => {
       uploads.delete(uploadId);
     }),
-    head: vi.fn(async (key: string) => (sizes.has(key) ? { bytes: sizes.get(key)! } : null)),
+    head: vi.fn(async (key: string) => (sizes.has(key) ? { bytes: sizes.get(key)!, contentType: types.get(key) ?? null } : null)),
+    copy: vi.fn(async (fromKey: string, toKey: string, contentType: string) => {
+      if (!sizes.has(fromKey)) throw Object.assign(new Error("NoSuchKey"), { name: "NoSuchKey" });
+      sizes.set(toKey, sizes.get(fromKey)!);
+      types.set(toKey, contentType);
+    }),
     remove: vi.fn(async (key: string) => {
       sizes.delete(key);
+      types.delete(key);
     }),
   } satisfies OriginalsStorage;
-  return { storage, sizes, uploads };
+  return { storage, sizes, types, uploads, refuseParts };
 }

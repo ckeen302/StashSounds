@@ -6,9 +6,12 @@
  * It runs when the endpoint answers. With STASH_REQUIRE_STORAGE=1 (meant for CI, request
  * 102-storage-in-ci) an unreachable endpoint fails the run instead of skipping it.
  */
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import { randomUUID } from "node:crypto";
-import { originalsFromEnv, type OriginalsStorage } from "./originals.ts";
+import type { S3Client } from "@aws-sdk/client-s3";
+import { originalsFromEnv, s3ClientFromEnv, s3Originals, stagingKey, type OriginalsStorage } from "./originals.ts";
+
+vi.mock("server-only", () => ({}));
 
 const ENV = {
   STASH_S3_ENDPOINT: "http://127.0.0.1:9000",
@@ -57,7 +60,7 @@ describe.skipIf(!available)("SeaweedFS (local storage)", () => {
     const body = new Uint8Array(1000).fill(7);
     const { url } = await storage.presignPut(k, body.length);
     expect((await fetch(url, { method: "PUT", body })).status).toBe(200);
-    expect(await storage.head(k)).toEqual({ bytes: 1000 });
+    expect(await storage.head(k)).toMatchObject({ bytes: 1000 });
   });
 
   it("a body of another size is refused by the signature", async () => {
@@ -70,10 +73,38 @@ describe.skipIf(!available)("SeaweedFS (local storage)", () => {
 
   it("the URL covers only its own object", async () => {
     const k = key();
+    const otherKey = key().replace(/original\.wav$/, "other.wav");
+    created.push(otherKey);
     const { url } = await storage.presignPut(k, 10);
     const other = new URL(url);
-    other.pathname = other.pathname.replace(/original\.wav$/, "other.wav");
-    expect((await fetch(other, { method: "PUT", body: new Uint8Array(10) })).status).toBeGreaterThanOrEqual(400);
+    other.pathname = other.pathname.replace(/[^/]+\/[^/]+\/original\.wav$/, otherKey);
+    expect((await fetch(other, { method: "PUT", body: new Uint8Array(10) })).status).toBe(403);
+    expect(await storage.head(otherKey)).toBeNull();
+  });
+
+  it("an expired URL is refused", async () => {
+    const short = s3Originals({ client: s3ClientFromEnv(), bucket: process.env.STASH_BUCKET_ORIGINALS!, ttlSeconds: 1 });
+    const k = key();
+    const { url } = await short.presignPut(k, 3);
+    await new Promise((r) => setTimeout(r, 2100));
+    expect((await fetch(url, { method: "PUT", body: "abc" })).status).toBe(403);
+    expect(await storage.head(k)).toBeNull();
+  });
+
+  it("staging, copy and a late PUT: the final object keeps the confirmed bytes and the row's type", async () => {
+    const final = key();
+    const staged = stagingKey(randomUUID(), randomUUID(), randomUUID());
+    created.push(staged);
+    const { url } = await storage.presignPut(staged, 4);
+    expect((await fetch(url, { method: "PUT", body: "good", headers: { "Content-Type": "text/html" } })).status).toBe(200);
+    await storage.copy(staged, final, "audio/wav");
+    await storage.remove(staged);
+    expect(await storage.head(staged)).toBeNull();
+    expect(await storage.head(final)).toEqual({ bytes: 4, contentType: "audio/wav" });
+    // The URL is still valid: the late PUT lands in staging, never on the final key.
+    expect((await fetch(url, { method: "PUT", body: "evil" })).status).toBe(200);
+    const signedGet = await readObject(final);
+    expect(signedGet).toBe("good");
   });
 
   it("multipart upload: parts and completion give one object", async () => {
@@ -89,15 +120,23 @@ describe.skipIf(!available)("SeaweedFS (local storage)", () => {
       parts.push({ partNumber: p.partNumber, etag: r.headers.get("etag")! });
     }
     expect(await storage.completeMultipart(k, m.uploadId, parts)).toBe("completed");
-    expect(await storage.head(k)).toEqual({ bytes: total });
+    expect(await storage.head(k)).toMatchObject({ bytes: total });
   });
 
   it("originals are not readable without a signature", async () => {
     const k = key();
     const { url } = await storage.presignPut(k, 3);
-    await fetch(url, { method: "PUT", body: "abc" });
+    expect((await fetch(url, { method: "PUT", body: "abc" })).status).toBe(200);
     const plain = new URL(url);
     plain.search = "";
-    expect((await fetch(plain)).status).toBeGreaterThanOrEqual(400);
+    expect((await fetch(plain)).status).toBe(403);
   });
 });
+
+/** Reads an object with the server's own credentials (the bucket is private). */
+async function readObject(k: string): Promise<string> {
+  const { GetObjectCommand } = await import("@aws-sdk/client-s3");
+  const client: S3Client = s3ClientFromEnv();
+  const r = await client.send(new GetObjectCommand({ Bucket: process.env.STASH_BUCKET_ORIGINALS!, Key: k }));
+  return (await r.Body?.transformToString()) ?? "";
+}

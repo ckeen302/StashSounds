@@ -1,7 +1,9 @@
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { S3Client } from "@aws-sdk/client-s3";
 import { limits } from "@stash/contracts";
-import { s3Originals, type OriginalsStorage } from "./originals.ts";
+import { s3ClientFromEnv, s3Originals, stagingKey, type OriginalsStorage } from "./originals.ts";
+
+vi.mock("server-only", () => ({}));
 import { storageEnv } from "./env.ts";
 import { S3Stub } from "../testing/s3-stub.ts";
 
@@ -9,10 +11,11 @@ const KEY = "11111111-1111-4111-8111-111111111111/22222222-2222-4222-8222-222222
 
 let stub: S3Stub;
 let storage: OriginalsStorage;
+let client: S3Client;
 
 beforeAll(async () => {
   stub = await new S3Stub().start();
-  const client = new S3Client({
+  client = new S3Client({
     endpoint: stub.endpoint,
     region: "auto",
     forcePathStyle: true,
@@ -28,6 +31,7 @@ afterAll(async () => {
 
 beforeEach(() => {
   stub.objects.clear();
+  stub.contentTypes.clear();
   stub.uploads.clear();
   stub.requests.length = 0;
 });
@@ -46,12 +50,18 @@ describe("presignPut", () => {
     expect(headers).toEqual({});
   });
 
+  it("signs the configured lifetime (ttlSeconds)", async () => {
+    const short = s3Originals({ client, bucket: "originals", ttlSeconds: 60 });
+    const { url } = await short.presignPut(KEY, 5);
+    expect(new URL(url).searchParams.get("X-Amz-Expires")).toBe("60");
+  });
+
   it("a browser PUT to the URL stores exactly that object", async () => {
     const { url } = await storage.presignPut(KEY, 5);
     expect((await put(url, "hello")).status).toBe(200);
     expect(stub.objects.get(`originals/${KEY}`)?.toString()).toBe("hello");
     expect([...stub.objects.keys()]).toEqual([`originals/${KEY}`]);
-    expect(await storage.head(KEY)).toEqual({ bytes: 5 });
+    expect(await storage.head(KEY)).toEqual({ bytes: 5, contentType: "text/plain;charset=UTF-8" });
   });
 
   it("an expired URL is refused", async () => {
@@ -91,17 +101,18 @@ describe("multipart", () => {
     // Out of order on purpose: completion sorts by part number.
     expect(await storage.completeMultipart(KEY, m.uploadId, [...etags].reverse())).toBe("completed");
     expect(stub.objects.get(`originals/${KEY}`)?.toString()).toBe(data.toString());
-    expect(await storage.head(KEY)).toEqual({ bytes: 20 });
+    expect(await storage.head(KEY)).toEqual({ bytes: 20, contentType: "binary/octet-stream" });
   });
 
   it("completing an upload that no longer exists reports gone instead of throwing", async () => {
     expect(await storage.completeMultipart(KEY, "upload-missing", [{ partNumber: 1, etag: '"x"' }])).toBe("gone");
   });
 
-  it("a wrong ETag is an error from storage", async () => {
+  it("parts storage refuses (a wrong ETag here) are reported as invalid_parts, not thrown", async () => {
     const m = await storage.startMultipart(KEY, 4);
     await put(m.parts[0]!.url, "abcd");
-    await expect(storage.completeMultipart(KEY, m.uploadId, [{ partNumber: 1, etag: '"forged"' }])).rejects.toThrow();
+    expect(await storage.completeMultipart(KEY, m.uploadId, [{ partNumber: 1, etag: '"forged"' }])).toBe("invalid_parts");
+    expect(stub.objects.size).toBe(0);
   });
 
   it("abort drops the upload", async () => {
@@ -111,12 +122,48 @@ describe("multipart", () => {
   });
 });
 
+describe("copy", () => {
+  it("copies server side to the final key with the given Content-Type, replacing the uploader's", async () => {
+    const staged = stagingKey("11111111-1111-4111-8111-111111111111", "22222222-2222-4222-8222-222222222222", "33333333-3333-4333-8333-333333333333");
+    const { url } = await storage.presignPut(staged, 4);
+    await fetch(url, { method: "PUT", body: "data", headers: { "Content-Type": "text/html" } });
+    await storage.copy(staged, KEY, "audio/wav");
+    expect(stub.objects.get(`originals/${KEY}`)?.toString()).toBe("data");
+    expect(await storage.head(KEY)).toEqual({ bytes: 4, contentType: "audio/wav" });
+    const copyReq = stub.requests.find((r) => r.method === "PUT" && r.headers["x-amz-copy-source"])!;
+    expect(copyReq.headers["x-amz-metadata-directive"]).toBe("REPLACE");
+    expect(decodeURIComponent(String(copyReq.headers["x-amz-copy-source"]))).toBe(`originals/${staged}`);
+  });
+
+  it("the staging key is derived from ids and never collides with a final path", () => {
+    const k = stagingKey("o", "i", "f");
+    expect(k).toBe("staging/o/i/f");
+    expect(k.startsWith("staging/")).toBe(true);
+  });
+});
+
 describe("head and remove", () => {
   it("head is null for a missing object; remove deletes", async () => {
     expect(await storage.head(KEY)).toBeNull();
     stub.objects.set(`originals/${KEY}`, Buffer.from("x"));
     await storage.remove(KEY);
     expect(stub.objects.size).toBe(0);
+  });
+});
+
+describe("s3ClientFromEnv", () => {
+  it("is path-style and adds no checksum unless storage requires one (a browser upload would fail)", async () => {
+    vi.stubEnv("STASH_S3_ENDPOINT", "http://127.0.0.1:9000");
+    vi.stubEnv("STASH_S3_REGION", "auto");
+    vi.stubEnv("STASH_S3_ACCESS_KEY_ID", "stash");
+    vi.stubEnv("STASH_S3_SECRET_ACCESS_KEY", "secret");
+    vi.stubEnv("STASH_BUCKET_ORIGINALS", "originals");
+    const c = s3ClientFromEnv();
+    expect(c.config.forcePathStyle).toBe(true);
+    expect(await c.config.requestChecksumCalculation()).toBe("WHEN_REQUIRED");
+    expect(await c.config.responseChecksumValidation()).toBe("WHEN_REQUIRED");
+    expect(await c.config.region()).toBe("auto");
+    vi.unstubAllEnvs();
   });
 });
 
