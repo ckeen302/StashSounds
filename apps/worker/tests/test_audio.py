@@ -176,8 +176,18 @@ def test_peaks_of_an_out_of_phase_stereo_file_are_flat(tmp_path: Path):
     src = tmp_path / "phase.wav"
     subprocess.run(  # noqa: S603
         [  # noqa: S607
-            "ffmpeg", "-v", "error", "-f", "lavfi", "-i", "sine=frequency=220:duration=2:sample_rate=44100",
-            "-af", "pan=stereo|c0=c0|c1=-1*c0", "-c:a", "pcm_s16le", str(src),
+            "ffmpeg",
+            "-v",
+            "error",
+            "-f",
+            "lavfi",
+            "-i",
+            "sine=frequency=220:duration=2:sample_rate=44100",
+            "-af",
+            "pan=stereo|c0=c0|c1=-1*c0",
+            "-c:a",
+            "pcm_s16le",
+            str(src),
         ],
         check=True,
     )

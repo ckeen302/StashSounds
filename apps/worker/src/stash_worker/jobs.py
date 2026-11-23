@@ -2,7 +2,12 @@
 
 A handler is a plain function `(JobContext) -> dict` that returns a worker result
 (contracts: workerResultSchema). It runs in a child process (sandbox.py) and is named by
-"module:function" so the child can import it. Processors arrive in tickets 112+.
+"module:function" so the child can import it.
+
+The child never touches storage or the database. Before it starts, the parent downloads each input
+file to `workdir/in/<file id>` (`ctx.input_path`). The handler writes every derived file it reports to
+`workdir/out/<bucket>/<path>` (`ctx.output_path`), and the parent uploads exactly those, after checking
+them against the result.
 """
 
 from __future__ import annotations
@@ -13,8 +18,20 @@ from typing import Any
 
 from stash_worker.contracts import limits, worker_reasons
 
-# job kind -> "module:function". Tickets 112+ register their processors here.
-HANDLERS: dict[str, str] = {}
+# job kind -> "module:function". Each ticket registers its processor here.
+HANDLERS: dict[str, str] = {
+    "process_loop": "stash_worker.audio.loop:process_loop",
+}
+
+# job kind -> the item type whose job it is (contracts: JOB_KIND_FOR_TYPE, plus the Vital render).
+ITEM_TYPE_FOR_KIND = {
+    "process_loop": "loop",
+    "process_oneshot": "oneshot",
+    "process_kit": "kit",
+    "process_midi": "midi",
+    "process_preset": "preset",
+    "render_vital": "preset",
+}
 
 # job kind -> key of limits.json worker.timeoutsSeconds. Preset processing runs the audio steps on
 # the uploader's demo; the Vital render is its own job (render_vital) with its own limit.
@@ -49,6 +66,16 @@ class JobContext:
     payload: dict[str, Any]  # contracts: jobPayloadSchema
     input: dict[str, Any]  # contracts: workerJobInputSchema (item, owner, the uploaded files)
     workdir: Path  # this job's temporary folder, deleted when the job ends
+
+    def input_path(self, file: dict[str, Any]) -> Path:
+        """Where the parent put one of `input.files`."""
+        return self.workdir / "in" / file["id"]
+
+    def output_path(self, bucket: str, path: str) -> Path:
+        """Where to write a derived file the result reports at `bucket`/`path`. Creates its folder."""
+        p = self.workdir / "out" / bucket / path
+        p.parent.mkdir(parents=True, exist_ok=True)
+        return p
 
 
 class Rejected(Exception):  # noqa: N818 - a rejection is an outcome, not a worker error
