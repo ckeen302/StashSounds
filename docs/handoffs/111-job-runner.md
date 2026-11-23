@@ -217,7 +217,8 @@ round; where they disagree, this section wins.
    `rejection_reasons()`. Anything else is a crash (`internal`, retryable). `run_once` turns any unexpected
    exception into `worker_fail('internal', true)`, and `run()` catches any Exception and carries on. The child
    also gets RLIMIT_FSIZE (kit.maxUnpackedBytes, the largest thing a job holds) and RLIMIT_NPROC. RLIMIT_NPROC
-   counts every process of the uid, so the cap is the uid's current process count plus 64. It is not enforced
+   counts every task (thread) of the uid, so the cap is the uid's current task count plus 64 (see "CI fix"
+   below). It is not enforced
    for root, which is another reason for the separate uid. Tests: `test_a_forged_outcome_is_a_crash` (runner
    reason, flag reason, garbage, list result), `test_an_outcome_over_the_size_cap_is_not_read`,
    `test_the_child_runs_under_resource_limits`, `test_an_unexpected_error_never_escapes_the_loop`, and the
@@ -273,6 +274,30 @@ runner.py  timeout_s=self.timeout_for(kind) -> 120             1 failed, 87 pass
 __main__.py memory_bytes=settings.memory_bytes -> None         1 failed, 87 passed, 1 skipped
 restored                                                       88 passed, 1 skipped
 ```
+
+### CI fix: timeout tests crashed on the GitHub runner (7500fe9)
+- **Symptom.** Three tests failed in CI and passed locally: `test_timeout_kills_the_child_and_its_grandchildren`,
+  `test_timeout_is_retryable` and `test_a_timeout_is_retried`. They ended `crashed` / `internal` instead of
+  `timeout`. All three use the handler that starts a `sleep` grandchild.
+- **Root cause.** The kernel checks RLIMIT_NPROC against every task (thread) of the real uid, not every process.
+  The child's cap was "processes this uid owns + 64". On the GitHub runner the tests run as the non-root `runner`
+  user, which also owns the runner agent and its many threads, so that cap was already exceeded. The child's
+  `Popen` of the grandchild failed with EAGAIN and the handler crashed. Locally the tests ran as root, which the
+  kernel exempts from RLIMIT_NPROC.
+- **Reproduced** as uid 65534 with a process holding 200 threads: one process, 201 tasks. A cap of process
+  count + 64 gave `BlockingIOError: [Errno 11]` in the child. A cap of task count + 64 let the grandchild start.
+- **Fix** (9913101): `_uid_task_count()` sums `/proc/<pid>/task` over the uid's processes. The allowance is still
+  64 new tasks, so the limit's intent (a job cannot fork-bomb the uid) is unchanged.
+- **Tests** (1af500d):
+  - `test_the_process_allowance_counts_threads_not_just_processes`: 100 extra threads must raise the count by
+    100. It fails with the old count as any user, root included.
+  - `test_a_grandchild_starts_while_the_worker_uid_runs_many_threads`: holds 200 threads and expects a timeout,
+    not a crash. It mirrors the CI condition and fails with the old count when run non-root.
+- **Checked as non-root.** With the old count restored, both new tests fail as uid 65534 (`2 failed, 16 passed`).
+  With the fix, `tests/test_sandbox.py tests/test_runner.py` pass as uid 65534 (`50 passed`).
+- **Full suite** as root, `STASH_REQUIRE_DB=1`: `90 passed, 1 skipped`. ruff check and format are clean.
+- **Lesson for later tickets:** run the worker tests as a non-root user before pushing. Root hides
+  RLIMIT_NPROC problems.
 
 ### Other notes
 - **macOS:** the memory cap (RLIMIT_AS) is applied on Linux only. On macOS `pnpm dev` logs a warning per job
