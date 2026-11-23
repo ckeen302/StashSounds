@@ -136,7 +136,34 @@ describe("row mapping", () => {
     });
   });
 
-  it("refuses a row that breaks the contract", () => {
+  it("degrades fields the database accepts but the contract rejects, instead of failing", () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const p = toProfile(
+      profileRow(IDS.alice, "alice", {
+        display_name: "   ",
+        links: [
+          { kind: "myspace", url: "https://myspace.example/alice" },
+          { kind: "website", url: "https://alice.example" },
+          { kind: "youtube", url: "https://exa mple.test" },
+        ],
+      }),
+    );
+    expect(profileSchema.parse(p)).toEqual(p);
+    expect(p.displayName).toBe("alice");
+    expect(p.links).toEqual([{ kind: "website", url: "https://alice.example" }]);
+    expect(warn).toHaveBeenCalledWith(`profile ${IDS.alice}: dropped invalid links, displayName`);
+    expect(String(warn.mock.calls[0]![0])).not.toMatch(/myspace/);
+    warn.mockRestore();
+  });
+
+  it("a session loads for a user whose links the contract rejects", async () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const s = await loadSession(fakeSupabase(member(IDS.alice, "alice", { profile: { links: [{ kind: "geocities", url: "https://x.example" }] } })).client);
+    expect(s?.profile?.links).toEqual([]);
+    warn.mockRestore();
+  });
+
+  it("still throws for a row the database could never hold (a schema bug)", () => {
     expect(() => toProfile(profileRow(IDS.alice, "Not Valid"))).toThrow();
   });
 });

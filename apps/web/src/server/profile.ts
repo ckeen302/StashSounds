@@ -1,4 +1,15 @@
-import { accountSchema, limits, profileSchema, type Account, type Profile } from "@stash/contracts";
+import { z } from "zod";
+import {
+  accountSchema,
+  bioSchema,
+  displayNameSchema,
+  limits,
+  profileLinkSchema,
+  profileSchema,
+  type Account,
+  type Profile,
+  type ProfileLink,
+} from "@stash/contracts";
 import { publicEnv } from "./env.ts";
 
 /** Columns of public.profiles and public.accounts as PostgREST returns them. Database rows, not contracts. */
@@ -24,14 +35,42 @@ export function previewUrl(path: string): string {
   return `${publicEnv().previewsBaseUrl}/${path.split("/").map(encodeURIComponent).join("/")}`;
 }
 
+/**
+ * A profile row in its contracts shape. The database's checks are looser than profileSchema in a
+ * few places (a link kind outside the enum, a display name of only spaces), so those fields
+ * degrade instead of failing the whole page for that user: invalid links are dropped, the display
+ * name falls back to the handle, a bad bio or avatar becomes null. Each degrade is logged with the
+ * profile id and field names only. Columns the database checks exactly (id, handle, counts,
+ * created_at) still throw if they ever break the contract, because that is a schema bug.
+ */
 export function toProfile(row: ProfileRow): Profile {
+  const degraded: string[] = [];
+
+  const rawLinks = Array.isArray(row.links) ? row.links : [];
+  if (!Array.isArray(row.links) && row.links != null) degraded.push("links");
+  const links: ProfileLink[] = [];
+  for (const l of rawLinks) {
+    const r = profileLinkSchema.safeParse(l);
+    if (r.success && links.length < 8) links.push(r.data);
+    else degraded.push("links");
+  }
+
+  const displayName = displayNameSchema.safeParse(row.display_name);
+  if (!displayName.success) degraded.push("displayName");
+  const bio = bioSchema.nullable().safeParse(row.bio);
+  if (!bio.success) degraded.push("bio");
+  const avatarUrl = row.avatar_path ? z.url().safeParse(previewUrl(row.avatar_path)) : null;
+  if (avatarUrl && !avatarUrl.success) degraded.push("avatarUrl");
+
+  if (degraded.length) console.warn(`profile ${row.id}: dropped invalid ${[...new Set(degraded)].join(", ")}`);
+
   return profileSchema.parse({
     id: row.id,
     handle: row.handle,
-    displayName: row.display_name,
-    bio: row.bio,
-    avatarUrl: row.avatar_path ? previewUrl(row.avatar_path) : null,
-    links: row.links ?? [],
+    displayName: displayName.success ? displayName.data : row.handle,
+    bio: bio.success ? bio.data : null,
+    avatarUrl: avatarUrl?.success ? avatarUrl.data : null,
+    links,
     followersCount: row.followers_count,
     followingCount: row.following_count,
     createdAt: row.created_at,
