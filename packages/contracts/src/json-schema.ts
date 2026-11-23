@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { detailsSchemas } from "./details.ts";
 import { midiNotesFileSchema } from "./files.ts";
-import { jobPayloadSchema, workerResultSchema } from "./worker.ts";
+import { jobPayloadSchema, workerJobInputSchema, workerResultSchema } from "./worker.ts";
 
 /** Contracts that cross the language boundary into apps/worker. */
 const exported = {
@@ -12,6 +12,7 @@ const exported = {
   "details.preset": detailsSchemas.preset,
   "midi-notes-file": midiNotesFileSchema,
   "job-payload": jobPayloadSchema,
+  "worker-job-input": workerJobInputSchema,
   "worker-result": workerResultSchema,
 } as const;
 

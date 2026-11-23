@@ -38,6 +38,7 @@ export const createUploadSlotInput = z.object({
   role: z.enum(["original", "demo"]).default("original"),
   /** Required when role is "demo": the preset draft the demo belongs to. */
   itemId: uuidSchema.optional(),
+  /** Kept on the file row (meta.fileName) so the worker can read BPM and key from it. */
   fileName: z.string().min(1).max(255),
   bytes: z.int().positive(),
   mime: z.string().max(100),
@@ -161,6 +162,24 @@ export const updateProfileOutput = profileSchema;
 
 export const claimHandleInput = z.object({ handle: handleSchema, displayName: displayNameSchema.optional() });
 export const claimHandleOutput = profileSchema;
+
+// ---------------------------------------------------------------------------
+// Sign-in (request 101-sign-in-contracts)
+
+/** A same-site path to return to after sign-in. The server replaces anything else with "/". */
+export const nextPathSchema = z.string().max(500);
+
+export const signInWithEmailInput = z.object({ email: z.email().max(320), next: nextPathSchema.optional() });
+export const signInWithEmailOutput = z.object({ sent: z.literal(true) });
+
+export const signInProviderSchema = z.enum(["google", "discord"]);
+export type SignInProvider = z.infer<typeof signInProviderSchema>;
+export const signInWithProviderInput = z.object({ provider: signInProviderSchema, next: nextPathSchema.optional() });
+/** The provider's authorize URL; the browser navigates to it. */
+export const signInWithProviderOutput = z.object({ url: z.url() });
+
+export const signOutInput = z.object({});
+export const signOutOutput = z.object({ signedOut: z.literal(true) });
 
 // ---------------------------------------------------------------------------
 // Safety
