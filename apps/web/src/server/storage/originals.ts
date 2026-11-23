@@ -1,6 +1,8 @@
+import "server-only";
 import {
   AbortMultipartUploadCommand,
   CompleteMultipartUploadCommand,
+  CopyObjectCommand,
   CreateMultipartUploadCommand,
   DeleteObjectCommand,
   HeadObjectCommand,
@@ -13,10 +15,12 @@ import { limits } from "@stash/contracts";
 import { storageEnv } from "./env.ts";
 
 /**
- * The private originals bucket. Browsers upload straight to it with presigned URLs; only the
- * server (HEAD, delete) and the worker (download) touch it otherwise. Every URL names one object
- * and signs its Content-Length, so it accepts exactly the declared bytes for that key and nothing
- * else, until limits.urls.uploadTtlSeconds pass.
+ * The private originals bucket. Browsers upload straight to it with presigned URLs, but only to a
+ * staging key (stagingKey below) that nothing else ever reads. completeUpload then copies the
+ * staged object to the file row's own path, server side, and deletes the staged one. A presigned
+ * URL stays usable until limits.urls.uploadTtlSeconds pass, so a late PUT after completeUpload can
+ * only rewrite staging, never the object the worker checks and downloads serve (rule 10). Every
+ * URL names one object and signs its Content-Length.
  */
 export type PresignedPut = { url: string; headers: Record<string, string> };
 export type MultipartStart = {
@@ -27,13 +31,36 @@ export type MultipartStart = {
   parts: Array<{ partNumber: number; url: string }>;
 };
 
+/** Multipart completion refused for a reason the uploader can fix by uploading again. */
+const INVALID_PARTS = new Set(["InvalidPart", "InvalidPartOrder", "EntityTooSmall"]);
+
+/**
+ * Where the browser uploads a file before completeUpload confirms it. Derived on the server from
+ * ids only; it never equals a final path (those start with the owner's id, never "staging").
+ */
+export function stagingKey(ownerId: string, itemId: string, fileId: string): string {
+  return `staging/${ownerId}/${itemId}/${fileId}`;
+}
+
 export interface OriginalsStorage {
   presignPut(key: string, bytes: number): Promise<PresignedPut>;
   startMultipart(key: string, bytes: number, partBytes?: number): Promise<MultipartStart>;
-  /** "gone" when the upload id is unknown (already completed, aborted or expired). */
-  completeMultipart(key: string, uploadId: string, parts: Array<{ partNumber: number; etag: string }>): Promise<"completed" | "gone">;
+  /**
+   * "gone" when the upload id is unknown (already completed, aborted or expired); "invalid_parts"
+   * when storage refuses the listed parts (a wrong ETag or order, or a part below the minimum size).
+   */
+  completeMultipart(
+    key: string,
+    uploadId: string,
+    parts: Array<{ partNumber: number; etag: string }>,
+  ): Promise<"completed" | "gone" | "invalid_parts">;
   abortMultipart(key: string, uploadId: string): Promise<void>;
-  head(key: string): Promise<{ bytes: number } | null>;
+  head(key: string): Promise<{ bytes: number; contentType: string | null } | null>;
+  /**
+   * Server-side copy in one request (S3 allows up to 5 GB per CopyObject; our largest original is
+   * 500 MB). The copy's Content-Type is the one given here, never the uploader's.
+   */
+  copy(fromKey: string, toKey: string, contentType: string): Promise<void>;
   remove(key: string): Promise<void>;
 }
 
@@ -81,7 +108,9 @@ export function s3Originals(opts: { client: S3Client; bucket: string; ttlSeconds
         );
         return "completed";
       } catch (e) {
-        if ((e as { name?: string }).name === "NoSuchUpload") return "gone";
+        const name = (e as { name?: string }).name ?? "";
+        if (name === "NoSuchUpload") return "gone";
+        if (INVALID_PARTS.has(name)) return "invalid_parts";
         throw e;
       }
     },
@@ -93,12 +122,24 @@ export function s3Originals(opts: { client: S3Client; bucket: string; ttlSeconds
     async head(key) {
       try {
         const r = await client.send(new HeadObjectCommand({ Bucket: bucket, Key: key }));
-        return { bytes: Number(r.ContentLength ?? 0) };
+        return { bytes: Number(r.ContentLength ?? 0), contentType: r.ContentType ?? null };
       } catch (e) {
         const err = e as { name?: string; $metadata?: { httpStatusCode?: number } };
         if (err.name === "NotFound" || err.name === "NoSuchKey" || err.$metadata?.httpStatusCode === 404) return null;
         throw e;
       }
+    },
+
+    async copy(fromKey, toKey, contentType) {
+      await client.send(
+        new CopyObjectCommand({
+          Bucket: bucket,
+          Key: toKey,
+          CopySource: `${bucket}/${fromKey.split("/").map(encodeURIComponent).join("/")}`,
+          MetadataDirective: "REPLACE",
+          ContentType: contentType,
+        }),
+      );
     },
 
     async remove(key) {
@@ -109,8 +150,13 @@ export function s3Originals(opts: { client: S3Client; bucket: string; ttlSeconds
 
 /** The originals bucket from the STASH_S3_* settings. Path-style works for SeaweedFS and R2. */
 export function originalsFromEnv(): OriginalsStorage {
+  return s3Originals({ client: s3ClientFromEnv(), bucket: storageEnv().bucket });
+}
+
+/** The S3 client for the STASH_S3_* settings. Exported for its config test. */
+export function s3ClientFromEnv(): S3Client {
   const env = storageEnv();
-  const client = new S3Client({
+  return new S3Client({
     endpoint: env.endpoint,
     region: env.region,
     forcePathStyle: true,
@@ -119,5 +165,4 @@ export function originalsFromEnv(): OriginalsStorage {
     requestChecksumCalculation: "WHEN_REQUIRED",
     responseChecksumValidation: "WHEN_REQUIRED",
   });
-  return s3Originals({ client, bucket: env.bucket });
 }

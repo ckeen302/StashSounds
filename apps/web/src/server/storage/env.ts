@@ -1,3 +1,4 @@
+import "server-only";
 import { z } from "zod";
 
 /** Server-only storage settings (.env.example: SeaweedFS locally, Cloudflare R2 in production). */
