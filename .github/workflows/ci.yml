@@ -108,7 +108,11 @@ jobs:
       # STASH_REQUIRE_ISOLATION=1 they fail instead of skipping (request 112-worker-isolation-ci).
       - name: Worker isolation tests (as root)
         working-directory: apps/worker
-        run: sudo --preserve-env=DATABASE_ADMIN_URL,STASH_REQUIRE_DB env STASH_REQUIRE_ISOLATION=1 .venv/bin/python -m pytest -q -p no:cacheprovider
+        # The job user (nobody) must reach the venv's interpreter and the checkout: open search
+        # permission on each folder above it (the runner's home is 0750).
+        run: |
+          d="$PWD"; while [ "$d" != / ]; do sudo chmod o+x "$d"; d="$(dirname "$d")"; done
+          sudo --preserve-env=DATABASE_ADMIN_URL,STASH_REQUIRE_DB env STASH_REQUIRE_ISOLATION=1 .venv/bin/python -m pytest -q -p no:cacheprovider
       - name: Lint and format
         working-directory: apps/worker
         run: uv run --frozen ruff check . && uv run --frozen ruff format --check .
