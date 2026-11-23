@@ -218,10 +218,14 @@ export class FakeStretch implements StretchNodeLike {
   drops = 0;
   connected: AudioNodeLike[] = [];
   latencySeconds = 0.12;
+  /** latency() rejects while set, as a worklet that failed to start would. */
+  failLatency = false;
+  disconnects = 0;
   connect(d: AudioNodeLike) {
     this.connected.push(d);
   }
   disconnect() {
+    this.disconnects++;
     this.connected = [];
   }
   async addBuffers(channels: Float32Array[]): Promise<number> {
@@ -238,6 +242,7 @@ export class FakeStretch implements StretchNodeLike {
     return change;
   }
   async latency() {
+    if (this.failLatency) throw new Error("the worklet did not answer");
     return this.latencySeconds;
   }
   /** The last schedule that started playback. */

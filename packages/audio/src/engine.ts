@@ -380,7 +380,13 @@ export class WebAudioEngine implements Engine {
     try {
       this.stretchLoad ??= (async () => {
         const node = await this.loadStretch(ctx);
-        const latency = await node.latency();
+        let latency: number;
+        try {
+          latency = await node.latency();
+        } catch (err) {
+          node.disconnect(); // not kept, so the retry makes a new one: let this one go
+          throw err;
+        }
         const gain = ctx.createGain();
         gain.gain.value = 0;
         node.connect(gain);
@@ -392,11 +398,12 @@ export class WebAudioEngine implements Engine {
       await this.stretchLoad;
       if (this.stretchBuffer !== buffer) {
         const job = this.stretchChain.then(async () => {
-          if (this.stretchBuffer === buffer) return;
+          // Already in, or no longer wanted: a later item replaced this one while the job waited.
+          if (this.stretchBuffer === buffer || this.buffer !== buffer) return;
           // Dropping the buffers under a fade still sounding would cut it: wait until it is silent.
           const fading = this.stretchQuietAt - ctx.currentTime;
           if (fading > 0) await this.sleep(fading);
-          if (this.stretchBuffer === buffer) return;
+          if (this.stretchBuffer === buffer || this.buffer !== buffer) return;
           const node = this.stretchNode!;
           const padFrames = Math.ceil(Math.max(PAD_S, 2 * this.stretchLatency) * buffer.sampleRate);
           const channels = Array.from({ length: buffer.numberOfChannels }, (_, c) => buffer.getChannelData(c));

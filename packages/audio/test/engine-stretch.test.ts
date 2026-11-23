@@ -330,6 +330,36 @@ describe("pause, resume and seek on the stretch", () => {
 });
 
 describe("a stretch that fails to load", () => {
+  it("a node made but not working (latency rejects) is disconnected, and the next change makes a new one", async () => {
+    const { e, stretch, node } = setup();
+    node.failLatency = true;
+    await e.play(loop("a"));
+    e.setTempo(70);
+    await settle();
+    expect(e.getState()).toMatchObject({ status: "playing", tempoRatio: 1 });
+    expect(node.disconnects).toBe(1);
+    node.failLatency = false;
+    e.setTempo(70);
+    await settle();
+    expect(stretch.state.calls).toBe(2);
+    expect(e.getState().tempoRatio).toBe(0.5);
+    expect(node.lastStart).toBeDefined();
+  });
+  it("a buffer swap queued for an item that is no longer current does not run", async () => {
+    const { e, stretch, node } = setup();
+    stretch.hold();
+    await e.play(loop("a"));
+    e.setTempo(70); // a waits for the stretch
+    await settle();
+    await e.play(loop("b")); // b is stretched too (the tempo carries over as a ratio) and waits as well
+    await settle();
+    stretch.release();
+    await settle();
+    expect(e.getState()).toMatchObject({ status: "playing", current: { id: "b" } });
+    expect(node.drops, "only b's buffers were loaded into the stretch").toBe(1);
+    expect(node.buffers).toHaveLength(1);
+    expect(node.buffers[0]![0]!.length).toBeGreaterThan(3 * 48000); // b: 3.1 s decoded, padded
+  });
   it("keeps the loop playing at its original tempo and key, and is retried next time", async () => {
     const { e, stretch, plainPlaying } = setup();
     stretch.state.fail = true;
