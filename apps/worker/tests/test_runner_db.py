@@ -10,6 +10,7 @@ from pathlib import Path
 import pytest
 
 from stash_worker.contracts import limits
+from stash_worker.contracts import is_valid
 from stash_worker.db import PgJobQueue, QueueRejected
 from stash_worker.runner import Runner
 
@@ -142,10 +143,65 @@ def test_the_runner_requeues_stale_jobs_before_claiming(db, tmp_path: Path):
 def test_the_queue_reports_function_errors_with_their_code(db):
     q = PgJobQueue(db.url)
     with pytest.raises(QueueRejected) as e:
-        q.fail(str(uuid.uuid4()), "internal", True)
+        q.fail(str(uuid.uuid4()), 1, "internal", True)
     assert e.value.code == "not_found"
 
 
 def test_the_queue_acts_as_the_service_role(db):
     q = PgJobQueue(db.url)
     assert q._run("select current_user as u")[0]["u"] == "service_role"
+
+
+def test_job_input_describes_the_claimed_job(db):
+    it = db.queued_item(file_name="dusty keys 90bpm Amin.wav")
+    q = PgJobQueue(db.url)
+    row = q.claim()
+    got = q.job_input(str(row["id"]), row["attempts"])
+    assert is_valid("worker-job-input", got)
+    assert (got["jobId"], got["attempt"], got["itemId"], got["ownerId"], got["type"]) == (
+        it["job_id"],
+        1,
+        it["item_id"],
+        it["owner"],
+        "loop",
+    )
+    [f] = got["files"]
+    assert (f["id"], f["role"], f["path"], f["fileName"]) == (
+        it["file_id"],
+        "original",
+        it["path"],
+        "dusty keys 90bpm Amin.wav",
+    )
+
+
+def test_the_handler_gets_the_job_input_through_the_runner(db, tmp_path: Path):
+    it = db.queued_item(file_name="loop.wav")
+    make_runner(db, tmp_path, "echo_input").run_once()
+    item_file = db.q(
+        "select meta from public.item_files where item_id = :i and role = 'preview'", i=uuid.UUID(it["item_id"])
+    )[0]
+    assert item_file["meta"]["input"]["files"][0]["fileName"] == "loop.wav"
+
+
+def test_a_worker_that_lost_its_job_cannot_finish_it(db, tmp_path: Path):
+    it = db.queued_item()
+    old, new = PgJobQueue(db.url), PgJobQueue(db.url)
+    first = old.claim()
+    db.q(
+        "update public.processing_jobs set locked_at = now() - interval '1 hour' where id = :i",
+        i=uuid.UUID(it["job_id"]),
+    )
+    assert new.requeue_stale(660) == 1
+    second = new.claim()
+    assert (first["attempts"], second["attempts"]) == (1, 2)
+    for call in (
+        lambda: old.fail(it["job_id"], 1, "internal", True),
+        lambda: old.job_input(it["job_id"], 1),
+        lambda: old.complete(it["job_id"], 1, {"type": "loop"}),
+    ):
+        with pytest.raises(QueueRejected) as e:
+            call()
+        assert e.value.code == "conflict"
+    assert db.job(it["job_id"])["status"] == "running"
+    new.fail(it["job_id"], 2, "internal", True)
+    assert db.job(it["job_id"])["status"] == "queued"

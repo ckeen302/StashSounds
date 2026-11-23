@@ -82,16 +82,17 @@ class TestDb:
         self.as_role("authenticated", "select public.claim_handle(:h)", sub=str(uid), h=handle)
         return str(uid)
 
-    def queued_item(self, type_: str = "loop", ext: str = "wav") -> dict[str, str]:
+    def queued_item(self, type_: str = "loop", ext: str = "wav", file_name: str | None = None) -> dict[str, str]:
         """A draft uploaded and enqueued through the real functions, as the web app does it."""
         owner = self.make_user()
         row = self.as_role(
             "authenticated",
-            "select * from public.create_upload_draft(cast(:t as public.item_type), :title, 10, :ext)",
+            "select * from public.create_upload_draft(cast(:t as public.item_type), :title, 10, :ext, :fn)",
             sub=owner,
             t=type_,
             title="Test " + secrets.token_hex(3),
             ext=ext,
+            fn=file_name,
         )[0]
         item_id, file_id = str(row["item_id"]), str(row["file_id"])
         self.as_role("service_role", "update public.item_files set uploaded_at = now() where item_id = :i", i=item_id)
@@ -102,7 +103,7 @@ class TestDb:
             i=item_id,
             f=file_id,
         )[0]["id"]
-        return {"owner": owner, "item_id": item_id, "job_id": str(job)}
+        return {"owner": owner, "item_id": item_id, "job_id": str(job), "file_id": file_id, "path": str(row["path"])}
 
     def job(self, job_id: str) -> dict[str, Any]:
         return self.q(

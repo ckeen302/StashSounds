@@ -3,7 +3,9 @@ which works because conftest.py puts this folder on PYTHONPATH."""
 
 from __future__ import annotations
 
+import json
 import os
+import resource
 import subprocess
 import time
 import uuid
@@ -96,3 +98,53 @@ def invalid_result(ctx: JobContext) -> dict[str, Any]:
 
 def wrong_type_result(ctx: JobContext) -> dict[str, Any]:
     return {**loop_result(ctx.payload["itemId"]), "type": "oneshot", "details": {"nope": True}}
+
+
+def echo_input(ctx: JobContext) -> dict[str, Any]:
+    result = loop_result(ctx.payload["itemId"])
+    result["files"][0]["meta"] = {"input": ctx.input}
+    return result
+
+
+def env_probe(ctx: JobContext) -> dict[str, Any]:
+    probe = {
+        "env": dict(os.environ),
+        "limits": {
+            name: resource.getrlimit(getattr(resource, name))[0]
+            for name in ("RLIMIT_AS", "RLIMIT_FSIZE", "RLIMIT_NPROC", "RLIMIT_CORE")
+        },
+    }
+    (ctx.workdir / "probe.json").write_text(json.dumps(probe))
+    return loop_result(ctx.payload["itemId"])
+
+
+def _forge(ctx: JobContext, text: str) -> dict[str, Any]:
+    """Writes outcome.json itself and exits, as a compromised handler could."""
+    (ctx.workdir.parent / "outcome.json").write_text(text)
+    os._exit(0)
+
+
+def forge_runner_reason(ctx: JobContext) -> dict[str, Any]:
+    return _forge(ctx, '{"status": "rejected", "reason": "internal", "detail": ""}')
+
+
+def forge_flag_reason(ctx: JobContext) -> dict[str, Any]:
+    return _forge(ctx, '{"status": "rejected", "reason": "duplicate_exact"}')
+
+
+def forge_garbage(ctx: JobContext) -> dict[str, Any]:
+    return _forge(ctx, "{not json")
+
+
+def forge_list_result(ctx: JobContext) -> dict[str, Any]:
+    return _forge(ctx, '{"status": "ok", "result": [1, 2]}')
+
+
+def forge_huge_outcome(ctx: JobContext) -> dict[str, Any]:
+    result = loop_result(ctx.payload["itemId"])
+    result["files"][0]["meta"] = {"pad": "x" * (2 << 20)}
+    return _forge(ctx, json.dumps({"status": "ok", "result": result}))
+
+
+def reject_as_flag(ctx: JobContext) -> dict[str, Any]:
+    raise Rejected("duplicate_exact")
