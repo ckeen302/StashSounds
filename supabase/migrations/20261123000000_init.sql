@@ -750,7 +750,8 @@ begin
   end if;
   if p_bytes <= 0 or p_bytes > (v_demo ->> 'maxBytes')::bigint then perform public.fail('invalid', 'This demo is larger than the limit.'); end if;
   delete from public.item_files f where f.item_id = p_item_id and f.role = 'demo';
-  v_path := v_item.owner_id::text || '/' || v_item.id::text || '/demo.' || v_ext;
+  -- One key for every extension, so a replaced demo overwrites the old object instead of orphaning it.
+  v_path := v_item.owner_id::text || '/' || v_item.id::text || '/demo';
   insert into public.item_files (item_id, role, bucket, path, bytes, mime, meta)
   values (p_item_id, 'demo', 'originals', v_path, p_bytes, public.mime_for_ext(v_ext),
           jsonb_build_object('fileName', left(nullif(trim(p_file_name), ''), 255)))
