@@ -42,6 +42,12 @@ services:
     env_file: .env.local
     environment:
       STASH_S3_ENDPOINT: http://storage:8333
+    # The parent runs as root only to start each job as the unprivileged stash-job user
+    # (request 112-worker-isolation-ci): setuid/setgid for the child, chown/fowner to hand it its
+    # folders, dac_override to read its outcome and remove the folder, kill for timeouts.
+    cap_drop: [ALL]
+    cap_add: [SETUID, SETGID, CHOWN, FOWNER, DAC_OVERRIDE, KILL]
+    security_opt: ["no-new-privileges:true"]
     depends_on:
       storage-init:
         condition: service_completed_successfully

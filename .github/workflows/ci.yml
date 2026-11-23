@@ -104,6 +104,11 @@ jobs:
       - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg libchromaprint-tools
       - name: pnpm worker:test
         run: pnpm worker:test
+      # Isolation tests start the job child as another uid, which needs root. As root with
+      # STASH_REQUIRE_ISOLATION=1 they fail instead of skipping (request 112-worker-isolation-ci).
+      - name: Worker isolation tests (as root)
+        working-directory: apps/worker
+        run: sudo --preserve-env=DATABASE_ADMIN_URL,STASH_REQUIRE_DB env STASH_REQUIRE_ISOLATION=1 .venv/bin/python -m pytest -q -p no:cacheprovider
       - name: Lint and format
         working-directory: apps/worker
         run: uv run --frozen ruff check . && uv run --frozen ruff format --check .
@@ -164,6 +169,8 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - name: pnpm dev starts Supabase (migrations and seed), storage, the worker and the web app
         run: pnpm dev --check
+      - name: The production worker image builds
+        run: docker compose --profile worker build worker
       - name: Logs on failure
         if: failure()
         run: docker compose logs storage storage-init || true
