@@ -104,10 +104,19 @@ interface StretchResult {
   diff: { max: number; atS: number };
   joins: JoinResult[];
 }
+interface SeekResult {
+  status: string;
+  joins: JoinResult[];
+  fadeOut: number;
+  fadeIn: number;
+  positionS: number;
+  targetS: number;
+}
 interface Harness {
   renderPlain(b64: string, item: unknown, rate: number): Promise<PlainResult>;
   renderStretch(b64: string, item: unknown, rate: number, ratio: number, semitones: number): Promise<StretchResult>;
   renderLiveChange(b64: string, item: unknown, rate: number, ratio: number, semitones: number): Promise<StretchResult>;
+  renderSeekStretched(b64: string, item: unknown, rate: number, ratio: number, semitones: number): Promise<SeekResult>;
 }
 
 async function harness(page: Page) {
@@ -119,6 +128,8 @@ async function harness(page: Page) {
       page.evaluate(async ([b, i, r, q, s]) => ((await import("/test-page/seamless.ts" as string)) as Harness).renderStretch(b, i, r, q, s), [b64, item, rate, ratio, semitones] as const),
     live: (b64: string, item: unknown, rate: number, ratio: number, semitones: number) =>
       page.evaluate(async ([b, i, r, q, s]) => ((await import("/test-page/seamless.ts" as string)) as Harness).renderLiveChange(b, i, r, q, s), [b64, item, rate, ratio, semitones] as const),
+    seek: (b64: string, item: unknown, rate: number, ratio: number, semitones: number) =>
+      page.evaluate(async ([b, i, r, q, s]) => ((await import("/test-page/seamless.ts" as string)) as Harness).renderSeekStretched(b, i, r, q, s), [b64, item, rate, ratio, semitones] as const),
   };
 }
 
@@ -159,5 +170,17 @@ for (const c of cases) {
     expect(r.status).toBe("playing");
     expect(r.diff.max, "difference from a render that continues by itself").toBeLessThan(1e-3);
     for (const j of r.joins) expect(j.faults).toEqual({ gap: false, click: false });
+  });
+
+  test(`${c.name}: a seek while stretched fades out and back in, with no click`, async ({ page }) => {
+    const h = await harness(page);
+    const r = await h.seek(c.b64, c.item, 48000, 0.8, 3);
+    console.log(`seek    ${c.name} @48000: ${r.joins.map((j, k) => `${k ? "restart" : "seek"} step ${fmt(j.report.stepAtJoin)} vs ${fmt(j.report.maxStepElsewhere)}`).join("; ")}, fade out ${fmt(r.fadeOut)}, fade in ${fmt(r.fadeIn)}, from ${fmt(r.positionS)} s for ${fmt(r.targetS)} s`);
+    expect(r.status).toBe("playing");
+    expect(r.positionS, "the new position starts where the seek asked").toBeCloseTo(r.targetS, 2);
+    expect(r.fadeOut, "the old position fades out instead of being cut").toBeGreaterThan(0.5);
+    expect(r.fadeIn, "the new position ramps in from silence").toBeLessThan(0.3);
+    expect(r.joins[0]!.faults.click, "click at the seek").toBe(false);
+    expect(r.joins[1]!.faults.click, "click at the new start").toBe(false);
   });
 }
