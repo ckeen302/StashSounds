@@ -1,5 +1,5 @@
-"""The loop processor (build spec: Worker jobs, Loop; ticket 112): decode, exact loop length,
-loudness-matched MP3 preview and 800 waveform peaks. BPM and key are ticket 113; fingerprints 114.
+"""The loop processor (build spec: Worker jobs, Loop; tickets 112 and 113): decode, exact loop length,
+loudness-matched MP3 preview, 800 waveform peaks, BPM and key. Fingerprints are ticket 114.
 
 Runs in the job's child process. Reads the original from `ctx.input_path`, writes derived files to
 `ctx.output_path`, and returns a worker result (contracts: workerResultSchema, details.loop).
@@ -12,7 +12,11 @@ import hashlib
 from pathlib import Path
 from typing import Any
 
+import numpy as np
+
 from stash_worker.audio.ffmpeg import SAMPLE_RATE, SILENCE_PEAK, decode, encode_preview, measure, mono_peaks, sniff
+from stash_worker.audio.key import detect_key
+from stash_worker.audio.tempo import detect_bpm
 from stash_worker.contracts import limits
 from stash_worker.jobs import JobContext, Rejected
 
@@ -69,6 +73,15 @@ def process_loop(ctx: JobContext) -> dict[str, Any]:
     peaks = mono_peaks(preview_local, int(lim["waveform"]["peakPoints"]))
     peaks_local = scratch / "peaks.bin"
     peaks_local.write_bytes(peaks)
+
+    # BPM and key from the original's decode, not the loudness-matched preview (ticket 113).
+    stereo = np.fromfile(decoded.path, dtype="<f4", count=decoded.frames * 2).reshape(-1, 2)
+    mono = stereo.mean(axis=1, dtype=np.float32)
+    del stereo
+    file_name = original.get("fileName")
+    tempo = detect_bpm(mono, SAMPLE_RATE, file_name)
+    key, key_source, key_confidence = detect_key(mono, SAMPLE_RATE, file_name)
+    del mono
     decoded.path.unlink()
 
     preview = _publish(
@@ -90,8 +103,8 @@ def process_loop(ctx: JobContext) -> dict[str, Any]:
 
     return {
         "type": "loop",
-        "bpm": None,
-        "key": None,
+        "bpm": tempo.bpm,
+        "key": key,
         "durationMs": duration_ms,
         "files": [preview, peaks_file],
         "fingerprints": [],
@@ -102,13 +115,13 @@ def process_loop(ctx: JobContext) -> dict[str, Any]:
             "loudnessLufs": round(loudness.integrated, 2),
             "truePeakDb": round(loudness.true_peak, 2),
             "loopSamples": decoded.frames,
-            "bars": None,
+            "bars": tempo.bars,
             "detection": {
-                "bpmSource": None,
-                "bpmAgreed": False,
-                "bpmCandidates": [],
-                "keySource": None,
-                "keyConfidence": None,
+                "bpmSource": tempo.source,
+                "bpmAgreed": tempo.agreed,
+                "bpmCandidates": tempo.candidates,
+                "keySource": key_source,
+                "keyConfidence": key_confidence,
             },
         },
     }

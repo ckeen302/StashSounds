@@ -47,6 +47,9 @@ CHILD_PROCESSES = 64
 OUTCOME_MAX_BYTES = 1 << 20
 DETAIL_MAX = 500
 ENV_PASSTHROUGH = ("PATH", "PYTHONPATH", "LANG", "LC_ALL")
+# numpy's OpenBLAS (and any OpenMP code) starts a thread per core on import. Threads count toward
+# RLIMIT_NPROC for the job uid, and a job is one small file, so the child gets one.
+ENV_FIXED = {"OPENBLAS_NUM_THREADS": "1", "OMP_NUM_THREADS": "1"}
 CHILD_DIRS = ("work", "home", "tmp", "report")
 
 
@@ -93,6 +96,7 @@ def _child_env(job_dir: Path) -> dict[str, str]:
     env = {k: os.environ[k] for k in ENV_PASSTHROUGH if k in os.environ}
     env["HOME"] = str(job_dir / "home")
     env["TMPDIR"] = str(job_dir / "tmp")
+    env.update(ENV_FIXED)
     return env
 
 

@@ -13,9 +13,9 @@ from typing import Any
 
 import numpy as np
 import pytest
+
 from stash_worker.audio.key import detect_key, format_key, key_from_chroma, key_from_name, parse_key, pitch_chroma
 from stash_worker.audio.tempo import bpm_from_name, detect_bpm, duration_candidates
-
 from stash_worker.contracts import REPO_ROOT, limits
 
 SR = 44100
