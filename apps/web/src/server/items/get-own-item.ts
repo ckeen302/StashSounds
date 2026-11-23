@@ -1,7 +1,7 @@
-import { WORKER_REASON_TEXT, err, itemIdInput, ok, ownItemSchema, workerReasonSchema, type JobStatus } from "@stash/contracts";
+import { err, itemIdInput, ok, ownItemSchema, type JobStatus } from "@stash/contracts";
 import { defineAction } from "../action.ts";
 import { readTags } from "./load-rows.ts";
-import { ITEM_COLUMNS, checkFields, toItem, type ItemDbRow } from "./rows.ts";
+import { ITEM_COLUMNS, checkFields, reasonText, toOwnItem, type ItemDbRow } from "./rows.ts";
 
 type JobDbRow = { status: JobStatus; attempts: number; error: string | null };
 
@@ -39,7 +39,7 @@ export const getOwnItem = defineAction({
     ]);
     if (job.error) throw job.error;
 
-    const item = toItem(row, tags);
+    const item = toOwnItem(row, tags);
     return ok({
       item,
       job: job.data ? { status: job.data.status, attempts: job.data.attempts, error: reasonText(job.data.error) } : null,
@@ -47,13 +47,3 @@ export const getOwnItem = defineAction({
     });
   },
 });
-
-/**
- * The job's error in plain language. The worker stores a reason code (contracts workerReasonSchema);
- * anything else is never shown raw to the uploader.
- */
-export function reasonText(error: string | null): string | null {
-  if (error === null) return null;
-  const reason = workerReasonSchema.safeParse(error);
-  return reason.success ? WORKER_REASON_TEXT[reason.data] : WORKER_REASON_TEXT.internal;
-}

@@ -80,6 +80,15 @@ describe("getItemPage", () => {
     expect(fake.queries.some((q) => q.table === "kit_samples" && /original_path/.test(q.columns ?? ""))).toBe(false);
   });
 
+  it("a list reads only the first sixteen kit samples (the pads), filtered in the query", async () => {
+    const fake = fakeSupabase({ tables: publicTables() });
+    await getItemPage(fake.client, null, "loop", "dark-keys-k3j9x0a2bq");
+    // moreFromOwner includes the kit: its samples are read for the pads only.
+    const padReads = fake.queries.filter((q) => q.table === "kit_samples");
+    expect(padReads.length).toBeGreaterThan(0);
+    for (const q of padReads) expect(q.ops).toContainEqual(["lt", "position", 16]);
+  });
+
   it("a signed-in viewer sees their like and follow", async () => {
     const fake = fakeSupabase({
       tables: publicTables({ likes: [{ user_id: IDS.bob, item_id: LOOP }], follows: [{ follower_id: IDS.bob, followee_id: IDS.alice }] }),
@@ -156,6 +165,19 @@ describe("getOwnItem", () => {
     expect(raw).toMatchObject({ ok: true, data: { job: { error: WORKER_REASON_TEXT.internal } } });
   });
 
+  it("flaggedReason is shown in plain language, never raw", async () => {
+    const flagged = itemDbRow("loop", { status: "flagged", published_at: null, flagged_reason: "duplicate_exact" });
+    expect(await getOwnItem.run({ itemId: LOOP }, callerOnly(setup({ items: [flagged] })))).toMatchObject({
+      ok: true,
+      data: { item: { flaggedReason: WORKER_REASON_TEXT.duplicate_exact } },
+    });
+    const raw = itemDbRow("loop", { status: "flagged", published_at: null, flagged_reason: "SELECT * FROM fingerprints" });
+    expect(await getOwnItem.run({ itemId: LOOP }, callerOnly(setup({ items: [raw] })))).toMatchObject({
+      ok: true,
+      data: { item: { flaggedReason: WORKER_REASON_TEXT.internal } },
+    });
+  });
+
   it("another user's item, or a removed one: not_found", async () => {
     expect(await getOwnItem.run({ itemId: LOOP }, callerOnly(setup({ items: [{ ...draft, owner_id: IDS.bob }] })))).toMatchObject({ ok: false, code: "not_found" });
     expect(await getOwnItem.run({ itemId: LOOP }, callerOnly(setup({ items: [{ ...draft, status: "removed" }] })))).toMatchObject({ ok: false, code: "not_found" });
@@ -201,6 +223,33 @@ describe("updateItem", () => {
     await updateItem.run({ itemId: LOOP, referenceTags: ["metro boomin"] }, callerOnly(fake));
     expect(fake.rpcCalls[0]!.args).toEqual({ p_item_id: LOOP, p_tags: ["dark", "keys"], p_reference_tags: ["metro boomin"] });
     expect(fake.queries.some((q) => q.op === "update")).toBe(false);
+  });
+
+  it("tags sent plus tags kept over the limit: invalid before anything is written (the title is not saved)", async () => {
+    // Two reference tags on the item; the owner sends a title and eight tags: ten in total.
+    const withRefs = itemDbRow("loop", { status: "ready", published_at: null, tag_names: ["drake", "metro boomin"] });
+    const fake = setup({
+      items: [withRefs],
+      tags: [
+        { name: "drake", kind: "reference" },
+        { name: "metro boomin", kind: "reference" },
+      ],
+      rpc: () => ({ data: null, error: pgError("P0001", "invalid: Up to 8 tags in total.") }),
+    });
+    const tags = Array.from({ length: limits.tags.perItem }, (_, i) => `tag${i}`);
+    expect(await updateItem.run({ itemId: LOOP, title: "Saved?", tags }, callerOnly(fake))).toMatchObject({
+      ok: false,
+      code: "invalid",
+      fields: { tags: expect.stringMatching(/tags in total/) },
+    });
+    expect(fake.queries.some((q) => q.op === "update")).toBe(false);
+    expect(fake.rpcCalls).toEqual([]);
+    expect(fake.tables.items![0]!.title).toBe("Dark Keys");
+  });
+
+  it("the edit answer shows flaggedReason in plain language", async () => {
+    const fake = setup({ items: [itemDbRow("loop", { status: "flagged", published_at: null, flagged_reason: "commercial_match" })] });
+    expect(await updateItem.run({ itemId: LOOP, title: "Mine" }, callerOnly(fake))).toMatchObject({ ok: true, data: { flaggedReason: WORKER_REASON_TEXT.commercial_match } });
   });
 
   it("too many tags in total is invalid before the database", async () => {

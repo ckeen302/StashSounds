@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { itemRowSchema, limits } from "@stash/contracts";
-import { buildPlayable, checkFields, itemLength, peaksFor, toItem, toItemRow } from "./rows.ts";
+import { KIT_PADS, MORE_FROM_OWNER, buildPlayable, checkFields, itemLength, peaksFor, reasonText, toItem, toItemRow } from "./rows.ts";
 import { TEST_ENV } from "../testing/fake-supabase.ts";
 import { DETAILS, ITEM_IDS, PEAKS, fileDbRow, filesFor, itemDbRow, samplesFor, type TestType } from "../testing/items.ts";
 
@@ -10,6 +10,19 @@ beforeEach(() => {
 
 const BASE = TEST_ENV.NEXT_PUBLIC_PREVIEWS_BASE_URL;
 const owner = { handle: "alice", displayName: "Alice", avatarUrl: null };
+
+describe("caps and reasons", () => {
+  it("the pad and more-from-owner caps are read from the contract schemas", () => {
+    expect(KIT_PADS).toBe(16);
+    expect(MORE_FROM_OWNER).toBe(10);
+  });
+
+  it("reasonText: a worker reason code in plain language, anything else the internal text, null stays null", () => {
+    expect(reasonText("too_long")).toMatch(/longer than the limit/);
+    expect(reasonText("Traceback ...")).toMatch(/on our side/);
+    expect(reasonText(null)).toBeNull();
+  });
+});
 
 describe("toItem", () => {
   it("maps the row to itemSchema: numeric bpm, key from root and mode, tags with kinds", () => {

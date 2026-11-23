@@ -2,12 +2,10 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { LICENSES, itemHref, itemPageSchema, parseItemParam, type ItemPage, type ItemType } from "@stash/contracts";
 import { PROFILE_COLUMNS, toProfile, type ProfileRow } from "../profile.ts";
 import { loadRows, readTags } from "./load-rows.ts";
-import { ITEM_COLUMNS, SAMPLE_COLUMNS, toKitSample, type ItemDbRow, type SampleDbRow } from "./rows.ts";
+import { ITEM_COLUMNS, MORE_FROM_OWNER, SAMPLE_COLUMNS, toKitSample, type ItemDbRow, type SampleDbRow } from "./rows.ts";
 
 export type ItemPageResult = { kind: "page"; page: ItemPage } | { kind: "redirect"; href: string } | { kind: "not_found" };
 
-/** How many of the owner's other items the page shows (itemPageSchema caps it at 10). */
-const MORE_FROM_OWNER = 10;
 
 /**
  * The item page's data (route /[type]/[slug]-[publicId]). Reads only as the caller: anon or the

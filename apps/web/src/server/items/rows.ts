@@ -6,14 +6,19 @@
  * Where each piece comes from is decision 0015: peaksFor, MIDI_SOUND, the preview roles in
  * buildPlayable, and checkFields.
  */
+import type { z } from "zod";
 import {
+  WORKER_REASON_TEXT,
   itemHref,
+  itemPageSchema,
   itemRowSchema,
   itemSchema,
   kitSampleSchema,
   limits,
   midiPitchSchema,
   peaksFileMetaSchema,
+  playableSchema,
+  workerReasonSchema,
   type Item,
   type ItemRow,
   type KitSample,
@@ -74,8 +79,30 @@ export type SampleDbRow = {
 };
 export const SAMPLE_COLUMNS = "id, item_id, position, name, category, duration_ms, root_note, preview_path";
 
-/** Pads on a kit row and in its playable. */
-export const KIT_PADS = 16;
+/** The .max() of a contract array schema, so a cap is never retyped here (PR #9 A5, decision 0016). */
+function maxItems(schema: z.ZodArray): number {
+  for (const check of schema.def.checks ?? []) {
+    const def = check._zod.def as { check?: string; maximum?: number };
+    if (def.check === "max_length" && typeof def.maximum === "number") return def.maximum;
+  }
+  throw new Error("contract array has no maximum");
+}
+
+const kitPlayable = playableSchema.options.find((o) => o.shape.kind.value === "kit")!;
+/** Pads on a kit row and in its playable (playableSchema kit pads .max()). */
+export const KIT_PADS = maxItems((kitPlayable.shape as unknown as { pads: z.ZodArray }).pads);
+/** Rows of the owner's other items on an item page (itemPageSchema moreFromOwner .max()). */
+export const MORE_FROM_OWNER = maxItems(itemPageSchema.shape.moreFromOwner);
+
+/**
+ * A worker or moderation reason in plain language. The worker stores a reason code (contracts
+ * workerReasonSchema); anything else is never shown raw to the uploader.
+ */
+export function reasonText(reason: string | null): string | null {
+  if (reason === null) return null;
+  const r = workerReasonSchema.safeParse(reason);
+  return r.success ? WORKER_REASON_TEXT[r.data] : WORKER_REASON_TEXT.internal;
+}
 
 /** The item in its contracts shape. Throws if the database row breaks the contract (a schema bug). */
 export function toItem(row: ItemDbRow, tags: Tag[]): Item {
@@ -220,6 +247,12 @@ export function toKitSample(s: SampleDbRow): KitSample {
     rootNote: s.root_note,
     previewUrl: previewUrl(s.preview_path),
   });
+}
+
+/** The owner's own view of an item: like toItem, with flaggedReason in plain language (PR #9 A2). */
+export function toOwnItem(row: ItemDbRow, tags: Tag[]): Item {
+  const item = toItem(row, tags);
+  return { ...item, flaggedReason: reasonText(item.flaggedReason) };
 }
 
 /**
