@@ -1,3 +1,4 @@
+import limits from "@stash/contracts/limits.json" with { type: "json" };
 import { BufferLoader } from "./loader.ts";
 import { loopFrames, paddedLoop } from "./loop-layout.ts";
 import type { Engine, EngineState, Playable, SoundId } from "./types.ts";
@@ -32,6 +33,8 @@ export interface EngineDeps {
   fetch?: FetchLike;
   /** Loads the time stretch the first time a loop needs it. Defaults to Signalsmith Stretch. */
   loadStretch?: (ctx: AudioContextLike) => Promise<StretchNodeLike>;
+  /** Waits about this many seconds of audio clock. Defaults to a timer. */
+  sleep?: (seconds: number) => Promise<void>;
 }
 
 /** A buffer source at the original tempo and key: sample-exact, no added latency. */
@@ -79,6 +82,7 @@ export class WebAudioEngine implements Engine {
   private listeners = new Set<(s: EngineState) => void>();
   private readonly createContext: () => AudioContextLike;
   private readonly loadStretch: (ctx: AudioContextLike) => Promise<StretchNodeLike>;
+  private readonly sleep: (seconds: number) => Promise<void>;
   private readonly loader: BufferLoader;
 
   private ctx: AudioContextLike | null = null;
@@ -103,6 +107,8 @@ export class WebAudioEngine implements Engine {
   /** The buffer the stretch holds, and the seconds of padding before its loop. */
   private stretchBuffer: AudioBufferLike | null = null;
   private stretchPadS = 0;
+  /** Audio-clock time by which the stretch's last fade-out is silent; its buffers are swapped only after it. */
+  private stretchQuietAt = 0;
   /** Buffer swaps run one at a time. */
   private stretchChain: Promise<void> = Promise.resolve();
   /** Bumped by every load, so a slow earlier load never starts after a later play. */
@@ -113,6 +119,7 @@ export class WebAudioEngine implements Engine {
   constructor(deps: EngineDeps = {}) {
     this.createContext = deps.createContext ?? createBrowserContext;
     this.loadStretch = deps.loadStretch ?? createBrowserStretch;
+    this.sleep = deps.sleep ?? ((s) => new Promise((resolve) => setTimeout(resolve, s * 1000)));
     this.loader = new BufferLoader(deps.fetch ?? ((url) => globalThis.fetch(url)));
   }
 
@@ -366,13 +373,18 @@ export class WebAudioEngine implements Engine {
       .catch((err: unknown) => console.warn("[audio]", err));
   }
 
-  /** Sends the stretch its start at `T` from `pos`, and opens its gain at T. */
+  /**
+   * Sends the stretch its start at `T` from `pos`, and opens its gain at T. Until T the gain falls to
+   * zero from wherever it is: a seek or switch that just stopped the stretch keeps its fade-out (the
+   * old position plays on underneath it until T), and the new position ramps in from silence.
+   */
   private scheduleStretchStart(T: number, pos: number) {
     const gain = this.stretchGain!;
     const now = this.ctx!.currentTime;
     this.sendStretch(T, pos);
     gain.gain.cancelScheduledValues(now);
-    gain.gain.setValueAtTime(0, now);
+    gain.gain.setTargetAtTime(0, now, FADE_S);
+    gain.gain.setValueAtTime(0, T);
     gain.gain.setTargetAtTime(1, T, FADE_S);
   }
 
@@ -389,7 +401,13 @@ export class WebAudioEngine implements Engine {
     try {
       this.stretchLoad ??= (async () => {
         const node = await this.loadStretch(ctx);
-        const latency = await node.latency();
+        let latency: number;
+        try {
+          latency = await node.latency();
+        } catch (err) {
+          node.disconnect(); // not kept, so the retry makes a new one: let this one go
+          throw err;
+        }
         const gain = ctx.createGain();
         gain.gain.value = 0;
         node.connect(gain);
@@ -401,7 +419,12 @@ export class WebAudioEngine implements Engine {
       await this.stretchLoad;
       if (this.stretchBuffer !== buffer) {
         const job = this.stretchChain.then(async () => {
-          if (this.stretchBuffer === buffer) return;
+          // Already in, or no longer wanted: a later item replaced this one while the job waited.
+          if (this.stretchBuffer === buffer || this.buffer !== buffer) return;
+          // Dropping the buffers under a fade still sounding would cut it: wait until it is silent.
+          const fading = this.stretchQuietAt - ctx.currentTime;
+          if (fading > 0) await this.sleep(fading);
+          if (this.stretchBuffer === buffer || this.buffer !== buffer) return;
           const node = this.stretchNode!;
           const padFrames = Math.ceil(Math.max(PAD_S, 2 * this.stretchLatency) * buffer.sampleRate);
           const channels = Array.from({ length: buffer.numberOfChannels }, (_, c) => buffer.getChannelData(c));
@@ -499,6 +522,7 @@ export class WebAudioEngine implements Engine {
       this.stretchGain.gain.cancelScheduledValues(now);
       this.stretchGain.gain.setTargetAtTime(0, now, FADE_S);
       this.stretchNode.schedule({ active: false, output: now + STOP_AFTER_S }).catch((err: unknown) => console.warn("[audio]", err));
+      this.stretchQuietAt = now + STOP_AFTER_S;
     }
   }
 
@@ -537,7 +561,9 @@ export class WebAudioEngine implements Engine {
     const c = this.state.current;
     const base = c && (c.kind === "loop" || c.kind === "midi") ? c.bpm : undefined;
     if (!base || !Number.isFinite(bpm) || bpm <= 0) return;
-    this.set({ tempoRatio: bpm / base });
+    // Within the contract's BPM range: far outside it the stretch reads past its loop and goes silent.
+    const clamped = Math.max(limits.bpm.min, Math.min(limits.bpm.max, bpm));
+    this.set({ tempoRatio: clamped / base });
     this.applyTempoAndKey();
   }
 

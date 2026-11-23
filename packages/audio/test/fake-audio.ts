@@ -85,13 +85,16 @@ function finite(...xs: number[]) {
 
 export class FakeParam implements AudioParamLike {
   private v = 1;
-  events: { type: string; value: number; time: number }[] = [];
+  /** The value before any automation, as set through `value`. */
+  private base = 1;
+  events: { type: string; value: number; time: number; timeConstant?: number }[] = [];
   get value() {
     return this.v;
   }
   set value(x: number) {
     finite(x);
     this.v = x;
+    if (!this.events.length) this.base = x;
   }
   setValueAtTime(value: number, time: number) {
     finite(value, time);
@@ -101,7 +104,33 @@ export class FakeParam implements AudioParamLike {
   setTargetAtTime(value: number, time: number, timeConstant: number) {
     finite(value, time, timeConstant);
     this.v = value;
-    this.events.push({ type: "target", value, time });
+    this.events.push({ type: "target", value, time, timeConstant });
+  }
+  /**
+   * The value the browser would compute at time t from the automation as it now stands: a cancel
+   * removes the events at or after its time that came before it; events then apply in time order.
+   */
+  at(t: number): number {
+    let kept: { type: string; value: number; time: number; timeConstant?: number }[] = [];
+    for (const e of this.events) {
+      if (e.type === "cancel") kept = kept.filter((k) => k.time < e.time);
+      else kept.push(e);
+    }
+    kept.sort((a, b) => a.time - b.time); // stable: same-time events keep their order
+    let from = this.base;
+    let curve: { t0: number; target: number; tau: number } | null = null;
+    const valueAt = (time: number) => (curve ? curve.target + (from - curve.target) * Math.exp(-(time - curve.t0) / curve.tau) : from);
+    for (const e of kept) {
+      if (e.time > t) break;
+      if (e.type === "set") {
+        from = e.value;
+        curve = null;
+      } else {
+        from = valueAt(e.time);
+        curve = { t0: e.time, target: e.value, tau: e.timeConstant! };
+      }
+    }
+    return valueAt(t);
   }
   cancelScheduledValues(time: number) {
     finite(time);
@@ -189,10 +218,14 @@ export class FakeStretch implements StretchNodeLike {
   drops = 0;
   connected: AudioNodeLike[] = [];
   latencySeconds = 0.12;
+  /** latency() rejects while set, as a worklet that failed to start would. */
+  failLatency = false;
+  disconnects = 0;
   connect(d: AudioNodeLike) {
     this.connected.push(d);
   }
   disconnect() {
+    this.disconnects++;
     this.connected = [];
   }
   async addBuffers(channels: Float32Array[]): Promise<number> {
@@ -209,6 +242,7 @@ export class FakeStretch implements StretchNodeLike {
     return change;
   }
   async latency() {
+    if (this.failLatency) throw new Error("the worklet did not answer");
     return this.latencySeconds;
   }
   /** The last schedule that started playback. */

@@ -21,6 +21,43 @@ const cases = [...loops, reencoded].map((f) => ({
   item: { kind: "loop" as const, id: f.path, previewUrl: "https://previews.invalid/loop", loopSamples: f.expect.loopSamples!, sampleRate: f.expect.sampleRate!, bpm: f.expect.bpm! },
   b64: bytesFor(f.path).toString("base64"),
 }));
+// A decode that runs past the loop, as a preview with an export tail would: the midnight_keys WAV
+// with 0.75 s of a loud sine after the loop. Looping on the decoded length would play the sine.
+{
+  const base = cases.find((c) => c.name === "midnight_keys_140bpm_Am.wav")!;
+  cases.push({ ...base, name: "midnight_keys_with_tail.wav", b64: withTail(Buffer.from(base.b64, "base64"), 0.75).toString("base64") });
+}
+
+/** A 16-bit PCM WAV with `seconds` of a 440 Hz sine at half scale appended to its data. */
+function withTail(wav: Buffer, seconds: number): Buffer {
+  if (wav.toString("ascii", 0, 4) !== "RIFF" || wav.toString("ascii", 8, 12) !== "WAVE") throw new Error("not WAV");
+  let channels = 0;
+  let rate = 0;
+  for (let o = 12; o + 8 <= wav.length; ) {
+    const id = wav.toString("ascii", o, o + 4);
+    const size = wav.readUInt32LE(o + 4);
+    if (id === "fmt ") {
+      if (wav.readUInt16LE(o + 8) !== 1 || wav.readUInt16LE(o + 22) !== 16) throw new Error("not 16-bit PCM");
+      channels = wav.readUInt16LE(o + 10);
+      rate = wav.readUInt32LE(o + 12);
+    }
+    if (id === "data") {
+      if (o + 8 + size !== wav.length) throw new Error("data is not the last chunk");
+      const frames = Math.round(seconds * rate);
+      const tail = Buffer.alloc(frames * channels * 2);
+      for (let i = 0; i < frames; i++) {
+        const v = Math.round(16383 * Math.sin((2 * Math.PI * 440 * i) / rate));
+        for (let c = 0; c < channels; c++) tail.writeInt16LE(v, (i * channels + c) * 2);
+      }
+      const out = Buffer.concat([wav, tail]);
+      out.writeUInt32LE(size + tail.length, o + 4);
+      out.writeUInt32LE(out.length - 8, 4);
+      return out;
+    }
+    o += 8 + size + (size % 2);
+  }
+  throw new Error("no data chunk");
+}
 
 /** Chromium cannot decode AIFF, so AIFF fixtures are rewritten as WAV with the same samples. */
 function bytesFor(path: string): Buffer {
@@ -104,10 +141,19 @@ interface StretchResult {
   diff: { max: number; atS: number };
   joins: JoinResult[];
 }
+interface SeekResult {
+  status: string;
+  joins: JoinResult[];
+  fadeOut: number;
+  fadeIn: number;
+  positionS: number;
+  targetS: number;
+}
 interface Harness {
   renderPlain(b64: string, item: unknown, rate: number): Promise<PlainResult>;
   renderStretch(b64: string, item: unknown, rate: number, ratio: number, semitones: number): Promise<StretchResult>;
   renderLiveChange(b64: string, item: unknown, rate: number, ratio: number, semitones: number): Promise<StretchResult>;
+  renderSeekStretched(b64: string, item: unknown, rate: number, ratio: number, semitones: number): Promise<SeekResult>;
 }
 
 async function harness(page: Page) {
@@ -119,6 +165,8 @@ async function harness(page: Page) {
       page.evaluate(async ([b, i, r, q, s]) => ((await import("/test-page/seamless.ts" as string)) as Harness).renderStretch(b, i, r, q, s), [b64, item, rate, ratio, semitones] as const),
     live: (b64: string, item: unknown, rate: number, ratio: number, semitones: number) =>
       page.evaluate(async ([b, i, r, q, s]) => ((await import("/test-page/seamless.ts" as string)) as Harness).renderLiveChange(b, i, r, q, s), [b64, item, rate, ratio, semitones] as const),
+    seek: (b64: string, item: unknown, rate: number, ratio: number, semitones: number) =>
+      page.evaluate(async ([b, i, r, q, s]) => ((await import("/test-page/seamless.ts" as string)) as Harness).renderSeekStretched(b, i, r, q, s), [b64, item, rate, ratio, semitones] as const),
   };
 }
 
@@ -135,6 +183,11 @@ for (const c of cases) {
       const j = r.join.report;
       console.log(`plain   ${c.name} @${rate}: loopFrames ${r.loopFrames}, maxDiff ${fmt(r.maxDiff)}, join step ${fmt(j.stepAtJoin)} vs ${fmt(j.maxStepElsewhere)}, min rms ${fmt(j.minRmsNearJoin)} vs ${fmt(j.minRmsElsewhere)}`);
       expect(r.status).toBe("playing");
+      // From the contract's numbers alone, not from the engine's own loopFrames: within one frame of
+      // the exact length. (At 48 kHz midnight_keys is 329142.86 frames, and Chromium decodes the
+      // exact-length WAV to 329142, so the loop cannot be 329143 there.)
+      const exact = (c.item.loopSamples * rate) / c.item.sampleRate;
+      expect(Math.abs(r.loopFrames - exact), `loop length at ${rate} Hz: ${r.loopFrames} frames for ${exact.toFixed(2)}`).toBeLessThan(1);
       expect(r.maxDiff, `sample-exact at ${rate} Hz`).toBeLessThan(1e-6);
       expect(r.join.faults, `join at ${rate} Hz`).toEqual({ gap: false, click: false });
     }
@@ -159,5 +212,17 @@ for (const c of cases) {
     expect(r.status).toBe("playing");
     expect(r.diff.max, "difference from a render that continues by itself").toBeLessThan(1e-3);
     for (const j of r.joins) expect(j.faults).toEqual({ gap: false, click: false });
+  });
+
+  test(`${c.name}: a seek while stretched fades out and back in, with no click`, async ({ page }) => {
+    const h = await harness(page);
+    const r = await h.seek(c.b64, c.item, 48000, 0.8, 3);
+    console.log(`seek    ${c.name} @48000: ${r.joins.map((j, k) => `${k ? "restart" : "seek"} step ${fmt(j.report.stepAtJoin)} vs ${fmt(j.report.maxStepElsewhere)}`).join("; ")}, fade out ${fmt(r.fadeOut)}, fade in ${fmt(r.fadeIn)}, from ${fmt(r.positionS)} s for ${fmt(r.targetS)} s`);
+    expect(r.status).toBe("playing");
+    expect(r.positionS, "the new position starts where the seek asked").toBeCloseTo(r.targetS, 2);
+    expect(r.fadeOut, "the old position fades out instead of being cut").toBeGreaterThan(0.5);
+    expect(r.fadeIn, "the new position ramps in from silence").toBeLessThan(0.3);
+    expect(r.joins[0]!.faults.click, "click at the seek").toBe(false);
+    expect(r.joins[1]!.faults.click, "click at the new start").toBe(false);
   });
 }

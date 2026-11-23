@@ -3,7 +3,7 @@ import { join } from "node:path";
 import { describe, expect, it, vi } from "vitest";
 import { WebAudioEngine } from "../src/engine.ts";
 import type { Playable } from "../src/types.ts";
-import { FakeContext, fakeFetch, fakeStretchLoader, flush } from "./fake-audio.ts";
+import { FakeContext, fakeFetch, fakeStretchLoader, flush, type FakeGain } from "./fake-audio.ts";
 
 // The fake context runs at 48 kHz. Loop: 2 s (88200 samples at 44.1 kHz = 96000 frames at 48 kHz), BPM 140,
 // decoded as 2.1 s (MP3 padding). Stretch latency 0.12 s, so a change is heard at now + 0.14 s.
@@ -22,9 +22,15 @@ function setup() {
   const net = fakeFetch({ [url("a")]: 2100, [url("b")]: 3100, [url("s")]: 500 });
   const ctx = new FakeContext();
   const stretch = fakeStretchLoader();
-  const e = new WebAudioEngine({ createContext: () => ctx, fetch: net.fetch, loadStretch: stretch.load });
+  /** The engine's waits on the audio clock: each one moves the fake clock on by that much. */
+  const sleeps: number[] = [];
+  const sleep = async (s: number) => {
+    sleeps.push(s);
+    ctx.advance(s);
+  };
+  const e = new WebAudioEngine({ createContext: () => ctx, fetch: net.fetch, loadStretch: stretch.load, sleep });
   const plainPlaying = () => ctx.playing.filter((s) => s.buffer);
-  return { e, ctx, stretch, node: stretch.node, plainPlaying };
+  return { e, ctx, stretch, node: stretch.node, plainPlaying, sleeps };
 }
 
 describe("loop at its original tempo and key", () => {
@@ -206,6 +212,36 @@ describe("live tempo and key change without restarting", () => {
   });
 });
 
+describe("tempo limits", () => {
+  // limits.bpm in packages/contracts: 40 to 300 BPM. The loop is 140 BPM.
+  it("clamps a tempo above the maximum to 300 BPM, so the stretch never runs past its loop", async () => {
+    const { e, ctx, node } = setup();
+    await e.play(loop("a"));
+    e.setTempo(1e6);
+    await settle();
+    expect(e.getState().tempoRatio).toBeCloseTo(300 / 140);
+    expect(node.schedules.at(-1)!.rate).toBeCloseTo(300 / 140);
+    ctx.advance(LEAD + 100);
+    expect(Number.isFinite(e.getPositionMs())).toBe(true);
+    expect(e.getPositionMs()).toBeGreaterThanOrEqual(0);
+    expect(e.getPositionMs()).toBeLessThan(2000);
+  });
+  it("clamps a tempo below the minimum to 40 BPM", async () => {
+    const { e } = setup();
+    await e.play(loop("a"));
+    e.setTempo(1e-9);
+    expect(e.getState().tempoRatio).toBeCloseTo(40 / 140);
+    e.setTempo(Number.MAX_VALUE);
+    expect(e.getState().tempoRatio).toBeCloseTo(300 / 140);
+  });
+  it("ignores tempos that are not a positive finite number", async () => {
+    const { e } = setup();
+    await e.play(loop("a"));
+    for (const bpm of [0, -10, Infinity, -Infinity, NaN]) e.setTempo(bpm);
+    expect(e.getState().tempoRatio).toBe(1);
+  });
+});
+
 describe("pause, resume and seek on the stretch", () => {
   async function onStretch() {
     const s = setup();
@@ -243,6 +279,49 @@ describe("pause, resume and seek on the stretch", () => {
     expect(node.lastStart!.input).toBeCloseTo(PAD + 1.5);
     expect(e.getPositionMs()).toBeCloseTo(1500);
   });
+  /** The stretch's own gain (the node connects to it). */
+  const stretchGain = (node: { connected: unknown[] }) => (node.connected[0] as FakeGain).gain;
+  it("seek fades the old position out from now and the new one in from its start, with no jump", async () => {
+    const { e, ctx, node } = await onStretch();
+    const g = stretchGain(node);
+    const t0 = ctx.currentTime;
+    const before = g.at(t0);
+    expect(before).toBeGreaterThan(0.99);
+    e.seek(1500);
+    await settle();
+    const T = node.lastStart!.output!;
+    expect(T).toBeCloseTo(t0 + LEAD);
+    expect(g.at(t0 + 0.001), "no step at the seek").toBeGreaterThan(0.75);
+    expect(g.at(t0 + 0.03)).toBeLessThan(0.01);
+    expect(g.at(T - 1e-6), "silent when the new position starts").toBeLessThan(1e-3);
+    expect(g.at(T + 0.001), "the new position ramps in").toBeLessThan(0.25);
+    expect(g.at(T + 0.05)).toBeGreaterThan(0.99);
+  });
+  it("switching to another loop keeps the old one's fade and swaps buffers only once it is silent", async () => {
+    const { e, ctx, node, sleeps } = await onStretch();
+    e.preload(loop("b"));
+    await settle();
+    const dropsAt: number[] = [];
+    const drop = node.dropBuffers.bind(node);
+    node.dropBuffers = () => {
+      dropsAt.push(ctx.currentTime);
+      return drop();
+    };
+    const g = stretchGain(node);
+    const t0 = ctx.currentTime;
+    await e.play(loop("b"));
+    await settle();
+    expect(e.getState()).toMatchObject({ status: "playing", current: { id: "b" } });
+    expect(sleeps.length).toBeGreaterThan(0);
+    expect(dropsAt).toHaveLength(1);
+    expect(dropsAt[0]).toBeGreaterThanOrEqual(t0 + 0.03 - 1e-9);
+    expect(g.at(t0 + 0.001), "no step at the switch").toBeGreaterThan(0.75);
+    expect(g.at(dropsAt[0]!), "silent when the buffers are swapped").toBeLessThan(0.01);
+    const T = node.lastStart!.output!;
+    expect(T).toBeGreaterThan(dropsAt[0]!);
+    expect(g.at(T - 1e-6)).toBeLessThan(1e-3);
+    expect(g.at(T + 0.05)).toBeGreaterThan(0.99);
+  });
   it("switching to a one-shot silences the stretch", async () => {
     const { e, node } = await onStretch();
     await e.play(oneshot("s"));
@@ -251,6 +330,36 @@ describe("pause, resume and seek on the stretch", () => {
 });
 
 describe("a stretch that fails to load", () => {
+  it("a node made but not working (latency rejects) is disconnected, and the next change makes a new one", async () => {
+    const { e, stretch, node } = setup();
+    node.failLatency = true;
+    await e.play(loop("a"));
+    e.setTempo(70);
+    await settle();
+    expect(e.getState()).toMatchObject({ status: "playing", tempoRatio: 1 });
+    expect(node.disconnects).toBe(1);
+    node.failLatency = false;
+    e.setTempo(70);
+    await settle();
+    expect(stretch.state.calls).toBe(2);
+    expect(e.getState().tempoRatio).toBe(0.5);
+    expect(node.lastStart).toBeDefined();
+  });
+  it("a buffer swap queued for an item that is no longer current does not run", async () => {
+    const { e, stretch, node } = setup();
+    stretch.hold();
+    await e.play(loop("a"));
+    e.setTempo(70); // a waits for the stretch
+    await settle();
+    await e.play(loop("b")); // b is stretched too (the tempo carries over as a ratio) and waits as well
+    await settle();
+    stretch.release();
+    await settle();
+    expect(e.getState()).toMatchObject({ status: "playing", current: { id: "b" } });
+    expect(node.drops, "only b's buffers were loaded into the stretch").toBe(1);
+    expect(node.buffers).toHaveLength(1);
+    expect(node.buffers[0]![0]!.length).toBeGreaterThan(3 * 48000); // b: 3.1 s decoded, padded
+  });
   it("keeps the loop playing at its original tempo and key, and is retried next time", async () => {
     const { e, stretch, plainPlaying } = setup();
     stretch.state.fail = true;

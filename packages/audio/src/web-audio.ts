@@ -1,3 +1,8 @@
+// The package ships no types, and an ambient declaration for an untyped package has no import form
+// (in a module it would be an augmentation, which TypeScript refuses). The reference makes it
+// reachable from the entry point, so a consumer that compiles only index.ts gets it too.
+// eslint-disable-next-line @typescript-eslint/triple-slash-reference
+/// <reference path="./signalsmith-stretch.d.ts" />
 /**
  * The slice of the Web Audio API the engine uses, written structurally so the browser's AudioContext
  * satisfies it and unit tests can pass a fake. Shapes follow lib.dom.d.ts (TypeScript 6.0.3).
