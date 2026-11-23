@@ -84,7 +84,11 @@ def test_local_storage_round_trip_and_size_cap(tmp_path: Path):
 
 def s3_client():
     return boto3.client(
-        "s3", region_name="auto", endpoint_url="http://storage.test", aws_access_key_id="k", aws_secret_access_key="s"
+        "s3",
+        region_name="auto",
+        endpoint_url="http://storage.test",
+        aws_access_key_id="k",
+        aws_secret_access_key="s",  # noqa: S106
     )
 
 
@@ -118,9 +122,7 @@ def test_s3_download_stops_reading_past_the_cap_even_if_the_length_lies(tmp_path
     s = S3Storage(client, {"originals": "o", "previews": "p"})
     body = b"y" * 5000
     with Stubber(client) as stub:
-        stub.add_response(
-            "get_object", {"Body": StreamingBody(io.BytesIO(body), len(body)), "ContentLength": 10}, None
-        )
+        stub.add_response("get_object", {"Body": StreamingBody(io.BytesIO(body), len(body)), "ContentLength": 10}, None)
         with pytest.raises(StorageError, match="larger"):
             s.download("originals", "k", tmp_path / "f", max_bytes=1000)
 
@@ -223,7 +225,18 @@ def test_outputs_named_in_the_result_are_uploaded_immutable(tmp_path: Path):
 
 
 @pytest.mark.parametrize(
-    "case", ["missing", "wrong_size", "wrong_hash", "no_hash", "other_item", "dotdot", "originals", "symlink_file", "symlink_dir"]
+    "case",
+    [
+        "missing",
+        "wrong_size",
+        "wrong_hash",
+        "no_hash",
+        "other_item",
+        "dotdot",
+        "originals",
+        "symlink_file",
+        "symlink_dir",
+    ],
 )
 def test_outputs_that_do_not_match_the_result_are_refused(tmp_path: Path, case: str):
     store = LocalStorage(tmp_path / "store")
