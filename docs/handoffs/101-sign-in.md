@@ -113,8 +113,8 @@ apps/web typecheck: Done
  Test Files  2 passed (2)
       Tests  87 passed (87)
 ```
-The web project alone has 6 files and 76 tests, all new: errors 6, action wrapper 15, session and
-mapping 14, profile actions 21, sign-in and callback 17, env 3. The baseline before this ticket was
+The web project alone has 6 files and 76 tests, all new: errors 6, action wrapper 16, session and
+mapping 14, profile actions 20, sign-in and callback 17, env 3. The baseline before this ticket was
 102 unit and 76 db tests.
 `pnpm --filter @stash/web build` also succeeds and lists `ƒ /api/auth/callback`.
 
