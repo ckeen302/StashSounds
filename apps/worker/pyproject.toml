@@ -5,6 +5,7 @@ description = "Stash processing worker: turns each uploaded original into small 
 requires-python = ">=3.12"
 dependencies = [
   "jsonschema>=4.23",
+  "pg8000>=1.31.6",
 ]
 
 [dependency-groups]
