@@ -6,6 +6,9 @@
 -- auth.uid(). supabase/tests/shim.sql recreates those for plain Postgres in tests.
 
 create extension if not exists pg_trgm;
+-- Supabase keeps extensions in their own schema; plain Postgres (tests) gets the same layout.
+create schema if not exists extensions;
+create extension if not exists unaccent with schema extensions;
 
 -- ===========================================================================
 -- Types
@@ -28,16 +31,46 @@ as $$
   from generate_series(1, 10);
 $$;
 
--- Mirrors slugify() in packages/contracts/src/paths.ts.
+-- Mirrors slugify() in packages/contracts/src/paths.ts; supabase/tests checks they agree.
 create function public.slugify(title text) returns text
 language sql immutable
 set search_path = ''
 as $$
   select coalesce(
     nullif(
-      trim(both '-' from left(trim(both '-' from regexp_replace(lower(title), '[^a-z0-9]+', '-', 'g')), 60)),
+      trim(both '-' from left(trim(both '-' from regexp_replace(
+        lower(extensions.unaccent('extensions.unaccent'::regdictionary, coalesce(title, ''))),
+        '[^a-z0-9]+', '-', 'g')), 60)),
       ''),
     'untitled');
+$$;
+
+-- Profile links: an array of at most 8 {kind, url} objects with https URLs.
+create function public.valid_profile_links(p_links jsonb) returns boolean
+language sql immutable
+set search_path = ''
+as $$
+  select jsonb_typeof(p_links) = 'array'
+     and jsonb_array_length(p_links) <= 8
+     and not exists (
+       select 1 from jsonb_array_elements(p_links) l
+        where jsonb_typeof(l) <> 'object'
+           or coalesce(l ->> 'url', '') !~ '^https://[^\s/?#]+[^\s]*$'
+           or char_length(l ->> 'url') > 300
+           or coalesce(l ->> 'kind', '') = '');
+$$;
+
+-- Storage paths written by the worker: relative, no empty, dot or dot-dot segments.
+create function public.safe_path(p_path text, p_prefix text) returns boolean
+language sql immutable
+set search_path = ''
+as $$
+  select p_path is not null
+     and starts_with(p_path, p_prefix)
+     and p_path !~ '(^|/)\.{1,2}(/|$)'
+     and p_path !~ '//'
+     and p_path !~ '[\\[:cntrl:]]'
+     and char_length(p_path) <= 400;
 $$;
 
 create function public.set_updated_at() returns trigger
@@ -59,8 +92,8 @@ create table public.profiles (
   handle          text unique not null check (handle ~ '^[a-z0-9_]{3,24}$'),
   display_name    text not null check (char_length(display_name) between 1 and 40),
   bio             text check (char_length(bio) <= 280),
-  avatar_path     text,
-  links           jsonb not null default '[]' check (jsonb_typeof(links) = 'array'),
+  avatar_path     text check (avatar_path is null or public.safe_path(avatar_path, id::text || '/')),
+  links           jsonb not null default '[]' check (public.valid_profile_links(links)),
   followers_count int not null default 0,
   following_count int not null default 0,
   created_at      timestamptz not null default now()
@@ -91,13 +124,14 @@ create table public.items (
   key_root        smallint check (key_root between 0 and 11),     -- 0 = C
   key_mode        key_mode,
   duration_ms     int,
-  details         jsonb not null default '{}',                    -- per-type shape, validated by contracts
+  details         jsonb,                                          -- per-type shape, validated by contracts; null until processed
   tag_names       text[] not null default '{}',                   -- kept in sync from item_tags
   search_vector   tsvector,                                       -- kept in sync by trigger
   likes_count     int not null default 0,
   downloads_count int not null default 0,
   flagged_reason  text,
   rights_confirmed_at timestamptz,
+  wavetables_confirmed_at timestamptz,                              -- presets only: wavetables are own or factory
   published_at    timestamptz,
   created_at      timestamptz not null default now(),
   updated_at      timestamptz not null default now(),
@@ -223,7 +257,8 @@ create table public.reports (
   reason      text not null check (reason in ('stolen','copyright','spam','abuse','other')),
   detail      text check (char_length(detail) <= 1000),
   status      text not null default 'open' check (status in ('open','upheld','dismissed')),
-  created_at  timestamptz not null default now()
+  created_at  timestamptz not null default now(),
+  unique (reporter_id, item_id)       -- one report per person per item
 );
 create index reports_item_idx on public.reports (item_id) where status = 'open';
 
@@ -353,6 +388,8 @@ $$;
 -- Rate limits
 
 -- Counts one hit in the current window and fails with rate_limited past the limit.
+-- Service role only (the server uses it for per-address limits such as search); signed-in callers
+-- never choose their own bucket or limit: rate_limit_user below picks both.
 create function public.hit_rate_limit(p_bucket text, p_limit int, p_window interval) returns void
 language plpgsql security definer
 set search_path = ''
@@ -370,6 +407,41 @@ begin
   end if;
 end;
 $$;
+
+-- The caller's own limit for one action, from app_limits().rateLimits. Writes by the service role
+-- or the database owner (no auth.uid()) are not limited.
+create function public.rate_limit_user(p_action text) returns void
+language plpgsql security definer
+set search_path = ''
+as $$
+declare
+  v_uid uuid := auth.uid();
+  v_limits jsonb := public.app_limits() -> 'rateLimits';
+begin
+  if v_uid is null then return; end if;
+  case p_action
+    when 'like'     then perform public.hit_rate_limit('like:'     || v_uid, (v_limits ->> 'likesPerHour')::int,    interval '1 hour');
+    when 'follow'   then perform public.hit_rate_limit('follow:'   || v_uid, (v_limits ->> 'followsPerHour')::int,  interval '1 hour');
+    when 'report'   then perform public.hit_rate_limit('report:'   || v_uid, (v_limits ->> 'reportsPerDay')::int,   interval '1 day');
+    when 'download' then perform public.hit_rate_limit('download:' || v_uid, (v_limits ->> 'downloadsPerDay')::int, interval '1 day');
+    else perform public.fail('invalid', 'Unknown rate-limited action.');
+  end case;
+end;
+$$;
+
+-- Direct inserts into likes, follows and reports are limited here, so no client can skip the limit.
+create function public.on_limited_insert() returns trigger
+language plpgsql security definer
+set search_path = ''
+as $$
+begin
+  perform public.rate_limit_user(tg_argv[0]);
+  return new;
+end;
+$$;
+create trigger likes_rate_limit   before insert on public.likes   for each row execute function public.on_limited_insert('like');
+create trigger follows_rate_limit before insert on public.follows for each row execute function public.on_limited_insert('follow');
+create trigger reports_rate_limit before insert on public.reports for each row execute function public.on_limited_insert('report');
 
 -- ===========================================================================
 -- Counts, kept current by triggers so feeds never count rows on read
@@ -414,7 +486,11 @@ begin
   if tg_op = 'INSERT' then
     update public.profiles set followers_count = followers_count + 1 where id = new.followee_id;
     update public.profiles set following_count = following_count + 1 where id = new.follower_id;
-    insert into public.notifications (user_id, kind, actor_id) values (new.followee_id, 'follow', new.follower_id);
+    -- Follow, unfollow, follow again does not stack notifications: one unread per follower.
+    if not exists (select 1 from public.notifications
+                    where user_id = new.followee_id and kind = 'follow' and actor_id = new.follower_id and read_at is null) then
+      insert into public.notifications (user_id, kind, actor_id) values (new.followee_id, 'follow', new.follower_id);
+    end if;
     return new;
   else
     update public.profiles set followers_count = greatest(followers_count - 1, 0) where id = old.followee_id;
@@ -581,10 +657,23 @@ begin
 end;
 $$;
 
+-- The stored type of an upload comes from its extension, never from what the browser claimed.
+-- The worker checks the bytes themselves.
+create function public.mime_for_ext(p_ext text) returns text
+language sql immutable
+set search_path = ''
+as $$
+  select case lower(p_ext)
+    when 'wav' then 'audio/wav' when 'aiff' then 'audio/aiff' when 'aif' then 'audio/aiff'
+    when 'flac' then 'audio/flac' when 'mp3' then 'audio/mpeg' when 'zip' then 'application/zip'
+    when 'mid' then 'audio/midi' when 'midi' then 'audio/midi'
+    else 'application/octet-stream' end;
+$$;
+
 -- createUploadSlot: checks verified email, suspension, type, size, daily uploads and quota, then
 -- creates a draft item and its original file row. The server signs the upload URL for the path.
 create function public.create_upload_draft(
-  p_type public.item_type, p_title text, p_bytes bigint, p_mime text, p_ext text
+  p_type public.item_type, p_title text, p_bytes bigint, p_ext text
 ) returns table (item_id uuid, file_id uuid, path text)
 language plpgsql security definer
 set search_path = ''
@@ -630,7 +719,7 @@ begin
 
   v_path := v_uid::text || '/' || v_item::text || '/original.' || v_ext;
   insert into public.item_files (item_id, role, bucket, path, bytes, mime)
-  values (v_item, 'original', 'originals', v_path, p_bytes, p_mime)
+  values (v_item, 'original', 'originals', v_path, p_bytes, public.mime_for_ext(v_ext))
   returning id into v_file;
 
   return query select v_item, v_file, v_path;
@@ -638,7 +727,7 @@ end;
 $$;
 
 -- A preset's demo audio, attached to the caller's own draft.
-create function public.add_demo_file(p_item_id uuid, p_bytes bigint, p_mime text, p_ext text)
+create function public.add_demo_file(p_item_id uuid, p_bytes bigint, p_ext text)
 returns table (file_id uuid, path text)
 language plpgsql security definer
 set search_path = ''
@@ -661,15 +750,18 @@ begin
   delete from public.item_files f where f.item_id = p_item_id and f.role = 'demo';
   v_path := v_item.owner_id::text || '/' || v_item.id::text || '/demo.' || v_ext;
   insert into public.item_files (item_id, role, bucket, path, bytes, mime)
-  values (p_item_id, 'demo', 'originals', v_path, p_bytes, p_mime)
+  values (p_item_id, 'demo', 'originals', v_path, p_bytes, public.mime_for_ext(v_ext))
   returning id into v_file;
   return query select v_file, v_path;
 end;
 $$;
 
--- completeUpload: called after the server confirmed the object exists with the declared size.
+-- completeUpload: service role only. The server measures the stored object (HEAD) and passes the
+-- caller's id and the measured size; a size other than the declared one is refused, so the quota
+-- counted at createUploadSlot is the size actually stored.
 -- Moves draft to processing and queues the job. Presets need their demo too.
-create function public.enqueue_processing(p_item_id uuid, p_file_id uuid) returns uuid
+create function public.enqueue_processing(p_user_id uuid, p_item_id uuid, p_file_id uuid, p_measured_bytes bigint)
+returns uuid
 language plpgsql security definer
 set search_path = ''
 as $$
@@ -678,9 +770,15 @@ declare
   v_job uuid;
 begin
   select * into v_item from public.items where id = p_item_id for update;
-  if v_item.id is null or v_item.owner_id is distinct from auth.uid() then perform public.fail('not_found', 'Item not found.'); end if;
-  update public.item_files set uploaded_at = now() where id = p_file_id and item_id = p_item_id;
-  if not found then perform public.fail('not_found', 'File not found.'); end if;
+  if v_item.id is null or v_item.owner_id is distinct from p_user_id then perform public.fail('not_found', 'Item not found.'); end if;
+  update public.item_files set uploaded_at = now()
+   where id = p_file_id and item_id = p_item_id and bucket = 'originals' and bytes = p_measured_bytes;
+  if not found then
+    if exists (select 1 from public.item_files where id = p_file_id and item_id = p_item_id and bucket = 'originals') then
+      perform public.fail('invalid', 'The uploaded file is not the size that was declared.');
+    end if;
+    perform public.fail('not_found', 'File not found.');
+  end if;
 
   if v_item.status <> 'draft' then perform public.fail('conflict', 'This item is already processing.'); end if;
   if exists (select 1 from public.item_files where item_id = p_item_id and bucket = 'originals' and uploaded_at is null) then
@@ -710,17 +808,22 @@ declare
   v_tag bigint;
   v_kind text;
   v_all text[];
+  v_tags jsonb := public.app_limits() -> 'tags';
 begin
   if not exists (select 1 from public.items where id = p_item_id and owner_id = auth.uid() and status <> 'removed') then
     perform public.fail('not_found', 'Item not found.');
   end if;
   select coalesce(array_agg(distinct lower(trim(t))), '{}') into v_all
     from unnest(coalesce(p_tags, '{}') || coalesce(p_reference_tags, '{}')) t;
-  if cardinality(v_all) > 8 then perform public.fail('invalid', 'Up to 8 tags in total.'); end if;
+  if cardinality(v_all) > (v_tags ->> 'perItem')::int then
+    perform public.fail('invalid', 'Up to ' || (v_tags ->> 'perItem') || ' tags in total.');
+  end if;
 
   delete from public.item_tags where item_id = p_item_id;
   foreach v_name in array v_all loop
-    if char_length(v_name) not between 2 and 40 then perform public.fail('invalid', 'Tags are 2 to 40 characters.'); end if;
+    if char_length(v_name) not between (v_tags ->> 'minLength')::int and (v_tags ->> 'maxLength')::int then
+      perform public.fail('invalid', 'Tags are ' || (v_tags ->> 'minLength') || ' to ' || (v_tags ->> 'maxLength') || ' characters.');
+    end if;
     v_kind := case when v_name = any (select lower(trim(r)) from unnest(coalesce(p_reference_tags, '{}')) r)
                    then 'reference' else 'tag' end;
     insert into public.tags (name, kind) values (v_name, v_kind)
@@ -732,7 +835,8 @@ begin
 end;
 $$;
 
-create function public.publish_item(p_item_id uuid, p_rights_confirmed boolean) returns public.items
+create function public.publish_item(p_item_id uuid, p_rights_confirmed boolean, p_wavetables_confirmed boolean default false)
+returns public.items
 language plpgsql security definer
 set search_path = ''
 as $$
@@ -746,10 +850,14 @@ begin
   if p_rights_confirmed is not true then
     perform public.fail('invalid', 'Confirm you made this or hold the rights to it.');
   end if;
+  if v_item.type = 'preset' and p_wavetables_confirmed is not true then
+    perform public.fail('invalid', 'Confirm any wavetables are your own or factory content.');
+  end if;
 
   update public.items
      set status = 'published',
          rights_confirmed_at = now(),
+         wavetables_confirmed_at = case when v_item.type = 'preset' then now() else null end,
          published_at = coalesce(published_at, now())
    where id = p_item_id
   returning * into v_item;
@@ -822,6 +930,7 @@ begin
   if p_kit_sample_id is not null and not exists (select 1 from public.kit_samples where id = p_kit_sample_id and item_id = p_item_id) then
     perform public.fail('not_found', 'Sample not found.');
   end if;
+  perform public.rate_limit_user('download');
   select handle into v_handle from public.profiles where id = v_item.owner_id;
   insert into public.downloads (user_id, item_id, kit_sample_id, item_title, owner_handle, license, license_version, split_percent)
   values (v_uid, v_item.id, p_kit_sample_id, v_item.title, v_handle, v_item.license,
@@ -860,9 +969,31 @@ declare
   v_item public.items;
   v_flag jsonb := p_result -> 'flag';
   v_status public.item_status;
+  v_originals text;
+  v_previews text;
 begin
   select * into v_job from public.processing_jobs where id = p_job_id for update;
   if v_job.id is null then perform public.fail('not_found', 'Job not found.'); end if;
+  if v_job.status <> 'running' then perform public.fail('conflict', 'This job is not running.'); end if;
+  select * into v_item from public.items where id = v_job.item_id for update;
+  if v_item.status <> 'processing' then perform public.fail('conflict', 'This item is not processing.'); end if;
+  if p_result ->> 'type' is distinct from v_item.type::text then
+    perform public.fail('invalid', 'The result is for a different item type.');
+  end if;
+
+  -- Every path the worker reports stays inside this item's folder: originals under
+  -- <owner>/<item>/, previews under <item>/.
+  v_originals := v_item.owner_id::text || '/' || v_item.id::text || '/';
+  v_previews  := v_item.id::text || '/';
+  if exists (select 1 from jsonb_array_elements(coalesce(p_result -> 'files', '[]')) f
+              where f ->> 'bucket' not in ('originals', 'previews')
+                 or not public.safe_path(f ->> 'path', case when f ->> 'bucket' = 'originals' then v_originals else v_previews end)
+                 or (f ->> 'bucket' = 'originals' and f ->> 'role' not in ('original', 'demo')))
+     or exists (select 1 from jsonb_array_elements(coalesce(p_result -> 'kitSamples', '[]')) k
+              where not public.safe_path(k ->> 'originalPath', v_originals)
+                 or not public.safe_path(k ->> 'previewPath', v_previews)) then
+    perform public.fail('invalid', 'A file path is outside this item''s folder.');
+  end if;
 
   -- Replace derived files and samples; the uploader's originals stay.
   delete from public.item_files where item_id = v_job.item_id and role not in ('original', 'demo');
@@ -951,13 +1082,16 @@ as $$
   select count(*)::int from r;
 $$;
 
--- Items in the admin review queue: flagged by the worker, or with enough open reports.
+-- Items in the admin review queue: flagged by the worker, or reported by enough different people
+-- (app_limits().moderation.openReportsToQueue).
 create view public.admin_review_queue with (security_invoker = true) as
-  select i.id as item_id, i.status, i.flagged_reason,
-         (select count(*) from public.reports r where r.item_id = i.id and r.status = 'open')::int as open_reports
-    from public.items i
-   where i.status = 'flagged'
-      or (select count(*) from public.reports r where r.item_id = i.id and r.status = 'open') >= 3;
+  select q.item_id, q.status, q.flagged_reason, q.open_reports
+    from (select i.id as item_id, i.status, i.flagged_reason,
+                 (select count(distinct r.reporter_id) from public.reports r
+                   where r.item_id = i.id and r.status = 'open')::int as open_reports
+            from public.items i) q
+   where q.status = 'flagged'
+      or q.open_reports >= (public.app_limits() -> 'moderation' ->> 'openReportsToQueue')::int;
 
 -- ===========================================================================
 -- Privileges. Supabase grants everything on new tables to anon and authenticated by default;
@@ -973,16 +1107,21 @@ grant all on all sequences in schema public to service_role;
 grant execute on all functions in schema public to service_role;
 
 -- Reads
-grant select on public.profiles, public.items, public.item_files, public.kit_samples,
+grant select on public.profiles, public.items, public.item_files,
                 public.tags, public.item_tags, public.follows, public.likes to anon, authenticated;
+-- kit_samples.original_path is never readable through the API: originals are signed by the server.
+grant select (id, item_id, position, name, category, duration_ms, root_note, preview_path)
+  on public.kit_samples to anon, authenticated;
 grant select on public.accounts, public.downloads, public.notifications, public.reports,
                 public.dmca_notices, public.processing_jobs, public.admin_actions,
-                public.admin_review_queue to authenticated;
+                public.admin_review_queue, public.fingerprints to authenticated;
 
 -- Column-level writes
 grant update (display_name, bio, avatar_path, links) on public.profiles to authenticated;
 grant update (title, description, genre, license, split_percent, bpm, key_root, key_mode) on public.items to authenticated;
-grant insert, delete on public.follows, public.likes to authenticated;
+grant insert (follower_id, followee_id) on public.follows to authenticated;
+grant insert (user_id, item_id) on public.likes to authenticated;
+grant delete on public.follows, public.likes to authenticated;
 grant update (read_at) on public.notifications to authenticated;
 grant insert (item_id, reason, detail) on public.reports to authenticated;
 
@@ -990,18 +1129,19 @@ grant insert (item_id, reason, detail) on public.reports to authenticated;
 grant execute on function
   public.is_admin(), public.is_active_user(), public.can_read_item(uuid),
   public.claim_handle(text, text),
-  public.create_upload_draft(public.item_type, text, bigint, text, text),
-  public.add_demo_file(uuid, bigint, text, text),
-  public.enqueue_processing(uuid, uuid),
+  public.create_upload_draft(public.item_type, text, bigint, text),
+  public.add_demo_file(uuid, bigint, text),
   public.set_item_tags(uuid, text[], text[]),
-  public.publish_item(uuid, boolean),
+  public.publish_item(uuid, boolean, boolean),
   public.unpublish_item(uuid),
   public.remove_item(uuid, text),
-  public.record_download(uuid, uuid),
-  public.hit_rate_limit(text, int, interval)
+  public.record_download(uuid, uuid)
 to authenticated;
-grant execute on function public.is_admin(), public.is_active_user(), public.can_read_item(uuid), public.slugify(text) to anon;
-grant execute on function public.slugify(text) to authenticated;
+-- Used inside policies and check constraints, so both API roles need them.
+grant execute on function public.is_admin(), public.is_active_user(), public.can_read_item(uuid),
+  public.slugify(text), public.valid_profile_links(jsonb), public.safe_path(text, text), public.app_limits()
+to anon, authenticated;
+-- enqueue_processing, hit_rate_limit, rate_limit_user and the worker functions: service role only.
 
 -- ===========================================================================
 -- Row-level security: on for every table
@@ -1043,8 +1183,11 @@ create policy items_read on public.items for select
 create policy items_update on public.items for update to authenticated
   using (owner_id = auth.uid() and status <> 'removed') with check (owner_id = auth.uid());
 
--- item_files, kit_samples: readable when the parent item is
-create policy item_files_read  on public.item_files  for select using (public.can_read_item(item_id));
+-- item_files: previews are readable when the parent item is; originals (private paths and hashes)
+-- only by the owner and admins. kit_samples: readable when the parent item is.
+create policy item_files_read  on public.item_files  for select
+  using (case when bucket = 'previews' then public.can_read_item(item_id)
+              else public.is_admin() or exists (select 1 from public.items i where i.id = item_id and i.owner_id = auth.uid()) end);
 create policy kit_samples_read on public.kit_samples for select using (public.can_read_item(item_id));
 
 -- tags, item_tags: everyone reads (writes go through set_item_tags)
@@ -1075,8 +1218,9 @@ create policy reports_read   on public.reports for select to authenticated using
 create policy reports_insert on public.reports for insert to authenticated
   with check (reporter_id = auth.uid() and public.is_active_user() and public.can_read_item(item_id));
 
--- dmca_notices, fingerprints: admins read dmca; service role writes both
+-- dmca_notices, fingerprints: admins read; service role writes both
 create policy dmca_read on public.dmca_notices for select to authenticated using (public.is_admin());
+create policy fingerprints_read on public.fingerprints for select to authenticated using (public.is_admin());
 
 -- processing_jobs: owner of the item and admins read
 create policy jobs_read on public.processing_jobs for select to authenticated

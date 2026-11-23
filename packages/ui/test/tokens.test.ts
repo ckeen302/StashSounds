@@ -54,7 +54,13 @@ describe("lint rules", () => {
           files: ["**/*.tsx"],
           languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
           plugins: { stash: plugin },
-          rules: { "stash/no-raw-color": "error", "stash/no-arbitrary-values": "error", "stash/spacing-scale": "error" },
+          rules: {
+            "stash/no-raw-color": "error",
+            "stash/no-arbitrary-values": "error",
+            "stash/spacing-scale": "error",
+            "stash/motion-scale": "error",
+            "stash/no-inline-style": "error",
+          },
         },
       ], "x.tsx")
       .map((m) => m.ruleId);
@@ -67,6 +73,17 @@ describe("lint rules", () => {
     [`const a = <div className="p-5 gap-2" />;`, "stash/spacing-scale"],
     [`const a = <div className="-mt-7" />;`, "stash/spacing-scale"],
     [`const a = <div className="[mask-type:luminance]" />;`, "stash/no-arbitrary-values"],
+    [`const a = <div className="p-(--gap)" />;`, "stash/no-arbitrary-values"],
+    [`const a = <div className="!p-5" />;`, "stash/spacing-scale"],
+    [`const a = <div className="p-5!" />;`, "stash/spacing-scale"],
+    [`const a = <div className="gap-px" />;`, "stash/spacing-scale"],
+    [`const a = <div className="translate-x-5" />;`, "stash/spacing-scale"],
+    [`const a = <div className="-translate-y-7" />;`, "stash/spacing-scale"],
+    [`const a = <div className="md:hover:mt-5" />;`, "stash/spacing-scale"],
+    [`const a = <div className="duration-300" />;`, "stash/motion-scale"],
+    [`const a = <div className="delay-75" />;`, "stash/motion-scale"],
+    [`const a = <div style={{ marginTop: 7 }} />;`, "stash/no-inline-style"],
+    [`const s = { marginTop: 7 }; const a = <div style={s} />;`, "stash/no-inline-style"],
   ])("rejects %s", (code, rule) => {
     expect(lint(code)).toContain(rule);
   });
@@ -75,7 +92,19 @@ describe("lint rules", () => {
     `const a = <div className="p-4 gap-2 mt-6 bg-surface text-accent h-14 w-58 rounded-control" />;`,
     `const a = <div className="hover:bg-raised focus-visible:ring-2 px-3 py-1" />;`,
     `import x from "#lib/thing";`,
+    `const a = <div className="duration-120 duration-control delay-0 translate-x-4 !p-4" />;`,
+    `const a = <div style={{ "--progress": 0.5 }} />;`,
   ])("accepts %s", (code) => {
     expect(lint(code)).toEqual([]);
+  });
+});
+
+describe("favicon", () => {
+  it("uses only token colors", () => {
+    const svg = readFileSync(join(import.meta.dirname, "../../../apps/web/src/app/icon.svg"), "utf8");
+    const used = [...svg.matchAll(/#[0-9A-Fa-f]{6}\b/g)].map((m) => m[0].toUpperCase());
+    const tokens = new Set(Object.values(color).map((c) => c.toUpperCase()));
+    expect(used.length).toBeGreaterThan(0);
+    expect(used.filter((c) => !tokens.has(c))).toEqual([]);
   });
 });

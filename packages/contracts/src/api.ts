@@ -96,8 +96,11 @@ export const publishItemInput = z.object({
   itemId: uuidSchema,
   /** The uploader warranty: they made it or hold the rights, and it has no samples from paid packs or released records. */
   rightsConfirmed: z.literal(true),
-  /** Presets only: wavetables are the uploader's own or factory content. */
-  wavetablesConfirmed: z.boolean().optional(),
+  /**
+   * Presets only, and required for them: any wavetables are the uploader's own or factory content.
+   * Stored as items.wavetables_confirmed_at; publish_item refuses a preset without it.
+   */
+  wavetablesConfirmed: z.boolean().default(false),
 });
 export const publishItemOutput = z.object({ itemId: uuidSchema, publishedAt: isoDateTimeSchema, href: z.string() });
 

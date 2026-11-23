@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <!-- Logo mark (apps/web/src/app/logo-mark.tsx) at 32 px. Colors are the bg, raised, border-strong and accent tokens. -->
+  <rect width="32" height="32" rx="6" fill="#0B0B0D"/>
+  <rect x="4.5" y="4.5" width="10" height="10" rx="1.5" fill="#1D1D23" stroke="#6B6B78"/>
+  <rect x="17.5" y="4.5" width="10" height="10" rx="1.5" fill="#C8FF3E"/>
+  <rect x="4.5" y="17.5" width="10" height="10" rx="1.5" fill="#1D1D23" stroke="#6B6B78"/>
+  <rect x="17.5" y="17.5" width="10" height="10" rx="1.5" fill="#1D1D23" stroke="#6B6B78"/>
+</svg>

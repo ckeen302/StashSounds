@@ -63,6 +63,15 @@ export const size = {
 
 export const breakpoint = { tablet: 640, desktop: 1024 } as const;
 
+/** Weights in use: body, medium (titles in rows, numerals), semibold (headings), heavy (the wordmark). */
+export const fontWeight = { normal: 400, medium: 500, semibold: 600, extrabold: 800 } as const;
+
+/** Letter spacing: the label style's caps tracking, and the wordmark's tight setting. */
+export const tracking = { tight: "-0.02em", caps: "0.06em" } as const;
+
+/** Content column width (max-w-content). */
+export const container = { content: size.contentMax } as const;
+
 export const font = {
   sans: '"Inter Variable", "Inter", ui-sans-serif, system-ui, sans-serif',
   mono: '"JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace',
@@ -76,7 +85,7 @@ export const text = {
   body: { size: 14, line: 20, weight: 400 },
   small: { size: 13, line: 18, weight: 400 },
   numeric: { size: 13, line: 18, weight: 500, mono: true },
-  label: { size: 11, line: 16, weight: 500, mono: true, uppercase: true, tracking: "0.06em" },
+  label: { size: 11, line: 16, weight: 500, mono: true, uppercase: true, tracking: tracking.caps },
 } as const;
 export type TextStyle = keyof typeof text;
 
@@ -90,7 +99,8 @@ export const motion = {
   overlayMin: 160,
   overlayMax: 200,
   feedIn: 200,
-  easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+  /** Standard ease-out (design spec, Motion). */
+  easing: "cubic-bezier(0, 0, 0.2, 1)",
 } as const;
 
 export const focusRing = { width: 2, offset: 2 } as const;

@@ -6,7 +6,7 @@
   - `conversations`, `conversation_participants`, `messages` for phase 4, created with no grants and no policies.
   - `reserved_handles`, consulted by `claim_handle`.
   - Columns: `items.rights_confirmed_at` (the uploader warranty), `item_files.uploaded_at` (set by completeUpload), `downloads.kit_sample_id` (a single-sample kit download), and a check that key root and mode are set together.
-  - Functions beyond the spec's list: `create_upload_draft`, `add_demo_file`, `enqueue_processing` (upload slot and confirm), `claim_job`, `worker_complete`, `worker_fail`, `requeue_stale_jobs` (the worker's narrow service-role functions), `hit_rate_limit`, `app_limits`.
-  - `admin_review_queue` view: flagged items plus items with three or more open reports. Reports do not hide an item by themselves, so three accounts cannot take anything down.
+  - Functions beyond the spec's list: `create_upload_draft`, `add_demo_file`, `enqueue_processing` (upload slot and confirm), `claim_job`, `worker_complete`, `worker_fail`, `requeue_stale_jobs` (the worker's narrow service-role functions), `hit_rate_limit`, `rate_limit_user`, `app_limits`, and the check helpers `valid_profile_links`, `safe_path`, `mime_for_ext`. Decision 0008 tightened several of these after review.
+  - `admin_review_queue` view: flagged items plus items reported by three or more different people (`moderation.openReportsToQueue`). Reports do not hide an item by themselves, so three accounts cannot take anything down.
 - Reason: Each is needed by a phase 1 to 3 ticket, and the playbook keeps migrations with the lead.
 - Consequence: data-model.md describes the spec's tables; the migration is the source of truth for the rest.

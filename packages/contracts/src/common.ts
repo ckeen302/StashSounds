@@ -85,7 +85,12 @@ export function compatibleKeys(key: MusicalKey): MusicalKey[] {
 // ---------------------------------------------------------------------------
 // Waveform peaks: 800 unsigned bytes (0 to 255), base64 in JSON so a row needs no second request.
 
-export const peaksSchema = z.base64();
+/** Waveform peaks: limits.waveform.peakPoints bytes, base64-encoded. */
+export const peaksSchema = z
+  .base64()
+  .refine((s) => (s.length / 4) * 3 - (s.endsWith("==") ? 2 : s.endsWith("=") ? 1 : 0) === limits.waveform.peakPoints, {
+    message: `peaks are ${limits.waveform.peakPoints} bytes`,
+  });
 
 export function encodePeaks(values: ArrayLike<number>): string {
   const bytes = new Uint8Array(values.length);

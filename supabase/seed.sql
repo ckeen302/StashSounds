@@ -43,7 +43,7 @@ insert into public.items (id, public_id, owner_id, type, status, title, slug, li
      "detection":{"bpmSource":"midi_file","bpmAgreed":true,"bpmCandidates":[72],"keySource":"midi_notes","keyConfidence":0.5}}',
    now() - interval '5 hours', 10),
   ('a0000000-0000-4000-8000-000000000005', 'seeddraft1', '22222222-2222-4222-8222-222222222222', 'loop', 'draft',
-   'Unfinished idea', 'unfinished-idea', 'royalty_free', null, null, null, null, null, '{}', null, null)
+   'Unfinished idea', 'unfinished-idea', 'royalty_free', null, null, null, null, null, null, null, null)
 on conflict do nothing;
 
 insert into public.tags (name, kind) values ('keys','instrument'), ('dark','mood'), ('soul','tag'), ('808','instrument'),

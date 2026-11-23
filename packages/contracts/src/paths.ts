@@ -12,9 +12,14 @@ export function parseItemParam(param: string): { slug: string; publicId: string 
   return { slug: m[1] ?? "", publicId: m[2] };
 }
 
-/** URL-safe slug from a title. Mirrors public.slugify in the migration. */
+/** Letters NFKD leaves whole that Postgres unaccent spells out, so both sides give one slug. */
+const SPELLED: Record<string, string> = { ß: "ss", æ: "ae", œ: "oe", ø: "o", ł: "l", đ: "d", ð: "d", þ: "th", ı: "i", ħ: "h", ŧ: "t" };
+
+/** URL-safe slug from a title. Mirrors public.slugify in the migration (supabase/tests checks parity). */
 export function slugify(title: string): string {
   const s = title
+    .toLowerCase()
+    .replace(/[ßæœøłđðþıħŧ]/g, (c) => SPELLED[c] ?? c)
     .normalize("NFKD")
     .replace(/[̀-ͯ]/g, "")
     .toLowerCase()

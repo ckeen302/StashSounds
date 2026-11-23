@@ -6,6 +6,7 @@
  *   3. .env.local written from `supabase status`
  *   4. the worker (uv) and the web app (next dev), with prefixed logs; Ctrl+C stops both
  * Needs Docker, Node 22, pnpm and uv. `pnpm dev -- --no-infra` skips steps 1 and 2.
+ * `pnpm dev -- --check` starts everything, checks each service answers (CI's local-stack job), and exits.
  */
 import { spawn, spawnSync } from "node:child_process";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
@@ -14,6 +15,8 @@ import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const noInfra = process.argv.includes("--no-infra");
+const checkOnly = process.argv.includes("--check");
+let supabaseEnv = {};
 
 function run(cmd, args, opts = {}) {
   const r = spawnSync(cmd, args, { cwd: root, stdio: opts.capture ? "pipe" : "inherit", encoding: "utf8" });
@@ -40,10 +43,11 @@ if (!noInfra) {
   const example = readFileSync(join(root, ".env.example"), "utf8");
   const values = {
     NEXT_PUBLIC_SUPABASE_URL: env.API_URL,
-    NEXT_PUBLIC_SUPABASE_ANON_KEY: env.ANON_KEY,
-    SUPABASE_SERVICE_ROLE_KEY: env.SERVICE_ROLE_KEY,
+    NEXT_PUBLIC_SUPABASE_ANON_KEY: env.ANON_KEY ?? env.PUBLISHABLE_KEY,
+    SUPABASE_SERVICE_ROLE_KEY: env.SERVICE_ROLE_KEY ?? env.SECRET_KEY,
     DATABASE_URL: env.DB_URL,
   };
+  supabaseEnv = env;
   const local = example.replace(/^([A-Z_]+)=(.*)$/gm, (line, k) => (values[k] ? `${k}=${values[k]}` : line));
   writeFileSync(join(root, ".env.local"), local);
   if (!existsSync(join(root, "apps/web/.env.local"))) writeFileSync(join(root, "apps/web/.env.local"), local);
@@ -60,6 +64,35 @@ const procs = [
   p.on("exit", (code) => console.log(`${tag}exited with ${code}`));
   return p;
 });
+
+if (checkOnly) {
+  const until = Date.now() + 180_000;
+  const probe = async (name, url, init, ok) => {
+    for (;;) {
+      try {
+        const r = await fetch(url, init);
+        if (await ok(r)) return console.log(`✓ ${name}`);
+      } catch {}
+      if (Date.now() > until) {
+        console.error(`✗ ${name} did not answer at ${url}`);
+        for (const p of procs) p.kill("SIGINT");
+        process.exit(1);
+      }
+      await new Promise((r) => setTimeout(r, 2000));
+    }
+  };
+  await probe("web", "http://localhost:3000/api/health", {}, (r) => r.ok);
+  await probe("storage", "http://127.0.0.1:9000/minio/health/live", {}, (r) => r.ok);
+  if (!noInfra) {
+    const key = supabaseEnv.ANON_KEY ?? supabaseEnv.PUBLISHABLE_KEY;
+    const headers = { apikey: key, Authorization: `Bearer ${key}` };
+    await probe("database seed is readable through the API", `${supabaseEnv.API_URL}/rest/v1/items?select=public_id&status=eq.published`, { headers }, async (r) =>
+      r.ok && (await r.json()).length === 4,
+    );
+  }
+  for (const p of procs) p.kill("SIGINT");
+  process.exit(0);
+}
 
 console.log("\n  web       http://localhost:3000\n  gallery   http://localhost:3000/dev/gallery\n  studio    http://127.0.0.1:54323\n  inbox     http://127.0.0.1:54324\n  storage   http://127.0.0.1:9001\n");
 const stop = () => {

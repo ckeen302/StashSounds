@@ -5,7 +5,8 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { TestDb, anon, rejection, service, user } from "./db.ts";
+import { slugify } from "@stash/contracts";
+import { TestDb, anon, rejection, service, superuser, user } from "./db.ts";
 
 let db: TestDb;
 let alice: string; // uploader
@@ -24,10 +25,19 @@ beforeAll(async () => {
   published = await db.makeItem(alice, { status: "published", title: "Public loop" });
   draft = await db.makeItem(alice, { status: "draft", title: "Secret draft" });
   await db.q(
+    `insert into public.kit_samples (item_id, position, name, category, duration_ms, original_path, preview_path) values
+       ($1, 0, 'Kick', 'kick', 300, 'a/p/samples/kick.wav', 'p/kick.mp3'),
+       ($2, 0, 'Snare', 'snare', 300, 'a/d/samples/snare.wav', 'd/snare.mp3')`,
+    [published, draft],
+  );
+  await db.q(`insert into public.tags (name) values ('seeded')`);
+  await db.q(`insert into public.item_tags (item_id, tag_id) select unnest(array[$1, $2]::uuid[]), id from public.tags where name = 'seeded'`, [published, draft]);
+  await db.q(
     `insert into public.item_files (item_id, role, bucket, path, bytes, mime) values
        ($1, 'original', 'originals', 'a/p/original.wav', 100, 'audio/wav'),
        ($1, 'preview', 'previews', 'a/p/preview.mp3', 10, 'audio/mpeg'),
-       ($2, 'original', 'originals', 'a/d/original.wav', 100, 'audio/wav')`,
+       ($2, 'original', 'originals', 'a/d/original.wav', 100, 'audio/wav'),
+       ($2, 'preview', 'previews', 'a/d/preview.mp3', 10, 'audio/mpeg')`,
     [published, draft],
   );
 });
@@ -127,11 +137,22 @@ describe("items", () => {
 });
 
 describe("item_files and kit_samples", () => {
-  it("are readable when the parent item is", async () => {
+  it("previews are readable when the parent item is; originals only by the owner and admins", async () => {
     const r = await db.as(anon, `select path from public.item_files order by path`);
-    expect(r.rows.map((x) => x.path)).toEqual(["a/p/original.wav", "a/p/preview.mp3"]);
-    expect((await db.as(user(alice), `select 1 from public.item_files where item_id = $1`, [draft])).rowCount).toBe(1);
-    expect((await db.as(user(bob), `select 1 from public.item_files where item_id = $1`, [draft])).rowCount).toBe(0);
+    expect(r.rows.map((x) => x.path)).toEqual(["a/p/preview.mp3"]);
+    expect((await db.as(user(bob), `select path from public.item_files order by path`)).rows.map((x) => x.path)).toEqual(["a/p/preview.mp3"]);
+    const own = await db.as(user(alice), `select path from public.item_files order by path`);
+    expect(own.rows.map((x) => x.path)).toEqual(["a/d/original.wav", "a/d/preview.mp3", "a/p/original.wav", "a/p/preview.mp3"]);
+    expect((await db.as(user(admin), `select 1 from public.item_files where bucket = 'originals'`)).rowCount).toBe(2);
+  });
+  it("kit samples are readable when the parent item is, without their original paths", async () => {
+    expect((await db.as(anon, `select name from public.kit_samples`)).rows).toEqual([{ name: "Kick" }]);
+    expect((await db.as(user(bob), `select 1 from public.kit_samples where item_id = $1`, [draft])).rowCount).toBe(0);
+    expect((await db.as(user(alice), `select name from public.kit_samples where item_id = $1`, [draft])).rows).toEqual([{ name: "Snare" }]);
+    for (const who of [anon, user(alice), user(admin)]) {
+      expect(await rejection(db.as(who, `select original_path from public.kit_samples`))).toMatch(DENIED);
+      expect(await rejection(db.as(who, `select * from public.kit_samples`))).toMatch(DENIED);
+    }
   });
   it("only the service role writes", async () => {
     expect(
@@ -144,6 +165,12 @@ describe("item_files and kit_samples", () => {
 });
 
 describe("tags", () => {
+  it("item_tags are readable when the parent item is", async () => {
+    const tagged = `select it.item_id from public.item_tags it join public.tags t on t.id = it.tag_id where t.name = 'seeded'`;
+    expect((await db.as(anon, tagged)).rows.map((x) => x.item_id)).toEqual([published]);
+    expect((await db.as(user(bob), tagged)).rows.map((x) => x.item_id)).toEqual([published]);
+    expect((await db.as(user(alice), tagged)).rowCount).toBe(2);
+  });
   it("everyone reads; writes go only through set_item_tags by the owner", async () => {
     expect(await rejection(db.as(user(alice), `insert into public.tags (name) values ('hack')`))).toMatch(DENIED);
     const r = await db.as(user(alice), `select public.set_item_tags($1, array['Dark','keys'], array['metro boomin']) as t`, [published]);
@@ -153,6 +180,7 @@ describe("tags", () => {
       { name: "dark", kind: "tag", items_count: 1 },
       { name: "keys", kind: "tag", items_count: 1 },
       { name: "metro boomin", kind: "reference", items_count: 1 },
+      { name: "seeded", kind: "tag", items_count: 1 },
     ]);
     expect(await rejection(db.as(user(bob), `select public.set_item_tags($1, array['spam'])`, [published]))).toMatch(/^not_found:/);
   });
@@ -165,6 +193,13 @@ describe("tags", () => {
   it("caps tags at eight", async () => {
     const nine = Array.from({ length: 9 }, (_, i) => `tag${i}`);
     expect(await rejection(db.as(user(alice), `select public.set_item_tags($1, $2)`, [published, nine]))).toMatch(/^invalid:/);
+  });
+  it("lowercases and merges duplicate tags, and checks length", async () => {
+    const r = await db.as(user(alice), `select public.set_item_tags($1, array['Keys', ' keys ', 'KEYS', 'Dark']) as t`, [published]);
+    expect(r.rows[0]!.t).toEqual(["dark", "keys"]);
+    expect(await rejection(db.as(user(alice), `select public.set_item_tags($1, array['x'])`, [published]))).toMatch(/^invalid: Tags are 2 to 40/);
+    expect(await rejection(db.as(user(alice), `select public.set_item_tags($1, array[repeat('a', 41)])`, [published]))).toMatch(/^invalid:/);
+    await db.as(user(alice), `select public.set_item_tags($1, array['keys'])`, [published]);
   });
 });
 
@@ -186,6 +221,12 @@ describe("follows and likes", () => {
     expect((await db.as(user(alice), `delete from public.follows where follower_id = $1`, [bob])).rowCount).toBe(0);
     expect(await rejection(db.as(anon, `insert into public.likes (user_id, item_id) values ($1, $2)`, [bob, published]))).toMatch(DENIED);
   });
+  it("suspended users cannot like or follow", async () => {
+    const sus = await db.makeUser("suspended_liker");
+    await db.q(`update public.accounts set suspended_at = now() where id = $1`, [sus]);
+    expect(await rejection(db.as(user(sus), `insert into public.likes (user_id, item_id) values ($1, $2)`, [sus, published]))).toMatch(DENIED);
+    expect(await rejection(db.as(user(sus), `insert into public.follows (follower_id, followee_id) values ($1, $2)`, [sus, alice]))).toMatch(DENIED);
+  });
   it("nobody can like an item they cannot see", async () => {
     expect(await rejection(db.as(user(bob), `insert into public.likes (user_id, item_id) values ($1, $2)`, [bob, draft]))).toMatch(DENIED);
   });
@@ -206,8 +247,19 @@ describe("notifications", () => {
     const r = await db.as(user(carol), `select kind, count from public.notifications where kind = 'like'`);
     expect(r.rows).toEqual([{ kind: "like", count: 3 }]);
   });
+  it("following again does not stack follow notifications", async () => {
+    const erin = await db.makeUser("erin");
+    for (let i = 0; i < 3; i++) {
+      await db.as(user(bob), `insert into public.follows (follower_id, followee_id) values ($1, $2)`, [bob, erin]);
+      await db.as(user(bob), `delete from public.follows where follower_id = $1 and followee_id = $2`, [bob, erin]);
+    }
+    expect((await db.as(user(erin), `select 1 from public.notifications where kind = 'follow'`)).rowCount).toBe(1);
+  });
   it("only the owner reads, and may only set read_at", async () => {
     expect((await db.as(user(bob), `select 1 from public.notifications where user_id <> $1`, [bob])).rowCount).toBe(0);
+    const others = await db.as(user(bob), `update public.notifications set read_at = now() where user_id <> $1`, [bob]);
+    expect(others.rowCount).toBe(0);
+    expect((await db.q(`select count(*)::int as n from public.notifications where user_id <> $1 and read_at is not null`, [bob])).rows[0]!.n).toBe(0);
     await db.as(user(alice), `update public.notifications set read_at = now() where user_id = $1`, [alice]);
     expect(await rejection(db.as(user(alice), `update public.notifications set kind = 'flag'`))).toMatch(DENIED);
     expect(await rejection(db.as(user(alice), `insert into public.notifications (user_id, kind) values ($1, 'flag')`, [alice]))).toMatch(DENIED);
@@ -234,6 +286,11 @@ describe("downloads", () => {
     expect(await rejection(db.as(anon, `select public.record_download($1)`, [published]))).toMatch(DENIED);
     expect(await rejection(db.as(user(bob), `select public.record_download($1)`, [draft]))).toMatch(/^not_found:/);
   });
+  it("nobody but the owner or an admin removes or unpublishes an item", async () => {
+    expect(await rejection(db.as(user(bob), `select public.remove_item($1)`, [published]))).toMatch(/^not_found:/);
+    expect(await rejection(db.as(user(bob), `select public.unpublish_item($1)`, [published]))).toMatch(/^not_found:/);
+    expect((await db.q(`select status from public.items where id = $1`, [published])).rows[0]!.status).toBe("published");
+  });
   it("survives removal of the item", async () => {
     await db.as(user(alice), `select public.remove_item($1)`, [published]);
     const r = await db.as(user(bob), `select item_title, license from public.downloads`);
@@ -256,7 +313,11 @@ describe("reports", () => {
     expect((await db.as(user(admin), `select 1 from public.reports`)).rowCount).toBe(1);
     expect(await rejection(db.as(anon, `insert into public.reports (item_id, reason) values ($1, 'spam')`, [published]))).toMatch(DENIED);
   });
-  it("three open reports put an item in the review queue without hiding it", async () => {
+  it("one report per person per item", async () => {
+    expect(await rejection(db.as(user(bob), `insert into public.reports (item_id, reason) values ($1, 'spam')`, [published]))).toMatch(/duplicate key|unique/);
+  });
+  it("three open reports from different people put an item in the review queue without hiding it", async () => {
+    expect((await db.as(user(admin), `select 1 from public.admin_review_queue where item_id = $1`, [published])).rowCount).toBe(0);
     for (const u of [alice, admin]) await db.as(user(u), `insert into public.reports (item_id, reason) values ($1, 'spam')`, [published]);
     const q = await db.as(user(admin), `select open_reports from public.admin_review_queue where item_id = $1`, [published]);
     expect(q.rows[0]!.open_reports).toBe(3);
@@ -279,7 +340,13 @@ describe("dmca_notices and fingerprints", () => {
     expect(
       await rejection(db.as(user(bob), `insert into public.dmca_notices (claimant_name, claimant_email, work_description, statement, signature) values ('a','b','c','d','e')`)),
     ).toMatch(DENIED);
-    expect(await rejection(db.as(user(admin), `select 1 from public.fingerprints`))).toMatch(DENIED);
+    await db.as(service, `insert into public.fingerprints (item_file_id, item_id, duration_ms, chromaprint)
+      select id, item_id, 1000, '{1,2}' from public.item_files where path = 'a/p/original.wav'`);
+    expect((await db.as(user(admin), `select 1 from public.fingerprints`)).rowCount).toBe(1);
+    expect((await db.as(user(alice), `select 1 from public.fingerprints`)).rowCount).toBe(0);
+    expect(await rejection(db.as(anon, `select 1 from public.fingerprints`))).toMatch(DENIED);
+    expect(await rejection(db.as(user(admin), `insert into public.fingerprints (item_file_id, item_id, duration_ms, chromaprint) values (gen_random_uuid(), $1, 1, '{1}')`, [published]))).toMatch(DENIED);
+    await db.as(service, `delete from public.fingerprints`);
   });
 });
 
@@ -299,6 +366,9 @@ describe("processing_jobs", () => {
       `select public.worker_complete(gen_random_uuid(), '{}')`,
       `select public.worker_fail(gen_random_uuid(), 'x', true)`,
       `select public.requeue_stale_jobs('1 hour')`,
+      `select public.enqueue_processing(gen_random_uuid(), gen_random_uuid(), gen_random_uuid(), 1)`,
+      `select public.hit_rate_limit('x', 1000, '1 hour')`,
+      `select public.rate_limit_user('like')`,
     ]) {
       expect(await rejection(db.as(user(admin), sql)), sql).toMatch(DENIED);
     }
@@ -321,10 +391,10 @@ describe("phase 4 and internal tables", () => {
 describe("upload pipeline functions", () => {
   it("create_upload_draft checks email verification, type and size", async () => {
     const unverified = await db.makeUser("unverified", { verified: false });
-    expect(await rejection(db.as(user(unverified), `select * from public.create_upload_draft('loop', 'x', 100, 'audio/wav', 'wav')`))).toMatch(/^forbidden: Verify/);
-    expect(await rejection(db.as(user(bob), `select * from public.create_upload_draft('loop', 'x', 100, 'audio/wav', 'exe')`))).toMatch(/^invalid:/);
-    expect(await rejection(db.as(user(bob), `select * from public.create_upload_draft('oneshot', 'x', 11 * 1024 * 1024, 'audio/wav', 'wav')`))).toMatch(/^invalid:/);
-    const r = await db.as(user(bob), `select * from public.create_upload_draft('loop', 'Night Drive 140', 1000, 'audio/wav', 'WAV')`);
+    expect(await rejection(db.as(user(unverified), `select * from public.create_upload_draft('loop', 'x', 100, 'wav')`))).toMatch(/^forbidden: Verify/);
+    expect(await rejection(db.as(user(bob), `select * from public.create_upload_draft('loop', 'x', 100, 'exe')`))).toMatch(/^invalid:/);
+    expect(await rejection(db.as(user(bob), `select * from public.create_upload_draft('oneshot', 'x', 11 * 1024 * 1024, 'wav')`))).toMatch(/^invalid:/);
+    const r = await db.as(user(bob), `select * from public.create_upload_draft('loop', 'Night Drive 140', 1000, 'WAV')`);
     expect(r.rows[0]!.path).toMatch(new RegExp(`^${bob}/[0-9a-f-]{36}/original\\.wav$`));
     const item = await db.q(`select status, slug, title from public.items where id = $1`, [r.rows[0]!.item_id]);
     expect(item.rows[0]).toEqual({ status: "draft", slug: "night-drive-140", title: "Night Drive 140" });
@@ -332,41 +402,66 @@ describe("upload pipeline functions", () => {
   });
   it("create_upload_draft enforces the storage quota", async () => {
     await db.q(`update public.accounts set storage_bytes = 2147483000 where id = $1`, [bob]);
-    expect(await rejection(db.as(user(bob), `select * from public.create_upload_draft('loop', 'x', 1000, 'audio/wav', 'wav')`))).toMatch(/^quota_exceeded:/);
+    expect(await rejection(db.as(user(bob), `select * from public.create_upload_draft('loop', 'x', 1000, 'wav')`))).toMatch(/^quota_exceeded:/);
     await db.q(`update public.accounts set storage_bytes = 1000 where id = $1`, [bob]);
   });
   it("suspended users cannot upload or publish", async () => {
     const sus = await db.makeUser("suspended1");
     await db.q(`update public.accounts set suspended_at = now() where id = $1`, [sus]);
-    expect(await rejection(db.as(user(sus), `select * from public.create_upload_draft('loop', 'x', 10, 'audio/wav', 'wav')`))).toMatch(/^forbidden:/);
+    expect(await rejection(db.as(user(sus), `select * from public.create_upload_draft('loop', 'x', 10, 'wav')`))).toMatch(/^forbidden:/);
   });
-  it("enqueue_processing moves the owner's draft to processing and queues one job", async () => {
-    const r = await db.as(user(bob), `select * from public.create_upload_draft('loop', 'Queue me', 10, 'audio/wav', 'wav')`);
+  it("stores the file type from the extension, not from the browser", async () => {
+    const r = await db.as(user(bob), `select * from public.create_upload_draft('loop', 'Typed', 10, 'mp3')`);
+    expect((await db.q(`select mime from public.item_files where id = $1`, [r.rows[0]!.file_id])).rows[0]!.mime).toBe("audio/mpeg");
+  });
+  it("enqueue_processing (service role, after measuring the object) moves the owner's draft to processing", async () => {
+    const r = await db.as(user(bob), `select * from public.create_upload_draft('loop', 'Queue me', 10, 'wav')`);
     const { item_id, file_id } = r.rows[0]!;
-    expect(await rejection(db.as(user(alice), `select public.enqueue_processing($1, $2)`, [item_id, file_id]))).toMatch(/^not_found:/);
-    const job = await db.as(user(bob), `select public.enqueue_processing($1, $2) as id`, [item_id, file_id]);
+    const enqueue = `select public.enqueue_processing($1, $2, $3, $4) as id`;
+    expect(await rejection(db.as(user(bob), enqueue, [bob, item_id, file_id, 10]))).toMatch(DENIED);
+    expect(await rejection(db.as(service, enqueue, [alice, item_id, file_id, 10]))).toMatch(/^not_found:/);
+    expect(await rejection(db.as(service, enqueue, [bob, item_id, file_id, 11]))).toMatch(/^invalid: The uploaded file is not the size/);
+    const job = await db.as(service, enqueue, [bob, item_id, file_id, 10]);
     expect(job.rows[0]!.id).toBeTruthy();
     const s = await db.q(`select i.status, j.kind from public.items i join public.processing_jobs j on j.item_id = i.id where i.id = $1`, [item_id]);
     expect(s.rows[0]).toEqual({ status: "processing", kind: "process_loop" });
-    expect(await rejection(db.as(user(bob), `select public.enqueue_processing($1, $2)`, [item_id, file_id]))).toMatch(/^conflict:/);
+    expect(await rejection(db.as(service, enqueue, [bob, item_id, file_id, 10]))).toMatch(/^conflict:/);
   });
   it("a preset waits for its demo before processing", async () => {
-    const r = await db.as(user(bob), `select * from public.create_upload_draft('preset', 'Glass pad', 10, 'application/octet-stream', 'vital')`);
+    const r = await db.as(user(bob), `select * from public.create_upload_draft('preset', 'Glass pad', 10, 'vital')`);
     const { item_id, file_id } = r.rows[0]!;
-    const first = await db.as(user(bob), `select public.enqueue_processing($1, $2) as id`, [item_id, file_id]);
+    const first = await db.as(service, `select public.enqueue_processing($1, $2, $3, 10) as id`, [bob, item_id, file_id]);
     expect(first.rows[0]!.id).toBeNull();
-    const demo = await db.as(user(bob), `select * from public.add_demo_file($1, 10, 'audio/wav', 'wav')`, [item_id]);
-    const second = await db.as(user(bob), `select public.enqueue_processing($1, $2) as id`, [item_id, demo.rows[0]!.file_id]);
+    const demo = await db.as(user(bob), `select * from public.add_demo_file($1, 10, 'wav')`, [item_id]);
+    const second = await db.as(service, `select public.enqueue_processing($1, $2, $3, 10) as id`, [bob, item_id, demo.rows[0]!.file_id]);
     expect(second.rows[0]!.id).toBeTruthy();
   });
 });
 
 describe("worker functions", () => {
-  async function queuedItem(title: string) {
-    const r = await db.as(user(bob), `select * from public.create_upload_draft('loop', $1, 10, 'audio/wav', 'wav')`, [title]);
-    await db.as(user(bob), `select public.enqueue_processing($1, $2)`, [r.rows[0]!.item_id, r.rows[0]!.file_id]);
+  async function queuedItem(title: string, type = "loop", ext = "wav") {
+    const r = await db.as(user(bob), `select * from public.create_upload_draft($1, $2, 10, $3)`, [type, title, ext]);
+    const { item_id, file_id } = r.rows[0]!;
+    if (type === "preset") await db.as(user(bob), `select * from public.add_demo_file($1, 10, 'wav')`, [item_id]);
+    await db.as(service, `update public.item_files set uploaded_at = now() where item_id = $1`, [item_id]);
+    await db.as(service, `select public.enqueue_processing($1, $2, $3, 10)`, [bob, item_id, file_id]);
     return r.rows[0]! as { item_id: string; path: string };
   }
+  const loopResult = (itemId: string, extra: Record<string, unknown> = {}) => ({
+    type: "loop",
+    bpm: 140,
+    key: { root: 9, mode: "minor" },
+    durationMs: 6857,
+    details: { sampleRate: 44100, channels: 2, loudnessLufs: -14, truePeakDb: -1, loopSamples: 302400, bars: 4,
+      detection: { bpmSource: "onset", bpmAgreed: true, bpmCandidates: [140], keySource: "chroma", keyConfidence: 0.3 } },
+    files: [
+      { role: "preview", bucket: "previews", path: `${itemId}/abc.mp3`, bytes: 120000, mime: "audio/mpeg", sha256: null, meta: {} },
+      { role: "peaks", bucket: "previews", path: `${itemId}/abc.peaks`, bytes: 800, mime: "application/octet-stream", sha256: null, meta: {} },
+    ],
+    fingerprints: [],
+    flag: null,
+    ...extra,
+  });
 
   it("claim_job gives each job to one worker", async () => {
     await db.as(service, `delete from public.processing_jobs`);
@@ -378,31 +473,21 @@ describe("worker functions", () => {
     expect(ids).toHaveLength(2);
   });
 
-  it("worker_complete applies a result in one go and is idempotent", async () => {
+  it("worker_complete applies a result in one go, once", async () => {
     await db.as(service, `delete from public.processing_jobs`);
     const it1 = await queuedItem("Complete me");
     const job = (await db.as(service, `select * from public.claim_job()`)).rows[0]!;
-    const result = {
-      type: "loop",
-      bpm: 140,
-      key: { root: 9, mode: "minor" },
-      durationMs: 6857,
-      details: { sampleRate: 44100, channels: 2, loudnessLufs: -14, truePeakDb: -1, loopSamples: 302400, bars: 4,
-        detection: { bpmSource: "onset", bpmAgreed: true, bpmCandidates: [140], keySource: "chroma", keyConfidence: 0.3 } },
-      files: [
-        { role: "preview", bucket: "previews", path: "p/abc.mp3", bytes: 120000, mime: "audio/mpeg", sha256: null, meta: {} },
-        { role: "peaks", bucket: "previews", path: "p/abc.peaks", bytes: 800, mime: "application/octet-stream", sha256: null, meta: {} },
-      ],
-      fingerprints: [{ filePath: it1.path, durationMs: 6857, chromaprint: [1, 2, 3] }],
-      flag: null,
-    };
-    for (let i = 0; i < 2; i++) await db.as(service, `select public.worker_complete($1, $2)`, [job.id, JSON.stringify(result)]);
+    const result = loopResult(it1.item_id, { fingerprints: [{ filePath: it1.path, durationMs: 6857, chromaprint: [1, 2, 3] }] });
+    await db.as(service, `select public.worker_complete($1, $2)`, [job.id, JSON.stringify(result)]);
+    // A second delivery of the same result finds the job done and changes nothing.
+    expect(await rejection(db.as(service, `select public.worker_complete($1, $2)`, [job.id, JSON.stringify(result)]))).toMatch(/^conflict:/);
     const item = await db.q(`select status, bpm, key_root, details->>'bars' as bars from public.items where id = $1`, [it1.item_id]);
     expect(item.rows[0]).toEqual({ status: "ready", bpm: "140.00", key_root: 9, bars: "4" });
     expect((await db.q(`select count(*)::int as n from public.item_files where item_id = $1`, [it1.item_id])).rows[0]!.n).toBe(3);
     expect((await db.q(`select count(*)::int as n from public.fingerprints where item_id = $1`, [it1.item_id])).rows[0]!.n).toBe(1);
     expect((await db.q(`select status from public.processing_jobs where id = $1`, [job.id])).rows[0]!.status).toBe("done");
 
+    expect((await db.q(`select details is not null as has from public.items where id = $1`, [it1.item_id])).rows[0]!.has).toBe(true);
     // publish needs ready and the rights confirmation, and notifies followers once
     await db.as(user(alice), `insert into public.follows (follower_id, followee_id) values ($1, $2)`, [alice, bob]);
     expect(await rejection(db.as(user(bob), `select public.publish_item($1, false)`, [it1.item_id]))).toMatch(/^invalid:/);
@@ -414,13 +499,58 @@ describe("worker functions", () => {
     expect((await db.q(`select status from public.items where id = $1`, [it1.item_id])).rows[0]!.status).toBe("ready");
   });
 
+  it("worker_complete refuses a job that is not running, a result of another type and paths outside the item", async () => {
+    await db.as(service, `delete from public.processing_jobs`);
+    const it4 = await queuedItem("Guarded");
+    const queued = (await db.q(`select id from public.processing_jobs where item_id = $1`, [it4.item_id])).rows[0]!;
+    expect(await rejection(db.as(service, `select public.worker_complete($1, $2)`, [queued.id, JSON.stringify(loopResult(it4.item_id))]))).toMatch(/^conflict: This job is not running/);
+    const job = (await db.as(service, `select * from public.claim_job()`)).rows[0]!;
+    const complete = (r: unknown) => rejection(db.as(service, `select public.worker_complete($1, $2)`, [job.id, JSON.stringify(r)]));
+    expect(await complete({ ...loopResult(it4.item_id), type: "oneshot" })).toMatch(/^invalid: The result is for a different item type/);
+    const badPaths = [
+      { role: "preview", bucket: "previews", path: `${published}/x.mp3` },
+      { role: "preview", bucket: "previews", path: `${it4.item_id}/../${published}/x.mp3` },
+      { role: "preview", bucket: "previews", path: `${it4.item_id}//x.mp3` },
+      { role: "original", bucket: "originals", path: `${alice}/${it4.item_id}/x.wav` },
+      { role: "preview", bucket: "originals", path: `${bob}/${it4.item_id}/x.mp3` },
+    ];
+    for (const f of badPaths) {
+      const file = { bytes: 1, mime: "audio/mpeg", sha256: null, meta: {}, ...f };
+      expect(await complete(loopResult(it4.item_id, { files: [file] })), f.path).toMatch(/^invalid: A file path is outside/);
+    }
+    expect((await db.q(`select status from public.items where id = $1`, [it4.item_id])).rows[0]!.status).toBe("processing");
+  });
+
+  it("worker_complete refuses a result for an item that is no longer processing", async () => {
+    await db.as(service, `delete from public.processing_jobs`);
+    const it5 = await queuedItem("Removed mid-run");
+    const job = (await db.as(service, `select * from public.claim_job()`)).rows[0]!;
+    await db.as(user(bob), `select public.remove_item($1)`, [it5.item_id]);
+    expect(await rejection(db.as(service, `select public.worker_complete($1, $2)`, [job.id, JSON.stringify(loopResult(it5.item_id))]))).toMatch(/^conflict: This item is not processing/);
+  });
+
+  it("a preset publishes only with the wavetable confirmation", async () => {
+    await db.as(service, `delete from public.processing_jobs`);
+    const pr = await queuedItem("Glass keys", "preset", "vital");
+    const job = (await db.as(service, `select * from public.claim_job()`)).rows[0]!;
+    const preset = {
+      type: "preset", bpm: null, key: null, durationMs: 8000, files: [], fingerprints: [], flag: null,
+      details: { synth: "vital", synthName: "Vital", synthVersion: null, category: "keys", rendered: false, sampledNoteCount: 0, demoDurationMs: 8000 },
+    };
+    await db.as(service, `select public.worker_complete($1, $2)`, [job.id, JSON.stringify(preset)]);
+    expect(await rejection(db.as(user(bob), `select public.publish_item($1, true)`, [pr.item_id]))).toMatch(/^invalid: Confirm any wavetables/);
+    await db.as(user(bob), `select public.publish_item($1, true, true)`, [pr.item_id]);
+    const r = await db.q(`select status, wavetables_confirmed_at is not null as confirmed from public.items where id = $1`, [pr.item_id]);
+    expect(r.rows[0]).toEqual({ status: "published", confirmed: true });
+  });
+
   it("a flag in the result makes the item flagged and tells the owner", async () => {
     await db.as(service, `delete from public.processing_jobs`);
     const it2 = await queuedItem("Stolen");
     const job = (await db.as(service, `select * from public.claim_job()`)).rows[0]!;
     await db.as(service, `select public.worker_complete($1, $2)`, [
       job.id,
-      JSON.stringify({ type: "loop", bpm: null, key: null, durationMs: 1000, details: {}, files: [], fingerprints: [], flag: { reason: "duplicate_exact" } }),
+      JSON.stringify({ ...loopResult(it2.item_id), files: [], flag: { reason: "duplicate_exact" } }),
     ]);
     const item = await db.q(`select status, flagged_reason from public.items where id = $1`, [it2.item_id]);
     expect(item.rows[0]).toEqual({ status: "flagged", flagged_reason: "duplicate_exact" });
@@ -454,9 +584,174 @@ describe("worker functions", () => {
 });
 
 describe("rate limits", () => {
-  it("hit_rate_limit fails past the limit within a window", async () => {
-    for (let i = 0; i < 3; i++) await db.as(user(bob), `select public.hit_rate_limit('test:' || $1, 3, '1 hour')`, [bob]);
-    expect(await rejection(db.as(user(bob), `select public.hit_rate_limit('test:' || $1, 3, '1 hour')`, [bob]))).toMatch(/^rate_limited:/);
+  it("hit_rate_limit (service role) fails past the limit within a window", async () => {
+    for (let i = 0; i < 3; i++) await db.as(service, `select public.hit_rate_limit('test:addr', 3, '1 hour')`);
+    expect(await rejection(db.as(service, `select public.hit_rate_limit('test:addr', 3, '1 hour')`))).toMatch(/^rate_limited:/);
+  });
+
+  /** Fills the caller's current window for one action up to its limit, as if they had used it all. */
+  async function exhaust(action: string, uid: string, limitKey: string, window: string) {
+    await db.q(
+      `insert into public.rate_limit_hits (bucket, window_start, hits)
+       values ($1 || ':' || $2,
+               to_timestamp(floor(extract(epoch from now()) / extract(epoch from $4::interval)) * extract(epoch from $4::interval)),
+               (public.app_limits() -> 'rateLimits' ->> $3)::int)
+       on conflict (bucket, window_start) do update set hits = excluded.hits`,
+      [action, uid, limitKey, window],
+    );
+  }
+
+  it("direct likes, follows and reports are limited in the database", async () => {
+    const fay = await db.makeUser("fay");
+    const target = await db.makeItem(alice, { title: "Limit me" });
+    await exhaust("like", fay, "likesPerHour", "1 hour");
+    await exhaust("follow", fay, "followsPerHour", "1 hour");
+    await exhaust("report", fay, "reportsPerDay", "1 day");
+    expect(await rejection(db.as(user(fay), `insert into public.likes (user_id, item_id) values ($1, $2)`, [fay, target]))).toMatch(/^rate_limited:/);
+    expect(await rejection(db.as(user(fay), `insert into public.follows (follower_id, followee_id) values ($1, $2)`, [fay, alice]))).toMatch(/^rate_limited:/);
+    expect(await rejection(db.as(user(fay), `insert into public.reports (item_id, reason) values ($1, 'spam')`, [target]))).toMatch(/^rate_limited:/);
+    // Another user is unaffected, and the service role is never limited.
+    await db.as(user(bob), `insert into public.likes (user_id, item_id) values ($1, $2)`, [bob, target]);
+    await db.as(service, `insert into public.likes (user_id, item_id) values ($1, $2)`, [fay, target]);
+  });
+
+  it("downloads are limited per day", async () => {
+    const gus = await db.makeUser("gus");
+    await db.as(user(gus), `select * from public.record_download($1)`, [published]);
+    await exhaust("download", gus, "downloadsPerDay", "1 day");
+    expect(await rejection(db.as(user(gus), `select * from public.record_download($1)`, [published]))).toMatch(/^rate_limited:/);
+  });
+
+  it("signed-in users cannot reset their own counters", async () => {
+    expect(await rejection(db.as(user(bob), `delete from public.rate_limit_hits`))).toMatch(DENIED);
+  });
+});
+
+describe("profile constraints", () => {
+  it("links must be https and at most eight", async () => {
+    const set = (links: unknown) => db.as(user(bob), `update public.profiles set links = $2 where id = $1`, [bob, JSON.stringify(links)]);
+    await set([{ kind: "instagram", url: "https://instagram.com/bob" }]);
+    for (const bad of [
+      [{ kind: "website", url: "javascript:alert(1)" }],
+      [{ kind: "website", url: "http://example.com" }],
+      [{ kind: "website", url: "https:// spaced.example" }],
+      ["https://not-an-object.example"],
+      Array.from({ length: 9 }, () => ({ kind: "website", url: "https://x.example" })),
+    ]) {
+      expect(await rejection(set(bad)), JSON.stringify(bad)).toMatch(/check constraint/);
+    }
+  });
+  it("avatars live under the owner's own folder", async () => {
+    await db.as(user(bob), `update public.profiles set avatar_path = $2 where id = $1`, [bob, `${bob}/avatar.webp`]);
+    for (const bad of [`${alice}/avatar.webp`, `${bob}/../${alice}/avatar.webp`, "avatar.webp"]) {
+      expect(await rejection(db.as(user(bob), `update public.profiles set avatar_path = $2 where id = $1`, [bob, bad])), bad).toMatch(/check constraint/);
+    }
+  });
+  it("claiming a handle twice changes it and keeps one account", async () => {
+    const hal = await db.makeUser("hal_one");
+    await db.as(user(hal), `select public.claim_handle('hal_two')`);
+    const r = await db.q(`select p.handle, (select count(*)::int from public.accounts a where a.id = p.id) as accounts from public.profiles p where p.id = $1`, [hal]);
+    expect(r.rows[0]).toEqual({ handle: "hal_two", accounts: 1 });
+  });
+});
+
+describe("slugify", () => {
+  it("gives the same slug in the database and in packages/contracts", async () => {
+    const titles = [
+      "Dark Keys (Am) 140 BPM!!", "Café Noir", "Straße 808", "Ærøskøbing Øresund", "Łódź drill", "Þórr",
+      "Œuvre", "naïve façade", "Ñoño", "ＦＵＬＬＷＩＤＴＨ", "ﬁre ﬂute", "emoji 🔥 loop", "東京 lofi", "  --  ",
+      "a".repeat(70) + " tail", "İstanbul", "Mötley Crüe", "Đorđe", "---x---", "",
+    ];
+    const r = await db.q<{ s: string[] }>(`select array(select public.slugify(t) from unnest($1::text[]) with ordinality u(t, n) order by n) as s`, [titles]);
+    expect(r.rows[0]!.s).toEqual(titles.map(slugify));
+  });
+});
+
+describe("access audit", () => {
+  it("every table in public has row-level security on", async () => {
+    const r = await db.q(`select c.relname from pg_class c join pg_namespace n on n.oid = c.relnamespace
+                           where n.nspname = 'public' and c.relkind = 'r' and not c.relrowsecurity order by 1`);
+    expect(r.rows).toEqual([]);
+  });
+
+  it("anon and authenticated hold only the table privileges the access table allows", async () => {
+    const r = await db.as(superuser, `
+      select grantee, table_name, string_agg(privilege_type, ',' order by privilege_type) as privs
+        from information_schema.role_table_grants
+       where table_schema = 'public' and grantee in ('anon', 'authenticated')
+       group by grantee, table_name order by grantee, table_name`);
+    const actual = Object.fromEntries(r.rows.map((x) => [`${x.grantee}.${x.table_name}`, x.privs]));
+    const read = ["profiles", "items", "item_files", "tags", "item_tags", "follows", "likes"];
+    const expected: Record<string, string> = {};
+    for (const role of ["anon", "authenticated"]) for (const t of read) expected[`${role}.${t}`] = "SELECT";
+    for (const t of ["accounts", "downloads", "notifications", "dmca_notices", "processing_jobs", "admin_actions", "admin_review_queue", "fingerprints"]) {
+      expected[`authenticated.${t}`] = "SELECT";
+    }
+    expected["authenticated.follows"] = "DELETE,SELECT";
+    expected["authenticated.likes"] = "DELETE,SELECT";
+    // Column-level grants (profiles, items, notifications updates; reports insert; kit_samples read) are
+    // not table-level, so they do not appear here; reports keeps its table-level SELECT for admins.
+    expected["authenticated.reports"] = "SELECT";
+    expect(actual).toEqual(expected);
+  });
+
+  it("column grants are exactly the editable fields", async () => {
+    const r = await db.as(superuser, `
+      select grantee || '.' || table_name || '.' || privilege_type as k, string_agg(column_name, ',' order by column_name) as cols
+        from information_schema.column_privileges
+       where table_schema = 'public' and grantee in ('anon', 'authenticated') and privilege_type <> 'SELECT'
+       group by grantee, table_name, privilege_type order by 1`);
+    expect(Object.fromEntries(r.rows.map((x) => [x.k, x.cols]))).toEqual({
+      "authenticated.follows.INSERT": "followee_id,follower_id",
+      "authenticated.items.UPDATE": "bpm,description,genre,key_mode,key_root,license,split_percent,title",
+      "authenticated.likes.INSERT": "item_id,user_id",
+      "authenticated.notifications.UPDATE": "read_at",
+      "authenticated.profiles.UPDATE": "avatar_path,bio,display_name,links",
+      "authenticated.reports.INSERT": "detail,item_id,reason",
+    });
+  });
+
+  it("anon and authenticated may execute only the functions meant for them", async () => {
+    const r = await db.as(superuser, `
+      select p.proname, array_remove(array[
+               case when has_function_privilege('anon', p.oid, 'execute') then 'anon' end,
+               case when has_function_privilege('authenticated', p.oid, 'execute') then 'authenticated' end], null) as who
+        from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+       where n.nspname = 'public' and p.prokind = 'f'
+         and (has_function_privilege('anon', p.oid, 'execute') or has_function_privilege('authenticated', p.oid, 'execute'))
+       order by 1`);
+    const both = ["anon", "authenticated"];
+    const signedIn = ["authenticated"];
+    expect(Object.fromEntries(r.rows.map((x) => [x.proname, x.who]))).toEqual({
+      add_demo_file: signedIn,
+      app_limits: both,
+      can_read_item: both,
+      claim_handle: signedIn,
+      create_upload_draft: signedIn,
+      is_active_user: both,
+      is_admin: both,
+      publish_item: signedIn,
+      record_download: signedIn,
+      remove_item: signedIn,
+      safe_path: both,
+      set_item_tags: signedIn,
+      slugify: both,
+      unpublish_item: signedIn,
+      valid_profile_links: both,
+    });
+  });
+});
+
+describe("seed", () => {
+  it("supabase/seed.sql applies cleanly on top of the migrations", async () => {
+    const seeded = await TestDb.create();
+    try {
+      await seeded.q(readFileSync(join(import.meta.dirname, "../seed.sql"), "utf8"));
+      const r = await seeded.as(anon, `select count(*)::int as n from public.items`);
+      expect(r.rows[0]!.n).toBe(4);
+    } finally {
+      await seeded.drop();
+    }
   });
 });
 

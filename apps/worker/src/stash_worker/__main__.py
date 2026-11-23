@@ -1,4 +1,5 @@
 """Entry point: `uv run python -m stash_worker`. The job loop arrives in ticket 111."""
+
 import sys
 
 

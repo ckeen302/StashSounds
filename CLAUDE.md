@@ -11,7 +11,8 @@ YouTube for sounds "in the style of" an artist.
 ## Layout and ownership
 ```
 apps/web/src/app          Interface lane      pages and layouts
-apps/web/src/server       Platform lane       server actions, queries, route handlers
+apps/web/src/server       Platform lane       server actions, queries
+apps/web/src/app/api      Platform lane       route handlers (lint applies Platform rules here)
 apps/worker               Pipeline lane       Python worker
 packages/audio            Audio lane          browser audio engine
 packages/ui               Interface lane      tokens and components
@@ -26,17 +27,19 @@ docs/handoffs/NNN-*.md    The builder who finished the ticket
 docs/requests/NNN-*.md    Any builder (new files only)
 ```
 If two lanes could plausibly edit a path, the lead assigns it to one and records it here.
+eslint.config.mjs enforces these boundaries as import rules; scripts/eslint-config.test.ts proves it.
 
 ## Commands
 ```
 pnpm install              install everything (Node 22, pnpm 10, uv for the worker)
-pnpm dev                  web app, local database, local storage, worker
+pnpm dev                  web app, local database, local storage, worker (--check: start, probe, exit)
 pnpm check                types and lint
 pnpm test                 unit tests
 pnpm db:test              database policy tests (needs Postgres 16+; see supabase/tests/README.md)
 pnpm worker:test          worker tests
 pnpm e2e                  end-to-end tests
-pnpm visual               screenshot comparison
+pnpm visual               screenshot comparison in the pinned Playwright container (needs Docker)
+pnpm visual:update        rewrite screenshot baselines in the same container; commit them with the change
 pnpm perf                 performance budgets
 pnpm run licenses         dependency license check (plain `pnpm licenses` is a pnpm built-in)
 ```

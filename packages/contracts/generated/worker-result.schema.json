@@ -1585,9 +1585,6 @@
               "minimum": 0,
               "maximum": 9007199254740991
             },
-            "wavetablesConfirmed": {
-              "type": "boolean"
-            },
             "demoDurationMs": {
               "type": "integer",
               "exclusiveMinimum": 0,
@@ -1601,7 +1598,6 @@
             "category",
             "rendered",
             "sampledNoteCount",
-            "wavetablesConfirmed",
             "demoDurationMs"
           ],
           "additionalProperties": false

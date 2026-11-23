@@ -34,7 +34,9 @@ jobs:
           pnpm --filter @stash/contracts gen
           pnpm --filter @stash/ui gen
           node scripts/sync-limits.mjs --check
-          git diff --exit-code -- packages/contracts/generated packages/ui/src/theme.css
+          # Catches edits and new untracked files alike.
+          test -z "$(git status --porcelain -- packages/contracts/generated packages/ui/src/theme.css supabase/migrations)" \
+            || { git status --porcelain; git diff; exit 1; }
       - name: pnpm test
         run: pnpm test
       - name: Changed audio and contracts code has tests
@@ -72,18 +74,28 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
       - uses: astral-sh/setup-uv@v6
       - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg libchromaprint-tools
       - name: pnpm worker:test
+        run: pnpm worker:test
+      - name: Lint and format
         working-directory: apps/worker
-        run: uv run --frozen pytest -q
-      - name: Lint
-        working-directory: apps/worker
-        run: uv run --frozen ruff check .
+        run: uv run --frozen ruff check . && uv run --frozen ruff format --check .
 
   browser:
     name: End-to-end, visual, accessibility and performance
     runs-on: ubuntu-24.04
+    # The same image scripts/visual.mjs uses locally, so screenshots render identically everywhere.
+    container:
+      image: mcr.microsoft.com/playwright:v1.63.0-noble
+      options: --ipc=host
+    env:
+      STASH_PLAYWRIGHT_CONTAINER: "1"
+      HOME: /root
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -92,7 +104,6 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm exec playwright install --with-deps chromium
       - name: Build and start the web app once for all three gates
         run: |
           pnpm --filter @stash/web build
@@ -115,6 +126,24 @@ jobs:
             playwright-report/
             test-results/
           retention-days: 7
+
+  local-stack:
+    name: One-command local stack
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - uses: astral-sh/setup-uv@v6
+      - run: pnpm install --frozen-lockfile
+      - name: pnpm dev starts Supabase (migrations and seed), MinIO, the worker and the web app
+        run: pnpm dev --check
+      - name: Logs on failure
+        if: failure()
+        run: docker compose logs minio minio-init || true
 
   licenses:
     name: Licenses

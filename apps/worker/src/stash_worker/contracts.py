@@ -2,6 +2,7 @@
 The worker's view of packages/contracts. Limits come from limits.json and output shapes from the
 JSON Schemas generated from the Zod contracts, so the worker and the web app cannot drift apart.
 """
+
 from __future__ import annotations
 
 import json
@@ -25,7 +26,7 @@ def limits() -> dict[str, Any]:
 @cache
 def _validator(name: str) -> Draft202012Validator:
     schema = json.loads((CONTRACTS / "generated" / f"{name}.schema.json").read_text())
-    return Draft202012Validator(schema)
+    return Draft202012Validator(schema, format_checker=Draft202012Validator.FORMAT_CHECKER)
 
 
 def validate(name: str, value: Any) -> None:

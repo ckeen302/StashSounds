@@ -73,8 +73,6 @@ export const presetDetailsSchema = z.object({
   /** True when the worker rendered sampled notes (Vital only). */
   rendered: z.boolean(),
   sampledNoteCount: z.int().min(0),
-  /** The uploader confirmed any wavetables are their own or factory content. */
-  wavetablesConfirmed: z.boolean(),
   demoDurationMs: z.int().positive(),
 });
 

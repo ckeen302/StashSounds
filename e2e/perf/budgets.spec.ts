@@ -7,8 +7,13 @@ import { join } from "node:path";
 const limits = JSON.parse(readFileSync(join(import.meta.dirname, "../../packages/contracts/limits.json"), "utf8"));
 const budget = limits.performance as { itemPageLcpMs: number; itemPageCls: number; scriptBeforeAudioBytes: number };
 
+// A mid-range phone: 4x CPU slowdown. Network throttling arrives with the item page (ticket 135).
+const CPU_SLOWDOWN = 4;
+
 for (const path of ["/"]) {
   test(`${path} stays inside the page budgets`, async ({ page }) => {
+    const cdp = await page.context().newCDPSession(page);
+    await cdp.send("Emulation.setCPUThrottlingRate", { rate: CPU_SLOWDOWN });
     let scriptBytes = 0;
     page.on("response", async (res) => {
       if (res.request().resourceType() === "script") {
@@ -32,6 +37,7 @@ for (const path of ["/"]) {
           setTimeout(() => resolve({ lcp, cls }), 500);
         }),
     );
+    expect(lcp, "largest contentful paint was measured").toBeGreaterThan(0);
     expect(lcp, "largest contentful paint (ms)").toBeLessThan(budget.itemPageLcpMs);
     expect(cls, "cumulative layout shift").toBeLessThan(budget.itemPageCls);
     expect(scriptBytes, "compressed script bytes before audio").toBeLessThan(budget.scriptBeforeAudioBytes);

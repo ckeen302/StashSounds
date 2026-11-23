@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { itemStatusSchema, licenseKindSchema, tagKindSchema } from "./enums.ts";
+import { itemStatusSchema, itemTypeSchema, jobStatusSchema, licenseKindSchema, tagKindSchema } from "./enums.ts";
 import {
   bpmSchema,
   descriptionSchema,
@@ -15,6 +15,7 @@ import {
 } from "./common.ts";
 import { kitDetailsSchema, loopDetailsSchema, midiDetailsSchema, oneshotDetailsSchema, presetDetailsSchema } from "./details.ts";
 import { kitSampleSchema } from "./files.ts";
+import { limits } from "./limits.ts";
 import { playableSchema } from "./playable.ts";
 import { ownerSummarySchema } from "./profile.ts";
 
@@ -45,7 +46,7 @@ const itemCommon = {
 };
 
 /**
- * An item as stored. details is {} until the worker has processed the original, so it is
+ * An item as stored. details is null until the worker has processed the original, so it is
  * nullable here and required once status is ready or later (enforced by itemSchema's refinement).
  */
 export const itemSchema = z
@@ -73,7 +74,7 @@ export type Item = z.infer<typeof itemSchema>;
 export const itemRowSchema = z.object({
   id: uuidSchema,
   publicId: publicIdSchema,
-  type: z.enum(["loop", "oneshot", "kit", "midi", "preset"]),
+  type: itemTypeSchema,
   title: titleSchema,
   slug: slugSchema,
   /** Canonical path, e.g. /loop/dark-keys-k3j9x0a2bq */
@@ -83,9 +84,9 @@ export const itemRowSchema = z.object({
   bpm: bpmSchema.nullable(),
   key: musicalKeySchema.nullable(),
   durationMs: z.int().nonnegative().nullable(),
-  /** Bars for loops and MIDI, sample count for kits, null for one-shots and presets. */
+  /** Bars for loops and MIDI, seconds for one-shots, sample count for kits, null for presets. */
   length: z.object({ unit: z.enum(["bars", "samples", "seconds"]), value: z.number().nonnegative() }).nullable(),
-  tags: z.array(tagNameSchema).max(8),
+  tags: z.array(tagNameSchema).max(limits.tags.perItem),
   /** 800 peak bytes for audio types; null for MIDI (the row draws the piano roll strip from notes). */
   peaks: peaksSchema.nullable(),
   playable: playableSchema,
@@ -119,7 +120,7 @@ export const ownItemSchema = z.object({
   item: itemSchema,
   job: z
     .object({
-      status: z.enum(["queued", "running", "done", "failed"]),
+      status: jobStatusSchema,
       attempts: z.int().nonnegative(),
       /** Plain-language reason, safe to show the uploader. */
       error: z.string().nullable(),

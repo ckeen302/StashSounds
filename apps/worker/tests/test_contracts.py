@@ -17,11 +17,18 @@ def test_limits_load_with_build_spec_values():
 
 def test_loop_details_contract():
     good = {
-        "sampleRate": 44100, "channels": 2, "loudnessLufs": -14.0, "truePeakDb": -1.0,
-        "loopSamples": 302400, "bars": 4,
+        "sampleRate": 44100,
+        "channels": 2,
+        "loudnessLufs": -14.0,
+        "truePeakDb": -1.0,
+        "loopSamples": 302400,
+        "bars": 4,
         "detection": {
-            "bpmSource": "onset", "bpmAgreed": True, "bpmCandidates": [140],
-            "keySource": "chroma", "keyConfidence": 0.3,
+            "bpmSource": "onset",
+            "bpmAgreed": True,
+            "bpmCandidates": [140],
+            "keySource": "chroma",
+            "keyConfidence": 0.3,
         },
     }
     validate("details.loop", good)
@@ -35,8 +42,17 @@ def test_worker_result_contract_requires_kit_samples_for_kits():
     details = {"sampleCount": 1, "categoryCounts": {"kick": 1}, "ignoredCount": 0, "hasCover": False}
     kit = {**base, "type": "kit", "details": details}
     assert not is_valid("worker-result", kit)
-    kit["kitSamples"] = [{"position": 0, "name": "Kick", "category": "kick", "durationMs": 400, "rootNote": None,
-                          "originalPath": "u/i/kit/kick.wav", "previewPath": "p/abc.mp3"}]
+    kit["kitSamples"] = [
+        {
+            "position": 0,
+            "name": "Kick",
+            "category": "kick",
+            "durationMs": 400,
+            "rootNote": None,
+            "originalPath": "u/i/kit/kick.wav",
+            "previewPath": "p/abc.mp3",
+        }
+    ]
     assert is_valid("worker-result", kit)
 
 

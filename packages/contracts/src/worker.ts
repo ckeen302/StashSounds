@@ -1,7 +1,7 @@
 import { z } from "zod";
 import type { itemTypeSchema} from "./enums.ts";
 import { bucketSchema, fileRoleSchema, jobKindSchema, kitCategorySchema } from "./enums.ts";
-import { midiPitchSchema, musicalKeySchema, uuidSchema } from "./common.ts";
+import { bpmSchema, midiPitchSchema, musicalKeySchema, uuidSchema } from "./common.ts";
 import { detailsSchemas } from "./details.ts";
 
 /** Maps each content type to the job that processes it. */
@@ -91,7 +91,7 @@ export const workerFingerprintSchema = z.object({
 });
 
 const resultCommon = {
-  bpm: z.number().min(40).max(300).nullable(),
+  bpm: bpmSchema.nullable(),
   key: musicalKeySchema.nullable(),
   durationMs: z.int().nonnegative().nullable(),
   files: z.array(workerFileSchema),

@@ -18,7 +18,9 @@ import {
   ok,
   parseItemParam,
   parseKey,
+  peaksSchema,
   playableSchema,
+  presetDetailsSchema,
   publishItemInput,
   resultSchema,
   slugify,
@@ -114,6 +116,11 @@ describe("peaks", () => {
   it("clamps out-of-range values", () => {
     expect(Array.from(decodePeaks(encodePeaks([-5, 300, 12.6])))).toEqual([0, 255, 13]);
   });
+  it("accepts exactly limits.waveform.peakPoints bytes", () => {
+    expect(peaksSchema.safeParse(encodePeaks(new Array(limits.waveform.peakPoints).fill(1))).success).toBe(true);
+    expect(peaksSchema.safeParse(encodePeaks(new Array(799).fill(1))).success).toBe(false);
+    expect(peaksSchema.safeParse(encodePeaks(new Array(801).fill(1))).success).toBe(false);
+  });
 });
 
 describe("handles and paths", () => {
@@ -132,6 +139,8 @@ describe("handles and paths", () => {
     expect(slugify("  Dark Keys (Am) 140 BPM!! ")).toBe("dark-keys-am-140-bpm");
     expect(slugify("Café Noir")).toBe("cafe-noir");
     expect(slugify("!!!")).toBe("untitled");
+    // Letters NFKD keeps whole are spelled out the way Postgres unaccent does (parity: supabase/tests).
+    expect(slugify("Straße Ærø Łódź")).toBe("strasse-aero-lodz");
   });
 });
 
@@ -191,6 +200,11 @@ describe("requests", () => {
   it("refuses to publish without the rights confirmation", () => {
     expect(publishItemInput.safeParse({ itemId: uuid(1), rightsConfirmed: false }).success).toBe(false);
     expect(publishItemInput.safeParse({ itemId: uuid(1), rightsConfirmed: true }).success).toBe(true);
+  });
+  it("carries the wavetable confirmation on publish, not in preset details", () => {
+    expect(publishItemInput.parse({ itemId: uuid(1), rightsConfirmed: true }).wavetablesConfirmed).toBe(false);
+    expect(publishItemInput.parse({ itemId: uuid(1), rightsConfirmed: true, wavetablesConfirmed: true }).wavetablesConfirmed).toBe(true);
+    expect("wavetablesConfirmed" in presetDetailsSchema.shape).toBe(false);
   });
   it("caps tags across free and reference tags", () => {
     const tags = ["a1", "b2", "c3", "d4", "e5"];

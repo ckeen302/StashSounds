@@ -40,7 +40,7 @@ const spaceClass: Record<number, string> = {
 
 export default function GalleryPage() {
   return (
-    <main className="mx-auto flex max-w-320 flex-col gap-12 px-6 py-8">
+    <main className="mx-auto flex max-w-content flex-col gap-12 px-3 py-8 tablet:px-4 desktop:px-6">
       <header className="flex flex-col gap-1">
         <span className="text-label text-label-caps text-text-muted">Dev</span>
         <h1 className="text-title">Gallery</h1>
@@ -64,7 +64,7 @@ export default function GalleryPage() {
         <ul className="flex flex-col gap-3">
           {(Object.keys(text) as TextStyle[]).map((name) => (
             <li key={name} className="flex items-baseline gap-4 border-b border-border pb-3">
-              <span className="w-32 shrink-0 text-label text-label-caps text-text-muted">{name}</span>
+              <span className="w-24 shrink-0 text-label tablet:w-32 text-label-caps text-text-muted">{name}</span>
               <span className={textClass[name]}>{name === "numeric" ? "140 BPM  F#m  4 BARS  0:07" : "Dark keys over dusty drums"}</span>
               <span className="ml-auto text-numeric font-mono text-text-muted">
                 {text[name].size}/{text[name].line} {text[name].weight}
@@ -95,6 +95,29 @@ export default function GalleryPage() {
           <div className="flex h-16 w-32 items-center justify-center rounded-panel border border-border bg-surface text-small">
             panel {radius.panel}
           </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="treatments" className="flex flex-col gap-4">
+        <h2 id="treatments" className="text-label text-label-caps text-text-muted">Treatments</h2>
+        <div className="flex flex-wrap items-center gap-4">
+          {/* Type chips: the type color at 16% behind the full color (CHIP_TINT_OPACITY). */}
+          <span className="rounded-control bg-type-loop/16 px-2 py-1 text-label text-label-caps text-type-loop">Loop</span>
+          <span className="rounded-control bg-type-oneshot/16 px-2 py-1 text-label text-label-caps text-type-oneshot">One-shot</span>
+          <span className="rounded-control bg-type-kit/16 px-2 py-1 text-label text-label-caps text-type-kit">Kit</span>
+          <span className="rounded-control bg-type-midi/16 px-2 py-1 text-label text-label-caps text-type-midi">MIDI</span>
+          <span className="rounded-control bg-type-preset/16 px-2 py-1 text-label text-label-caps text-type-preset">Preset</span>
+          {/* Waveform bars: played at full, unplayed at 35% (WAVEFORM_UNPLAYED_OPACITY). */}
+          <span role="img" className="flex h-8 items-center gap-1" aria-label="Waveform played and unplayed">
+            <span className="h-6 w-1 rounded-full bg-type-loop" />
+            <span className="h-4 w-1 rounded-full bg-type-loop" />
+            <span className="h-6 w-1 rounded-full bg-type-loop/35" />
+            <span className="h-3 w-1 rounded-full bg-type-loop/35" />
+          </span>
+          {/* Focus ring: 2 px accent, 2 px offset. */}
+          <span className="rounded-control border border-border-strong px-3 py-1 text-small outline-2 outline-offset-2 outline-accent outline-solid">
+            Focus ring
+          </span>
         </div>
       </section>
 

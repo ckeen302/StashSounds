@@ -15,14 +15,15 @@
     "db:reset": "node scripts/db-reset.mjs",
     "worker:test": "cd apps/worker && uv run --frozen pytest -q",
     "e2e": "playwright test --project=e2e",
-    "visual": "playwright test --project=visual",
-    "visual:update": "playwright test --project=visual --update-snapshots=all",
+    "visual": "node scripts/visual.mjs",
+    "visual:update": "node scripts/visual.mjs --update-snapshots=all",
     "perf": "playwright test --project=perf",
     "licenses": "node scripts/licenses.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.14.0",
     "@playwright/test": "1.63.0",
+    "@stash/contracts": "workspace:*",
     "@types/node": "^22.20.5",
     "@types/pg": "^8.23.1",
     "eslint": "9.39.5",
