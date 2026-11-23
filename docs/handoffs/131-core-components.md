@@ -205,3 +205,126 @@ moves from 42 to 47 on ArrowRight.
 ## Requests filed
 - docs/requests/131-ring-duration-token.md: a motion token for the loading ring's turn (800 ms used
   meanwhile in components.css, named as the single exception in components-css.test.ts).
+
+## Review round (PR #5)
+
+Fixed as new commits on lane/interface-131 (no force-push), after merging origin/phase-0/foundations
+(5321936; brings the same-site ItemRow.href contract and e2e ownership).
+
+### Blocking
+- **D1, tab focus ring clipped.** Tab is `px-2 -outline-offset-2`, and components.css adds
+  `[role="tab"][data-focus] { outline-offset: -2px }` so the frozen ring matches the real one.
+  TabList is `-mx-2 gap-2`, and the underline is `after:inset-x-2`. On the phone the strip
+  fades its last stretch (`max-tablet:mask-r-from-80%`, Tailwind's own mask utility), so Presets,
+  which sits past the edge at 380 px, reads as more to scroll to. The frozen focus is now on Kits,
+  so it stays in view at every width.
+- **T1, one full-page screenshot.** e2e/visual/screens.spec.ts now takes one screenshot per
+  gallery section (5 token sections + 19 component sections, at 3 widths, plus home), each with
+  `maxDiffPixels: 0, maxDiffPixelRatio: 0`. The three old gallery-visual-*.png baselines are
+  deleted. e2e/journeys/gallery.spec.ts checks:
+  - section order;
+  - that each section's captions carry the state words the design spec lists (the list is in
+    e2e/gallery-sections.ts);
+  - that the frozen states carry the attributes that draw them.
+- **T2, keyboard checks not committed.** They are now committed as
+  e2e/journeys/gallery-keyboard.spec.ts, scoped to the live specimens:
+  - waveform arrows, Shift, Home and End;
+  - confirm dialog: focus trap, axe, Escape and focus return;
+  - form dialog: Enter submits, and the dialog cannot be closed while it saves;
+  - menu: Enter opens it, it skips the disabled item and does not wrap;
+  - tabs: arrows, Home and End;
+  - tooltip on keyboard focus;
+  - toast in the Notifications region;
+  - live row: play, like and context menu.
+
+  The key map is a pure `seekFromKey` in waveform-bars.ts, unit-tested, including clamping and
+  unknown keys. The keyboard spec also passed with `--repeat-each=5`.
+
+### Design advisories
+- Bars use perceptual height: slice maximum, then `loudness` (square root), with a 2 px floor.
+- Ghost "on" state is `aria-pressed:bg-raised`. The specimen row uses one icon (Heart, Like).
+- The gallery tooltip shortcut reads D.
+- The Flagged step is neutral. Only a failed step is red.
+- Disabled ghost buttons and icon buttons keep a transparent border and background.
+- BARS cells show the bare number. The unit is in the header, and the full text ("2 bars") is
+  given to screen readers.
+- Added a frozen context-menu MenuPreview ("context, open"). Live rows use the same entries.
+- Phone tab strip: the end fade described under D1.
+- The hero error text is "Waveform unavailable. Play still works."
+
+### Contract advisories
+- describeRow uses TYPE_LABEL.
+- `uploadStepFor(status, job)` sits next to progress-steps and is unit-tested for every
+  ItemStatus.
+- react and react-dom are peerDependencies of @stash/ui (^19.3.0).
+
+### Test advisories
+- The disabled attribute is asserted with a regex.
+- test/components-states.test.ts covers Tabs, Menu and MenuPreview, Tooltip, Toast tone icons and
+  Skeletons.
+- It also covers these edge cases:
+  - malformed peaks;
+  - progress outside 0..1;
+  - null and non-finite durationMs;
+  - empty initials;
+  - formatCount boundaries;
+  - ResultRow with null peaks, bpm and key, and with 0 or 1 tags.
+- These tests found that Stat lacked aria-busy while its value was undefined. That is fixed.
+
+### Check output
+```
+$ pnpm check
+packages/contracts typecheck: Done
+packages/audio typecheck: Done
+packages/ui typecheck: Done
+apps/web typecheck: Done
+(eslint . --max-warnings 0: no output)
+
+$ pnpm test
+Test Files  8 passed (8)
+Tests  178 passed (178)
+Start at  23:06:14
+Duration  1.41s (tests 49%, import 41%, transform 10%, worker 1%)
+
+$ pnpm e2e
+  ✓   2 [e2e] › e2e/journeys/gallery-keyboard.spec.ts:19:1 › hero waveform seeks with arrows, Shift, Home and End (1.0s)
+  ✓   1 [e2e] › e2e/journeys/gallery-keyboard.spec.ts:38:1 › confirm dialog takes focus, keeps it, closes on Escape and returns it (1.8s)
+  ✓   4 [e2e] › e2e/journeys/gallery-keyboard.spec.ts:72:1 › overflow menu opens from the keyboard, skips the disabled item, does not wrap (1.3s)
+  ✓   3 [e2e] › e2e/journeys/gallery-keyboard.spec.ts:55:1 › form dialog submits on Enter and cannot be closed while it saves (2.8s)
+  ✓   5 [e2e] › e2e/journeys/gallery-keyboard.spec.ts:93:1 › tabs move with arrows, Home and End, skipping the disabled tab (883ms)
+  ✓   6 [e2e] › e2e/journeys/gallery-keyboard.spec.ts:110:1 › tooltip opens on keyboard focus with its shortcut (1.0s)
+  ✓   7 [e2e] › e2e/journeys/gallery-keyboard.spec.ts:124:1 › a toast with undo appears, announced in the notifications region (1.3s)
+  ✓   9 [e2e] › e2e/journeys/gallery.spec.ts:12:1 › every component section is on the gallery, in order (246ms)
+  ✓  10 [e2e] › e2e/journeys/gallery.spec.ts:18:3 › Button shows every state the design spec lists (354ms)
+  ✓   8 [e2e] › e2e/journeys/gallery-keyboard.spec.ts:134:1 › a live row plays, likes and opens its context menu (1.2s)
+  ✓  11 [e2e] › e2e/journeys/gallery.spec.ts:18:3 › Icon button shows every state the design spec lists (319ms)
+  ✓  12 [e2e] › e2e/journeys/gallery.spec.ts:18:3 › Play button shows every state the design spec lists (343ms)
+  ✓  13 [e2e] › e2e/journeys/gallery.spec.ts:18:3 › Text and search input shows every state the design spec lists (348ms)
+  ✓  14 [e2e] › e2e/journeys/gallery.spec.ts:18:3 › Chip shows every state the design spec lists (311ms)
+  ✓  15 [e2e] › e2e/journeys/gallery.spec.ts:18:3 › License badge shows every state the design spec lists (355ms)
+  ✓  16 [e2e] › e2e/journeys/gallery.spec.ts:18:3 › Avatar shows every state the design spec lists (347ms)
+  ✓  17 [e2e] › e2e/journeys/gallery.spec.ts:18:3 › Uploader card shows every state the design spec lists (383ms)
+  ✓  18 [e2e] › e2e/journeys/gallery.spec.ts:18:3 › Stat shows every state the design spec lists (387ms)
+  ✓  19 [e2e] › e2e/journeys/gallery.spec.ts:18:3 › Tabs shows every state the design spec lists (433ms)
+  ✓  20 [e2e] › e2e/journeys/gallery.spec.ts:18:3 › Dialog shows every state the design spec lists (421ms)
+  ✓  21 [e2e] › e2e/journeys/gallery.spec.ts:18:3 › Menu shows every state the design spec lists (375ms)
+  ✓  22 [e2e] › e2e/journeys/gallery.spec.ts:18:3 › Tooltip shows every state the design spec lists (352ms)
+  ✓  23 [e2e] › e2e/journeys/gallery.spec.ts:18:3 › Toast shows every state the design spec lists (386ms)
+  ✓  24 [e2e] › e2e/journeys/gallery.spec.ts:18:3 › Skeleton shows every state the design spec lists (355ms)
+  ✓  25 [e2e] › e2e/journeys/gallery.spec.ts:18:3 › Empty state and error state shows every state the design spec lists (329ms)
+  ✓  26 [e2e] › e2e/journeys/gallery.spec.ts:18:3 › Progress steps shows every state the design spec lists (322ms)
+  ✓  27 [e2e] › e2e/journeys/gallery.spec.ts:18:3 › Result row, loop shows every state the design spec lists (343ms)
+  ✓  28 [e2e] › e2e/journeys/gallery.spec.ts:18:3 › Waveform shows every state the design spec lists (368ms)
+  ✓  30 [e2e] › e2e/journeys/smoke.spec.ts:13:1 › health route returns the contract shape (23ms)
+  ✓  29 [e2e] › e2e/journeys/gallery.spec.ts:26:1 › frozen states carry the attributes that draw them (462ms)
+  ✓  31 [e2e] › e2e/journeys/smoke.spec.ts:19:1 › home renders the wordmark (588ms)
+  ✓  33 [e2e] › e2e/journeys/smoke.spec.ts:33:1 › pages refuse to be framed (10ms)
+  ✓  32 [e2e] › e2e/journeys/smoke.spec.ts:25:1 › the gallery renders every token and is not indexed (1.8s)
+  33 passed (18.3s)
+
+$ pnpm visual
+  75 passed (26.1s)
+
+$ pnpm run licenses
+All dependency licenses are on the allowed list.
+```
