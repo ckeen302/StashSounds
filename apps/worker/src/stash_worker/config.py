@@ -97,6 +97,9 @@ class Settings:
     storage_env: dict[str, str]
     job_user: JobUser | None  # the uid every job's child runs as (STASH_JOB_USER)
     allow_same_uid: bool  # STASH_WORKER_ALLOW_SAME_UID=1: run children as the worker's own uid (dev only)
+    # With a job user, each child gets a network namespace with no interfaces unless
+    # STASH_CHILD_NETWORK=shared (which logs a warning). Isolation needs CAP_SYS_ADMIN.
+    isolate_network: bool = False
 
 
 def _job_user(values: Mapping[str, str]) -> tuple[JobUser | None, bool]:
@@ -132,4 +135,5 @@ def load_settings(env: Mapping[str, str] | None = None, dotenv: Path | None = No
         storage_env={k: values[k] for k in STORAGE_KEYS if values.get(k)},
         job_user=job_user,
         allow_same_uid=allow_same_uid,
+        isolate_network=job_user is not None and values.get("STASH_CHILD_NETWORK") != "shared",
     )
