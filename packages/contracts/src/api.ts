@@ -38,6 +38,7 @@ export const createUploadSlotInput = z.object({
   role: z.enum(["original", "demo"]).default("original"),
   /** Required when role is "demo": the preset draft the demo belongs to. */
   itemId: uuidSchema.optional(),
+  /** Kept on the file row (meta.fileName) so the worker can read BPM and key from it. */
   fileName: z.string().min(1).max(255),
   bytes: z.int().positive(),
   mime: z.string().max(100),

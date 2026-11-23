@@ -72,6 +72,18 @@ jobs:
   worker:
     name: Worker
     runs-on: ubuntu-24.04
+    # The runner's tests drive the real SQL worker functions (request 111-worker-ci-postgres).
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres" --health-interval 2s --health-timeout 2s --health-retries 30
+    env:
+      DATABASE_ADMIN_URL: postgres://postgres:postgres@localhost:5432/postgres
+      STASH_REQUIRE_DB: "1"
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4

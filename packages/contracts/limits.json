@@ -89,7 +89,8 @@
     "timeoutsSeconds": { "audio": 120, "kit": 600, "midi": 60, "presetRender": 180 },
     "maxAttempts": 3,
     "backoffSeconds": [30, 120, 600],
-    "fingerprintThreshold": 0.9
+    "fingerprintThreshold": 0.9,
+    "memoryMb": 2048
   },
   "lists": {
     "pageSize": 30,
