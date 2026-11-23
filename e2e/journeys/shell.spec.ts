@@ -53,7 +53,13 @@ test("playback survives client navigation by the rail", async ({ page }) => {
   await nav.getByRole("link", { name: "Home" }).click();
   await expect(page).toHaveURL("/");
   await nav.getByRole("link", { name: "Browse" }).click();
-  await expect(page).toHaveURL(/\/browse/);
+  await expect(page).toHaveURL("/browse/loops");
+  await expect(nav.getByRole("link", { name: "Browse" })).toHaveAttribute("aria-current", "page");
+  // And back through history, which the router also handles on the client.
+  await page.goBack();
+  await page.goBack();
+  await expect(page).toHaveURL("/dev/player");
+  await expect(page.getByRole("heading", { name: "Player" })).toBeVisible();
   expect(await page.evaluate(() => (window as unknown as { __stay?: number }).__stay)).toBe(1);
 
   await expect(player(page).getByRole("button", { name: "Pause Midnight keys" })).toBeVisible();

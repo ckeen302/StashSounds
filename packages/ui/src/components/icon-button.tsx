@@ -1,6 +1,7 @@
 import type { ButtonHTMLAttributes, Ref } from "react";
 import { cx, transition, type PreviewState } from "./cx.ts";
 import { Icon, type IconComponent } from "./icon.tsx";
+import { UiLink } from "./link.tsx";
 
 export type IconButtonVariant = "ghost" | "pad";
 
@@ -53,5 +54,32 @@ export function IconButton({
     >
       <Icon icon={icon} size={size === "sm" ? 16 : 20} />
     </button>
+  );
+}
+
+/** A ghost icon button that is a link (notifications, search on phone). Navigates through UiLink. */
+export function IconLink({
+  href,
+  icon,
+  label,
+  size = "md",
+  className,
+  ...preview
+}: PreviewState & { href: string; icon: IconComponent; label: string; size?: "sm" | "md"; className?: string }) {
+  return (
+    <UiLink
+      href={href}
+      aria-label={label}
+      className={cx(
+        "inline-flex shrink-0 items-center justify-center rounded-control border",
+        transition,
+        size === "sm" ? "size-8 pointer-coarse:size-10" : "size-10",
+        variants.ghost,
+        className,
+      )}
+      {...preview}
+    >
+      <Icon icon={icon} size={size === "sm" ? 16 : 20} />
+    </UiLink>
   );
 }

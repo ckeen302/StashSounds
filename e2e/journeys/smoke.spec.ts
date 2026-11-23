@@ -18,7 +18,8 @@ test("health route returns the contract shape", async ({ request }) => {
 
 test("home renders the wordmark", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByText("stash", { exact: true })).toBeVisible();
+  // The rail and the phone top bar carry the wordmark too; this is the page's own.
+  await expect(page.getByRole("main").getByText("stash", { exact: true })).toBeVisible();
   await expectNoSeriousA11yViolations(page);
 });
 

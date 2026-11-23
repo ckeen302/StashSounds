@@ -220,11 +220,20 @@ export function PlayerSheet(props: PlayerSheetProps) {
   const durationMs = durationOf(props);
   const running = status === "playing";
   const getProgress = useCallback(() => playerFraction(getPositionMs(), durationMs), [getPositionMs, durationMs]);
+  const returnTo = useRef<HTMLElement | null>(null);
   return (
     <D.Root open={open} onOpenChange={onOpenChange}>
       <D.Portal>
         <D.Content
           aria-describedby={undefined}
+          // No Radix trigger here (the mini player opens it), so remember what had focus and go back to it.
+          onOpenAutoFocus={() => {
+            returnTo.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+          }}
+          onCloseAutoFocus={(e) => {
+            e.preventDefault();
+            returnTo.current?.focus();
+          }}
           className="fixed inset-0 z-40 flex animate-sheet flex-col gap-6 overflow-y-auto bg-bg px-3 pt-2 pb-8 outline-none"
         >
           <div className="flex items-center justify-between">

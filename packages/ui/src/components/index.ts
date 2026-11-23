@@ -10,7 +10,7 @@ export * from "./icon.tsx";
 export { Kbd } from "./kbd.tsx";
 export { Spinner } from "./spinner.tsx";
 export { Button, ButtonLink, type ButtonProps, type ButtonSize, type ButtonVariant } from "./button.tsx";
-export { IconButton, type IconButtonProps, type IconButtonVariant } from "./icon-button.tsx";
+export { IconButton, IconLink, type IconButtonProps, type IconButtonVariant } from "./icon-button.tsx";
 export { PlayButton, type PlayButtonProps, type PlayState } from "./play-button.tsx";
 export { SearchInput, TextInput, type TextInputProps } from "./input.tsx";
 export { FilterChip, TagChip, TypeChip, TYPE_LABEL } from "./chip.tsx";
