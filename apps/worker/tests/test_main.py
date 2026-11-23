@@ -89,6 +89,16 @@ def test_settings_require_a_job_user_unless_same_uid_is_allowed(tmp_path: Path, 
         load_settings(env={**base, "STASH_JOB_USER": "no-such-user"}, dotenv=tmp_path / "missing")
 
 
+def test_a_job_users_children_have_no_network_unless_shared_is_set(tmp_path: Path, monkeypatch):
+    monkeypatch.setattr(os, "geteuid", lambda: 0)
+    base = {"DATABASE_URL": "postgres://x@localhost/z", **STORAGE_ENV}
+    assert load_settings(env={**base, "STASH_JOB_USER": "nobody"}, dotenv=tmp_path / "m").isolate_network is True
+    shared = {**base, "STASH_JOB_USER": "nobody", "STASH_CHILD_NETWORK": "shared"}
+    assert load_settings(env=shared, dotenv=tmp_path / "m").isolate_network is False
+    same = {**base, "STASH_WORKER_ALLOW_SAME_UID": "1"}
+    assert load_settings(env=same, dotenv=tmp_path / "m").isolate_network is False
+
+
 def test_a_job_user_needs_a_worker_that_can_switch_to_it(tmp_path: Path, monkeypatch):
     base = {"DATABASE_URL": "postgres://x@localhost/z", "STASH_JOB_USER": "nobody", **STORAGE_ENV}
     monkeypatch.setattr(os, "geteuid", lambda: 1000)

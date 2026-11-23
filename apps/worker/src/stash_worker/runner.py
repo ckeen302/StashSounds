@@ -20,6 +20,7 @@ item to draft on the final failure.
 from __future__ import annotations
 
 import logging
+import os
 import shutil
 import tempfile
 import time
@@ -49,6 +50,7 @@ class Runner:
         *,
         storage: Storage,
         job_user: JobUser | None = None,
+        isolate_network: bool | None = None,
         handlers: Mapping[str, str] = HANDLERS,
         timeouts: Mapping[str, float] | None = None,
         memory_bytes: int | None = None,
@@ -64,6 +66,7 @@ class Runner:
         self.queue = queue
         self.storage = storage
         self.job_user = job_user
+        self.isolate_network = isolate_network
         self.handlers = dict(handlers)
         self.timeouts = dict(timeouts or {})
         self.memory_bytes = memory_bytes if memory_bytes is not None else int(limits()["worker"]["memoryMb"]) << 20
@@ -190,9 +193,10 @@ class Runner:
                 timeout_s=self.timeout_for(payload["kind"]),
                 memory_bytes=self.memory_bytes,
                 job_user=self.job_user,
+                isolate_network=self.isolate_network,
             )
             log.info(
-                "job %s %s attempt %d: %s in %.1fs %s",
+                "job %s %s attempt %d: %s in %.1fs %r",
                 job_id,
                 payload["kind"],
                 attempt,
@@ -200,12 +204,12 @@ class Runner:
                 time.monotonic() - started,
                 outcome.reason or outcome.detail,
             )
-            self._record(job_id, attempt, outcome, job_dir, payload["itemId"])
+            self._record(job_id, attempt, outcome, job_dir, payload["itemId"], job_input["type"])
         finally:
             shutil.rmtree(job_dir, ignore_errors=True)
         return None
 
-    def _record(self, job_id: str, attempt: int, outcome: Outcome, job_dir: Path, item_id: str) -> None:
+    def _record(self, job_id: str, attempt: int, outcome: Outcome, job_dir: Path, item_id: str, item_type: str) -> None:
         if outcome.status == "rejected" and outcome.reason:
             return self._fail(job_id, attempt, outcome.reason, retryable=False)
         if outcome.status == "timeout":
@@ -215,12 +219,13 @@ class Runner:
         try:
             validate("worker-result", outcome.result)
         except ValidationError as e:
-            log.error("job %s: result breaks worker-result.schema.json: %s", job_id, e.message)
+            log.error("job %s: result breaks worker-result.schema.json: %r", job_id, e.message)
             return self._fail(job_id, attempt, "internal", retryable=True)
         try:
-            publish_outputs(self.storage, outcome.result, job_dir / "work" / "out", item_id)
+            owner = os.getuid() if self.job_user is None else self.job_user.uid
+            publish_outputs(self.storage, outcome.result, job_dir / "work" / "out", item_id, item_type, owner)
         except (PublishError, StorageError) as e:
-            log.error("job %s: publishing outputs failed: %s", job_id, e)
+            log.error("job %s: publishing outputs failed: %r", job_id, str(e))
             return self._fail(job_id, attempt, "internal", retryable=True)
         try:
             self.queue.complete(job_id, attempt, outcome.result)

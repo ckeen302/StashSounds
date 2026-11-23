@@ -136,6 +136,14 @@ def forge_list_result(ctx: JobContext) -> dict[str, Any]:
     return _forge(ctx, '{"status": "ok", "result": [1, 2]}')
 
 
+def forge_linked_outcome(ctx: JobContext) -> dict[str, Any]:
+    """A valid outcome with a second hard link, which the parent must not read."""
+    report = ctx.workdir.parent / "report"
+    (report / "outcome.json").write_text(json.dumps({"status": "ok", "result": loop_result(ctx.payload["itemId"])}))
+    os.link(report / "outcome.json", ctx.workdir / "linked.json")
+    os._exit(0)
+
+
 def forge_huge_outcome(ctx: JobContext) -> dict[str, Any]:
     result = loop_result(ctx.payload["itemId"])
     result["pad"] = "x" * (2 << 20)
@@ -209,3 +217,67 @@ def isolation_probe(ctx: JobContext) -> dict[str, Any]:
 
 def isolation_probe_result(ctx: JobContext) -> dict[str, Any]:
     return _preview(ctx, b"ID3 probe", b"ID3 probe", _isolation_facts(ctx))
+
+
+def escape_with_setsid(ctx: JobContext) -> dict[str, Any]:
+    """Double-forks a process into its own session, out of the job's process group, as a compromised
+    handler could, and returns at once. The survivor writes its pid and sleeps."""
+    pid_file = ctx.workdir / "escaped.pid"
+    if os.fork() == 0:
+        os.setsid()
+        if os.fork() == 0:
+            pid_file.write_text(str(os.getpid()))
+            time.sleep(300)
+        os._exit(0)
+    for _ in range(500):
+        if pid_file.exists() and pid_file.read_text():
+            break
+        time.sleep(0.01)
+    return loop_result(ctx.payload["itemId"])
+
+
+def count_my_uid(ctx: JobContext) -> dict[str, Any]:
+    """Lists processes of this uid other than this one, which must be none."""
+    me, others = os.getpid(), []
+    for entry in os.listdir("/proc"):
+        if entry.isdigit() and int(entry) != me:
+            try:
+                if os.stat(f"/proc/{entry}").st_uid == os.getuid():
+                    others.append(int(entry))
+            except OSError:
+                pass
+    (ctx.workdir / "probe.json").write_text(json.dumps({"others": others}))
+    return loop_result(ctx.payload["itemId"])
+
+
+def network_probe(ctx: JobContext) -> dict[str, Any]:
+    import socket
+
+    facts: dict[str, Any] = {"interfaces": [name for _, name in socket.if_nameindex()]}
+    try:
+        with socket.create_connection(("127.0.0.1", ctx.input["port"]), timeout=2):
+            facts["connect"] = "connected"
+    except OSError as e:
+        facts["connect"] = type(e).__name__
+    (ctx.workdir / "probe.json").write_text(json.dumps(facts))
+    return loop_result(ctx.payload["itemId"])
+
+
+def hold_threads(ctx: JobContext) -> dict[str, Any]:
+    """Holds 40 threads (within the 64-task cap and 1 GiB of 8 MB stacks) until the parent has counted
+    them and removed work/hold."""
+    import threading
+
+    stop = threading.Event()
+    threads = [threading.Thread(target=stop.wait) for _ in range(40)]
+    for t in threads:
+        t.start()
+    (ctx.workdir / "holding").write_text("1")
+    for _ in range(2000):
+        if not (ctx.workdir / "hold").exists():
+            break
+        time.sleep(0.005)
+    stop.set()
+    for t in threads:
+        t.join()
+    return loop_result(ctx.payload["itemId"])

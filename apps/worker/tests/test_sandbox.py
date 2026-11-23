@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 import threading
 import time
 import uuid
@@ -139,30 +140,39 @@ def test_the_child_runs_under_resource_limits(tmp_path: Path, monkeypatch):
     assert got["RLIMIT_NPROC"] == 123 + CHILD_PROCESSES
 
 
+def test_the_task_count_adds_up_every_thread_of_the_uids_processes(tmp_path: Path):
+    # A /proc laid out by hand: two processes of this uid with 3 and 1 tasks, and names that are not pids.
+    for pid, tasks in (("123", 3), ("456", 1)):
+        for t in range(tasks):
+            (tmp_path / pid / "task" / str(t)).mkdir(parents=True)
+    (tmp_path / "self" / "task" / "1").mkdir(parents=True)
+    (tmp_path / "sys").mkdir()
+    assert _uid_task_count(os.getuid(), proc=tmp_path) == 4
+    assert _uid_task_count(os.getuid() + 1, proc=tmp_path) == 0
+    assert _uid_task_count(proc=tmp_path / "missing") is None
+
+
 def test_the_process_allowance_counts_threads_not_just_processes():
     # The kernel checks RLIMIT_NPROC against every task (thread) of the real uid. Counting processes
     # left a uid running a many-threaded process (the GitHub runner agent) already over the cap, so
     # the child could not start ffmpeg or any grandchild. Holding 100 threads must raise the count by 100.
-    # Other processes of the same uid (root on a shared host) may exit between the two counts, so take
-    # the best of a few tries: a count of processes alone would rise by about 0 every time, never 100.
-    rises = []
-    for _ in range(5):
-        before = _uid_task_count()
-        stop = threading.Event()
-        threads = [threading.Thread(target=stop.wait) for _ in range(100)]
+    if os.geteuid() == 0:
+        # Root's count moves with every other root process; as root this is measured on the job uid,
+        # which runs nothing else (test_isolation.py::test_the_job_uid_task_count_counts_its_threads).
+        pytest.skip("measured on the job uid as root")
+    before = _uid_task_count()
+    stop = threading.Event()
+    threads = [threading.Thread(target=stop.wait) for _ in range(100)]
+    for t in threads:
+        t.start()
+    try:
+        during = _uid_task_count()
+    finally:
+        stop.set()
         for t in threads:
-            t.start()
-        try:
-            during = _uid_task_count()
-        finally:
-            stop.set()
-            for t in threads:
-                t.join()
-        assert before is not None and during is not None
-        rises.append(during - before)
-        if rises[-1] >= 100:
-            break
-    assert max(rises) >= 100, rises
+            t.join()
+    assert before is not None and during is not None
+    assert during - before >= 100
 
 
 def test_a_grandchild_starts_while_the_worker_uid_runs_many_threads(tmp_path: Path):
@@ -182,7 +192,10 @@ def test_a_grandchild_starts_while_the_worker_uid_runs_many_threads(tmp_path: Pa
     assert (tmp_path / "work" / "grandchild.pid").exists()
 
 
-@pytest.mark.parametrize("handler", ["forge_runner_reason", "forge_flag_reason", "forge_garbage", "forge_list_result"])
+@pytest.mark.parametrize(
+    "handler",
+    ["forge_runner_reason", "forge_flag_reason", "forge_garbage", "forge_list_result", "forge_linked_outcome"],
+)
 def test_a_forged_outcome_is_a_crash(tmp_path: Path, handler: str):
     out = run(handler, tmp_path)
     assert (out.status, out.result, out.reason) == ("crashed", None, None)
