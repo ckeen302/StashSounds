@@ -591,6 +591,46 @@ $$;
 create trigger items_search before insert or update of title, tag_names, genre, owner_id on public.items
   for each row execute function public.items_search_vector();
 
+-- The slug follows the title; old addresses still redirect through the public id (request
+-- 103-slug-on-rename).
+create function public.items_slug_follows_title() returns trigger
+language plpgsql security definer  -- slugify needs the extensions schema, which users cannot use
+set search_path = ''
+as $$
+begin
+  if new.title is distinct from old.title then
+    new.slug := public.slugify(new.title);
+  end if;
+  return new;
+end;
+$$;
+create trigger items_slug before update of title on public.items
+  for each row execute function public.items_slug_follows_title();
+
+-- When the owner corrects BPM or key, detection records the uploader as the source, so the
+-- "check this" mark goes away (request 103-check-fields). Only the owner's own edits count: the
+-- worker writes details through worker_complete, which runs as the service role.
+create function public.items_record_uploader_corrections() returns trigger
+language plpgsql
+set search_path = ''
+as $$
+begin
+  if auth.uid() is null or auth.uid() is distinct from new.owner_id
+     or new.details is null or not (new.details ? 'detection') then
+    return new;
+  end if;
+  if new.bpm is distinct from old.bpm then
+    new.details := jsonb_set(jsonb_set(new.details, '{detection,bpmSource}', '"uploader"'), '{detection,bpmAgreed}', 'true');
+  end if;
+  if new.key_root is distinct from old.key_root or new.key_mode is distinct from old.key_mode then
+    new.details := jsonb_set(jsonb_set(new.details, '{detection,keySource}', '"uploader"'), '{detection,keyConfidence}', 'null');
+  end if;
+  return new;
+end;
+$$;
+create trigger items_uploader_corrections before update of bpm, key_root, key_mode on public.items
+  for each row execute function public.items_record_uploader_corrections();
+
 create function public.on_handle_change() returns trigger
 language plpgsql security definer
 set search_path = ''
