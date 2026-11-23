@@ -63,7 +63,7 @@ export const completeUploadInput = z.object({
   itemId: uuidSchema,
   fileId: uuidSchema,
   /** Multipart only: the ETag of each uploaded part. */
-  parts: z.array(z.object({ partNumber: z.int().positive(), etag: z.string() })).optional(),
+  parts: z.array(z.object({ partNumber: z.int().min(1).max(10_000), etag: z.string().min(1).max(128) })).max(10_000).optional(),
 });
 /**
  * Processing starts once every file is in. A preset whose original is confirmed before its demo
