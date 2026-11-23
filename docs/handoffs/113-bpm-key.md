@@ -67,3 +67,95 @@ and the 8-task isolation test covers it.
 
 New dependency: numpy 2.5.5 (BSD-3-Clause AND 0BSD AND MIT AND Zlib AND CC0-1.0; bundles OpenBLAS,
 BSD-3-Clause). Reason: STFT and correlation for onset tempo and chroma.
+
+## What changed
+All of it is under `apps/worker/`.
+- `audio/key.py` (new):
+  - `parse_key` and `format_key` mirror the contracts.
+  - `key_from_name` reads the key from the file-name tokens.
+  - `pitch_chroma` folds C2 to C7 into 12 pitch classes, in blocks.
+  - `key_from_chroma` matches 24 Krumhansl-Kessler rotations and returns the margin as confidence.
+  - `detect_key` puts these together.
+- `audio/tempo.py` (new): `bpm_from_name`, `duration_candidates`, the spectral-flux `onset_envelope`
+  (in blocks), autocorrelation scoring at 1, 2 and 4 beats, `onset_tempo` from 60 to 200, and
+  `detect_bpm`, which applies the rules in the plan.
+- `audio/loop.py`: after the peaks, the decoded file is read as mono. BPM and key come from it and from
+  the original row's `fileName`, before the file is deleted. The result now carries `bpm`, `key`,
+  `bars` and the full `detection` record. `worker_complete` copies `bpm`, `key_root` and `key_mode` to
+  the item unless the uploader set them.
+- `sandbox.py`: the child gets `OPENBLAS_NUM_THREADS=1` and `OMP_NUM_THREADS=1`. Without them, importing
+  numpy here started 4 threads, one per core. With them it starts 1.
+- Tests: `test_detection.py` (new, 100 cases), the loop-fixture assertions in `test_audio.py`, the
+  real-database run (bpm 140, A minor and the detection record on the row) and the child environment.
+
+## Proof
+As root, `STASH_REQUIRE_DB=1 STASH_REQUIRE_ISOLATION=1 pnpm worker:test` (after merging the PR #8
+review fixes from 112):
+```
+SKIPPED [1] tests/test_contracts.py:74: got empty parameter set for (path)
+SKIPPED [1] tests/test_sandbox.py:162: measured on the job uid as root
+288 passed, 2 skipped in 43.30s
+```
+The same suite as uid 65534 (setpriv, `STASH_REQUIRE_DB=1`); the skips are the 16 isolation tests and
+the empty `fixtures/own` case:
+```
+273 passed, 17 skipped in 35.18s
+```
+`uv run --frozen ruff check .` and `uv run --frozen ruff format --check .`:
+```
+All checks passed!
+29 files already formatted
+```
+What each loop fixture gets. "No name" means named `untitled.wav`, and "chroma only" means the key
+ignoring the name:
+
+| Fixture | BPM, source, agreed | Candidates, best first | Bars | No name | Key | Chroma only |
+| --- | --- | --- | --- | --- | --- | --- |
+| drill_lead_142.flac | 142, filename, yes | 142, 284, 71 | 2 | 142, duration, yes | G minor, chroma, 0.104 | G minor |
+| midnight_keys_140bpm_Am.wav | 140, filename, yes | 140, 280, 70 | 4 | 140, duration, yes | A minor, filename | A minor (0.127) |
+| dusty_soul_90_Dmin.wav | 90, filename, yes | 90, 180, 45 | 2 | 90, duration, yes | D minor, filename | D minor (0.130) |
+| rnb_pad_72bpm_Ebmaj.aiff | 72, filename, yes | 72, 144, 288 | 2 | 72, duration, yes | E♭ major, filename | G minor (0.140) |
+| trap_bells_150_F#m.mp3 | 150, filename, yes | 150, 75, 300 | 4 | 150, duration, yes | F♯ minor, filename | F♯ minor (0.116) |
+
+- **The trimmed duplicate** is 0.25 s short of whole bars. It gets `onset`, 140 ±1, not agreed, with
+  `bars` null.
+- **Synthetic triads** are found in all 24 keys, and a 55 Hz kick under a C major loop does not pull the
+  key to A.
+- **Cost:** detection on a 60 s signal takes 0.12 s, with an 82 MB peak RSS.
+
+## Not done
+- One-shot root note is ticket 211.
+- `pnpm run licenses` was not run here, because `node_modules` is not installed in this worktree. I
+  checked numpy's metadata and its bundled `numpy.libs` (OpenBLAS only) by hand. CI runs the gate.
+- The parser mirror covers `parseKey` and `formatKey`. `compatibleKeys` is in the same contracts
+  `describe` block, but the worker has no use for it, so it is not mirrored.
+
+## Surprises and decisions
+- **librosa cannot pass the licenses gate.** Its required `soxr` is LGPL, its required `soundfile` ships
+  LGPL `libsndfile`, and `certifi` (MPL) comes in through pooch. It was replaced by two numpy modules of about 160 lines each
+  (request `113-librosa-licence`). The behaviour is the spec's; only the library differs.
+- **The rnb_pad fixture reads as G minor to chroma.** The generator's major branch plays C *major*
+  (with E natural) on the vi degree, which is not in E♭ major. The name gives E♭ major, which the
+  manifest expects, so nothing fails. The lead may want `scripts/gen-fixtures.py` to use a minor triad
+  on vi, ii and iii in major keys before the fixtures are used to tune chroma.
+- **Name rules are stricter than `parseKey` on its own.** `parseKey("am")` is A minor, but in a file
+  name "am", "a", "em" and "bb" are ordinary words. Lowercase tokens of one or two letters are ignored.
+  "Am", "A", "dmin" and "f#m" count. A key followed by digits ("Cmaj7", "Am7") is a chord name and is
+  ignored. A tempo glued in front ("150F#m") is cut off.
+- **`bpmAgreed` with a name** means the name fits a whole-bar length (within 1%) *and* the onsets agree
+  (within 2%). A name the audio disagrees with is kept, the most trusted source, but marked not agreed,
+  and `bars` is then null.
+- **Octave errors.** The whole-bar candidates are always a factor of 2 apart, so the onset score's job
+  is exactly to choose the octave. Scoring the 1, 2 and 4 beat lags together chose the right octave on
+  every fixture with no tempo prior. A prior (log distance from 120) is used only when the signal has no
+  onsets at all.
+- **numpy threads.** OpenBLAS starts a thread per core on import, which would hit the fixed RLIMIT_NPROC
+  of the job uid on a large machine, the same trap ffmpeg hit in 112. The child environment pins it to
+  1, and a test checks the task count after importing numpy.
+- **A WIP commit.** 113 was paused for the PR #8 review round and committed as WIP (f8a7070), and 112
+  was merged forward afterwards. In `test_sandbox.py`, 112's thread-count test replaced 113's earlier
+  retry loop.
+
+## Requests filed
+- `docs/requests/113-librosa-licence.md`: change the spec's "librosa" wording to numpy (recommended), or
+  grant licence exceptions for soxr, soundfile and certifi.
