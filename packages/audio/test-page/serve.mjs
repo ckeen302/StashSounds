@@ -21,6 +21,8 @@ import { playableSchema } from "@stash/contracts";
 const pkg = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const fixtures = resolve(pkg, "../../fixtures");
 const port = Number(process.env.PORT ?? 4173);
+/** The stretch library, served as is; the page's import map points the bare specifier here. */
+const stretchFile = fileURLToPath(import.meta.resolve("signalsmith-stretch"));
 
 const manifest = JSON.parse(await readFile(join(fixtures, "manifest.json"), "utf8"));
 /** Ready loops only; each is served at /fixtures/<file name>. */
@@ -61,6 +63,10 @@ const server = createServer(async (req, res) => {
     if (path === "/" || path === "/index.html") {
       res.writeHead(200, { "content-type": types[".html"] });
       return res.end(await readFile(join(pkg, "test-page/index.html")));
+    }
+    if (path === "/vendor/signalsmith-stretch.mjs") {
+      res.writeHead(200, { "content-type": "text/javascript; charset=utf-8" });
+      return res.end(await readFile(stretchFile));
     }
     if (path === "/fixtures.json") {
       const body = JSON.stringify(playables(`http://${req.headers.host ?? "127.0.0.1"}`));

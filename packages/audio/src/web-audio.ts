@@ -78,7 +78,9 @@ export type FetchLike = (url: string) => Promise<{ ok: boolean; status: number; 
  */
 export async function createBrowserStretch(ctx: AudioContextLike): Promise<StretchNodeLike> {
   const { default: SignalsmithStretch } = await import("signalsmith-stretch");
-  return SignalsmithStretch(ctx as unknown as BaseAudioContext, { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+  // The library's defaults (one input, one stereo output). Its processor reads `inputs.length` while
+  // inactive, so a node with zero inputs throws in the worklet and goes silent.
+  return SignalsmithStretch(ctx as unknown as BaseAudioContext);
 }
 
 /** The browser's context, created with the interactive latency hint. Throws where Web Audio is missing. */

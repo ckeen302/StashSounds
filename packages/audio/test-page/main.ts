@@ -1,4 +1,4 @@
-// Bare test page for the engine (ticket 121). Imports engine.ts directly: index.ts also exports the
+// Bare test page for the engine (tickets 121, 122). Imports engine.ts directly: index.ts also exports the
 // React binding, and this page has no bundler to resolve React.
 import { getEngine } from "../src/engine.ts";
 import type { Playable } from "../src/types.ts";
@@ -18,6 +18,16 @@ const loops: LoopPlayable[] = await (await fetch("/fixtures.json")).json();
 for (const l of loops) select.add(new Option(`${l.id} (${l.bpm} BPM)`, l.id));
 
 const chosen = () => loops.find((l) => l.id === select.value);
+const tempo = $<HTMLInputElement>("tempo");
+const showBpm = () => {
+  const l = chosen();
+  if (l?.bpm) tempo.value = String(l.bpm);
+};
+showBpm();
+select.addEventListener("change", showBpm);
+// Tempo and key apply live; the first change loads the stretch.
+tempo.addEventListener("input", () => engine.setTempo(Number(tempo.value)));
+$<HTMLInputElement>("transpose").addEventListener("input", (e) => engine.setTranspose(Number((e.target as HTMLInputElement).value)));
 
 // Preload on hover and focus, as list rows will: bytes are fetched before the first gesture.
 select.addEventListener("change", () => {

@@ -34,7 +34,12 @@ test.afterAll(() => {
 });
 
 interface PageGlobals {
-  stashEngine: { getState(): { status: string; durationMs: number; current: { id: string } | null }; getPositionMs(): number };
+  stashEngine: {
+    getState(): { status: string; durationMs: number; tempoRatio: number; transpose: number; current: { id: string } | null };
+    getPositionMs(): number;
+    setTempo(bpm: number): void;
+    setTranspose(semitones: number): void;
+  };
   __contexts?: number;
   __analyser?: AnalyserNode;
 }
@@ -42,6 +47,10 @@ interface PageGlobals {
 test("the audio test page plays a WAV fixture loop", async ({ page }) => {
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
+  const stretchRequests: string[] = [];
+  page.on("request", (r) => {
+    if (r.url().includes("signalsmith-stretch")) stretchRequests.push(r.url());
+  });
   // Count contexts and tap the output so the test can tell that real samples reach the destination.
   await page.addInitScript(() => {
     const Real = window.AudioContext;
@@ -89,6 +98,36 @@ test("the audio test page plays a WAV fixture loop", async ({ page }) => {
     });
   await expect.poll(rms, { message: "samples reach the output" }).toBeGreaterThan(0.001);
 
+  expect(await page.evaluate(() => (window as unknown as PageGlobals).__contexts)).toBe(1);
+  expect(stretchRequests, "the stretch is not loaded for a loop at its original tempo and key").toEqual([]);
+
+  // Ticket 122: halve the tempo and shift the key while it plays. Nothing restarts, the playhead slows
+  // to half speed once the stretch takes over, and sound keeps coming out.
+  await page.evaluate(() => {
+    const e = (window as unknown as PageGlobals).stashEngine;
+    e.setTempo(70);
+    e.setTranspose(3);
+  });
+  expect(await page.evaluate(() => (window as unknown as PageGlobals).stashEngine.getState())).toMatchObject({ status: "playing", tempoRatio: 0.5, transpose: 3 });
+  await expect.poll(() => stretchRequests.length, { message: "the stretch loads on the first change" }).toBe(1);
+  await page.waitForTimeout(600); // load, hand over at now + latency
+  const rate = await page.evaluate(
+    () =>
+      new Promise<number>((resolve) => {
+        const e = (window as unknown as PageGlobals).stashEngine;
+        const t0 = performance.now();
+        const p0 = e.getPositionMs();
+        setTimeout(() => {
+          let dp = e.getPositionMs() - p0;
+          if (dp < 0) dp += e.getState().durationMs; // wrapped at the loop end
+          resolve(dp / (performance.now() - t0));
+        }, 1000);
+      }),
+  );
+  expect(rate, "playhead speed after halving the tempo").toBeGreaterThan(0.4);
+  expect(rate, "playhead speed after halving the tempo").toBeLessThan(0.6);
+  await expect.poll(rms, { message: "the stretched loop reaches the output" }).toBeGreaterThan(0.001);
+  expect(await page.evaluate(() => (window as unknown as PageGlobals).stashEngine.getState())).toMatchObject({ status: "playing", tempoRatio: 0.5, transpose: 3 });
   expect(await page.evaluate(() => (window as unknown as PageGlobals).__contexts)).toBe(1);
   expect(errors).toEqual([]);
 });
