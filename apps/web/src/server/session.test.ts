@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { AuthApiError } from "@supabase/supabase-js";
 import { accountSchema, limits, profileSchema } from "@stash/contracts";
 import { loadSession } from "./session-core.ts";
 import { toAccount, toProfile } from "./profile.ts";
@@ -53,6 +54,8 @@ describe("loadSession", () => {
   it("treats an invalid or expired token as signed out", async () => {
     const userError = Object.assign(new Error("invalid JWT"), { name: "AuthApiError", status: 403, __isAuthError: true });
     expect(await loadSession(fakeSupabase({ userError }).client)).toBeNull();
+    expect(await loadSession(fakeSupabase({ userError: new AuthApiError("Bad JWT", 400, undefined) }).client)).toBeNull();
+    expect(await loadSession(fakeSupabase({ userError: new AuthApiError("Unauthorized", 401, undefined) }).client)).toBeNull();
   });
 
   it("rethrows an auth outage instead of signing the user out", async () => {

@@ -144,6 +144,26 @@ describe("updateProfile's write", () => {
     expect(r.rows[0]).toMatchObject({ handle: "upd_user", display_name: "Up Dated", bio: "bio", links: [{ kind: "website", url: "https://upd.example" }] });
   });
 
+  it("a suspended user's direct writes to every editable column change nothing, until restored", async () => {
+    const id = await newAuthUser("susp_edit@x.test");
+    await db.as(user(id), `select public.claim_handle('susp_edit', 'Before')`);
+    await db.q(`update public.accounts set suspended_at = now() where id = $1`, [id]);
+    const r = await db.as(
+      user(id),
+      `update public.profiles set display_name = 'After', bio = 'spam', links = $2, avatar_path = $3 where id = $1 returning id`,
+      [id, JSON.stringify([{ kind: "website", url: "https://spam.example" }]), `${id}/avatar.webp`],
+    );
+    expect(r.rowCount).toBe(0);
+    expect((await db.q(`select display_name, bio, links, avatar_path from public.profiles where id = $1`, [id])).rows[0]).toEqual({
+      display_name: "Before",
+      bio: null,
+      links: [],
+      avatar_path: null,
+    });
+    await db.q(`update public.accounts set suspended_at = null where id = $1`, [id]);
+    expect((await db.as(user(id), `update public.profiles set bio = 'back' where id = $1 returning id`, [id])).rowCount).toBe(1);
+  });
+
   it("another user's row is never updated: zero rows, which the server reports as not_found", async () => {
     const owner = await newAuthUser("own@x.test");
     const other = await newAuthUser("oth@x.test");

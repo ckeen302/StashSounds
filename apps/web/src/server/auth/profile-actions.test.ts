@@ -19,6 +19,7 @@ function claimRpc(uid: string) {
   return (fn: string, args: Record<string, unknown>) => {
     if (fn !== "claim_handle") return { data: null, error: pgError("42883", "no such function") };
     if (args.p_handle === "taken") return { data: null, error: pgError("P0001", "conflict: That handle is taken.") };
+    if (args.p_handle === "db_says_no") return { data: null, error: pgError("P0001", "invalid: Handles are 3 to 24 characters: a to z, 0 to 9 and underscore.") };
     if (args.p_handle === "racer") return { data: null, error: pgError("23505", 'duplicate key value violates unique constraint "profiles_handle_key"') };
     return { data: profileRow(uid, String(args.p_handle), { display_name: args.p_display_name ?? args.p_handle }), error: null };
   };
@@ -79,6 +80,12 @@ describe("claimHandle", () => {
     });
   });
 
+  it("the database's P0001 invalid comes back with its message as a field error", async () => {
+    const { d } = deps(newUser);
+    const message = "Handles are 3 to 24 characters: a to z, 0 to 9 and underscore.";
+    expect(await claimHandle.run({ handle: "db_says_no" }, d)).toEqual({ ok: false, code: "invalid", message, fields: { handle: message } });
+  });
+
   it("a handle taken in a race (unique violation) is also a conflict", async () => {
     const { d } = deps(newUser);
     expect(await claimHandle.run({ handle: "racer" }, d)).toMatchObject({ ok: false, code: "conflict", fields: { handle: expect.any(String) } });
@@ -135,7 +142,15 @@ describe("updateProfile", () => {
 
   it("wrong user: an avatar path outside the caller's folder is invalid", async () => {
     const { fake, d } = deps(member());
-    for (const avatarPath of [`${IDS.bob}/avatar.webp`, "avatar.webp", `${IDS.alice}/../${IDS.bob}/a.webp`]) {
+    for (const avatarPath of [
+      `${IDS.bob}/avatar.webp`,
+      "avatar.webp",
+      `${IDS.alice}/../${IDS.bob}/a.webp`,
+      `${IDS.alice}//x.webp`,
+      `${IDS.alice}/a\nb.webp`,
+      `${IDS.alice}/./a.webp`,
+      `${IDS.alice}/a\\b.webp`,
+    ]) {
       expect(await updateProfile.run({ avatarPath }, d), avatarPath).toMatchObject({ ok: false, code: "invalid", fields: { avatarPath: expect.any(String) } });
     }
     expect(fake.queries.some((q) => q.op === "update")).toBe(false);
@@ -143,6 +158,13 @@ describe("updateProfile", () => {
       ok: true,
       data: { avatarUrl: `http://127.0.0.1:9000/previews/${IDS.alice}/avatar.webp` },
     });
+  });
+
+  it("avatarPath null removes the avatar", async () => {
+    const { fake, d } = deps(member(IDS.alice, "alice", { profile: { avatar_path: `${IDS.alice}/avatar.webp` } }));
+    const r = await updateProfile.run({ avatarPath: null }, d);
+    expect(r).toMatchObject({ ok: true, data: { avatarUrl: null } });
+    expect(fake.queries.find((q) => q.op === "update")).toMatchObject({ values: { avatar_path: null }, filters: [["id", IDS.alice]] });
   });
 
   it("unauthenticated: unauthorized", async () => {

@@ -40,6 +40,11 @@ describe("mapError", () => {
     expect(mapError(new AuthApiError("Email rate limit exceeded", 429, "over_email_send_rate_limit"))).toMatchObject({ code: "rate_limited" });
     expect(mapError(new AuthApiError("Unable to validate email address: invalid format", 400, "validation_failed"))).toMatchObject({ code: "invalid" });
     expect(mapError(new AuthApiError("Email address is invalid", 422, "email_address_invalid"))).toMatchObject({ code: "invalid" });
+    expect(mapError(new AuthApiError("Bad request", 400, undefined))).toEqual({
+      ok: false,
+      code: "invalid",
+      message: "That did not work. Check the details and try again.",
+    });
     expect(mapError(new AuthSessionMissingError())).toMatchObject({ code: "unauthorized" });
     expect(mapError(new AuthApiError("Token has expired or is invalid", 403, "otp_expired"))).toMatchObject({ code: "unauthorized" });
   });
