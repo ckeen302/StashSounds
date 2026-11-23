@@ -22,6 +22,8 @@ supabase/migrations       Lead only           SQL schema and access policies
 supabase/tests            Platform lane       policy tests
 supabase/seed.sql         Lead only           local development data
 fixtures/                 Lead only           test files and manifest.json (ticket 006)
+e2e/                      Interface lane      journeys, accessibility scan, visual baselines
+e2e/perf/audio-*.spec.ts  Audio lane          audio test page checks (pnpm perf)
 scripts/, .github/        Lead only           tooling and CI
 docs/                     Lead                spec, tickets, decisions, handoffs, board
 docs/handoffs/NNN-*.md    The builder who finished the ticket

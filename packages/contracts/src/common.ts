@@ -86,8 +86,12 @@ export function compatibleKeys(key: MusicalKey): MusicalKey[] {
 // Waveform peaks: 800 unsigned bytes (0 to 255), base64 in JSON so a row needs no second request.
 
 /** Waveform peaks: limits.waveform.peakPoints bytes, base64-encoded. */
+const peaksBase64Length = Math.ceil(limits.waveform.peakPoints / 3) * 4;
 export const peaksSchema = z
   .base64()
+  // The length check survives into the generated JSON Schema (the refine below does not), so the
+  // worker's contract gate also refuses a short peaks array (PR #8 contract review).
+  .length(peaksBase64Length)
   .refine((s) => (s.length / 4) * 3 - (s.endsWith("==") ? 2 : s.endsWith("=") ? 1 : 0) === limits.waveform.peakPoints, {
     message: `peaks are ${limits.waveform.peakPoints} bytes`,
   });
@@ -106,3 +110,6 @@ export function decodePeaks(encoded: string): Uint8Array {
   for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
   return out;
 }
+
+/** A path on this site: starts with one slash, never "//" or "/\" (which browsers treat as another host). */
+export const sameSitePathSchema = z.string().regex(/^\/(?![/\\])/, "Must be a same-site path");

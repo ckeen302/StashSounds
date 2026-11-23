@@ -591,6 +591,46 @@ $$;
 create trigger items_search before insert or update of title, tag_names, genre, owner_id on public.items
   for each row execute function public.items_search_vector();
 
+-- The slug follows the title; old addresses still redirect through the public id (request
+-- 103-slug-on-rename).
+create function public.items_slug_follows_title() returns trigger
+language plpgsql security definer  -- slugify needs the extensions schema, which users cannot use
+set search_path = ''
+as $$
+begin
+  if new.title is distinct from old.title then
+    new.slug := public.slugify(new.title);
+  end if;
+  return new;
+end;
+$$;
+create trigger items_slug before update of title on public.items
+  for each row execute function public.items_slug_follows_title();
+
+-- When the owner corrects BPM or key, detection records the uploader as the source, so the
+-- "check this" mark goes away (request 103-check-fields). Only the owner's own edits count: the
+-- worker writes details through worker_complete, which runs as the service role.
+create function public.items_record_uploader_corrections() returns trigger
+language plpgsql
+set search_path = ''
+as $$
+begin
+  if auth.uid() is null or auth.uid() is distinct from new.owner_id
+     or new.details is null or not (new.details ? 'detection') then
+    return new;
+  end if;
+  if new.bpm is distinct from old.bpm then
+    new.details := jsonb_set(jsonb_set(new.details, '{detection,bpmSource}', '"uploader"'), '{detection,bpmAgreed}', 'true');
+  end if;
+  if new.key_root is distinct from old.key_root or new.key_mode is distinct from old.key_mode then
+    new.details := jsonb_set(jsonb_set(new.details, '{detection,keySource}', '"uploader"'), '{detection,keyConfidence}', 'null');
+  end if;
+  return new;
+end;
+$$;
+create trigger items_uploader_corrections before update of bpm, key_root, key_mode on public.items
+  for each row execute function public.items_record_uploader_corrections();
+
 create function public.on_handle_change() returns trigger
 language plpgsql security definer
 set search_path = ''
@@ -742,6 +782,7 @@ declare
 begin
   select * into v_item from public.items where id = p_item_id;
   if v_item.id is null or v_item.owner_id is distinct from auth.uid() then perform public.fail('not_found', 'Item not found.'); end if;
+  if not public.is_active_user() then perform public.fail('forbidden', 'This account is suspended.'); end if;
   if v_item.type <> 'preset' then perform public.fail('invalid', 'Only presets take a demo.'); end if;
   if v_item.status <> 'draft' then perform public.fail('conflict', 'This item is already processing.'); end if;
   if not exists (select 1 from jsonb_array_elements_text(v_demo -> 'formats') f where lower(f) = v_ext) then
@@ -749,7 +790,8 @@ begin
   end if;
   if p_bytes <= 0 or p_bytes > (v_demo ->> 'maxBytes')::bigint then perform public.fail('invalid', 'This demo is larger than the limit.'); end if;
   delete from public.item_files f where f.item_id = p_item_id and f.role = 'demo';
-  v_path := v_item.owner_id::text || '/' || v_item.id::text || '/demo.' || v_ext;
+  -- One key for every extension, so a replaced demo overwrites the old object instead of orphaning it.
+  v_path := v_item.owner_id::text || '/' || v_item.id::text || '/demo';
   insert into public.item_files (item_id, role, bucket, path, bytes, mime, meta)
   values (p_item_id, 'demo', 'originals', v_path, p_bytes, public.mime_for_ext(v_ext),
           jsonb_build_object('fileName', left(nullif(trim(p_file_name), ''), 255)))
@@ -773,7 +815,12 @@ declare
 begin
   select * into v_item from public.items where id = p_item_id for update;
   if v_item.id is null or v_item.owner_id is distinct from p_user_id then perform public.fail('not_found', 'Item not found.'); end if;
-  update public.item_files set uploaded_at = now()
+  -- Status first: once the worker owns the item, no other answer may lead the caller to clean up.
+  if v_item.status <> 'draft' then perform public.fail('conflict', 'This item is already processing.'); end if;
+  if exists (select 1 from public.accounts where id = p_user_id and suspended_at is not null) then
+    perform public.fail('forbidden', 'This account is suspended.');
+  end if;
+  update public.item_files set uploaded_at = now(), meta = meta - 'completing' - 'completingAt'
    where id = p_file_id and item_id = p_item_id and bucket = 'originals' and bytes = p_measured_bytes;
   if not found then
     if exists (select 1 from public.item_files where id = p_file_id and item_id = p_item_id and bucket = 'originals') then
@@ -782,7 +829,6 @@ begin
     perform public.fail('not_found', 'File not found.');
   end if;
 
-  if v_item.status <> 'draft' then perform public.fail('conflict', 'This item is already processing.'); end if;
   if exists (select 1 from public.item_files where item_id = p_item_id and bucket = 'originals' and uploaded_at is null) then
     -- Another file (a preset's original or demo) has not finished uploading yet.
     return null;
@@ -797,6 +843,42 @@ begin
   returning id into v_job;
   return v_job;
 end;
+$$;
+
+-- completeUpload: service role only. Before copying a staged upload to its final key, the server
+-- claims the file: only a draft item's file that is not yet confirmed and has no live claim can be
+-- claimed, so no copy can land on a file the worker may already be reading, and two concurrent
+-- completions of one file cannot both copy (PR #6 security re-review). A claim lapses after the
+-- upload URL lifetime; enqueue_processing clears it when it confirms the file.
+create function public.claim_file_completion(p_user_id uuid, p_item_id uuid, p_file_id uuid, p_token uuid)
+returns boolean
+language plpgsql security definer
+set search_path = ''
+as $$
+declare
+  v_item public.items;
+  v_ttl interval := make_interval(secs => (public.app_limits() -> 'urls' ->> 'uploadTtlSeconds')::int);
+begin
+  select * into v_item from public.items where id = p_item_id for update;
+  if v_item.id is null or v_item.owner_id is distinct from p_user_id then perform public.fail('not_found', 'Item not found.'); end if;
+  if v_item.status <> 'draft' then perform public.fail('conflict', 'This item is already processing.'); end if;
+  update public.item_files
+     set meta = meta || jsonb_build_object('completing', p_token, 'completingAt', now())
+   where id = p_file_id and item_id = p_item_id and bucket = 'originals' and uploaded_at is null
+     and (meta ->> 'completingAt' is null or (meta ->> 'completingAt')::timestamptz < now() - v_ttl);
+  return found;
+end;
+$$;
+
+-- Gives a claim back when completeUpload stops before enqueue_processing (a refused size, a
+-- storage error), so the owner can retry at once.
+create function public.release_file_completion(p_file_id uuid, p_token uuid)
+returns void
+language sql security definer
+set search_path = ''
+as $$
+  update public.item_files set meta = meta - 'completing' - 'completingAt'
+   where id = p_file_id and meta ->> 'completing' = p_token::text;
 $$;
 
 -- Owner edits: tags and reference tags replace the item's current set.

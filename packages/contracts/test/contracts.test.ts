@@ -3,6 +3,8 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import {
   compatibleKeys,
+  workerFileSchema,
+  completeUploadOutput,
   createUploadSlotInput,
   decodePeaks,
   encodePeaks,
@@ -184,6 +186,9 @@ describe("items", () => {
     };
     expect(itemRowSchema.safeParse(row).success).toBe(true);
     expect(itemRowSchema.safeParse({ ...row, playable: { kind: "loop", id: "x" } }).success).toBe(false);
+    for (const href of ["//evil.example/x", "/\\evil.example", "https://evil.example/loop/x", "loop/x"]) {
+      expect(itemRowSchema.safeParse({ ...row, href }).success, href).toBe(false);
+    }
   });
   it("caps kit pads at sixteen", () => {
     const pad = (i: number) => ({ index: i, name: `Kick ${i}`, category: "kick", previewUrl: "https://p.example.com/k.mp3" });
@@ -192,7 +197,27 @@ describe("items", () => {
   });
 });
 
+describe("worker result files", () => {
+  const base = { bucket: "previews", path: "i/peaks-abc.peaks", bytes: 800, mime: "application/octet-stream", sha256: null };
+  it("a peaks file carries its 800 peaks in meta", () => {
+    const peaks = encodePeaks(new Array(800).fill(7));
+    expect(workerFileSchema.safeParse({ ...base, role: "peaks", meta: { points: 800, peaks } }).success).toBe(true);
+    expect(workerFileSchema.safeParse({ ...base, role: "peaks", meta: {} }).success).toBe(false);
+    expect(workerFileSchema.safeParse({ ...base, role: "peaks", meta: { points: 800, peaks: encodePeaks([1, 2]) } }).success).toBe(false);
+  });
+  it("other files keep free-form meta", () => {
+    expect(workerFileSchema.safeParse({ ...base, role: "preview", mime: "audio/mpeg", meta: { bitrateKbps: 192 } }).success).toBe(true);
+  });
+});
+
 describe("requests", () => {
+  it("completeUpload says which file a draft preset is still waiting for", () => {
+    const itemId = "00000000-0000-4000-8000-000000000001";
+    expect(completeUploadOutput.safeParse({ itemId, status: "processing", jobId: itemId }).success).toBe(true);
+    expect(completeUploadOutput.safeParse({ itemId, status: "draft", jobId: null, waitingFor: "demo" }).success).toBe(true);
+    expect(completeUploadOutput.safeParse({ itemId, status: "draft", jobId: null }).success).toBe(false);
+    expect(completeUploadOutput.safeParse({ itemId, status: "processing", jobId: null }).success).toBe(false);
+  });
   it("defaults an upload slot to the original file", () => {
     const v = createUploadSlotInput.parse({ type: "loop", fileName: "a.wav", bytes: 10, mime: "audio/wav" });
     expect(v.role).toBe("original");
