@@ -2,6 +2,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import type { z } from "zod";
 import { err, type ErrorResult, type Result } from "@stash/contracts";
 import { mapError } from "./errors.ts";
+import type { OriginalsStorage } from "./storage/originals.ts";
 import { isMember, loadSession, type MemberSession, type Session } from "./session-core.ts";
 
 /**
@@ -24,13 +25,20 @@ export type AuthMode = "public" | "user" | "member";
 type SessionFor<M extends AuthMode> = M extends "member" ? MemberSession : M extends "user" ? Session : Session | null;
 
 export type ActionContext<M extends AuthMode> = {
+  /** Acts as the signed-in user: row-level security and the database's own checks apply. */
   supabase: SupabaseClient;
   session: SessionFor<M>;
+  /** Service role. Only for the narrow service-role functions (enqueue_processing); never for reads a user could make. */
+  service: () => SupabaseClient;
+  /** The private originals bucket. */
+  storage: () => OriginalsStorage;
 };
 
 /** What an action needs from the request. Injected so the wrapper is unit tested without Next or Supabase. */
 export type ActionDeps = {
   supabase: () => Promise<SupabaseClient>;
+  service?: () => SupabaseClient;
+  storage?: () => OriginalsStorage;
 };
 
 export type ActionDefinition<I extends z.ZodType, O extends z.ZodType, M extends AuthMode> = {
@@ -58,7 +66,12 @@ export function defineAction<I extends z.ZodType, O extends z.ZodType, M extends
         if (!isMember(session)) return err("forbidden", "Choose a handle first.");
         if (session.account.suspendedAt) return err("forbidden", "This account is suspended.");
       }
-      const ctx = { supabase, session } as ActionContext<M>;
+      const ctx = {
+        supabase,
+        session,
+        service: deps.service ?? missing("service"),
+        storage: deps.storage ?? missing("storage"),
+      } as ActionContext<M>;
 
       // 2. Input. A call with no argument is an empty object.
       const parsed = def.input.safeParse(raw === undefined ? {} : raw);
@@ -81,6 +94,12 @@ export function defineAction<I extends z.ZodType, O extends z.ZodType, M extends
     }
   }
   return { ...def, run };
+}
+
+function missing(name: string): () => never {
+  return () => {
+    throw new Error(`${name} is not configured for this action`);
+  };
 }
 
 function invalid(error: z.ZodError): ErrorResult {
