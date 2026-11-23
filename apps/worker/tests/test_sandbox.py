@@ -109,7 +109,18 @@ def test_the_child_sees_only_an_allowlisted_environment(tmp_path: Path, monkeypa
     env = json.loads((tmp_path / "work" / "probe.json").read_text())["env"]
     assert "secret" not in json.dumps(env)
     # LC_CTYPE may be added by the child interpreter itself (PEP 538 locale coercion), not passed in.
-    assert set(env) <= {"PATH", "PYTHONPATH", "LANG", "LC_ALL", "LC_CTYPE", "TMPDIR", "HOME"}
+    assert set(env) <= {
+        "PATH",
+        "PYTHONPATH",
+        "LANG",
+        "LC_ALL",
+        "LC_CTYPE",
+        "TMPDIR",
+        "HOME",
+        "OPENBLAS_NUM_THREADS",
+        "OMP_NUM_THREADS",
+    }
+    assert (env["OPENBLAS_NUM_THREADS"], env["OMP_NUM_THREADS"]) == ("1", "1")
     assert Path(env["HOME"]).is_relative_to(tmp_path) and Path(env["TMPDIR"]).is_relative_to(tmp_path)
 
 
@@ -132,19 +143,26 @@ def test_the_process_allowance_counts_threads_not_just_processes():
     # The kernel checks RLIMIT_NPROC against every task (thread) of the real uid. Counting processes
     # left a uid running a many-threaded process (the GitHub runner agent) already over the cap, so
     # the child could not start ffmpeg or any grandchild. Holding 100 threads must raise the count by 100.
-    before = _uid_task_count()
-    stop = threading.Event()
-    threads = [threading.Thread(target=stop.wait) for _ in range(100)]
-    for t in threads:
-        t.start()
-    try:
-        during = _uid_task_count()
-    finally:
-        stop.set()
+    # Other processes of the same uid (root on a shared host) may exit between the two counts, so take
+    # the best of a few tries: a count of processes alone would rise by about 0 every time, never 100.
+    rises = []
+    for _ in range(5):
+        before = _uid_task_count()
+        stop = threading.Event()
+        threads = [threading.Thread(target=stop.wait) for _ in range(100)]
         for t in threads:
-            t.join()
-    assert before is not None and during is not None
-    assert during - before >= 100
+            t.start()
+        try:
+            during = _uid_task_count()
+        finally:
+            stop.set()
+            for t in threads:
+                t.join()
+        assert before is not None and during is not None
+        rises.append(during - before)
+        if rises[-1] >= 100:
+            break
+    assert max(rises) >= 100, rises
 
 
 def test_a_grandchild_starts_while_the_worker_uid_runs_many_threads(tmp_path: Path):
