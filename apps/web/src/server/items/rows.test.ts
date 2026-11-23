@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { itemRowSchema, limits } from "@stash/contracts";
 import { buildPlayable, checkFields, itemLength, peaksFor, toItem, toItemRow } from "./rows.ts";
 import { TEST_ENV } from "../testing/fake-supabase.ts";
-import { DETAILS, ITEM_IDS, PEAKS, fileDbRow, filesFor, itemDbRow, samplesFor } from "../testing/items.ts";
+import { DETAILS, ITEM_IDS, PEAKS, fileDbRow, filesFor, itemDbRow, samplesFor, type TestType } from "../testing/items.ts";
 
 beforeEach(() => {
   for (const [k, v] of Object.entries(TEST_ENV)) vi.stubEnv(k, v);
@@ -24,7 +24,7 @@ describe("toItem", () => {
 });
 
 describe("buildPlayable", () => {
-  const playable = (type: Parameters<typeof itemDbRow>[0], files = filesFor(type), samples = samplesFor(ITEM_IDS.kit, 20)) =>
+  const playable = (type: TestType, files = filesFor(type), samples = samplesFor(ITEM_IDS.kit, 20)) =>
     buildPlayable(toItem(itemDbRow(type), []), files, samples);
 
   it("loop: public preview URL, exact loop length in samples, bpm and key root", () => {
