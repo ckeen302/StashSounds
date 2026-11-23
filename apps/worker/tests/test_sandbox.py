@@ -10,7 +10,7 @@ from pathlib import Path
 import pytest
 
 from stash_worker.jobs import Rejected
-from stash_worker.sandbox import CHILD_FILE_BYTES, CHILD_PROCESSES, run_isolated
+from stash_worker.sandbox import CHILD_FILE_BYTES, CHILD_PROCESSES, _uid_process_count, run_isolated
 
 PAYLOAD = {"id": str(uuid.uuid4()), "itemId": str(uuid.uuid4()), "kind": "process_loop", "attempts": 1}
 MiB = 1 << 20
@@ -28,9 +28,7 @@ INPUT = {"jobId": PAYLOAD["id"], "attempt": 1, "itemId": PAYLOAD["itemId"], "fil
 
 
 def run(handler: str, tmp_path: Path, timeout_s: float = 20, memory_bytes: int = 1024 * MiB):
-    return run_isolated(
-        f"handlers:{handler}", PAYLOAD, INPUT, tmp_path, timeout_s=timeout_s, memory_bytes=memory_bytes
-    )
+    return run_isolated(f"handlers:{handler}", PAYLOAD, INPUT, tmp_path, timeout_s=timeout_s, memory_bytes=memory_bytes)
 
 
 def test_result_comes_back_from_the_child(tmp_path: Path):
@@ -84,8 +82,15 @@ def test_rejected_accepts_only_file_fault_reasons():
     for good in ("corrupt_file", "unsupported_format", "unsafe_archive", "too_long", "silent", "no_notes"):
         Rejected(good)
     # Runner reasons describe the run; screening matches come back as result.flag, never as a failure.
-    for bad in ("timeout", "internal", "duplicate_exact", "duplicate_fingerprint", "commercial_match",
-                "pack_name_blocklist", "not_a_reason"):
+    for bad in (
+        "timeout",
+        "internal",
+        "duplicate_exact",
+        "duplicate_fingerprint",
+        "commercial_match",
+        "pack_name_blocklist",
+        "not_a_reason",
+    ):
         with pytest.raises(ValueError):
             Rejected(bad)
 
@@ -101,7 +106,8 @@ def test_the_child_sees_only_an_allowlisted_environment(tmp_path: Path, monkeypa
     assert run("env_probe", tmp_path).status == "ok"
     env = json.loads((tmp_path / "work" / "probe.json").read_text())["env"]
     assert "secret" not in json.dumps(env)
-    assert set(env) <= {"PATH", "PYTHONPATH", "LANG", "LC_ALL", "TMPDIR", "HOME"}
+    # LC_CTYPE may be added by the child interpreter itself (PEP 538 locale coercion), not passed in.
+    assert set(env) <= {"PATH", "PYTHONPATH", "LANG", "LC_ALL", "LC_CTYPE", "TMPDIR", "HOME"}
     assert Path(env["HOME"]).is_relative_to(tmp_path) and Path(env["TMPDIR"]).is_relative_to(tmp_path)
 
 
@@ -111,7 +117,10 @@ def test_the_child_runs_under_resource_limits(tmp_path: Path):
     assert got["RLIMIT_AS"] == 768 * MiB
     assert got["RLIMIT_CORE"] == 0
     assert got["RLIMIT_FSIZE"] == CHILD_FILE_BYTES
-    assert got["RLIMIT_NPROC"] == CHILD_PROCESSES
+    # RLIMIT_NPROC counts every process of the uid, so the cap is what the uid runs now plus the allowance.
+    now = _uid_process_count()
+    assert now is not None
+    assert CHILD_PROCESSES < got["RLIMIT_NPROC"] <= now + CHILD_PROCESSES + 50
 
 
 @pytest.mark.parametrize("handler", ["forge_runner_reason", "forge_flag_reason", "forge_garbage", "forge_list_result"])

@@ -9,8 +9,7 @@ from pathlib import Path
 
 import pytest
 
-from stash_worker.contracts import limits
-from stash_worker.contracts import is_valid
+from stash_worker.contracts import is_valid, limits
 from stash_worker.db import PgJobQueue, QueueRejected
 from stash_worker.runner import Runner
 

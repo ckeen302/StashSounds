@@ -1,4 +1,4 @@
-"""Worker settings from the environment.
+"""Worker settings from the environment and limits.json.
 
 `pnpm dev` writes the repo's .env.local but does not export it to the processes it starts, so values
 missing from the environment are read from that file. The environment always wins.
@@ -7,16 +7,17 @@ missing from the environment are read from that file. The environment always win
 from __future__ import annotations
 
 import os
+import ssl
 from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
-from urllib.parse import unquote, urlsplit
+from urllib.parse import parse_qs, unquote, urlsplit
 
-from stash_worker.contracts import REPO_ROOT
+from stash_worker.contracts import REPO_ROOT, limits
 
-# No memory limit is given in limits.json yet (request 111-worker-memory-limit).
-DEFAULT_MEMORY_MB = 2048
+LOCAL_HOSTS = frozenset({"localhost", "127.0.0.1", "::1"})
+SSLMODES = ("disable", "allow", "prefer", "require", "verify-ca", "verify-full")
 
 
 def _dotenv(path: Path) -> dict[str, str]:
@@ -34,17 +35,45 @@ def _dotenv(path: Path) -> dict[str, str]:
     return out
 
 
+def _ssl_context(host: str, sslmode: str | None, rootcert: str | None) -> ssl.SSLContext | bool | None:
+    """pg8000's ssl_context for libpq's sslmode. pg8000 reads None as "try TLS, fall back to plain"
+    (prefer), False as no TLS, and a context as TLS required.
+
+    A host other than this machine always gets TLS: no sslmode, allow and prefer mean verify-full,
+    and disable is refused, so credentials never cross a network in the clear."""
+    if sslmode is not None and sslmode not in SSLMODES:
+        raise ValueError(f"DATABASE_URL has an unknown sslmode {sslmode!r}")
+    local = host in LOCAL_HOSTS
+    if local and sslmode in (None, "allow", "prefer"):
+        return None
+    if sslmode == "disable":
+        if not local:
+            raise ValueError(f"DATABASE_URL turns TLS off for {host}; TLS is required off this machine")
+        return False
+    mode = "verify-full" if sslmode in (None, "allow", "prefer") else sslmode
+    ctx = ssl.create_default_context(cafile=rootcert)
+    if mode == "require":
+        ctx.check_hostname = False
+        ctx.verify_mode = ssl.CERT_NONE
+    elif mode == "verify-ca":
+        ctx.check_hostname = False
+    return ctx
+
+
 def connect_params(url: str) -> dict[str, Any]:
-    """pg8000 connection arguments from a postgres:// URL."""
+    """pg8000 connection arguments from a postgres:// URL, honoring sslmode and sslrootcert."""
     u = urlsplit(url)
     if u.scheme not in ("postgres", "postgresql"):
         raise ValueError("DATABASE_URL must be a postgres:// URL")
+    query = {k: v[-1] for k, v in parse_qs(u.query).items()}
+    host = u.hostname or "localhost"
     return {
         "user": unquote(u.username or "postgres"),
         "password": unquote(u.password) if u.password is not None else None,
-        "host": u.hostname or "localhost",
+        "host": host,
         "port": u.port or 5432,
         "database": unquote(u.path.lstrip("/")) or "postgres",
+        "ssl_context": _ssl_context(host, query.get("sslmode"), query.get("sslrootcert")),
     }
 
 
@@ -63,7 +92,7 @@ def load_settings(env: Mapping[str, str] | None = None, dotenv: Path | None = No
         raise SystemExit("stash-worker: DATABASE_URL is not set (see .env.example).")
     return Settings(
         database_url=url,
-        memory_bytes=int(values.get("STASH_WORKER_MEMORY_MB", DEFAULT_MEMORY_MB)) << 20,
+        memory_bytes=int(limits()["worker"]["memoryMb"]) << 20,
         idle_min_s=float(values.get("STASH_WORKER_IDLE_MIN_S", 1)),
         idle_max_s=float(values.get("STASH_WORKER_IDLE_MAX_S", 15)),
     )

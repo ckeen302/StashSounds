@@ -1,7 +1,9 @@
-"""The worker's only way into the database: the service role's four worker functions.
+"""The worker's only way into the database: the service role's worker functions.
 
-Each call runs in its own transaction as `service_role` (data-model.md: claim_job, worker_complete,
-worker_fail, requeue_stale_jobs) and does nothing else: no table reads, no table writes.
+Each call runs in its own transaction as `service_role` (data-model.md and decision 0012: claim_job,
+worker_job_input, worker_complete, worker_fail, requeue_stale_jobs) and does nothing else: no table
+reads, no table writes. Every call after the claim names the claimed attempt, and the database answers
+`conflict` once that run is no longer this worker's.
 """
 
 from __future__ import annotations
@@ -11,9 +13,11 @@ import logging
 from typing import Any, Protocol
 
 import pg8000.native
+from jsonschema import ValidationError
 from pg8000.exceptions import DatabaseError, InterfaceError
 
 from stash_worker.config import connect_params
+from stash_worker.contracts import validate
 
 log = logging.getLogger(__name__)
 
@@ -39,10 +43,15 @@ class QueueRejected(QueueError):  # noqa: N818
         self.message = message
 
 
+class QueueContractError(QueueError):
+    """A worker function answered with a shape that breaks the contract."""
+
+
 class JobQueue(Protocol):
     def claim(self) -> dict[str, Any] | None: ...
-    def complete(self, job_id: str, result: dict[str, Any]) -> None: ...
-    def fail(self, job_id: str, reason: str, retryable: bool) -> None: ...
+    def job_input(self, job_id: str, attempt: int) -> dict[str, Any]: ...
+    def complete(self, job_id: str, attempt: int, result: dict[str, Any]) -> None: ...
+    def fail(self, job_id: str, attempt: int, reason: str, retryable: bool) -> None: ...
     def requeue_stale(self, older_than_s: float) -> int: ...
 
 
@@ -105,17 +114,31 @@ class PgJobQueue:
         rows = self._run("select * from public.claim_job()")
         return rows[0] if rows else None
 
-    def complete(self, job_id: str, result: dict[str, Any]) -> None:
+    def job_input(self, job_id: str, attempt: int) -> dict[str, Any]:
+        """What the claimed job processes, validated against worker-job-input.schema.json."""
+        rows = self._run(
+            "select public.worker_job_input(cast(:j as uuid), cast(:a as int)) as input", j=job_id, a=attempt
+        )
+        value = rows[0]["input"]
+        try:
+            validate("worker-job-input", value)
+        except ValidationError as e:
+            raise QueueContractError(f"worker_job_input breaks the contract: {e.message}") from e
+        return value
+
+    def complete(self, job_id: str, attempt: int, result: dict[str, Any]) -> None:
         self._run(
-            "select (public.worker_complete(cast(:j as uuid), cast(:r as jsonb))).id",
+            "select (public.worker_complete(cast(:j as uuid), cast(:a as int), cast(:r as jsonb))).id",
             j=job_id,
+            a=attempt,
             r=json.dumps(result),
         )
 
-    def fail(self, job_id: str, reason: str, retryable: bool) -> None:
+    def fail(self, job_id: str, attempt: int, reason: str, retryable: bool) -> None:
         self._run(
-            "select (public.worker_fail(cast(:j as uuid), :reason, :retryable)).id",
+            "select (public.worker_fail(cast(:j as uuid), cast(:a as int), :reason, :retryable)).id",
             j=job_id,
+            a=attempt,
             reason=reason,
             retryable=retryable,
         )
