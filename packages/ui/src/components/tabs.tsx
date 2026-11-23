@@ -27,8 +27,9 @@ export function Tabs({
 }
 
 export function TabList({ label, children, className }: { label: string; children: ReactNode; className?: string }) {
+  // On a phone the strip fades at its end, so a tab past the edge reads as more to scroll to.
   return (
-    <T.List aria-label={label} className={cx("-mx-2 flex gap-2 overflow-x-auto border-b border-border", className)}>
+    <T.List aria-label={label} className={cx("-mx-2 flex gap-2 overflow-x-auto border-b border-border max-tablet:mask-r-from-80%", className)}>
       {children}
     </T.List>
   );

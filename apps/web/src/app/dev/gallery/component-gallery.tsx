@@ -402,19 +402,19 @@ export function ComponentGallery() {
 
       <Section id="c-tabs" title="Tabs" note="Underline; selected, focus, hover, with count, disabled. Arrow keys move.">
         <Grid cols="desktop:grid-cols-2">
-          <Specimen label="selected, with count" wide>
+          <Specimen label="selected, hover (one-shots), focus (kits), with count, disabled (presets)" wide>
             <Tabs defaultValue="loops" className="w-full">
               <TabList label="Content type">
                 <Tab value="loops" count={38}>
                   Loops
                 </Tab>
-                <Tab value="oneshots" count={12}>
+                <Tab value="oneshots" count={12} data-hover>
                   One-shots
                 </Tab>
-                <Tab value="kits" count={3} data-hover>
+                <Tab value="kits" count={3} data-focus>
                   Kits
                 </Tab>
-                <Tab value="midi" count={0} data-focus>
+                <Tab value="midi" count={0}>
                   MIDI
                 </Tab>
                 <Tab value="presets" disabled>
@@ -422,7 +422,7 @@ export function ComponentGallery() {
                 </Tab>
               </TabList>
               <TabPanel value="loops">
-                <p className="text-small text-text-muted">38 loops. Kits shows hover, MIDI shows focus, Presets is disabled.</p>
+                <p className="text-small text-text-muted">38 loops. One-shots shows hover, Kits shows focus, Presets is disabled.</p>
               </TabPanel>
               <TabPanel value="oneshots">
                 <p className="text-small text-text-muted">12 one-shots.</p>
@@ -467,7 +467,7 @@ export function ComponentGallery() {
 
       <Section id="c-menu" title="Menu" note="Overflow and context; open, focus, disabled item. Right-click a live row for the context menu.">
         <Grid cols="desktop:grid-cols-3">
-          <Specimen label="open, focus on copy link">
+          <Specimen label="overflow, open, focus on copy link, disabled item">
             <div inert>
               <MenuPreview entries={menuEntries} highlighted="Copy link" />
             </div>
@@ -590,8 +590,9 @@ export function ComponentGallery() {
         </Grid>
       </Section>
 
-      <Section id="c-row" title="Result row, loop" note="Default, hover, selected, playing, loading, error, liked, long title; skeleton and empty above. Columns line up under the engraved header.">
-        <ResultList label="Row states">
+      <Section id="c-row" title="Result row, loop" note="Columns line up under the engraved header. Empty and error states for lists are above.">
+        <Specimen label="default, hover, selected, playing, loading, error; liked and long title" wide>
+        <ResultList label="Row states" className="w-full">
           <ResultRow row={rows.dustySoul} menu={menuEntries} />
           <ResultRow row={rows.midnightKeys} data-hover menu={menuEntries} />
           <ResultRow row={rows.trapBells} selected menu={menuEntries} />
@@ -599,8 +600,17 @@ export function ComponentGallery() {
           <ResultRow row={rows.rnbPad} playState="loading" menu={menuEntries} />
           <ResultRow row={{ ...rows.dustySoul, id: "00000000-0000-4000-8000-000000000009", title: "Chopped soul, preview missing" }} playState="error" menu={menuEntries} />
         </ResultList>
-        <p className="text-label text-label-caps text-text-muted">Live: play, scrub the waveform, like, open more</p>
-        <LiveRows />
+        </Specimen>
+        <Specimen label="skeleton" wide>
+          <div className="w-full">
+            <ResultListSkeleton rows={2} />
+          </div>
+        </Specimen>
+        <Specimen label="live: play, scrub the waveform, like, right-click or open more" wide>
+          <div className="w-full">
+            <LiveRows />
+          </div>
+        </Specimen>
       </Section>
 
       <Section id="c-wave" title="Waveform" note="Mini 200 by 32 and hero; loading from peaks, playing, scrubbing, error. Drawn on canvas in the type color.">
