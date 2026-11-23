@@ -7,6 +7,7 @@ import {
   isoDateTimeSchema,
   itemHref,
   itemTypeSchema,
+  limits,
   ok,
   publishItemInput,
   publishItemOutput,
@@ -17,7 +18,7 @@ import {
 } from "@stash/contracts";
 import { defineAction } from "../action.ts";
 import { readTags } from "./load-rows.ts";
-import { ITEM_COLUMNS, toItem, type ItemDbRow } from "./rows.ts";
+import { ITEM_COLUMNS, toOwnItem, type ItemDbRow } from "./rows.ts";
 
 /**
  * Owner edits and lifecycle (build spec: API surface). Every write runs as the owner, so
@@ -28,6 +29,7 @@ import { ITEM_COLUMNS, toItem, type ItemDbRow } from "./rows.ts";
 
 const SPLIT_NEEDED = "Choose the share for split on placement.";
 const SPLIT_ONLY = "Only split on placement takes a share.";
+const TOO_MANY_TAGS = `Up to ${limits.tags.perItem} tags in total.`;
 
 /** The caller's own item, or null (another user's, missing, or removed). */
 async function ownItem(supabase: SupabaseClient, itemId: string, uid: string): Promise<ItemDbRow | null> {
@@ -45,6 +47,20 @@ export const updateItem = defineAction({
     const uid = ctx.session.user.id;
     const current = await ownItem(ctx.supabase, input.itemId, uid);
     if (!current) return err("not_found", "Item not found.");
+
+    // Tags first, before any write: set_item_tags replaces both sets, so the set not being edited
+    // is sent back unchanged, and the merged total is checked here so the columns are never saved
+    // for an edit the tags then refuse (PR #9 B1).
+    let tagSets: { tags: string[]; referenceTags: string[] } | null = null;
+    if (input.tags !== undefined || input.referenceTags !== undefined) {
+      const existing = await readTags(ctx.supabase, current.tag_names);
+      const tags = input.tags ?? existing.filter((t) => t.kind !== "reference").map((t) => t.name);
+      const referenceTags = input.referenceTags ?? existing.filter((t) => t.kind === "reference").map((t) => t.name);
+      if (new Set([...tags, ...referenceTags]).size > limits.tags.perItem) {
+        return err("invalid", TOO_MANY_TAGS, { [input.tags !== undefined ? "tags" : "referenceTags"]: TOO_MANY_TAGS });
+      }
+      tagSets = { tags, referenceTags };
+    }
 
     const patch: Record<string, unknown> = {};
     if (input.title !== undefined) patch.title = input.title;
@@ -75,18 +91,14 @@ export const updateItem = defineAction({
       if (error) throw error;
     }
 
-    if (input.tags !== undefined || input.referenceTags !== undefined) {
-      // set_item_tags replaces both sets, so the one not being edited is sent back unchanged.
-      const existing = await readTags(ctx.supabase, current.tag_names);
-      const tags = input.tags ?? existing.filter((t) => t.kind !== "reference").map((t) => t.name);
-      const referenceTags = input.referenceTags ?? existing.filter((t) => t.kind === "reference").map((t) => t.name);
-      const { error } = await ctx.supabase.rpc("set_item_tags", { p_item_id: input.itemId, p_tags: tags, p_reference_tags: referenceTags });
+    if (tagSets) {
+      const { error } = await ctx.supabase.rpc("set_item_tags", { p_item_id: input.itemId, p_tags: tagSets.tags, p_reference_tags: tagSets.referenceTags });
       if (error) throw error;
     }
 
     const updated = await ownItem(ctx.supabase, input.itemId, uid);
     if (!updated) return err("not_found", "Item not found.");
-    return ok(toItem(updated, await readTags(ctx.supabase, updated.tag_names)));
+    return ok(toOwnItem(updated, await readTags(ctx.supabase, updated.tag_names)));
   },
 });
 

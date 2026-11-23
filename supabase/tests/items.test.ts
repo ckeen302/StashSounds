@@ -6,6 +6,8 @@
  */
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { TestDb, anon, rejection, user, type Who } from "./db.ts";
+import { FILE_COLUMNS, ITEM_COLUMNS, SAMPLE_COLUMNS } from "../../apps/web/src/server/items/rows.ts";
+import { PROFILE_COLUMNS } from "../../apps/web/src/server/profile.ts";
 
 let db: TestDb;
 let ana: string; // owner
@@ -114,6 +116,18 @@ describe("item page and rows (anon and other users)", () => {
     expect((await db.as(user(ben), `select 1 from public.follows where follower_id = $1 and followee_id = $2`, [ben, ana])).rowCount).toBe(1);
     expect(await rejection(db.as(anon, `select status from public.processing_jobs where item_id = $1`, [it1.id]))).toMatch(DENIED);
     expect((await db.as(user(ben), `select status from public.processing_jobs where item_id = $1`, [it1.id])).rows).toEqual([]);
+  });
+});
+
+describe("the server's column lists", () => {
+  it("every exported column list is selectable as anon and as the owner (no ungranted column slips in)", async () => {
+    const kit = await item("published", "kit");
+    for (const who of [anon, user(ana)]) {
+      expect((await db.as(who, `select ${ITEM_COLUMNS} from public.items where id = $1`, [kit.id])).rowCount).toBe(1);
+      expect((await db.as(who, `select ${FILE_COLUMNS} from public.item_files where item_id = $1 and bucket = 'previews'`, [kit.id])).rowCount).toBe(2);
+      expect((await db.as(who, `select ${SAMPLE_COLUMNS} from public.kit_samples where item_id = $1`, [kit.id])).rowCount).toBe(2);
+      expect((await db.as(who, `select ${PROFILE_COLUMNS} from public.profiles where id = $1`, [ana])).rowCount).toBe(1);
+    }
   });
 });
 

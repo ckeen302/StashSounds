@@ -110,3 +110,6 @@ export function decodePeaks(encoded: string): Uint8Array {
   for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
   return out;
 }
+
+/** A path on this site: starts with one slash, never "//" or "/\" (which browsers treat as another host). */
+export const sameSitePathSchema = z.string().regex(/^\/(?![/\\])/, "Must be a same-site path");

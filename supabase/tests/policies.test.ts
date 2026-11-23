@@ -483,6 +483,37 @@ describe("upload pipeline functions", () => {
     const rows = await db.q(`select mime from public.item_files where item_id = $1 and role = 'demo'`, [item_id]);
     expect(rows.rows).toEqual([{ mime: "audio/mpeg" }]);
   });
+  it("a file can be claimed for completion once, never after it is confirmed or the item has moved on", async () => {
+    const r = await db.as(user(bob), `select * from public.create_upload_draft('loop', 'Claimed loop', 10, 'wav')`);
+    const { item_id, file_id } = r.rows[0]!;
+    const claim = `select public.claim_file_completion($1, $2, $3, gen_random_uuid()) as ok`;
+    expect(await rejection(db.as(user(bob), claim, [bob, item_id, file_id]))).toMatch(/permission denied for function/);
+    expect((await db.as(service, claim, [bob, item_id, file_id])).rows[0]!.ok).toBe(true);
+    expect((await db.as(service, claim, [bob, item_id, file_id])).rows[0]!.ok).toBe(false);
+    expect(await rejection(db.as(service, claim, [alice, item_id, file_id]))).toMatch(/^not_found:/);
+    const token = (await db.q(`select meta ->> 'completing' as t from public.item_files where id = $1`, [file_id])).rows[0]!.t;
+    await db.as(service, `select public.release_file_completion($1, $2)`, [file_id, token]);
+    expect((await db.as(service, claim, [bob, item_id, file_id])).rows[0]!.ok).toBe(true);
+    await db.as(service, `select public.enqueue_processing($1, $2, $3, 10)`, [bob, item_id, file_id]);
+    const meta = (await db.q(`select meta from public.item_files where id = $1`, [file_id])).rows[0]!.meta;
+    expect(meta).not.toHaveProperty("completing");
+    expect(await rejection(db.as(service, claim, [bob, item_id, file_id]))).toMatch(/^conflict:/);
+  });
+  it("a preset's confirmed original cannot be claimed again while it waits for its demo", async () => {
+    const r = await db.as(user(bob), `select * from public.create_upload_draft('preset', 'Claimed pad', 10, 'vital')`);
+    const { item_id, file_id } = r.rows[0]!;
+    await db.as(service, `select public.enqueue_processing($1, $2, $3, 10)`, [bob, item_id, file_id]);
+    const again = await db.as(service, `select public.claim_file_completion($1, $2, $3, gen_random_uuid()) as ok`, [bob, item_id, file_id]);
+    expect(again.rows[0]!.ok).toBe(false);
+  });
+  it("enqueue_processing answers conflict before anything that would make the caller clean up", async () => {
+    const sus = await db.makeUser("suspended_late");
+    const r = await db.as(user(sus), `select * from public.create_upload_draft('loop', 'Late loop', 10, 'wav')`);
+    const { item_id, file_id } = r.rows[0]!;
+    await db.as(service, `select public.enqueue_processing($1, $2, $3, 10)`, [sus, item_id, file_id]);
+    await db.q(`update public.accounts set suspended_at = now() where id = $1`, [sus]);
+    expect(await rejection(db.as(service, `select public.enqueue_processing($1, $2, $3, 99)`, [sus, item_id, file_id]))).toMatch(/^conflict:/);
+  });
   it("a suspended account cannot attach a demo or have its upload queued", async () => {
     const sus = await db.makeUser("suspended_uploader");
     const r = await db.as(user(sus), `select * from public.create_upload_draft('preset', 'Late pad', 10, 'vital')`);
