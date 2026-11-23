@@ -98,7 +98,8 @@ describe("itemLength and peaks", () => {
 
   it("peaks come from the peaks file's meta and must be exactly 800 bytes", () => {
     expect(peaksFor(filesFor("loop"))).toBe(PEAKS);
-    expect(peaksFor([fileDbRow(ITEM_IDS.loop, "peaks", { meta: { peaks: "AAAA" } })])).toBeNull();
+    expect(peaksFor([fileDbRow(ITEM_IDS.loop, "peaks", { meta: { points: limits.waveform.peakPoints, peaks: "AAAA" } })])).toBeNull();
+    expect(peaksFor([fileDbRow(ITEM_IDS.loop, "peaks", { meta: { peaks: PEAKS } })])).toBeNull();
     expect(peaksFor([fileDbRow(ITEM_IDS.loop, "peaks", { meta: null })])).toBeNull();
     expect(peaksFor([])).toBeNull();
   });
@@ -112,9 +113,18 @@ describe("checkFields", () => {
     expect(checkFields(withDetection({}))).toEqual([]);
     expect(checkFields(withDetection({ bpmAgreed: false }))).toEqual(["bpm"]);
     expect(checkFields(withDetection({ bpmAgreed: false, bpmSource: "filename" }))).toEqual([]);
-    expect(checkFields(withDetection({ keyConfidence: 0.05 }))).toEqual(["key"]);
+    expect(checkFields(withDetection({ keyConfidence: limits.bpm.keyConfidenceMin - 0.01 }))).toEqual(["key"]);
+    expect(checkFields(withDetection({ keyConfidence: limits.bpm.keyConfidenceMin }))).toEqual([]);
     expect(checkFields(withDetection({ keyConfidence: null }))).toEqual(["key"]);
     expect(checkFields(withDetection({ keySource: "filename", keyConfidence: null }))).toEqual([]);
+  });
+
+  it("a BPM and key the owner corrected (source uploader, as the database trigger records) are not marked", () => {
+    // What items_uploader_corrections writes: bpmSource uploader with bpmAgreed true, keySource uploader with keyConfidence null.
+    expect(checkFields(withDetection({ bpmAgreed: false, keyConfidence: 0.01 }))).toEqual(["bpm", "key"]);
+    expect(checkFields(withDetection({ bpmSource: "uploader", bpmAgreed: true, keySource: "uploader", keyConfidence: null }))).toEqual([]);
+    // Even with the agreement flag left false, an uploader's value is never marked.
+    expect(checkFields(withDetection({ bpmSource: "uploader", bpmAgreed: false }))).toEqual([]);
   });
 
   it("rootNote when it came from pitch tracking; nothing before processing", () => {

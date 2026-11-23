@@ -157,3 +157,36 @@ apps/web typecheck: Done
 
 ## 102 review fixes merged in
 lane/platform-102 df6c0c0..08e9c5a (staging key, B1, and the advisory items) was merged into this branch at e28b7d9. See the 102 handoff's Review round section.
+
+## Follow-up (decision 0015, phase-0/foundations bdc2eb9)
+The lead answered all four 103 requests. Their files are now removed, so the references to them above are history.
+
+**Accepted as implemented**
+- Row sources (request 103-row-sources). `peaksFor` now validates the peaks file's meta with contracts' `peaksFileMetaSchema` (`{ points: 800, peaks }`) instead of reading `meta.peaks` on its own.
+
+**Check marks** (request 103-check-fields)
+- `checkFields` uses `limits.bpm.keyConfidenceMin`. The local `KEY_CONFIDENCE_MIN` constant is gone.
+- When the owner edits bpm or the key, the new trigger `items_uploader_corrections` sets that source to `uploader` (with `bpmAgreed` true, or `keyConfidence` null). `checkFields` never marks a field whose source is `uploader`.
+- New tests:
+  - Unit (rows.test.ts): a corrected BPM and key are not marked, and the key threshold is tested at the limit.
+  - Database (items.test.ts): updateItem's own UPDATE, run as the owner, records `uploader`, and an edit that leaves BPM and key alone keeps the detected sources.
+- Root-note corrections wait for one-shots (phase 2).
+
+**Slug** (request 103-slug-on-rename)
+- A trigger now makes the slug follow the title. There was no slug workaround in the server code to remove.
+- The redirect on a non-canonical slug is still the spec behaviour for old addresses.
+- New database test: a title edit changes the slug and keeps the public id.
+
+**Cleanup on delete** (request 103-delete-cleanup)
+- `cleanup_item` is scheduled for later, and the current behaviour stays: deleteItem marks the item removed, and its files stay in storage.
+
+**Rate limit**
+- The rate limit for createUploadSlot stays with ticket 203.
+
+**Lane check** after merging lane/platform-102 (with bdc2eb9), `pnpm check && pnpm test && pnpm db:test`, exit 0:
+```
+ Test Files  14 passed | 1 skipped (15)
+      Tests  286 passed | 7 skipped (293)
+ Test Files  4 passed (4)
+      Tests  131 passed (131)
+```

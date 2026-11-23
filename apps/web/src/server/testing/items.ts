@@ -59,9 +59,9 @@ export function fileDbRow(itemId: string, role: string, extra: Partial<FileDbRow
   return { id: `f0000000-0000-4000-8000-${String(n).padStart(12, "0")}`, item_id: itemId, role, bucket: "previews", path: `${itemId}/${role}-${n}.mp3`, meta: {}, ...extra };
 }
 
-/** The derived files the worker writes for each type (request 103-row-sources). */
+/** The derived files the worker writes for each type (decision 0015). */
 export function filesFor(type: TestType, itemId: string = ITEM_IDS[type]): FileDbRow[] {
-  const peaks = fileDbRow(itemId, "peaks", { path: `${itemId}/peaks.bin`, meta: { peaks: PEAKS } });
+  const peaks = fileDbRow(itemId, "peaks", { path: `${itemId}/peaks.bin`, meta: { points: limits.waveform.peakPoints, peaks: PEAKS } });
   switch (type) {
     case "loop":
     case "oneshot":

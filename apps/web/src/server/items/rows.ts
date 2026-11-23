@@ -3,8 +3,8 @@
  * shapes: itemSchema (an owner's view), itemRowSchema (everything one row needs to draw and play)
  * and the pieces of the item page. No I/O here; load-rows.ts and the queries read the rows.
  *
- * Provisional choices (docs/requests/103-row-sources.md, 103-check-fields.md) are each kept in one
- * place below: peaksFor, MIDI_SOUND, the preview roles in buildPlayable, and checkFields.
+ * Where each piece comes from is decision 0015: peaksFor, MIDI_SOUND, the preview roles in
+ * buildPlayable, and checkFields.
  */
 import {
   itemHref,
@@ -13,7 +13,7 @@ import {
   kitSampleSchema,
   limits,
   midiPitchSchema,
-  peaksSchema,
+  peaksFileMetaSchema,
   type Item,
   type ItemRow,
   type KitSample,
@@ -105,14 +105,14 @@ export function toItem(row: ItemDbRow, tags: Tag[]): Item {
   });
 }
 
-/** Default MIDI sound from what the worker found (request 103-row-sources). */
+/** Default MIDI sound from what the worker found (decision 0015). */
 export const MIDI_SOUND: Record<MidiKind, SoundId> = { drums: "drums", bass: "bass", chords: "keys", melody: "pluck" };
 
-/** Peaks from the peaks file's meta.peaks (request 103-row-sources); null when missing or not 800 bytes. */
+/** Peaks from the peaks file's meta (peaksFileMetaSchema, decisions 0014 and 0015); null when missing or invalid. */
 export function peaksFor(files: FileDbRow[]): string | null {
-  const raw = files.find((f) => f.role === "peaks" && f.bucket === "previews")?.meta?.peaks;
-  const r = peaksSchema.safeParse(raw);
-  return r.success ? r.data : null;
+  const meta = files.find((f) => f.role === "peaks" && f.bucket === "previews")?.meta;
+  const r = peaksFileMetaSchema.safeParse(meta);
+  return r.success ? r.data.peaks : null;
 }
 
 function publicFile(files: FileDbRow[], role: string): string | null {
@@ -191,10 +191,11 @@ export function itemLength(item: Item): ItemRow["length"] {
   }
 }
 
-/** Below this key confidence a chroma-detected key is marked "check this" (request 103-check-fields). */
-export const KEY_CONFIDENCE_MIN = 0.15;
-
-/** Detected fields the uploader should double-check (request 103-check-fields). */
+/**
+ * Detected fields the uploader should double-check (decision 0015). An owner's correction of BPM
+ * or key sets that source to "uploader" in the database (trigger items_uploader_corrections), so a
+ * corrected field is never marked. Root-note corrections wait for one-shots (phase 2).
+ */
 export function checkFields(item: Item): Array<"bpm" | "key" | "rootNote"> {
   const out: Array<"bpm" | "key" | "rootNote"> = [];
   if (!item.details) return out;
@@ -202,7 +203,7 @@ export function checkFields(item: Item): Array<"bpm" | "key" | "rootNote"> {
     const d = item.details.detection;
     const trusted = d.bpmSource === "filename" || d.bpmSource === "uploader" || d.bpmSource === "midi_file";
     if (!d.bpmAgreed && !trusted) out.push("bpm");
-    if (d.keySource === "chroma" && (d.keyConfidence ?? 0) < KEY_CONFIDENCE_MIN) out.push("key");
+    if (d.keySource === "chroma" && (d.keyConfidence ?? 0) < limits.bpm.keyConfidenceMin) out.push("key");
   }
   if (item.type === "oneshot" && item.details.rootNoteSource === "pitch_tracking") out.push("rootNote");
   return out;

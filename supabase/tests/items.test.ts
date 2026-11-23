@@ -168,6 +168,32 @@ describe("updateItem", () => {
     expect((await update(user(ana), it1.id, `license = 'royalty_free', split_percent = null`)).rowCount).toBe(1);
   });
 
+  it("the owner's BPM and key correction records the uploader as the source, so checkFields stops marking them", async () => {
+    const it1 = await item("ready");
+    const detection = { bpmSource: "onset", bpmAgreed: false, bpmCandidates: [70, 140], keySource: "chroma", keyConfidence: 0.05 };
+    await db.q(`update public.items set details = $2, bpm = 70, key_root = 9, key_mode = 'minor' where id = $1`, [it1.id, { loopSamples: 1, detection }]);
+    // The same statement updateItem sends, as the owner.
+    await update(user(ana), it1.id, `bpm = $3, key_root = 0, key_mode = 'minor'`, [140]);
+    const d = (await db.as(user(ana), `select details -> 'detection' as d from public.items where id = $1`, [it1.id])).rows[0]!.d;
+    expect(d).toMatchObject({ bpmSource: "uploader", bpmAgreed: true, keySource: "uploader", keyConfidence: null, bpmCandidates: [70, 140] });
+  });
+
+  it("an edit that leaves BPM and key alone keeps the detected sources", async () => {
+    const it1 = await item("ready");
+    const detection = { bpmSource: "onset", bpmAgreed: false, bpmCandidates: [140], keySource: "chroma", keyConfidence: 0.05 };
+    await db.q(`update public.items set details = $2, bpm = 140 where id = $1`, [it1.id, { loopSamples: 1, detection }]);
+    await update(user(ana), it1.id, `title = 'Renamed', bpm = 140`);
+    const d = (await db.as(user(ana), `select details -> 'detection' as d from public.items where id = $1`, [it1.id])).rows[0]!.d;
+    expect(d).toMatchObject({ bpmSource: "onset", keySource: "chroma" });
+  });
+
+  it("the slug follows a title edit, and the public id stays (old addresses redirect by it)", async () => {
+    const it1 = await item("published");
+    await update(user(ana), it1.id, `title = 'Night Drive 2'`);
+    const r = await db.as(anon, `select slug, public_id from public.items where id = $1`, [it1.id]);
+    expect(r.rows[0]).toEqual({ slug: "night-drive-2", public_id: it1.pid });
+  });
+
   it("set_item_tags replaces both sets and records reference kinds, which the reads return", async () => {
     const it1 = await item("ready");
     const r = await db.as(user(ana), `select public.set_item_tags($1, array['dark', '808'], array['drake']) as t`, [it1.id]);
