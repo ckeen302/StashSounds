@@ -57,7 +57,7 @@ as $$
         where jsonb_typeof(l) <> 'object'
            or coalesce(l ->> 'url', '') !~ '^https://[^\s/?#]+[^\s]*$'
            or char_length(l ->> 'url') > 300
-           or coalesce(l ->> 'kind', '') = '');
+           or coalesce(l ->> 'kind', '') not in ('instagram','youtube','beatstars','soundcloud','tiktok','x','website'));
 $$;
 
 -- Storage paths written by the worker: relative, no empty, dot or dot-dot segments.
@@ -90,7 +90,7 @@ $$;
 create table public.profiles (
   id              uuid primary key references auth.users on delete cascade,
   handle          text unique not null check (handle ~ '^[a-z0-9_]{3,24}$'),
-  display_name    text not null check (char_length(display_name) between 1 and 40),
+  display_name    text not null check (char_length(display_name) between 1 and 40 and char_length(btrim(display_name)) >= 1),
   bio             text check (char_length(bio) <= 280),
   avatar_path     text check (avatar_path is null or public.safe_path(avatar_path, id::text || '/')),
   links           jsonb not null default '[]' check (public.valid_profile_links(links)),
@@ -673,7 +673,7 @@ $$;
 -- createUploadSlot: checks verified email, suspension, type, size, daily uploads and quota, then
 -- creates a draft item and its original file row. The server signs the upload URL for the path.
 create function public.create_upload_draft(
-  p_type public.item_type, p_title text, p_bytes bigint, p_ext text
+  p_type public.item_type, p_title text, p_bytes bigint, p_ext text, p_file_name text default null
 ) returns table (item_id uuid, file_id uuid, path text)
 language plpgsql security definer
 set search_path = ''
@@ -718,8 +718,9 @@ begin
   returning id into v_item;
 
   v_path := v_uid::text || '/' || v_item::text || '/original.' || v_ext;
-  insert into public.item_files (item_id, role, bucket, path, bytes, mime)
-  values (v_item, 'original', 'originals', v_path, p_bytes, public.mime_for_ext(v_ext))
+  insert into public.item_files (item_id, role, bucket, path, bytes, mime, meta)
+  values (v_item, 'original', 'originals', v_path, p_bytes, public.mime_for_ext(v_ext),
+          jsonb_build_object('fileName', left(nullif(trim(p_file_name), ''), 255)))
   returning id into v_file;
 
   return query select v_item, v_file, v_path;
@@ -727,7 +728,7 @@ end;
 $$;
 
 -- A preset's demo audio, attached to the caller's own draft.
-create function public.add_demo_file(p_item_id uuid, p_bytes bigint, p_ext text)
+create function public.add_demo_file(p_item_id uuid, p_bytes bigint, p_ext text, p_file_name text default null)
 returns table (file_id uuid, path text)
 language plpgsql security definer
 set search_path = ''
@@ -749,8 +750,9 @@ begin
   if p_bytes <= 0 or p_bytes > (v_demo ->> 'maxBytes')::bigint then perform public.fail('invalid', 'This demo is larger than the limit.'); end if;
   delete from public.item_files f where f.item_id = p_item_id and f.role = 'demo';
   v_path := v_item.owner_id::text || '/' || v_item.id::text || '/demo.' || v_ext;
-  insert into public.item_files (item_id, role, bucket, path, bytes, mime)
-  values (p_item_id, 'demo', 'originals', v_path, p_bytes, public.mime_for_ext(v_ext))
+  insert into public.item_files (item_id, role, bucket, path, bytes, mime, meta)
+  values (p_item_id, 'demo', 'originals', v_path, p_bytes, public.mime_for_ext(v_ext),
+          jsonb_build_object('fileName', left(nullif(trim(p_file_name), ''), 255)))
   returning id into v_file;
   return query select v_file, v_path;
 end;
@@ -958,9 +960,50 @@ as $$
   returning *;
 $$;
 
+-- The running job held by this attempt, locked; fails with conflict for any other run. A worker that
+-- stalled past the stale threshold and lost its job to another worker gets conflict here.
+create function public.worker_run(p_job_id uuid, p_attempt int) returns public.processing_jobs
+language plpgsql
+set search_path = ''
+as $$
+declare
+  v_job public.processing_jobs;
+begin
+  select * into v_job from public.processing_jobs where id = p_job_id for update;
+  if v_job.id is null then perform public.fail('not_found', 'Job not found.'); end if;
+  if v_job.status <> 'running' or v_job.attempts <> p_attempt then
+    perform public.fail('conflict', 'This job is not running for this attempt.');
+  end if;
+  return v_job;
+end;
+$$;
+
+-- What a claimed job processes (contracts: workerJobInputSchema).
+create function public.worker_job_input(p_job_id uuid, p_attempt int) returns jsonb
+language plpgsql
+set search_path = ''
+as $$
+declare
+  v_job public.processing_jobs := public.worker_run(p_job_id, p_attempt);
+  v_item public.items;
+begin
+  select * into v_item from public.items where id = v_job.item_id;
+  return jsonb_build_object(
+    'jobId', v_job.id, 'attempt', v_job.attempts, 'itemId', v_item.id, 'ownerId', v_item.owner_id,
+    'type', v_item.type, 'title', v_item.title,
+    'files', coalesce((
+      select jsonb_agg(jsonb_build_object('id', f.id, 'role', f.role, 'bucket', f.bucket, 'path', f.path,
+                                          'bytes', f.bytes, 'mime', f.mime, 'fileName', f.meta ->> 'fileName')
+                       order by f.role desc)
+        from public.item_files f
+       where f.item_id = v_item.id and f.role in ('original', 'demo') and f.bucket = 'originals'
+         and f.uploaded_at is not null), '[]'::jsonb));
+end;
+$$;
+
 -- Applies a validated worker result (contracts: workerResultSchema) in one transaction.
 -- Idempotent: derived rows for the item are replaced, so a rerun gives the same end state.
-create function public.worker_complete(p_job_id uuid, p_result jsonb) returns public.items
+create function public.worker_complete(p_job_id uuid, p_attempt int, p_result jsonb) returns public.items
 language plpgsql
 set search_path = ''
 as $$
@@ -972,9 +1015,7 @@ declare
   v_originals text;
   v_previews text;
 begin
-  select * into v_job from public.processing_jobs where id = p_job_id for update;
-  if v_job.id is null then perform public.fail('not_found', 'Job not found.'); end if;
-  if v_job.status <> 'running' then perform public.fail('conflict', 'This job is not running.'); end if;
+  v_job := public.worker_run(p_job_id, p_attempt);
   select * into v_item from public.items where id = v_job.item_id for update;
   if v_item.status <> 'processing' then perform public.fail('conflict', 'This item is not processing.'); end if;
   if p_result ->> 'type' is distinct from v_item.type::text then
@@ -1042,7 +1083,7 @@ $$;
 
 -- Records a failure. Retryable failures go back on the queue with backoff until attempts run out;
 -- a corrupt or unsupported file fails once and returns the item to draft with the reason.
-create function public.worker_fail(p_job_id uuid, p_reason text, p_retryable boolean)
+create function public.worker_fail(p_job_id uuid, p_attempt int, p_reason text, p_retryable boolean)
 returns public.processing_jobs
 language plpgsql
 set search_path = ''
@@ -1053,8 +1094,7 @@ declare
   v_max_attempts int := (v_worker ->> 'maxAttempts')::int;
   v_backoff int;
 begin
-  select * into v_job from public.processing_jobs where id = p_job_id for update;
-  if v_job.id is null then perform public.fail('not_found', 'Job not found.'); end if;
+  v_job := public.worker_run(p_job_id, p_attempt);
   if p_retryable and v_job.attempts < v_max_attempts then
     v_backoff := coalesce((v_worker -> 'backoffSeconds' ->> (v_job.attempts - 1))::int, 600);
     update public.processing_jobs
@@ -1129,8 +1169,8 @@ grant insert (item_id, reason, detail) on public.reports to authenticated;
 grant execute on function
   public.is_admin(), public.is_active_user(), public.can_read_item(uuid),
   public.claim_handle(text, text),
-  public.create_upload_draft(public.item_type, text, bigint, text),
-  public.add_demo_file(uuid, bigint, text),
+  public.create_upload_draft(public.item_type, text, bigint, text, text),
+  public.add_demo_file(uuid, bigint, text, text),
   public.set_item_tags(uuid, text[], text[]),
   public.publish_item(uuid, boolean, boolean),
   public.unpublish_item(uuid),
@@ -1171,7 +1211,7 @@ alter table public.messages                  enable row level security;
 -- profiles: everyone reads; owner updates the granted columns
 create policy profiles_read   on public.profiles for select using (true);
 create policy profiles_update on public.profiles for update to authenticated
-  using (id = auth.uid()) with check (id = auth.uid());
+  using (id = auth.uid() and public.is_active_user()) with check (id = auth.uid() and public.is_active_user());
 
 -- accounts: owner and admins read; service role writes
 create policy accounts_read on public.accounts for select to authenticated

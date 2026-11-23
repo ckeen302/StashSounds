@@ -5,7 +5,7 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { slugify } from "@stash/contracts";
+import { profileLinkKindSchema, slugify } from "@stash/contracts";
 import { TestDb, anon, rejection, service, superuser, user } from "./db.ts";
 
 let db: TestDb;
@@ -55,6 +55,24 @@ describe("profiles", () => {
     await db.as(user(alice), `update public.profiles set display_name = 'Alice A', bio = 'hi' where id = $1`, [alice]);
     const r = await db.q(`select display_name, bio from public.profiles where id = $1`, [alice]);
     expect(r.rows[0]).toEqual({ display_name: "Alice A", bio: "hi" });
+  });
+  it("a suspended user cannot edit their profile", async () => {
+    const sus = await db.makeUser("suspended_editor");
+    await db.q(`update public.accounts set suspended_at = now() where id = $1`, [sus]);
+    const r = await db.as(user(sus), `update public.profiles set bio = 'still here' where id = $1`, [sus]);
+    expect(r.rowCount).toBe(0);
+  });
+  it("rejects profile values the contracts reject (unknown link kind, blank display name)", async () => {
+    const bad = [
+      [`update public.profiles set links = '[{"kind":"myspace","url":"https://a.b"}]' where id = $1`],
+      [`update public.profiles set display_name = '   ' where id = $1`],
+    ];
+    for (const [sql] of bad) expect(await rejection(db.as(user(alice), sql!, [alice]))).toMatch(/check constraint/);
+    for (const kind of profileLinkKindSchema.options) {
+      const links = JSON.stringify([{ kind, url: "https://example.com/x" }]);
+      const r = await db.q<{ ok: boolean }>(`select public.valid_profile_links($1::jsonb) as ok`, [links]);
+      expect(r.rows[0]!.ok, kind).toBe(true);
+    }
   });
   it("nobody can edit someone else's profile", async () => {
     const r = await db.as(user(bob), `update public.profiles set bio = 'pwned' where id = $1`, [alice]);
@@ -363,8 +381,8 @@ describe("processing_jobs", () => {
   it("worker functions are not callable by signed-in users", async () => {
     for (const sql of [
       `select public.claim_job()`,
-      `select public.worker_complete(gen_random_uuid(), '{}')`,
-      `select public.worker_fail(gen_random_uuid(), 'x', true)`,
+      `select public.worker_complete(gen_random_uuid(), 1, '{}')`,
+      `select public.worker_fail(gen_random_uuid(), 1, 'x', true)`,
       `select public.requeue_stale_jobs('1 hour')`,
       `select public.enqueue_processing(gen_random_uuid(), gen_random_uuid(), gen_random_uuid(), 1)`,
       `select public.hit_rate_limit('x', 1000, '1 hour')`,
@@ -478,9 +496,9 @@ describe("worker functions", () => {
     const it1 = await queuedItem("Complete me");
     const job = (await db.as(service, `select * from public.claim_job()`)).rows[0]!;
     const result = loopResult(it1.item_id, { fingerprints: [{ filePath: it1.path, durationMs: 6857, chromaprint: [1, 2, 3] }] });
-    await db.as(service, `select public.worker_complete($1, $2)`, [job.id, JSON.stringify(result)]);
+    await db.as(service, `select public.worker_complete($1, $3, $2)`, [job.id, JSON.stringify(result), job.attempts]);
     // A second delivery of the same result finds the job done and changes nothing.
-    expect(await rejection(db.as(service, `select public.worker_complete($1, $2)`, [job.id, JSON.stringify(result)]))).toMatch(/^conflict:/);
+    expect(await rejection(db.as(service, `select public.worker_complete($1, $3, $2)`, [job.id, JSON.stringify(result), job.attempts]))).toMatch(/^conflict:/);
     const item = await db.q(`select status, bpm, key_root, details->>'bars' as bars from public.items where id = $1`, [it1.item_id]);
     expect(item.rows[0]).toEqual({ status: "ready", bpm: "140.00", key_root: 9, bars: "4" });
     expect((await db.q(`select count(*)::int as n from public.item_files where item_id = $1`, [it1.item_id])).rows[0]!.n).toBe(3);
@@ -503,9 +521,9 @@ describe("worker functions", () => {
     await db.as(service, `delete from public.processing_jobs`);
     const it4 = await queuedItem("Guarded");
     const queued = (await db.q(`select id from public.processing_jobs where item_id = $1`, [it4.item_id])).rows[0]!;
-    expect(await rejection(db.as(service, `select public.worker_complete($1, $2)`, [queued.id, JSON.stringify(loopResult(it4.item_id))]))).toMatch(/^conflict: This job is not running/);
+    expect(await rejection(db.as(service, `select public.worker_complete($1, $3, $2)`, [queued.id, JSON.stringify(loopResult(it4.item_id)), 0]))).toMatch(/^conflict: This job is not running/);
     const job = (await db.as(service, `select * from public.claim_job()`)).rows[0]!;
-    const complete = (r: unknown) => rejection(db.as(service, `select public.worker_complete($1, $2)`, [job.id, JSON.stringify(r)]));
+    const complete = (r: unknown) => rejection(db.as(service, `select public.worker_complete($1, $3, $2)`, [job.id, JSON.stringify(r), job.attempts]));
     expect(await complete({ ...loopResult(it4.item_id), type: "oneshot" })).toMatch(/^invalid: The result is for a different item type/);
     const badPaths = [
       { role: "preview", bucket: "previews", path: `${published}/x.mp3` },
@@ -526,7 +544,7 @@ describe("worker functions", () => {
     const it5 = await queuedItem("Removed mid-run");
     const job = (await db.as(service, `select * from public.claim_job()`)).rows[0]!;
     await db.as(user(bob), `select public.remove_item($1)`, [it5.item_id]);
-    expect(await rejection(db.as(service, `select public.worker_complete($1, $2)`, [job.id, JSON.stringify(loopResult(it5.item_id))]))).toMatch(/^conflict: This item is not processing/);
+    expect(await rejection(db.as(service, `select public.worker_complete($1, $3, $2)`, [job.id, JSON.stringify(loopResult(it5.item_id)), job.attempts]))).toMatch(/^conflict: This item is not processing/);
   });
 
   it("a preset publishes only with the wavetable confirmation", async () => {
@@ -537,7 +555,7 @@ describe("worker functions", () => {
       type: "preset", bpm: null, key: null, durationMs: 8000, files: [], fingerprints: [], flag: null,
       details: { synth: "vital", synthName: "Vital", synthVersion: null, category: "keys", rendered: false, sampledNoteCount: 0, demoDurationMs: 8000 },
     };
-    await db.as(service, `select public.worker_complete($1, $2)`, [job.id, JSON.stringify(preset)]);
+    await db.as(service, `select public.worker_complete($1, $3, $2)`, [job.id, JSON.stringify(preset), job.attempts]);
     expect(await rejection(db.as(user(bob), `select public.publish_item($1, true)`, [pr.item_id]))).toMatch(/^invalid: Confirm any wavetables/);
     await db.as(user(bob), `select public.publish_item($1, true, true)`, [pr.item_id]);
     const r = await db.q(`select status, wavetables_confirmed_at is not null as confirmed from public.items where id = $1`, [pr.item_id]);
@@ -548,9 +566,10 @@ describe("worker functions", () => {
     await db.as(service, `delete from public.processing_jobs`);
     const it2 = await queuedItem("Stolen");
     const job = (await db.as(service, `select * from public.claim_job()`)).rows[0]!;
-    await db.as(service, `select public.worker_complete($1, $2)`, [
+    await db.as(service, `select public.worker_complete($1, $3, $2)`, [
       job.id,
       JSON.stringify({ ...loopResult(it2.item_id), files: [], flag: { reason: "duplicate_exact" } }),
+      job.attempts,
     ]);
     const item = await db.q(`select status, flagged_reason from public.items where id = $1`, [it2.item_id]);
     expect(item.rows[0]).toEqual({ status: "flagged", flagged_reason: "duplicate_exact" });
@@ -566,7 +585,7 @@ describe("worker functions", () => {
       await db.q(`update public.processing_jobs set run_after = now() where status = 'queued'`);
       const job = (await db.as(service, `select * from public.claim_job()`)).rows[0]!;
       expect(job.attempts).toBe(attempt);
-      const r = await db.as(service, `select (j).status, extract(epoch from (j).run_after - now())::int as wait from (select public.worker_fail($1, 'timeout', true) j) s`, [job.id]);
+      const r = await db.as(service, `select (j).status, extract(epoch from (j).run_after - now())::int as wait from (select public.worker_fail($1, $2, 'timeout', true) j) s`, [job.id, job.attempts]);
       if (attempt < 3) backoffs.push(r.rows[0]!.wait);
       else expect(r.rows[0]!.status).toBe("failed");
     }
@@ -574,11 +593,40 @@ describe("worker functions", () => {
     expect((await db.q(`select status, flagged_reason from public.items where id = $1`, [it3.item_id])).rows[0]).toEqual({ status: "draft", flagged_reason: "timeout" });
   });
 
+  it("worker_job_input gives the running attempt its item and uploaded files", async () => {
+    await db.as(service, `delete from public.processing_jobs`);
+    const r = await db.as(user(bob), `select * from public.create_upload_draft('loop', 'Named', 10, 'wav', ' Dark Keys 140bpm Am.wav ')`);
+    const { item_id, file_id } = r.rows[0]!;
+    await db.as(service, `select public.enqueue_processing($1, $2, $3, 10)`, [bob, item_id, file_id]);
+    const job = (await db.as(service, `select * from public.claim_job()`)).rows[0]!;
+    const input = (await db.as(service, `select public.worker_job_input($1, $2) as i`, [job.id, job.attempts])).rows[0]!.i;
+    expect(input).toMatchObject({ jobId: job.id, attempt: 1, itemId: item_id, ownerId: bob, type: "loop", title: "Named" });
+    expect(input.files).toEqual([
+      { id: file_id, role: "original", bucket: "originals", path: r.rows[0]!.path, bytes: 10, mime: "audio/wav", fileName: "Dark Keys 140bpm Am.wav" },
+    ]);
+    expect(await rejection(db.as(service, `select public.worker_job_input($1, 2)`, [job.id]))).toMatch(/^conflict:/);
+    expect(await rejection(db.as(user(bob), `select public.worker_job_input($1, 1)`, [job.id]))).toMatch(DENIED);
+  });
+
+  it("a stalled worker cannot finish or fail a run another worker has taken over", async () => {
+    await db.as(service, `delete from public.processing_jobs`);
+    const it6 = await queuedItem("Stalled");
+    const first = (await db.as(service, `select * from public.claim_job()`)).rows[0]!;
+    await db.q(`update public.processing_jobs set locked_at = now() - interval '1 hour' where id = $1`, [first.id]);
+    await db.as(service, `select public.requeue_stale_jobs('10 minutes')`);
+    const second = (await db.as(service, `select * from public.claim_job()`)).rows[0]!;
+    expect(second.attempts).toBe(first.attempts + 1);
+    expect(await rejection(db.as(service, `select public.worker_fail($1, $2, 'timeout', true)`, [first.id, first.attempts]))).toMatch(/^conflict:/);
+    expect(await rejection(db.as(service, `select public.worker_complete($1, $2, $3)`, [first.id, first.attempts, JSON.stringify(loopResult(it6.item_id))]))).toMatch(/^conflict:/);
+    await db.as(service, `select public.worker_complete($1, $2, $3)`, [second.id, second.attempts, JSON.stringify(loopResult(it6.item_id))]);
+    expect((await db.q(`select status from public.items where id = $1`, [it6.item_id])).rows[0]!.status).toBe("ready");
+  });
+
   it("a corrupt file fails once with no retry", async () => {
     await db.as(service, `delete from public.processing_jobs`);
     await queuedItem("Corrupt");
     const job = (await db.as(service, `select * from public.claim_job()`)).rows[0]!;
-    const r = await db.as(service, `select (public.worker_fail($1, 'corrupt_file', false)).status`, [job.id]);
+    const r = await db.as(service, `select (public.worker_fail($1, $2, 'corrupt_file', false)).status`, [job.id, job.attempts]);
     expect(r.rows[0]!.status).toBe("failed");
   });
 });

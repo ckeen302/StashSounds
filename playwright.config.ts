@@ -8,6 +8,8 @@ import { defineConfig, devices } from "@playwright/test";
  * The web app is built and started for the run unless STASH_BASE_URL points at a running one.
  */
 const baseURL = process.env.STASH_BASE_URL ?? "http://localhost:3100";
+// Sign-in links are built from this origin (request 101-site-url-env); the built server inherits it.
+process.env.NEXT_PUBLIC_SITE_URL ??= baseURL;
 const widths = { desktop: 1440, laptop: 1024, phone: 380 } as const;
 
 export default defineConfig({

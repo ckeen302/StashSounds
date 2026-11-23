@@ -1,6 +1,5 @@
 import { z } from "zod";
-import type { itemTypeSchema} from "./enums.ts";
-import { bucketSchema, fileRoleSchema, jobKindSchema, kitCategorySchema } from "./enums.ts";
+import { bucketSchema, fileRoleSchema, itemTypeSchema, jobKindSchema, kitCategorySchema } from "./enums.ts";
 import { bpmSchema, midiPitchSchema, musicalKeySchema, uuidSchema } from "./common.ts";
 import { detailsSchemas } from "./details.ts";
 
@@ -61,6 +60,34 @@ export const jobPayloadSchema = z.object({
   kind: jobKindSchema,
   attempts: z.int().nonnegative(),
 });
+
+/**
+ * What public.worker_job_input(job_id, attempt) returns for a running job: the item and the
+ * uploader's files the job processes (role original, plus demo for presets). fileName is the name
+ * the uploader's file had, for BPM and key parsing (ticket 113); null when unknown.
+ */
+export const workerJobInputSchema = z.object({
+  jobId: uuidSchema,
+  attempt: z.int().positive(),
+  itemId: uuidSchema,
+  ownerId: uuidSchema,
+  type: itemTypeSchema,
+  title: z.string(),
+  files: z
+    .array(
+      z.object({
+        id: uuidSchema,
+        role: z.enum(["original", "demo"]),
+        bucket: z.literal("originals"),
+        path: z.string().min(1),
+        bytes: z.int().nonnegative(),
+        mime: z.string().min(1),
+        fileName: z.string().nullable(),
+      }),
+    )
+    .min(1),
+});
+export type WorkerJobInput = z.infer<typeof workerJobInputSchema>;
 
 /** A derived file the worker wrote to storage. */
 export const workerFileSchema = z.object({
