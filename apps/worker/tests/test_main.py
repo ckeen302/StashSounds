@@ -20,7 +20,7 @@ from stash_worker.sandbox import JobUser
 
 def test_settings_fall_back_to_env_local_and_the_environment_wins(tmp_path: Path):
     dotenv = tmp_path / ".env.local"
-    dotenv.write_text("# comment\nDATABASE_URL=postgresql://a:b@h:1/d\n")
+    dotenv.write_text("# comment\nDATABASE_URL=postgresql://a:b@h:1/d\nSTASH_WORKER_ALLOW_SAME_UID=1\n")
     s = load_settings(env={}, dotenv=dotenv)
     assert s.database_url == "postgresql://a:b@h:1/d"
     s = load_settings(env={"DATABASE_URL": "postgres://x@y/z"}, dotenv=dotenv)
@@ -28,7 +28,8 @@ def test_settings_fall_back_to_env_local_and_the_environment_wins(tmp_path: Path
 
 
 def test_the_memory_cap_comes_from_limits(tmp_path: Path):
-    s = load_settings(env={"DATABASE_URL": "postgres://x@localhost/z"}, dotenv=tmp_path / "missing")
+    env = {"DATABASE_URL": "postgres://x@localhost/z", "STASH_WORKER_ALLOW_SAME_UID": "1"}
+    s = load_settings(env=env, dotenv=tmp_path / "missing")
     assert s.memory_bytes == limits()["worker"]["memoryMb"] << 20
 
 
@@ -75,7 +76,8 @@ STORAGE_ENV = {
 }
 
 
-def test_settings_require_a_job_user_unless_same_uid_is_allowed(tmp_path: Path):
+def test_settings_require_a_job_user_unless_same_uid_is_allowed(tmp_path: Path, monkeypatch):
+    monkeypatch.setattr(os, "geteuid", lambda: 0)  # as in the worker image
     base = {"DATABASE_URL": "postgres://x@localhost/z", **STORAGE_ENV}
     with pytest.raises(SystemExit, match="STASH_JOB_USER"):
         load_settings(env=base, dotenv=tmp_path / "missing")

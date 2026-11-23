@@ -16,6 +16,7 @@ from types import FrameType
 from stash_worker.config import load_settings
 from stash_worker.db import PgJobQueue
 from stash_worker.runner import Runner
+from stash_worker.storage import S3Storage
 
 log = logging.getLogger("stash_worker")
 
@@ -34,9 +35,13 @@ def main() -> int:
     signal.signal(signal.SIGINT, on_signal)
     signal.signal(signal.SIGTERM, on_signal)
 
+    if settings.job_user is None:
+        log.warning("jobs run as the worker's own uid (STASH_WORKER_ALLOW_SAME_UID=1): development only")
     queue = PgJobQueue(settings.database_url)
     runner = Runner(
         queue,
+        storage=S3Storage.from_env(settings.storage_env),
+        job_user=settings.job_user,
         memory_bytes=settings.memory_bytes,
         sleep=lambda s: stop.wait(s),
         idle_min_s=settings.idle_min_s,

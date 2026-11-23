@@ -116,7 +116,7 @@ def env_probe(ctx: JobContext) -> dict[str, Any]:
 
 def _forge(ctx: JobContext, text: str) -> dict[str, Any]:
     """Writes outcome.json itself and exits, as a compromised handler could."""
-    (ctx.workdir.parent / "outcome.json").write_text(text)
+    (ctx.workdir.parent / "report" / "outcome.json").write_text(text)
     os._exit(0)
 
 
