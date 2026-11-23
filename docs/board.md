@@ -30,8 +30,8 @@ Statuses: todo, planning, building, review, merged.
 | 122 | audio | Loop player with stretch | review: PR #7 | 121 |
 | 123 | audio | Preload, queue, first-sound test | review: PR #10 | 122 |
 | 131 | interface | Core components in the gallery | review: PR #5 | Design refs (decision 0006) |
-| 132 | interface | App shell and player bar | todo | 131, 121 |
-| 133 | interface | Sign-in screens | todo | 131, 101 |
+| 132 | interface | App shell and player bar | review: PR #12 | 131, 121 |
+| 133 | interface | Sign-in screens | building | 131, 101 |
 | 134 | interface | Upload flow for one loop | todo | 132, 102 |
 | 135 | interface | Loop item page | todo | 132, 103, 122 |
 | 136 | interface | Polish pass 1 | todo | 135 |
