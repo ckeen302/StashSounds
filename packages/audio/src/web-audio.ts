@@ -22,6 +22,8 @@ export interface AudioBufferLike {
   readonly duration: number;
   readonly sampleRate: number;
   readonly length: number;
+  readonly numberOfChannels: number;
+  getChannelData(channel: number): Float32Array;
 }
 
 export interface BufferSourceLike extends AudioNodeLike {
@@ -46,7 +48,38 @@ export interface AudioContextLike {
   resume(): Promise<void>;
 }
 
+/** One change to a stretch node's playback (signalsmith-stretch 1.3.2, `schedule`). Times in seconds. */
+export interface StretchChange {
+  /** Audio context time the change is heard at. */
+  output?: number;
+  active?: boolean;
+  /** Position in the node's input buffers. */
+  input?: number;
+  rate?: number;
+  semitones?: number;
+  loopStart?: number;
+  loopEnd?: number;
+}
+
+/** The parts of the Signalsmith Stretch node the engine uses (an AudioWorkletNode with extra methods). */
+export interface StretchNodeLike extends AudioNodeLike {
+  addBuffers(channels: Float32Array[], transfer?: Transferable[]): Promise<number>;
+  dropBuffers(): Promise<unknown>;
+  schedule(change: StretchChange): Promise<unknown>;
+  /** Seconds between scheduling a change and hearing it fully. */
+  latency(): Promise<number>;
+}
+
 export type FetchLike = (url: string) => Promise<{ ok: boolean; status: number; arrayBuffer(): Promise<ArrayBuffer> }>;
+
+/**
+ * Loads Signalsmith Stretch and makes its node. A dynamic import, so the library (WASM inlined, about
+ * 110 KB) is fetched the first time a loop needs a tempo or key change, never with the page.
+ */
+export async function createBrowserStretch(ctx: AudioContextLike): Promise<StretchNodeLike> {
+  const { default: SignalsmithStretch } = await import("signalsmith-stretch");
+  return SignalsmithStretch(ctx as unknown as BaseAudioContext, { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+}
 
 /** The browser's context, created with the interactive latency hint. Throws where Web Audio is missing. */
 export function createBrowserContext(): AudioContextLike {
