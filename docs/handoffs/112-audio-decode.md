@@ -166,3 +166,12 @@ How each acceptance criterion is tested:
 ## Requests filed
 - `docs/requests/112-worker-isolation-ci.md`: CI runs the isolation tests as root with `STASH_REQUIRE_ISOLATION=1`, and compose drops capabilities for the root parent.
 - `docs/requests/112-peaks-meta.md`: name the `peaks` file's meta (`{points, peaks}` base64) in the worker-result contract, for Platform's `item.peaks`.
+
+## After decision 0014 (both requests accepted)
+I merged `origin/phase-0/foundations` at 6b7946c. It adds the CI isolation step, the compose capabilities and `peaksFileMetaSchema` on the worker result. No worker code had to change: the processor already writes `{points, peaks}` on the peaks file, and the regenerated schema accepts it. `lane/pipeline-111` writes no peaks file, so it did not need the merge. I reran the checks:
+```
+STASH_REQUIRE_DB=1 STASH_REQUIRE_ISOLATION=1 pnpm worker:test (root)   159 passed, 1 skipped in 32.79s
+same suite as uid 65534 (setpriv, STASH_REQUIRE_DB=1)                  151 passed, 9 skipped in 29.10s
+uv run --frozen ruff check .                                           All checks passed!
+uv run --frozen ruff format --check .                                  26 files already formatted
+```
