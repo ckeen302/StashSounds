@@ -147,8 +147,27 @@ describe("live tempo and key change without restarting", () => {
     expect(change.output).toBeCloseTo(1 + LEAD);
     expect(change.input).toBeCloseTo(PAD + LEAD + (1 + LEAD - LEAD) * 0.5);
     expect(change).toMatchObject({ rate: 0.5, semitones: -2 });
-    expect(change.active).toBeUndefined();
+    // Each schedule is complete: the library drops every change at or after the current time when a
+    // new one arrives, and fills missing fields from what is left.
+    expect(change).toMatchObject({ active: true, loopStart: PAD, loopEnd: PAD + 2 });
     expect(ctx.sources).toHaveLength(1); // still no restart
+  });
+  it("a change before the stretch is heard replaces its pending start instead of cancelling it", async () => {
+    const { e, ctx, node } = setup();
+    await e.play(loop("a"));
+    ctx.advance(0.5);
+    e.setTempo(70);
+    await settle();
+    const start = node.lastStart!;
+    ctx.advance(0.05); // the stretch starts at 0.64: still pending
+    e.setTranspose(2);
+    await settle();
+    const change = node.schedules.at(-1)!;
+    expect(change).toMatchObject({ active: true, rate: 0.5, semitones: 2, loopStart: PAD, loopEnd: PAD + 2 });
+    expect(change.output).toBeCloseTo(start.output!);
+    expect(change.input).toBeCloseTo(start.input!);
+    ctx.advance(LEAD + 1);
+    expect(e.getPositionMs()).toBeCloseTo((0.5 + LEAD) * 1000 + (0.05 + 1) * 500);
   });
   it("wraps the position on the loop length at the new rate", async () => {
     const { e, ctx } = setup();
