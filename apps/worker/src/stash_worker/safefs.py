@@ -23,9 +23,10 @@ def split_relative(rel: str) -> list[str]:
     return parts
 
 
-def open_beneath(root: Path, parts: list[str]) -> int:
+def open_beneath(root: Path, parts: list[str], owner_uid: int | None = None) -> int:
     """An fd for root/parts[0]/.../parts[-1], refusing a symlink at any step after root, and
-    anything but a regular file at the end. The caller closes it."""
+    anything but a regular file with one link at the end. With `owner_uid`, the file must also belong
+    to that uid, so a hard link to a file someone else owns is refused. The caller closes it."""
     try:
         fd = os.open(root, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
     except OSError as e:
@@ -40,7 +41,15 @@ def open_beneath(root: Path, parts: list[str]) -> int:
         raise UnsafePath(f"cannot open {'/'.join(parts)} safely: {e.strerror}") from e
     finally:
         os.close(fd)
-    if not stat.S_ISREG(os.fstat(leaf).st_mode):
+    st = os.fstat(leaf)
+    problem = None
+    if not stat.S_ISREG(st.st_mode):
+        problem = "is not a regular file"
+    elif st.st_nlink != 1:
+        problem = f"has {st.st_nlink} links"
+    elif owner_uid is not None and st.st_uid != owner_uid:
+        problem = f"belongs to uid {st.st_uid}, not the job's"
+    if problem:
         os.close(leaf)
-        raise UnsafePath(f"{'/'.join(parts)} is not a regular file")
+        raise UnsafePath(f"{'/'.join(parts)!r} {problem}")
     return leaf

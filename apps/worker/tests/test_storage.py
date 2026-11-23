@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import base64
 import hashlib
 import io
 import os
@@ -14,7 +15,7 @@ from botocore.response import StreamingBody
 from botocore.stub import Stubber
 
 from stash_worker.contracts import limits
-from stash_worker.files import InputRejected, PublishError, publish_outputs, stage_inputs
+from stash_worker.files import InputRejected, PublishError, loop_preview_max_bytes, publish_outputs, stage_inputs
 from stash_worker.storage import IMMUTABLE, LocalStorage, S3Storage, StorageError
 
 
@@ -212,16 +213,47 @@ def test_a_stored_object_bigger_than_its_row_is_refused(tmp_path: Path):
 
 # -- publishing outputs ------------------------------------------------------------------------
 
+PREVIEW = b"ID3\x04\x00\x00\x00\x00\x00\x00" + b"\xff\xfb\x90\x00" * 64
+PEAKS = bytes(range(200)) * 4  # 800 bytes
 
-def test_outputs_named_in_the_result_are_uploaded_immutable(tmp_path: Path):
+
+def peaks_file(item: str, data: bytes = PEAKS) -> dict:
+    digest = hashlib.sha256(data).hexdigest()
+    return {
+        "role": "peaks",
+        "bucket": "previews",
+        "path": f"{item}/{digest[:32]}.peaks",
+        "bytes": len(data),
+        "mime": "application/octet-stream",
+        "sha256": digest,
+        "meta": {"points": 800, "peaks": base64.b64encode(data).decode()},
+    }
+
+
+def publish(tmp_path: Path, files: list[tuple[dict, bytes]], item: str, item_type: str = "loop", owner=None):
     store = LocalStorage(tmp_path / "store")
+    out = tmp_path / "job" / "work" / "out"
+    for f, data in files:
+        write_out(tmp_path / "job", f, data)
+    publish_outputs(store, {"files": [f for f, _ in files]}, out, item, item_type, owner)
+    return store
+
+
+def test_a_loops_preview_and_peaks_are_uploaded_immutable_with_the_parents_types(tmp_path: Path):
     item = str(uuid.uuid4())
-    data = b"ID3 preview bytes"
-    f = derived(item, data)
-    write_out(tmp_path / "job", f, data)
-    publish_outputs(store, {"files": [f]}, tmp_path / "job" / "work" / "out", item)
-    assert (tmp_path / "store" / "previews" / f["path"]).read_bytes() == data
-    assert store.uploads == [("previews", f["path"], "audio/mpeg", IMMUTABLE)]
+    preview, peaks = derived(item, PREVIEW), peaks_file(item)
+    store = publish(tmp_path, [(preview, PREVIEW), (peaks, PEAKS)], item, owner=os.getuid())
+    assert (tmp_path / "store" / "previews" / preview["path"]).read_bytes() == PREVIEW
+    assert store.uploads == [
+        ("previews", preview["path"], "audio/mpeg", IMMUTABLE),
+        ("previews", peaks["path"], "application/octet-stream", IMMUTABLE),
+    ]
+
+
+def test_the_preview_cap_follows_the_longest_loop_at_its_bitrate():
+    lim = limits()
+    longest = lim["loop"]["maxDurationMs"] / 1000 * lim["preview"]["loopBitrateKbpsLong"] * 1000 / 8
+    assert longest < loop_preview_max_bytes() < longest * 1.1 + 16 * 1024
 
 
 @pytest.mark.parametrize(
@@ -231,40 +263,58 @@ def test_outputs_named_in_the_result_are_uploaded_immutable(tmp_path: Path):
         "wrong_size",
         "wrong_hash",
         "no_hash",
+        "short_hash",
         "other_item",
         "dotdot",
         "originals",
         "symlink_file",
         "symlink_dir",
+        "hard_link",
+        "other_owner",
+        "html_mime",
+        "svg_name",
+        "extra_folder",
+        "html_bytes",
+        "too_big",
+        "unknown_role",
+        "two_previews",
+        "other_type",
+        "peaks_short",
+        "peaks_meta_differs",
+        "peaks_meta_not_base64",
+        "peaks_as_mp3",
     ],
 )
-def test_outputs_that_do_not_match_the_result_are_refused(tmp_path: Path, case: str):
+def test_outputs_the_parent_does_not_expect_are_refused(tmp_path: Path, case: str):
     store = LocalStorage(tmp_path / "store")
     item = str(uuid.uuid4())
     job = tmp_path / "job"
     out = job / "work" / "out"
-    data = b"ID3 preview bytes"
+    data = PREVIEW
     f = derived(item, data)
+    files, item_type, owner = [f], "loop", os.getuid()
     secret = tmp_path / "secret.txt"
-    secret.write_bytes(data)  # same bytes, so only the symlink check can catch it
+    secret.write_bytes(data)  # same bytes, so only the link checks can catch it
     if case != "missing":
         write_out(job, f, data)
+    p = out / "previews" / f["path"]
     if case == "wrong_size":
         f["bytes"] += 1
     elif case == "wrong_hash":
         f["sha256"] = "0" * 64
     elif case == "no_hash":
         f["sha256"] = None
+    elif case == "short_hash":
+        f["sha256"] = f["sha256"][:32]
     elif case == "other_item":
-        f["path"] = f"{uuid.uuid4()}/x.mp3"
+        f["path"] = f"{uuid.uuid4()}/{f['sha256'][:32]}.mp3"
         write_out(job, f, data)
     elif case == "dotdot":
-        f["path"] = f"{item}/../{item}/x.mp3"
+        f["path"] = f"{item}/../{item}/{f['sha256'][:32]}.mp3"
     elif case == "originals":
         f["bucket"] = "originals"
         write_out(job, f, data)
     elif case == "symlink_file":
-        p = out / "previews" / f["path"]
         p.unlink()
         p.symlink_to(secret)
     elif case == "symlink_dir":
@@ -272,8 +322,50 @@ def test_outputs_that_do_not_match_the_result_are_refused(tmp_path: Path, case: 
         moved = tmp_path / "elsewhere"
         real.rename(moved)
         real.symlink_to(moved)
+    elif case == "hard_link":
+        p.unlink()
+        os.link(secret, p)
+    elif case == "other_owner":
+        owner = os.getuid() + 1
+    elif case == "html_mime":
+        f["mime"] = "text/html"
+    elif case == "svg_name":
+        f["path"] = f"{item}/{f['sha256'][:32]}.svg"
+        write_out(job, f, data)
+    elif case == "extra_folder":
+        f["path"] = f"{item}/x/{f['sha256'][:32]}.mp3"
+        write_out(job, f, data)
+    elif case == "html_bytes":
+        html = b"<html><script>alert(1)</script></html>"
+        f = derived(item, html)
+        write_out(job, f, html)
+        files = [f]
+    elif case == "too_big":
+        big = b"ID3" + b"\x00" * (loop_preview_max_bytes() - 2)
+        f = derived(item, big)
+        write_out(job, f, big)
+        files = [f]
+    elif case == "unknown_role":
+        f["role"] = "cover"
+    elif case == "two_previews":
+        other = PREVIEW + b"\x00"
+        g = derived(item, other)
+        write_out(job, g, other)
+        files = [f, g]
+    elif case == "other_type":
+        item_type = "oneshot"  # no processor yet, so nothing to publish
+    elif case.startswith("peaks"):
+        pk = peaks_file(item, PEAKS[:799] if case == "peaks_short" else PEAKS)
+        if case == "peaks_meta_differs":
+            pk["meta"]["peaks"] = base64.b64encode(bytes(800)).decode()
+        elif case == "peaks_meta_not_base64":
+            pk["meta"]["peaks"] = "not base64!"
+        elif case == "peaks_as_mp3":
+            pk["path"] = pk["path"].replace(".peaks", ".mp3")
+        write_out(job, pk, PEAKS[:799] if case == "peaks_short" else PEAKS)
+        files = [f, pk]
     with pytest.raises(PublishError):
-        publish_outputs(store, {"files": [f]}, out, item)
+        publish_outputs(store, {"files": files}, out, item, item_type, owner)
     assert store.uploads == []
 
 
@@ -281,10 +373,17 @@ def test_publishing_is_all_or_nothing_checked_before_any_upload(tmp_path: Path):
     store = LocalStorage(tmp_path / "store")
     item = str(uuid.uuid4())
     job = tmp_path / "job"
-    good, bad = derived(item, b"good"), derived(item, b"bad", role="peaks", path=f"{item}/bad.peaks")
-    write_out(job, good, b"good")
-    write_out(job, bad, b"bad!")
+    good, bad = derived(item, PREVIEW), peaks_file(item)
+    write_out(job, good, PREVIEW)
+    write_out(job, bad, PEAKS[::-1])  # not what the result says
     with pytest.raises(PublishError):
-        publish_outputs(store, {"files": [good, bad]}, job / "work" / "out", item)
+        publish_outputs(store, {"files": [good, bad]}, job / "work" / "out", item, "loop")
     assert store.uploads == []
     assert not os.path.exists(tmp_path / "store" / "previews" / good["path"])
+
+
+def test_an_input_rejection_must_be_a_file_fault_reason():
+    assert InputRejected("too_large", "x").reason == "too_large"
+    for reason in ("internal", "timeout", "duplicate_exact", "made_up"):
+        with pytest.raises(ValueError):
+            InputRejected(reason, "x")
