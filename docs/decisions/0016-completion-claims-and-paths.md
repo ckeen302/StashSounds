@@ -25,3 +25,12 @@ notification items all use it.
 ## Not yet (PR #9 A5)
 Kit pads (16) and more-from-owner (10) stay as contract `.max()` values for now; the lane may read
 them from the schemas. They move to limits.json if a second place needs them.
+
+## Previews bucket CORS (PR #10 review)
+Playback fetches previews with `fetch()` and decodes them, so the previews bucket needs a GET rule
+for the site origin: docs/deploy/r2-previews-cors.json. The originals rule (PUT only) is renamed
+docs/deploy/r2-originals-cors.json. The embed build (321) will add its own origins here.
+
+## Client cache sizes stay in the audio package (PR #10 A5)
+The loader's 96 MB decoded budget and 32 raw downloads are client tuning, not product limits, and
+stay as constructor defaults in packages/audio.
