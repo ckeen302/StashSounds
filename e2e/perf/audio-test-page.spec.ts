@@ -142,3 +142,59 @@ test("the audio test page plays a WAV fixture loop", async ({ page }) => {
   }
   expect(errors).toEqual([]);
 });
+
+test("when the stretch cannot load, the loop plays on at its original tempo with no page error", async ({ page }) => {
+  const errors: string[] = [];
+  page.on("pageerror", (e) => errors.push(e.message));
+  let stretchRequests = 0;
+  await page.route("**/vendor/signalsmith-stretch.mjs", (route) => {
+    stretchRequests++;
+    return route.fulfill({ status: 404, body: "Not found" });
+  });
+  await page.addInitScript(() => {
+    const Real = window.AudioContext;
+    const g = window as unknown as { AudioContext: unknown; __analyser?: AnalyserNode };
+    g.AudioContext = class extends Real {
+      private tap: GainNode;
+      constructor(options?: AudioContextOptions) {
+        super(options);
+        this.tap = Real.prototype.createGain.call(this);
+        const analyser = Real.prototype.createAnalyser.call(this);
+        analyser.fftSize = 2048;
+        this.tap.connect(super.destination);
+        this.tap.connect(analyser);
+        g.__analyser = analyser;
+      }
+      override get destination(): AudioDestinationNode {
+        return this.tap as unknown as AudioDestinationNode;
+      }
+    };
+  });
+  await page.goto(`${origin}/`);
+  await page.selectOption("#fixture", WAV);
+  await page.click("#play");
+  await page.waitForFunction(() => ["playing", "error"].includes((window as unknown as PageGlobals).stashEngine.getState().status));
+
+  await page.evaluate(() => (window as unknown as PageGlobals).stashEngine.setTempo(70));
+  await expect.poll(() => stretchRequests, { message: "the engine tried to load the stretch" }).toBeGreaterThan(0);
+  await expect
+    .poll(() => page.evaluate(() => (window as unknown as PageGlobals).stashEngine.getState().tempoRatio), { message: "the tempo falls back to the original" })
+    .toBe(1);
+  expect(await page.evaluate(() => (window as unknown as PageGlobals).stashEngine.getState())).toMatchObject({ status: "playing", transpose: 0 });
+
+  const position = () => page.evaluate(() => (window as unknown as PageGlobals).stashEngine.getPositionMs());
+  const t0 = Date.now();
+  const p0 = await position();
+  await page.waitForTimeout(500);
+  let moved = (await position()) - p0;
+  if (moved < 0) moved += WAV_LOOP_MS; // wrapped at the loop end
+  expect(moved / (Date.now() - t0), "playhead at the original speed").toBeGreaterThan(0.8);
+  const rms = await page.evaluate(() => {
+    const a = (window as unknown as PageGlobals).__analyser!;
+    const d = new Float32Array(a.fftSize);
+    a.getFloatTimeDomainData(d);
+    return Math.sqrt(d.reduce((s, x) => s + x * x, 0) / d.length);
+  });
+  expect(rms, "the loop still reaches the output").toBeGreaterThan(0.001);
+  expect(errors).toEqual([]);
+});
