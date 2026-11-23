@@ -1,0 +1,13 @@
+{
+  "identities": [
+    {
+      "name": "stash",
+      "credentials": [{ "accessKey": "stash", "secretKey": "stash-local-only" }],
+      "actions": ["Admin", "Read", "List", "Tagging", "Write"]
+    },
+    {
+      "name": "anonymous",
+      "actions": ["Read:previews"]
+    }
+  ]
+}

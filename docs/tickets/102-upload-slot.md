@@ -15,13 +15,13 @@ apps/web/src/server/, supabase/tests/
 - contracts: createUploadSlotInput/Output, completeUploadInput/Output, limits
 
 ## Acceptance criteria
-- [ ] S3 client for R2 (local: MinIO from `pnpm dev`) in apps/web/src/server/storage/
+- [ ] S3 client for R2 (local: SeaweedFS from `pnpm dev`, S3 API on :9000) in apps/web/src/server/storage/
 - [ ] Upload URLs expire after limits.urls.uploadTtlSeconds and cover exactly one object
 - [ ] Files over limits.multipart.thresholdBytes get multipart part URLs; completeUpload completes the multipart upload
 - [ ] completeUpload checks the caller owns the item, HEADs the object, then calls `enqueue_processing(user_id, item_id, file_id, measured_bytes)` with the service role (the function is not callable by signed-in users); the database refuses a size other than the declared one with `invalid`
 - [ ] `create_upload_draft` and `add_demo_file` take no MIME type: the stored type comes from the extension (decision 0008)
 - [ ] Preset demo slot via role 'demo'
-- [ ] Tests against local MinIO: single upload, multipart upload, size mismatch, another user's item, quota exceeded, unverified email
+- [ ] Tests against local storage: single upload, multipart upload, size mismatch, another user's item, quota exceeded, unverified email
 
 ## Out of scope
 - Upload UI (134)

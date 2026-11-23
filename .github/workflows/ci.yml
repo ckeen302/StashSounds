@@ -139,11 +139,11 @@ jobs:
           cache: pnpm
       - uses: astral-sh/setup-uv@v6
       - run: pnpm install --frozen-lockfile
-      - name: pnpm dev starts Supabase (migrations and seed), MinIO, the worker and the web app
+      - name: pnpm dev starts Supabase (migrations and seed), storage, the worker and the web app
         run: pnpm dev --check
       - name: Logs on failure
         if: failure()
-        run: docker compose logs minio minio-init || true
+        run: docker compose logs storage storage-init || true
 
   licenses:
     name: Licenses

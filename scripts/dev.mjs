@@ -2,7 +2,7 @@
 /**
  * pnpm dev: the whole local stack with one command (ticket 007).
  *   1. Supabase (Postgres, auth, realtime, local inbox) via the Supabase CLI; migrations and seed apply on first start
- *   2. MinIO with the originals and previews buckets via docker compose
+ *   2. S3-compatible storage (SeaweedFS) with the originals and previews buckets via docker compose
  *   3. .env.local written from `supabase status`
  *   4. the worker (uv) and the web app (next dev), with prefixed logs; Ctrl+C stops both
  * Needs Docker, Node 22, pnpm and uv. `pnpm dev -- --no-infra` skips steps 1 and 2.
@@ -32,9 +32,9 @@ if (!noInfra) {
   run("docker", ["info"], { capture: true, hint: "Start Docker and try again." });
   console.log("• Supabase");
   run("npx", ["supabase", "start"]);
-  console.log("• Storage (MinIO)");
-  run("docker", ["compose", "up", "-d", "--wait", "minio"]);
-  run("docker", ["compose", "run", "--rm", "minio-init"]);
+  console.log("• Storage (SeaweedFS, S3 API on :9000)");
+  run("docker", ["compose", "up", "-d", "--wait", "storage"]);
+  run("docker", ["compose", "run", "--rm", "storage-init"]);
 
   const status = run("npx", ["supabase", "status", "-o", "env"], { capture: true });
   const env = Object.fromEntries(
@@ -82,7 +82,11 @@ if (checkOnly) {
     }
   };
   await probe("web", "http://localhost:3000/api/health", {}, (r) => r.ok);
-  await probe("storage", "http://127.0.0.1:9000/minio/health/live", {}, (r) => r.ok);
+  await probe("storage", "http://127.0.0.1:9000/healthz", {}, (r) => r.ok);
+  // A missing key in a public bucket is 404; a private or missing bucket answers 403 or NoSuchBucket.
+  await probe("previews bucket is publicly readable", "http://127.0.0.1:9000/previews/probe-missing-object", {}, async (r) =>
+    r.status === 404 && !(await r.text()).includes("NoSuchBucket"),
+  );
   if (!noInfra) {
     const key = supabaseEnv.ANON_KEY ?? supabaseEnv.PUBLISHABLE_KEY;
     const headers = { apikey: key, Authorization: `Bearer ${key}` };
@@ -94,7 +98,7 @@ if (checkOnly) {
   process.exit(0);
 }
 
-console.log("\n  web       http://localhost:3000\n  gallery   http://localhost:3000/dev/gallery\n  studio    http://127.0.0.1:54323\n  inbox     http://127.0.0.1:54324\n  storage   http://127.0.0.1:9001\n");
+console.log("\n  web       http://localhost:3000\n  gallery   http://localhost:3000/dev/gallery\n  studio    http://127.0.0.1:54323\n  inbox     http://127.0.0.1:54324\n  storage   http://127.0.0.1:9000 (S3)\n");
 const stop = () => {
   for (const p of procs) p.kill("SIGINT");
   process.exit(0);
