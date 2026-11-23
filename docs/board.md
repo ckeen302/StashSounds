@@ -19,16 +19,16 @@ Statuses: todo, planning, building, review, merged.
 | # | Lane | Ticket | Status | Blocker |
 |---|---|---|---|---|
 | 101 | platform | Sign-in, profile and account rows, handle claim | review: PR #4 | Phase 0 merge |
-| 102 | platform | createUploadSlot, completeUpload | in progress | 101 |
-| 103 | platform | Item reads and lifecycle actions | todo | 102 |
+| 102 | platform | createUploadSlot, completeUpload | review: PR #6 | 101 |
+| 103 | platform | Item reads and lifecycle actions | review: PR #9 | 102 |
 | 104 | platform | requestDownload | todo | 103 |
 | 111 | pipeline | Job runner | review: PR #3 | Phase 0 merge |
-| 112 | pipeline | Decode, preview, peaks, loop length | in progress | 111 |
+| 112 | pipeline | Decode, preview, peaks, loop length | review: PR #8 | 111 |
 | 113 | pipeline | BPM and key | todo | 112 |
 | 114 | pipeline | Duplicate check | todo | 112 |
 | 121 | audio | Engine core | review: PR #2 | Phase 0 merge |
-| 122 | audio | Loop player with stretch | in progress | 121 |
-| 123 | audio | Preload, queue, first-sound test | todo | 122 |
+| 122 | audio | Loop player with stretch | review: PR #7 | 121 |
+| 123 | audio | Preload, queue, first-sound test | review: PR #10 | 122 |
 | 131 | interface | Core components in the gallery | review: PR #5 | Design refs (decision 0006) |
 | 132 | interface | App shell and player bar | todo | 131, 121 |
 | 133 | interface | Sign-in screens | todo | 131, 101 |
