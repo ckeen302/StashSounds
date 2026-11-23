@@ -78,7 +78,7 @@ export const itemRowSchema = z.object({
   title: titleSchema,
   slug: slugSchema,
   /** Canonical path, e.g. /loop/dark-keys-k3j9x0a2bq */
-  href: z.string().startsWith("/"),
+  href: z.string().regex(/^\/(?![/\\])/, "Must be a same-site path"),
   owner: ownerSummarySchema.pick({ handle: true, displayName: true, avatarUrl: true }),
   license: licenseKindSchema,
   bpm: bpmSchema.nullable(),

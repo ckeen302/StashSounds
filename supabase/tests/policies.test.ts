@@ -5,7 +5,7 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { slugify } from "@stash/contracts";
+import { profileLinkKindSchema, slugify } from "@stash/contracts";
 import { TestDb, anon, rejection, service, superuser, user } from "./db.ts";
 
 let db: TestDb;
@@ -61,6 +61,18 @@ describe("profiles", () => {
     await db.q(`update public.accounts set suspended_at = now() where id = $1`, [sus]);
     const r = await db.as(user(sus), `update public.profiles set bio = 'still here' where id = $1`, [sus]);
     expect(r.rowCount).toBe(0);
+  });
+  it("rejects profile values the contracts reject (unknown link kind, blank display name)", async () => {
+    const bad = [
+      [`update public.profiles set links = '[{"kind":"myspace","url":"https://a.b"}]' where id = $1`],
+      [`update public.profiles set display_name = '   ' where id = $1`],
+    ];
+    for (const [sql] of bad) expect(await rejection(db.as(user(alice), sql!, [alice]))).toMatch(/check constraint/);
+    for (const kind of profileLinkKindSchema.options) {
+      const links = JSON.stringify([{ kind, url: "https://example.com/x" }]);
+      const r = await db.q<{ ok: boolean }>(`select public.valid_profile_links($1::jsonb) as ok`, [links]);
+      expect(r.rows[0]!.ok, kind).toBe(true);
+    }
   });
   it("nobody can edit someone else's profile", async () => {
     const r = await db.as(user(bob), `update public.profiles set bio = 'pwned' where id = $1`, [alice]);
