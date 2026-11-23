@@ -102,18 +102,18 @@ export class WebAudioEngine implements Engine {
    * false after setting status 'error' when either step fails.
    */
   private ensureRunning(): Promise<boolean> {
-    if (!this.ctx) {
-      try {
-        const ctx = this.createContext();
-        const master = ctx.createGain();
+    try {
+      // Keep the context the moment it exists, so a later throw can never leak it into a second one.
+      this.ctx ??= this.createContext();
+      if (!this.master) {
+        const master = this.ctx.createGain();
         master.gain.value = this.state.volume;
-        master.connect(ctx.destination);
-        this.ctx = ctx;
+        master.connect(this.ctx.destination);
         this.master = master;
-      } catch (err) {
-        this.fail(err);
-        return Promise.resolve(false);
       }
+    } catch (err) {
+      this.fail(err);
+      return Promise.resolve(false);
     }
     const ctx = this.ctx;
     if (ctx.state === "running") return Promise.resolve(true);
@@ -169,7 +169,7 @@ export class WebAudioEngine implements Engine {
 
     const running = this.ensureRunning(); // context created here, synchronously, inside the gesture
     const ctx = this.ctx;
-    if (!ctx) return;
+    if (!ctx || !this.master) return;
 
     if (same && this.buffer) {
       if (!(await running) || generation !== this.generation) return;
@@ -214,6 +214,9 @@ export class WebAudioEngine implements Engine {
     const master = this.master;
     const buffer = this.buffer;
     if (!ctx || !master || !buffer) return;
+    // Replacing a sounding voice (seek, including to 0 or a wrap to the loop start) cuts the waveform
+    // mid-cycle, so the new voice ramps in. A fresh start at 0 keeps its first transient.
+    const replacing = this.voice !== null;
     this.stopVoice();
     const offset = this.normalize(offsetS);
     const now = ctx.currentTime;
@@ -225,7 +228,7 @@ export class WebAudioEngine implements Engine {
       src.loopEnd = this.loopS;
     }
     const gain = ctx.createGain();
-    if (offset > 0) {
+    if (offset > 0 || replacing) {
       gain.gain.setValueAtTime(0, now);
       gain.gain.setTargetAtTime(1, now, FADE_S);
     }
@@ -287,14 +290,16 @@ export class WebAudioEngine implements Engine {
   setTempo(bpm: number): void {
     const c = this.state.current;
     const base = c && (c.kind === "loop" || c.kind === "midi") ? c.bpm : undefined;
-    if (base && bpm > 0) this.set({ tempoRatio: bpm / base });
+    if (base && Number.isFinite(bpm) && bpm > 0) this.set({ tempoRatio: bpm / base });
   }
 
   setTranspose(semitones: number): void {
+    if (!Number.isFinite(semitones)) return;
     this.set({ transpose: Math.max(-12, Math.min(12, Math.round(semitones))) });
   }
 
   setVolume(volume: number): void {
+    if (!Number.isFinite(volume)) return;
     const v = Math.max(0, Math.min(1, volume));
     if (this.master && this.ctx) this.master.gain.setTargetAtTime(v, this.ctx.currentTime, VOLUME_S);
     this.set({ volume: v });
