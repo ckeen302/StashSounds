@@ -231,3 +231,82 @@ apps/web typecheck: Done
 - Unit tests: 226 passed and 5 skipped (the SeaweedFS suite). uploads.test.ts now has 29 tests.
 - Database tests: 105, one more from the lead's policy test.
 
+
+## Review round (PR #6)
+
+### What changed
+
+**Merged origin/phase-0/foundations (a1e7e80).**
+- add_demo_file now uses one key per item, `<owner>/<item>/demo`.
+- completeUploadInput.parts is capped.
+- supabase/tests/uploads.test.ts now expects the new demo path.
+
+**B1, blocking: uploads go to a staging key.** A presigned PUT stays valid for 900 s, so after this change it can never name the object the worker checks.
+- createUploadSlot signs the single PUT, or the multipart upload, only for `stagingKey(owner, item, file)`, which is `staging/<owner>/<item>/<fileId>` in the originals bucket.
+  - The key is built on the server from ids only.
+  - It never matches a final path, because final paths start with the owner's uuid.
+  - Nothing else reads `staging/`.
+- completeUpload, in order:
+  1. Refuses an item that is not a draft with `conflict`, before it touches storage.
+  2. Completes the multipart upload on the staging key.
+  3. Copies the staged object to the row's path with CopyObject, MetadataDirective REPLACE and ContentType set to the row's `mime`. This also fixes security A2: the uploader's Content-Type is never stored.
+  4. Deletes the staged object.
+  5. HEADs the copy and sends its measured size to enqueue_processing.
+  - On `invalid` or `forbidden` it deletes both the copy and the staged object.
+  - When there is no staged object but the row's path exists (an earlier call copied the file and stopped before the queue), it uses that object. Only the server ever writes that path.
+- Copy limit: S3 CopyObject handles up to 5 GB in a single request. Our largest original is 500 MB (kit.maxBytes 524288000), so no multipart copy is needed.
+- Residual race:
+  - Two concurrent completeUpload calls for the same draft could interleave like this:
+    1. Call A copies and enqueues.
+    2. The uploader PUTs new staged bytes.
+    3. Call B, which saw the item as a draft before A enqueued, copies after A's enqueue.
+  - It needs two requests in flight plus a third PUT, all inside a window of a few milliseconds, and the bytes must be the same length.
+  - Closing it fully needs the worker to record the original's sha256 when it downloads the file (it already hashes it, build spec step 2), so a changed object would be detectable. I have noted this for Pipeline (ticket 114).
+- Leftover staging objects (an upload never completed, a late PUT): docs/requests/102-staging-expiry.md asks for a lifecycle rule on `staging/`.
+
+**Advisory items.**
+- Contract A1 / security A6: storage's InvalidPart, InvalidPartOrder and EntityTooSmall come back from `completeMultipart` as `"invalid_parts"`. completeUpload turns this into `invalid`, "Some parts did not upload. Upload it again.", with a `parts` field, instead of a 500.
+- Contract A2: storage failures during refusal cleanup are logged with `console.error` and swallowed, so the database's contract error is what the caller gets.
+- Contract A3: the rows from create_upload_draft and add_demo_file are parsed with a small Zod schema (uuid ids, a non-empty path) before anything is signed. A malformed row throws, naming the function.
+- Security A5: `import "server-only"` is now at the top of supabase/service.ts, storage/env.ts and storage/originals.ts.
+  - Dependency added: `server-only@0.0.1` (MIT). It is the marker package Next aliases for server bundles; apps/web needs it as a direct dependency so the import resolves for tsc and vitest.
+  - `pnpm run licenses` passes.
+  - Tests that import those modules use `vi.mock("server-only", () => ({}))`: uploads, originals, seaweedfs and sign-in (which goes through the barrel).
+- Security A3: the rateLimit hook for createUploadSlot is not filled. Upload limits already apply: create_upload_draft enforces quota.uploadsPerDay, and add_demo_file replaces the single demo row. A per-call slot limit needs a new `rate_limit_user` action and a limit in limits.json, which are lead-owned, so this is left for ticket 203.
+
+**Tests.**
+- uploads.test.ts:
+  - The staging key is what gets signed, for an original, a multipart upload and a demo.
+  - The multipart upload is aborted when the upload id cannot be stored (test A3).
+  - A malformed RPC row means nothing is signed.
+  - The copy uses the row's type.
+  - The staging object is gone after complete.
+  - The measured size is read from the copy.
+  - A non-draft item is a conflict before storage.
+  - On a refusal, both keys are deleted.
+  - A cleanup failure does not hide the database's error.
+  - Invalid parts give `invalid`.
+  - The repeat-after-copy path works.
+  - Over real HTTP against the S3 stub: a slot is created, its URL is PUT with `text/html`, completeUpload runs, and a late PUT of different bytes follows. The final object keeps the confirmed bytes and has `audio/wav`.
+- originals.test.ts:
+  - ttlSeconds 60 signs 60 (test A2).
+  - copy sends REPLACE and the new Content-Type.
+  - A wrong ETag gives `invalid_parts`.
+  - The production client config from `s3ClientFromEnv()`: path-style, request and response checksums WHEN_REQUIRED (test A1).
+- seaweedfs.test.ts, which skips without storage:
+  - An expired URL is refused, with ttl 1 s and a 2.1 s wait (test A4).
+  - Privacy: the PUT returns 200, then an unsigned GET returns 403 (test A5).
+  - Another key returns 403, and `head(otherKey)` is null (test A6).
+  - Staging, copy and a late PUT keep the final object's bytes and type.
+
+### Proof
+`pnpm check && pnpm test && pnpm db:test`, exit 0:
+```
+apps/web typecheck: Done
+ Test Files  12 passed | 1 skipped (13)
+      Tests  236 passed | 7 skipped (243)
+ Test Files  3 passed (3)
+      Tests  106 passed (106)
+```
+- The 7 skipped tests are the SeaweedFS suite: no storage is reachable here, and running the binary is not permitted in this sandbox. CI (STASH_REQUIRE_STORAGE=1) is still the first real run, now with 3 more tests.
+- `pnpm run licenses`: "All dependency licenses are on the allowed list."
