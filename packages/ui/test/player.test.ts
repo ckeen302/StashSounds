@@ -3,7 +3,10 @@ import { createElement as h, type ReactElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { encodePeaks, type ItemRow } from "@stash/contracts";
 import {
+  Bell,
   ButtonLink,
+  IconLink,
+  PlayerSheetPreview,
   describePlayer,
   PlayerBar,
   playerFraction,
@@ -176,6 +179,27 @@ describe("ToastViewport", () => {
     const out = html(h(ToastProvider, { viewport: false, children: h(ToastViewport, {}) }));
     expect(out).toContain('aria-label="Notifications');
     expect(out.match(/aria-label="Notifications/g)).toHaveLength(1);
+  });
+});
+
+describe("PlayerSheetPreview", () => {
+  const out = html(
+    h(PlayerSheetPreview, { item: row, status: "playing", durationMs: 5333, getPositionMs: () => 0, onPlayPause: noop, onSeek: noop, volume: 0.8, onVolumeChange: noop }),
+  );
+  it("is an inert picture of the sheet with the hero seek, transport and volume", () => {
+    expect(out).toMatch(/^<div inert=""/);
+    expect(out).toContain('aria-label="Seek, Loop, 2 bars, 90 BPM, Dm"');
+    expect(out).toContain('aria-label="Pause Dusty soul chops"');
+    expect(out).toContain('aria-label="Close player"');
+    expect(out).toContain('aria-label="Volume"');
+  });
+});
+
+describe("IconLink", () => {
+  it("is a named link drawn as a ghost icon button", () => {
+    const out = html(h(IconLink, { href: "/notifications", icon: Bell, label: "Notifications" }));
+    expect(out).toMatch(/<a (?=[^>]*href="\/notifications")(?=[^>]*aria-label="Notifications")/);
+    expect(out).toContain('aria-hidden="true"');
   });
 });
 

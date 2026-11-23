@@ -104,8 +104,8 @@ function Rail({ pathname }: { pathname: string }) {
 /** Phone: the bottom tab bar, 56 px, five destinations. */
 function TabBar({ pathname }: { pathname: string }) {
   return (
-    <nav aria-label="Tabs" className="shrink-0 border-t border-border bg-bg tablet:hidden">
-      <ul className="flex h-14">
+    <nav aria-label="Tabs" className="h-14 shrink-0 border-t border-border bg-bg tablet:hidden">
+      <ul className="flex h-full">
         {navItems.map((item) => {
           const current = isCurrent(pathname, item);
           return (
@@ -137,7 +137,7 @@ function TopBar() {
       </UiLink>
       <div className="flex-1 tablet:hidden" />
       <form role="search" action="/search" className="hidden min-w-0 flex-1 justify-center tablet:flex">
-        <SearchInput name="q" size="sm" shortcut="" hideLabel className="w-full max-w-140" />
+        <SearchInput name="q" size="sm" shortcut="" hideLabel placeholder="Search loops, kits, producers" className="w-full max-w-140" />
       </form>
       <IconLink href="/search" icon={Search} label="Search" className="tablet:hidden" />
       <IconLink href="/notifications" icon={Bell} label="Notifications" />

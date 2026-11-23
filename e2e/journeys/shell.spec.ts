@@ -209,6 +209,29 @@ test("at 1024 with the 232 px rail, long titles truncate and nothing overflows",
   expect(await player(page).evaluate((el) => el.scrollWidth <= el.clientWidth)).toBe(true);
 });
 
+test("on a tablet the rail is icons only and the bar fits without the waveform", async ({ page }) => {
+  await page.setViewportSize({ width: 800, height: 900 });
+  await serveAudio(page);
+  await page.goto("/dev/player");
+  const rail = page.getByRole("navigation", { name: "Main" });
+  expect((await rail.boundingBox())?.width).toBe(64);
+  await expect(rail.getByRole("button", { name: /navigation$/ })).toBeHidden();
+  await page.getByRole("list", { name: "Fixture loops" }).getByRole("button", { name: /^Play Late night R&B pad/ }).click();
+  await expect(player(page).getByRole("link", { name: /^Late night R&B pad/ })).toBeVisible();
+  expect((await player(page).boundingBox())?.height).toBe(64);
+  expect(await player(page).evaluate((el) => el.scrollWidth <= el.clientWidth)).toBe(true);
+  await expect(player(page).getByRole("slider", { name: "Volume" })).toBeVisible();
+});
+
+test("the bar is 72 px on desktop and the mini player 56 on a phone", async ({ page }) => {
+  await page.goto("/");
+  expect((await player(page).boundingBox())?.height).toBe(72);
+  await page.setViewportSize({ width: 380, height: 800 });
+  await expect.poll(async () => (await player(page).boundingBox())?.height).toBe(56);
+  expect((await page.getByRole("navigation", { name: "Tabs" }).boundingBox())?.height).toBe(56);
+  expect((await page.getByRole("banner").boundingBox())?.height).toBe(48);
+});
+
 test("on a phone toasts sit full width, 12 px from the edges, above the mini player", async ({ page }) => {
   await page.setViewportSize({ width: 380, height: 800 });
   await page.goto("/dev/player");
