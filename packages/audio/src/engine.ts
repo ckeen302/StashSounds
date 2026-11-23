@@ -325,14 +325,14 @@ export class WebAudioEngine implements Engine {
     });
   }
 
-  /** Sends the stretch its start at `T` from `pos`, and opens its gain at T. */
-  private scheduleStretchStart(T: number, pos: number) {
-    const ctx = this.ctx!;
-    const node = this.stretchNode!;
-    const gain = this.stretchGain!;
+  /**
+   * Tells the stretch to play from `pos` at time `T` with the current tempo and key. Always a complete
+   * change: the installed library drops every change at or after the current time when a new one
+   * arrives and fills missing fields from what is left, so a partial one could inherit "inactive".
+   */
+  private sendStretch(T: number, pos: number) {
     const pad = this.stretchPadS;
-    const now = ctx.currentTime;
-    node
+    this.stretchNode!
       .schedule({
         active: true,
         output: T,
@@ -343,6 +343,13 @@ export class WebAudioEngine implements Engine {
         loopEnd: pad + (this.loopS ?? 0),
       })
       .catch((err: unknown) => console.warn("[audio]", err));
+  }
+
+  /** Sends the stretch its start at `T` from `pos`, and opens its gain at T. */
+  private scheduleStretchStart(T: number, pos: number) {
+    const gain = this.stretchGain!;
+    const now = this.ctx!.currentTime;
+    this.sendStretch(T, pos);
     gain.gain.cancelScheduledValues(now);
     gain.gain.setValueAtTime(0, now);
     gain.gain.setTargetAtTime(1, T, FADE_S);
@@ -409,12 +416,14 @@ export class WebAudioEngine implements Engine {
       return;
     }
     if (!v.started) return; // its start reads the current tempo and key
-    const T = ctx.currentTime + this.lead();
-    const pos = this.positionAt(T);
+    // A change still waiting to be heard (the start, or the last change) is replaced at its own time,
+    // because sending a later one would drop it. Otherwise the change is heard one lead from now.
+    const now = ctx.currentTime;
+    const last = this.timeline.at(-1)!;
+    const T = last.at > now ? last.at : now + this.lead();
+    const pos = last.at > now ? last.pos : this.positionAt(T);
     const rate = this.state.tempoRatio;
-    this.stretchNode!
-      .schedule({ output: T, input: this.stretchPadS + pos, rate, semitones: this.state.transpose })
-      .catch((err: unknown) => console.warn("[audio]", err));
+    this.sendStretch(T, pos);
     this.timeline = [...this.timeline.filter((seg) => seg.at < T), { at: T, pos, rate }];
   }
 
