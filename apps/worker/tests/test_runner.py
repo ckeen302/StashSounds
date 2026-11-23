@@ -187,4 +187,3 @@ def test_timeouts_come_from_limits():
     assert timeout_for("process_midi") == t["midi"]
     assert timeout_for("process_preset") == t["audio"]
     assert timeout_for("render_vital") == t["presetRender"]
-
