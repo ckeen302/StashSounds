@@ -19,6 +19,8 @@ from pathlib import Path
 
 import pytest
 
+import stash_worker.sandbox as sandbox
+from stash_worker.contracts import REPO_ROOT
 from stash_worker.runner import Runner
 from stash_worker.sandbox import JobUser, run_isolated
 from stash_worker.storage import LocalStorage
@@ -80,7 +82,7 @@ def test_the_child_cannot_read_a_worker_only_file(job_user: JobUser, job_root: P
     assert secret.read_text().startswith("DATABASE_URL")  # the worker can
     status, probe = run_as(job_user, job_root, "isolation_probe", {"secretPath": str(secret)})
     assert status == "ok", probe
-    assert probe["secret"] == "PermissionError"
+    assert probe["secret"] == "PermissionError"  # noqa: S105 - an exception name, not a password
 
 
 def test_the_child_cannot_read_the_workers_environment_or_signal_it(job_user: JobUser, job_root: Path):
@@ -135,3 +137,30 @@ def test_the_runner_passes_the_job_user_and_removes_the_folder(job_user: JobUser
     assert call == "complete"
     assert result["files"][0]["meta"]["uid"] == job_user.uid
     assert [p.name for p in job_root.iterdir()] == ["store"]
+
+
+@pytest.mark.parametrize("allowance", [sandbox.CHILD_PROCESSES, 8])
+def test_the_loop_processor_runs_as_the_job_user_within_its_limits(
+    job_user: JobUser, job_root: Path, monkeypatch, allowance: int
+):
+    # ffmpeg's threads count toward RLIMIT_NPROC for the job uid, which a root child never hits. Left to
+    # itself ffmpeg starts threads per core (12 for a FLAC decode on 4 cores), so a big machine would
+    # exceed the allowance; the worker pins ffmpeg to one thread per step, which fits in 8.
+    from test_runner import FakeQueue, job, job_input
+
+    monkeypatch.setattr(sandbox, "CHILD_PROCESSES", allowance)
+
+    fixture = REPO_ROOT / "fixtures/generated/loops/drill_lead_142.flac"
+    j = job()
+    store = LocalStorage(job_root / "store")
+    q = FakeQueue([j], store)
+    data = job_input(j)
+    f = data["files"][0]
+    f["bytes"] = fixture.stat().st_size
+    store.upload("originals", f["path"], fixture, "audio/flac", None)
+    q.input_override = data
+    r = Runner(q, storage=store, temp_root=job_root, sleep=lambda s: None, job_user=job_user)
+    r.run_once()
+    [(call, _, _, result)] = q.outcomes()
+    assert call == "complete", q.outcomes()
+    assert result["details"]["loopSamples"] == 149070

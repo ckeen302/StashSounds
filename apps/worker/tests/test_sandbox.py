@@ -10,6 +10,7 @@ from pathlib import Path
 
 import pytest
 
+import stash_worker.sandbox as sandbox
 from stash_worker.jobs import Rejected
 from stash_worker.sandbox import CHILD_FILE_BYTES, CHILD_PROCESSES, _uid_task_count, run_isolated
 
@@ -112,16 +113,19 @@ def test_the_child_sees_only_an_allowlisted_environment(tmp_path: Path, monkeypa
     assert Path(env["HOME"]).is_relative_to(tmp_path) and Path(env["TMPDIR"]).is_relative_to(tmp_path)
 
 
-def test_the_child_runs_under_resource_limits(tmp_path: Path):
+def test_the_child_runs_under_resource_limits(tmp_path: Path, monkeypatch):
+    # RLIMIT_NPROC counts every task of the uid, so the cap is what the uid runs at the start plus the
+    # allowance. The count is pinned here because other processes of the same uid (a shared CI host, or
+    # root on a dev box) start and stop between the child's start and this assertion; the real count is
+    # covered by the thread-counting test below.
+    assert _uid_task_count() is not None
+    monkeypatch.setattr(sandbox, "_uid_task_count", lambda uid=None: 123)
     run("env_probe", tmp_path, memory_bytes=768 * MiB)
     got = json.loads((tmp_path / "work" / "probe.json").read_text())["limits"]
     assert got["RLIMIT_AS"] == 768 * MiB
     assert got["RLIMIT_CORE"] == 0
     assert got["RLIMIT_FSIZE"] == CHILD_FILE_BYTES
-    # RLIMIT_NPROC counts every task of the uid, so the cap is what the uid runs now plus the allowance.
-    now = _uid_task_count()
-    assert now is not None
-    assert CHILD_PROCESSES < got["RLIMIT_NPROC"] <= now + CHILD_PROCESSES + 50
+    assert got["RLIMIT_NPROC"] == 123 + CHILD_PROCESSES
 
 
 def test_the_process_allowance_counts_threads_not_just_processes():

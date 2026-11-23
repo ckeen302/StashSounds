@@ -8,11 +8,12 @@ The child is a fresh Python interpreter in its own process group, with:
   and no core dumps, set before exec and inherited by the tools it spawns (ffmpeg, fpcalc).
 On timeout, or once it exits, the whole group is killed, so no grandchild outlives the job.
 
-The child reports through <job_dir>/outcome.json, which is read as untrusted input: size-capped, not
-followed through symlinks, shape-checked, and anything unexpected counts as a crash.
+With a JobUser (ticket 112), the child also runs as that separate unprivileged uid: it cannot read
+files only the worker can read, the worker's /proc entries (its environment), or signal the worker.
+The job folder stays the worker's; only work/, home/, tmp/ and report/ inside it are the child's.
 
-Still needed before hostile files arrive: run the child as a separate uid or in its own container, so
-it cannot read the worker's files or signal the worker (handoff 111, review round).
+The child reports through <job_dir>/report/outcome.json, which is read as untrusted input: opened
+without following links, size-capped, shape-checked, and anything unexpected counts as a crash.
 """
 
 from __future__ import annotations
@@ -20,9 +21,9 @@ from __future__ import annotations
 import json
 import logging
 import os
+import pwd
 import resource
 import signal
-import stat
 import subprocess
 import sys
 from dataclasses import dataclass
@@ -31,6 +32,7 @@ from typing import Any, Literal
 
 from stash_worker.contracts import limits
 from stash_worker.jobs import rejection_reasons
+from stash_worker.safefs import UnsafePath, open_beneath
 
 log = logging.getLogger(__name__)
 
@@ -45,6 +47,7 @@ CHILD_PROCESSES = 64
 OUTCOME_MAX_BYTES = 1 << 20
 DETAIL_MAX = 500
 ENV_PASSTHROUGH = ("PATH", "PYTHONPATH", "LANG", "LC_ALL")
+CHILD_DIRS = ("work", "home", "tmp", "report")
 
 
 @dataclass(frozen=True)
@@ -55,14 +58,14 @@ class Outcome:
     detail: str = ""
 
 
-def _uid_task_count() -> int | None:
+def _uid_task_count(uid: int | None = None) -> int | None:
     """Tasks (threads of every process) owned by this uid, from /proc (Linux), which is what the
     kernel counts for RLIMIT_NPROC. Counting processes instead undercounts a uid that runs a threaded
     service (a CI agent, a desktop session) and leaves the child unable to fork. None without /proc."""
     proc = Path("/proc")
     if not proc.is_dir():
         return None
-    uid, n = os.getuid(), 0
+    uid, n = (os.getuid() if uid is None else uid), 0
     for entry in proc.iterdir():
         if not entry.name.isdigit():
             continue
@@ -100,16 +103,14 @@ def _kill_group(pgid: int) -> None:
         pass
 
 
-def _read_outcome(path: Path) -> dict[str, Any] | str:
-    """The parsed outcome, or a string saying why it could not be used."""
+def _read_outcome(job_dir: Path) -> dict[str, Any] | str:
+    """The parsed report/outcome.json, or a string saying why it could not be used."""
     try:
-        fd = os.open(path, os.O_RDONLY | os.O_NOFOLLOW)
-    except OSError:
-        return "no outcome"
+        fd = open_beneath(job_dir, ["report", "outcome.json"])
+    except UnsafePath as e:
+        return f"no usable outcome ({e})"
     with os.fdopen(fd, "rb") as f:
         st = os.fstat(f.fileno())
-        if not stat.S_ISREG(st.st_mode):
-            return "outcome is not a regular file"
         if st.st_size > OUTCOME_MAX_BYTES:
             return f"outcome too large ({st.st_size} bytes)"
         data = f.read(OUTCOME_MAX_BYTES + 1)
@@ -141,6 +142,39 @@ def _interpret(outcome: dict[str, Any]) -> Outcome:
     return Outcome("crashed", detail="unknown outcome status")
 
 
+@dataclass(frozen=True)
+class JobUser:
+    """The unprivileged uid and gid a job's child runs as."""
+
+    uid: int
+    gid: int
+
+    @classmethod
+    def lookup(cls, name_or_uid: str) -> JobUser:
+        entry = pwd.getpwuid(int(name_or_uid)) if name_or_uid.isdigit() else pwd.getpwnam(name_or_uid)
+        if entry.pw_uid == 0:
+            raise ValueError("the job user must not be root")
+        return cls(entry.pw_uid, entry.pw_gid)
+
+
+def _prepare(job_dir: Path, job_user: JobUser | None) -> None:
+    """Lays out the job folder. request.json and the folder itself stay the worker's; work/, home/,
+    tmp/ and report/ (the child's only writable places) go to the job user."""
+    for sub in CHILD_DIRS:
+        (job_dir / sub).mkdir(exist_ok=True)
+        (job_dir / sub).chmod(0o700)
+    if job_user is None:
+        return
+    job_dir.chmod(0o711)
+    (job_dir / "request.json").chmod(0o644)
+    for sub in CHILD_DIRS:
+        top = job_dir / sub
+        os.chown(top, job_user.uid, job_user.gid, follow_symlinks=False)
+        for root, dirs, files in os.walk(top):
+            for name in dirs + files:
+                os.chown(Path(root) / name, job_user.uid, job_user.gid, follow_symlinks=False)
+
+
 def run_isolated(
     handler: str,
     payload: dict[str, Any],
@@ -149,22 +183,25 @@ def run_isolated(
     *,
     timeout_s: float,
     memory_bytes: int,
+    job_user: JobUser | None = None,
 ) -> Outcome:
-    """Runs `handler` ("module:function") with `job_dir/work` as its folder. `job_dir` must exist;
-    the caller deletes it."""
-    for sub in ("work", "home", "tmp"):
-        (job_dir / sub).mkdir(exist_ok=True)
+    """Runs `handler` ("module:function") with `job_dir/work` as its folder, as `job_user` when given
+    (the worker must then be root). `job_dir` must exist; the caller deletes it."""
     (job_dir / "request.json").write_text(json.dumps({"handler": handler, "payload": payload, "input": job_input}))
+    _prepare(job_dir, job_user)
     if sys.platform != "linux":
         log.warning("no memory cap on %s: RLIMIT_AS is enforced on Linux only", sys.platform)
-    count = _uid_task_count()
+    count = _uid_task_count(None if job_user is None else job_user.uid)
+    identity = {} if job_user is None else {"user": job_user.uid, "group": job_user.gid, "extra_groups": []}
     proc = subprocess.Popen(  # noqa: S603 - fixed interpreter and module, no shell
         [sys.executable, "-m", "stash_worker.child", str(job_dir)],
         cwd=job_dir / "work",
         env=_child_env(job_dir),
         stdin=subprocess.DEVNULL,
         start_new_session=True,
+        # Runs in the child after the switch to the job user, so the limits bind that uid.
         preexec_fn=_limit(memory_bytes, None if count is None else count + CHILD_PROCESSES),  # noqa: PLW1509
+        **identity,
     )
     try:
         code = proc.wait(timeout=timeout_s)
@@ -175,7 +212,7 @@ def run_isolated(
     finally:
         _kill_group(proc.pid)
 
-    outcome = _read_outcome(job_dir / "outcome.json")
+    outcome = _read_outcome(job_dir)
     if isinstance(outcome, str):
         how = f"signal {-code}" if code < 0 else f"exit {code}"
         return Outcome("crashed", detail=f"child ended with {how}: {outcome}")
