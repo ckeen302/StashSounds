@@ -54,7 +54,11 @@ interface Globals {
   stashEngine: { getState(): { status: string } };
 }
 
-/** One cold run: fresh browser context, cache off, the profile applied, then click and wait for sound. */
+/**
+ * One run: fresh browser context, cache off, the profile applied, then click and wait for sound. A
+ * cold run presses the button from the keyboard: a mouse click would hover it first, and hovering
+ * preloads. A preloaded run hovers, waits for the download, then clicks.
+ */
 async function firstSound(browser: Browser, profile: Profile, opts: { preloadOnHover: boolean }) {
   const context = await browser.newContext();
   const page = await context.newPage();
@@ -121,11 +125,23 @@ async function firstSound(browser: Browser, profile: Profile, opts: { preloadOnH
       await (await done).finished();
     }
     const clickedAt = Date.now();
-    await page.click("#play");
+    if (opts.preloadOnHover) {
+      await page.click("#play");
+    } else {
+      await page.focus("#play");
+      await page.keyboard.press("Enter");
+    }
     await page.waitForFunction(() => (window as unknown as Globals).__soundAt !== null, null, { timeout: 15_000 });
     const r = await page.evaluate(() => {
       const g = window as unknown as Globals;
-      return { ms: g.__soundAt! - g.__clickAt!, status: g.stashEngine.getState().status };
+      // Resource timing, on the same clock as the click: did any preview download start before it?
+      const fixtures = performance.getEntriesByType("resource").filter((e) => new URL(e.name).pathname.startsWith("/fixtures/"));
+      return {
+        ms: g.__soundAt! - g.__clickAt!,
+        status: g.stashEngine.getState().status,
+        fixtureStartsBeforeClick: fixtures.filter((e) => e.startTime < g.__clickAt!).length,
+        fixtureRequests: fixtures.length,
+      };
     });
     return { ...r, requestsAfterClick: fixtureRequests.filter((t) => t >= clickedAt).length };
   } finally {
@@ -141,6 +157,8 @@ test(`first sound on a fast connection, nothing preloaded: under ${budget.firstS
     console.log(`first sound fast, cold: ${r.ms.toFixed(0)} ms`);
     expect(r.status).toBe("playing");
     expect(r.ms).toBeGreaterThan(0);
+    expect(r.fixtureRequests, "one preview download").toBe(1);
+    expect(r.fixtureStartsBeforeClick, "nothing fetched before the click").toBe(0);
     expect(r.ms, "click to first sound (ms), fast").toBeLessThan(budget.firstSoundMsFast);
   }
 });
@@ -150,6 +168,10 @@ test(`first sound throttled (CPU 4x, 4G), nothing preloaded: under ${budget.firs
     const r = await firstSound(browser, THROTTLED, { preloadOnHover: false });
     console.log(`first sound throttled, cold: ${r.ms.toFixed(0)} ms`);
     expect(r.status).toBe("playing");
+    expect(r.fixtureRequests, "one preview download").toBe(1);
+    expect(r.fixtureStartsBeforeClick, "nothing fetched before the click").toBe(0);
+    // A cold start pays at least one round trip: anything less would mean the throttle did not apply.
+    expect(r.ms, "longer than the profile's latency").toBeGreaterThan(THROTTLED.latency);
     expect(r.ms, "click to first sound (ms), throttled").toBeLessThan(budget.firstSoundMsThrottled);
   }
 });
@@ -159,6 +181,8 @@ test(`first sound on a slow connection after a hover preload: under ${budget.fir
     const r = await firstSound(browser, SLOW, { preloadOnHover: true });
     console.log(`first sound slow, preloaded on hover: ${r.ms.toFixed(0)} ms, requests after click: ${r.requestsAfterClick}`);
     expect(r.status).toBe("playing");
+    expect(r.ms).toBeGreaterThan(0);
+    expect(r.fixtureStartsBeforeClick, "the preview was fetched on hover").toBe(1);
     expect(r.requestsAfterClick, "play() of a preloaded item makes no request").toBe(0);
     expect(r.ms, "click to first sound (ms), slow but preloaded").toBeLessThan(budget.firstSoundMsThrottled);
   }
