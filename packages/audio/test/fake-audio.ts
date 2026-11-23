@@ -188,18 +188,48 @@ export class FakeSource implements BufferSourceLike {
   }
 }
 
-/** Fake fetch: each URL maps to an audio length in ms, or an HTTP status, or a network error. */
+/**
+ * Fake fetch: each URL maps to an audio length in ms, or an HTTP status, or a network error. Like the
+ * browser's, a held request rejects with an AbortError when its signal aborts.
+ */
 export function fakeFetch(routes: Record<string, number | { status: number } | "network-error">) {
   const calls: string[] = [];
+  const inits: Parameters<FetchLike>[1][] = [];
+  /** URLs whose request was aborted while in flight. */
+  const aborted: string[] = [];
+  const stats = { inFlight: 0, maxInFlight: 0 };
   const pending = new Map<string, () => void>();
   const gate = { hold: new Set<string>() };
-  const fn: FetchLike = async (url) => {
+  const fn: FetchLike = async (url, init) => {
     calls.push(url);
-    if (gate.hold.has(url)) await new Promise<void>((r) => pending.set(url, r));
-    const route = routes[url];
-    if (route === undefined || route === "network-error") throw new TypeError("Failed to fetch");
-    if (typeof route === "object") return { ok: false, status: route.status, arrayBuffer: async () => new ArrayBuffer(0) };
-    return { ok: true, status: 200, arrayBuffer: async () => new ArrayBuffer(route) };
+    inits.push(init);
+    stats.inFlight++;
+    stats.maxInFlight = Math.max(stats.maxInFlight, stats.inFlight);
+    let open = true;
+    const close = () => {
+      if (open) stats.inFlight--;
+      open = false;
+    };
+    try {
+      const signal = init?.signal;
+      if (signal?.aborted) throw new DOMException("The operation was aborted.", "AbortError");
+      if (gate.hold.has(url)) {
+        await new Promise<void>((resolve, reject) => {
+          pending.set(url, resolve);
+          signal?.addEventListener("abort", () => {
+            aborted.push(url);
+            close(); // the browser cancels the request at abort(), not when its promise settles
+            reject(new DOMException("The operation was aborted.", "AbortError"));
+          });
+        });
+      }
+      const route = routes[url];
+      if (route === undefined || route === "network-error") throw new TypeError("Failed to fetch");
+      if (typeof route === "object") return { ok: false, status: route.status, arrayBuffer: async () => new ArrayBuffer(0) };
+      return { ok: true, status: 200, arrayBuffer: async () => new ArrayBuffer(route) };
+    } finally {
+      close();
+    }
   };
   /** Hold a URL's response until release(url). */
   const hold = (url: string) => gate.hold.add(url);
@@ -208,7 +238,7 @@ export function fakeFetch(routes: Record<string, number | { status: number } | "
     pending.get(url)?.();
     pending.delete(url);
   };
-  return { fetch: fn, calls, hold, release, routes };
+  return { fetch: fn, calls, inits, aborted, stats, hold, release, routes };
 }
 
 /** A fake Signalsmith Stretch node: records what the engine asks of it. */
