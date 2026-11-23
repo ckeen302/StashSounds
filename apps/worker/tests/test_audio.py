@@ -198,6 +198,38 @@ def test_peaks_of_an_out_of_phase_stereo_file_are_flat(tmp_path: Path):
     assert max(local(ctx, by_role(result, "peaks")).read_bytes()) <= 2
 
 
+def test_a_48khz_mono_loop_is_counted_at_44100_and_previewed_in_stereo(tmp_path: Path):
+    # Two seconds at 48 kHz is 96000 frames; at 44.1 kHz it must be exactly 88200.
+    src = tmp_path / "mono48k.wav"
+    subprocess.run(  # noqa: S603
+        [  # noqa: S607
+            "ffmpeg",
+            "-v",
+            "error",
+            "-f",
+            "lavfi",
+            "-i",
+            "sine=frequency=330:duration=2:sample_rate=48000",
+            "-ac",
+            "1",
+            "-c:a",
+            "pcm_s16le",
+            str(src),
+        ],
+        check=True,
+    )
+    assert probe(src)["streams"][0]["sample_rate"] == "48000"
+    ctx = make_ctx(tmp_path, "generated/loops/midnight_keys_140bpm_Am.wav")
+    shutil.copy(src, ctx.workdir / "in" / ctx.input["files"][0]["id"])
+    result = process_loop(ctx)
+    assert is_valid("worker-result", result), result
+    details = result["details"]
+    assert (details["loopSamples"], details["sampleRate"], details["channels"]) == (88200, 44100, 1)
+    assert result["durationMs"] == 2000
+    stream = probe(local(ctx, by_role(result, "preview")))["streams"][0]
+    assert (int(stream["sample_rate"]), stream["channels"]) == (44100, 2)
+
+
 def test_derived_files_have_content_hashed_names_under_the_item(tmp_path: Path):
     ctx = make_ctx(tmp_path, "generated/loops/dusty_soul_90_Dmin.wav")
     result = process_loop(ctx)
