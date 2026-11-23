@@ -52,5 +52,6 @@ export type FetchLike = (url: string) => Promise<{ ok: boolean; status: number; 
 export function createBrowserContext(): AudioContextLike {
   const Ctor = (globalThis as { AudioContext?: new (o?: AudioContextOptions) => AudioContext }).AudioContext;
   if (!Ctor) throw new Error("Web Audio is not available");
-  return new Ctor({ latencyHint: "interactive" }) as unknown as AudioContextLike;
+  // No cast: this line is the compile-time proof that the browser context fits AudioContextLike.
+  return new Ctor({ latencyHint: "interactive" });
 }
