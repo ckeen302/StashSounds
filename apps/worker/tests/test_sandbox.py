@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import threading
 import time
 import uuid
 from pathlib import Path
@@ -10,7 +11,7 @@ from pathlib import Path
 import pytest
 
 from stash_worker.jobs import Rejected
-from stash_worker.sandbox import CHILD_FILE_BYTES, CHILD_PROCESSES, _uid_process_count, run_isolated
+from stash_worker.sandbox import CHILD_FILE_BYTES, CHILD_PROCESSES, _uid_task_count, run_isolated
 
 PAYLOAD = {"id": str(uuid.uuid4()), "itemId": str(uuid.uuid4()), "kind": "process_loop", "attempts": 1}
 MiB = 1 << 20
@@ -117,10 +118,46 @@ def test_the_child_runs_under_resource_limits(tmp_path: Path):
     assert got["RLIMIT_AS"] == 768 * MiB
     assert got["RLIMIT_CORE"] == 0
     assert got["RLIMIT_FSIZE"] == CHILD_FILE_BYTES
-    # RLIMIT_NPROC counts every process of the uid, so the cap is what the uid runs now plus the allowance.
-    now = _uid_process_count()
+    # RLIMIT_NPROC counts every task of the uid, so the cap is what the uid runs now plus the allowance.
+    now = _uid_task_count()
     assert now is not None
     assert CHILD_PROCESSES < got["RLIMIT_NPROC"] <= now + CHILD_PROCESSES + 50
+
+
+def test_the_process_allowance_counts_threads_not_just_processes():
+    # The kernel checks RLIMIT_NPROC against every task (thread) of the real uid. Counting processes
+    # left a uid running a many-threaded process (the GitHub runner agent) already over the cap, so
+    # the child could not start ffmpeg or any grandchild. Holding 100 threads must raise the count by 100.
+    before = _uid_task_count()
+    stop = threading.Event()
+    threads = [threading.Thread(target=stop.wait) for _ in range(100)]
+    for t in threads:
+        t.start()
+    try:
+        during = _uid_task_count()
+    finally:
+        stop.set()
+        for t in threads:
+            t.join()
+    assert before is not None and during is not None
+    assert during - before >= 100
+
+
+def test_a_grandchild_starts_while_the_worker_uid_runs_many_threads(tmp_path: Path):
+    # The CI failure in one test: under a non-root uid with a threaded process, the cap must still
+    # leave room for the job's own tools. (Root ignores RLIMIT_NPROC, so this bites only as non-root.)
+    stop = threading.Event()
+    threads = [threading.Thread(target=stop.wait) for _ in range(200)]
+    for t in threads:
+        t.start()
+    try:
+        out = run("sleep_with_grandchild", tmp_path, timeout_s=1.5)
+    finally:
+        stop.set()
+        for t in threads:
+            t.join()
+    assert out.status == "timeout", out.detail
+    assert (tmp_path / "work" / "grandchild.pid").exists()
 
 
 @pytest.mark.parametrize("handler", ["forge_runner_reason", "forge_flag_reason", "forge_garbage", "forge_list_result"])
