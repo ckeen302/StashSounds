@@ -5,6 +5,7 @@
  */
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { vi } from "vitest";
+import type { AccountRow, ProfileRow } from "../profile.ts";
 
 type Row = Record<string, unknown>;
 type Res = { data: unknown; error: unknown };
@@ -118,7 +119,7 @@ export const IDS = {
   bob: "22222222-2222-4222-8222-222222222222",
 } as const;
 
-export function profileRow(id: string, handle: string, extra: Row = {}): Row {
+export function profileRow(id: string, handle: string, extra: Row = {}): ProfileRow {
   return {
     id,
     handle,
@@ -130,11 +131,11 @@ export function profileRow(id: string, handle: string, extra: Row = {}): Row {
     following_count: 0,
     created_at: "2026-11-23T22:18:04.123456+00:00",
     ...extra,
-  };
+  } as ProfileRow;
 }
 
-export function accountRow(id: string, extra: Row = {}): Row {
-  return { id, role: "user", storage_bytes: 0, strikes: 0, suspended_at: null, ...extra };
+export function accountRow(id: string, extra: Row = {}): AccountRow {
+  return { id, role: "user", storage_bytes: 0, strikes: 0, suspended_at: null, ...extra } as AccountRow;
 }
 
 /** A signed-in user with a claimed handle. */

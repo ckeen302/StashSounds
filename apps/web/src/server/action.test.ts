@@ -1,19 +1,23 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { z } from "zod";
 import { err, errorResultSchema, ok } from "@stash/contracts";
-import { defineAction, type ActionDeps } from "./action.ts";
+import { defineAction, type ActionDefinition, type ActionDeps, type AuthMode } from "./action.ts";
 import { IDS, TEST_ENV, fakeSupabase, member, pgError, profileRow } from "./testing/fake-supabase.ts";
 
 beforeEach(() => {
   for (const [k, v] of Object.entries(TEST_ENV)) vi.stubEnv(k, v);
 });
 
-const echo = (auth: "public" | "user" | "member", extra: Partial<Parameters<typeof defineAction>[0]> = {}) =>
-  defineAction({
+const echoInput = z.object({ n: z.int().min(1), label: z.string().max(5).optional() });
+const echoOutput = z.object({ n: z.int(), by: z.string().nullable() });
+type EchoDef = ActionDefinition<typeof echoInput, typeof echoOutput, AuthMode>;
+
+const echo = (auth: AuthMode, extra: Partial<EchoDef> = {}) =>
+  defineAction<typeof echoInput, typeof echoOutput, AuthMode>({
     name: "echo",
     auth,
-    input: z.object({ n: z.int().min(1), label: z.string().max(5).optional() }),
-    output: z.object({ n: z.int(), by: z.string().nullable() }),
+    input: echoInput,
+    output: echoOutput,
     handler: async (input, ctx) => ok({ n: input.n, by: ctx.session?.user.id ?? null }),
     ...extra,
   });
@@ -76,7 +80,7 @@ describe("defineAction: validation", () => {
   });
 
   it("an output that breaks its contract is a server bug and throws", async () => {
-    const bad = echo("public", { handler: async () => ok({ n: "one", by: null }) });
+    const bad = echo("public", { handler: async () => ok({ n: "one", by: null } as never) });
     await expect(bad.run({ n: 1 }, deps())).rejects.toThrow(/output/);
   });
 });
