@@ -41,3 +41,17 @@ stay as constructor defaults in packages/audio.
 - A record written before signing fails stays. The license record is the grant, and the person can
   press download again; a retry inside the rate window counts against downloadsPerDay, which is
   acceptable at 1 per press.
+
+## Claims are fenced (PR #6 second re-review, A1 and A3)
+A claim lapses after `limits.urls.uploadTtlSeconds` so a crashed call cannot lock the owner out, but
+a call that only stalled must not act after another call took the claim over. So:
+- `enqueue_processing(p_user_id, p_item_id, p_file_id, p_measured_bytes, p_token)` confirms the
+  file only while `p_token` still holds the claim and `uploaded_at` is null; otherwise conflict,
+  and a conflict makes completeUpload delete nothing.
+- `file_claim_held(p_file_id, p_token)` is checked immediately before the copy; false means copy
+  nothing and return conflict.
+- `mark_file_copied(p_file_id, p_token)` sets `meta.copiedAt` in one statement under the claim
+  (replaces the read-then-write in completeUpload).
+- The copy itself cannot be fenced, so the web host's maximum request duration must stay well
+  under `uploadTtlSeconds` (900 s). Vercel functions stop at 300 s by default; do not raise it
+  past 600 s. Recorded in docs/deploy/README.md.

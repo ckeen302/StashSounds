@@ -806,7 +806,9 @@ $$;
 -- caller's id and the measured size; a size other than the declared one is refused, so the quota
 -- counted at createUploadSlot is the size actually stored.
 -- Moves draft to processing and queues the job. Presets need their demo too.
-create function public.enqueue_processing(p_user_id uuid, p_item_id uuid, p_file_id uuid, p_measured_bytes bigint)
+-- p_token is the caller's claim_file_completion token: only the call that still holds the claim
+-- can confirm the file, so a call whose claim lapsed and was taken over gets conflict (decision 0016).
+create function public.enqueue_processing(p_user_id uuid, p_item_id uuid, p_file_id uuid, p_measured_bytes bigint, p_token uuid)
 returns uuid
 language plpgsql security definer
 set search_path = ''
@@ -823,10 +825,15 @@ begin
     perform public.fail('forbidden', 'This account is suspended.');
   end if;
   update public.item_files set uploaded_at = now(), meta = meta - 'completing' - 'completingAt'
-   where id = p_file_id and item_id = p_item_id and bucket = 'originals' and bytes = p_measured_bytes;
+   where id = p_file_id and item_id = p_item_id and bucket = 'originals' and bytes = p_measured_bytes
+     and uploaded_at is null and meta ->> 'completing' = p_token::text;
   if not found then
-    if exists (select 1 from public.item_files where id = p_file_id and item_id = p_item_id and bucket = 'originals') then
+    if exists (select 1 from public.item_files where id = p_file_id and item_id = p_item_id and bucket = 'originals'
+                  and uploaded_at is null and meta ->> 'completing' = p_token::text) then
       perform public.fail('invalid', 'The uploaded file is not the size that was declared.');
+    end if;
+    if exists (select 1 from public.item_files where id = p_file_id and item_id = p_item_id and bucket = 'originals') then
+      perform public.fail('conflict', 'This file is being completed by another request.');
     end if;
     perform public.fail('not_found', 'File not found.');
   end if;
@@ -881,6 +888,31 @@ set search_path = ''
 as $$
   update public.item_files set meta = meta - 'completing' - 'completingAt'
    where id = p_file_id and meta ->> 'completing' = p_token::text;
+$$;
+
+-- completeUpload: service role only. True while this token still holds the claim on an unconfirmed
+-- file; checked just before copying, so a call whose claim lapsed copies nothing.
+create function public.file_claim_held(p_file_id uuid, p_token uuid)
+returns boolean
+language sql stable security definer
+set search_path = ''
+as $$
+  select exists (select 1 from public.item_files
+                  where id = p_file_id and uploaded_at is null and meta ->> 'completing' = p_token::text);
+$$;
+
+-- completeUpload: service role only. Records that the server copied the staged upload onto the
+-- final key, in one statement and only under this token's claim. Returns false if the claim is gone.
+create function public.mark_file_copied(p_file_id uuid, p_token uuid)
+returns boolean
+language plpgsql security definer
+set search_path = ''
+as $$
+begin
+  update public.item_files set meta = meta || jsonb_build_object('copiedAt', now())
+   where id = p_file_id and uploaded_at is null and meta ->> 'completing' = p_token::text;
+  return found;
+end;
 $$;
 
 -- Owner edits: tags and reference tags replace the item's current set.
