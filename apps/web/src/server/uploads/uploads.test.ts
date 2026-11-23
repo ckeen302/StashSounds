@@ -153,6 +153,17 @@ describe("createUploadSlot", () => {
       expect(fake.rpcCalls).toEqual([]);
     });
 
+    it("a suspension the database sees (e.g. suspended after the session was read): forbidden, no URL signed", async () => {
+      const { store, deps } = setup({ rpc: () => ({ data: null, error: pgError("P0001", "forbidden: This account is suspended.") }) });
+      expect(await createUploadSlot.run({ type: "preset", role: "demo", itemId: ITEM, fileName: "d.mp3", bytes: 10, mime: "" }, deps)).toEqual({
+        ok: false,
+        code: "forbidden",
+        message: "This account is suspended.",
+      });
+      expect(store.storage.presignPut).not.toHaveBeenCalled();
+      expect(store.storage.startMultipart).not.toHaveBeenCalled();
+    });
+
     it("another user's item: not_found from the database", async () => {
       const { deps } = setup({ rpc: () => ({ data: null, error: pgError("P0001", "not_found: Item not found.") }) });
       expect(await createUploadSlot.run({ type: "preset", role: "demo", itemId: ITEM, fileName: "d.mp3", bytes: 10, mime: "" }, deps)).toEqual({
@@ -290,6 +301,28 @@ describe("completeUpload", () => {
       serviceRpc: (fn) => (fn === "enqueue_processing" ? { data: null, error: null } : { data: null, error: pgError("42883", fn) }),
     });
     expect(await completeUpload.run({ itemId: ITEM, fileId: DEMO }, deps)).toEqual({ ok: true, data: { itemId: ITEM, status: "draft", jobId: null, waitingFor: "original" } });
+  });
+
+  it("a suspension enqueue_processing sees: forbidden, nothing queued, and the object is deleted", async () => {
+    const { store, service, deps } = setup({
+      tables: { items: [itemRow()], item_files: [fileRow()] },
+      objects: { [PATH]: 1000 },
+      serviceRpc: () => ({ data: null, error: pgError("P0001", "forbidden: This account is suspended.") }),
+    });
+    expect(await completeUpload.run({ itemId: ITEM, fileId: FILE }, deps)).toEqual({ ok: false, code: "forbidden", message: "This account is suspended." });
+    expect(service.rpcCalls).toHaveLength(1);
+    // Refused, so the worker will never see it: it must not stay in storage (rule 10).
+    expect(store.storage.remove).toHaveBeenCalledWith(PATH);
+  });
+
+  it("a conflict (already processing) keeps the object: the worker is using it", async () => {
+    const { store, deps } = setup({
+      tables: { items: [itemRow({ status: "processing" })], item_files: [fileRow()] },
+      objects: { [PATH]: 1000 },
+      serviceRpc: () => ({ data: null, error: pgError("P0001", "conflict: This item is already processing.") }),
+    });
+    await completeUpload.run({ itemId: ITEM, fileId: FILE }, deps);
+    expect(store.storage.remove).not.toHaveBeenCalled();
   });
 
   it("an item already processing: conflict from the database", async () => {

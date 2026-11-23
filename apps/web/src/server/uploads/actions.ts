@@ -9,17 +9,16 @@
  *    other file is still to come, { status: "draft", jobId: null, waitingFor }.
  * A preset: createUploadSlot the original, then { role: "demo", itemId } for its demo; complete both.
  */
-import type { Result, createUploadSlotOutput } from "@stash/contracts";
+import type { Result, completeUploadOutput, createUploadSlotOutput } from "@stash/contracts";
 import type { z } from "zod";
 import { requestDeps } from "../request-deps.ts";
 import { completeUpload as completeAction } from "./complete-upload.ts";
 import { createUploadSlot as slotAction } from "./create-upload-slot.ts";
-import type { completeUploadResultOutput } from "./schemas.ts";
 
 export async function createUploadSlot(input: unknown): Promise<Result<z.output<typeof createUploadSlotOutput>>> {
   return slotAction.run(input, requestDeps);
 }
 
-export async function completeUpload(input: unknown): Promise<Result<z.output<typeof completeUploadResultOutput>>> {
+export async function completeUpload(input: unknown): Promise<Result<z.output<typeof completeUploadOutput>>> {
   return completeAction.run(input, requestDeps);
 }

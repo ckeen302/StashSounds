@@ -1,8 +1,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { completeUploadInput, err, ok } from "@stash/contracts";
+import { completeUploadInput, completeUploadOutput, err, ok } from "@stash/contracts";
 import { defineAction } from "../action.ts";
 import { mapError } from "../errors.ts";
-import { completeUploadResultOutput } from "./schemas.ts";
 
 type FileRow = { id: string; role: string; path: string; bytes: number; meta: Record<string, unknown> | null; uploaded_at: string | null };
 
@@ -14,16 +13,16 @@ const UPLOAD_AGAIN = "We could not find the uploaded file. Upload it again.";
  *    another user's item is not_found before storage or the queue is touched.
  * 2. A multipart upload is completed with the caller's part ETags.
  * 3. The object is HEADed, and its measured size goes to enqueue_processing (service role only),
- *    which refuses a size other than the declared one, moves the draft to processing and queues
- *    the worker's job. On that refusal the object is deleted, so nothing stays in storage that the
- *    worker will not process (CLAUDE.md rule 10).
+ *    which refuses a size other than the declared one and a suspended account, moves the draft to
+ *    processing and queues the worker's job. On either refusal the object is deleted, so nothing
+ *    stays in storage that the worker will not process (CLAUDE.md rule 10).
  * A preset needs both its original and its demo; until both are confirmed it waits in draft.
  */
 export const completeUpload = defineAction({
   name: "completeUpload",
   auth: "member",
   input: completeUploadInput,
-  output: completeUploadResultOutput,
+  output: completeUploadOutput,
   handler: async (input, ctx) => {
     const uid = ctx.session.user.id;
 
@@ -65,7 +64,10 @@ export const completeUpload = defineAction({
       p_measured_bytes: stored.bytes,
     });
     if (error) {
-      if (mapError(error)?.code === "invalid") await storage.remove(path);
+      // Refused for good (wrong size, suspended account): the worker will never process this
+      // object, so it must not stay in storage. A conflict means the worker already has it.
+      const code = mapError(error)?.code;
+      if (code === "invalid" || code === "forbidden") await storage.remove(path);
       throw error;
     }
     if (jobId) return ok({ itemId: input.itemId, status: "processing" as const, jobId: jobId as string });
