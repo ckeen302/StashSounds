@@ -1,0 +1,109 @@
+import type { Metadata } from "next";
+import { color, radius, space, text, type ColorToken, type TextStyle } from "@stash/ui/tokens";
+
+export const metadata: Metadata = { title: "Gallery", robots: { index: false, follow: false } };
+
+/**
+ * Every component in every state. Not linked, not indexed. Phase 0 shows the tokens; ticket 131
+ * adds each component from packages/ui with its default, hover, focus, active, disabled, loading,
+ * empty and error states.
+ */
+const swatchClass: Record<ColorToken, string> = {
+  bg: "bg-bg",
+  surface: "bg-surface",
+  raised: "bg-raised",
+  border: "bg-border",
+  "border-strong": "bg-border-strong",
+  text: "bg-text",
+  "text-muted": "bg-text-muted",
+  accent: "bg-accent",
+  "type-loop": "bg-type-loop",
+  "type-oneshot": "bg-type-oneshot",
+  "type-kit": "bg-type-kit",
+  "type-midi": "bg-type-midi",
+  "type-preset": "bg-type-preset",
+};
+
+const textClass: Record<TextStyle, string> = {
+  display: "text-display",
+  title: "text-title",
+  "body-strong": "text-body-strong",
+  body: "text-body",
+  small: "text-small",
+  numeric: "text-numeric font-mono tabular",
+  label: "text-label text-label-caps text-text-muted",
+};
+
+const spaceClass: Record<number, string> = {
+  0: "w-0", 4: "w-1", 8: "w-2", 12: "w-3", 16: "w-4", 24: "w-6", 32: "w-8", 48: "w-12", 64: "w-16",
+};
+
+export default function GalleryPage() {
+  return (
+    <main className="mx-auto flex max-w-320 flex-col gap-12 px-6 py-8">
+      <header className="flex flex-col gap-1">
+        <span className="text-label text-label-caps text-text-muted">Dev</span>
+        <h1 className="text-title">Gallery</h1>
+      </header>
+
+      <section aria-labelledby="colors" className="flex flex-col gap-4">
+        <h2 id="colors" className="text-label text-label-caps text-text-muted">Color</h2>
+        <ul className="grid grid-cols-2 gap-2 tablet:grid-cols-4 desktop:grid-cols-7">
+          {(Object.keys(color) as ColorToken[]).map((name) => (
+            <li key={name} className="flex flex-col gap-2 rounded-panel border border-border bg-surface p-2">
+              <div className={`h-12 rounded-control border border-border ${swatchClass[name]}`} />
+              <span className="text-small">{name}</span>
+              <span className="text-numeric font-mono text-text-muted">{color[name]}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section aria-labelledby="type" className="flex flex-col gap-4">
+        <h2 id="type" className="text-label text-label-caps text-text-muted">Type</h2>
+        <ul className="flex flex-col gap-3">
+          {(Object.keys(text) as TextStyle[]).map((name) => (
+            <li key={name} className="flex items-baseline gap-4 border-b border-border pb-3">
+              <span className="w-32 shrink-0 text-label text-label-caps text-text-muted">{name}</span>
+              <span className={textClass[name]}>{name === "numeric" ? "140 BPM  F#m  4 BARS  0:07" : "Dark keys over dusty drums"}</span>
+              <span className="ml-auto text-numeric font-mono text-text-muted">
+                {text[name].size}/{text[name].line} {text[name].weight}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section aria-labelledby="spacing" className="flex flex-col gap-4">
+        <h2 id="spacing" className="text-label text-label-caps text-text-muted">Spacing</h2>
+        <ul className="flex flex-col gap-2">
+          {space.map((px) => (
+            <li key={px} className="flex items-center gap-4">
+              <span className="w-12 text-numeric font-mono text-text-muted">{px}</span>
+              <div className={`h-2 rounded-full bg-accent ${spaceClass[px]}`} />
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section aria-labelledby="radius" className="flex flex-col gap-4">
+        <h2 id="radius" className="text-label text-label-caps text-text-muted">Radius</h2>
+        <div className="flex gap-4">
+          <div className="flex h-16 w-32 items-center justify-center rounded-control border border-border-strong bg-surface text-small">
+            control {radius.control}
+          </div>
+          <div className="flex h-16 w-32 items-center justify-center rounded-panel border border-border bg-surface text-small">
+            panel {radius.panel}
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="components" className="flex flex-col gap-4">
+        <h2 id="components" className="text-label text-label-caps text-text-muted">Components</h2>
+        <p className="rounded-panel border border-border bg-surface p-4 text-small text-text-muted">
+          No components yet. Ticket 131 adds them here in every state.
+        </p>
+      </section>
+    </main>
+  );
+}

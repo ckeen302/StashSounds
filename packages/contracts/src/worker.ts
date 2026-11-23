@@ -1,5 +1,6 @@
 import { z } from "zod";
-import { bucketSchema, fileRoleSchema, itemTypeSchema, jobKindSchema, kitCategorySchema } from "./enums.ts";
+import type { itemTypeSchema} from "./enums.ts";
+import { bucketSchema, fileRoleSchema, jobKindSchema, kitCategorySchema } from "./enums.ts";
 import { midiPitchSchema, musicalKeySchema, uuidSchema } from "./common.ts";
 import { detailsSchemas } from "./details.ts";
 

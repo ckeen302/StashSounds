@@ -1,0 +1,443 @@
+{
+  "$comment": "Expected worker results per fixture. generated/ is synthetic (scripts/gen-fixtures.py); own/ is the owner's real files.",
+  "fixtures": [
+    {
+      "path": "generated/duplicates/midnight_keys_copy.wav",
+      "type": "loop",
+      "hostile": false,
+      "expect": {
+        "status": "flagged",
+        "reason": "duplicate_exact",
+        "duplicateOf": "generated/loops/midnight_keys_140bpm_Am.wav"
+      }
+    },
+    {
+      "path": "generated/duplicates/midnight_keys_reencoded.mp3",
+      "type": "loop",
+      "hostile": false,
+      "expect": {
+        "status": "flagged",
+        "reason": "duplicate_fingerprint",
+        "duplicateOf": "generated/loops/midnight_keys_140bpm_Am.wav"
+      }
+    },
+    {
+      "path": "generated/duplicates/midnight_keys_trimmed.wav",
+      "type": "loop",
+      "hostile": false,
+      "expect": {
+        "status": "flagged",
+        "reason": "duplicate_fingerprint",
+        "duplicateOf": "generated/loops/midnight_keys_140bpm_Am.wav"
+      }
+    },
+    {
+      "path": "generated/hostile/actually_an_exe.wav",
+      "type": "loop",
+      "hostile": true,
+      "expect": {
+        "status": "draft",
+        "reason": "unsupported_format"
+      }
+    },
+    {
+      "path": "generated/hostile/broken.vital",
+      "type": "preset",
+      "hostile": true,
+      "expect": {
+        "status": "draft",
+        "reason": "corrupt_file"
+      }
+    },
+    {
+      "path": "generated/hostile/corrupt.wav",
+      "type": "loop",
+      "hostile": true,
+      "expect": {
+        "status": "draft",
+        "reason": "corrupt_file"
+      }
+    },
+    {
+      "path": "generated/hostile/empty_notes.mid",
+      "type": "midi",
+      "hostile": true,
+      "expect": {
+        "status": "draft",
+        "reason": "no_notes"
+      }
+    },
+    {
+      "path": "generated/hostile/huge_notes.mid",
+      "type": "midi",
+      "hostile": true,
+      "expect": {
+        "status": "draft",
+        "reason": "too_many_notes"
+      }
+    },
+    {
+      "path": "generated/hostile/nested_archive.zip",
+      "type": "kit",
+      "hostile": true,
+      "expect": {
+        "status": "draft",
+        "reason": "unsafe_archive"
+      }
+    },
+    {
+      "path": "generated/hostile/no_audio.zip",
+      "type": "kit",
+      "hostile": true,
+      "expect": {
+        "status": "draft",
+        "reason": "no_audio_in_kit"
+      }
+    },
+    {
+      "path": "generated/hostile/not_midi.mid",
+      "type": "midi",
+      "hostile": true,
+      "expect": {
+        "status": "draft",
+        "reason": "corrupt_file"
+      }
+    },
+    {
+      "path": "generated/hostile/path_traversal.zip",
+      "type": "kit",
+      "hostile": true,
+      "expect": {
+        "status": "draft",
+        "reason": "unsafe_archive"
+      }
+    },
+    {
+      "path": "generated/hostile/silent_loop_120.wav",
+      "type": "loop",
+      "hostile": true,
+      "expect": {
+        "status": "draft",
+        "reason": "silent"
+      }
+    },
+    {
+      "path": "generated/hostile/too_deep.zip",
+      "type": "kit",
+      "hostile": true,
+      "expect": {
+        "status": "draft",
+        "reason": "unsafe_archive"
+      }
+    },
+    {
+      "path": "generated/hostile/too_long_70s.wav",
+      "type": "loop",
+      "hostile": true,
+      "expect": {
+        "status": "draft",
+        "reason": "too_long"
+      }
+    },
+    {
+      "path": "generated/hostile/zip_bomb.zip",
+      "type": "kit",
+      "hostile": true,
+      "expect": {
+        "status": "draft",
+        "reason": "unsafe_archive"
+      }
+    },
+    {
+      "path": "generated/kits/kilo_808_pack.zip",
+      "type": "kit",
+      "hostile": false,
+      "expect": {
+        "sampleCount": 8,
+        "ignoredCount": 0,
+        "categories": {
+          "808 Mafia Style Glide.wav": "808",
+          "808 Distorted.wav": "808",
+          "Bass 808 Short.wav": "808",
+          "kick hard.wav": "kick",
+          "Tom Low.wav": "tom",
+          "Crash.wav": "cymbal",
+          "Vox Hey.wav": "vocal",
+          "Mystery thing.wav": "other"
+        },
+        "status": "ready"
+      }
+    },
+    {
+      "path": "generated/kits/nova_drum_kit_vol1.zip",
+      "type": "kit",
+      "hostile": false,
+      "expect": {
+        "sampleCount": 9,
+        "ignoredCount": 3,
+        "categories": {
+          "Nova Kit Vol 1/Kicks/Kick Punchy.wav": "kick",
+          "Nova Kit Vol 1/Kicks/Kick Sub.wav": "kick",
+          "Nova Kit Vol 1/Snares/Snare Tight.wav": "snare",
+          "Nova Kit Vol 1/Claps/Clap Room.wav": "clap",
+          "Nova Kit Vol 1/Hats/HH Closed 01.wav": "hat",
+          "Nova Kit Vol 1/Hats/OH Open.wav": "open_hat",
+          "Nova Kit Vol 1/808s/808 Long C.wav": "808",
+          "Nova Kit Vol 1/Perc/Rim.wav": "perc",
+          "Nova Kit Vol 1/FX/Riser.wav": "fx"
+        },
+        "status": "ready"
+      }
+    },
+    {
+      "path": "generated/loops/drill_lead_142.flac",
+      "type": "loop",
+      "hostile": false,
+      "expect": {
+        "bpm": 142,
+        "bars": 2,
+        "key": {
+          "root": 7,
+          "mode": "minor"
+        },
+        "keySource": "chroma",
+        "loopSamples": 149070,
+        "sampleRate": 44100,
+        "status": "ready"
+      }
+    },
+    {
+      "path": "generated/loops/dusty_soul_90_Dmin.wav",
+      "type": "loop",
+      "hostile": false,
+      "expect": {
+        "bpm": 90,
+        "bars": 2,
+        "key": {
+          "root": 2,
+          "mode": "minor"
+        },
+        "keySource": "filename",
+        "loopSamples": 235200,
+        "sampleRate": 44100,
+        "status": "ready"
+      }
+    },
+    {
+      "path": "generated/loops/midnight_keys_140bpm_Am.wav",
+      "type": "loop",
+      "hostile": false,
+      "expect": {
+        "bpm": 140,
+        "bars": 4,
+        "key": {
+          "root": 9,
+          "mode": "minor"
+        },
+        "keySource": "filename",
+        "loopSamples": 302400,
+        "sampleRate": 44100,
+        "status": "ready"
+      }
+    },
+    {
+      "path": "generated/loops/rnb_pad_72bpm_Ebmaj.aiff",
+      "type": "loop",
+      "hostile": false,
+      "expect": {
+        "bpm": 72,
+        "bars": 2,
+        "key": {
+          "root": 3,
+          "mode": "major"
+        },
+        "keySource": "filename",
+        "loopSamples": 294000,
+        "sampleRate": 44100,
+        "status": "ready"
+      }
+    },
+    {
+      "path": "generated/loops/trap_bells_150_F#m.mp3",
+      "type": "loop",
+      "hostile": false,
+      "expect": {
+        "bpm": 150,
+        "bars": 4,
+        "key": {
+          "root": 6,
+          "mode": "minor"
+        },
+        "keySource": "filename",
+        "loopSamples": 282240,
+        "sampleRate": 44100,
+        "status": "ready"
+      }
+    },
+    {
+      "path": "generated/midi/808_bassline_140_Am.mid",
+      "type": "midi",
+      "hostile": false,
+      "expect": {
+        "kind": "bass",
+        "bpm": 140,
+        "bars": 4,
+        "key": {
+          "root": 9,
+          "mode": "minor"
+        },
+        "noteCount": 16,
+        "status": "ready"
+      }
+    },
+    {
+      "path": "generated/midi/bell_melody_150_F#m.mid",
+      "type": "midi",
+      "hostile": false,
+      "expect": {
+        "kind": "melody",
+        "bpm": 150,
+        "bars": 4,
+        "key": {
+          "root": 6,
+          "mode": "minor"
+        },
+        "noteCount": 32,
+        "status": "ready"
+      }
+    },
+    {
+      "path": "generated/midi/drill_drums_142.mid",
+      "type": "midi",
+      "hostile": false,
+      "expect": {
+        "kind": "drums",
+        "bpm": 142,
+        "bars": 4,
+        "noteCount": 40,
+        "status": "ready"
+      }
+    },
+    {
+      "path": "generated/midi/no_tempo_progression.mid",
+      "type": "midi",
+      "hostile": false,
+      "expect": {
+        "kind": "chords",
+        "bpm": 120,
+        "tempoAssumed": true,
+        "bars": 4,
+        "key": {
+          "root": 0,
+          "mode": "major"
+        },
+        "noteCount": 12,
+        "status": "ready"
+      }
+    },
+    {
+      "path": "generated/midi/sad_piano_chords_72bpm_C#m.mid",
+      "type": "midi",
+      "hostile": false,
+      "expect": {
+        "kind": "chords",
+        "bpm": 72,
+        "bars": 4,
+        "key": {
+          "root": 1,
+          "mode": "minor"
+        },
+        "noteCount": 12,
+        "status": "ready"
+      }
+    },
+    {
+      "path": "generated/oneshots/808_long_F.wav",
+      "type": "oneshot",
+      "hostile": false,
+      "expect": {
+        "rootNote": 29,
+        "category": "808",
+        "status": "ready"
+      }
+    },
+    {
+      "path": "generated/oneshots/snare_crack.wav",
+      "type": "oneshot",
+      "hostile": false,
+      "expect": {
+        "rootNote": null,
+        "category": "snare",
+        "status": "ready"
+      }
+    },
+    {
+      "path": "generated/oneshots/vox_chop_A4.wav",
+      "type": "oneshot",
+      "hostile": false,
+      "expect": {
+        "rootNote": 69,
+        "category": "vocal",
+        "status": "ready"
+      }
+    },
+    {
+      "path": "generated/presets/serum/dark_lead.fxp",
+      "type": "preset",
+      "hostile": false,
+      "expect": {
+        "synth": "serum",
+        "category": "lead",
+        "demo": "generated/presets/demos/demo_glass_pad.wav",
+        "status": "ready"
+      }
+    },
+    {
+      "path": "generated/presets/serum/sub_808.fxp",
+      "type": "preset",
+      "hostile": false,
+      "expect": {
+        "synth": "serum",
+        "category": "bass",
+        "demo": "generated/presets/demos/demo_glass_pad.wav",
+        "status": "ready"
+      }
+    },
+    {
+      "path": "generated/presets/vital/glass_pad.vital",
+      "type": "preset",
+      "hostile": false,
+      "expect": {
+        "synth": "vital",
+        "synthVersion": "1.5.5",
+        "category": "pad",
+        "demo": "generated/presets/demos/demo_glass_pad.wav",
+        "status": "ready"
+      }
+    },
+    {
+      "path": "generated/presets/vital/pluck_bell.vital",
+      "type": "preset",
+      "hostile": false,
+      "expect": {
+        "synth": "vital",
+        "synthVersion": "1.5.5",
+        "category": "pluck",
+        "demo": "generated/presets/demos/demo_glass_pad.wav",
+        "status": "ready"
+      }
+    },
+    {
+      "path": "generated/presets/vital/reese_bass.vital",
+      "type": "preset",
+      "hostile": false,
+      "expect": {
+        "synth": "vital",
+        "synthVersion": "1.5.5",
+        "category": "bass",
+        "demo": "generated/presets/demos/demo_glass_pad.wav",
+        "status": "ready"
+      }
+    }
+  ]
+}

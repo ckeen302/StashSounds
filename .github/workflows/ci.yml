@@ -1,0 +1,132 @@
+name: CI
+
+# Every quality gate in docs/spec/playbook.md, on every pull request and on main.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CI: "true"
+
+jobs:
+  check:
+    name: Types, lint and unit tests
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: pnpm check
+        run: pnpm check
+      - name: Generated files are current
+        run: |
+          pnpm --filter @stash/contracts gen
+          pnpm --filter @stash/ui gen
+          node scripts/sync-limits.mjs --check
+          git diff --exit-code -- packages/contracts/generated packages/ui/src/theme.css
+      - name: pnpm test
+        run: pnpm test
+      - name: Changed audio and contracts code has tests
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_REF: origin/${{ github.base_ref }}
+        run: node scripts/require-tests.mjs
+
+  db:
+    name: Database policies
+    runs-on: ubuntu-24.04
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres" --health-interval 2s --health-timeout 2s --health-retries 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: pnpm db:test
+        env:
+          DATABASE_ADMIN_URL: postgres://postgres:postgres@localhost:5432/postgres
+        run: pnpm db:test
+
+  worker:
+    name: Worker
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg libchromaprint-tools
+      - name: pnpm worker:test
+        working-directory: apps/worker
+        run: uv run --frozen pytest -q
+      - name: Lint
+        working-directory: apps/worker
+        run: uv run --frozen ruff check .
+
+  browser:
+    name: End-to-end, visual, accessibility and performance
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Build and start the web app once for all three gates
+        run: |
+          pnpm --filter @stash/web build
+          (pnpm --filter @stash/web exec next start --port 3100 &)
+          npx --yes wait-on@8 http://localhost:3100/api/health
+      - name: pnpm e2e (includes the accessibility scan)
+        env: { STASH_BASE_URL: "http://localhost:3100" }
+        run: pnpm e2e
+      - name: pnpm visual
+        env: { STASH_BASE_URL: "http://localhost:3100" }
+        run: pnpm visual
+      - name: pnpm perf
+        env: { STASH_BASE_URL: "http://localhost:3100" }
+        run: pnpm perf
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
+
+  licenses:
+    name: Licenses
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - uses: astral-sh/setup-uv@v6
+      - run: pnpm install --frozen-lockfile
+      - name: pnpm run licenses
+        run: pnpm run licenses
