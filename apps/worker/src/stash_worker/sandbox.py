@@ -38,7 +38,8 @@ Status = Literal["ok", "rejected", "timeout", "crashed"]
 
 # Largest file a job may write: an unpacked kit is the biggest thing a job ever holds.
 CHILD_FILE_BYTES = int(limits()["kit"]["maxUnpackedBytes"])
-# Processes a job may run on top of what its uid already runs (RLIMIT_NPROC counts per uid).
+# Processes (tasks) a job may start on top of what its uid already runs. The kernel checks RLIMIT_NPROC
+# against every task of the real uid, threads included, so the cap is the uid's task count plus this.
 CHILD_PROCESSES = 64
 # Largest outcome.json the parent will read. Results are metadata and paths, never audio.
 OUTCOME_MAX_BYTES = 1 << 20
@@ -54,18 +55,22 @@ class Outcome:
     detail: str = ""
 
 
-def _uid_process_count() -> int | None:
-    """Processes owned by this uid, from /proc (Linux). None where /proc is not available."""
+def _uid_task_count() -> int | None:
+    """Tasks (threads of every process) owned by this uid, from /proc (Linux), which is what the
+    kernel counts for RLIMIT_NPROC. Counting processes instead undercounts a uid that runs a threaded
+    service (a CI agent, a desktop session) and leaves the child unable to fork. None without /proc."""
     proc = Path("/proc")
     if not proc.is_dir():
         return None
     uid, n = os.getuid(), 0
     for entry in proc.iterdir():
-        if entry.name.isdigit():
-            try:
-                n += entry.stat().st_uid == uid
-            except OSError:
-                continue
+        if not entry.name.isdigit():
+            continue
+        try:
+            if entry.stat().st_uid == uid:
+                n += len(os.listdir(entry / "task"))
+        except OSError:
+            continue  # the process ended while we looked
     return n
 
 
@@ -152,7 +157,7 @@ def run_isolated(
     (job_dir / "request.json").write_text(json.dumps({"handler": handler, "payload": payload, "input": job_input}))
     if sys.platform != "linux":
         log.warning("no memory cap on %s: RLIMIT_AS is enforced on Linux only", sys.platform)
-    count = _uid_process_count()
+    count = _uid_task_count()
     proc = subprocess.Popen(  # noqa: S603 - fixed interpreter and module, no shell
         [sys.executable, "-m", "stash_worker.child", str(job_dir)],
         cwd=job_dir / "work",
