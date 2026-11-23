@@ -206,3 +206,74 @@ time-to-first-sound measurement; that is ticket 123.
 
 ## Requests filed
 None.
+
+## Review round (PR #2)
+
+Merged `origin/phase-0/foundations` (be68c66) first; nothing in packages/audio conflicted. Tests were
+committed before the fixes (c449c08: four of them failed until 4c3182c).
+
+| # | Finding | Change |
+| --- | --- | --- |
+| 1 (blocking) | Test-page criterion had no test | `e2e/perf/audio-test-page.spec.ts`, run by `pnpm perf` (the perf project's existing testDir, so no config or CI change and no request needed). It starts `serve.mjs` on a free port (`PORT=0`), checks no context exists before the gesture, clicks play on `midnight_keys_140bpm_Am.wav`, then asserts status `playing`, `durationMs` = loopSamples / sampleRate, `getPositionMs()` advancing, non-zero RMS on an analyser tapped onto the destination, exactly one context and no page errors. Proven to fail when the engine makes no sound (voice start disabled locally: "getPositionMs() advances on the audio clock ... Received: 0") |
+| 2 | Non-finite input; context leak on a partial setup | `setVolume`, `setTranspose`, `setTempo` ignore NaN and ±Infinity. `ensureRunning` keeps `this.ctx` the moment it exists and creates the master gain separately, so a throw there is retried on the same context. `FakeParam` now throws a TypeError on non-finite values like a browser. Tests: "non-finite volume, transpose and tempo ...", "keeps the context when setting it up fails part way ..." |
+| 3 | Stale-load test passed without the guard | `b` is now 3.1 s and the test asserts the playing buffer is b's. With the generation check removed locally it fails ("a slow earlier load never starts after a later play") |
+| 4 | Singleton across module re-evaluation | "getEngine returns the same instance after the module is evaluated again" (`vi.resetModules()` and a re-import; it also asserts the re-import really is a new module) |
+| 5 | Loop to kit or MIDI | "switching from a playing loop to a kit / a MIDI item stops the loop" |
+| 6 | Fades | `startVoice` ramps in from 0 whenever it replaces a voice that was playing, as well as on any start past 0. Tests: seek mid-loop, to 0 and past the loop end (wrapping to 0) each record `set 0` then `target 1`; a fresh start at 0 records no fade; pause records `cancel` before the fade to 0 |
+| 7 | Negative queue index | "setQueue with a negative start index starts at the first item" (pins the clamp to 0) |
+| 8 | serve.mjs exposure | Listens on 127.0.0.1 only; internal errors return "Internal error" and log the detail with console.error |
+| 9 | Manifest drift | serve.mjs builds the Playables and runs each through `playableSchema.parse` from @stash/contracts, at startup and per request; main.ts uses them as served. This is done in Node, not the page, because the page has no bundler to load zod. Node 22's built-in type stripping loads the contracts' TypeScript (it needs Node 22.18 or later; CI's `node-version: 22` resolves to the latest 22.x) |
+| 10 | Remembered volume | Out of scope here. Follow-up for ticket 132 (player bar): the design spec asks for the volume to be remembered; the engine starts at 0.8 every session |
+
+The container image (mcr.microsoft.com/playwright:v1.63.0-noble) could not be run here: there is no Docker
+daemon. The spec relies only on Node, the workspace's `typescript` and Playwright's Chromium, and
+it starts its own server, so it does not depend on `STASH_BASE_URL`.
+
+`pnpm check`
+```
+> stash@ check
+> pnpm -r --parallel typecheck && tsc -p tsconfig.json && eslint . --max-warnings 0
+Scope: 4 of 5 workspace projects
+apps/web typecheck$ next typegen && tsc -p tsconfig.json
+packages/audio typecheck$ tsc -p tsconfig.json
+packages/contracts typecheck$ tsc -p tsconfig.json
+packages/ui typecheck$ tsc -p tsconfig.json
+apps/web typecheck: Generating route types...
+apps/web typecheck: ✓ Types generated successfully
+packages/ui typecheck: Done
+packages/contracts typecheck: Done
+packages/audio typecheck: Done
+apps/web typecheck: Done
+exit 0
+```
+
+`pnpm test`
+```
+> stash@ test
+> vitest run
+ Test Files  5 passed (5)
+      Tests  156 passed (156)
+exit 0
+```
+(audio project: 58 tests, up from 48)
+
+`CI=1 pnpm perf --reporter=list`
+```
+> stash@ perf
+> playwright test --project=perf --reporter=list
+Running 2 tests using 2 workers
+  ✓  2 [perf] › e2e/perf/budgets.spec.ts:14:3 › / stays inside the page budgets (1.3s)
+  ✓  1 [perf] › e2e/perf/audio-test-page.spec.ts:42:1 › the audio test page plays a WAV fixture loop (782ms)
+  2 passed (6.9s)
+exit 0
+```
+
+`pnpm run licenses`
+```
+All dependency licenses are on the allowed list.
+```
+
+`BASE_REF=origin/phase-0/foundations node scripts/require-tests.mjs`
+```
+Every changed source file in packages/audio and packages/contracts comes with a test change.
+```
