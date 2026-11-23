@@ -4,14 +4,19 @@
  * under packages/audio are transpiled on request with the workspace's own `typescript`, and the
  * fixture loops listed in fixtures/manifest.json are served next to them.
  *
- *   pnpm --filter @stash/audio test-page          then open http://localhost:4173
+ *   pnpm --filter @stash/audio test-page          then open http://127.0.0.1:4173
  *   PORT=5000 pnpm --filter @stash/audio test-page
+ *   PORT=0 ...                                     any free port; the first line printed names it
+ *
+ * Every Playable it hands the page goes through playableSchema.parse, so manifest drift fails loudly.
+ * It listens on 127.0.0.1 only.
  */
 import { createServer } from "node:http";
 import { readFile } from "node:fs/promises";
 import { dirname, join, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import ts from "typescript";
+import { playableSchema } from "@stash/contracts";
 
 const pkg = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const fixtures = resolve(pkg, "../../fixtures");
@@ -29,6 +34,21 @@ const loops = manifest.fixtures
     sampleRate: f.expect.sampleRate,
   }));
 
+/** The loops as Playables served from `origin`, each checked against the contract. */
+function playables(origin) {
+  return loops.map((l) =>
+    playableSchema.parse({
+      kind: "loop",
+      id: l.name,
+      previewUrl: `${origin}/fixtures/${encodeURIComponent(l.name)}`,
+      loopSamples: l.loopSamples,
+      sampleRate: l.sampleRate,
+      bpm: l.bpm,
+    }),
+  );
+}
+playables("http://127.0.0.1"); // fail at startup, not on the first request
+
 const types = { ".html": "text/html; charset=utf-8", ".wav": "audio/wav", ".mp3": "audio/mpeg", ".flac": "audio/flac", ".aiff": "audio/aiff" };
 
 function inside(root, file) {
@@ -43,8 +63,9 @@ const server = createServer(async (req, res) => {
       return res.end(await readFile(join(pkg, "test-page/index.html")));
     }
     if (path === "/fixtures.json") {
+      const body = JSON.stringify(playables(`http://${req.headers.host ?? "127.0.0.1"}`));
       res.writeHead(200, { "content-type": "application/json" });
-      return res.end(JSON.stringify(loops));
+      return res.end(body);
     }
     if (path.startsWith("/fixtures/")) {
       const loop = loops.find((l) => l.name === path.slice("/fixtures/".length));
@@ -68,9 +89,10 @@ const server = createServer(async (req, res) => {
     throw Object.assign(new Error("not found"), { code: "ENOENT" });
   } catch (err) {
     const missing = err && err.code === "ENOENT";
+    if (!missing) console.error("[test-page]", req.method, req.url, err);
     res.writeHead(missing ? 404 : 500, { "content-type": "text/plain" });
-    res.end(missing ? "Not found" : String(err));
+    res.end(missing ? "Not found" : "Internal error");
   }
 });
 
-server.listen(port, () => console.log(`Audio test page: http://localhost:${port}`));
+server.listen(port, "127.0.0.1", () => console.log(`Audio test page: http://127.0.0.1:${server.address().port}`));
