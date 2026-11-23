@@ -168,10 +168,30 @@ export class WebAudioEngine implements Engine {
   }
 
   preload(item: Playable): void {
+    void this.warm(item);
+  }
+
+  /** Fetches, and decodes once the context exists. Resolves when done or failed; never rejects. */
+  private warm(item: Playable): Promise<void> {
     const url = sourceUrl(item);
-    if (!url) return;
-    if (this.ctx) this.loader.load(url, this.ctx).catch(() => undefined);
-    else this.loader.prefetch(url);
+    if (!url) return Promise.resolve();
+    if (this.ctx) {
+      return this.loader.load(url, this.ctx).then(
+        () => undefined,
+        () => undefined,
+      );
+    }
+    return this.loader.prefetch(url);
+  }
+
+  /**
+   * Preloads the queue items either side of the current index, the next one first. Called only once
+   * the current item has loaded, so on a slow connection they never compete with it.
+   */
+  private warmNeighbours() {
+    const { queue, queueIndex, current } = this.state;
+    if (!current || queue[queueIndex]?.id !== current.id) return;
+    for (const n of [queue[queueIndex + 1], queue[queueIndex - 1]]) if (n) void this.warm(n);
   }
 
   async play(item?: Playable): Promise<void> {
@@ -232,10 +252,11 @@ export class WebAudioEngine implements Engine {
     const durationMs = (this.loopS ?? buffer.duration) * 1000;
     if (!this.wantPlay) {
       this.set({ status: "paused", durationMs });
-      return;
+    } else {
+      this.startVoice(this.offsetS);
+      this.set({ status: "playing", durationMs });
     }
-    this.startVoice(this.offsetS);
-    this.set({ status: "playing", durationMs });
+    this.warmNeighbours();
   }
 
   /** Wraps a position into the loop, or clamps it to the buffer. */
@@ -540,7 +561,16 @@ export class WebAudioEngine implements Engine {
   noteOff(_pitch: number): void {}
 
   setQueue(items: Playable[], startIndex = 0): void {
-    this.set({ queue: items, queueIndex: items.length ? Math.max(0, Math.min(startIndex, items.length - 1)) : -1 });
+    const queueIndex = items.length ? Math.max(0, Math.min(startIndex, items.length - 1)) : -1;
+    this.set({ queue: items, queueIndex });
+    const start = items[queueIndex];
+    if (!start) return;
+    // The start item first, then its neighbours, unless the queue changed meanwhile.
+    void this.warm(start).then(() => {
+      if (this.state.queue !== items) return;
+      const i = this.state.queueIndex;
+      for (const n of [items[i + 1], items[i - 1]]) if (n) void this.warm(n);
+    });
   }
 
   next(): void {
