@@ -74,9 +74,10 @@ export function useToast(): (t: ToastOptions) => void {
 
 /**
  * Toasts on Radix Toast: announced politely (errors assertively), paused while hovered or focused,
- * F8 jumps to them, swipe right dismisses. They sit above the player bar, bottom right.
+ * F8 jumps to them, swipe right dismisses. The app shell places the stack with ToastViewport
+ * (viewport={false} here); without that the stack is fixed to the bottom right of the window.
  */
-export function ToastProvider({ children }: { children: ReactNode }) {
+export function ToastProvider({ children, viewport = true }: { children: ReactNode; viewport?: boolean }) {
   const [entries, setEntries] = useState<Entry[]>([]);
   const next = useRef(0);
   const push = useCallback((t: ToastOptions) => {
@@ -120,7 +121,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
             />
           </T.Root>
         ))}
-        <T.Viewport className="fixed right-0 bottom-16 z-50 flex w-full max-w-100 flex-col gap-2 p-6" />
+        {viewport && <T.Viewport className="fixed right-0 bottom-16 z-50 flex w-full max-w-100 flex-col gap-2 p-6" />}
       </T.Provider>
     </ToastContext.Provider>
   );
@@ -146,5 +147,16 @@ export function ToastPreview({ tone, title, description, action }: Omit<ToastOpt
         </span>
       }
     />
+  );
+}
+
+/**
+ * Where the toasts stack, placed by the app shell inside the content area so they always sit just
+ * above the player. Phone: full width, 12 px from the edges and from the mini player. Wider: bottom
+ * right, 400 wide, 24 px in. Needs a positioned parent and a ToastProvider with viewport={false}.
+ */
+export function ToastViewport() {
+  return (
+    <T.Viewport className="absolute inset-x-3 bottom-3 z-50 flex flex-col gap-2 tablet:inset-x-auto tablet:right-6 tablet:bottom-6 tablet:w-100" />
   );
 }

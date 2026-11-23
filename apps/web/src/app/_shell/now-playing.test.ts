@@ -8,7 +8,7 @@ const row = (n: number): ItemRow =>
   ({
     id: `id-${n}`,
     title: `Loop ${n}`,
-    playable: { kind: "loop", id: `p-${n}`, previewUrl: `https://media.example/${n}.ogg`, loopSamples: 44100, sampleRate: 44100 },
+    playable: { kind: "loop", id: `play${n}`, previewUrl: `https://media.example/${n}.ogg`, loopSamples: 44100, sampleRate: 44100 },
   }) as ItemRow;
 
 function fakeEngine(state: Partial<EngineState> = {}) {
@@ -33,7 +33,7 @@ describe("now playing", () => {
     const engine = fakeEngine();
     await np.toggle(engine, row(1));
     expect(engine.play).toHaveBeenCalledWith(row(1).playable);
-    expect(np.rowFor("p-1")?.title).toBe("Loop 1");
+    expect(np.rowFor("play1")?.title).toBe("Loop 1");
   });
 
   it("pauses the row that is playing and resumes it without reloading", async () => {
@@ -59,7 +59,7 @@ describe("now playing", () => {
     await np.toggle(engine, row(1));
     await np.toggle(engine, row(2));
     expect(engine.play).toHaveBeenLastCalledWith(row(2).playable);
-    expect(np.rowFor("p-2")?.title).toBe("Loop 2");
+    expect(np.rowFor("play2")?.title).toBe("Loop 2");
   });
 
   it("plays from a list: every row is remembered and the list becomes the queue", async () => {
@@ -69,7 +69,7 @@ describe("now playing", () => {
     await np.playFrom(engine, list, 1);
     expect(engine.setQueue).toHaveBeenCalledWith(list.map((r) => r.playable), 1);
     expect(engine.play).toHaveBeenLastCalledWith(row(2).playable);
-    expect(np.rowFor("p-3")?.title).toBe("Loop 3");
+    expect(np.rowFor("play3")?.title).toBe("Loop 3");
     // Pressing the playing row again pauses and leaves the queue alone.
     await np.playFrom(engine, list, 1);
     expect(engine.pause).toHaveBeenCalledTimes(1);
@@ -85,8 +85,8 @@ describe("now playing", () => {
     const np = createNowPlaying(3);
     const engine = fakeEngine();
     for (let i = 1; i <= 5; i++) await np.toggle(engine, row(i));
-    expect(np.rowFor("p-1")).toBeNull();
-    expect(np.rowFor("p-5")?.title).toBe("Loop 5");
+    expect(np.rowFor("play1")).toBeNull();
+    expect(np.rowFor("play5")?.title).toBe("Loop 5");
   });
 
   it("the current row is never evicted", async () => {
@@ -95,7 +95,7 @@ describe("now playing", () => {
     await np.toggle(engine, row(1));
     np.remember(row(2));
     np.remember(row(3));
-    expect(np.rowFor("p-1")?.title).toBe("Loop 1");
+    expect(np.rowFor("play1")?.title).toBe("Loop 1");
   });
 });
 

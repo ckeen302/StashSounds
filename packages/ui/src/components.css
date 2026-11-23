@@ -110,3 +110,27 @@
 @utility animate-like {
   animation: stash-pulse 200ms var(--ease-out);
 }
+
+/* Phone sheets slide up from the bottom and back down (200 ms); instant with reduced motion. */
+@keyframes stash-slide-up {
+  from {
+    translate: 0 100%;
+  }
+}
+@keyframes stash-slide-down {
+  to {
+    translate: 0 100%;
+  }
+}
+@utility animate-sheet {
+  animation: stash-slide-up 200ms var(--ease-out);
+  &[data-state="closed"] {
+    animation: stash-slide-down 200ms var(--ease-out) forwards;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    &[data-state="closed"] {
+      animation: none;
+    }
+  }
+}

@@ -110,7 +110,7 @@ describe("PlayerBar", () => {
     const out = bar({ item: null, status: "idle" });
     expect(out).toContain("Nothing playing");
     expect(out).not.toContain("href=");
-    expect(out).toMatch(/<button[^>]*disabled=""[^>]*data-play-state="paused"/);
+    expect(out).toMatch(/<button(?=[^>]*disabled="")(?=[^>]*data-play-state="paused")/);
   });
 
   it("shows BPM and key as engraved readouts and the total time", () => {
@@ -122,19 +122,19 @@ describe("PlayerBar", () => {
 
   it("disables previous and next without a queue neighbour", () => {
     const out = bar({});
-    expect(out).toMatch(/<button[^>]*disabled=""[^>]*aria-label="Previous"/);
-    expect(out).toMatch(/<button[^>]*disabled=""[^>]*aria-label="Next"/);
+    const disabled = (name: string) => new RegExp(`<button(?=[^>]*disabled="")(?=[^>]*aria-label="${name}")`);
+    expect(out).toMatch(disabled("Previous"));
+    expect(out).toMatch(disabled("Next"));
     const withQueue = bar({ onPrevious: noop, onNext: noop });
-    expect(withQueue).not.toMatch(/<button[^>]*disabled=""[^>]*aria-label="Previous"/);
-    expect(withQueue).not.toMatch(/<button[^>]*disabled=""[^>]*aria-label="Next"/);
+    expect(withQueue).not.toMatch(disabled("Previous"));
+    expect(withQueue).not.toMatch(disabled("Next"));
   });
 
   it("has a volume slider and a mute toggle", () => {
     const out = bar({ volume: 0.5 });
-    expect(out).toMatch(/role="slider"[^>]*aria-label="Volume"|aria-label="Volume"[^>]*role="slider"/);
-    expect(out).toContain('aria-valuetext="50 percent"');
-    expect(out).toMatch(/aria-label="Mute"[^>]*>|aria-pressed="false"[^>]*aria-label="Mute"/);
-    expect(bar({ volume: 0 })).toContain('aria-pressed="true"');
+    expect(out).toMatch(/<span(?=[^>]*role="slider")(?=[^>]*aria-label="Volume")(?=[^>]*aria-valuetext="50 percent")/);
+    expect(out).toMatch(/<button(?=[^>]*aria-label="Mute")(?=[^>]*aria-pressed="false")/);
+    expect(bar({ volume: 0 })).toMatch(/<button(?=[^>]*aria-label="Mute")(?=[^>]*aria-pressed="true")/);
   });
 
   it("opens the sheet from the phone mini player when given a handler", () => {

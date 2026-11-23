@@ -1,6 +1,7 @@
 import type { ButtonHTMLAttributes, Ref } from "react";
 import { cx, transition, type PreviewState } from "./cx.ts";
 import { Icon, type IconComponent } from "./icon.tsx";
+import { UiLink } from "./link.tsx";
 import { Spinner } from "./spinner.tsx";
 
 export type ButtonVariant = "primary" | "secondary" | "ghost" | "danger";
@@ -78,5 +79,33 @@ export function Button({
       {loading ? <Spinner /> : icon ? <Icon icon={icon} /> : null}
       <span>{children}</span>
     </button>
+  );
+}
+
+/** A link that looks like a button ("Sign in" in the top bar). It navigates on the client through UiLink. */
+export function ButtonLink({
+  href,
+  variant = "secondary",
+  size = "md",
+  icon,
+  children,
+  className,
+  ...preview
+}: PreviewState & { href: string; variant?: ButtonVariant; size?: ButtonSize; icon?: IconComponent; children: string; className?: string }) {
+  return (
+    <UiLink
+      href={href}
+      className={cx(
+        "inline-flex shrink-0 select-none items-center justify-center whitespace-nowrap rounded-control border text-body-strong",
+        transition,
+        buttonSizes[size],
+        variants[variant],
+        className,
+      )}
+      {...preview}
+    >
+      {icon ? <Icon icon={icon} /> : null}
+      <span>{children}</span>
+    </UiLink>
   );
 }
