@@ -1,7 +1,8 @@
 import { BufferLoader } from "./loader.ts";
+import { loopFrames, paddedLoop } from "./loop-layout.ts";
 import type { Engine, EngineState, Playable, SoundId } from "./types.ts";
-import { createBrowserContext } from "./web-audio.ts";
-import type { AudioBufferLike, AudioContextLike, BufferSourceLike, FetchLike, GainNodeLike } from "./web-audio.ts";
+import { createBrowserContext, createBrowserStretch } from "./web-audio.ts";
+import type { AudioBufferLike, AudioContextLike, BufferSourceLike, FetchLike, GainNodeLike, StretchNodeLike } from "./web-audio.ts";
 
 export const INITIAL_STATE: EngineState = {
   status: "idle",
@@ -20,16 +21,37 @@ const FADE_S = 0.005;
 const STOP_AFTER_S = 0.03;
 /** Time constant for volume changes, so dragging the slider does not zipper. */
 const VOLUME_S = 0.01;
+/** Scheduling margin on top of the stretch's own latency, so a change is never late. */
+const LEAD_S = 0.02;
+/** Minimum loop audio laid either side of the loop in the stretch's buffer (also at least 2x its latency). */
+const PAD_S = 1;
 
 export interface EngineDeps {
   /** Called once, on the first gesture. Defaults to the browser's AudioContext. */
   createContext?: () => AudioContextLike;
   fetch?: FetchLike;
+  /** Loads the time stretch the first time a loop needs it. Defaults to Signalsmith Stretch. */
+  loadStretch?: (ctx: AudioContextLike) => Promise<StretchNodeLike>;
 }
 
-interface Voice {
+/** A buffer source at the original tempo and key: sample-exact, no added latency. */
+interface PlainVoice {
+  kind: "plain";
   src: BufferSourceLike;
   gain: GainNodeLike;
+}
+/** The loop playing through the stretch. Not started until its first schedule is sent. */
+interface StretchVoice {
+  kind: "stretch";
+  started: boolean;
+}
+type Voice = PlainVoice | StretchVoice;
+
+/** From audio-clock time `at`, the position runs from `pos` at `rate` (seconds of item per second). */
+interface Segment {
+  at: number;
+  pos: number;
+  rate: number;
 }
 
 /** The URL of the one buffer an item plays, or null for kinds whose players come later (kit 221, MIDI 223). */
@@ -56,6 +78,7 @@ export class WebAudioEngine implements Engine {
   private state: EngineState = { ...INITIAL_STATE };
   private listeners = new Set<(s: EngineState) => void>();
   private readonly createContext: () => AudioContextLike;
+  private readonly loadStretch: (ctx: AudioContextLike) => Promise<StretchNodeLike>;
   private readonly loader: BufferLoader;
 
   private ctx: AudioContextLike | null = null;
@@ -65,10 +88,23 @@ export class WebAudioEngine implements Engine {
   private buffer: AudioBufferLike | null = null;
   /** Loop length in seconds for loops, else null. */
   private loopS: number | null = null;
-  /** Position in seconds when no voice is playing; the voice's start offset while one is. */
+  /** Position in seconds while no voice is playing. */
   private offsetS = 0;
-  /** ctx.currentTime when the voice started. */
-  private startedAt = 0;
+  /** How the playing voice's position moves on the audio clock. Empty when nothing plays. */
+  private timeline: Segment[] = [];
+  /** The plain voice whose handoff to the stretch is in flight, if any. */
+  private handoffFor: PlainVoice | null = null;
+
+  // The stretch: one node for the session, loaded on first need, behind its own gain.
+  private stretchLoad: Promise<void> | null = null;
+  private stretchNode: StretchNodeLike | null = null;
+  private stretchGain: GainNodeLike | null = null;
+  private stretchLatency = 0;
+  /** The buffer the stretch holds, and the seconds of padding before its loop. */
+  private stretchBuffer: AudioBufferLike | null = null;
+  private stretchPadS = 0;
+  /** Buffer swaps run one at a time. */
+  private stretchChain: Promise<void> = Promise.resolve();
   /** Bumped by every load, so a slow earlier load never starts after a later play. */
   private generation = 0;
   /** Whether a load in flight should start playing when it lands (pause during loading clears it). */
@@ -76,6 +112,7 @@ export class WebAudioEngine implements Engine {
 
   constructor(deps: EngineDeps = {}) {
     this.createContext = deps.createContext ?? createBrowserContext;
+    this.loadStretch = deps.loadStretch ?? createBrowserStretch;
     this.loader = new BufferLoader(deps.fetch ?? ((url) => globalThis.fetch(url)));
   }
 
@@ -191,7 +228,7 @@ export class WebAudioEngine implements Engine {
     if (generation !== this.generation || !ok) return;
 
     this.buffer = buffer;
-    this.loopS = target.kind === "loop" ? Math.min(target.loopSamples / target.sampleRate, buffer.duration) : null;
+    this.loopS = target.kind === "loop" ? loopFrames(target, buffer) / buffer.sampleRate : null;
     const durationMs = (this.loopS ?? buffer.duration) * 1000;
     if (!this.wantPlay) {
       this.set({ status: "paused", durationMs });
@@ -209,6 +246,16 @@ export class WebAudioEngine implements Engine {
     return t;
   }
 
+  /** True when the current item is a loop with a tempo or key change: it plays through the stretch. */
+  private needsStretch(): boolean {
+    return this.state.current?.kind === "loop" && (this.state.tempoRatio !== 1 || this.state.transpose !== 0);
+  }
+
+  /** How far ahead a stretch change is scheduled so it is heard exactly when the engine says. */
+  private lead(): number {
+    return Math.max(this.stretchLatency, STOP_AFTER_S) + LEAD_S;
+  }
+
   private startVoice(offsetS: number) {
     const ctx = this.ctx;
     const master = this.master;
@@ -219,6 +266,13 @@ export class WebAudioEngine implements Engine {
     const replacing = this.voice !== null;
     this.stopVoice();
     const offset = this.normalize(offsetS);
+    if (this.needsStretch()) this.startStretch(offset);
+    else this.startPlain(offset, replacing);
+  }
+
+  private startPlain(offset: number, fadeIn: boolean) {
+    const ctx = this.ctx!;
+    const buffer = this.buffer!;
     const now = ctx.currentTime;
     const src = ctx.createBufferSource();
     src.buffer = buffer;
@@ -228,46 +282,208 @@ export class WebAudioEngine implements Engine {
       src.loopEnd = this.loopS;
     }
     const gain = ctx.createGain();
-    if (offset > 0 || replacing) {
+    if (offset > 0 || fadeIn) {
       gain.gain.setValueAtTime(0, now);
       gain.gain.setTargetAtTime(1, now, FADE_S);
     }
     src.connect(gain);
-    gain.connect(master);
-    const voice: Voice = { src, gain };
+    gain.connect(this.master!);
+    const voice: PlainVoice = { kind: "plain", src, gain };
     src.onended = () => {
       src.disconnect();
       gain.disconnect();
       if (this.voice !== voice) return;
       // Natural end of a one-shot or demo: back to the start, paused.
       this.voice = null;
+      this.timeline = [];
       this.offsetS = 0;
       this.set({ status: "paused" });
     };
     src.start(now, offset);
     this.voice = voice;
-    this.offsetS = offset;
-    this.startedAt = now;
+    this.timeline = [{ at: now, pos: offset, rate: 1 }];
+  }
+
+  /** Starts the loop on the stretch once it is loaded; until then the position holds at `offset`. */
+  private startStretch(offset: number) {
+    const voice: StretchVoice = { kind: "stretch", started: false };
+    this.voice = voice;
+    this.timeline = [{ at: this.ctx!.currentTime, pos: offset, rate: 0 }];
+    void this.prepareStretch().then((ok) => {
+      if (this.voice !== voice) return;
+      if (!ok) {
+        // No stretch: play at the original tempo and key, and say so in state.
+        this.voice = null;
+        this.resetTempoAndKey();
+        this.startPlain(offset, false);
+        return;
+      }
+      const T = this.ctx!.currentTime + this.lead();
+      this.scheduleStretchStart(T, offset);
+      voice.started = true;
+      this.timeline = [{ at: T, pos: offset, rate: this.state.tempoRatio }];
+    });
+  }
+
+  /** Sends the stretch its start at `T` from `pos`, and opens its gain at T. */
+  private scheduleStretchStart(T: number, pos: number) {
+    const ctx = this.ctx!;
+    const node = this.stretchNode!;
+    const gain = this.stretchGain!;
+    const pad = this.stretchPadS;
+    const now = ctx.currentTime;
+    node
+      .schedule({
+        active: true,
+        output: T,
+        input: pad + pos,
+        rate: this.state.tempoRatio,
+        semitones: this.state.transpose,
+        loopStart: pad,
+        loopEnd: pad + (this.loopS ?? 0),
+      })
+      .catch((err: unknown) => console.warn("[audio]", err));
+    gain.gain.cancelScheduledValues(now);
+    gain.gain.setValueAtTime(0, now);
+    gain.gain.setTargetAtTime(1, T, FADE_S);
+  }
+
+  /**
+   * Loads the stretch if needed and gives it the current loop. Resolves false (never rejects) when it
+   * cannot; a failed load is not kept, so the next change tries again.
+   */
+  private async prepareStretch(): Promise<boolean> {
+    const ctx = this.ctx;
+    const master = this.master;
+    const buffer = this.buffer;
+    const item = this.state.current;
+    if (!ctx || !master || !buffer || item?.kind !== "loop") return false;
+    try {
+      this.stretchLoad ??= (async () => {
+        const node = await this.loadStretch(ctx);
+        const latency = await node.latency();
+        const gain = ctx.createGain();
+        gain.gain.value = 0;
+        node.connect(gain);
+        gain.connect(master);
+        this.stretchNode = node;
+        this.stretchGain = gain;
+        this.stretchLatency = latency;
+      })();
+      await this.stretchLoad;
+      if (this.stretchBuffer !== buffer) {
+        const job = this.stretchChain.then(async () => {
+          if (this.stretchBuffer === buffer) return;
+          const node = this.stretchNode!;
+          const padFrames = Math.ceil(Math.max(PAD_S, 2 * this.stretchLatency) * buffer.sampleRate);
+          const channels = Array.from({ length: buffer.numberOfChannels }, (_, c) => buffer.getChannelData(c));
+          const padded = paddedLoop(channels, loopFrames(item, buffer), padFrames);
+          this.stretchBuffer = null;
+          await node.dropBuffers();
+          await node.addBuffers(padded, padded.map((p) => p.buffer));
+          this.stretchBuffer = buffer;
+          this.stretchPadS = padFrames / buffer.sampleRate;
+        });
+        this.stretchChain = job.catch(() => undefined);
+        await job;
+      }
+      return this.stretchBuffer === buffer;
+    } catch (err) {
+      if (!this.stretchNode) this.stretchLoad = null;
+      console.warn("[audio] time stretch unavailable; playing at the original tempo and key", err);
+      return false;
+    }
+  }
+
+  private resetTempoAndKey() {
+    if (this.state.tempoRatio !== 1 || this.state.transpose !== 0) this.set({ tempoRatio: 1, transpose: 0 });
+  }
+
+  /** Called after a tempo or key change: moves a plain loop to the stretch, or updates the running stretch. */
+  private applyTempoAndKey() {
+    const v = this.voice;
+    const ctx = this.ctx;
+    if (!v || !ctx || this.state.current?.kind !== "loop") return;
+    if (v.kind === "plain") {
+      if (this.needsStretch()) void this.handoff(v);
+      return;
+    }
+    if (!v.started) return; // its start reads the current tempo and key
+    const T = ctx.currentTime + this.lead();
+    const pos = this.positionAt(T);
+    const rate = this.state.tempoRatio;
+    this.stretchNode!
+      .schedule({ output: T, input: this.stretchPadS + pos, rate, semitones: this.state.transpose })
+      .catch((err: unknown) => console.warn("[audio]", err));
+    this.timeline = [...this.timeline.filter((seg) => seg.at < T), { at: T, pos, rate }];
+  }
+
+  /**
+   * Hands a playing plain loop to the stretch without restarting it: the stretch starts at T exactly
+   * where the plain voice is at T, and the two crossfade there.
+   */
+  private async handoff(v: PlainVoice) {
+    if (this.handoffFor === v) return;
+    this.handoffFor = v;
+    const ok = await this.prepareStretch();
+    if (this.handoffFor === v) this.handoffFor = null;
+    if (this.voice !== v) return; // paused, seeked or replaced meanwhile
+    if (!ok) {
+      this.resetTempoAndKey();
+      return;
+    }
+    if (!this.needsStretch()) return; // back to the original tempo and key meanwhile
+    const ctx = this.ctx!;
+    const now = ctx.currentTime;
+    const T = now + this.lead();
+    const pos = this.positionAt(T);
+    this.scheduleStretchStart(T, pos);
+    v.gain.gain.cancelScheduledValues(now);
+    v.gain.gain.setTargetAtTime(0, T, FADE_S);
+    v.src.onended = () => {
+      v.src.disconnect();
+      v.gain.disconnect();
+    };
+    v.src.stop(T + STOP_AFTER_S);
+    this.voice = { kind: "stretch", started: true };
+    this.timeline = [...this.timeline, { at: T, pos, rate: this.state.tempoRatio }];
   }
 
   /** Fades the voice out over a few milliseconds and stops it. */
   private stopVoice() {
     const v = this.voice;
     const ctx = this.ctx;
-    if (!v || !ctx) return;
     this.voice = null;
+    this.timeline = [];
+    if (!v || !ctx) return;
     const now = ctx.currentTime;
-    v.src.onended = () => {
-      v.src.disconnect();
-      v.gain.disconnect();
-    };
-    v.gain.gain.cancelScheduledValues(now);
-    v.gain.gain.setTargetAtTime(0, now, FADE_S);
-    v.src.stop(now + STOP_AFTER_S);
+    if (v.kind === "plain") {
+      v.src.onended = () => {
+        v.src.disconnect();
+        v.gain.disconnect();
+      };
+      v.gain.gain.cancelScheduledValues(now);
+      v.gain.gain.setTargetAtTime(0, now, FADE_S);
+      v.src.stop(now + STOP_AFTER_S);
+    } else if (v.started && this.stretchNode && this.stretchGain) {
+      this.stretchGain.gain.cancelScheduledValues(now);
+      this.stretchGain.gain.setTargetAtTime(0, now, FADE_S);
+      this.stretchNode.schedule({ active: false, output: now + STOP_AFTER_S }).catch((err: unknown) => console.warn("[audio]", err));
+    }
+  }
+
+  /** The voice's position at audio-clock time t: held before its first segment, wrapped or clamped. */
+  private positionAt(t: number): number {
+    const first = this.timeline[0];
+    if (!first) return this.offsetS;
+    let seg = first;
+    for (const s of this.timeline) if (s.at <= t) seg = s;
+    if (t <= seg.at) return this.normalize(seg.pos);
+    return this.normalize(seg.pos + (t - seg.at) * seg.rate);
   }
 
   private positionS(): number {
-    if (this.voice && this.ctx) return this.normalize(this.offsetS + (this.ctx.currentTime - this.startedAt));
+    if (this.voice && this.ctx) return this.positionAt(this.ctx.currentTime);
     return this.offsetS;
   }
 
@@ -290,12 +506,15 @@ export class WebAudioEngine implements Engine {
   setTempo(bpm: number): void {
     const c = this.state.current;
     const base = c && (c.kind === "loop" || c.kind === "midi") ? c.bpm : undefined;
-    if (base && Number.isFinite(bpm) && bpm > 0) this.set({ tempoRatio: bpm / base });
+    if (!base || !Number.isFinite(bpm) || bpm <= 0) return;
+    this.set({ tempoRatio: bpm / base });
+    this.applyTempoAndKey();
   }
 
   setTranspose(semitones: number): void {
     if (!Number.isFinite(semitones)) return;
     this.set({ transpose: Math.max(-12, Math.min(12, Math.round(semitones))) });
+    this.applyTempoAndKey();
   }
 
   setVolume(volume: number): void {
