@@ -129,5 +129,16 @@ test("the audio test page plays a WAV fixture loop", async ({ page }) => {
   await expect.poll(rms, { message: "the stretched loop reaches the output" }).toBeGreaterThan(0.001);
   expect(await page.evaluate(() => (window as unknown as PageGlobals).stashEngine.getState())).toMatchObject({ status: "playing", tempoRatio: 0.5, transpose: 3 });
   expect(await page.evaluate(() => (window as unknown as PageGlobals).__contexts)).toBe(1);
+
+  // An absurd tempo is held to the contract's maximum (300 BPM) and the loop keeps sounding through
+  // several passes, instead of the stretch reading past its loop and going silent.
+  await page.evaluate(() => (window as unknown as PageGlobals).stashEngine.setTempo(1e6));
+  expect((await page.evaluate(() => (window as unknown as PageGlobals).stashEngine.getState())).tempoRatio).toBeCloseTo(300 / 140);
+  await page.waitForTimeout(300);
+  for (let i = 0; i < 8; i++) {
+    expect(await rms(), `sound at the maximum tempo, sample ${i}`).toBeGreaterThan(0.001);
+    expect(Number.isFinite(await position())).toBe(true);
+    await page.waitForTimeout(250);
+  }
   expect(errors).toEqual([]);
 });

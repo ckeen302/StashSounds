@@ -1,3 +1,4 @@
+import limits from "@stash/contracts/limits.json" with { type: "json" };
 import { BufferLoader } from "./loader.ts";
 import { loopFrames, paddedLoop } from "./loop-layout.ts";
 import type { Engine, EngineState, Playable, SoundId } from "./types.ts";
@@ -516,7 +517,9 @@ export class WebAudioEngine implements Engine {
     const c = this.state.current;
     const base = c && (c.kind === "loop" || c.kind === "midi") ? c.bpm : undefined;
     if (!base || !Number.isFinite(bpm) || bpm <= 0) return;
-    this.set({ tempoRatio: bpm / base });
+    // Within the contract's BPM range: far outside it the stretch reads past its loop and goes silent.
+    const clamped = Math.max(limits.bpm.min, Math.min(limits.bpm.max, bpm));
+    this.set({ tempoRatio: clamped / base });
     this.applyTempoAndKey();
   }
 

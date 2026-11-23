@@ -4,9 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Audio engine test page</title>
-    <!-- The engine imports this lazily; in the app the bundler resolves it, here the server serves it. -->
+    <!-- The engine imports these (the stretch lazily); in the app the bundler resolves them, here the server serves them. -->
     <script type="importmap">
-      { "imports": { "signalsmith-stretch": "/vendor/signalsmith-stretch.mjs" } }
+      { "imports": { "signalsmith-stretch": "/vendor/signalsmith-stretch.mjs", "@stash/contracts/limits.json": "/vendor/limits.json" } }
     </script>
   </head>
   <body>

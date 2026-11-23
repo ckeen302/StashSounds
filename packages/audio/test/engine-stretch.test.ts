@@ -206,6 +206,36 @@ describe("live tempo and key change without restarting", () => {
   });
 });
 
+describe("tempo limits", () => {
+  // limits.bpm in packages/contracts: 40 to 300 BPM. The loop is 140 BPM.
+  it("clamps a tempo above the maximum to 300 BPM, so the stretch never runs past its loop", async () => {
+    const { e, ctx, node } = setup();
+    await e.play(loop("a"));
+    e.setTempo(1e6);
+    await settle();
+    expect(e.getState().tempoRatio).toBeCloseTo(300 / 140);
+    expect(node.schedules.at(-1)!.rate).toBeCloseTo(300 / 140);
+    ctx.advance(LEAD + 100);
+    expect(Number.isFinite(e.getPositionMs())).toBe(true);
+    expect(e.getPositionMs()).toBeGreaterThanOrEqual(0);
+    expect(e.getPositionMs()).toBeLessThan(2000);
+  });
+  it("clamps a tempo below the minimum to 40 BPM", async () => {
+    const { e } = setup();
+    await e.play(loop("a"));
+    e.setTempo(1e-9);
+    expect(e.getState().tempoRatio).toBeCloseTo(40 / 140);
+    e.setTempo(Number.MAX_VALUE);
+    expect(e.getState().tempoRatio).toBeCloseTo(300 / 140);
+  });
+  it("ignores tempos that are not a positive finite number", async () => {
+    const { e } = setup();
+    await e.play(loop("a"));
+    for (const bpm of [0, -10, Infinity, -Infinity, NaN]) e.setTempo(bpm);
+    expect(e.getState().tempoRatio).toBe(1);
+  });
+});
+
 describe("pause, resume and seek on the stretch", () => {
   async function onStretch() {
     const s = setup();
