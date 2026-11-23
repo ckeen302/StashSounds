@@ -8,6 +8,7 @@ import {
   signOutOutput,
 } from "@stash/contracts";
 import { defineAction } from "../action.ts";
+import { siteUrl } from "../env.ts";
 import { callbackUrl } from "./callback.ts";
 
 /**
@@ -22,7 +23,7 @@ export const signInWithEmail = defineAction({
   handler: async (input, ctx) => {
     const { error } = await ctx.supabase.auth.signInWithOtp({
       email: input.email,
-      options: { emailRedirectTo: callbackUrl(await ctx.origin(), input.next), shouldCreateUser: true },
+      options: { emailRedirectTo: callbackUrl(siteUrl(), input.next), shouldCreateUser: true },
     });
     if (error) throw error;
     return ok({ sent: true as const });
@@ -41,7 +42,7 @@ export const signInWithProvider = defineAction({
   handler: async (input, ctx) => {
     const { data, error } = await ctx.supabase.auth.signInWithOAuth({
       provider: input.provider,
-      options: { redirectTo: callbackUrl(await ctx.origin(), input.next), skipBrowserRedirect: true },
+      options: { redirectTo: callbackUrl(siteUrl(), input.next), skipBrowserRedirect: true },
     });
     if (error) throw error;
     return ok({ url: data.url });

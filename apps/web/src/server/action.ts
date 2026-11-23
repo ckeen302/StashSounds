@@ -26,14 +26,11 @@ type SessionFor<M extends AuthMode> = M extends "member" ? MemberSession : M ext
 export type ActionContext<M extends AuthMode> = {
   supabase: SupabaseClient;
   session: SessionFor<M>;
-  /** The site's own origin, for links Supabase sends back to us (sign-in redirects). */
-  origin: () => Promise<string>;
 };
 
 /** What an action needs from the request. Injected so the wrapper is unit tested without Next or Supabase. */
 export type ActionDeps = {
   supabase: () => Promise<SupabaseClient>;
-  origin: () => Promise<string>;
 };
 
 export type ActionDefinition<I extends z.ZodType, O extends z.ZodType, M extends AuthMode> = {
@@ -61,7 +58,7 @@ export function defineAction<I extends z.ZodType, O extends z.ZodType, M extends
         if (!isMember(session)) return err("forbidden", "Choose a handle first.");
         if (session.account.suspendedAt) return err("forbidden", "This account is suspended.");
       }
-      const ctx = { supabase, session, origin: deps.origin } as ActionContext<M>;
+      const ctx = { supabase, session } as ActionContext<M>;
 
       // 2. Input. A call with no argument is an empty object.
       const parsed = def.input.safeParse(raw === undefined ? {} : raw);

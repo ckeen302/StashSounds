@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { publicEnv } from "./env.ts";
+import { publicEnv, siteUrl } from "./env.ts";
 import { TEST_ENV } from "./testing/fake-supabase.ts";
 
 afterEach(() => vi.unstubAllEnvs());
@@ -33,5 +33,21 @@ describe("publicEnv", () => {
     expect(message).toMatch(/NEXT_PUBLIC_SUPABASE_URL/);
     expect(message).toMatch(/NEXT_PUBLIC_SUPABASE_ANON_KEY/);
     expect(message).not.toMatch(/not a url/);
+  });
+});
+
+describe("siteUrl", () => {
+  it("returns the configured origin, without a trailing slash", () => {
+    vi.stubEnv("NEXT_PUBLIC_SITE_URL", "https://stash.example/");
+    expect(siteUrl()).toBe("https://stash.example");
+    vi.stubEnv("NEXT_PUBLIC_SITE_URL", "http://localhost:3100");
+    expect(siteUrl()).toBe("http://localhost:3100");
+  });
+
+  it("refuses a missing value, another scheme, a path, a query or credentials", () => {
+    for (const bad of [undefined, "", "localhost:3000", "javascript:alert(1)", "ftp://stash.example", "https://stash.example/app", "https://stash.example?x=1", "https://u:p@stash.example"]) {
+      vi.stubEnv("NEXT_PUBLIC_SITE_URL", bad as string);
+      expect(() => siteUrl(), String(bad)).toThrow(/NEXT_PUBLIC_SITE_URL/);
+    }
   });
 });

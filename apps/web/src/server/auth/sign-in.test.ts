@@ -9,9 +9,9 @@ beforeEach(() => {
   for (const [k, v] of Object.entries(TEST_ENV)) vi.stubEnv(k, v);
 });
 
-function deps(opts: FakeOptions = {}, origin = "http://localhost:3000") {
+function deps(opts: FakeOptions = {}) {
   const fake = fakeSupabase(opts);
-  const d: ActionDeps = { supabase: async () => fake.client, origin: async () => origin };
+  const d: ActionDeps = { supabase: async () => fake.client };
   return { fake, d };
 }
 
@@ -56,6 +56,26 @@ describe("signInWithEmail", () => {
     const { fake, d } = deps();
     fake.auth.signInWithOtp.mockResolvedValueOnce({ data: { user: null, session: null }, error: new AuthApiError("Email rate limit exceeded", 429, "over_email_send_rate_limit") });
     expect(await signInWithEmail.run({ email: "producer@example.test" }, d)).toMatchObject({ ok: false, code: "rate_limited" });
+  });
+});
+
+describe("redirect origin", () => {
+  it("comes from NEXT_PUBLIC_SITE_URL only, never from the request", async () => {
+    vi.stubEnv("NEXT_PUBLIC_SITE_URL", "https://stash.example");
+    const { fake, d } = deps();
+    await signInWithEmail.run({ email: "producer@example.test" }, d);
+    await signInWithProvider.run({ provider: "discord" }, d);
+    expect(fake.auth.signInWithOtp.mock.calls[0]![0]).toMatchObject({ options: { emailRedirectTo: "https://stash.example/api/auth/callback?next=%2F" } });
+    expect(fake.auth.signInWithOAuth.mock.calls[0]![0]).toMatchObject({ options: { redirectTo: "https://stash.example/api/auth/callback?next=%2F" } });
+  });
+
+  it("without a valid site URL, no link is sent and the error is not dressed up as a user error", async () => {
+    vi.stubEnv("NEXT_PUBLIC_SITE_URL", "");
+    const { fake, d } = deps();
+    await expect(signInWithEmail.run({ email: "producer@example.test" }, d)).rejects.toThrow(/NEXT_PUBLIC_SITE_URL/);
+    await expect(signInWithProvider.run({ provider: "google" }, d)).rejects.toThrow(/NEXT_PUBLIC_SITE_URL/);
+    expect(fake.auth.signInWithOtp).not.toHaveBeenCalled();
+    expect(fake.auth.signInWithOAuth).not.toHaveBeenCalled();
   });
 });
 

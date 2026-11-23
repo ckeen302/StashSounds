@@ -150,4 +150,5 @@ export const TEST_ENV = {
   NEXT_PUBLIC_SUPABASE_URL: "http://127.0.0.1:54321",
   NEXT_PUBLIC_SUPABASE_ANON_KEY: "anon-key-for-tests",
   NEXT_PUBLIC_PREVIEWS_BASE_URL: "http://127.0.0.1:9000/previews",
+  NEXT_PUBLIC_SITE_URL: "http://localhost:3000",
 };

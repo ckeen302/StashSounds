@@ -24,7 +24,7 @@ const echo = (auth: AuthMode, extra: Partial<EchoDef> = {}) =>
 
 function deps(opts: Parameters<typeof fakeSupabase>[0] = {}): ActionDeps & { fake: ReturnType<typeof fakeSupabase> } {
   const fake = fakeSupabase(opts);
-  return { fake, supabase: async () => fake.client, origin: async () => "http://localhost:3000" };
+  return { fake, supabase: async () => fake.client };
 }
 
 describe("defineAction: session", () => {
@@ -145,7 +145,7 @@ describe("defineAction: errors are data", () => {
 });
 
 describe("defineAction: context", () => {
-  it("hands the handler the client, the session with profile and account, and the origin", async () => {
+  it("hands the handler the client and the session with profile and account", async () => {
     const seen = vi.fn();
     const a = defineAction({
       name: "ctx",
@@ -153,12 +153,12 @@ describe("defineAction: context", () => {
       input: z.object({}),
       output: z.object({}),
       handler: async (_input, ctx) => {
-        seen(ctx.session.profile.handle, ctx.session.account.role, await ctx.origin(), typeof ctx.supabase.from);
+        seen(ctx.session.profile.handle, ctx.session.account.role, typeof ctx.supabase.from);
         return ok({});
       },
     });
     const d = deps({ ...member(), tables: { ...member().tables, profiles: [profileRow(IDS.alice, "alice")] } });
     expect(await a.run(undefined, d)).toEqual({ ok: true, data: {} });
-    expect(seen).toHaveBeenCalledWith("alice", "user", "http://localhost:3000", "function");
+    expect(seen).toHaveBeenCalledWith("alice", "user", "function");
   });
 });

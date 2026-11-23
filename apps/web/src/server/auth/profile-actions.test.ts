@@ -10,7 +10,7 @@ beforeEach(() => {
 
 function deps(opts: FakeOptions = {}) {
   const fake = fakeSupabase(opts);
-  const d: ActionDeps = { supabase: async () => fake.client, origin: async () => "http://localhost:3000" };
+  const d: ActionDeps = { supabase: async () => fake.client };
   return { fake, d };
 }
 
