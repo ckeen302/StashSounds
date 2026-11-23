@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import {
   compatibleKeys,
+  completeUploadOutput,
   createUploadSlotInput,
   decodePeaks,
   encodePeaks,
@@ -196,6 +197,13 @@ describe("items", () => {
 });
 
 describe("requests", () => {
+  it("completeUpload says which file a draft preset is still waiting for", () => {
+    const itemId = "00000000-0000-4000-8000-000000000001";
+    expect(completeUploadOutput.safeParse({ itemId, status: "processing", jobId: itemId }).success).toBe(true);
+    expect(completeUploadOutput.safeParse({ itemId, status: "draft", jobId: null, waitingFor: "demo" }).success).toBe(true);
+    expect(completeUploadOutput.safeParse({ itemId, status: "draft", jobId: null }).success).toBe(false);
+    expect(completeUploadOutput.safeParse({ itemId, status: "processing", jobId: null }).success).toBe(false);
+  });
   it("defaults an upload slot to the original file", () => {
     const v = createUploadSlotInput.parse({ type: "loop", fileName: "a.wav", bytes: 10, mime: "audio/wav" });
     expect(v.role).toBe("original");

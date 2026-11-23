@@ -37,8 +37,18 @@ jobs:
           # Catches edits and new untracked files alike.
           test -z "$(git status --porcelain -- packages/contracts/generated packages/ui/src/theme.css supabase/migrations)" \
             || { git status --porcelain; git diff; exit 1; }
+      - name: Local storage for the signed-URL tests (SeaweedFS, as in pnpm dev)
+        run: |
+          docker compose up -d --wait storage
+          docker compose run --rm storage-init
+          grep -E '^STASH_(S3|BUCKET)_' .env.example >> "$GITHUB_ENV"
       - name: pnpm test
         run: pnpm test
+        env:
+          STASH_REQUIRE_STORAGE: "1"
+      - name: Storage logs on failure
+        if: failure()
+        run: docker compose logs storage storage-init || true
       - name: Changed audio and contracts code has tests
         if: github.event_name == 'pull_request'
         env:

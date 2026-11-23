@@ -454,6 +454,16 @@ describe("upload pipeline functions", () => {
     const second = await db.as(service, `select public.enqueue_processing($1, $2, $3, 10) as id`, [bob, item_id, demo.rows[0]!.file_id]);
     expect(second.rows[0]!.id).toBeTruthy();
   });
+  it("a suspended account cannot attach a demo or have its upload queued", async () => {
+    const sus = await db.makeUser("suspended_uploader");
+    const r = await db.as(user(sus), `select * from public.create_upload_draft('preset', 'Late pad', 10, 'vital')`);
+    const { item_id, file_id } = r.rows[0]!;
+    await db.q(`update public.accounts set suspended_at = now() where id = $1`, [sus]);
+    expect(await rejection(db.as(user(sus), `select * from public.add_demo_file($1, 10, 'wav')`, [item_id]))).toMatch(/^forbidden:/);
+    expect(await rejection(db.as(service, `select public.enqueue_processing($1, $2, $3, 10)`, [sus, item_id, file_id]))).toMatch(/^forbidden:/);
+    const s = await db.q(`select status from public.items where id = $1`, [item_id]);
+    expect(s.rows[0]!.status).toBe("draft");
+  });
 });
 
 describe("worker functions", () => {
