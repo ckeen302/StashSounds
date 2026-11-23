@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, type ComponentType, type ReactNode, type Ref } from "react";
+import { createContext, createElement, useContext, type ComponentType, type ReactNode, type Ref } from "react";
 
 export type LinkLikeProps = {
   href: string;
@@ -27,6 +27,6 @@ export function LinkProvider({ component, children }: { component: LinkLike; chi
 }
 
 export function UiLink(props: LinkLikeProps) {
-  const L = useContext(LinkContext);
-  return <L {...props} />;
+  // The component comes from context and is stable for the app's lifetime.
+  return createElement(useContext(LinkContext), props);
 }

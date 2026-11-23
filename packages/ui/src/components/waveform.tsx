@@ -107,11 +107,13 @@ export function Waveform({
     const playedX = progress * width;
     // Loop markers: bar lines as faint ticks along the bottom (hero only).
     if (hero && bars && bars > 1 && !error) {
-      ctx.fillStyle = color.border;
+      ctx.fillStyle = color["border-strong"];
       for (let i = 1; i < bars; i++) ctx.fillRect(Math.round((i / bars) * width), height - 4, 1, 4);
     }
     ctx.fillStyle = hue;
-    for (let i = 0; i < layout.count; i++) {
+    // A hero that failed shows its message alone; the mini keeps a flat line so the row holds its shape.
+    const barCount = hero && error ? 0 : layout.count;
+    for (let i = 0; i < barCount; i++) {
       const x = layout.offset + i * layout.step;
       const h = barHeight(values[i]!, hero ? height - 8 : height);
       const y = Math.round((height - h) / 2);

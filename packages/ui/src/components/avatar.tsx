@@ -49,11 +49,13 @@ export function Avatar({
       className={cx("inline-flex shrink-0 select-none items-center justify-center overflow-hidden rounded-full border border-border bg-raised", sizes[size], className)}
     >
       {!loading && src && <A.Image src={src} alt="" className="size-full object-cover" />}
-      {!loading && (
-        <A.Fallback className="font-semibold text-text-muted" delayMs={src ? 200 : 0}>
+      {/* Radix shows its fallback only after mount; with no picture the initials render on the server. */}
+      {!loading && src && (
+        <A.Fallback className="font-semibold text-text-muted" delayMs={200}>
           {initials(name)}
         </A.Fallback>
       )}
+      {!loading && !src && <span className="font-semibold text-text-muted">{initials(name)}</span>}
     </A.Root>
   );
 }

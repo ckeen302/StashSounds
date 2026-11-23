@@ -24,8 +24,9 @@ const variants: Record<ButtonVariant, string> = {
     "border-accent bg-accent text-bg ui-hover:border-accent/85 ui-hover:bg-accent/85 ui-active:border-accent/70 ui-active:bg-accent/70",
   secondary:
     "border-border-strong bg-surface text-text ui-hover:bg-raised ui-hover:border-text-muted ui-active:bg-bg",
-  ghost: "border-transparent bg-transparent text-text ui-hover:bg-raised ui-active:bg-surface",
-  danger: "border-type-kit bg-transparent text-type-kit ui-hover:bg-type-kit/16 ui-active:bg-type-kit/24",
+  ghost: "border-transparent bg-transparent text-text ui-hover:bg-raised ui-active:bg-bg",
+  // Type colors sit only on surface, raised or their own 16 percent tint (the measured pairs).
+  danger: "border-type-kit bg-transparent text-type-kit ui-hover:bg-raised ui-active:bg-type-kit/16",
 };
 
 const disabledClass =

@@ -42,14 +42,14 @@ export function TagChip({
   className,
   ...rest
 }: ChipButtonProps & { children: string; onClick?: () => void; onRemove?: () => void }) {
-  const face = "inline-flex h-6 min-w-0 shrink-0 items-center gap-1 rounded-control bg-raised px-2 text-small text-text-muted";
+  const face = "inline-flex h-6 min-w-0 shrink-0 items-center gap-1 rounded-control bg-bg px-2 text-small text-text-muted";
   if (!onClick && !onRemove) return <span className={cx(face, className)}>{children}</span>;
   return (
     <button
       type="button"
       onClick={onRemove ?? onClick}
       aria-label={onRemove ? `Remove tag ${children}` : undefined}
-      className={cx(face, transition, "ui-hover:text-text ui-active:bg-surface", className)}
+      className={cx(face, transition, "ui-hover:bg-raised ui-hover:text-text ui-active:bg-surface", className)}
       {...rest}
     >
       <span className="truncate">{children}</span>

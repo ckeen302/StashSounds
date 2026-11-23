@@ -24,7 +24,7 @@ const col = {
   tags: "hidden w-44 shrink-0 desktop:flex",
   key: "hidden w-14 shrink-0 tablet:block",
   bpm: "w-14 shrink-0 text-right",
-  len: "hidden w-14 shrink-0 desktop:block",
+  len: "hidden w-14 shrink-0 text-right desktop:block",
   actions: "hidden w-24 shrink-0 justify-end tablet:flex",
 };
 const rowGrid = "flex items-center gap-4 px-3";
@@ -131,8 +131,8 @@ export function ResultRow({
         rowGrid,
         transition,
         playing ? "bg-raised" : "bg-surface ui-hover:bg-raised",
-        "before:absolute before:inset-y-0 before:left-0 before:w-0.5 before:bg-transparent before:transition-colors before:duration-120",
-        selected && "before:bg-accent",
+        "before:absolute before:inset-y-0 before:left-0 before:w-0.5 before:transition-colors before:duration-120",
+        selected ? "before:bg-accent" : "before:bg-transparent",
       )}
       {...preview}
     >

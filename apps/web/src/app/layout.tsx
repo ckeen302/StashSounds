@@ -3,6 +3,7 @@ import { color } from "@stash/ui/tokens";
 import "@fontsource-variable/inter";
 import "@fontsource-variable/jetbrains-mono";
 import "./globals.css";
+import { Providers } from "./providers";
 
 export const metadata: Metadata = {
   title: { default: "Stash", template: "%s · Stash" },
@@ -18,7 +19,9 @@ export const viewport: Viewport = { themeColor: color.bg, colorScheme: "dark" };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="min-h-dvh bg-bg text-text">{children}</body>
+      <body className="min-h-dvh bg-bg text-text">
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

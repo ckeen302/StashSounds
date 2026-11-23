@@ -50,8 +50,11 @@ export function ToastSurface({
         {title}
         {description}
       </div>
-      {action}
-      {close}
+      {/* 32 px controls centred on the 20 px title line. */}
+      <div className="-my-1 flex shrink-0 items-center gap-1">
+        {action}
+        {close}
+      </div>
     </div>
   );
 }
@@ -110,7 +113,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
                 ) : undefined
               }
               close={
-                <T.Close aria-label="Dismiss" className="inline-flex size-6 items-center justify-center rounded-control text-text-muted transition-colors duration-control ui-hover:bg-surface ui-hover:text-text">
+                <T.Close aria-label="Dismiss" className="inline-flex size-8 items-center justify-center rounded-control text-text-muted transition-colors duration-control ui-hover:bg-surface ui-hover:text-text">
                   <Icon icon={X} />
                 </T.Close>
               }
@@ -138,7 +141,7 @@ export function ToastPreview({ tone, title, description, action }: Omit<ToastOpt
         ) : undefined
       }
       close={
-        <span className="inline-flex size-6 items-center justify-center rounded-control text-text-muted">
+        <span className="inline-flex size-8 items-center justify-center rounded-control text-text-muted">
           <Icon icon={X} />
         </span>
       }

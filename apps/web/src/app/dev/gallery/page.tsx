@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import { color, radius, space, text, type ColorToken, type TextStyle } from "@stash/ui/tokens";
+import { ComponentGallery } from "./component-gallery";
 
 export const metadata: Metadata = { title: "Gallery", robots: { index: false, follow: false } };
 
 /**
- * Every component in every state. Not linked, not indexed. Phase 0 shows the tokens; ticket 131
- * adds each component from packages/ui with its default, hover, focus, active, disabled, loading,
- * empty and error states.
+ * Every component in every state. Not linked, not indexed. The tokens first, then each component
+ * from packages/ui with its default, hover, focus, active, disabled, loading, empty and error states
+ * (ticket 131). Hover, focus and pressed are frozen with data attributes; overlays show a frozen
+ * picture next to a live control.
  */
 const swatchClass: Record<ColorToken, string> = {
   bg: "bg-bg",
@@ -121,12 +123,7 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      <section aria-labelledby="components" className="flex flex-col gap-4">
-        <h2 id="components" className="text-label text-label-caps text-text-muted">Components</h2>
-        <p className="rounded-panel border border-border bg-surface p-4 text-small text-text-muted">
-          No components yet. Ticket 131 adds them here in every state.
-        </p>
-      </section>
+      <ComponentGallery />
     </main>
   );
 }

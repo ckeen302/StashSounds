@@ -29,7 +29,7 @@ export function DialogSurface({ title, description, children, footer, error, clo
       {children}
       {error && (
         <p role="alert" className="flex items-start gap-2 text-small text-type-kit">
-          <Icon icon={CircleExclamationPoint} className="mt-0" />
+          <Icon icon={CircleExclamationPoint} />
           {error}
         </p>
       )}
