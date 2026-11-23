@@ -19,15 +19,15 @@ Statuses: todo, planning, building, review, merged.
 | # | Lane | Ticket | Status | Blocker |
 |---|---|---|---|---|
 | 101 | platform | Sign-in, profile and account rows, handle claim | review: PR #4 | Phase 0 merge |
-| 102 | platform | createUploadSlot, completeUpload | todo | 101 |
+| 102 | platform | createUploadSlot, completeUpload | in progress | 101 |
 | 103 | platform | Item reads and lifecycle actions | todo | 102 |
 | 104 | platform | requestDownload | todo | 103 |
 | 111 | pipeline | Job runner | review: PR #3 | Phase 0 merge |
-| 112 | pipeline | Decode, preview, peaks, loop length | todo | 111 |
+| 112 | pipeline | Decode, preview, peaks, loop length | in progress | 111 |
 | 113 | pipeline | BPM and key | todo | 112 |
 | 114 | pipeline | Duplicate check | todo | 112 |
 | 121 | audio | Engine core | review: PR #2 | Phase 0 merge |
-| 122 | audio | Loop player with stretch | todo | 121 |
+| 122 | audio | Loop player with stretch | in progress | 121 |
 | 123 | audio | Preload, queue, first-sound test | todo | 122 |
 | 131 | interface | Core components in the gallery | review: PR #5 | Design refs (decision 0006) |
 | 132 | interface | App shell and player bar | todo | 131, 121 |
@@ -42,3 +42,5 @@ Statuses: todo, planning, building, review, merged.
 - Run worker handlers under a separate uid or container (now in ticket 112).
 - Production database: a dedicated login role granted only `service_role`, not `postgres` (PR #3).
 - Rate limits for sign-in, handle claim and profile edits (ticket 203).
+- Clean up abandoned drafts and unfinished multipart uploads, which count toward quota; consider longer part-URL lifetime for 500 MB kits (ticket 102).
+- A job child can escape the timeout kill with setsid(); use a cgroup or container per job (ticket 215, decision 0014).

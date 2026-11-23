@@ -63,13 +63,21 @@ export const completeUploadInput = z.object({
   itemId: uuidSchema,
   fileId: uuidSchema,
   /** Multipart only: the ETag of each uploaded part. */
-  parts: z.array(z.object({ partNumber: z.int().positive(), etag: z.string() })).optional(),
+  parts: z.array(z.object({ partNumber: z.int().min(1).max(10_000), etag: z.string().min(1).max(128) })).max(10_000).optional(),
 });
-export const completeUploadOutput = z.object({
-  itemId: uuidSchema,
-  status: z.literal("processing"),
-  jobId: uuidSchema,
-});
+/**
+ * Processing starts once every file is in. A preset whose original is confirmed before its demo
+ * (or the other way round) stays a draft and says which file it is waiting for (request 102).
+ */
+export const completeUploadOutput = z.discriminatedUnion("status", [
+  z.object({ itemId: uuidSchema, status: z.literal("processing"), jobId: uuidSchema }),
+  z.object({
+    itemId: uuidSchema,
+    status: z.literal("draft"),
+    jobId: z.null(),
+    waitingFor: z.enum(["original", "demo"]),
+  }),
+]);
 
 // ---------------------------------------------------------------------------
 // Item lifecycle

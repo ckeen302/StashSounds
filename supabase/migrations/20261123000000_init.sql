@@ -742,6 +742,7 @@ declare
 begin
   select * into v_item from public.items where id = p_item_id;
   if v_item.id is null or v_item.owner_id is distinct from auth.uid() then perform public.fail('not_found', 'Item not found.'); end if;
+  if not public.is_active_user() then perform public.fail('forbidden', 'This account is suspended.'); end if;
   if v_item.type <> 'preset' then perform public.fail('invalid', 'Only presets take a demo.'); end if;
   if v_item.status <> 'draft' then perform public.fail('conflict', 'This item is already processing.'); end if;
   if not exists (select 1 from jsonb_array_elements_text(v_demo -> 'formats') f where lower(f) = v_ext) then
@@ -749,7 +750,8 @@ begin
   end if;
   if p_bytes <= 0 or p_bytes > (v_demo ->> 'maxBytes')::bigint then perform public.fail('invalid', 'This demo is larger than the limit.'); end if;
   delete from public.item_files f where f.item_id = p_item_id and f.role = 'demo';
-  v_path := v_item.owner_id::text || '/' || v_item.id::text || '/demo.' || v_ext;
+  -- One key for every extension, so a replaced demo overwrites the old object instead of orphaning it.
+  v_path := v_item.owner_id::text || '/' || v_item.id::text || '/demo';
   insert into public.item_files (item_id, role, bucket, path, bytes, mime, meta)
   values (p_item_id, 'demo', 'originals', v_path, p_bytes, public.mime_for_ext(v_ext),
           jsonb_build_object('fileName', left(nullif(trim(p_file_name), ''), 255)))
@@ -773,6 +775,9 @@ declare
 begin
   select * into v_item from public.items where id = p_item_id for update;
   if v_item.id is null or v_item.owner_id is distinct from p_user_id then perform public.fail('not_found', 'Item not found.'); end if;
+  if exists (select 1 from public.accounts where id = p_user_id and suspended_at is not null) then
+    perform public.fail('forbidden', 'This account is suspended.');
+  end if;
   update public.item_files set uploaded_at = now()
    where id = p_file_id and item_id = p_item_id and bucket = 'originals' and bytes = p_measured_bytes;
   if not found then
