@@ -1,0 +1,115 @@
+{
+  "$comment": "Every limit the web app and the worker share. Change values here only. Build spec: Limits and constants.",
+  "version": 1,
+  "loop": {
+    "formats": ["wav", "aiff", "flac", "mp3"],
+    "maxBytes": 52428800,
+    "maxDurationMs": 60000
+  },
+  "oneshot": {
+    "formats": ["wav", "aiff", "flac"],
+    "maxBytes": 10485760,
+    "maxDurationMs": 15000
+  },
+  "kit": {
+    "formats": ["zip"],
+    "maxBytes": 524288000,
+    "maxUnpackedBytes": 1073741824,
+    "maxFiles": 300,
+    "maxFolderDepth": 4,
+    "maxCompressionRatio": 100,
+    "allowNestedArchives": false,
+    "flagShareMatched": 0.3
+  },
+  "midi": {
+    "formats": ["mid", "midi"],
+    "maxBytes": 1048576,
+    "maxNotes": 20000,
+    "maxDurationMs": 300000
+  },
+  "preset": {
+    "formats": ["vital", "fxp", "SerumPreset"],
+    "maxBytes": 20971520,
+    "demo": {
+      "formats": ["wav", "aiff", "flac", "mp3"],
+      "minDurationMs": 5000,
+      "maxDurationMs": 30000,
+      "maxBytes": 20971520
+    }
+  },
+  "text": {
+    "titleMax": 80,
+    "descriptionMax": 500,
+    "bioMax": 280,
+    "displayNameMax": 40,
+    "handlePattern": "^[a-z0-9_]{3,24}$",
+    "handleMin": 3,
+    "handleMax": 24
+  },
+  "tags": {
+    "perItem": 8,
+    "minLength": 2,
+    "maxLength": 40
+  },
+  "quota": {
+    "storageBytes": 2147483648,
+    "storageBytesTrusted": 10737418240,
+    "uploadsPerDay": 50
+  },
+  "preview": {
+    "loopBitrateKbpsShort": 192,
+    "loopShortMaxMs": 20000,
+    "loopBitrateKbpsLong": 128,
+    "oneshotBitrateKbps": 192
+  },
+  "loudness": {
+    "targetLufs": -14,
+    "truePeakDb": -1,
+    "oneshotPeakDb": -1
+  },
+  "waveform": {
+    "peakPoints": 800
+  },
+  "urls": {
+    "uploadTtlSeconds": 900,
+    "downloadTtlSeconds": 300
+  },
+  "multipart": {
+    "thresholdBytes": 104857600,
+    "partBytes": 16777216
+  },
+  "rateLimits": {
+    "likesPerHour": 120,
+    "followsPerHour": 60,
+    "reportsPerDay": 10,
+    "downloadsPerDay": 500,
+    "searchPerMinutePerAddress": 60
+  },
+  "worker": {
+    "timeoutsSeconds": { "audio": 120, "kit": 600, "midi": 60, "presetRender": 180 },
+    "maxAttempts": 3,
+    "backoffSeconds": [30, 120, 600],
+    "fingerprintThreshold": 0.9
+  },
+  "lists": {
+    "pageSize": 30,
+    "trendingWindowDays": 7
+  },
+  "moderation": {
+    "upheldTakedownsBeforeSuspension": 3,
+    "openReportsToQueue": 3
+  },
+  "performance": {
+    "firstSoundMsFast": 300,
+    "firstSoundMsThrottled": 800,
+    "itemPageLcpMs": 2000,
+    "itemPageCls": 0.05,
+    "scriptBeforeAudioBytes": 204800
+  },
+  "bpm": { "min": 40, "max": 300, "fileNameMin": 60, "fileNameMax": 200 },
+  "licenses": {
+    "royalty_free": { "version": "1.0" },
+    "credit_required": { "version": "1.0" },
+    "split_on_placement": { "version": "1.0", "minPercent": 1, "maxPercent": 50 }
+  }
+}

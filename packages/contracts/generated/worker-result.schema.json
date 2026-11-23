@@ -1,0 +1,1623 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "bpm": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 40,
+              "maximum": 300
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "root": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 11
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "major",
+                    "minor"
+                  ]
+                }
+              },
+              "required": [
+                "root",
+                "mode"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "durationMs": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "role": {
+                "type": "string",
+                "enum": [
+                  "original",
+                  "preview",
+                  "peaks",
+                  "notes",
+                  "demo",
+                  "sampled_note",
+                  "cover"
+                ]
+              },
+              "bucket": {
+                "type": "string",
+                "enum": [
+                  "originals",
+                  "previews"
+                ]
+              },
+              "path": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 400
+              },
+              "bytes": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "mime": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sha256": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "meta": {
+                "default": {},
+                "type": "object",
+                "propertyNames": {
+                  "type": "string"
+                },
+                "additionalProperties": {}
+              }
+            },
+            "required": [
+              "role",
+              "bucket",
+              "path",
+              "bytes",
+              "mime",
+              "sha256",
+              "meta"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "fingerprints": {
+          "default": [],
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "filePath": {
+                "type": "string",
+                "minLength": 1
+              },
+              "durationMs": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "chromaprint": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                }
+              }
+            },
+            "required": [
+              "filePath",
+              "durationMs",
+              "chromaprint"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "flag": {
+          "default": null,
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "reason": {
+                  "type": "string",
+                  "enum": [
+                    "duplicate_exact",
+                    "duplicate_fingerprint",
+                    "commercial_match",
+                    "pack_name_blocklist",
+                    "unsupported_format",
+                    "corrupt_file",
+                    "too_long",
+                    "too_short",
+                    "too_large",
+                    "silent",
+                    "unsafe_archive",
+                    "no_audio_in_kit",
+                    "no_notes",
+                    "too_many_notes",
+                    "timeout",
+                    "internal"
+                  ]
+                },
+                "detail": {
+                  "type": "string",
+                  "maxLength": 500
+                }
+              },
+              "required": [
+                "reason"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "type": {
+          "type": "string",
+          "const": "loop"
+        },
+        "details": {
+          "type": "object",
+          "properties": {
+            "sampleRate": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
+            },
+            "channels": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 8
+            },
+            "loudnessLufs": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "truePeakDb": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "loopSamples": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
+            },
+            "bars": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "exclusiveMinimum": 0,
+                  "maximum": 9007199254740991
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "detection": {
+              "type": "object",
+              "properties": {
+                "bpmSource": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "enum": [
+                        "filename",
+                        "duration",
+                        "onset",
+                        "midi_file",
+                        "assumed",
+                        "uploader"
+                      ]
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "bpmAgreed": {
+                  "type": "boolean"
+                },
+                "bpmCandidates": {
+                  "maxItems": 8,
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "keySource": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "enum": [
+                        "filename",
+                        "chroma",
+                        "midi_notes",
+                        "uploader"
+                      ]
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "keyConfidence": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "bpmSource",
+                "bpmAgreed",
+                "bpmCandidates",
+                "keySource",
+                "keyConfidence"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "sampleRate",
+            "channels",
+            "loudnessLufs",
+            "truePeakDb",
+            "loopSamples",
+            "bars",
+            "detection"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "bpm",
+        "key",
+        "durationMs",
+        "files",
+        "fingerprints",
+        "flag",
+        "type",
+        "details"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "bpm": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 40,
+              "maximum": 300
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "root": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 11
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "major",
+                    "minor"
+                  ]
+                }
+              },
+              "required": [
+                "root",
+                "mode"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "durationMs": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "role": {
+                "type": "string",
+                "enum": [
+                  "original",
+                  "preview",
+                  "peaks",
+                  "notes",
+                  "demo",
+                  "sampled_note",
+                  "cover"
+                ]
+              },
+              "bucket": {
+                "type": "string",
+                "enum": [
+                  "originals",
+                  "previews"
+                ]
+              },
+              "path": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 400
+              },
+              "bytes": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "mime": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sha256": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "meta": {
+                "default": {},
+                "type": "object",
+                "propertyNames": {
+                  "type": "string"
+                },
+                "additionalProperties": {}
+              }
+            },
+            "required": [
+              "role",
+              "bucket",
+              "path",
+              "bytes",
+              "mime",
+              "sha256",
+              "meta"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "fingerprints": {
+          "default": [],
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "filePath": {
+                "type": "string",
+                "minLength": 1
+              },
+              "durationMs": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "chromaprint": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                }
+              }
+            },
+            "required": [
+              "filePath",
+              "durationMs",
+              "chromaprint"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "flag": {
+          "default": null,
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "reason": {
+                  "type": "string",
+                  "enum": [
+                    "duplicate_exact",
+                    "duplicate_fingerprint",
+                    "commercial_match",
+                    "pack_name_blocklist",
+                    "unsupported_format",
+                    "corrupt_file",
+                    "too_long",
+                    "too_short",
+                    "too_large",
+                    "silent",
+                    "unsafe_archive",
+                    "no_audio_in_kit",
+                    "no_notes",
+                    "too_many_notes",
+                    "timeout",
+                    "internal"
+                  ]
+                },
+                "detail": {
+                  "type": "string",
+                  "maxLength": 500
+                }
+              },
+              "required": [
+                "reason"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "type": {
+          "type": "string",
+          "const": "oneshot"
+        },
+        "details": {
+          "type": "object",
+          "properties": {
+            "sampleRate": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
+            },
+            "channels": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 8
+            },
+            "loudnessLufs": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "truePeakDb": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "category": {
+              "type": "string",
+              "enum": [
+                "808",
+                "kick",
+                "snare",
+                "clap",
+                "hat",
+                "perc",
+                "fx",
+                "texture",
+                "vocal",
+                "bass",
+                "other"
+              ]
+            },
+            "rootNote": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 127
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "rootNoteSource": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "enum": [
+                    "filename",
+                    "pitch_tracking",
+                    "uploader"
+                  ]
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "sampleRate",
+            "channels",
+            "loudnessLufs",
+            "truePeakDb",
+            "category",
+            "rootNote",
+            "rootNoteSource"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "bpm",
+        "key",
+        "durationMs",
+        "files",
+        "fingerprints",
+        "flag",
+        "type",
+        "details"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "bpm": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 40,
+              "maximum": 300
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "root": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 11
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "major",
+                    "minor"
+                  ]
+                }
+              },
+              "required": [
+                "root",
+                "mode"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "durationMs": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "role": {
+                "type": "string",
+                "enum": [
+                  "original",
+                  "preview",
+                  "peaks",
+                  "notes",
+                  "demo",
+                  "sampled_note",
+                  "cover"
+                ]
+              },
+              "bucket": {
+                "type": "string",
+                "enum": [
+                  "originals",
+                  "previews"
+                ]
+              },
+              "path": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 400
+              },
+              "bytes": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "mime": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sha256": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "meta": {
+                "default": {},
+                "type": "object",
+                "propertyNames": {
+                  "type": "string"
+                },
+                "additionalProperties": {}
+              }
+            },
+            "required": [
+              "role",
+              "bucket",
+              "path",
+              "bytes",
+              "mime",
+              "sha256",
+              "meta"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "fingerprints": {
+          "default": [],
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "filePath": {
+                "type": "string",
+                "minLength": 1
+              },
+              "durationMs": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "chromaprint": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                }
+              }
+            },
+            "required": [
+              "filePath",
+              "durationMs",
+              "chromaprint"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "flag": {
+          "default": null,
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "reason": {
+                  "type": "string",
+                  "enum": [
+                    "duplicate_exact",
+                    "duplicate_fingerprint",
+                    "commercial_match",
+                    "pack_name_blocklist",
+                    "unsupported_format",
+                    "corrupt_file",
+                    "too_long",
+                    "too_short",
+                    "too_large",
+                    "silent",
+                    "unsafe_archive",
+                    "no_audio_in_kit",
+                    "no_notes",
+                    "too_many_notes",
+                    "timeout",
+                    "internal"
+                  ]
+                },
+                "detail": {
+                  "type": "string",
+                  "maxLength": 500
+                }
+              },
+              "required": [
+                "reason"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "type": {
+          "type": "string",
+          "const": "kit"
+        },
+        "details": {
+          "type": "object",
+          "properties": {
+            "sampleCount": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "categoryCounts": {
+              "type": "object",
+              "propertyNames": {
+                "type": "string",
+                "enum": [
+                  "808",
+                  "kick",
+                  "snare",
+                  "clap",
+                  "hat",
+                  "open_hat",
+                  "perc",
+                  "tom",
+                  "cymbal",
+                  "fx",
+                  "vocal",
+                  "other"
+                ]
+              },
+              "additionalProperties": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "ignoredCount": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "hasCover": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "sampleCount",
+            "categoryCounts",
+            "ignoredCount",
+            "hasCover"
+          ],
+          "additionalProperties": false
+        },
+        "kitSamples": {
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "position": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "category": {
+                "type": "string",
+                "enum": [
+                  "808",
+                  "kick",
+                  "snare",
+                  "clap",
+                  "hat",
+                  "open_hat",
+                  "perc",
+                  "tom",
+                  "cymbal",
+                  "fx",
+                  "vocal",
+                  "other"
+                ]
+              },
+              "durationMs": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "rootNote": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 127
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "originalPath": {
+                "type": "string",
+                "minLength": 1
+              },
+              "previewPath": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "position",
+              "name",
+              "category",
+              "durationMs",
+              "rootNote",
+              "originalPath",
+              "previewPath"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "bpm",
+        "key",
+        "durationMs",
+        "files",
+        "fingerprints",
+        "flag",
+        "type",
+        "details",
+        "kitSamples"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "bpm": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 40,
+              "maximum": 300
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "root": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 11
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "major",
+                    "minor"
+                  ]
+                }
+              },
+              "required": [
+                "root",
+                "mode"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "durationMs": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "role": {
+                "type": "string",
+                "enum": [
+                  "original",
+                  "preview",
+                  "peaks",
+                  "notes",
+                  "demo",
+                  "sampled_note",
+                  "cover"
+                ]
+              },
+              "bucket": {
+                "type": "string",
+                "enum": [
+                  "originals",
+                  "previews"
+                ]
+              },
+              "path": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 400
+              },
+              "bytes": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "mime": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sha256": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "meta": {
+                "default": {},
+                "type": "object",
+                "propertyNames": {
+                  "type": "string"
+                },
+                "additionalProperties": {}
+              }
+            },
+            "required": [
+              "role",
+              "bucket",
+              "path",
+              "bytes",
+              "mime",
+              "sha256",
+              "meta"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "fingerprints": {
+          "default": [],
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "filePath": {
+                "type": "string",
+                "minLength": 1
+              },
+              "durationMs": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "chromaprint": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                }
+              }
+            },
+            "required": [
+              "filePath",
+              "durationMs",
+              "chromaprint"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "flag": {
+          "default": null,
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "reason": {
+                  "type": "string",
+                  "enum": [
+                    "duplicate_exact",
+                    "duplicate_fingerprint",
+                    "commercial_match",
+                    "pack_name_blocklist",
+                    "unsupported_format",
+                    "corrupt_file",
+                    "too_long",
+                    "too_short",
+                    "too_large",
+                    "silent",
+                    "unsafe_archive",
+                    "no_audio_in_kit",
+                    "no_notes",
+                    "too_many_notes",
+                    "timeout",
+                    "internal"
+                  ]
+                },
+                "detail": {
+                  "type": "string",
+                  "maxLength": 500
+                }
+              },
+              "required": [
+                "reason"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "type": {
+          "type": "string",
+          "const": "midi"
+        },
+        "details": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "enum": [
+                "chords",
+                "melody",
+                "drums",
+                "bass"
+              ]
+            },
+            "bars": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
+            },
+            "noteCount": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
+            },
+            "pitchMin": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            "pitchMax": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            "timeSignature": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "integer",
+                  "exclusiveMinimum": 0,
+                  "maximum": 9007199254740991
+                },
+                {
+                  "type": "integer",
+                  "exclusiveMinimum": 0,
+                  "maximum": 9007199254740991
+                }
+              ],
+              "items": false,
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "tempoAssumed": {
+              "type": "boolean"
+            },
+            "detection": {
+              "type": "object",
+              "properties": {
+                "bpmSource": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "enum": [
+                        "filename",
+                        "duration",
+                        "onset",
+                        "midi_file",
+                        "assumed",
+                        "uploader"
+                      ]
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "bpmAgreed": {
+                  "type": "boolean"
+                },
+                "bpmCandidates": {
+                  "maxItems": 8,
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "keySource": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "enum": [
+                        "filename",
+                        "chroma",
+                        "midi_notes",
+                        "uploader"
+                      ]
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "keyConfidence": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "bpmSource",
+                "bpmAgreed",
+                "bpmCandidates",
+                "keySource",
+                "keyConfidence"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "kind",
+            "bars",
+            "noteCount",
+            "pitchMin",
+            "pitchMax",
+            "timeSignature",
+            "tempoAssumed",
+            "detection"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "bpm",
+        "key",
+        "durationMs",
+        "files",
+        "fingerprints",
+        "flag",
+        "type",
+        "details"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "bpm": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 40,
+              "maximum": 300
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "key": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "root": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 11
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "major",
+                    "minor"
+                  ]
+                }
+              },
+              "required": [
+                "root",
+                "mode"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "durationMs": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "role": {
+                "type": "string",
+                "enum": [
+                  "original",
+                  "preview",
+                  "peaks",
+                  "notes",
+                  "demo",
+                  "sampled_note",
+                  "cover"
+                ]
+              },
+              "bucket": {
+                "type": "string",
+                "enum": [
+                  "originals",
+                  "previews"
+                ]
+              },
+              "path": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 400
+              },
+              "bytes": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "mime": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sha256": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "meta": {
+                "default": {},
+                "type": "object",
+                "propertyNames": {
+                  "type": "string"
+                },
+                "additionalProperties": {}
+              }
+            },
+            "required": [
+              "role",
+              "bucket",
+              "path",
+              "bytes",
+              "mime",
+              "sha256",
+              "meta"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "fingerprints": {
+          "default": [],
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "filePath": {
+                "type": "string",
+                "minLength": 1
+              },
+              "durationMs": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "chromaprint": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": -9007199254740991,
+                  "maximum": 9007199254740991
+                }
+              }
+            },
+            "required": [
+              "filePath",
+              "durationMs",
+              "chromaprint"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "flag": {
+          "default": null,
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "reason": {
+                  "type": "string",
+                  "enum": [
+                    "duplicate_exact",
+                    "duplicate_fingerprint",
+                    "commercial_match",
+                    "pack_name_blocklist",
+                    "unsupported_format",
+                    "corrupt_file",
+                    "too_long",
+                    "too_short",
+                    "too_large",
+                    "silent",
+                    "unsafe_archive",
+                    "no_audio_in_kit",
+                    "no_notes",
+                    "too_many_notes",
+                    "timeout",
+                    "internal"
+                  ]
+                },
+                "detail": {
+                  "type": "string",
+                  "maxLength": 500
+                }
+              },
+              "required": [
+                "reason"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "type": {
+          "type": "string",
+          "const": "preset"
+        },
+        "details": {
+          "type": "object",
+          "properties": {
+            "synth": {
+              "type": "string",
+              "enum": [
+                "vital",
+                "serum",
+                "other"
+              ]
+            },
+            "synthName": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 40
+            },
+            "synthVersion": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 40
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "category": {
+              "type": "string",
+              "enum": [
+                "bass",
+                "lead",
+                "pad",
+                "pluck",
+                "keys",
+                "fx",
+                "other"
+              ]
+            },
+            "rendered": {
+              "type": "boolean"
+            },
+            "sampledNoteCount": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "wavetablesConfirmed": {
+              "type": "boolean"
+            },
+            "demoDurationMs": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "synth",
+            "synthName",
+            "synthVersion",
+            "category",
+            "rendered",
+            "sampledNoteCount",
+            "wavetablesConfirmed",
+            "demoDurationMs"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "bpm",
+        "key",
+        "durationMs",
+        "files",
+        "fingerprints",
+        "flag",
+        "type",
+        "details"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

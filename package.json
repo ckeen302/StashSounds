@@ -1,0 +1,30 @@
+{
+  "name": "stash",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.28.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "dev:web": "pnpm --filter @stash/web dev",
+    "check": "pnpm -r --parallel typecheck && eslint . --max-warnings 0",
+    "test": "vitest run",
+    "db:test": "vitest run --config supabase/tests/vitest.config.ts",
+    "db:reset": "node scripts/db-reset.mjs",
+    "worker:test": "cd apps/worker && uv run --frozen pytest -q",
+    "e2e": "playwright test --project=e2e",
+    "visual": "playwright test --project=visual",
+    "visual:update": "playwright test --project=visual --update-snapshots",
+    "perf": "playwright test --project=perf",
+    "licenses": "node scripts/licenses.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "@types/pg": "^8.23.1",
+    "pg": "^8.23.1",
+    "typescript": "6.0.3",
+    "vitest": "5.1.1"
+  }
+}

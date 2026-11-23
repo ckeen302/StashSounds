@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "sampleRate": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991
+    },
+    "channels": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 8
+    },
+    "loudnessLufs": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "truePeakDb": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "loopSamples": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991
+    },
+    "bars": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "detection": {
+      "type": "object",
+      "properties": {
+        "bpmSource": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "filename",
+                "duration",
+                "onset",
+                "midi_file",
+                "assumed",
+                "uploader"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "bpmAgreed": {
+          "type": "boolean"
+        },
+        "bpmCandidates": {
+          "maxItems": 8,
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "keySource": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "filename",
+                "chroma",
+                "midi_notes",
+                "uploader"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "keyConfidence": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "bpmSource",
+        "bpmAgreed",
+        "bpmCandidates",
+        "keySource",
+        "keyConfidence"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "sampleRate",
+    "channels",
+    "loudnessLufs",
+    "truePeakDb",
+    "loopSamples",
+    "bars",
+    "detection"
+  ],
+  "additionalProperties": false
+}
