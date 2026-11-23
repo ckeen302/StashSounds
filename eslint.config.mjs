@@ -63,7 +63,7 @@ const config = [
   },
   // Platform lane: no UI.
   {
-    files: ["apps/web/src/server/**/*.{ts,tsx}", "apps/web/src/app/api/**/*.{ts,tsx}"],
+    files: ["apps/web/src/server/**/*.{ts,tsx}", "apps/web/src/app/api/**/*.{ts,tsx}", "apps/web/src/proxy.ts"],
     rules: {
       "no-restricted-imports": [
         "error",

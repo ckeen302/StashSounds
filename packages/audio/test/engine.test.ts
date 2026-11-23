@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import { WebAudioEngine, getEngine } from "../src/engine.ts";
 import type { Playable } from "../src/types.ts";
-import { FakeContext, fakeFetch, flush } from "./fake-audio.ts";
+import { FakeContext, fakeFetch, fakeStretchLoader, flush } from "./fake-audio.ts";
 
 const url = (id: string) => `https://p.example.com/${id}.mp3`;
 // 2 s loop at 44.1 kHz; the decoded preview is 2.1 s (MP3 padding), so the loop length must come from loopSamples.
@@ -18,8 +18,9 @@ function setup(routes: Parameters<typeof fakeFetch>[0] = {}) {
     contexts.push(c);
     return c;
   });
-  const e = new WebAudioEngine({ createContext, fetch: net.fetch });
-  return { e, net, createContext, ctx: () => contexts[0]!, contexts };
+  const stretch = fakeStretchLoader();
+  const e = new WebAudioEngine({ createContext, fetch: net.fetch, loadStretch: stretch.load });
+  return { e, net, createContext, ctx: () => contexts[0]!, contexts, stretch };
 }
 
 describe("engine interface (kept from the placeholder)", () => {

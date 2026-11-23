@@ -7,7 +7,26 @@ import type {
   ContextState,
   FetchLike,
   GainNodeLike,
+  StretchChange,
+  StretchNodeLike,
 } from "../src/web-audio.ts";
+
+/** A decoded buffer whose sample i on channel c is c * 1e6 + i, so layouts can be checked exactly. */
+export class FakeBuffer implements AudioBufferLike {
+  readonly numberOfChannels = 2;
+  private data: Float32Array[] | null = null;
+  constructor(
+    readonly length: number,
+    readonly sampleRate: number,
+  ) {}
+  get duration() {
+    return this.length / this.sampleRate;
+  }
+  getChannelData(c: number): Float32Array {
+    this.data ??= [0, 1].map((ch) => Float32Array.from({ length: this.length }, (_, i) => ch * 1e6 + i));
+    return this.data[c]!;
+  }
+}
 
 /** A fake AudioContext whose clock only moves when a test calls advance(). */
 export class FakeContext implements AudioContextLike {
@@ -42,7 +61,7 @@ export class FakeContext implements AudioContextLike {
     if (this.failDecode.has(data.byteLength)) throw new DOMException("Unable to decode audio data", "EncodingError");
     // Fixture convention: byteLength is the length in milliseconds of audio.
     const duration = data.byteLength / 1000;
-    return { duration, sampleRate: this.sampleRate, length: Math.round(duration * this.sampleRate) };
+    return new FakeBuffer(Math.round(duration * this.sampleRate), this.sampleRate);
   }
   async resume(): Promise<void> {
     this.resumeCalls++;
@@ -66,13 +85,16 @@ function finite(...xs: number[]) {
 
 export class FakeParam implements AudioParamLike {
   private v = 1;
-  events: { type: string; value: number; time: number }[] = [];
+  /** The value before any automation, as set through `value`. */
+  private base = 1;
+  events: { type: string; value: number; time: number; timeConstant?: number }[] = [];
   get value() {
     return this.v;
   }
   set value(x: number) {
     finite(x);
     this.v = x;
+    if (!this.events.length) this.base = x;
   }
   setValueAtTime(value: number, time: number) {
     finite(value, time);
@@ -82,7 +104,33 @@ export class FakeParam implements AudioParamLike {
   setTargetAtTime(value: number, time: number, timeConstant: number) {
     finite(value, time, timeConstant);
     this.v = value;
-    this.events.push({ type: "target", value, time });
+    this.events.push({ type: "target", value, time, timeConstant });
+  }
+  /**
+   * The value the browser would compute at time t from the automation as it now stands: a cancel
+   * removes the events at or after its time that came before it; events then apply in time order.
+   */
+  at(t: number): number {
+    let kept: { type: string; value: number; time: number; timeConstant?: number }[] = [];
+    for (const e of this.events) {
+      if (e.type === "cancel") kept = kept.filter((k) => k.time < e.time);
+      else kept.push(e);
+    }
+    kept.sort((a, b) => a.time - b.time); // stable: same-time events keep their order
+    let from = this.base;
+    let curve: { t0: number; target: number; tau: number } | null = null;
+    const valueAt = (time: number) => (curve ? curve.target + (from - curve.target) * Math.exp(-(time - curve.t0) / curve.tau) : from);
+    for (const e of kept) {
+      if (e.time > t) break;
+      if (e.type === "set") {
+        from = e.value;
+        curve = null;
+      } else {
+        from = valueAt(e.time);
+        curve = { t0: e.time, target: e.value, tau: e.timeConstant! };
+      }
+    }
+    return valueAt(t);
   }
   cancelScheduledValues(time: number) {
     finite(time);
@@ -161,6 +209,69 @@ export function fakeFetch(routes: Record<string, number | { status: number } | "
     pending.delete(url);
   };
   return { fetch: fn, calls, hold, release, routes };
+}
+
+/** A fake Signalsmith Stretch node: records what the engine asks of it. */
+export class FakeStretch implements StretchNodeLike {
+  schedules: StretchChange[] = [];
+  buffers: Float32Array[][] = [];
+  drops = 0;
+  connected: AudioNodeLike[] = [];
+  latencySeconds = 0.12;
+  /** latency() rejects while set, as a worklet that failed to start would. */
+  failLatency = false;
+  disconnects = 0;
+  connect(d: AudioNodeLike) {
+    this.connected.push(d);
+  }
+  disconnect() {
+    this.disconnects++;
+    this.connected = [];
+  }
+  async addBuffers(channels: Float32Array[]): Promise<number> {
+    this.buffers.push(channels);
+    return channels[0]!.length;
+  }
+  async dropBuffers() {
+    this.drops++;
+    this.buffers = [];
+    return { start: 0, end: 0 };
+  }
+  async schedule(change: StretchChange) {
+    this.schedules.push({ ...change });
+    return change;
+  }
+  async latency() {
+    if (this.failLatency) throw new Error("the worklet did not answer");
+    return this.latencySeconds;
+  }
+  /** The last schedule that started playback. */
+  get lastStart(): StretchChange | undefined {
+    return this.schedules.filter((s) => s.active === true).at(-1);
+  }
+}
+
+/** A stretch loader the test controls: counts calls, can fail, can be held. */
+export function fakeStretchLoader() {
+  const node = new FakeStretch();
+  const state = { calls: 0, fail: false, held: null as null | (() => void) };
+  let hold = false;
+  const load = async (_ctx: AudioContextLike): Promise<StretchNodeLike> => {
+    state.calls++;
+    if (hold) await new Promise<void>((r) => (state.held = r));
+    if (state.fail) throw new Error("stretch failed to load");
+    return node;
+  };
+  return {
+    node,
+    load,
+    state,
+    hold: () => (hold = true),
+    release: () => {
+      hold = false;
+      state.held?.();
+    },
+  };
 }
 
 /** Let queued promise callbacks run. */

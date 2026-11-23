@@ -184,6 +184,9 @@ describe("items", () => {
     };
     expect(itemRowSchema.safeParse(row).success).toBe(true);
     expect(itemRowSchema.safeParse({ ...row, playable: { kind: "loop", id: "x" } }).success).toBe(false);
+    for (const href of ["//evil.example/x", "/\\evil.example", "https://evil.example/loop/x", "loop/x"]) {
+      expect(itemRowSchema.safeParse({ ...row, href }).success, href).toBe(false);
+    }
   });
   it("caps kit pads at sixteen", () => {
     const pad = (i: number) => ({ index: i, name: `Kick ${i}`, category: "kick", previewUrl: "https://p.example.com/k.mp3" });

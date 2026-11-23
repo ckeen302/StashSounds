@@ -57,7 +57,7 @@ as $$
         where jsonb_typeof(l) <> 'object'
            or coalesce(l ->> 'url', '') !~ '^https://[^\s/?#]+[^\s]*$'
            or char_length(l ->> 'url') > 300
-           or coalesce(l ->> 'kind', '') = '');
+           or coalesce(l ->> 'kind', '') not in ('instagram','youtube','beatstars','soundcloud','tiktok','x','website'));
 $$;
 
 -- Storage paths written by the worker: relative, no empty, dot or dot-dot segments.
@@ -90,7 +90,7 @@ $$;
 create table public.profiles (
   id              uuid primary key references auth.users on delete cascade,
   handle          text unique not null check (handle ~ '^[a-z0-9_]{3,24}$'),
-  display_name    text not null check (char_length(display_name) between 1 and 40),
+  display_name    text not null check (char_length(display_name) between 1 and 40 and char_length(btrim(display_name)) >= 1),
   bio             text check (char_length(bio) <= 280),
   avatar_path     text check (avatar_path is null or public.safe_path(avatar_path, id::text || '/')),
   links           jsonb not null default '[]' check (public.valid_profile_links(links)),
@@ -1211,7 +1211,7 @@ alter table public.messages                  enable row level security;
 -- profiles: everyone reads; owner updates the granted columns
 create policy profiles_read   on public.profiles for select using (true);
 create policy profiles_update on public.profiles for update to authenticated
-  using (id = auth.uid()) with check (id = auth.uid());
+  using (id = auth.uid() and public.is_active_user()) with check (id = auth.uid() and public.is_active_user());
 
 -- accounts: owner and admins read; service role writes
 create policy accounts_read on public.accounts for select to authenticated
