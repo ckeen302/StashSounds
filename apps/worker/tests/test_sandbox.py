@@ -35,7 +35,7 @@ def run(handler: str, tmp_path: Path, timeout_s: float = 20, memory_bytes: int =
 def test_result_comes_back_from_the_child(tmp_path: Path):
     out = run("ok", tmp_path)
     assert out.status == "ok"
-    assert out.result is not None and out.result["files"][0]["path"].startswith(PAYLOAD["itemId"] + "/")
+    assert out.result is not None and out.result["type"] == "loop"
     assert (tmp_path / "work" / "scratch.bin").read_bytes() == b"temporary"
 
 

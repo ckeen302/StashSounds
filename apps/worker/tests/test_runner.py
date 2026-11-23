@@ -13,29 +13,41 @@ import pytest
 import stash_worker.runner as runner_module
 from stash_worker.contracts import CONTRACTS, limits, worker_reasons
 from stash_worker.db import QueueRejected, QueueUnavailable
-from stash_worker.jobs import FLAG_REASONS, RUNNER_REASONS, TIMEOUT_KEYS, timeout_for
+from stash_worker.jobs import FLAG_REASONS, ITEM_TYPE_FOR_KIND, RUNNER_REASONS, TIMEOUT_KEYS, timeout_for
 from stash_worker.runner import Runner
 from stash_worker.sandbox import Outcome
+from stash_worker.storage import IMMUTABLE, LocalStorage, StorageError
 
 JOB_KINDS = json.loads((CONTRACTS / "generated" / "job-payload.schema.json").read_text())["properties"]["kind"]["enum"]
 
 
-def job_input(row: dict[str, Any]) -> dict[str, Any]:
+ORIGINAL = b"0123456789"
+
+
+def job_input(row: dict[str, Any], storage: LocalStorage | None = None) -> dict[str, Any]:
     owner = str(uuid.uuid4())
+    path = f"{owner}/{row['item_id']}/original.wav"
+    if storage is not None:
+        src = storage.root / ".src"
+        src.parent.mkdir(parents=True, exist_ok=True)
+        src.write_bytes(ORIGINAL)
+        storage.upload("originals", path, src, "audio/wav", None)
+        src.unlink()
+        storage.uploads.clear()
     return {
         "jobId": str(row["id"]),
         "attempt": row["attempts"],
         "itemId": str(row["item_id"]),
         "ownerId": owner,
-        "type": "loop",
+        "type": ITEM_TYPE_FOR_KIND[row["kind"]] if row["kind"] in ITEM_TYPE_FOR_KIND else "loop",
         "title": "Dusty keys",
         "files": [
             {
                 "id": str(uuid.uuid4()),
                 "role": "original",
                 "bucket": "originals",
-                "path": f"{owner}/{row['item_id']}/original.wav",
-                "bytes": 10,
+                "path": path,
+                "bytes": len(ORIGINAL),
                 "mime": "audio/wav",
                 "fileName": "dusty keys 90bpm Amin.wav",
             }
@@ -44,8 +56,9 @@ def job_input(row: dict[str, Any]) -> dict[str, Any]:
 
 
 class FakeQueue:
-    def __init__(self, jobs: list[dict[str, Any]] | None = None):
+    def __init__(self, jobs: list[dict[str, Any]] | None = None, storage: LocalStorage | None = None):
         self.jobs = list(jobs or [])
+        self.storage = storage
         self.calls: list[tuple[Any, ...]] = []
         self.complete_error: Exception | None = None
         self.fail_error: Exception | None = None
@@ -69,7 +82,7 @@ class FakeQueue:
         self.calls.append(("job_input", job_id, attempt))
         if self.input_error:
             raise self.input_error
-        self.last_input = self.input_override or job_input(self.claimed[job_id])
+        self.last_input = self.input_override or job_input(self.claimed[job_id], self.storage)
         return self.last_input
 
     def complete(self, job_id: str, attempt: int, result: dict[str, Any]) -> None:
@@ -94,11 +107,24 @@ def job(kind: str = "process_loop", attempts: int = 1) -> dict[str, Any]:
     return {"id": uuid.uuid4(), "item_id": uuid.uuid4(), "kind": kind, "attempts": attempts, "status": "running"}
 
 
+def store(tmp_path: Path) -> LocalStorage:
+    return LocalStorage(tmp_path / "store")
+
+
+def jobs_dir(tmp_path: Path) -> Path:
+    d = tmp_path / "jobs"
+    d.mkdir(exist_ok=True)
+    return d
+
+
 def runner(queue: FakeQueue, tmp_path: Path, handler: str, **kw: Any) -> Runner:
+    if queue.storage is None:
+        queue.storage = store(tmp_path)
     return Runner(
         queue,
+        storage=queue.storage,
         handlers={"process_loop": f"handlers:{handler}"},
-        temp_root=tmp_path,
+        temp_root=jobs_dir(tmp_path),
         timeouts={"process_loop": kw.pop("timeout", 20)},
         memory_bytes=kw.pop("memory_bytes", 1 << 30),
         sleep=kw.pop("sleep", lambda s: None),
@@ -116,8 +142,8 @@ def test_valid_result_is_completed_with_the_attempt_and_the_folder_removed(tmp_p
     assert runner(q, tmp_path, "ok").run_once() is True
     [(call, job_id, attempt, result)] = q.outcomes()
     assert (call, job_id, attempt) == ("complete", str(j["id"]), 1)
-    assert result["files"][0]["path"] == f"{j['item_id']}/abc.mp3"
-    assert list(tmp_path.iterdir()) == []
+    assert result["type"] == "loop" and result["details"]["loopSamples"] == 302400
+    assert list(jobs_dir(tmp_path).iterdir()) == []
 
 
 def test_the_handler_receives_the_job_input(tmp_path: Path):
@@ -151,7 +177,7 @@ def test_failures_map_to_worker_fail(tmp_path: Path, handler: str, reason: str, 
     q = FakeQueue([j])
     runner(q, tmp_path, handler).run_once()
     assert q.outcomes() == [fail(j, reason, retryable)]
-    assert list(tmp_path.iterdir()) == []
+    assert list(jobs_dir(tmp_path).iterdir()) == []
 
 
 def test_timeout_is_retryable(tmp_path: Path):
@@ -159,13 +185,19 @@ def test_timeout_is_retryable(tmp_path: Path):
     q = FakeQueue([j])
     runner(q, tmp_path, "sleep_with_grandchild", timeout=1).run_once()
     assert q.outcomes() == [fail(j, "timeout", True)]
-    assert list(tmp_path.iterdir()) == []
+    assert list(jobs_dir(tmp_path).iterdir()) == []
 
 
 def test_the_memory_cap_from_limits_applies_without_an_override(tmp_path: Path):
     j = job()
-    q = FakeQueue([j])
-    r = Runner(q, handlers={"process_loop": "handlers:hog_memory"}, temp_root=tmp_path, sleep=lambda s: None)
+    q = FakeQueue([j], store(tmp_path))
+    r = Runner(
+        q,
+        storage=q.storage,
+        handlers={"process_loop": "handlers:hog_memory"},
+        temp_root=jobs_dir(tmp_path),
+        sleep=lambda s: None,
+    )
     assert r.memory_bytes == limits()["worker"]["memoryMb"] << 20
     r.run_once()
     assert q.outcomes() == [fail(j, "internal", True)]
@@ -174,13 +206,19 @@ def test_the_memory_cap_from_limits_applies_without_an_override(tmp_path: Path):
 def test_a_runner_without_overrides_uses_the_limits_for_every_kind(tmp_path: Path, monkeypatch):
     seen: dict[str, tuple[float, int]] = {}
 
-    def fake_run(handler, payload, job_input, job_dir, *, timeout_s, memory_bytes):
+    def fake_run(handler, payload, job_input, job_dir, *, timeout_s, memory_bytes, **kw):
         seen[payload["kind"]] = (timeout_s, memory_bytes)
         return Outcome("crashed", detail="fake")
 
     monkeypatch.setattr(runner_module, "run_isolated", fake_run)
-    q = FakeQueue([job(k) for k in JOB_KINDS])
-    r = Runner(q, handlers={k: "handlers:ok" for k in JOB_KINDS}, temp_root=tmp_path, sleep=lambda s: None)
+    q = FakeQueue([job(k) for k in JOB_KINDS], store(tmp_path))
+    r = Runner(
+        q,
+        storage=q.storage,
+        handlers={k: "handlers:ok" for k in JOB_KINDS},
+        temp_root=jobs_dir(tmp_path),
+        sleep=lambda s: None,
+    )
     for _ in JOB_KINDS:
         r.run_once()
     memory = limits()["worker"]["memoryMb"] << 20
@@ -274,7 +312,7 @@ def test_an_unexpected_error_never_escapes_the_loop(tmp_path: Path, monkeypatch)
     ticks = iter(range(100))
     runner(q, tmp_path, "ok").run(lambda: next(ticks) >= 2)
     assert q.outcomes() == [fail(j, "internal", True)]
-    assert list(tmp_path.iterdir()) == []
+    assert list(jobs_dir(tmp_path).iterdir()) == []
 
 
 def test_two_jobs_get_different_folders(tmp_path: Path, monkeypatch):
@@ -292,8 +330,8 @@ def test_two_jobs_get_different_folders(tmp_path: Path, monkeypatch):
     r.run_once()
     r.run_once()
     assert len(dirs) == 2 and dirs[0] != dirs[1]
-    assert all(d.parent == tmp_path for d in dirs)
-    assert list(tmp_path.iterdir()) == []
+    assert all(d.parent == jobs_dir(tmp_path) for d in dirs)
+    assert list(jobs_dir(tmp_path).iterdir()) == []
 
 
 def test_empty_queue_backs_off_up_to_the_cap_and_resets_after_a_job(tmp_path: Path):
@@ -346,3 +384,84 @@ def test_timeouts_come_from_limits():
     assert timeout_for("process_midi") == t["midi"]
     assert timeout_for("process_preset") == t["audio"]
     assert timeout_for("render_vital") == t["presetRender"]
+
+
+# -- ticket 112: inputs in, outputs out, all in the parent -------------------------------------
+
+
+def test_the_original_is_staged_for_the_handler(tmp_path: Path):
+    j = job()
+    q = FakeQueue([j])
+    runner(q, tmp_path, "read_original").run_once()
+    [(call, _, _, result)] = q.outcomes()
+    assert call == "complete"
+    assert result["files"][0]["meta"]["original"] == ORIGINAL.decode()
+
+
+def test_derived_files_are_uploaded_before_complete(tmp_path: Path):
+    j = job()
+    q = FakeQueue([j])
+    r = runner(q, tmp_path, "writes_preview")
+    r.run_once()
+    [(call, _, _, result)] = q.outcomes()
+    assert call == "complete"
+    [f] = result["files"]
+    assert q.storage.uploads == [("previews", f["path"], "audio/mpeg", IMMUTABLE)]
+    assert (q.storage.root / "previews" / f["path"]).read_bytes() == b"ID3 fake preview"
+
+
+def test_an_output_that_does_not_match_the_result_is_not_completed(tmp_path: Path):
+    j = job()
+    q = FakeQueue([j])
+    runner(q, tmp_path, "writes_preview_wrong_hash").run_once()
+    assert q.outcomes() == [fail(j, "internal", True)]
+    assert q.storage.uploads == []
+
+
+def test_an_input_over_its_limit_fails_as_too_large_for_good(tmp_path: Path):
+    j = job()
+    q = FakeQueue([j], store(tmp_path))
+    big = job_input(j, q.storage)
+    big["files"][0]["bytes"] = limits()["loop"]["maxBytes"] + 1
+    q.input_override = big
+    q.claimed[str(j["id"])] = j
+    runner(q, tmp_path, "ok").run_once()
+    assert q.outcomes() == [fail(j, "too_large", False)]
+
+
+def test_a_missing_original_is_a_retryable_storage_failure(tmp_path: Path):
+    j = job()
+    q = FakeQueue([j], store(tmp_path))
+    q.input_override = job_input(j)  # never uploaded
+    runner(q, tmp_path, "ok").run_once()
+    assert q.outcomes() == [fail(j, "internal", True)]
+    assert list(jobs_dir(tmp_path).iterdir()) == []
+
+
+def test_a_failing_upload_is_retried_and_not_completed(tmp_path: Path):
+    class BrokenUploads(LocalStorage):
+        def upload(self, *a, **kw):
+            raise StorageError("bucket unavailable")
+
+    j = job()
+    q = FakeQueue([j], BrokenUploads(tmp_path / "store"))
+    runner(q, tmp_path, "writes_preview").run_once()
+    assert q.outcomes() == [fail(j, "internal", True)]
+
+
+def test_a_job_input_for_another_type_is_not_run(tmp_path: Path):
+    j = job()
+    q = FakeQueue([j], store(tmp_path))
+    q.input_override = {**job_input(j, q.storage), "type": "kit"}
+    runner(q, tmp_path, "ok").run_once()
+    assert q.outcomes() == [fail(j, "internal", False)]
+
+
+def test_item_types_for_kinds_cover_every_kind():
+    assert set(ITEM_TYPE_FOR_KIND) == set(JOB_KINDS)
+
+
+def test_the_loop_processor_is_registered():
+    from stash_worker.jobs import HANDLERS
+
+    assert HANDLERS["process_loop"] == "stash_worker.audio.loop:process_loop"

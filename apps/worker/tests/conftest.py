@@ -20,6 +20,7 @@ import pytest
 
 from stash_worker.config import connect_params
 from stash_worker.contracts import REPO_ROOT
+from stash_worker.storage import LocalStorage
 
 TESTS = Path(__file__).resolve().parent
 ADMIN_URL = os.environ.get("DATABASE_ADMIN_URL", "postgres://postgres:postgres@localhost:5432/postgres")
@@ -48,8 +49,9 @@ class TestDb:
 
     __test__ = False
 
-    def __init__(self, name: str):
+    def __init__(self, name: str, storage: LocalStorage):
         self.name = name
+        self.storage = storage
         self.url = ADMIN_URL.rsplit("/", 1)[0] + "/" + name
         self.conn = _admin(name)
 
@@ -82,26 +84,37 @@ class TestDb:
         self.as_role("authenticated", "select public.claim_handle(:h)", sub=str(uid), h=handle)
         return str(uid)
 
-    def queued_item(self, type_: str = "loop", ext: str = "wav", file_name: str | None = None) -> dict[str, str]:
-        """A draft uploaded and enqueued through the real functions, as the web app does it."""
+    def queued_item(
+        self, type_: str = "loop", ext: str = "wav", file_name: str | None = None, content: bytes = b"0123456789"
+    ) -> dict[str, str]:
+        """A draft uploaded and enqueued through the real functions, as the web app does it. The
+        original's bytes are put in self.storage at the path the database gave it."""
         owner = self.make_user()
         row = self.as_role(
             "authenticated",
-            "select * from public.create_upload_draft(cast(:t as public.item_type), :title, 10, :ext, :fn)",
+            "select * from public.create_upload_draft(cast(:t as public.item_type), :title, :n, :ext, :fn)",
             sub=owner,
             t=type_,
             title="Test " + secrets.token_hex(3),
             ext=ext,
             fn=file_name,
+            n=len(content),
         )[0]
+        src = self.storage.root / ".upload"
+        src.parent.mkdir(parents=True, exist_ok=True)
+        src.write_bytes(content)
+        self.storage.upload("originals", str(row["path"]), src, "application/octet-stream", None)
+        src.unlink()
+        self.storage.uploads.clear()
         item_id, file_id = str(row["item_id"]), str(row["file_id"])
         self.as_role("service_role", "update public.item_files set uploaded_at = now() where item_id = :i", i=item_id)
         job = self.as_role(
             "service_role",
-            "select public.enqueue_processing(cast(:o as uuid), cast(:i as uuid), cast(:f as uuid), 10) as id",
+            "select public.enqueue_processing(cast(:o as uuid), cast(:i as uuid), cast(:f as uuid), :n) as id",
             o=owner,
             i=item_id,
             f=file_id,
+            n=len(content),
         )[0]["id"]
         return {"owner": owner, "item_id": item_id, "job_id": str(job), "file_id": file_id, "path": str(row["path"])}
 
@@ -143,8 +156,8 @@ def _database() -> Iterator[str]:
 
 
 @pytest.fixture
-def db(_database: str) -> Iterator[TestDb]:
-    t = TestDb(_database)
+def db(_database: str, tmp_path: Path) -> Iterator[TestDb]:
+    t = TestDb(_database, LocalStorage(tmp_path / "store"))
     t.q("delete from public.processing_jobs")
     yield t
     t.conn.close()

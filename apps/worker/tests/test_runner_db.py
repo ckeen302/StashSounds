@@ -16,11 +16,18 @@ from stash_worker.runner import Runner
 WORKER = limits()["worker"]
 
 
+def jobs_dir(tmp_path: Path) -> Path:
+    d = tmp_path / "jobs"
+    d.mkdir(exist_ok=True)
+    return d
+
+
 def make_runner(db, tmp_path: Path, handler: str, queue: PgJobQueue | None = None) -> Runner:
     return Runner(
         queue or PgJobQueue(db.url),
-        handlers={"process_loop": f"handlers:{handler}"},
-        temp_root=tmp_path,
+        storage=db.storage,
+        handlers={"process_loop": handler if ":" in handler else f"handlers:{handler}"},
+        temp_root=jobs_dir(tmp_path),
         timeouts={"process_loop": 20},
         memory_bytes=1 << 30,
         sleep=lambda s: None,
@@ -34,7 +41,7 @@ def test_a_good_result_makes_the_item_ready(db, tmp_path: Path):
     item = db.item(it["item_id"])
     assert item["status"] == "ready"
     assert item["details"]["bars"] == 4
-    assert list(tmp_path.iterdir()) == []
+    assert list(jobs_dir(tmp_path).iterdir()) == []
 
 
 def test_retry_backs_off_30s_then_2min_and_the_final_failure_returns_the_item_to_draft(db, tmp_path: Path):
@@ -58,7 +65,7 @@ def test_retry_backs_off_30s_then_2min_and_the_final_failure_returns_the_item_to
     assert (j["status"], j["attempts"], j["error"]) == ("failed", WORKER["maxAttempts"], "internal")
     item = db.item(it["item_id"])
     assert (item["status"], item["flagged_reason"]) == ("draft", "internal")
-    assert list(tmp_path.iterdir()) == []
+    assert list(jobs_dir(tmp_path).iterdir()) == []
 
 
 def test_a_timeout_is_retried(db, tmp_path: Path):
@@ -80,8 +87,8 @@ def test_a_corrupt_file_fails_once_and_returns_to_draft_with_the_reason(db, tmp_
     assert (item["status"], item["flagged_reason"]) == ("draft", "corrupt_file")
 
 
-def test_a_result_the_database_refuses_is_retried(db, tmp_path: Path):
-    # Passes the JSON Schema but worker_complete refuses it (a path outside the item's folder).
+def test_a_result_with_a_path_outside_the_item_is_retried(db, tmp_path: Path):
+    # Passes the JSON Schema, but the parent refuses to publish it (worker_complete would refuse it too).
     it = db.queued_item()
     make_runner(db, tmp_path, "outside_folder").run_once()
     j = db.job(it["job_id"])
@@ -204,3 +211,39 @@ def test_a_worker_that_lost_its_job_cannot_finish_it(db, tmp_path: Path):
     assert db.job(it["job_id"])["status"] == "running"
     new.fail(it["job_id"], 2, "internal", True)
     assert db.job(it["job_id"])["status"] == "queued"
+
+
+def test_a_loop_fixture_goes_from_queued_to_ready_with_its_preview_and_peaks(db, tmp_path: Path):
+    from stash_worker.contracts import REPO_ROOT
+
+    fixture = REPO_ROOT / "fixtures/generated/loops/midnight_keys_140bpm_Am.wav"
+    it = db.queued_item(file_name=fixture.name, content=fixture.read_bytes())
+    r = make_runner(db, tmp_path, "stash_worker.audio.loop:process_loop")
+    r.timeouts.clear()
+    assert r.run_once() is True
+    assert db.job(it["job_id"])["status"] == "done"
+    item = db.item(it["item_id"])
+    assert item["status"] == "ready"
+    assert (item["details"]["loopSamples"], item["details"]["sampleRate"]) == (302400, 44100)
+    assert item["duration_ms"] == 6857
+    files = db.q(
+        "select role, bucket, path, bytes, sha256, meta from public.item_files where item_id = :i order by role",
+        i=uuid.UUID(it["item_id"]),
+    )
+    assert [f["role"] for f in files] == ["original", "peaks", "preview"]
+    for f in files[1:]:
+        stored = db.storage.root / f["bucket"] / f["path"]
+        assert stored.stat().st_size == f["bytes"]
+        assert f["path"].startswith(it["item_id"] + "/") and f["sha256"][:32] in f["path"]
+    assert list(jobs_dir(tmp_path).iterdir()) == []
+
+
+def test_a_hostile_loop_fixture_returns_the_item_to_draft_with_its_reason(db, tmp_path: Path):
+    from stash_worker.contracts import REPO_ROOT
+
+    fixture = REPO_ROOT / "fixtures/generated/hostile/actually_an_exe.wav"
+    it = db.queued_item(content=fixture.read_bytes())
+    make_runner(db, tmp_path, "stash_worker.audio.loop:process_loop").run_once()
+    item = db.item(it["item_id"])
+    assert (item["status"], item["flagged_reason"]) == ("draft", "unsupported_format")
+    assert db.storage.uploads == []

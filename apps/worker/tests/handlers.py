@@ -3,6 +3,7 @@ which works because conftest.py puts this folder on PYTHONPATH."""
 
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import resource
@@ -36,17 +37,7 @@ def loop_result(item_id: str) -> dict[str, Any]:
                 "keyConfidence": 0.3,
             },
         },
-        "files": [
-            {
-                "role": "preview",
-                "bucket": "previews",
-                "path": f"{item_id}/abc.mp3",
-                "bytes": 120000,
-                "mime": "audio/mpeg",
-                "sha256": None,
-                "meta": {},
-            }
-        ],
+        "files": [],
         "fingerprints": [],
         "flag": None,
     }
@@ -58,7 +49,14 @@ def ok(ctx: JobContext) -> dict[str, Any]:
 
 
 def outside_folder(ctx: JobContext) -> dict[str, Any]:
-    return loop_result(str(uuid.uuid4()))
+    other = str(uuid.uuid4())
+    data = b"ID3 elsewhere"
+    digest = hashlib.sha256(data).hexdigest()
+    path = f"{other}/{digest[:32]}.mp3"
+    ctx.output_path("previews", path).write_bytes(data)
+    result = loop_result(ctx.payload["itemId"])
+    result["files"] = [_file(path, data, digest, {})]
+    return result
 
 
 def sleep_with_grandchild(ctx: JobContext) -> dict[str, Any]:
@@ -101,9 +99,7 @@ def wrong_type_result(ctx: JobContext) -> dict[str, Any]:
 
 
 def echo_input(ctx: JobContext) -> dict[str, Any]:
-    result = loop_result(ctx.payload["itemId"])
-    result["files"][0]["meta"] = {"input": ctx.input}
-    return result
+    return _preview(ctx, b"ID3 echo", b"ID3 echo", {"input": ctx.input})
 
 
 def env_probe(ctx: JobContext) -> dict[str, Any]:
@@ -142,9 +138,74 @@ def forge_list_result(ctx: JobContext) -> dict[str, Any]:
 
 def forge_huge_outcome(ctx: JobContext) -> dict[str, Any]:
     result = loop_result(ctx.payload["itemId"])
-    result["files"][0]["meta"] = {"pad": "x" * (2 << 20)}
+    result["pad"] = "x" * (2 << 20)
     return _forge(ctx, json.dumps({"status": "ok", "result": result}))
 
 
 def reject_as_flag(ctx: JobContext) -> dict[str, Any]:
     raise Rejected("duplicate_exact")
+
+
+def read_original(ctx: JobContext) -> dict[str, Any]:
+    [f] = ctx.input["files"]
+    return _preview(ctx, b"ID3 read", b"ID3 read", {"original": ctx.input_path(f).read_text()})
+
+
+def _file(path: str, data: bytes, digest: str, meta: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "role": "preview",
+        "bucket": "previews",
+        "path": path,
+        "bytes": len(data),
+        "mime": "audio/mpeg",
+        "sha256": digest,
+        "meta": meta,
+    }
+
+
+def _preview(ctx: JobContext, data: bytes, claimed: bytes, meta: dict[str, Any] | None = None) -> dict[str, Any]:
+    """A result with one preview written where the parent publishes it from."""
+    digest = hashlib.sha256(claimed).hexdigest()
+    path = f"{ctx.payload['itemId']}/{digest[:32]}.mp3"
+    ctx.output_path("previews", path).write_bytes(data)
+    result = loop_result(ctx.payload["itemId"])
+    result["files"] = [_file(path, data, digest, meta or {})]
+    return result
+
+
+def writes_preview(ctx: JobContext) -> dict[str, Any]:
+    return _preview(ctx, b"ID3 fake preview", b"ID3 fake preview")
+
+
+def writes_preview_wrong_hash(ctx: JobContext) -> dict[str, Any]:
+    return _preview(ctx, b"ID3 fake preview", b"something else!")
+
+
+def _isolation_facts(ctx: JobContext) -> dict[str, Any]:
+    facts: dict[str, Any] = {"uid": os.getuid(), "euid": os.geteuid(), "gid": os.getgid(), "groups": os.getgroups()}
+    if "secretPath" in ctx.input:
+        try:
+            facts["secret"] = open(ctx.input["secretPath"]).read()  # noqa: PTH123
+        except OSError as e:
+            facts["secret"] = type(e).__name__
+    if "workerPid" in ctx.input:
+        pid = ctx.input["workerPid"]
+        try:
+            facts["environ"] = open(f"/proc/{pid}/environ", "rb").read().decode(errors="replace")  # noqa: PTH123
+        except OSError as e:
+            facts["environ"] = type(e).__name__
+        try:
+            os.kill(pid, 0)
+            facts["signal"] = "allowed"
+        except OSError as e:
+            facts["signal"] = type(e).__name__
+    return facts
+
+
+def isolation_probe(ctx: JobContext) -> dict[str, Any]:
+    (ctx.workdir / "probe.json").write_text(json.dumps(_isolation_facts(ctx)))
+    return loop_result(ctx.payload["itemId"])
+
+
+def isolation_probe_result(ctx: JobContext) -> dict[str, Any]:
+    return _preview(ctx, b"ID3 probe", b"ID3 probe", _isolation_facts(ctx))
