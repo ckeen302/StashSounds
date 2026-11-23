@@ -11,6 +11,7 @@ import {
   splitPercentSchema,
   tagNameSchema,
   titleSchema,
+  sameSitePathSchema,
   uuidSchema,
 } from "./common.ts";
 import { kitDetailsSchema, loopDetailsSchema, midiDetailsSchema, oneshotDetailsSchema, presetDetailsSchema } from "./details.ts";
@@ -78,7 +79,7 @@ export const itemRowSchema = z.object({
   title: titleSchema,
   slug: slugSchema,
   /** Canonical path, e.g. /loop/dark-keys-k3j9x0a2bq */
-  href: z.string().regex(/^\/(?![/\\])/, "Must be a same-site path"),
+  href: sameSitePathSchema,
   owner: ownerSummarySchema.pick({ handle: true, displayName: true, avatarUrl: true }),
   license: licenseKindSchema,
   bpm: bpmSchema.nullable(),

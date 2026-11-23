@@ -132,6 +132,24 @@ describe("enqueue_processing", () => {
     expect(jobs.rows).toEqual([{ kind: "process_preset" }]);
   });
 
+  it("completeUpload's sequence with the service role: claim, record the copy, confirm; a wrong token releases nothing", async () => {
+    const d = await draft(ana);
+    const claim = (token: string) => db.as(service, `select public.claim_file_completion($1, $2, $3, $4) as ok`, [ana, d.item_id, d.file_id, token]);
+    const token = "11111111-2222-4333-8444-555555555555";
+    expect((await claim(token)).rows[0]!.ok).toBe(true);
+    await db.as(service, `select public.release_file_completion($1, $2)`, [d.file_id, "99999999-2222-4333-8444-555555555555"]);
+    expect((await claim("22222222-2222-4333-8444-555555555555")).rows[0]!.ok).toBe(false);
+    // markCopied: read the meta, write it back with copiedAt (the claim stays).
+    const meta = (await db.as(service, `select meta from public.item_files where id = $1`, [d.file_id])).rows[0]!.meta;
+    await db.as(service, `update public.item_files set meta = $2 where id = $1`, [d.file_id, { ...meta, copiedAt: "2026-11-23T23:00:00Z" }]);
+    expect((await db.q(`select meta ->> 'completing' as t from public.item_files where id = $1`, [d.file_id])).rows[0]!.t).toBe(token);
+    await enqueue(ana, d.item_id, d.file_id, 100);
+    const after = (await db.q(`select meta, uploaded_at from public.item_files where id = $1`, [d.file_id])).rows[0]!;
+    expect(after.meta).toMatchObject({ copiedAt: "2026-11-23T23:00:00Z" });
+    expect(after.meta).not.toHaveProperty("completing");
+    expect(after.uploaded_at).not.toBeNull();
+  });
+
   it("each type queues its own job kind", async () => {
     for (const [type, ext] of [["oneshot", "wav"], ["kit", "zip"], ["midi", "mid"]] as const) {
       const d = await draft(ana, type, ext);
