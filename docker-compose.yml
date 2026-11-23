@@ -5,7 +5,9 @@ services:
   # MinIO stopped publishing images in 2025, so it is no longer an option (decision 0011).
   storage:
     image: chrislusf/seaweedfs:4.53
-    command: server -s3 -s3.port=8333 -s3.config=/etc/seaweedfs/s3.json
+    # Browsers PUT straight to signed URLs from the app's origin (request 102-storage-cors). SeaweedFS
+    # answers allowed origins with every method and header allowed and exposed, ETag included.
+    command: server -s3 -s3.port=8333 -s3.config=/etc/seaweedfs/s3.json -s3.allowedOrigins=http://localhost:3000,http://localhost:3100
     ports:
       - "9000:8333"
     volumes:
@@ -40,6 +42,12 @@ services:
     env_file: .env.local
     environment:
       STASH_S3_ENDPOINT: http://storage:8333
+    # The parent runs as root only to start each job as the unprivileged stash-job user
+    # (request 112-worker-isolation-ci): setuid/setgid for the child, chown/fowner to hand it its
+    # folders, dac_override to read its outcome and remove the folder, kill for timeouts.
+    cap_drop: [ALL]
+    cap_add: [SETUID, SETGID, CHOWN, FOWNER, DAC_OVERRIDE, KILL]
+    security_opt: ["no-new-privileges:true"]
     depends_on:
       storage-init:
         condition: service_completed_successfully
