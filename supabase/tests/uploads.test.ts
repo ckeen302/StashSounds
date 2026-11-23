@@ -35,7 +35,7 @@ describe("add_demo_file", () => {
   it("attaches a demo to the caller's own preset draft, under the owner's folder, typed by extension", async () => {
     const p = await draft(ana, "preset", "vital");
     const r = await db.as(user(ana), `select * from public.add_demo_file($1, 200, 'MP3', 'Pad demo.mp3')`, [p.item_id]);
-    expect(r.rows[0]!.path).toBe(`${ana}/${p.item_id}/demo.mp3`);
+    expect(r.rows[0]!.path).toBe(`${ana}/${p.item_id}/demo`);
     const f = await db.q(`select role, bucket, mime, bytes, meta from public.item_files where id = $1`, [r.rows[0]!.file_id]);
     expect(f.rows[0]).toEqual({ role: "demo", bucket: "originals", mime: "audio/mpeg", bytes: "200", meta: { fileName: "Pad demo.mp3" } });
   });
@@ -55,7 +55,7 @@ describe("add_demo_file", () => {
     await db.as(user(ana), `select * from public.add_demo_file($1, 300, 'wav')`, [p.item_id]);
     await db.as(user(ana), `select * from public.add_demo_file($1, 500, 'flac')`, [p.item_id]);
     const demos = await db.q(`select path, bytes from public.item_files where item_id = $1 and role = 'demo'`, [p.item_id]);
-    expect(demos.rows).toEqual([{ path: `${ana}/${p.item_id}/demo.flac`, bytes: "500" }]);
+    expect(demos.rows).toEqual([{ path: `${ana}/${p.item_id}/demo`, bytes: "500" }]);
     expect(await storageBytes(ana)).toBe(before + 500);
   });
 

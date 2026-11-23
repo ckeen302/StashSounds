@@ -6,6 +6,9 @@ import { safeNextPath } from "../index.ts";
 import type { ActionDeps } from "../action.ts";
 import { IDS, TEST_ENV, fakeSupabase, member, type FakeOptions } from "../testing/fake-supabase.ts";
 
+// The barrel reaches the service client and storage, which are marked server-only.
+vi.mock("server-only", () => ({}));
+
 beforeEach(() => {
   for (const [k, v] of Object.entries(TEST_ENV)) vi.stubEnv(k, v);
 });

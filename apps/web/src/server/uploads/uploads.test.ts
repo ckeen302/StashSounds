@@ -1,15 +1,24 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
+
+vi.mock("server-only", () => ({}));
+
 import { createUploadSlotOutput, limits } from "@stash/contracts";
 import { createUploadSlot } from "./create-upload-slot.ts";
 import { completeUpload } from "./complete-upload.ts";
 import type { ActionDeps } from "../action.ts";
 import { IDS, TEST_ENV, fakeSupabase, member, pgError, type FakeOptions } from "../testing/fake-supabase.ts";
 import { fakeStorage } from "../testing/fake-storage.ts";
+import { S3Stub } from "../testing/s3-stub.ts";
+import { S3Client } from "@aws-sdk/client-s3";
+import { s3Originals } from "../storage/originals.ts";
 
 const ITEM = "33333333-3333-4333-8333-333333333333";
 const FILE = "44444444-4444-4444-8444-444444444444";
 const DEMO = "55555555-5555-4555-8555-555555555555";
 const PATH = `${IDS.alice}/${ITEM}/original.wav`;
+/** Where the browser uploads; completeUpload copies it to the row's path. */
+const STAGE = `staging/${IDS.alice}/${ITEM}/${FILE}`;
+const DEMO_STAGE = `staging/${IDS.alice}/${ITEM}/${DEMO}`;
 
 beforeEach(() => {
   for (const [k, v] of Object.entries(TEST_ENV)) vi.stubEnv(k, v);
@@ -42,11 +51,12 @@ describe("createUploadSlot", () => {
     expect(r.ok).toBe(true);
     if (!r.ok) return;
     expect(createUploadSlotOutput.parse(r.data)).toEqual(r.data);
-    expect(r.data).toMatchObject({ itemId: ITEM, fileId: FILE, upload: { kind: "single", url: `https://storage.test/originals/${PATH}?len=2000000`, headers: {} } });
+    expect(r.data).toMatchObject({ itemId: ITEM, fileId: FILE, upload: { kind: "single", url: `https://storage.test/originals/${STAGE}?len=2000000`, headers: {} } });
     expect(fake.rpcCalls).toEqual([
       { fn: "create_upload_draft", args: { p_type: "loop", p_title: "Dark Keys 140 Am", p_bytes: 2_000_000, p_ext: "wav", p_file_name: "Dark Keys 140 Am.wav" } },
     ]);
-    expect(store.storage.presignPut).toHaveBeenCalledWith(PATH, 2_000_000);
+    // Signed for the staging key, never the row's path (the object the worker and downloads read).
+    expect(store.storage.presignPut).toHaveBeenCalledWith(STAGE, 2_000_000);
     const expires = Date.parse(r.data.expiresAt);
     expect(expires).toBeGreaterThanOrEqual(before + limits.urls.uploadTtlSeconds * 1000 - 1000);
     expect(expires).toBeLessThanOrEqual(Date.now() + limits.urls.uploadTtlSeconds * 1000);
@@ -81,12 +91,31 @@ describe("createUploadSlot", () => {
     expect(r.ok).toBe(true);
     if (!r.ok || r.data.upload.kind !== "multipart") throw new Error("expected multipart");
     expect(createUploadSlotOutput.parse(r.data)).toEqual(r.data);
-    expect(store.storage.startMultipart).toHaveBeenCalledWith(`${IDS.alice}/${ITEM}/original.zip`, bytes);
+    expect(store.storage.startMultipart).toHaveBeenCalledWith(STAGE, bytes);
     expect(store.storage.presignPut).not.toHaveBeenCalled();
     expect(r.data.upload.partBytes).toBe(limits.multipart.partBytes);
     expect(r.data.upload.parts).toHaveLength(Math.ceil(bytes / limits.multipart.partBytes));
     const update = service.queries.find((q) => q.op === "update")!;
     expect(update).toMatchObject({ table: "item_files", filters: [["id", FILE]], values: { meta: { fileName: "Kit.zip", uploadId: r.data.upload.uploadId } } });
+  });
+
+  it("multipart: if the upload id cannot be kept, the storage upload is aborted", async () => {
+    const bytes = limits.multipart.thresholdBytes + 1;
+    const base = member();
+    const fake = fakeSupabase({ ...base, rpc: draftRpc });
+    const service = fakeSupabase({ tables: { item_files: [{ id: FILE, item_id: ITEM, meta: {} }] }, failures: { "item_files.update": pgError("XX000", "disk full") } });
+    const store = fakeStorage();
+    const deps: ActionDeps = { supabase: async () => fake.client, service: () => service.client, storage: () => store.storage };
+    await expect(createUploadSlot.run(slot({ type: "kit", fileName: "Kit.zip", bytes }), deps)).rejects.toMatchObject({ code: "XX000" });
+    const uploadId = (await store.storage.startMultipart.mock.results[0]!.value).uploadId;
+    expect(store.storage.abortMultipart).toHaveBeenCalledWith(STAGE, uploadId);
+    expect(store.uploads.size).toBe(0);
+  });
+
+  it("a malformed row from the upload function is a bug: nothing is signed", async () => {
+    const { store, deps } = setup({ rpc: () => ({ data: [{ item_id: ITEM, path: PATH }], error: null }) });
+    await expect(createUploadSlot.run(slot(), deps)).rejects.toThrow(/create_upload_draft/);
+    expect(store.storage.presignPut).not.toHaveBeenCalled();
   });
 
   it("at the threshold exactly it is still a single upload", async () => {
@@ -129,7 +158,7 @@ describe("createUploadSlot", () => {
   describe("preset demo (role demo)", () => {
     const demoRpc: Rpc = (fn, args) =>
       fn === "add_demo_file"
-        ? { data: [{ file_id: DEMO, path: `${IDS.alice}/${args.p_item_id}/demo.${args.p_ext}` }], error: null }
+        ? { data: [{ file_id: DEMO, path: `${IDS.alice}/${args.p_item_id}/demo` }], error: null }
         : { data: null, error: pgError("42883", fn) };
 
     it("attaches a demo to the caller's preset draft", async () => {
@@ -137,7 +166,7 @@ describe("createUploadSlot", () => {
       const r = await createUploadSlot.run({ type: "preset", role: "demo", itemId: ITEM, fileName: "Glass pad demo.mp3", bytes: 500_000, mime: "audio/mpeg" }, deps);
       expect(r).toMatchObject({ ok: true, data: { itemId: ITEM, fileId: DEMO, upload: { kind: "single" } } });
       expect(fake.rpcCalls).toEqual([{ fn: "add_demo_file", args: { p_item_id: ITEM, p_bytes: 500_000, p_ext: "mp3", p_file_name: "Glass pad demo.mp3" } }]);
-      expect(store.storage.presignPut).toHaveBeenCalledWith(`${IDS.alice}/${ITEM}/demo.mp3`, 500_000);
+      expect(store.storage.presignPut).toHaveBeenCalledWith(DEMO_STAGE, 500_000);
     });
 
     it("needs an item id and the preset type", async () => {
@@ -190,26 +219,67 @@ describe("completeUpload", () => {
     role: "original",
     path: PATH,
     bytes: 1000,
+    mime: "audio/wav",
     meta: {},
     uploaded_at: null,
     ...extra,
   });
   const JOB = "66666666-6666-4666-8666-666666666666";
   const enqueueOk: Rpc = (fn) => (fn === "enqueue_processing" ? { data: JOB, error: null } : { data: null, error: pgError("42883", fn) });
+  const waiting: Rpc = (fn) => (fn === "enqueue_processing" ? { data: null, error: null } : { data: null, error: pgError("42883", fn) });
 
-  it("single upload: HEADs the object and enqueues with the service role and the measured size", async () => {
-    const { fake, service, store, deps } = setup({ tables: { items: [itemRow()], item_files: [fileRow()] }, objects: { [PATH]: 1000 }, serviceRpc: enqueueOk });
+  it("single upload: copies staging to the row's path with the row's type, deletes staging, enqueues the measured size", async () => {
+    const { fake, service, store, deps } = setup({ tables: { items: [itemRow()], item_files: [fileRow()] }, objects: { [STAGE]: 1000 }, serviceRpc: enqueueOk });
     expect(await completeUpload.run({ itemId: ITEM, fileId: FILE }, deps)).toEqual({ ok: true, data: { itemId: ITEM, status: "processing", jobId: JOB } });
-    expect(store.storage.head).toHaveBeenCalledWith(PATH);
+    expect(store.storage.copy).toHaveBeenCalledWith(STAGE, PATH, "audio/wav");
+    expect(store.types.get(PATH)).toBe("audio/wav");
+    expect(store.sizes.has(STAGE)).toBe(false);
+    expect(store.sizes.get(PATH)).toBe(1000);
+    // The measured size is the final object's, read after the copy.
+    expect(store.storage.head).toHaveBeenLastCalledWith(PATH);
     expect(service.rpcCalls).toEqual([{ fn: "enqueue_processing", args: { p_user_id: IDS.alice, p_item_id: ITEM, p_file_id: FILE, p_measured_bytes: 1000 } }]);
     // Never through the user's own client: the function is service role only.
     expect(fake.rpcCalls).toEqual([]);
   });
 
-  it("size mismatch: the database refuses it, and the stored object is deleted", async () => {
+  it("over HTTP: a PUT to the slot's URL after completeUpload never changes the confirmed object", async () => {
+    const stub = await new S3Stub().start();
+    try {
+      const client = new S3Client({
+        endpoint: stub.endpoint,
+        region: "auto",
+        forcePathStyle: true,
+        credentials: { accessKeyId: "test", secretAccessKey: "test" },
+        requestChecksumCalculation: "WHEN_REQUIRED",
+      });
+      const storage = s3Originals({ client, bucket: "originals" });
+      const fake = fakeSupabase({ ...member(), rpc: draftRpc, tables: { ...member().tables, items: [itemRow()], item_files: [fileRow({ bytes: 4 })] } });
+      const service = fakeSupabase({ rpc: enqueueOk });
+      const deps: ActionDeps = { supabase: async () => fake.client, service: () => service.client, storage: () => storage };
+
+      const slotResult = await createUploadSlot.run(slot({ bytes: 4 }), deps);
+      if (!slotResult.ok || slotResult.data.upload.kind !== "single") throw new Error("expected a single upload");
+      const { url } = slotResult.data.upload;
+      // The uploader's own Content-Type is not what gets stored.
+      expect((await fetch(url, { method: "PUT", body: "good", headers: { "Content-Type": "text/html" } })).status).toBe(200);
+      expect(await completeUpload.run({ itemId: ITEM, fileId: FILE }, deps)).toMatchObject({ ok: true, data: { status: "processing" } });
+
+      expect(stub.objects.get(`originals/${PATH}`)?.toString()).toBe("good");
+      expect(stub.contentTypes.get(`originals/${PATH}`)).toBe("audio/wav");
+      expect(stub.objects.has(`originals/${STAGE}`)).toBe(false);
+
+      // The URL is still within its lifetime: the late PUT lands in staging only.
+      expect((await fetch(url, { method: "PUT", body: "evil" })).status).toBe(200);
+      expect(stub.objects.get(`originals/${PATH}`)?.toString()).toBe("good");
+    } finally {
+      await stub.stop();
+    }
+  });
+
+  it("size mismatch: the database refuses it, and both the staged and the copied object are deleted", async () => {
     const { store, service, deps } = setup({
       tables: { items: [itemRow()], item_files: [fileRow()] },
-      objects: { [PATH]: 5000 },
+      objects: { [STAGE]: 5000 },
       serviceRpc: () => ({ data: null, error: pgError("P0001", "invalid: The uploaded file is not the size that was declared.") }),
     });
     expect(await completeUpload.run({ itemId: ITEM, fileId: FILE }, deps)).toEqual({
@@ -219,17 +289,32 @@ describe("completeUpload", () => {
     });
     expect(service.rpcCalls[0]!.args).toMatchObject({ p_measured_bytes: 5000 });
     expect(store.storage.remove).toHaveBeenCalledWith(PATH);
-    expect(store.sizes.has(PATH)).toBe(false);
+    expect(store.storage.remove).toHaveBeenCalledWith(STAGE);
+    expect(store.sizes.size).toBe(0);
+  });
+
+  it("if deleting a refused object fails, the database's answer is still what comes back", async () => {
+    const { store, deps } = setup({
+      tables: { items: [itemRow()], item_files: [fileRow()] },
+      objects: { [STAGE]: 5000 },
+      serviceRpc: () => ({ data: null, error: pgError("P0001", "invalid: The uploaded file is not the size that was declared.") }),
+    });
+    const warn = vi.spyOn(console, "error").mockImplementation(() => {});
+    store.storage.remove.mockRejectedValue(new Error("storage down"));
+    expect(await completeUpload.run({ itemId: ITEM, fileId: FILE }, deps)).toMatchObject({ ok: false, code: "invalid" });
+    expect(warn).toHaveBeenCalled();
+    warn.mockRestore();
   });
 
   it("another user's item: not_found, without touching storage or the queue", async () => {
     const { store, service, fake, deps } = setup({
       tables: { items: [itemRow({ owner_id: IDS.bob })], item_files: [fileRow()] },
-      objects: { [PATH]: 1000 },
+      objects: { [STAGE]: 1000 },
       serviceRpc: enqueueOk,
     });
     expect(await completeUpload.run({ itemId: ITEM, fileId: FILE }, deps)).toMatchObject({ ok: false, code: "not_found" });
     expect(store.storage.head).not.toHaveBeenCalled();
+    expect(store.storage.copy).not.toHaveBeenCalled();
     expect(service.rpcCalls).toEqual([]);
     expect(fake.queries.find((q) => q.table === "items")!.filters).toEqual([
       ["id", ITEM],
@@ -237,9 +322,21 @@ describe("completeUpload", () => {
     ]);
   });
 
+  it("an item that is no longer a draft: conflict before storage is touched, so the worker's object stays as checked", async () => {
+    const { store, service, deps } = setup({
+      tables: { items: [itemRow({ status: "processing" })], item_files: [fileRow()] },
+      objects: { [STAGE]: 1000, [PATH]: 1000 },
+      serviceRpc: enqueueOk,
+    });
+    expect(await completeUpload.run({ itemId: ITEM, fileId: FILE }, deps)).toEqual({ ok: false, code: "conflict", message: "This item is already processing." });
+    expect(store.storage.copy).not.toHaveBeenCalled();
+    expect(store.storage.remove).not.toHaveBeenCalled();
+    expect(service.rpcCalls).toEqual([]);
+  });
+
   it("a file that is not the item's original or demo: not_found", async () => {
     for (const row of [fileRow({ item_id: "77777777-7777-4777-8777-777777777777" }), fileRow({ bucket: "previews" })]) {
-      const { service, deps } = setup({ tables: { items: [itemRow()], item_files: [row] }, objects: { [PATH]: 1000 }, serviceRpc: enqueueOk });
+      const { service, deps } = setup({ tables: { items: [itemRow()], item_files: [row] }, objects: { [STAGE]: 1000 }, serviceRpc: enqueueOk });
       expect(await completeUpload.run({ itemId: ITEM, fileId: FILE }, deps)).toMatchObject({ code: "not_found" });
       expect(service.rpcCalls).toEqual([]);
     }
@@ -251,18 +348,40 @@ describe("completeUpload", () => {
     expect(service.rpcCalls).toEqual([]);
   });
 
-  it("multipart: completes the upload with the parts, then HEADs and enqueues", async () => {
+  it("a repeat after an earlier call copied but did not enqueue: uses the confirmed object, no copy", async () => {
+    const { store, service, deps } = setup({ tables: { items: [itemRow()], item_files: [fileRow()] }, objects: { [PATH]: 1000 }, serviceRpc: enqueueOk });
+    expect(await completeUpload.run({ itemId: ITEM, fileId: FILE }, deps)).toMatchObject({ ok: true, data: { status: "processing" } });
+    expect(store.storage.copy).not.toHaveBeenCalled();
+    expect(service.rpcCalls[0]!.args).toMatchObject({ p_measured_bytes: 1000 });
+  });
+
+  it("multipart: completes the staged upload with the parts, then copies, HEADs and enqueues", async () => {
     const kitPath = `${IDS.alice}/${ITEM}/original.zip`;
     const { store, service, deps } = setup({
-      tables: { items: [itemRow({ type: "kit" })], item_files: [fileRow({ path: kitPath, bytes: 40, meta: { uploadId: "up-kit" } })] },
+      tables: { items: [itemRow({ type: "kit" })], item_files: [fileRow({ path: kitPath, bytes: 40, mime: "application/zip", meta: { uploadId: "up-kit" } })] },
       serviceRpc: enqueueOk,
     });
-    store.uploads.set("up-kit", { key: kitPath, bytes: 40 });
+    store.uploads.set("up-kit", { key: STAGE, bytes: 40 });
     const parts = [1, 2, 3].map((n) => ({ partNumber: n, etag: `"e${n}"` }));
     expect(await completeUpload.run({ itemId: ITEM, fileId: FILE, parts }, deps)).toMatchObject({ ok: true, data: { status: "processing" } });
-    expect(store.storage.completeMultipart).toHaveBeenCalledWith(kitPath, "up-kit", parts);
-    expect(store.storage.head).toHaveBeenCalledWith(kitPath);
+    expect(store.storage.completeMultipart).toHaveBeenCalledWith(STAGE, "up-kit", parts);
+    expect(store.storage.copy).toHaveBeenCalledWith(STAGE, kitPath, "application/zip");
+    expect(store.sizes.has(STAGE)).toBe(false);
     expect(service.rpcCalls[0]!.args).toMatchObject({ p_measured_bytes: 40 });
+  });
+
+  it("multipart parts storage refuses (wrong ETag, order, too small): invalid, upload it again", async () => {
+    const { store, service, deps } = setup({ tables: { items: [itemRow()], item_files: [fileRow({ meta: { uploadId: "up-bad" } })] }, serviceRpc: enqueueOk });
+    store.uploads.set("up-bad", { key: STAGE, bytes: 1000 });
+    store.refuseParts.add("up-bad");
+    expect(await completeUpload.run({ itemId: ITEM, fileId: FILE, parts: [{ partNumber: 1, etag: '"forged"' }] }, deps)).toEqual({
+      ok: false,
+      code: "invalid",
+      message: "Some parts did not upload. Upload it again.",
+      fields: { parts: "Some parts did not upload. Upload it again." },
+    });
+    expect(store.storage.copy).not.toHaveBeenCalled();
+    expect(service.rpcCalls).toEqual([]);
   });
 
   it("multipart without parts is invalid", async () => {
@@ -274,7 +393,7 @@ describe("completeUpload", () => {
   it("a repeated call after a completed multipart upload still finds the object", async () => {
     const { store, deps } = setup({
       tables: { items: [itemRow()], item_files: [fileRow({ meta: { uploadId: "up-already-done" } })] },
-      objects: { [PATH]: 1000 },
+      objects: { [STAGE]: 1000 },
       serviceRpc: enqueueOk,
     });
     expect(await completeUpload.run({ itemId: ITEM, fileId: FILE, parts: [{ partNumber: 1, etag: '"x"' }] }, deps)).toMatchObject({ ok: true });
@@ -284,58 +403,52 @@ describe("completeUpload", () => {
   it("a preset whose demo has not arrived waits in draft", async () => {
     const { deps } = setup({
       tables: { items: [itemRow({ type: "preset" })], item_files: [fileRow({ path: `${IDS.alice}/${ITEM}/original.vital` })] },
-      objects: { [`${IDS.alice}/${ITEM}/original.vital`]: 1000 },
-      serviceRpc: (fn) => (fn === "enqueue_processing" ? { data: null, error: null } : { data: null, error: pgError("42883", fn) }),
+      objects: { [STAGE]: 1000 },
+      serviceRpc: waiting,
     });
     expect(await completeUpload.run({ itemId: ITEM, fileId: FILE }, deps)).toEqual({ ok: true, data: { itemId: ITEM, status: "draft", jobId: null, waitingFor: "demo" } });
   });
 
   it("a demo confirmed before its preset original waits for the original", async () => {
-    const demoPath = `${IDS.alice}/${ITEM}/demo.wav`;
-    const { deps } = setup({
+    const demoPath = `${IDS.alice}/${ITEM}/demo`;
+    const { store, deps } = setup({
       tables: {
         items: [itemRow({ type: "preset" })],
-        item_files: [fileRow({ id: DEMO, role: "demo", path: demoPath }), fileRow({ path: `${IDS.alice}/${ITEM}/original.vital` })],
+        item_files: [fileRow({ id: DEMO, role: "demo", path: demoPath, mime: "audio/mpeg" }), fileRow({ path: `${IDS.alice}/${ITEM}/original.vital` })],
       },
-      objects: { [demoPath]: 1000 },
-      serviceRpc: (fn) => (fn === "enqueue_processing" ? { data: null, error: null } : { data: null, error: pgError("42883", fn) }),
+      objects: { [DEMO_STAGE]: 1000 },
+      serviceRpc: waiting,
     });
     expect(await completeUpload.run({ itemId: ITEM, fileId: DEMO }, deps)).toEqual({ ok: true, data: { itemId: ITEM, status: "draft", jobId: null, waitingFor: "original" } });
+    expect(store.storage.copy).toHaveBeenCalledWith(DEMO_STAGE, demoPath, "audio/mpeg");
   });
 
-  it("a suspension enqueue_processing sees: forbidden, nothing queued, and the object is deleted", async () => {
+  it("a suspension enqueue_processing sees: forbidden, nothing queued, and the objects are deleted", async () => {
     const { store, service, deps } = setup({
       tables: { items: [itemRow()], item_files: [fileRow()] },
-      objects: { [PATH]: 1000 },
+      objects: { [STAGE]: 1000 },
       serviceRpc: () => ({ data: null, error: pgError("P0001", "forbidden: This account is suspended.") }),
     });
     expect(await completeUpload.run({ itemId: ITEM, fileId: FILE }, deps)).toEqual({ ok: false, code: "forbidden", message: "This account is suspended." });
     expect(service.rpcCalls).toHaveLength(1);
     // Refused, so the worker will never see it: it must not stay in storage (rule 10).
     expect(store.storage.remove).toHaveBeenCalledWith(PATH);
+    expect(store.sizes.size).toBe(0);
   });
 
-  it("a conflict (already processing) keeps the object: the worker is using it", async () => {
+  it("a conflict from the database (a concurrent call queued it first) keeps the object: the worker is using it", async () => {
     const { store, deps } = setup({
-      tables: { items: [itemRow({ status: "processing" })], item_files: [fileRow()] },
-      objects: { [PATH]: 1000 },
-      serviceRpc: () => ({ data: null, error: pgError("P0001", "conflict: This item is already processing.") }),
-    });
-    await completeUpload.run({ itemId: ITEM, fileId: FILE }, deps);
-    expect(store.storage.remove).not.toHaveBeenCalled();
-  });
-
-  it("an item already processing: conflict from the database", async () => {
-    const { deps } = setup({
-      tables: { items: [itemRow({ status: "processing" })], item_files: [fileRow()] },
-      objects: { [PATH]: 1000 },
+      tables: { items: [itemRow()], item_files: [fileRow()] },
+      objects: { [STAGE]: 1000 },
       serviceRpc: () => ({ data: null, error: pgError("P0001", "conflict: This item is already processing.") }),
     });
     expect(await completeUpload.run({ itemId: ITEM, fileId: FILE }, deps)).toEqual({ ok: false, code: "conflict", message: "This item is already processing." });
+    expect(store.sizes.has(PATH)).toBe(true);
+    expect(store.storage.remove).not.toHaveBeenCalledWith(PATH);
   });
 
   it("unauthenticated: unauthorized", async () => {
-    const { store, deps } = setup({ user: {}, tables: { items: [itemRow()], item_files: [fileRow()] }, objects: { [PATH]: 1000 } });
+    const { store, deps } = setup({ user: {}, tables: { items: [itemRow()], item_files: [fileRow()] }, objects: { [STAGE]: 1000 } });
     expect(await completeUpload.run({ itemId: ITEM, fileId: FILE }, deps)).toMatchObject({ code: "unauthorized" });
     expect(store.storage.head).not.toHaveBeenCalled();
   });
