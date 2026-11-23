@@ -1,0 +1,6 @@
+{
+  "//": "Compiles only the public entry point, as a consumer does: every declaration it needs must be reachable from it.",
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": { "jsx": "react-jsx", "types": [] },
+  "files": ["src/index.ts"]
+}
