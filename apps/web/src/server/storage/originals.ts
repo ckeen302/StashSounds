@@ -5,6 +5,7 @@ import {
   CopyObjectCommand,
   CreateMultipartUploadCommand,
   DeleteObjectCommand,
+  GetObjectCommand,
   HeadObjectCommand,
   PutObjectCommand,
   S3Client,
@@ -23,6 +24,11 @@ import { storageEnv } from "./env.ts";
  * URL names one object and signs its Content-Length.
  */
 export type PresignedPut = { url: string; headers: Record<string, string> };
+/**
+ * Response headers a download URL forces. Both are required: storage must never serve an original
+ * with the uploader's type or inline (PR #6 security note).
+ */
+export type DownloadHeaders = { contentDisposition: string; contentType: string };
 export type MultipartStart = {
   uploadId: string;
   partBytes: number;
@@ -61,10 +67,19 @@ export interface OriginalsStorage {
    * 500 MB). The copy's Content-Type is the one given here, never the uploader's.
    */
   copy(fromKey: string, toKey: string, contentType: string): Promise<void>;
+  /** A signed GET for one object, valid for limits.urls.downloadTtlSeconds, that always downloads with the given type. */
+  presignGet(key: string, headers: DownloadHeaders): Promise<string>;
   remove(key: string): Promise<void>;
 }
 
-export function s3Originals(opts: { client: S3Client; bucket: string; ttlSeconds?: number; partBytes?: number }): OriginalsStorage {
+export function s3Originals(opts: {
+  client: S3Client;
+  bucket: string;
+  ttlSeconds?: number;
+  partBytes?: number;
+  /** Download URL lifetime; limits.urls.downloadTtlSeconds when not set. */
+  downloadTtlSeconds?: number;
+}): OriginalsStorage {
   const { client, bucket } = opts;
   const expiresIn = opts.ttlSeconds ?? limits.urls.uploadTtlSeconds;
   const defaultPartBytes = opts.partBytes ?? limits.multipart.partBytes;
@@ -139,6 +154,22 @@ export function s3Originals(opts: { client: S3Client; bucket: string; ttlSeconds
           MetadataDirective: "REPLACE",
           ContentType: contentType,
         }),
+      );
+    },
+
+    async presignGet(key, headers) {
+      if (!headers.contentDisposition.startsWith("attachment") || !headers.contentType) {
+        throw new Error("a download URL needs an attachment disposition and a content type");
+      }
+      return getSignedUrl(
+        client,
+        new GetObjectCommand({
+          Bucket: bucket,
+          Key: key,
+          ResponseContentDisposition: headers.contentDisposition,
+          ResponseContentType: headers.contentType,
+        }),
+        { expiresIn: opts.downloadTtlSeconds ?? limits.urls.downloadTtlSeconds },
       );
     },
 

@@ -41,7 +41,7 @@ export class S3Stub {
     await new Promise<void>((resolve) => (this.server ? this.server.close(() => resolve()) : resolve()));
   }
 
-  private async handle(req: IncomingMessage): Promise<{ status: number; headers?: Record<string, string>; body?: string }> {
+  private async handle(req: IncomingMessage): Promise<{ status: number; headers?: Record<string, string>; body?: string | Buffer }> {
     const url = new URL(req.url ?? "/", this.endpoint);
     const query = Object.fromEntries(url.searchParams);
     const path = decodeURIComponent(url.pathname);
@@ -104,6 +104,13 @@ export class S3Stub {
       this.objects.delete(key);
       this.contentTypes.delete(key);
       return { status: 204 };
+    }
+    if (req.method === "GET" && !("uploads" in query)) {
+      const o = this.objects.get(key);
+      if (!o) return error(404, "NoSuchKey", "no such key");
+      const headers: Record<string, string> = { "Content-Type": query["response-content-type"] ?? this.contentTypes.get(key) ?? "binary/octet-stream" };
+      if (query["response-content-disposition"]) headers["Content-Disposition"] = query["response-content-disposition"];
+      return { status: 200, headers, body: o };
     }
     if (req.method === "HEAD") {
       const o = this.objects.get(key);

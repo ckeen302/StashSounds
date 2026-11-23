@@ -40,6 +40,10 @@ export function fakeStorage(objects: Record<string, number> = {}) {
       sizes.set(toKey, sizes.get(fromKey)!);
       types.set(toKey, contentType);
     }),
+    presignGet: vi.fn(async (key: string, h: { contentDisposition: string; contentType: string }) => {
+      const q = new URLSearchParams({ "response-content-disposition": h.contentDisposition, "response-content-type": h.contentType });
+      return `https://storage.test/originals/${key}?${q}`;
+    }),
     remove: vi.fn(async (key: string) => {
       sizes.delete(key);
       types.delete(key);

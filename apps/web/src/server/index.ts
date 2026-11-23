@@ -13,6 +13,7 @@ export { authCallback } from "./auth/callback-handler.ts";
 export { completeUpload, createUploadSlot } from "./uploads/actions.ts";
 export { deleteItem, getOwnItem, publishItem, unpublishItem, updateItem } from "./items/actions.ts";
 export { itemPage } from "./items/queries.ts";
+export { requestDownload } from "./downloads/actions.ts";
 export { loadRows } from "./items/load-rows.ts";
 export { safeNextPath } from "./auth/next-path.ts";
 export { updateSession } from "./supabase/proxy.ts";

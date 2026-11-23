@@ -142,6 +142,45 @@ describe("copy", () => {
   });
 });
 
+describe("presignGet (downloads)", () => {
+  const DISPOSITION = `attachment; filename="Dark Keys.wav"; filename*=UTF-8''Dark%20Keys.wav`;
+
+  it("signs a GET for one object that always downloads, with the row's type, for downloadTtlSeconds", async () => {
+    stub.objects.set(`originals/${KEY}`, Buffer.from("RIFFdata"));
+    stub.contentTypes.set(`originals/${KEY}`, "text/html");
+    const url = await storage.presignGet(KEY, { contentDisposition: DISPOSITION, contentType: "audio/wav" });
+    const u = new URL(url);
+    expect(decodeURIComponent(u.pathname)).toBe(`/originals/${KEY}`);
+    expect(u.searchParams.get("X-Amz-Expires")).toBe(String(limits.urls.downloadTtlSeconds));
+    expect(u.searchParams.get("response-content-disposition")).toBe(DISPOSITION);
+    expect(u.searchParams.get("response-content-type")).toBe("audio/wav");
+    const res = await fetch(url);
+    expect(res.status).toBe(200);
+    expect(await res.text()).toBe("RIFFdata");
+    expect(res.headers.get("content-disposition")).toBe(DISPOSITION);
+    expect(res.headers.get("content-type")).toBe("audio/wav");
+  });
+
+  it("the download URL expires", async () => {
+    stub.objects.set(`originals/${KEY}`, Buffer.from("x"));
+    vi.useFakeTimers({ now: Date.now() - (limits.urls.downloadTtlSeconds + 5) * 1000, toFake: ["Date"] });
+    const url = await storage.presignGet(KEY, { contentDisposition: DISPOSITION, contentType: "audio/wav" });
+    vi.useRealTimers();
+    expect((await fetch(url)).status).toBe(403);
+  });
+
+  it("refuses to sign without an attachment disposition and a type", async () => {
+    await expect(storage.presignGet(KEY, { contentDisposition: "inline", contentType: "audio/wav" })).rejects.toThrow(/attachment/);
+    await expect(storage.presignGet(KEY, { contentDisposition: DISPOSITION, contentType: "" })).rejects.toThrow(/content type/);
+  });
+
+  it("a configured lifetime is the one signed", async () => {
+    const short = s3Originals({ client, bucket: "originals", downloadTtlSeconds: 30 });
+    const url = await short.presignGet(KEY, { contentDisposition: DISPOSITION, contentType: "audio/wav" });
+    expect(new URL(url).searchParams.get("X-Amz-Expires")).toBe("30");
+  });
+});
+
 describe("head and remove", () => {
   it("head is null for a missing object; remove deletes", async () => {
     expect(await storage.head(KEY)).toBeNull();
