@@ -5,7 +5,9 @@ services:
   # MinIO stopped publishing images in 2025, so it is no longer an option (decision 0011).
   storage:
     image: chrislusf/seaweedfs:4.53
-    command: server -s3 -s3.port=8333 -s3.config=/etc/seaweedfs/s3.json
+    # Browsers PUT straight to signed URLs from the app's origin (request 102-storage-cors). SeaweedFS
+    # answers allowed origins with every method and header allowed and exposed, ETag included.
+    command: server -s3 -s3.port=8333 -s3.config=/etc/seaweedfs/s3.json -s3.allowedOrigins=http://localhost:3000,http://localhost:3100
     ports:
       - "9000:8333"
     volumes:

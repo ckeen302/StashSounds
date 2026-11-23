@@ -42,3 +42,4 @@ Statuses: todo, planning, building, review, merged.
 - Run worker handlers under a separate uid or container (now in ticket 112).
 - Production database: a dedicated login role granted only `service_role`, not `postgres` (PR #3).
 - Rate limits for sign-in, handle claim and profile edits (ticket 203).
+- Clean up abandoned drafts and unfinished multipart uploads, which count toward quota; consider longer part-URL lifetime for 500 MB kits (ticket 102).
