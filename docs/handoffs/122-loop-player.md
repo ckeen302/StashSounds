@@ -208,10 +208,80 @@ Every changed source file in packages/audio and packages/contracts comes with a 
 - **Tempo and key carry over between items.** `tempoRatio` and `transpose` still persist from one item to the next, as in the placeholder. So the next loop plays at the same ratio, not the same BPM. Ticket 132 or 135 may want reset or keep-BPM behaviour; that is a product call for the lead.
 - **Latency of the stretched path.** Resuming or seeking while stretched waits for the stretch's latency, 0.12 s here, plus 20 ms. At the original tempo and key there is no added latency.
 - **The stretch needs a secure context.** AudioWorklet is only available on https or localhost.
-- **CSP for the item page.** The worklet loads from a `blob:` URL, so the item page's CSP needs `blob:` for worklets/scripts if one is set (Platform/Interface, ticket 135).
+- **CSP for the item page.** The worklet module loads from a `blob:` URL, and its WASM is inlined as base64 and compiled in the page. So a CSP on the item page needs both `blob:` and `'wasm-unsafe-eval'` in `script-src`. `connect-src` does not change, because nothing is fetched (Platform/Interface, ticket 135).
+- **Third-party notice.** Signalsmith Stretch is MIT (Geraint Luff). Its MIT notice must go into the app's third-party notices when 135 ships it.
 - **Bundling.** The library builds its worklet from `Function#toString`. I minified it with the web app's SWC minifier (`compress`, top-level `mangle`) and it still rendered sound in Chromium. The real Next bundle should still be proven once 135 wires a loop page; the existing test-page spec can be pointed at it.
 - **The test is not a node unit test.** The ticket says "unit test", but node has no Web Audio decoder for MP3 or FLAC. The test uses Chromium's OfflineAudioContext through the engine's code, under `pnpm perf`. The pieces that can be checked without a browser (layout, metrics, engine scheduling) are node unit tests.
 - **AIFF.** The AIFF fixture is converted to WAV inside the spec, because Chromium cannot decode AIFF. The worker's previews are MP3 anyway.
 
 ## Requests filed
 None.
+
+## Review round (PR #7)
+
+Commits on `lane/audio-122`: d4e6a1e..c838a76, six commits, each with its test. I wrote each test first and saw it fail before the fix.
+
+1. **The entry point typechecks on its own** (d4e6a1e).
+   - Before: compiling only `src/index.ts` gave TS7016 at `web-audio.ts`, because the declaration in `signalsmith-stretch.d.ts` was ambient.
+   - Fix: `web-audio.ts` now has `/// <reference path="./signalsmith-stretch.d.ts" />`. The new `packages/audio/tsconfig.entry.json` compiles `src/index.ts` alone, as a consumer does, and the package's `typecheck` runs it, so `pnpm check` runs it too.
+   - Lint: the reference line carries one `eslint-disable-next-line @typescript-eslint/triple-slash-reference`, with a comment saying why. There is no import form: in a module file, the declaration would be an augmentation of an untyped module, and TypeScript refuses that. Allowing path references in `eslint.config.mjs` instead is the lead's call.
+2. **The tempo is clamped to `limits.bpm`, 40 to 300 BPM** (19e099d).
+   - The engine imports `@stash/contracts/limits.json` with `{ type: "json" }`. The test page's import map points that specifier at `/vendor/limits.json`, and `serve.mjs` serves the file.
+   - Unit tests cover `setTempo(1e6)`: the ratio is 300/140, the stretch is sent that ratio, and the position stays finite and inside the loop 100 s later. They also cover `1e-9` (40 BPM), `Number.MAX_VALUE`, and 0, negative, infinite and NaN values (all ignored).
+   - In the browser, the test-page spec now sets `setTempo(1e6)` and checks over 2 s that sound still reaches the output.
+3. **A seek or switch while stretched no longer clicks** (37372af).
+   - Before: `scheduleStretchStart` cancelled the fade that `stopVoice` had just started and set the gain to 0 at once.
+   - Now the fade-out keeps running from where it is, the old position plays under it until T, and the new position ramps in from 0 at T.
+   - A switch to another loop also waits until the old fade is silent before it drops the stretch's buffers. Without this, a preloaded item would cut the same way. The wait uses a new `EngineDeps.sleep`, which defaults to a timer.
+   - Unit tests: `FakeParam.at(t)` now evaluates the automation as the browser does. The tests check that the gain stays above 0.75 just after the seek or switch, is below 1e-3 at T, and is back to 1 after T. They also check that buffers are dropped only once the fade is silent.
+   - Browser check: the seamless spec now renders a seek while stretched for every fixture. It checks:
+     - the rms of the 1 ms after the seek over the 1 ms before it (must be above 0.5);
+     - the ramp-in at the new start (must be below 0.3);
+     - the sample step at both points.
+   - I ran this check against the old gain code: it failed for all six fixtures. The step check alone did not catch the cut, because the step from the cut (0.04 to 0.10) is smaller than the loops' own largest steps (0.12 to 0.18). That is why the rms ratio is there.
+4. **No leaked node, no stale buffer swap** (465bfc3).
+   - If `latency()` rejects, the node is now disconnected before the load is retried.
+   - The stretch-chain job now returns early when its buffer is no longer `this.buffer`, both before and after the fade wait.
+   - Tests: one disconnect on a failed latency, then a working retry. A queued swap for a replaced loop does not drop or add buffers.
+5. **The seamless plain test checks the loop length from the contract** (4239fac).
+   - The test now asserts the length from `loopSamples` and `sampleRate`, not through `loopFrames`. It must be within one frame of the exact length.
+   - Why "within one frame" and not `Math.round`: at 48 kHz midnight_keys is 329142.86 frames, and Chromium decodes the exact-length WAV to 329142 frames. So `Math.round` (329143) cannot be met, and the engine correctly clamps to the decoded length.
+   - New case `midnight_keys_with_tail.wav`: built in the spec by appending 0.75 s of a half-scale 440 Hz sine to the WAV. It runs all four renders. On the plain path it loops at 329143 frames with a max difference of 3.58e-8, so the tail is never played.
+6. **The loop survives a stretch that cannot load** (c838a76). A new test-page test routes `/vendor/signalsmith-stretch.mjs` to a 404. After `setTempo(70)`:
+   - the tempo falls back to a ratio of 1;
+   - the status stays `playing`;
+   - the playhead runs at full speed;
+   - sound reaches the output;
+   - there is no page error.
+7. **Handoff notes.** I updated the CSP bullet (`blob:` and `'wasm-unsafe-eval'` in `script-src`, no `connect-src` change) and added the MIT notice bullet, both under Surprises and decisions.
+
+### Lane check after the round
+
+`pnpm check` (exit 0)
+```
+packages/audio typecheck$ tsc -p tsconfig.json && tsc -p tsconfig.entry.json
+packages/ui typecheck: Done
+packages/contracts typecheck: Done
+apps/web typecheck: Done
+packages/audio typecheck: Done
+```
+`pnpm test` (exit 0)
+```
+ Test Files  8 passed (8)
+      Tests  194 passed (194)
+```
+`CI=1 pnpm perf` (exit 0)
+```
+  31 passed (27.4s)
+seek    rnb_pad_72bpm_Ebmaj.aiff @48000: seek step 0.00444 vs 0.135; restart step 0.000183 vs 0.135, fade out 0.885, fade in 0.0262, from 2.47 s for 2.47 s
+seek    drill_lead_142.flac @48000: seek step 0.00362 vs 0.179; restart step 0.000631 vs 0.179, fade out 0.708, fade in 0.0138, from 1.25 s for 1.25 s
+seek    trap_bells_150_F#m.mp3 @48000: seek step 0.00564 vs 0.118; restart step 0.0000410 vs 0.118, fade out 0.718, fade in 0.0240, from 2.37 s for 2.37 s
+seek    dusty_soul_90_Dmin.wav @48000: seek step 0.00234 vs 0.123; restart step 0.000100 vs 0.123, fade out 2.08, fade in 0.00697, from 1.97 s for 1.97 s
+seek    midnight_keys_reencoded.mp3 @48000: seek step 0.0128 vs 0.117; restart step 0.000246 vs 0.117, fade out 0.924, fade in 0.00652, from 2.54 s for 2.54 s
+seek    midnight_keys_140bpm_Am.wav @48000: seek step 0.0217 vs 0.133; restart step 0.000268 vs 0.133, fade out 1.04, fade in 0.00616, from 2.54 s for 2.54 s
+seek    midnight_keys_with_tail.wav @48000: seek step 0.0211 vs 0.128; restart step 0.000279 vs 0.128, fade out 1.01, fade in 0.00637, from 2.54 s for 2.54 s
+plain   midnight_keys_140bpm_Am.wav @48000: loopFrames 329142, maxDiff 3.58e-8, join step 0.0111 vs 0.108, min rms 0.0323 vs 0.00796
+plain   midnight_keys_with_tail.wav @48000: loopFrames 329143, maxDiff 3.58e-8, join step 0.0111 vs 0.108, min rms 0.0323 vs 0.00796
+```
+`pnpm run licenses`: All dependency licenses are on the allowed list.
+`BASE_REF=origin/phase-0/foundations node scripts/require-tests.mjs`: Every changed source file in packages/audio and packages/contracts comes with a test change.
