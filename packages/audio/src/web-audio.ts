@@ -75,7 +75,12 @@ export interface StretchNodeLike extends AudioNodeLike {
   latency(): Promise<number>;
 }
 
-export type FetchLike = (url: string) => Promise<{ ok: boolean; status: number; arrayBuffer(): Promise<ArrayBuffer> }>;
+/** The loader always sends cookies-free requests that it can abort. */
+export interface FetchInit {
+  credentials: "omit";
+  signal: AbortSignal;
+}
+export type FetchLike = (url: string, init?: FetchInit) => Promise<{ ok: boolean; status: number; arrayBuffer(): Promise<ArrayBuffer> }>;
 
 /**
  * Loads Signalsmith Stretch and makes its node. A dynamic import, so the library (WASM inlined, about

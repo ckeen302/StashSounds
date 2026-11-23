@@ -115,12 +115,15 @@ export class WebAudioEngine implements Engine {
   private generation = 0;
   /** Whether a load in flight should start playing when it lands (pause during loading clears it). */
   private wantPlay = false;
+  /** The URL of the current item while its load is in flight, and that load settling (never rejects). */
+  private loadingUrl: string | null = null;
+  private loading: Promise<void> = Promise.resolve();
 
   constructor(deps: EngineDeps = {}) {
     this.createContext = deps.createContext ?? createBrowserContext;
     this.loadStretch = deps.loadStretch ?? createBrowserStretch;
     this.sleep = deps.sleep ?? ((s) => new Promise((resolve) => setTimeout(resolve, s * 1000)));
-    this.loader = new BufferLoader(deps.fetch ?? ((url) => globalThis.fetch(url)));
+    this.loader = new BufferLoader(deps.fetch ?? ((url, init) => globalThis.fetch(url, init)));
   }
 
   private set(patch: Partial<EngineState>) {
@@ -183,12 +186,12 @@ export class WebAudioEngine implements Engine {
     const url = sourceUrl(item);
     if (!url) return Promise.resolve();
     if (this.ctx) {
-      return this.loader.load(url, this.ctx).then(
+      return this.loader.load(url, this.ctx, "background").then(
         () => undefined,
         () => undefined,
       );
     }
-    return this.loader.prefetch(url);
+    return this.loader.prefetch(url, "background");
   }
 
   /**
@@ -222,6 +225,10 @@ export class WebAudioEngine implements Engine {
     const generation = ++this.generation;
     const url = sourceUrl(target);
     if (!same) {
+      // The item being replaced is not wanted any more: stop its download, and keep the new one decoded.
+      if (this.loadingUrl && this.loadingUrl !== url) this.loader.cancel(this.loadingUrl);
+      this.loadingUrl = null;
+      this.loader.pin(url);
       this.stopVoice();
       this.buffer = null;
       this.loopS = null;
@@ -246,13 +253,24 @@ export class WebAudioEngine implements Engine {
     if (this.state.status !== "loading") this.set({ status: "loading" });
     let buffer: AudioBufferLike;
     let ok: boolean;
+    const load = this.loader.load(url, ctx);
+    this.loadingUrl = url;
+    this.loading = load.then(
+      () => undefined,
+      () => undefined,
+    );
     try {
-      [ok, buffer] = await Promise.all([running, this.loader.load(url, ctx)]);
+      [ok, buffer] = await Promise.all([running, load]);
     } catch (err) {
-      if (generation === this.generation) this.fail(err);
+      if (generation === this.generation) {
+        this.loadingUrl = null;
+        this.fail(err);
+      }
       return;
     }
-    if (generation !== this.generation || !ok) return;
+    if (generation !== this.generation) return;
+    this.loadingUrl = null;
+    if (!ok) return;
 
     this.buffer = buffer;
     this.loopS = target.kind === "loop" ? loopFrames(target, buffer) / buffer.sampleRate : null;
@@ -591,12 +609,17 @@ export class WebAudioEngine implements Engine {
     this.set({ queue: items, queueIndex });
     const start = items[queueIndex];
     if (!start) return;
-    // The start item first, then its neighbours, unless the queue changed meanwhile.
-    void this.warm(start).then(() => {
-      if (this.state.queue !== items) return;
-      const i = this.state.queueIndex;
-      for (const n of [items[i + 1], items[i - 1]]) if (n) void this.warm(n);
-    });
+    // Nothing competes with an item still loading: wait for it. Then the start item, then its
+    // neighbours, unless the queue changed or something outside it is now the current item.
+    const after = this.loadingUrl ? this.loading : Promise.resolve();
+    void after
+      .then(() => (this.state.queue === items ? this.warm(start) : undefined))
+      .then(() => {
+        const { queue, queueIndex: i, current } = this.state;
+        if (queue !== items) return;
+        if (current && current.id !== items[i]?.id) return;
+        for (const n of [items[i + 1], items[i - 1]]) if (n) void this.warm(n);
+      });
   }
 
   next(): void {
