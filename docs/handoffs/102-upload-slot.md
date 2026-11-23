@@ -313,3 +313,45 @@ apps/web typecheck: Done
 
 ### Follow-up (decision 0015)
 Request 102-staging-expiry is answered: staging/ expires after a day on R2 (docs/deploy/r2-lifecycle.json), so the request file is removed. The lead added the concurrent-completion race to the board for the pipeline lane (the worker records the SHA-256 it downloaded). Lane check after merging phase-0/foundations bdc2eb9, exit 0: unit tests 238 passed and 7 skipped (SeaweedFS); database tests 108 passed.
+
+## Security re-review (PR #6, decision 0016)
+
+Merged origin/phase-0/foundations at 94849c9: into lane/platform-101 first (95fdaf8), then 101 into 102 (20d5188).
+
+**S1 (blocking): a file is claimed before it is completed.**
+- completeUpload calls `claim_file_completion(p_user_id, p_item_id, p_file_id, p_token)` with a fresh `randomUUID()` token, using the service client.
+  - The claim happens after the caller-scoped reads of the item and file, and before any storage call.
+  - A row whose `uploaded_at` is already set is never claimed or copied. completeUpload returns the item's current state (a preset that is still waiting: `draft`/`waitingFor`).
+- **When the claim returns false**, nothing is copied:
+  - If the file has been confirmed in the meantime, completeUpload returns the current state.
+  - Otherwise another call is completing it right now, and the answer is `conflict` ("This file is already being completed").
+- **Release.** Every exit after the claim that does not end in confirmation calls `release_file_completion(p_file_id, p_token)`, from a `finally` block. Those exits are an early return, an error, or a refusal from enqueue_processing. enqueue_processing clears the claim when it confirms the file.
+- New tests in uploads.test.ts:
+  - A preset's confirmed original is never overwritten by a staged re-PUT. Completing the original again claims and copies nothing; completing the demo copies only the demo.
+  - Two concurrent completions of one file: exactly one copies and enqueues, and the other is a conflict.
+  - An error after the claim releases it, and a retry then succeeds.
+  - A claim refused for a file confirmed in the meantime returns the current state without touching storage.
+  - The claim is called before the first storage call.
+- New test in supabase/tests/uploads.test.ts: the service-role sequence. A wrong token releases nothing. The `copiedAt` write keeps the claim. enqueue clears the claim and keeps `copiedAt`.
+
+**S3: no cleanup after a conflict.**
+- enqueue_processing now checks the status first.
+- completeUpload deletes objects only on `invalid` or `forbidden`. Under a held claim, those can only refer to this call's own fresh copy.
+- A `conflict` deletes nothing. The existing test checks that the final object stays.
+
+**S4: the fallback needs `meta.copiedAt`.**
+- After copying, completeUpload records `meta.copiedAt` on the row with the service role. It reads the current meta first, so the claim and the uploadId are kept.
+- With no staged object, the final object is used only when the row has `copiedAt`. Otherwise the answer is `invalid` ("Upload it again"), also when nothing was uploaded at all; this used to be `not_found`.
+- Tests: no staged object and no `copiedAt` gives invalid; a repeat after an earlier copy uses that copy.
+
+**S5: duplicate part numbers.**
+- Duplicate part numbers are now `invalid` with a `parts` field. The contract refuses them, so the action never claims and never calls storage.
+
+`pnpm check && pnpm test && pnpm db:test`, exit 0:
+```
+ Test Files  12 passed | 1 skipped (13)
+      Tests  244 passed | 7 skipped (251)
+ Test Files  3 passed (3)
+      Tests  112 passed (112)
+```
+The 7 skipped tests are the SeaweedFS suite, which needs storage that is not available here.
