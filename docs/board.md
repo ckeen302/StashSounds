@@ -21,7 +21,7 @@ Statuses: todo, planning, building, review, merged.
 | 101 | platform | Sign-in, profile and account rows, handle claim | review: PR #4 | Phase 0 merge |
 | 102 | platform | createUploadSlot, completeUpload | review: PR #6 | 101 |
 | 103 | platform | Item reads and lifecycle actions | review: PR #9 | 102 |
-| 104 | platform | requestDownload | todo | 103 |
+| 104 | platform | requestDownload | review: PR #11 | 103 |
 | 111 | pipeline | Job runner | review: PR #3 | Phase 0 merge |
 | 112 | pipeline | Decode, preview, peaks, loop length | review: PR #8 | 111 |
 | 113 | pipeline | BPM and key | todo | 112 |
