@@ -175,3 +175,83 @@ same suite as uid 65534 (setpriv, STASH_REQUIRE_DB=1)                  151 passe
 uv run --frozen ruff check .                                           All checks passed!
 uv run --frozen ruff format --check .                                  26 files already formatted
 ```
+
+## Review round (PR #8)
+I merged `origin/phase-0/foundations` at 352f8ed first: the CI venv permissions, `peaksSchema` length,
+and the compose read-only root, tmpfs and limits.
+
+**B1: survivors between jobs (blocking).** Fixed in `sandbox.py`.
+- `clear_job_user` runs before `_prepare` and after every job, including after a timeout. It starts a
+  helper as the job uid that calls `kill(-1, SIGKILL)`, then reaps, and repeats until the uid's task
+  count is 0. It raises if the uid will not empty, which fails the job as internal.
+- The worker makes itself a child subreaper (`PR_SET_CHILD_SUBREAPER`), so orphans of a job come to it
+  and are reaped instead of staying as zombies that count toward RLIMIT_NPROC.
+- As the job user, RLIMIT_NPROC is now a fixed `CHILD_PROCESSES`. Same-uid development mode keeps
+  "count + allowance".
+- `_prepare` hands ownership over bottom-up with `os.fwalk(topdown=False, follow_symlinks=False)` and
+  `chown(dir_fd=…, follow_symlinks=False)`, so the job user never owns a folder root is still walking.
+- Docstring: the job uid must be dedicated, because all its processes are killed.
+
+The tests (root):
+- `test_a_child_that_escapes_with_setsid_does_not_outlive_its_job`: the double-forked survivor is
+  dead, the uid has 0 tasks, and the next job sees no other job-uid process.
+  A scratch run with `clear_job_user` replaced by a no-op showed the same survivor staying alive
+  (`alive without the fix: True`).
+- `test_a_survivor_left_from_before_is_killed_before_the_next_job`.
+- `test_the_process_cap_is_fixed_for_the_job_user`.
+- `test_prepare_never_follows_a_link_planted_in_the_job_folder`.
+
+**B2: the parent decides what is published (blocking).** Fixed in `files.py`. Rules by item type and
+role (`OUTPUTS`), and a loop publishes at most one file per role:
+- **Preview:** `audio/mpeg`, path exactly `<item>/<sha256[:32]>.mp3`, at most `loop_preview_max_bytes()`,
+  and it starts with ID3 or an MPEG frame sync. The cap is derived from 60 s at 128 kbps, plus 5% and
+  16 KiB: 1,024,384 bytes (request `112-preview-max-bytes`).
+- **Peaks:** `application/octet-stream`, path `<item>/<sha256[:32]>.peaks`, exactly `peakPoints` bytes,
+  equal to base64 `meta.peaks`, with `meta.points` = 800.
+- Anything else is refused: any other role, a second file of a role, any item type without rules yet,
+  a child-supplied mime that differs, or a sha256 that is not 64 hex.
+- Uploads use the parent's mime.
+- `test_outputs_the_parent_does_not_expect_are_refused` has 24 cases, among them `text/html`, a `.svg`
+  name, HTML bytes under an `.mp3` name, a file over the cap, an unknown role, two previews, a oneshot
+  item, short peaks, peaks meta that differs or is not base64, a hard link and the wrong owner.
+
+**Advisories:**
+- **Security A1 (network):** the child gets its own network namespace. `unshare(CLONE_NEWNET)` runs in
+  the forked child while it is still root, then it drops to the job user. `Popen(user=…)` is replaced
+  by explicit `setgroups([])`, `setresgid` and `setresuid` in the same pre-exec step.
+  - It is on whenever there is a job user. `STASH_CHILD_NETWORK=shared` opts out with a warning.
+  - The worker refuses to start when the namespace cannot be created.
+  - It needs CAP_SYS_ADMIN in compose (request `112-child-network`). Until then the compose worker
+    needs `STASH_CHILD_NETWORK=shared`.
+  - Tests: the child cannot connect to the parent's 127.0.0.1 listener and has only `lo`. The same
+    probe connects with isolation off.
+- **Security A2:** `open_beneath` requires `st_nlink == 1`, and, for `outcome.json` and outputs, the
+  job uid as owner. Tests: a hard-linked outcome is a crash, and a hard link or the wrong owner is
+  refused at publish.
+- **Security A4:** child-supplied detail, schema messages and publish errors are logged with `%r`.
+  Publish errors quote the child's role and path with `!r`.
+- **Test A1:** the cap is fixed, so the test checks it through `run_isolated` with the count stubbed to
+  10,000 for other uids: RLIMIT_NPROC is exactly 64.
+- **Test A2:** `test_the_child_drops_the_parents_supplementary_groups` adds group 4242 to the parent.
+- **Test A3:**
+  - `test_the_task_count_adds_up_every_thread_of_the_uids_processes` counts a `/proc` tree built by
+    hand, for any uid.
+  - As root, `test_the_job_uid_task_count_counts_its_threads` measures the job uid while a child holds
+    40 threads: exactly 41 tasks. That test needs 8 GiB of address space, because glibc reserves a 64 MB
+    malloc arena per thread and a 1 GiB RLIMIT_AS stopped it at 19 tasks.
+  - The real-thread test on the worker's own uid now runs only when not root, since root's count moves
+    with every other root process. Under sudo it is measured on the job uid instead.
+- **Test A4:** a 2 s, 48 kHz mono sine gives `loopSamples` 88200 at 44100, `channels` 1, and a 44.1 kHz
+  stereo preview.
+- **Contract C2:** `InputRejected` refuses a reason that is not a file-fault reason, like `Rejected`.
+
+Checks. As root, `STASH_REQUIRE_DB=1 STASH_REQUIRE_ISOLATION=1 pnpm worker:test`:
+```
+SKIPPED [1] tests/test_contracts.py:74: got empty parameter set for (path)
+SKIPPED [1] tests/test_sandbox.py:151: measured on the job uid as root
+187 passed, 2 skipped in 34.25s
+```
+As uid 65534 (setpriv, `STASH_REQUIRE_DB=1`): `172 passed, 17 skipped in 31.09s`. The 16 isolation
+tests and the empty `fixtures/own` case are skipped.
+
+Ruff: `All checks passed!` and `26 files already formatted`.
