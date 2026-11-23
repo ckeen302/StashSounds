@@ -139,6 +139,25 @@ describe("items", () => {
     const r = await db.q(`select title, bpm, license, split_percent from public.items where id = $1`, [draft]);
     expect(r.rows[0]).toMatchObject({ title: "Renamed", bpm: "140.00", license: "split_on_placement", split_percent: 10 });
   });
+  it("the slug follows a title change", async () => {
+    const id = await db.makeItem(alice, { status: "draft", title: "Old name" });
+    await db.as(user(alice), `update public.items set title = 'Dark Keys Über' where id = $1`, [id]);
+    const r = await db.q(`select slug from public.items where id = $1`, [id]);
+    expect(r.rows[0]!.slug).toBe("dark-keys-uber");
+  });
+  it("the owner's BPM or key correction marks detection as the uploader's", async () => {
+    const id = await db.makeItem(alice, { status: "draft", title: "Detected" });
+    const detection = { bpmSource: "onset", bpmAgreed: false, bpmCandidates: [140], keySource: "chroma", keyConfidence: 0.05 };
+    await db.q(`update public.items set details = $2::jsonb where id = $1`, [id, JSON.stringify({ detection })]);
+    await db.as(user(alice), `update public.items set title = 'Detected again' where id = $1`, [id]);
+    expect((await db.q(`select details -> 'detection' as d from public.items where id = $1`, [id])).rows[0]!.d).toEqual(detection);
+    await db.as(user(alice), `update public.items set bpm = 141 where id = $1`, [id]);
+    let d = (await db.q(`select details -> 'detection' as d from public.items where id = $1`, [id])).rows[0]!.d;
+    expect(d).toMatchObject({ bpmSource: "uploader", bpmAgreed: true, keySource: "chroma", keyConfidence: 0.05 });
+    await db.as(user(alice), `update public.items set key_root = 2, key_mode = 'minor' where id = $1`, [id]);
+    d = (await db.q(`select details -> 'detection' as d from public.items where id = $1`, [id])).rows[0]!.d;
+    expect(d).toMatchObject({ keySource: "uploader", keyConfidence: null });
+  });
   it("status, counts and details cannot be written directly", async () => {
     for (const set of ["status = 'published'", "likes_count = 9", "details = '{}'", "owner_id = owner_id", "published_at = now()"]) {
       expect(await rejection(db.as(user(alice), `update public.items set ${set} where id = $1`, [draft])), set).toMatch(DENIED);

@@ -44,3 +44,5 @@ Statuses: todo, planning, building, review, merged.
 - Rate limits for sign-in, handle claim and profile edits (ticket 203).
 - Clean up abandoned drafts and unfinished multipart uploads, which count toward quota; consider longer part-URL lifetime for 500 MB kits (ticket 102).
 - A job child can escape the timeout kill with setsid(); use a cgroup or container per job (ticket 215, decision 0014).
+- Worker records the SHA-256 of the original it downloaded; publishing compares it, closing the last upload swap race (decision 0015).
+- `cleanup_item` job: remove_item queues it; the worker deletes the item's files and releases storage bytes (decision 0015).
