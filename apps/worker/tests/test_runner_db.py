@@ -3,6 +3,7 @@ requeue_stale_jobs) in a database built from the migrations. Skipped without Pos
 
 from __future__ import annotations
 
+import base64
 import threading
 import uuid
 from pathlib import Path
@@ -235,6 +236,9 @@ def test_a_loop_fixture_goes_from_queued_to_ready_with_its_preview_and_peaks(db,
         stored = db.storage.root / f["bucket"] / f["path"]
         assert stored.stat().st_size == f["bytes"]
         assert f["path"].startswith(it["item_id"] + "/") and f["sha256"][:32] in f["path"]
+    peaks = files[1]
+    assert peaks["meta"]["points"] == 800
+    assert base64.b64decode(peaks["meta"]["peaks"]) == (db.storage.root / peaks["bucket"] / peaks["path"]).read_bytes()
     assert list(jobs_dir(tmp_path).iterdir()) == []
 
 
