@@ -36,3 +36,9 @@ Statuses: todo, planning, building, review, merged.
 | 135 | interface | Loop item page | todo | 132, 103, 122 |
 | 136 | interface | Polish pass 1 | todo | 135 |
 | 190 | lead | Phase 1 gate end-to-end test | todo | all above |
+
+## Follow-ups from reviews (lead to schedule)
+- Avatar upload: build `avatarUrl` only from the previews origin and add a CSP `img-src` limited to it (PR #5 security review).
+- Run worker handlers under a separate uid or container (now in ticket 112).
+- Production database: a dedicated login role granted only `service_role`, not `postgres` (PR #3).
+- Rate limits for sign-in, handle claim and profile edits (ticket 203).
