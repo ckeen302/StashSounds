@@ -2,7 +2,7 @@
 
 import { formatKey, type ItemRow } from "@stash/contracts";
 import { Dialog as D } from "radix-ui";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useRef, useState, type ReactNode } from "react";
 import { cx } from "./cx.ts";
 import { useFrameLoop } from "./frame.ts";
 import { ChevronDown, SkipBack, SkipForward, Volume2, VolumeX } from "./icon.tsx";
@@ -33,6 +33,8 @@ export type PlayerBarProps = {
   onNext?: () => void;
   volume: number;
   onVolumeChange: (volume: number) => void;
+  /** The region's name; the gallery tells its specimens apart with it. */
+  label?: string;
   /** Phone: tapping the mini player opens the full sheet. */
   onOpenSheet?: () => void;
   className?: string;
@@ -108,7 +110,8 @@ function Volume({ volume, onVolumeChange, className }: Pick<PlayerBarProps, "vol
   const [restore, setRestore] = useState(volume > 0 ? volume : 0.8);
   const muted = volume === 0;
   return (
-    <div className={cx("flex items-center gap-2", className)}>
+    // The caller sets the display (hidden on phone in the bar), so it is not set here to fight it.
+    <div className={cx("items-center gap-2", className ?? "flex")}>
       <IconButton
         icon={muted ? VolumeX : Volume2}
         label="Mute"
@@ -131,7 +134,7 @@ function Volume({ volume, onVolumeChange, className }: Pick<PlayerBarProps, "vol
  * accent. The position is read from the engine in an animation frame, never from React state.
  */
 export function PlayerBar(props: PlayerBarProps) {
-  const { item, status, getPositionMs, onPlayPause, onSeek, onPrevious, onNext, volume, onVolumeChange, onOpenSheet, className } = props;
+  const { item, status, getPositionMs, onPlayPause, onSeek, onPrevious, onNext, volume, onVolumeChange, onOpenSheet, label = "Player", className } = props;
   const durationMs = durationOf(props);
   const running = status === "playing";
   const idle = !item || status === "idle";
@@ -140,7 +143,7 @@ export function PlayerBar(props: PlayerBarProps) {
 
   return (
     <section
-      aria-label="Player"
+      aria-label={label}
       className={cx(
         "relative flex h-14 shrink-0 items-center gap-3 border-t border-border bg-surface px-3",
         "tablet:h-16 tablet:gap-4 tablet:px-4 desktop:h-18 desktop:gap-6 desktop:px-6",
@@ -153,9 +156,14 @@ export function PlayerBar(props: PlayerBarProps) {
       {item && <ProgressLine getPositionMs={getPositionMs} durationMs={durationMs} running={running} lit={running} />}
 
       <div className="flex shrink-0 items-center gap-1">
-        <IconButton icon={SkipBack} label="Previous" disabled={!onPrevious} onClick={onPrevious} className="hidden tablet:inline-flex" />
+        {/* A wrapper hides them on phone: a class on the button would lose to its own inline-flex. */}
+        <span className="hidden tablet:contents">
+          <IconButton icon={SkipBack} label="Previous" disabled={!onPrevious} onClick={onPrevious} />
+        </span>
         <PlayButton title={idle ? "nothing loaded" : title} state={playState(status)} disabled={idle} onClick={onPlayPause} />
-        <IconButton icon={SkipForward} label="Next" disabled={!onNext} onClick={onNext} className="hidden tablet:inline-flex" />
+        <span className="hidden tablet:contents">
+          <IconButton icon={SkipForward} label="Next" disabled={!onNext} onClick={onNext} />
+        </span>
       </div>
 
       {idle ? (
@@ -169,7 +177,8 @@ export function PlayerBar(props: PlayerBarProps) {
               <span className="w-full truncate text-small text-text-muted">@{item.owner.handle}</span>
             </button>
           )}
-          <div className={cx("min-w-0 flex-1 flex-col", onOpenSheet ? "hidden tablet:flex" : "flex")}>
+          {/* The title never shrinks below 128 px; at 1024 with everything shown it keeps about 160. */}
+          <div className={cx("min-w-32 flex-1 flex-col", onOpenSheet ? "hidden tablet:flex" : "flex")}>
             <UiLink href={item.href} className="block truncate rounded-control text-body-strong text-text ui-hover:underline">
               {title}
             </UiLink>
@@ -178,7 +187,8 @@ export function PlayerBar(props: PlayerBarProps) {
             </UiLink>
           </div>
 
-          <div className="hidden shrink-0 items-center gap-3 tablet:flex">
+          {/* Desktop only: a tablet bar keeps the transport, the title and volume. */}
+          <div className="hidden shrink-0 items-center gap-3 desktop:flex">
             <Elapsed getPositionMs={getPositionMs} durationMs={durationMs} running={running} />
             <Waveform
               peaks={item.peaks}
@@ -204,7 +214,7 @@ export function PlayerBar(props: PlayerBarProps) {
   );
 }
 
-export type PlayerSheetProps = Omit<PlayerBarProps, "onOpenSheet" | "className" | "item"> & {
+export type PlayerSheetProps = Omit<PlayerBarProps, "onOpenSheet" | "className" | "item" | "label"> & {
   item: ItemRow;
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -216,10 +226,7 @@ export type PlayerSheetProps = Omit<PlayerBarProps, "onOpenSheet" | "className" 
  * goes back to the mini player.
  */
 export function PlayerSheet(props: PlayerSheetProps) {
-  const { item, status, getPositionMs, onPlayPause, onSeek, onPrevious, onNext, volume, onVolumeChange, open, onOpenChange } = props;
-  const durationMs = durationOf(props);
-  const running = status === "playing";
-  const getProgress = useCallback(() => playerFraction(getPositionMs(), durationMs), [getPositionMs, durationMs]);
+  const { open, onOpenChange, ...controls } = props;
   const returnTo = useRef<HTMLElement | null>(null);
   return (
     <D.Root open={open} onOpenChange={onOpenChange}>
@@ -234,46 +241,77 @@ export function PlayerSheet(props: PlayerSheetProps) {
             e.preventDefault();
             returnTo.current?.focus();
           }}
-          className="fixed inset-0 z-40 flex animate-sheet flex-col gap-6 overflow-y-auto bg-bg px-3 pt-2 pb-8 outline-none"
+          className="fixed inset-0 z-40 animate-sheet overflow-y-auto bg-bg outline-none"
         >
-          <div className="flex items-center justify-between">
-            <span className="text-label text-label-caps text-text-muted">Now playing</span>
-            <D.Close asChild>
-              <IconButton icon={ChevronDown} label="Close player" size="md" />
-            </D.Close>
-          </div>
-          <div className="flex min-w-0 flex-col gap-1">
-            <D.Title className="truncate text-title text-text">{item.title}</D.Title>
-            <UiLink href={`/u/${item.owner.handle}`} className="self-start rounded-control text-small text-text-muted">
-              @{item.owner.handle}
-            </UiLink>
-          </div>
-          <Waveform
-            variant="hero"
-            peaks={item.peaks}
-            type={item.type}
-            getProgress={getProgress}
-            playing={running}
-            durationMs={durationMs}
-            onScrub={onSeek && durationMs > 0 ? (f) => onSeek(f * durationMs) : undefined}
-            label={describeRow(item)}
+          <SheetBody
+            {...controls}
+            title={<D.Title className="truncate text-title text-text">{controls.item.title}</D.Title>}
+            close={
+              <D.Close asChild>
+                <IconButton icon={ChevronDown} label="Close player" size="md" />
+              </D.Close>
+            }
           />
-          <div className="flex justify-between">
-            <Elapsed getPositionMs={getPositionMs} durationMs={durationMs} running={running} />
-            <span className="font-mono text-numeric tabular text-text-muted">{formatTime(durationMs)}</span>
-          </div>
-          <div className="flex items-center justify-center gap-6">
-            <IconButton icon={SkipBack} label="Previous" size="md" disabled={!onPrevious} onClick={onPrevious} />
-            <PlayButton title={item.title} state={playState(status)} size="hero" onClick={onPlayPause} />
-            <IconButton icon={SkipForward} label="Next" size="md" disabled={!onNext} onClick={onNext} />
-          </div>
-          <div className="flex justify-between gap-4">
-            <Readout label="BPM" value={item.bpm ? String(Math.round(item.bpm)) : "—"} />
-            <Readout label="KEY" value={item.key ? formatKey(item.key) : "—"} />
-            <Volume volume={volume} onVolumeChange={onVolumeChange} className="flex-1 justify-end" />
-          </div>
         </D.Content>
       </D.Portal>
     </D.Root>
+  );
+}
+
+/** The gallery's frozen picture of the phone sheet, drawn in place instead of over the page. */
+export function PlayerSheetPreview(props: Omit<PlayerSheetProps, "open" | "onOpenChange">) {
+  return (
+    <div inert className="w-full max-w-95 rounded-panel border border-border bg-bg">
+      <SheetBody
+        {...props}
+        title={<p className="truncate text-title text-text">{props.item.title}</p>}
+        close={<IconButton icon={ChevronDown} label="Close player" size="md" />}
+      />
+    </div>
+  );
+}
+
+function SheetBody(props: Omit<PlayerSheetProps, "open" | "onOpenChange"> & { title: ReactNode; close: ReactNode }) {
+  const { item, status, getPositionMs, onPlayPause, onSeek, onPrevious, onNext, volume, onVolumeChange, title, close } = props;
+  const durationMs = durationOf(props);
+  const running = status === "playing";
+  const getProgress = useCallback(() => playerFraction(getPositionMs(), durationMs), [getPositionMs, durationMs]);
+  return (
+    <div className="flex flex-col gap-6 px-3 pt-2 pb-8">
+      <div className="flex items-center justify-between">
+        <span className="text-label text-label-caps text-text-muted">Now playing</span>
+        {close}
+      </div>
+      <div className="flex min-w-0 flex-col gap-1">
+        {title}
+        <UiLink href={`/u/${item.owner.handle}`} className="self-start rounded-control text-small text-text-muted">
+          @{item.owner.handle}
+        </UiLink>
+      </div>
+      <Waveform
+        variant="hero"
+        peaks={item.peaks}
+        type={item.type}
+        getProgress={getProgress}
+        playing={running}
+        durationMs={durationMs}
+        onScrub={onSeek && durationMs > 0 ? (f) => onSeek(f * durationMs) : undefined}
+        label={describeRow(item)}
+      />
+      <div className="flex justify-between">
+        <Elapsed getPositionMs={getPositionMs} durationMs={durationMs} running={running} />
+        <span className="font-mono text-numeric tabular text-text-muted">{formatTime(durationMs)}</span>
+      </div>
+      <div className="flex items-center justify-center gap-6">
+        <IconButton icon={SkipBack} label="Previous" size="md" disabled={!onPrevious} onClick={onPrevious} />
+        <PlayButton title={item.title} state={playState(status)} size="hero" onClick={onPlayPause} />
+        <IconButton icon={SkipForward} label="Next" size="md" disabled={!onNext} onClick={onNext} />
+      </div>
+      <div className="flex justify-between gap-4">
+        <Readout label="BPM" value={item.bpm ? String(Math.round(item.bpm)) : "—"} />
+        <Readout label="KEY" value={item.key ? formatKey(item.key) : "—"} />
+        <Volume volume={volume} onVolumeChange={onVolumeChange} className="flex flex-1 justify-end" />
+      </div>
+    </div>
   );
 }

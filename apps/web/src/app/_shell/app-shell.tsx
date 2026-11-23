@@ -141,9 +141,12 @@ function TopBar() {
       </form>
       <IconLink href="/search" icon={Search} label="Search" className="tablet:hidden" />
       <IconLink href="/notifications" icon={Bell} label="Notifications" />
-      <ButtonLink href="/login" size="sm" className="hidden tablet:inline-flex">
-        Sign in
-      </ButtonLink>
+      {/* Phone: signing in is the Profile tab. */}
+      <span className="hidden tablet:contents">
+        <ButtonLink href="/login" size="sm">
+          Sign in
+        </ButtonLink>
+      </span>
     </header>
   );
 }

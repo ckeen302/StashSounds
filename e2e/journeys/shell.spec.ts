@@ -27,7 +27,7 @@ async function serveAudio(page: Page) {
   });
 }
 
-const player = (page: Page) => page.getByRole("region", { name: "Player" });
+const player = (page: Page) => page.getByRole("region", { name: "Player", exact: true });
 const elapsed = (page: Page) => player(page).locator("[data-player-elapsed]").first();
 const secondsOf = (t: string) => {
   const [m, s] = t.split(":").map(Number);
@@ -177,8 +177,28 @@ test("at 1024 with the 232 px rail, long titles truncate and nothing overflows",
   await page.goto("/dev/player");
   expect((await page.getByRole("navigation", { name: "Main" }).boundingBox())?.width).toBe(232);
   const list = page.getByRole("list", { name: "Fixture loops" });
-  const title = list.getByText("Late night R&B pad", { exact: false }).first();
+  // Every row keeps a readable title (at least 96 px); the long one ends in an ellipsis.
+  const titles = list.getByRole("listitem").getByRole("link");
+  for (const width of await titles.evaluateAll((els) => els.map((el) => el.clientWidth))) expect(width).toBeGreaterThanOrEqual(96);
+  const title = list.getByRole("link", { name: /^Late night R&B pad/ });
   expect(await title.evaluate((el) => el.scrollWidth > el.clientWidth && getComputedStyle(el).textOverflow === "ellipsis")).toBe(true);
+  // Tags give way first: no chip is cut, each shown one sits wholly inside its column.
+  const cut = await list.locator("li").evaluateAll((rows) =>
+    rows.flatMap((row) => {
+      const cell = row.querySelector(":scope > div:nth-child(4)") as HTMLElement | null;
+      if (!cell) return [];
+      const box = cell.getBoundingClientRect();
+      return [...cell.children]
+        .map((chip) => chip.getBoundingClientRect())
+        .filter((c) => c.width > 0 && c.top < box.bottom && (c.right > box.right + 0.5 || c.left < box.left - 0.5));
+    }),
+  );
+  expect(cut).toEqual([]);
+  // And the row's last column (like, download, more) ends inside the row.
+  const spill = await list.locator("li").evaluateAll((rows) =>
+    rows.filter((row) => (row.lastElementChild as HTMLElement).getBoundingClientRect().right > row.getBoundingClientRect().right + 0.5).length,
+  );
+  expect(spill).toBe(0);
   const content = page.locator("#content");
   expect(await content.evaluate((el) => el.scrollWidth <= el.clientWidth)).toBe(true);
 

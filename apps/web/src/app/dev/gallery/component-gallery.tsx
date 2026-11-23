@@ -2,7 +2,9 @@
 
 import {
   Avatar,
+  Bell,
   Button,
+  ButtonLink,
   Copy,
   Dialog,
   DialogPreview,
@@ -14,6 +16,7 @@ import {
   Flag,
   Heart,
   IconButton,
+  IconLink,
   Inbox,
   LicenseBadge,
   Link as LinkIcon,
@@ -21,6 +24,8 @@ import {
   MenuPreview,
   Play,
   PlayButton,
+  PlayerBar,
+  PlayerSheetPreview,
   Plus,
   ProgressSteps,
   ResultList,
@@ -30,6 +35,7 @@ import {
   Share2,
   SkeletonCard,
   SkeletonText,
+  Slider,
   SlidersHorizontal,
   Stat,
   Tab,
@@ -45,12 +51,14 @@ import {
   TypeChip,
   Upload,
   UploaderCard,
+  volumeText,
   useToast,
   Waveform,
   type MenuEntry,
+  type PlayerStatus,
   type PlayState,
 } from "@stash/ui";
-import { ITEM_TYPES } from "@stash/contracts";
+import { ITEM_TYPES, type ItemRow } from "@stash/contracts";
 import { useState, type ReactNode } from "react";
 import { rows } from "./gallery-data";
 
@@ -149,6 +157,22 @@ function LiveToasts() {
   );
 }
 
+const noop = () => {};
+/** Frozen playhead for the player specimens: 2.4 s in. */
+const frozenAt = () => 2400;
+const playerStates: [string, PlayerStatus, ItemRow | null][] = [
+  ["idle", "idle", null],
+  ["loading", "loading", rows.dustySoul],
+  ["playing", "playing", rows.midnightKeys],
+  ["paused, long title", "paused", rows.rnbPad],
+  ["error", "error", rows.trapBells],
+];
+
+function LiveSlider() {
+  const [v, setV] = useState(0.5);
+  return <Slider label="Volume" value={v} onValueChange={setV} valueText={volumeText} className="w-32" />;
+}
+
 function LiveRows() {
   const [current, setCurrent] = useState<string | null>(null);
   const [state, setState] = useState<PlayState>("paused");
@@ -223,6 +247,16 @@ export function ComponentGallery() {
             </Specimen>
           </Grid>
         ))}
+        <Grid cols="desktop:grid-cols-6">
+          <Specimen label="as a link, default and hover">
+            <ButtonLink href="/login" size="sm">
+              Sign in
+            </ButtonLink>
+            <ButtonLink href="/login" size="sm" data-hover>
+              Sign in
+            </ButtonLink>
+          </Specimen>
+        </Grid>
       </Section>
 
       <Section id="c-icon-button" title="Icon button" note="Ghost and pad; hover, focus, pressed, disabled, on.">
@@ -250,6 +284,11 @@ export function ComponentGallery() {
               </Specimen>
             </div>
           ))}
+          <Specimen label="ghost as a link, default, hover, focus">
+            <IconLink href="/notifications" icon={Bell} label="Notifications" />
+            <IconLink href="/notifications" icon={Bell} label="Notifications" data-hover />
+            <IconLink href="/notifications" icon={Bell} label="Notifications" data-focus />
+          </Specimen>
         </Grid>
       </Section>
 
@@ -287,6 +326,29 @@ export function ComponentGallery() {
           </Specimen>
           <Specimen label="text, disabled">
             <TextInput label="Key" defaultValue="F#m" disabled className="w-full" />
+          </Specimen>
+        </Grid>
+      </Section>
+
+      <Section id="c-slider" title="Slider" note="Volume; hover, dragging, focus, disabled. Arrows step 5 percent, Home and End go to the ends.">
+        <Grid cols="desktop:grid-cols-5">
+          <Specimen label="volume, default">
+            <Slider label="Volume" value={0.8} valueText={volumeText} className="w-32" />
+          </Specimen>
+          <Specimen label="hover">
+            <Slider label="Volume" value={0.6} valueText={volumeText} className="w-32" data-hover />
+          </Specimen>
+          <Specimen label="dragging">
+            <Slider label="Volume" value={0.4} valueText={volumeText} className="w-32" data-dragging />
+          </Specimen>
+          <Specimen label="focus">
+            <Slider label="Volume" value={0.6} valueText={volumeText} className="w-32" data-focus />
+          </Specimen>
+          <Specimen label="disabled">
+            <Slider label="Volume" value={0.5} valueText={volumeText} className="w-32" disabled />
+          </Specimen>
+          <Specimen label="live">
+            <LiveSlider />
           </Specimen>
         </Grid>
       </Section>
@@ -660,6 +722,25 @@ export function ComponentGallery() {
             <div className="w-full">
               <Waveform variant="hero" peaks={null} error type="loop" label="Loop, waveform unavailable" />
             </div>
+          </Specimen>
+        </div>
+      </Section>
+
+      <Section
+        id="c-player"
+        title="Player bar"
+        note="Desktop bar 72 px, tablet 64, phone mini player 56 with a progress line (the bar draws by screen width). Idle, loading, playing, paused, error; the phone sheet. The bar is full window width in the shell; here it scrolls sideways where the gallery is narrower. The live one, on the engine, is the shell's own."
+      >
+        <div className="flex flex-col gap-3">
+          {playerStates.map(([label, status, item]) => (
+            <Specimen key={label} label={label} wide>
+              <div className="w-full overflow-x-auto">
+              <PlayerBar item={item} status={status} durationMs={item?.durationMs ?? 0} getPositionMs={frozenAt} onPlayPause={noop} onPrevious={item ? noop : undefined} onNext={item ? noop : undefined} volume={0.8} onVolumeChange={noop} onOpenSheet={noop} label={`Player, ${label}`} className="w-full rounded-control border desktop:min-w-240" />
+              </div>
+            </Specimen>
+          ))}
+          <Specimen label="phone sheet, playing" wide>
+            <PlayerSheetPreview item={rows.midnightKeys} status="playing" durationMs={rows.midnightKeys.durationMs ?? 0} getPositionMs={frozenAt} onPlayPause={noop} onPrevious={noop} onNext={noop} volume={0.8} onVolumeChange={noop} />
           </Specimen>
         </div>
       </Section>

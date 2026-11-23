@@ -16,18 +16,30 @@ import { Waveform } from "./waveform.tsx";
 /**
  * Column widths, shared by the header and every row so the numbers line up down the list.
  * Design spec: The result row. Waveform drops out on phone; tags and length drop out below desktop.
+ * At 1024 with the 232 px rail the list is only about 744 wide: the title keeps at least 96 px and
+ * the tags give way first, showing only the chips that fit whole (they wrap into a clipped line).
  */
 const col = {
   play: "w-10 shrink-0",
   wave: "hidden w-50 shrink-0 tablet:block",
-  title: "min-w-0 flex-1",
-  tags: "hidden w-44 shrink-0 desktop:flex",
+  title: "min-w-24 flex-1",
+  tags: "hidden h-6 w-44 min-w-0 flex-wrap items-center overflow-hidden desktop:flex",
   key: "hidden w-14 shrink-0 tablet:block",
   bpm: "w-14 shrink-0 text-right",
   len: "hidden w-14 shrink-0 text-right desktop:block",
   actions: "hidden w-24 shrink-0 justify-end tablet:flex",
 };
-const rowGrid = "flex items-center gap-4 px-3";
+// 12 px between columns: at 1024 with the 232 px rail the spec's columns plus a 96 px title just fit.
+const rowGrid = "flex items-center gap-3 px-3";
+
+/**
+ * A zero-width first item in the tags cell. A wrapping line always keeps its first item, so without
+ * it a chip wider than the cell would be cut; behind it, that chip wraps to the clipped second line.
+ * The negative margin cancels the gap so the chips still start at the cell's edge.
+ */
+function TagSpacer() {
+  return <span aria-hidden="true" className="-me-1 h-6 w-0" />;
+}
 
 /** Engraved column labels over a list of rows. Visual only: each cell names itself to screen readers. */
 export function ResultHeader({ lengthLabel = "Bars", className }: { lengthLabel?: string; className?: string }) {
@@ -170,7 +182,8 @@ export function ResultRow({
         </UiLink>
         <span className="truncate text-small text-text-muted">@{row.owner.handle}</span>
       </div>
-      <div className={cx(col.tags, "gap-1 overflow-hidden")}>
+      <div className={cx(col.tags, "gap-1")}>
+        <TagSpacer />
         {row.tags.slice(0, 2).map((t) => (
           <TagChip key={t}>{t}</TagChip>
         ))}
@@ -228,6 +241,7 @@ export function ResultRowSkeleton() {
         <SkeletonBlock className="h-3 w-20" />
       </div>
       <div className={cx(col.tags, "gap-1")}>
+        <TagSpacer />
         <SkeletonBlock className="h-6 w-14" />
         <SkeletonBlock className="h-6 w-12" />
       </div>

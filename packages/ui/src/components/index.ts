@@ -24,7 +24,7 @@ export { ContextMenu, Menu, MenuPreview, type MenuEntry } from "./menu.tsx";
 export { Tooltip, TooltipProvider, TooltipSurface } from "./tooltip.tsx";
 export { ToastPreview, ToastProvider, ToastSurface, ToastViewport, useToast, type ToastOptions, type ToastTone } from "./toast.tsx";
 export { Slider, volumeText, type SliderProps } from "./slider.tsx";
-export { describePlayer, PlayerBar, PlayerSheet, playerFraction, type PlayerBarProps, type PlayerSheetProps, type PlayerStatus } from "./player-bar.tsx";
+export { describePlayer, PlayerBar, PlayerSheet, PlayerSheetPreview, playerFraction, type PlayerBarProps, type PlayerSheetProps, type PlayerStatus } from "./player-bar.tsx";
 export { useFrameLoop } from "./frame.ts";
 export { SkeletonBlock, SkeletonCard, SkeletonText } from "./skeleton.tsx";
 export { EmptyState, ErrorState } from "./states.tsx";
