@@ -1211,7 +1211,7 @@ alter table public.messages                  enable row level security;
 -- profiles: everyone reads; owner updates the granted columns
 create policy profiles_read   on public.profiles for select using (true);
 create policy profiles_update on public.profiles for update to authenticated
-  using (id = auth.uid()) with check (id = auth.uid());
+  using (id = auth.uid() and public.is_active_user()) with check (id = auth.uid() and public.is_active_user());
 
 -- accounts: owner and admins read; service role writes
 create policy accounts_read on public.accounts for select to authenticated

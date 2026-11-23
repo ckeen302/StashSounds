@@ -164,6 +164,24 @@ export const claimHandleInput = z.object({ handle: handleSchema, displayName: di
 export const claimHandleOutput = profileSchema;
 
 // ---------------------------------------------------------------------------
+// Sign-in (request 101-sign-in-contracts)
+
+/** A same-site path to return to after sign-in. The server replaces anything else with "/". */
+export const nextPathSchema = z.string().max(500);
+
+export const signInWithEmailInput = z.object({ email: z.email().max(320), next: nextPathSchema.optional() });
+export const signInWithEmailOutput = z.object({ sent: z.literal(true) });
+
+export const signInProviderSchema = z.enum(["google", "discord"]);
+export type SignInProvider = z.infer<typeof signInProviderSchema>;
+export const signInWithProviderInput = z.object({ provider: signInProviderSchema, next: nextPathSchema.optional() });
+/** The provider's authorize URL; the browser navigates to it. */
+export const signInWithProviderOutput = z.object({ url: z.url() });
+
+export const signOutInput = z.object({});
+export const signOutOutput = z.object({ signedOut: z.literal(true) });
+
+// ---------------------------------------------------------------------------
 // Safety
 
 export const reportItemInput = z.object({

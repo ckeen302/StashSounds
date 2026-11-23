@@ -56,6 +56,12 @@ describe("profiles", () => {
     const r = await db.q(`select display_name, bio from public.profiles where id = $1`, [alice]);
     expect(r.rows[0]).toEqual({ display_name: "Alice A", bio: "hi" });
   });
+  it("a suspended user cannot edit their profile", async () => {
+    const sus = await db.makeUser("suspended_editor");
+    await db.q(`update public.accounts set suspended_at = now() where id = $1`, [sus]);
+    const r = await db.as(user(sus), `update public.profiles set bio = 'still here' where id = $1`, [sus]);
+    expect(r.rowCount).toBe(0);
+  });
   it("nobody can edit someone else's profile", async () => {
     const r = await db.as(user(bob), `update public.profiles set bio = 'pwned' where id = $1`, [alice]);
     expect(r.rowCount).toBe(0);

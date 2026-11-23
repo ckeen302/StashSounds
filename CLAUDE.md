@@ -13,6 +13,7 @@ YouTube for sounds "in the style of" an artist.
 apps/web/src/app          Interface lane      pages and layouts
 apps/web/src/server       Platform lane       server actions, queries
 apps/web/src/app/api      Platform lane       route handlers (lint applies Platform rules here)
+apps/web/src/proxy.ts     Platform lane       session refresh before rendering (Next 16 proxy)
 apps/worker               Pipeline lane       Python worker
 packages/audio            Audio lane          browser audio engine
 packages/ui               Interface lane      tokens and components

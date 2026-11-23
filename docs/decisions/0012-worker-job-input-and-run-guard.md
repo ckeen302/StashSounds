@@ -7,3 +7,9 @@
   - `limits.worker.memoryMb = 2048`.
   - The worker CI job has a Postgres 17 service and `STASH_REQUIRE_DB=1`, so the runner's database tests cannot skip in CI.
 - Consequence: The Pipeline lane updates its calls to the new signatures and reads memoryMb from limits.json (ticket 112 starts with that). Ticket 114's lookups (SHA-256 owners, fingerprints by duration) come as narrow functions of the same kind.
+
+## Also from ticket 101's requests
+- Sign-in schemas (`signInWithEmail*`, `signInWithProvider*`, `signOut*`, `nextPathSchema`) are in contracts/src/api.ts; Platform deletes its local copy.
+- `apps/web/src/proxy.ts` belongs to the Platform lane (CLAUDE.md, lint); Platform creates it.
+- Auth redirect URLs cover the callback on ports 3000 and 3100.
+- `profiles_update` requires an active (not suspended) account.
