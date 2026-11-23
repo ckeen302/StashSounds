@@ -39,3 +39,145 @@ Ticket problems found while planning:
 - "Tests against local storage": SeaweedFS cannot run here (Docker Hub is rate-limited, and running
   a downloaded binary was refused), so the SeaweedFS suite is written but did not run in this
   environment. CI's unit job has no storage service; filed docs/requests/102-storage-in-ci.md.
+
+## What changed
+All under apps/web/src/server/ unless noted.
+- `storage/env.ts`: `storageEnv()` validates the `STASH_S3_*` settings and `STASH_BUCKET_ORIGINALS`
+  with Zod (all already in .env.example). The error names the bad variables and never prints their
+  values.
+- `storage/originals.ts`: `OriginalsStorage` and `s3Originals()` / `originalsFromEnv()`, using a
+  path-style S3 client that works for SeaweedFS and R2.
+  - `presignPut(key, bytes)` signs a PUT for that one key with `Content-Length` in the signed
+    headers. It expires after `limits.urls.uploadTtlSeconds` (900 s) and needs no extra headers.
+  - `startMultipart(key, bytes)` creates the upload and signs one URL per part, each for that part's
+    exact length. Parts are `limits.multipart.partBytes` long, except the last.
+  - `completeMultipart` sorts the parts and returns `"gone"` for an unknown upload id (a repeat call).
+  - `abortMultipart`, `head` (null when missing) and `remove`.
+  - `requestChecksumCalculation: "WHEN_REQUIRED"`: the SDK default puts
+    `x-amz-checksum-crc32=AAAAAA==` (the CRC of an empty body) into every presigned PUT, which a
+    real upload then fails. I checked this against the installed 3.1165.0.
+- `supabase/service.ts`: `serviceSupabase()`, the service-role client from `SUPABASE_SERVICE_ROLE_KEY`.
+  It is used only for `enqueue_processing` and for storing a multipart upload id.
+- `action.ts`: `ActionDeps` and `ActionContext` gain `service` and `storage` factories. An action
+  that has none configured throws.
+- `uploads/create-upload-slot.ts` (auth `member`):
+  - The title and extension come from the file's base name, and the client's `mime` is ignored.
+  - For `role: "original"` it calls `create_upload_draft` as the user; an `itemId` is invalid there.
+    For `role: "demo"` it needs `itemId` and type `preset` and calls `add_demo_file` as the user.
+    The database checks verified email, suspension, type, size, uploads per day and quota.
+  - Up to the threshold it returns one presigned PUT. Above it, it returns the multipart upload and
+    stores `uploadId` in `item_files.meta` with the service role; if that write fails, the upload
+    is aborted.
+- `uploads/complete-upload.ts` (auth `member`):
+  - It reads the item filtered to `owner_id = caller` and the file filtered to that item and the
+    originals bucket, both with the user's client. Otherwise it returns not_found, before storage
+    or the queue is touched.
+  - When the row has `meta.uploadId` it needs `parts` and completes the multipart upload.
+  - It HEADs the object (missing: not_found, "upload it again"), then calls `enqueue_processing`
+    with the service role and the measured size.
+  - When the database refuses the size, the object is deleted and `invalid` is returned, so no
+    stored file escapes the worker.
+  - A null job (a preset still missing a file) returns `{ status: "draft", jobId: null, waitingFor }`.
+- `uploads/schemas.ts`: that waiting shape, built from contracts pieces until request 102 lands.
+- `uploads/actions.ts` (`"use server"`): `createUploadSlot` and `completeUpload` for ticket 134,
+  with the flow described at the top of the file. They are also exported from `@/server`.
+- `request-deps.ts` now wires in the service client and the storage.
+- Tests:
+  - `testing/s3-stub.ts`: an in-process S3 endpoint over real HTTP.
+  - `testing/fake-storage.ts`: in-memory storage for the action tests.
+  - `storage/originals.test.ts`: 10 tests against the stub.
+  - `storage/seaweedfs.test.ts`: 5 tests against real local storage (see Not done).
+  - `uploads/uploads.test.ts`: 26 action tests.
+  - `supabase/tests/uploads.test.ts`: 13 database tests.
+
+New dependencies (apps/web/package.json):
+- `@aws-sdk/client-s3` 3.1165.0, Apache-2.0. The S3 API for R2 and SeaweedFS.
+- `@aws-sdk/s3-request-presigner` 3.1165.0, Apache-2.0. Presigned PUT and UploadPart URLs.
+
+Both are pinned to the newest release that is at least 14 days old. `pnpm run licenses` reports
+"All dependency licenses are on the allowed list."
+
+## Proof
+`pnpm check && pnpm test && pnpm db:test`, exit 0:
+```
+> stash@ check /home/claude/stash/.claude/worktrees/agent-af9b6f778b43f6089
+> pnpm -r --parallel typecheck && tsc -p tsconfig.json && eslint . --max-warnings 0
+Scope: 4 of 5 workspace projects
+apps/web typecheck$ next typegen && tsc -p tsconfig.json
+packages/audio typecheck$ tsc -p tsconfig.json
+packages/contracts typecheck$ tsc -p tsconfig.json
+packages/ui typecheck$ tsc -p tsconfig.json
+apps/web typecheck: Generating route types...
+apps/web typecheck: ✓ Types generated successfully
+packages/ui typecheck: Done
+packages/audio typecheck: Done
+packages/contracts typecheck: Done
+apps/web typecheck: Done
+> stash@ test /home/claude/stash/.claude/worktrees/agent-af9b6f778b43f6089
+> vitest run
+ Test Files  12 passed | 1 skipped (13)
+      Tests  222 passed | 5 skipped (227)
+> stash@ db:test /home/claude/stash/.claude/worktrees/agent-af9b6f778b43f6089
+> vitest run --config supabase/tests/vitest.config.ts
+ Test Files  3 passed (3)
+      Tests  104 passed (104)
+```
+- The web project has 125 tests (120 passed, 5 skipped): action 16, profile actions 22, sign-in 19,
+  env 5, errors 6, session 16, storage stub 10, SeaweedFS 5 (skipped), uploads 26.
+- `pnpm db:test` has 104 tests: the 91 from before plus 13 in uploads.test.ts.
+- `pnpm --filter @stash/web build` compiles.
+
+Acceptance criteria:
+- S3 client in server/storage/: `originals.ts`, `env.ts`, with tests in originals.test.ts and seaweedfs.test.ts.
+- URLs expire after uploadTtlSeconds and cover one object: originals.test.ts checks the
+  `X-Amz-Expires`, the path and the signed headers, that a PUT lands only at that key, and that an
+  expired URL is refused. seaweedfs.test.ts checks that another key and another size are refused.
+- Multipart past the threshold, completed by completeUpload: uploads.test.ts (threshold boundary,
+  part URLs, upload id stored, completion before HEAD) and originals.test.ts (part sizes, completion
+  over the wire, out-of-order parts, wrong ETag).
+- completeUpload checks ownership, HEADs, and enqueues as the service role; the database refuses a
+  size mismatch with invalid: uploads.test.ts. The user client is never used for the RPC.
+  supabase/tests covers that enqueue is denied to users and that a mismatch leaves a draft with no job.
+- No MIME from the client: uploads.test.ts (the RPC arguments carry only the extension) and the
+  existing policies.test.ts test for `mime_for_ext`.
+- Preset demo via role 'demo': uploads.test.ts (slot, missing itemId, wrong type, another user's
+  item, waiting in both orders) and supabase/tests (add_demo_file rules, replacement and quota,
+  demo-first ordering).
+- Single, multipart, size mismatch, another user's item, quota exceeded, unverified email: all in
+  uploads.test.ts. Single and multipart also run against the stub over HTTP, and against SeaweedFS
+  when it is up.
+
+## Not done
+- **The SeaweedFS suite did not run here.** Docker Hub is rate-limited, so `pnpm dev`'s storage
+  container cannot start, and running a downloaded SeaweedFS binary was refused in this
+  environment. The suite skips with a warning when nothing answers at `STASH_S3_ENDPOINT`. With
+  `STASH_REQUIRE_STORAGE=1` it fails instead, the same pattern as the worker's `STASH_REQUIRE_DB`.
+  CI's `pnpm test` job has no storage yet; see request 102-storage-in-ci. Until that lands, the
+  checks the stub cannot make (signatures, signed length, key scope, real 5 MB parts, private
+  originals) are unproven. **Please run `pnpm dev` and then `pnpm test` once before merging.**
+- No cleanup of abandoned drafts or incomplete multipart uploads. A slot whose upload never
+  completes keeps its draft row and counts toward the quota. That needs a scheduled job (a later
+  ticket, or the R2 lifecycle rule for incomplete multipart uploads).
+- No browser CORS rule for the originals bucket (request 102-storage-cors). Ticket 134 needs it.
+- Part URLs expire after the same 900 s as single uploads. A slow connection uploading a 500 MB
+  kit could outlive them. A part-URL refresh can come with ticket 134 if it shows up.
+
+## Surprises and decisions
+- `completeUploadOutput` cannot express a preset waiting for its other file, which is
+  `enqueue_processing`'s normal null. I filed a request and widened the output locally.
+- The multipart upload id lives in `item_files.meta.uploadId`, written by the service role (users
+  cannot write item_files). The owner can read it, and it is no secret from them. That avoids
+  listing multipart uploads on every completion. The worker should ignore the key.
+- On a size mismatch the object is deleted, not kept, so storage holds nothing the worker will not
+  process. The draft and its file row remain, so the user can request a new slot.
+- `completeUpload` reads the item with an explicit `owner_id = caller` filter. Row-level security
+  alone would also show another user's published item, and the action must refuse that.
+- `add_demo_file` and `enqueue_processing` do not check suspension (request
+  102-suspended-upload-completion). The action wrapper's `member` mode refuses suspended accounts
+  in the app.
+
+## Requests filed
+- docs/requests/102-complete-upload-waiting.md: the preset waiting shape in `completeUploadOutput`.
+- docs/requests/102-storage-in-ci.md: SeaweedFS in CI's unit job, with `STASH_REQUIRE_STORAGE=1`.
+- docs/requests/102-storage-cors.md: CORS on the originals bucket (PUT, exposing ETag).
+- docs/requests/102-suspended-upload-completion.md: suspension checks in `add_demo_file` and `enqueue_processing`.
