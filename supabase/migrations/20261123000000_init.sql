@@ -507,7 +507,9 @@ language plpgsql security definer
 set search_path = ''
 as $$
 begin
-  update public.items set downloads_count = downloads_count + 1 where id = new.item_id;
+  -- An owner grabbing their own item is not a download of it.
+  update public.items set downloads_count = downloads_count + 1
+   where id = new.item_id and owner_id is distinct from new.user_id;
   return new;
 end;
 $$;

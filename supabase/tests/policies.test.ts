@@ -309,6 +309,11 @@ describe("downloads", () => {
     expect(r.rows[0]).toMatchObject({ user_id: bob, item_id: published, owner_handle: "alice", license: "royalty_free", license_version: "1.0" });
     expect((await db.q(`select downloads_count from public.items where id = $1`, [published])).rows[0]!.downloads_count).toBe(1);
   });
+  it("an owner's own download is recorded but not counted", async () => {
+    await db.as(user(alice), `select * from public.record_download($1)`, [published]);
+    expect((await db.q(`select downloads_count from public.items where id = $1`, [published])).rows[0]!.downloads_count).toBe(1);
+    await db.q(`delete from public.downloads where user_id = $1`, [alice]);
+  });
   it("the downloader reads only their own rows", async () => {
     expect((await db.as(user(bob), `select 1 from public.downloads`)).rowCount).toBe(1);
     expect((await db.as(user(alice), `select 1 from public.downloads`)).rowCount).toBe(0);

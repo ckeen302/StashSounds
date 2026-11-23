@@ -34,3 +34,10 @@ docs/deploy/r2-originals-cors.json. The embed build (321) will add its own origi
 ## Client cache sizes stay in the audio package (PR #10 A5)
 The loader's 96 MB decoded budget and 32 raw downloads are client tuning, not product limits, and
 stay as constructor defaults in packages/audio.
+
+## Downloads (ticket 104 questions)
+- An owner's own download is recorded (it is still a license record) but does not raise
+  `downloads_count`.
+- A record written before signing fails stays. The license record is the grant, and the person can
+  press download again; a retry inside the rate window counts against downloadsPerDay, which is
+  acceptable at 1 per press.
