@@ -40,7 +40,7 @@ Engine (`packages/audio/src`):
   need, the handoff position and crossfade, live schedules, position at a changed rate, failure fallback,
   and a check that engine.ts has no static import of the library.
 
-The seamless-loop test (`e2e/perf/seamless-loop.spec.ts`, run by `pnpm perf`). Node has no Web Audio
+The seamless-loop test (`e2e/perf/audio-seamless-loop.spec.ts`, run by `pnpm perf`). Node has no Web Audio
 decoder, so a unit test in node cannot decode the fixture MP3, FLAC or WAV the way a browser does.
 The test renders in Chromium's OfflineAudioContext through the engine's own code, which is "offline" in
 the spec's sense. For every fixture loop (the five generated loops plus the re-encoded MP3; AIFF is
