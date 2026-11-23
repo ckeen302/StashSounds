@@ -1,0 +1,112 @@
+/*
+ * Component support that a utility class cannot express without an arbitrary value.
+ * Colors only through var(--color-*); durations only from the motion tokens in tokens.ts
+ * (test/components-css.test.ts holds this file to that). Imported once by the app after theme.css.
+ */
+@source "./components";
+
+/*
+ * State variants. Each matches the real pointer or keyboard state and a data attribute of the same
+ * name, so /dev/gallery can show hover, focus and pressed side by side without interaction.
+ * Disabled controls never take hover or pressed styles.
+ */
+@custom-variant ui-hover {
+  @media (hover: hover) {
+    &:hover:not(:disabled, [aria-disabled="true"], [data-disabled]) {
+      @slot;
+    }
+  }
+  &[data-hover]:not(:disabled, [aria-disabled="true"], [data-disabled]) {
+    @slot;
+  }
+}
+@custom-variant ui-active {
+  &:active:not(:disabled, [aria-disabled="true"], [data-disabled]) {
+    @slot;
+  }
+  &[data-active]:not(:disabled, [aria-disabled="true"], [data-disabled]) {
+    @slot;
+  }
+}
+
+@layer base {
+  /* The focus ring from theme.css, drawn for the gallery's frozen focus state. */
+  [data-focus] {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+  /* Tabs draw their ring inset (the tab list scrolls and would clip an outset ring). */
+  [role="tab"][data-focus] {
+    outline-offset: -2px;
+  }
+  /* The search field draws its own clear button. */
+  input[type="search"]::-webkit-search-cancel-button {
+    appearance: none;
+  }
+}
+
+/* Width from a 0 to 1 fraction: style={{ "--progress": 0.4 }}. Upload progress. */
+@utility w-progress {
+  width: calc(var(--progress, 0) * 100%);
+}
+/* Left edge from a 0 to 1 fraction: style={{ "--playhead": 0.4 }}. Hero waveform time labels. */
+@utility left-playhead {
+  left: calc(var(--playhead, 0) * 100%);
+}
+@utility left-pointer {
+  left: calc(var(--pointer, 0) * 100%);
+}
+
+/* The loading ring: the only looping motion besides the logo (design spec, Motion). */
+@keyframes stash-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+@utility animate-ring {
+  animation: stash-spin 800ms linear infinite;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+/* Dialogs, menus, tooltips and toasts: fade with a 4 px rise in, fade out (160 ms). */
+@keyframes stash-rise-in {
+  from {
+    opacity: 0;
+    translate: 0 var(--spacing);
+  }
+}
+@keyframes stash-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@utility animate-overlay {
+  animation: stash-rise-in 160ms var(--ease-out);
+  &[data-state="closed"] {
+    animation: stash-fade-out 160ms var(--ease-out) forwards;
+  }
+}
+/* Dialog scrim: fade only. */
+@keyframes stash-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+@utility animate-scrim {
+  animation: stash-fade-in 160ms var(--ease-out);
+  &[data-state="closed"] {
+    animation: stash-fade-out 160ms var(--ease-out) forwards;
+  }
+}
+
+/* Like: the icon fills with a single small scale pulse (200 ms). */
+@keyframes stash-pulse {
+  50% {
+    scale: 1.2;
+  }
+}
+@utility animate-like {
+  animation: stash-pulse 200ms var(--ease-out);
+}
