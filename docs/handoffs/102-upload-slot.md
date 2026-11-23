@@ -78,7 +78,7 @@ All under apps/web/src/server/ unless noted.
   - When the database refuses the size, the object is deleted and `invalid` is returned, so no
     stored file escapes the worker.
   - A null job (a preset still missing a file) returns `{ status: "draft", jobId: null, waitingFor }`.
-- `uploads/schemas.ts`: that waiting shape, built from contracts pieces until request 102 lands.
+- `uploads/schemas.ts`: that waiting shape, built from contracts pieces until request 102 lands. (Deleted after the lead's 9885686; see the follow-up section.)
 - `uploads/actions.ts` (`"use server"`): `createUploadSlot` and `completeUpload` for ticket 134,
   with the flow described at the top of the file. They are also exported from `@/server`.
 - `request-deps.ts` now wires in the service client and the storage.
@@ -181,3 +181,53 @@ Acceptance criteria:
 - docs/requests/102-storage-in-ci.md: SeaweedFS in CI's unit job, with `STASH_REQUIRE_STORAGE=1`.
 - docs/requests/102-storage-cors.md: CORS on the originals bucket (PUT, exposing ETag).
 - docs/requests/102-suspended-upload-completion.md: suspension checks in `add_demo_file` and `enqueue_processing`.
+
+## Follow-up: requests answered (phase-0/foundations 9885686, decision 0013)
+Where this section conflicts with the sections above, this section is current.
+
+- Merged `origin/phase-0/foundations`, with no conflicts and no force-push.
+- `completeUploadOutput` in contracts is now the processing/draft union with `waitingFor`.
+  `uploads/schemas.ts` is deleted, and `completeUpload` and its server action use the contract.
+- `add_demo_file` and `enqueue_processing` now refuse suspended accounts with `forbidden`; the lead
+  added the policy test. Action-level tests in uploads.test.ts:
+  - createUploadSlot (demo): a `forbidden` from `add_demo_file` maps through, and no URL is signed.
+  - completeUpload: a `forbidden` from `enqueue_processing` maps through and nothing is queued.
+  - The object is now deleted on `forbidden` as well as on `invalid`. A refused upload will never
+    reach the worker, so it must not stay in storage (rule 10).
+  - A new test checks that a `conflict` (already processing) keeps the object, because the worker
+    is using it.
+- CORS for local SeaweedFS (ports 3000 and 3100, all headers exposed including ETag) and
+  `docs/deploy/r2-cors.json` for R2 are the lead's. Nothing changed in this lane.
+- **CI is the first real run of the SeaweedFS suite.** CI's unit-test job now starts SeaweedFS and
+  runs `pnpm test` with `STASH_REQUIRE_STORAGE=1`. That will be the first run of
+  `apps/web/src/server/storage/seaweedfs.test.ts` against real storage: signatures, the signed
+  Content-Length, key scope, 5 MB multipart parts and private originals. Here it was still skipped
+  (no storage), so a failure in CI would be new information, not a regression.
+
+`pnpm check && pnpm test && pnpm db:test`, exit 0:
+```
+> stash@ check /home/claude/stash/.claude/worktrees/agent-af9b6f778b43f6089
+> pnpm -r --parallel typecheck && tsc -p tsconfig.json && eslint . --max-warnings 0
+Scope: 4 of 5 workspace projects
+packages/audio typecheck$ tsc -p tsconfig.json
+apps/web typecheck$ next typegen && tsc -p tsconfig.json
+packages/contracts typecheck$ tsc -p tsconfig.json
+packages/ui typecheck$ tsc -p tsconfig.json
+apps/web typecheck: Generating route types...
+apps/web typecheck: ✓ Types generated successfully
+packages/ui typecheck: Done
+packages/contracts typecheck: Done
+packages/audio typecheck: Done
+apps/web typecheck: Done
+> stash@ test /home/claude/stash/.claude/worktrees/agent-af9b6f778b43f6089
+> vitest run
+ Test Files  12 passed | 1 skipped (13)
+      Tests  226 passed | 5 skipped (231)
+> stash@ db:test /home/claude/stash/.claude/worktrees/agent-af9b6f778b43f6089
+> vitest run --config supabase/tests/vitest.config.ts
+ Test Files  3 passed (3)
+      Tests  105 passed (105)
+```
+- Unit tests: 226 passed and 5 skipped (the SeaweedFS suite). uploads.test.ts now has 29 tests.
+- Database tests: 105, one more from the lead's policy test.
+
