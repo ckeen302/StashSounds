@@ -73,7 +73,7 @@ All under apps/web/src/server/ unless noted.
 - `auth/sign-in.ts`: `signInWithEmail` (magic link), `signInWithProvider` (google | discord, returns
   the authorize URL for the browser to open, PKCE), `signOut` (local scope).
 - `auth/callback.ts` + `app/api/auth/callback/route.ts`: GET `/api/auth/callback` exchanges `code`, or
-  verifies `token_hash` for the email link types, then redirects to the sanitized `next` (or `/`).
+  (before the review round) verified `token_hash` for the email link types, then redirects to the sanitized `next` (or `/`).
   A user with no profile goes to `/login?next=...` to claim a handle. On failure it redirects to
   `/login?error=signin_failed[&next=...]`. The response is `Cache-Control: private, no-store`.
 - `auth/actions.ts` (`"use server"`): what ticket 133 calls. `index.ts` re-exports everything for
@@ -160,7 +160,90 @@ Acceptance criteria:
 
 ## Requests filed
 - docs/requests/101-sign-in-contracts.md: sign-in input/output schemas into contracts (local copy in
-  `server/auth/schemas.ts` until then).
+  `server/auth/schemas.ts` until then). Answered by the lead; the local copy is gone (review round).
 - docs/requests/101-session-proxy-and-auth-config.md: create and assign `apps/web/src/proxy.ts`, and
   add the callback URLs (ports 3000 and 3100) to `additional_redirect_urls`.
 - docs/requests/101-suspended-profile-edits.md: `profiles_update` should require `is_active_user()`.
+
+## Review round (PR #4)
+No finding was blocking. Each fix below is a new commit on top of 263d483, with no force-push.
+Where this section conflicts with the sections above, this section is current.
+
+1. Merged `origin/phase-0/foundations` at 9c4c323 (494aeac).
+   - Switched to the sign-in schemas now in `@stash/contracts` and deleted
+     `server/auth/schemas.ts`.
+   - Created `apps/web/src/proxy.ts`, which calls `updateSession`. `next build` lists
+     "ƒ Proxy (Middleware)".
+   - Fixed the request link in `supabase/proxy.ts`.
+   - The merge brought the lead's test that a suspended user gets 0 rows when editing their profile
+     (policies.test.ts). I added a stronger one in sign-in.test.ts: writing every editable column
+     (display name, bio, links, avatar) changes nothing, and the user can edit again once restored.
+2. Sign-in redirect URLs now come from `NEXT_PUBLIC_SITE_URL` through `siteUrl()` in env.ts.
+   - The value must be an http or https origin with no path, query or credentials.
+   - It is validated on its own, so a missing value breaks only sign-in, not every page.
+   - `request-deps.ts` no longer reads any request headers, the wrong comment about Origin checks
+     is gone, and `origin` is removed from `ActionDeps` and `ActionContext`.
+   - Tests: env.test.ts (valid and invalid values) and sign-in.test.ts (the redirect origin comes
+     only from the env; without it no link is sent).
+   - The variable is not yet in .env.example or `pnpm dev`, which are lead-owned. Filed
+     docs/requests/101-site-url-env.md.
+3. Removed the `token_hash` / `verifyOtp` branch. The callback accepts only the PKCE code, which is
+   bound to the verifier cookie in the browser that started sign-in. A test checks that token hashes
+   of every type are refused.
+4. The callback query is parsed with a Zod schema, using `nextPathSchema` from contracts for
+   `next`. Each field falls back on its own: a bad `next` becomes "/", a missing or oversized code
+   fails the sign-in, and any `error` value fails it. `safeNextPath` lives in
+   `server/auth/next-path.ts`, which has no server-only imports, and is exported from `@/server`.
+   **Ticket 133 must pass every `next` value it redirects to through `safeNextPath`**, for example
+   on /login after the handle is claimed. Passing `next` into the sign-in actions as-is is fine,
+   because the server sanitizes it there.
+5. The return types in `auth/actions.ts` are now `Result<z.output<typeof …Output>>` from the
+   contracts schemas.
+6. `toProfile` degrades instead of failing on fields the database accepts but `profileSchema`
+   rejects:
+   - invalid links are dropped (at most 8 are kept);
+   - a display name the contract rejects (only spaces) falls back to the handle;
+   - a bad bio or avatar URL becomes null.
+   It logs a warning with the profile id and the field names, never the values. Columns the database
+   checks exactly still throw, because that would be a schema bug. Tests: the degrade itself, and a
+   session loading for a user with a link kind outside the enum.
+7. Added tests:
+   - A1: a P0001 "invalid: …" from claim_handle comes back with `fields.handle`.
+   - A2: avatar paths `${uid}//x.webp`, one containing a newline, `./` and a backslash are refused.
+   - A3: `/%5cevil.example` (also `%5C`), a next of more than 500 characters, and non-string next
+     values become "/".
+   - A4: a plain 400 `AuthApiError` maps to invalid in mapError, and 400 and 401 from getUser mean
+     signed out.
+   - A6: `avatarPath: null` writes `avatar_path = null` and returns `avatarUrl: null`.
+
+Commits: 494aeac (merge), 7d309da, 23dea39, 173a0b4, 676f9e0, c374c67, 866df1b, plus this handoff.
+
+`pnpm check && pnpm test && pnpm db:test`, exit 0:
+```
+> stash@ check /home/claude/stash/.claude/worktrees/agent-af9b6f778b43f6089
+> pnpm -r --parallel typecheck && tsc -p tsconfig.json && eslint . --max-warnings 0
+Scope: 4 of 5 workspace projects
+apps/web typecheck$ next typegen && tsc -p tsconfig.json
+packages/audio typecheck$ tsc -p tsconfig.json
+packages/contracts typecheck$ tsc -p tsconfig.json
+packages/ui typecheck$ tsc -p tsconfig.json
+apps/web typecheck: Generating route types...
+apps/web typecheck: ✓ Types generated successfully
+packages/ui typecheck: Done
+packages/contracts typecheck: Done
+packages/audio typecheck: Done
+apps/web typecheck: Done
+> stash@ test /home/claude/stash/.claude/worktrees/agent-af9b6f778b43f6089
+> vitest run
+ RUN  v5.1.1 /home/claude/stash/.claude/worktrees/agent-af9b6f778b43f6089
+ Test Files  10 passed (10)
+      Tests  186 passed (186)
+> stash@ db:test /home/claude/stash/.claude/worktrees/agent-af9b6f778b43f6089
+> vitest run --config supabase/tests/vitest.config.ts
+ RUN  v5.1.1 /home/claude/stash/.claude/worktrees/agent-af9b6f778b43f6089
+ Test Files  2 passed (2)
+      Tests  91 passed (91)
+```
+The web project now has 6 files and 84 tests. `pnpm run licenses` passes,
+`pnpm --filter @stash/web build` succeeds, and no dependencies changed.
+
