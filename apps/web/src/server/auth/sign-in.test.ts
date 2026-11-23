@@ -1,7 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { AuthApiError } from "@supabase/supabase-js";
 import { signInWithEmail, signInWithProvider, signOut } from "./sign-in.ts";
-import { handleAuthCallback, safeNextPath } from "./callback.ts";
+import { handleAuthCallback } from "./callback.ts";
+import { safeNextPath } from "../index.ts";
 import type { ActionDeps } from "../action.ts";
 import { IDS, TEST_ENV, fakeSupabase, member, type FakeOptions } from "../testing/fake-supabase.ts";
 
@@ -21,7 +22,7 @@ describe("safeNextPath", () => {
     expect(safeNextPath("/loop/dark-keys-k3j9x0a2bq?t=1#x")).toBe("/loop/dark-keys-k3j9x0a2bq?t=1#x");
   });
   it("turns anything that could leave the site into /", () => {
-    for (const bad of [null, undefined, "", "https://evil.example", "//evil.example", "/\\evil.example", "\\\\evil", "upload", "/\tx", "javascript:alert(1)", "/%0d%0aSet-Cookie:x"]) {
+    for (const bad of [null, undefined, "", "https://evil.example", "//evil.example", "/\\evil.example", "\\\\evil", "upload", "/\tx", "javascript:alert(1)", "/%0d%0aSet-Cookie:x", "/%5cevil.example", "/%5Cevil.example", `/${"a".repeat(500)}`, 42, ["/upload"]]) {
       expect(safeNextPath(bad), String(bad)).toBe("/");
     }
   });
@@ -121,10 +122,22 @@ describe("handleAuthCallback", () => {
     expect(f.auth.exchangeCodeForSession).toHaveBeenCalledWith("abc");
   });
 
-  it("verifies an email token hash", async () => {
+  it("refuses email token hashes: only the PKCE code, bound to this browser's verifier cookie, signs in", async () => {
     const f = fakeSupabase(member());
-    expect(await handleAuthCallback(url("token_hash=th&type=magiclink"), f.client)).toBe("/");
-    expect(f.auth.verifyOtp).toHaveBeenCalledWith({ token_hash: "th", type: "magiclink" });
+    for (const type of ["magiclink", "signup", "email", "recovery"]) {
+      expect(await handleAuthCallback(url(`token_hash=th&type=${type}`), f.client), type).toBe("/login?error=signin_failed");
+    }
+    expect(f.auth.verifyOtp).not.toHaveBeenCalled();
+    expect(f.auth.exchangeCodeForSession).not.toHaveBeenCalled();
+  });
+
+  it("parses the query: an oversized code fails, an oversized or odd next falls back to /", async () => {
+    const f = fakeSupabase(member());
+    expect(await handleAuthCallback(url(`code=${"c".repeat(1025)}`), f.client)).toBe("/login?error=signin_failed");
+    expect(f.auth.exchangeCodeForSession).not.toHaveBeenCalled();
+    expect(await handleAuthCallback(url(`code=abc&next=/${"a".repeat(600)}`), f.client)).toBe("/");
+    expect(await handleAuthCallback(url("code=abc&next=%2F%5cevil.example"), f.client)).toBe("/");
+    expect(await handleAuthCallback(url("code=&next=%2Fupload"), f.client)).toBe("/login?error=signin_failed&next=%2Fupload");
   });
 
   it("sends a new user (no handle yet) to /login to claim one, keeping next", async () => {
@@ -145,9 +158,4 @@ describe("handleAuthCallback", () => {
     expect(await handleAuthCallback(url(""), f.client)).toBe("/login?error=signin_failed");
   });
 
-  it("only accepts email link types", async () => {
-    const f = fakeSupabase(member());
-    expect(await handleAuthCallback(url("token_hash=th&type=recovery"), f.client)).toBe("/login?error=signin_failed");
-    expect(f.auth.verifyOtp).not.toHaveBeenCalled();
-  });
 });
