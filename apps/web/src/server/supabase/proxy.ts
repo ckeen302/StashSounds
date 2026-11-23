@@ -5,7 +5,7 @@ import { publicEnv } from "../env.ts";
 /**
  * Refreshes the Supabase session cookie before a page renders. Meant to be called from
  * apps/web/src/proxy.ts (Next 16's renamed middleware), which is requested in
- * docs/requests/101-session-proxy.md:
+ * docs/requests/101-session-proxy-and-auth-config.md:
  *
  *   export function proxy(request: NextRequest) { return updateSession(request); }
  *   export const config = { matcher: ["/((?!_next/static|_next/image|icon.svg|robots.txt).*)"] };

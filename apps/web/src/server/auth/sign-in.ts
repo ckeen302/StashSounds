@@ -1,14 +1,14 @@
-import { ok } from "@stash/contracts";
-import { defineAction } from "../action.ts";
-import { callbackUrl } from "./callback.ts";
 import {
+  ok,
   signInWithEmailInput,
   signInWithEmailOutput,
   signInWithProviderInput,
   signInWithProviderOutput,
   signOutInput,
   signOutOutput,
-} from "./schemas.ts";
+} from "@stash/contracts";
+import { defineAction } from "../action.ts";
+import { callbackUrl } from "./callback.ts";
 
 /**
  * Email link sign-in. Creates the auth user on first use; the profile and account rows come
