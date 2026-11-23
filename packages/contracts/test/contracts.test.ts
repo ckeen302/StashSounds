@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import {
   compatibleKeys,
+  workerFileSchema,
   completeUploadOutput,
   createUploadSlotInput,
   decodePeaks,
@@ -193,6 +194,19 @@ describe("items", () => {
     const pad = (i: number) => ({ index: i, name: `Kick ${i}`, category: "kick", previewUrl: "https://p.example.com/k.mp3" });
     expect(playableSchema.safeParse({ kind: "kit", id: "k", pads: Array.from({ length: 16 }, (_, i) => pad(i)) }).success).toBe(true);
     expect(playableSchema.safeParse({ kind: "kit", id: "k", pads: Array.from({ length: 17 }, (_, i) => pad(i)) }).success).toBe(false);
+  });
+});
+
+describe("worker result files", () => {
+  const base = { bucket: "previews", path: "i/peaks-abc.peaks", bytes: 800, mime: "application/octet-stream", sha256: null };
+  it("a peaks file carries its 800 peaks in meta", () => {
+    const peaks = encodePeaks(new Array(800).fill(7));
+    expect(workerFileSchema.safeParse({ ...base, role: "peaks", meta: { points: 800, peaks } }).success).toBe(true);
+    expect(workerFileSchema.safeParse({ ...base, role: "peaks", meta: {} }).success).toBe(false);
+    expect(workerFileSchema.safeParse({ ...base, role: "peaks", meta: { points: 800, peaks: encodePeaks([1, 2]) } }).success).toBe(false);
+  });
+  it("other files keep free-form meta", () => {
+    expect(workerFileSchema.safeParse({ ...base, role: "preview", mime: "audio/mpeg", meta: { bitrateKbps: 192 } }).success).toBe(true);
   });
 });
 
