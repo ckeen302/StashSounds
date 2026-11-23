@@ -22,7 +22,12 @@ export class FakeContext implements AudioContextLike {
   decodeCalls = 0;
   sampleRate = 48000;
 
+  failCreateGain = 0; // number of createGain calls that throw
   createGain(): GainNodeLike {
+    if (this.failCreateGain > 0) {
+      this.failCreateGain--;
+      throw new DOMException("cannot create gain", "NotSupportedError");
+    }
     const g = new FakeGain();
     this.gains.push(g);
     return g;
@@ -54,19 +59,34 @@ export class FakeContext implements AudioContextLike {
   }
 }
 
+/** Like a browser AudioParam, rejects non-finite numbers with a TypeError. */
+function finite(...xs: number[]) {
+  for (const x of xs) if (!Number.isFinite(x)) throw new TypeError("The provided float value is non-finite.");
+}
+
 export class FakeParam implements AudioParamLike {
-  value = 1;
+  private v = 1;
   events: { type: string; value: number; time: number }[] = [];
+  get value() {
+    return this.v;
+  }
+  set value(x: number) {
+    finite(x);
+    this.v = x;
+  }
   setValueAtTime(value: number, time: number) {
-    this.value = value;
+    finite(value, time);
+    this.v = value;
     this.events.push({ type: "set", value, time });
   }
-  setTargetAtTime(value: number, time: number) {
-    this.value = value;
+  setTargetAtTime(value: number, time: number, timeConstant: number) {
+    finite(value, time, timeConstant);
+    this.v = value;
     this.events.push({ type: "target", value, time });
   }
   cancelScheduledValues(time: number) {
-    this.events.push({ type: "cancel", value: this.value, time });
+    finite(time);
+    this.events.push({ type: "cancel", value: this.v, time });
   }
 }
 

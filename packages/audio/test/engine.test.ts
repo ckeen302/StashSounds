@@ -124,6 +124,25 @@ describe("unlock and the audio context", () => {
     const key = Symbol.for("stash.audio.engine");
     expect((globalThis as Record<symbol, unknown>)[key]).toBe(a);
   });
+  it("getEngine returns the same instance after the module is evaluated again", async () => {
+    const a = getEngine();
+    vi.resetModules();
+    const fresh = await import("../src/engine.ts");
+    expect(fresh.getEngine).not.toBe(getEngine); // really a second evaluation of the module
+    expect(fresh.getEngine()).toBe(a);
+  });
+  it("keeps the context when setting it up fails part way, and finishes setup on retry", async () => {
+    const ctx = new FakeContext();
+    ctx.failCreateGain = 1;
+    const createContext = vi.fn(() => ctx);
+    const e = new WebAudioEngine({ createContext, fetch: fakeFetch({ [url("a")]: 2100 }).fetch });
+    await expect(e.unlock()).resolves.toBeUndefined();
+    expect(e.getState().status).toBe("error");
+    await e.play(loop("a"));
+    expect(createContext).toHaveBeenCalledTimes(1);
+    expect(e.getState().status).toBe("playing");
+    expect(ctx.gains[0]!.connected).toEqual([ctx.destination]);
+  });
 });
 
 describe("load and play", () => {
@@ -180,7 +199,7 @@ describe("load and play", () => {
     expect(e.getState()).toMatchObject({ current: { id: "c" }, status: "playing" });
   });
   it("a slow earlier load never starts after a later play", async () => {
-    const { e, net, ctx } = setup();
+    const { e, net, ctx } = setup({ [url("b")]: 3100 });
     net.hold(url("a"));
     const first = e.play(loop("a"));
     await flush();
@@ -189,6 +208,7 @@ describe("load and play", () => {
     await first;
     await flush();
     expect(ctx().playing).toHaveLength(1);
+    expect(ctx().playing[0]!.buffer!.duration).toBe(3.1); // b's buffer, not a's (2.1 s)
     expect(e.getState()).toMatchObject({ current: { id: "b" }, status: "playing" });
   });
   it("play of the item already playing does not restart it", async () => {
@@ -204,6 +224,17 @@ describe("load and play", () => {
     await e.play();
     expect(e.getState().status).toBe("idle");
     expect(net.calls).toEqual([]);
+  });
+  it.each([
+    ["a kit", kit("k")],
+    ["a MIDI item", { kind: "midi", id: "m", notesUrl: url("m"), bpm: 90, sound: "keys" } as Playable],
+  ])("switching from a playing loop to %s stops the loop", async (_, item) => {
+    const { e, ctx } = setup();
+    await e.play(loop("a"));
+    await e.play(item);
+    expect(ctx().playing).toHaveLength(0);
+    expect(e.getState()).toMatchObject({ status: "idle", current: { id: item.id } });
+    expect(e.getPositionMs()).toBe(0);
   });
   it("kits and MIDI are accepted without sound until their players land (221, 223)", async () => {
     const { e, net } = setup();
@@ -332,7 +363,10 @@ describe("pause", () => {
     ctx().advance(1);
     e.pause();
     const voiceGain = ctx().gains[1]!;
-    expect(voiceGain.gain.events.at(-1)).toMatchObject({ type: "target", value: 0, time: 1 });
+    expect(voiceGain.gain.events.slice(-2)).toMatchObject([
+      { type: "cancel", time: 1 },
+      { type: "target", value: 0, time: 1 },
+    ]);
     const src = ctx().sources[0]!;
     expect(src.stoppedAt).toBeGreaterThan(1);
     expect(src.stoppedAt).toBeLessThan(1.05);
@@ -379,6 +413,26 @@ describe("seek", () => {
     ctx().advance(0.1);
     expect(e.getPositionMs()).toBeCloseTo(1600);
     expect(e.getState().status).toBe("playing");
+  });
+  it.each([
+    ["mid-loop", 1500],
+    ["to 0", 0],
+    ["past the loop end, wrapping to 0", 2000],
+  ])("while playing, seek %s ramps the new voice in from 0", async (_, ms) => {
+    const { e, ctx } = setup();
+    await e.play(loop("a"));
+    ctx().advance(1);
+    e.seek(ms);
+    const voiceGain = ctx().gains.at(-1)!;
+    expect(voiceGain.gain.events).toMatchObject([
+      { type: "set", value: 0, time: 1 },
+      { type: "target", value: 1, time: 1 },
+    ]);
+  });
+  it("a fresh start at 0 is not faded, so the first transient is kept", async () => {
+    const { e, ctx } = setup();
+    await e.play(loop("a"));
+    expect(ctx().gains[1]!.gain.events).toEqual([]);
   });
   it("while paused stores the offset for resume", async () => {
     const { e, ctx } = setup();
@@ -447,6 +501,28 @@ describe("volume and the remaining controls", () => {
       e.noteOn(60, 0.8);
       e.noteOff(60);
     }).not.toThrow();
+  });
+  it("non-finite volume, transpose and tempo are ignored and never reach an AudioParam", async () => {
+    const { e, ctx } = setup();
+    await e.play(loop("a"));
+    e.setVolume(0.5);
+    e.setTranspose(3);
+    e.setTempo(70);
+    const fn = vi.fn();
+    e.subscribe(fn);
+    for (const bad of [Number.NaN, Infinity, -Infinity]) {
+      expect(() => e.setVolume(bad)).not.toThrow();
+      expect(() => e.setTranspose(bad)).not.toThrow();
+      expect(() => e.setTempo(bad)).not.toThrow();
+    }
+    expect(fn).not.toHaveBeenCalled();
+    expect(e.getState()).toMatchObject({ volume: 0.5, transpose: 3, tempoRatio: 0.5 });
+    expect(ctx().gains[0]!.gain.value).toBe(0.5);
+  });
+  it("setQueue with a negative start index starts at the first item", () => {
+    const { e } = setup();
+    e.setQueue([loop("a"), loop("b")], -3);
+    expect(e.getState().queueIndex).toBe(0);
   });
   it("setQueue clamps the start index and an empty queue resets it", () => {
     const { e } = setup();
