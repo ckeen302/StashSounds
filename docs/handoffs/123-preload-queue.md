@@ -121,12 +121,12 @@ Flaky once, not the code: my first full `pnpm perf` on this branch failed `budge
 - **Real preview hosting:** the numbers come from a local server, the test page server on 127.0.0.1, with CDP shaping the network. A run against real storage and CDN latency belongs with 135 or the item page.
 
 ## Surprises and decisions
-- **Network profiles are my choice; please confirm.** The spec says only "fast" and "throttled".
+- **Network profiles: chosen by me, accepted by the lead.** The lead also accepted the timing method below. The spec says only "fast" and "throttled".
   - Fast: no shaping.
   - Throttled: CPU 4x, the same as `budgets.spec.ts`, with 9 Mbps down, 1.5 Mbps up and 150 ms latency, which is 4G-class.
   - Preloaded case: a slower profile (1.6 Mbps, 562.5 ms latency) to show that a hover preload makes the click independent of the network.
 
-  If the lead wants "throttled" to mean the slow profile, a cold click cannot meet 800 ms: the 562 ms latency alone plus a 206 KB download at 1.6 Mbps is about 1.6 s. On that profile, only the preloaded path is under budget.
+  **A cold click on the slow profile is out of the budget by design** (lead's decision). The 562 ms latency plus a 206 KB download at 1.6 Mbps comes to about 1.6 s before any audio can play. That case is covered by preloading: rows preload on hover and focus, and the preloaded scenario above stays under 800 ms with no request after the click.
 - **How the timing is taken:**
   - The output side uses a ScriptProcessor tap on the destination and `getOutputTimestamp()`. It takes the later edge of each sample, so it can overstate the time, by at most one 256-frame block (about 6 ms), and never understates it.
   - ScriptProcessor is deprecated but still in Chromium. An AudioWorklet tap would need its own module and could start too late to catch the first block.
