@@ -176,7 +176,106 @@ it at the end, so it can share a server with `pnpm db:test`.
   as the ticket intends.
 
 ## Requests filed
-- docs/requests/111-worker-ci-postgres.md: Postgres service and `STASH_REQUIRE_DB=1` in the worker CI job.
-- docs/requests/111-worker-job-input.md: a service-role `worker_job_input(job_id)` function and contract
-  (blocks 112), and an attempt guard on worker_complete/worker_fail.
-- docs/requests/111-worker-memory-limit.md: `worker.memoryMb` in limits.json.
+All three were resolved on the base branch (decision 0012) and the request files are deleted:
+- 111-worker-ci-postgres: Postgres service and `STASH_REQUIRE_DB=1` in the worker CI job.
+- 111-worker-job-input: `worker_job_input(job_id, attempt)` and the attempt guard on worker_complete/worker_fail.
+- 111-worker-memory-limit: `worker.memoryMb` in limits.json.
+
+## Review round (PR #3)
+Merged `origin/phase-0/foundations` (be68c66, 9c4c323) first. The sections above describe the first
+round; where they disagree, this section wins.
+
+### Base changes picked up (decision 0012)
+- **Run guard.** `complete(job_id, attempt, result)` and `fail(job_id, attempt, reason, retryable)` pass the
+  claimed attempt. A `conflict` from worker_job_input, worker_complete or worker_fail means another worker
+  owns the run: logged, nothing else. DB test `test_a_worker_that_lost_its_job_cannot_finish_it` proves a
+  worker that lost its job to a stale requeue gets `conflict` on all three calls and the new owner does not.
+- **Job input.** `PgJobQueue.job_input(job_id, attempt)` calls `worker_job_input` and validates against
+  worker-job-input.schema.json (`QueueContractError` otherwise); the runner validates it again for any
+  queue. The handler request carries it as `JobContext.input` (item, owner, type, title, files with
+  `fileName`). A job input that breaks the contract fails as `internal`, not retryable. Tests:
+  `test_job_input_describes_the_claimed_job`, `test_the_handler_gets_the_job_input_through_the_runner`.
+- **Memory limit** comes from `limits.worker.memoryMb` only. I dropped `STASH_WORKER_MEMORY_MB`: one source
+  of numbers, and an override is one more way to lose the cap.
+
+### Findings
+1. **(blocking) Limits on the real path.** `Runner` has no uncapped mode: `memory_bytes` defaults to
+   memoryMb, `run_isolated` requires an int, and timeouts are looked up per job through `timeout_for` unless
+   a test overrides a kind. New tests: `test_the_memory_cap_from_limits_applies_without_an_override`
+   (memory hog with no override ends `("fail", id, 1, "internal", True)`),
+   `test_a_runner_without_overrides_uses_the_limits_for_every_kind` (every job kind gets `timeout_for(kind)`
+   and the limits memory), `test_main_passes_the_configured_memory_cap_to_the_runner`. Checked by mutation:
+   each of the three edits the reviewer named now turns the suite red (output below).
+2. **Child environment.** The child gets only PATH, PYTHONPATH, LANG and LC_ALL from the worker, plus HOME and
+   TMPDIR inside the job folder. `test_the_child_sees_only_an_allowlisted_environment` sets DATABASE_URL,
+   SUPABASE_SERVICE_ROLE_KEY and STASH_S3_SECRET_ACCESS_KEY and checks the handler sees none of them.
+   **Still needed before hostile files arrive:** run the child as a separate uid, or in its own container.
+   Today it shares the worker's uid, so it could read the worker's files (including .env.local in dev) and
+   signal the worker process.
+3. **Untrusted outcome.json.** Opened with O_NOFOLLOW, must be a regular file, at most 1 MiB (checked with
+   fstat before reading), must parse to an object. `ok` needs an object result. `rejected` needs a reason in
+   `rejection_reasons()`. Anything else is a crash (`internal`, retryable). `run_once` turns any unexpected
+   exception into `worker_fail('internal', true)`, and `run()` catches any Exception and carries on. The child
+   also gets RLIMIT_FSIZE (kit.maxUnpackedBytes, the largest thing a job holds) and RLIMIT_NPROC. RLIMIT_NPROC
+   counts every process of the uid, so the cap is the uid's current process count plus 64. It is not enforced
+   for root, which is another reason for the separate uid. Tests: `test_a_forged_outcome_is_a_crash` (runner
+   reason, flag reason, garbage, list result), `test_an_outcome_over_the_size_cap_is_not_read`,
+   `test_the_child_runs_under_resource_limits`, `test_an_unexpected_error_never_escapes_the_loop`, and the
+   forged cases in `test_failures_map_to_worker_fail`.
+4. **Lazy timeouts.** Done as part of 1. `test_timeout_keys_cover_exactly_the_job_kinds` compares TIMEOUT_KEYS
+   with the kind enum in job-payload.schema.json.
+5. `test_the_runner_and_flag_reasons_are_contract_reasons`: "timeout" and "internal" (and the four flag
+   reasons) are in `worker_reasons()`.
+6. **Rejected takes file faults only.** `rejection_reasons()` = worker_reasons minus the runner reasons minus
+   `FLAG_REASONS` (duplicate_exact, duplicate_fingerprint, commercial_match, pack_name_blocklist). A screening
+   match must come back as `result.flag`, which makes the item flagged instead of ready (documented in
+   jobs.py). Tests: `test_rejected_accepts_only_file_fault_reasons`,
+   `test_a_screening_match_raised_as_a_rejection_is_a_crash`.
+7. **TLS.** `connect_params` honors `sslmode` and `sslrootcert` from DATABASE_URL, mapped onto pg8000 the way
+   libpq reads them:
+   - This machine (localhost, 127.0.0.1, ::1): no sslmode means prefer, and `disable` turns TLS off.
+   - Any other host always gets TLS. No sslmode, `allow` or `prefer` means verify-full, and `disable` is
+     refused. `require` encrypts without verifying, `verify-ca` checks the chain but not the hostname.
+
+   Tests: `test_local_hosts_use_tls_only_when_asked`, `test_remote_hosts_require_verified_tls`.
+   **Deployment note:** Supabase's server certificate may not chain to the system CA store. In that case set
+   `sslrootcert=<Supabase CA file>` or `sslmode=require` in DATABASE_URL.
+8. `test_two_jobs_get_different_folders`: two jobs get two distinct, empty folders under the temp root, and
+   both are gone afterwards.
+9. **Deployment item:** production should not connect as `postgres`. Use a dedicated login role that is
+   granted only `service_role` (for example `create role stash_worker login password … in role service_role`
+   with `noinherit`, so it must `set role`). The worker already does `set local role service_role` per call,
+   so only DATABASE_URL changes.
+
+### Proof
+```
+$ STASH_REQUIRE_DB=1 pnpm worker:test
+> stash@ worker:test /home/claude/stash/.claude/worktrees/agent-a8f08083f5c868a09
+> cd apps/worker && uv run --frozen pytest -q
+
+.....s.................................................................. [ 80%]
+.................                                                        [100%]
+=========================== short test summary info ============================
+SKIPPED [1] tests/test_contracts.py:74: got empty parameter set for (path)
+88 passed, 1 skipped in 12.64s
+
+$ cd apps/worker && uv run --frozen ruff check . && uv run --frozen ruff format --check .
+All checks passed!
+17 files already formatted
+```
+Postgres 16 on localhost; CI runs the same suite on Postgres 17 with `STASH_REQUIRE_DB=1`. The one skip is
+the existing fixtures/own test (no files yet).
+
+Mutation check for finding 1. Each edit was applied alone, the suite run, and the file restored:
+```
+runner.py  memory_bytes=self.memory_bytes -> None              13 failed, 75 passed, 1 skipped
+runner.py  timeout_s=self.timeout_for(kind) -> 120             1 failed, 87 passed, 1 skipped
+__main__.py memory_bytes=settings.memory_bytes -> None         1 failed, 87 passed, 1 skipped
+restored                                                       88 passed, 1 skipped
+```
+
+### Other notes
+- **macOS:** the memory cap (RLIMIT_AS) is applied on Linux only. On macOS `pnpm dev` logs a warning per job
+  and runs without it; production and CI run on Linux. FSIZE, NPROC and core limits apply on both.
+- **PEP 538:** the child interpreter may add `LC_CTYPE` to its own environment (locale coercion). The
+  environment test allows that name; the worker does not pass it in.
