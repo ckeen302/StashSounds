@@ -310,3 +310,6 @@ apps/web typecheck: Done
 ```
 - The 7 skipped tests are the SeaweedFS suite: no storage is reachable here, and running the binary is not permitted in this sandbox. CI (STASH_REQUIRE_STORAGE=1) is still the first real run, now with 3 more tests.
 - `pnpm run licenses`: "All dependency licenses are on the allowed list."
+
+### Follow-up (decision 0015)
+Request 102-staging-expiry is answered: staging/ expires after a day on R2 (docs/deploy/r2-lifecycle.json), so the request file is removed. The lead added the concurrent-completion race to the board for the pipeline lane (the worker records the SHA-256 it downloaded). Lane check after merging phase-0/foundations bdc2eb9, exit 0: unit tests 238 passed and 7 skipped (SeaweedFS); database tests 108 passed.
