@@ -257,3 +257,23 @@ all widths, `shell-*`, `gallery-c-player-*`, `gallery-c-slider-desktop`, `galler
 
 ## Requests filed
 None.
+
+## Follow-up: /dev/player is not reachable in production
+The lead accepted `/dev/player` on the condition that production cannot reach it. The page is now
+dynamic and calls `notFound()` unless the server runs with `STASH_DEV_PAGES=1`
+(`apps/web/src/app/_shell/dev-pages.ts`, unit-tested). Only the variable decides, not `NODE_ENV`,
+because the tests also run a production build. The test servers need the flag, and their config is
+lead-owned: docs/requests/132-dev-pages-flag.md. Until that lands, CI's shell journeys answer 404,
+which is the intended failure.
+
+```
+$ next start (production build, STASH_DEV_PAGES unset)
+without flag: /dev/player 404
+without flag: /dev/gallery 200
+
+$ STASH_DEV_PAGES=1 pnpm e2e
+  46 passed (25.4s)
+
+$ STASH_DEV_PAGES=1 pnpm visual
+  85 passed (29.9s)
+```
