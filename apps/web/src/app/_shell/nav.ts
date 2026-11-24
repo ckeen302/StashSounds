@@ -1,10 +1,11 @@
 import { Compass, House, Library, Upload, User, type IconComponent } from "@stash/ui";
+import type { Viewer } from "../_auth/viewer";
 
 export type NavItem = { href: string; label: string; icon: IconComponent; /** Path prefix that marks it current. */ match: string };
 
 /**
  * The five destinations: the rail on tablet and desktop, the tab bar on phone (design spec, Frame
- * by width). Profile goes to sign-in until a signed-in viewer's handle reaches the shell (133).
+ * by width). Profile goes to sign-in for a visitor; navFor points it at a member's own page.
  */
 export const navItems: NavItem[] = [
   { href: "/", label: "Home", icon: House, match: "/" },
@@ -19,4 +20,10 @@ export function isCurrent(pathname: string, item: Pick<NavItem, "match">): boole
   if (item.match === "/") return pathname === "/";
   const m = item.match.endsWith("/") ? item.match.slice(0, -1) : item.match;
   return pathname === m || pathname.startsWith(`${m}/`);
+}
+
+/** The destinations for this viewer: a member's Profile is /u/<handle> and current on it. */
+export function navFor(viewer: Viewer): NavItem[] {
+  if (viewer.status !== "member") return navItems;
+  return navItems.map((item) => (item.label === "Profile" ? { ...item, href: `/u/${viewer.handle}`, match: `/u/${viewer.handle}` } : item));
 }

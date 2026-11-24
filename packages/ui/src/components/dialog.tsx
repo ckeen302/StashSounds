@@ -12,7 +12,8 @@ type SurfaceProps = {
   title: ReactNode;
   description?: ReactNode;
   children?: ReactNode;
-  footer: ReactNode;
+  /** The actions row. A panel dialog whose body holds its own buttons leaves it out. */
+  footer?: ReactNode;
   error?: string;
   close?: ReactNode;
   className?: string;
@@ -33,7 +34,7 @@ export function DialogSurface({ title, description, children, footer, error, clo
           {error}
         </p>
       )}
-      <div className="flex flex-wrap justify-end gap-2">{footer}</div>
+      {footer && <div className="flex flex-wrap justify-end gap-2">{footer}</div>}
       {close && <div className="absolute top-4 right-4">{close}</div>}
     </div>
   );
@@ -147,5 +148,47 @@ export function DialogPreview({ variant = "confirm", title, description, childre
     >
       {children}
     </DialogSurface>
+  );
+}
+
+/**
+ * A modal whose body carries its own actions, such as the sign-in dialog's email form and provider
+ * buttons: the same face, focus trap, Escape and focus return as Dialog, without the confirm row.
+ */
+export function PanelDialog({
+  open,
+  onOpenChange,
+  title,
+  description,
+  children,
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  title: string;
+  description?: string;
+  children: ReactNode;
+}) {
+  return (
+    <D.Root open={open} onOpenChange={onOpenChange}>
+      <D.Portal>
+        <D.Overlay className="fixed inset-0 z-40 grid animate-scrim place-items-center overflow-y-auto bg-bg/80 p-4">
+          <D.Content className="flex w-full animate-overlay justify-center" {...(description ? {} : { "aria-describedby": undefined })}>
+            <DialogSurface
+              title={<D.Title className={titleClass}>{title}</D.Title>}
+              description={description ? <D.Description className={descriptionClass}>{description}</D.Description> : undefined}
+              close={
+                <D.Close asChild>
+                  <button type="button" aria-label="Close" className="inline-flex size-8 items-center justify-center rounded-control text-text-muted transition-colors duration-control ui-hover:bg-surface ui-hover:text-text pointer-coarse:size-10">
+                    <Icon icon={X} />
+                  </button>
+                </D.Close>
+              }
+            >
+              {children}
+            </DialogSurface>
+          </D.Content>
+        </D.Overlay>
+      </D.Portal>
+    </D.Root>
   );
 }

@@ -6,6 +6,7 @@ import {
   Avatar,
   Button,
   DialogPreview,
+  PanelDialog,
   EmptyState,
   ErrorState,
   FilterChip,
@@ -246,5 +247,11 @@ describe("Result row", () => {
   });
   it("reflects the viewer's like", () => {
     expect(out).toMatch(/aria-label="Like Dusty soul chops" aria-pressed="true"/);
+  });
+});
+
+describe("PanelDialog", () => {
+  it("renders nothing while closed, and its own body with no confirm row (sign-in, ticket 133)", () => {
+    expect(html(h(PanelDialog, { open: false, onOpenChange: () => {}, title: "Sign in to like this", children: h("p", null, "body") }))).toBe("");
   });
 });
