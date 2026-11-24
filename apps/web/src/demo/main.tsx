@@ -62,6 +62,8 @@ import { PRESETS, type Confidence } from "./presets/data";
 import { kits } from "./kits/store";
 import { saveFiles, saveLoopRow } from "./save";
 import { SmartSearch, useQuery } from "./search-ui";
+import { KitHits, PresetHits, ProducerHits, ShotHits, SfxHits, useOtherHits } from "./search-page";
+import { queryWords, textMatch } from "./text-match";
 import { loopProfile, midiProfile } from "./search-index";
 import { match, moreLike } from "./smart-search";
 import { writeMidi } from "./midi/write";
@@ -493,71 +495,99 @@ function LibraryRoute() {
   );
 }
 
+type SearchKind = "all" | "loops" | "midi" | "presets" | "sfx" | "kits" | "shots" | "producers";
+let searchKind: SearchKind = "all";
+
+/** Strict matches (every word of the query found) first; close matches only when there are none. */
+function rankSmart<T>(list: T[], prof: (x: T) => Parameters<typeof match>[0], q: ReturnType<typeof useQuery>): { items: T[]; close: boolean } {
+  const scored = list
+    .map((x) => ({ x, hit: match(prof(x), q) }))
+    .filter((r): r is { x: T; hit: NonNullable<ReturnType<typeof match>> } => !!r.hit)
+    .sort((a, b) => b.hit.score - a.hit.score);
+  const full = scored.filter((r) => r.hit.all !== false);
+  return full.length ? { items: full.map((r) => r.x), close: false } : { items: scored.map((r) => r.x), close: scored.length > 0 };
+}
+
 function SearchResults() {
   const [rows, refresh] = useRows();
   const query = useSearchQuery();
   const parsed = useQuery(query);
-  const ranked = <T,>(list: T[], prof: (x: T) => Parameters<typeof match>[0]) =>
-    list
-      .map((x) => ({ x, hit: match(prof(x), parsed) }))
-      .filter((r) => r.hit)
-      .sort((a, b) => b.hit!.score - a.hit!.score)
-      .map((r) => r.x);
-  const hits = ranked(rows, (r) => loopProfile(r, catalog));
   const midi = useMidiItems();
-  const midiHits = ranked(midi, midiProfile);
+  const [kind, setKindState] = useState<SearchKind>(searchKind);
+  const setKind = (k: SearchKind) => {
+    searchKind = k;
+    setKindState(k);
+    window.scrollTo({ top: 0 });
+  };
+  const loops = rankSmart(rows, (r) => loopProfile(r, catalog), parsed);
+  const mids = rankSmart(midi, midiProfile, parsed);
+  const other = useOtherHits(query);
+  const words = queryWords(query);
+  // How squarely a group's best result names what was typed: orders the groups, so "kick" leads with
+  // one-shots and "god's plan" with the song's chords.
+  const lead = (name: string | undefined) => (name ? (textMatch([{ text: name, weight: 1 }], words)?.score ?? 0) : 0);
+  const groups: { id: Exclude<SearchKind, "all">; name: string; n: number; close: boolean; top: number; lead: number; render: (all: boolean) => ReactNode }[] = [
+    { id: "presets", name: "Presets", n: other.presets.items.length, close: other.presets.close, top: 5, lead: lead(other.presets.items[0] && `${other.presets.items[0].song} ${other.presets.items[0].artist}`), render: (all) => <PresetHits songs={other.presets.items.slice(0, all ? 200 : 5)} query={query} /> },
+    { id: "loops", name: "Loops", n: loops.items.length, close: loops.close, top: 5, lead: lead(loops.items[0] && `${loops.items[0].title} ${loops.items[0].owner.displayName}`), render: (all) => <LoopList label="Loop results" rows={loops.items.slice(0, all ? 200 : 5)} onChange={refresh} /> },
+    { id: "midi", name: "MIDI", n: mids.items.length, close: mids.close, top: 6, lead: lead(mids.items[0] && `${mids.items[0].title} ${mids.items[0].song?.artist ?? ""}`), render: (all) => <MidiList label="MIDI results" items={mids.items.slice(0, all ? 200 : 6)} /> },
+    { id: "sfx", name: "SFX", n: other.sfx.items.length, close: other.sfx.close, top: 5, lead: lead(other.sfx.items[0]?.name), render: (all) => <SfxHits list={other.sfx.items.slice(0, all ? 200 : 5)} /> },
+    { id: "kits", name: "Drum kits", n: other.kits.items.length, close: other.kits.close, top: 4, lead: lead(other.kits.items[0]?.name), render: (all) => <KitHits list={other.kits.items.slice(0, all ? 200 : 4)} /> },
+    { id: "shots", name: "One-shots", n: other.shots.items.length, close: other.shots.close, top: 6, lead: lead(other.shots.items[0]?.name), render: (all) => <ShotHits list={other.shots.items.slice(0, all ? 200 : 6)} /> },
+    { id: "producers", name: "Producers", n: other.producers.items.length, close: other.producers.close, top: 5, lead: lead(other.producers.items[0] && `${other.producers.items[0].displayName} ${other.producers.items[0].handle}`), render: (all) => <ProducerHits list={other.producers.items.slice(0, all ? 200 : 5)} /> },
+  ];
+  // Exact answers lead; groups that only have close matches go last.
+  const shown = groups.filter((g) => g.n > 0).sort((a, b) => Number(a.close) - Number(b.close) || b.lead - a.lead);
+  const active = kind === "all" ? null : (shown.find((g) => g.id === kind) ?? null);
+  const empty = query.trim() !== "" && shown.length === 0;
   return (
     <Page>
       <header className="flex flex-col gap-3">
-        <span className="text-label text-label-caps text-text-muted">
-          Search
-        </span>
-        <h1 className="text-title">
-          {query.trim()
-            ? `Results for “${query.trim()}”`
-            : "Search every sound"}
-        </h1>
-        <SmartSearch
-          value={query}
-          onChange={setSearchQuery}
-          examples={[
-            "dark piano 140 like metro",
-            "pluggnb bells",
-            "drill 140-145",
-            "boom bap 90",
-            "c minor",
-            "drake",
-          ]}
-        />
+        <h1 className="text-title">{query.trim() ? `Results for “${query.trim()}”` : "Search"}</h1>
+        <SmartSearch value={query} onChange={setSearchQuery} examples={["dark piano 140", "omnisphere", "travis scott", "drill 140-145", "police siren", "c minor"]} />
+        {shown.length > 0 && (
+          <div role="group" aria-label="Show" className="flex flex-wrap gap-2">
+            <FilterChip selected={!active} onToggle={() => setKind("all")}>
+              All
+            </FilterChip>
+            {shown.map((g) => (
+              <FilterChip key={g.id} selected={active?.id === g.id} onToggle={() => setKind(g.id)}>
+                {`${g.name} ${g.n}`}
+              </FilterChip>
+            ))}
+          </div>
+        )}
       </header>
-      {hits.length > 0 || midiHits.length > 0 ? (
-        <>
-          {hits.length > 0 && (
-            <section className="flex flex-col gap-3">
-              <h2 className="text-title">{`Loops ${hits.length}`}</h2>
-              <LoopList label="Search results" rows={hits} onChange={refresh} />
-            </section>
-          )}
-          {midiHits.length > 0 && (
-            <section className="flex flex-col gap-3">
-              <h2 className="text-title">{`MIDI ${midiHits.length}`}</h2>
-              <MidiList label="MIDI results" items={midiHits.slice(0, 60)} />
-            </section>
-          )}
-        </>
-      ) : (
+      {empty ? (
         <EmptyState
           icon={Search}
-          title="Nothing matches all of that"
+          title="No match"
           action={
             <ButtonLink href="/loops" variant="secondary">
               See every loop
             </ButtonLink>
           }
         >
-          Drop one of the chips above, or try “trap”, “bells 150” or “like
-          dilla”.
+          Check the spelling, or search fewer words.
         </EmptyState>
+      ) : active ? (
+        <section className="flex flex-col gap-3">
+          {active.close && <p className="text-small text-text-muted">No exact match. Closest:</p>}
+          {active.render(true)}
+        </section>
+      ) : (
+        shown.map((g) => (
+          <section key={g.id} aria-label={g.name} className="flex flex-col gap-3">
+            <div className="flex items-baseline justify-between gap-2">
+              <h2 className="text-body-strong text-text">{g.close ? `${g.name} · close matches` : g.name}</h2>
+              {g.n > g.top && (
+                <Button size="sm" variant="ghost" onClick={() => setKind(g.id)}>
+                  {`See all ${g.n}`}
+                </Button>
+              )}
+            </div>
+            {g.render(false)}
+          </section>
+        ))
       )}
     </Page>
   );

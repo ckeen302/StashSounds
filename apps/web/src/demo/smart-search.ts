@@ -1,5 +1,6 @@
 import type { MusicalKey } from "@stash/contracts";
 import { compatibleKeys, formatKey } from "@stash/contracts/format";
+import { fold, termHit, terms } from "./text-match";
 
 /**
  * Search the way producers type: "dark piano 140 like metro", "c minor bells", "drill 140-145",
@@ -179,10 +180,16 @@ export function parseQuery(input: string): Query {
     });
   }
 
-  const words = rest
-    .split(/\s+/)
-    .map((w) => w.replace(/^[^\w#&]+|[^\w#&]+$/g, ""))
-    .filter((w) => w.length > 1 && !STOP.has(w));
+  const words = [
+    ...new Set(
+      rest
+        .split(/\s+/)
+        .map((w) => w.replace(/^[^\w#&]+|[^\w#&]+$/g, ""))
+        .filter((w) => w.length > 1 && !STOP.has(w))
+        .flatMap((w) => fold(w).split(" "))
+        .filter((w) => w.length > 1 && !STOP.has(w)),
+    ),
+  ];
   for (const w of words) tokens.push({ kind: "word", label: `“${w}”`, raw: w });
 
   const order = { style: 0, genre: 1, sound: 2, mood: 3, bpm: 4, key: 5, word: 6 };
@@ -215,6 +222,9 @@ export type Profile = {
   /** For song chords: the artist and producer, matched against a named style. */
   people: string[];
   publishedAt: string;
+  /** The text's words and the title's, folded, for word matching. */
+  terms: string[];
+  titleTerms: string[];
 };
 
 function hits(aliases: [string, string[]][], text: string): string[] {
@@ -235,6 +245,8 @@ export function profile(p: { id: string; kind: "loop" | "midi"; title: string; b
     text,
     people: (p.people ?? []).map((s) => s.toLowerCase()),
     publishedAt: p.publishedAt,
+    terms: terms(p.words.join(" ")),
+    titleTerms: terms(p.title),
   };
 }
 
@@ -248,7 +260,8 @@ function tempoFit(bpm: number, q: NonNullable<Query["bpm"]>): "exact" | "half" |
   return null;
 }
 
-export type Match = { score: number; why: string[] };
+/** `all` is false when some plain word of the query matched nothing: a close match, not an answer. */
+export type Match = { score: number; why: string[]; all?: boolean };
 
 /**
  * Scores one sound against the query, or null when it is out. Tempo, key, genre and sound narrow;
@@ -311,16 +324,18 @@ export function match(p: Profile, q: Query): Match | null {
   }
   let wordHits = 0;
   for (const w of q.words) {
-    if (p.text.includes(w)) {
+    const inTitle = termHit(p.titleTerms, w);
+    const hit = inTitle || termHit(p.terms, w);
+    if (hit) {
       wordHits++;
-      score += p.title.toLowerCase().includes(w) ? 2 : 1;
+      score += (inTitle ? 2 : 1) * (hit === 1 ? 0.5 : 1);
     }
   }
   const narrowed = q.bpm || q.key || q.genres.length || q.sounds.length;
   // Moods and styles alone still need something in common; words alone need a word.
   if (!narrowed && score === 0) return null;
   if (!narrowed && q.words.length && !wordHits && !q.moods.length && !q.styles.length) return null;
-  return { score, why };
+  return { score, why, all: wordHits === q.words.length };
 }
 
 /** How alike two sounds are, for "more like this": genre, key, tempo, then sound and mood. */

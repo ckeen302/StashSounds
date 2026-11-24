@@ -40,7 +40,7 @@ import { has, set } from "./store";
 
 export type RenderLoops = (label: string, rows: ItemRow[]) => ReactNode;
 
-const ALL_PRODUCERS: Producer[] = [...new Set([...Object.values(producers), ...Object.values(extra), ...CREATORS, CHORDS_OWNER])];
+export const ALL_PRODUCERS: Producer[] = [...new Set([...Object.values(producers), ...Object.values(extra), ...CREATORS, CHORDS_OWNER])];
 export function producerByHandle(handle: string): Producer | null {
   if (handle === VIEWER.handle) return VIEWER;
   return ALL_PRODUCERS.find((p) => p.handle === handle) ?? null;

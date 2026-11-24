@@ -144,6 +144,8 @@ type Loop = {
   profile: Profile;
   score: number;
   why: string[];
+  /** Every plain word of the search was found. */
+  all?: boolean;
 };
 type Filters = {
   q: string;
@@ -307,7 +309,7 @@ export function LoopsPage({
   const hours = WHEN.find((w) => w.id === f.when)?.hours ?? Infinity;
   const query = parseQuery(f.q);
   const likeOf = f.like ? loops.find((l) => l.row.id === f.like) ?? null : null;
-  const shown = loops
+  const matched = loops
     .filter((l) => f.genre === "all" || l.genre === f.genre)
     .filter((l) => f.category === "all" || l.category === f.category)
     .filter((l) => f.key === "all" || l.keyId === f.key)
@@ -332,9 +334,12 @@ export function LoopsPage({
         return m.score >= 3 ? [{ ...l, score: m.score, why: m.why }] : [];
       }
       const m = match(l.profile, query);
-      return m ? [{ ...l, score: m.score, why: m.why }] : [];
+      return m ? [{ ...l, score: m.score, why: m.why, all: m.all !== false }] : [];
     })
     .sort(SORTS[f.sort]!.by);
+  // A search word nothing has: keep the close matches. Otherwise only loops with every word.
+  const exact = matched.filter((l) => l.all !== false);
+  const shown = exact.length ? exact : matched;
 
   const pages = Math.max(1, Math.ceil(shown.length / PER_PAGE));
   const page = Math.min(f.page, pages);
