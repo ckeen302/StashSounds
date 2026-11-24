@@ -550,6 +550,16 @@ describe("upload pipeline functions", () => {
     expect(meta).toHaveProperty("copiedAt");
     expect(meta).not.toHaveProperty("completing");
   });
+  it("a stale call gets conflict, not forbidden, after the account is suspended", async () => {
+    const sus = await db.makeUser("suspended_stale");
+    const r = await db.as(user(sus), `select * from public.create_upload_draft('preset', 'Stale pad', 10, 'vital')`);
+    const { item_id, file_id } = r.rows[0]!;
+    const stale = await claimFile(db, sus, item_id, file_id);
+    await db.q(`update public.item_files set meta = meta || jsonb_build_object('completingAt', now() - interval '1 day') where id = $1`, [file_id]);
+    await db.as(service, `select public.enqueue_processing($1, $2, $3, 10, $4)`, [sus, item_id, file_id, await claimFile(db, sus, item_id, file_id)]);
+    await db.q(`update public.accounts set suspended_at = now() where id = $1`, [sus]);
+    expect(await rejection(db.as(service, `select public.enqueue_processing($1, $2, $3, 10, $4)`, [sus, item_id, file_id, stale]))).toMatch(/^conflict:/);
+  });
   it("a suspended account cannot attach a demo or have its upload queued", async () => {
     const sus = await db.makeUser("suspended_uploader");
     const r = await db.as(user(sus), `select * from public.create_upload_draft('preset', 'Late pad', 10, 'vital')`);

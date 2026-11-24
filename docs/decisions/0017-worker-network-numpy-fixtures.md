@@ -25,3 +25,19 @@ preview. Migration 20261124000039_limits.sql.
 natural) on its vi chord, and minor keys played a minor VI. Major keys now use a minor vi and
 minor keys a major VI. Zip entries now carry a fixed date, so regenerating fixtures is
 byte-identical. All chord loops and their duplicates were regenerated.
+
+## The child installs its own seccomp filter (PR #8 second re-review, N1)
+Docker derives its default seccomp profile from the container's capabilities, so adding SYS_ADMIN
+also lets the unprivileged child call unshare, setns, mount, bpf and similar, which opens the
+user-namespace route to kernel exploits. Rather than maintain a forked Docker profile, the worker
+child, after dropping to the job uid, sets `PR_SET_NO_NEW_PRIVS` and installs a seccomp filter
+built in-process (classic BPF through prctl, no new dependency; libseccomp is LGPL). The filter:
+- returns EPERM for unshare, setns, mount, umount2, pivot_root, bpf, perf_event_open, keyctl,
+  add_key, request_key, fanotify_init, open_by_handle_at, name_to_handle_at, ptrace,
+  process_vm_readv/writev and userfaultfd;
+- returns EPERM for clone with any CLONE_NEW* flag and ENOSYS for clone3 (so libc falls back to
+  clone);
+- kills the process on a foreign architecture (x86_64 and aarch64 are supported; others refuse to
+  start when a job user is set).
+The worker refuses to start with a job user when the filter cannot be installed. The isolation
+tests prove `unshare(CLONE_NEWUSER)` fails in the child. no_new_privs no longer depends on compose.
