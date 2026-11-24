@@ -83,7 +83,6 @@ export function SfxPage() {
   }, [inCat, sub, sort]);
   const visible = list.slice(0, shown);
   const current = list[Math.min(selected, Math.max(0, list.length - 1))];
-  const recordings = SFX.filter((s) => s.source.kind === "recording").length;
 
   const pick = (c: string | null, s: string | null = null) => {
     setCat(c);
@@ -139,86 +138,68 @@ export function SfxPage() {
   const zipName = `stash-sfx-${(cat ?? "all") + (sub ? `-${sub}` : "")}`;
 
   return (
-    <main className="mx-auto flex w-full max-w-content flex-col gap-6 px-3 py-8 tablet:px-4 desktop:px-6">
-      <header className="flex flex-col gap-1">
-        <span className="text-label text-label-caps text-text-muted">SFX</span>
-        <h1 className="text-title">Sound effects for your beats</h1>
-        <p className="max-w-prose text-body text-text-muted">
-          {`${SFX.length} sound effects in ${SFX_CATEGORIES.length} categories, from lion roars and supercar revs to sirens, voicemail beeps and gibberish skits. Tap a row to hear it, tap the waveform to jump, and grab it as a wav. Every sound is free to use in your music: Stash originals and ${recordings} public-domain or CC0 recordings.`}
-        </p>
-      </header>
-
-      <SearchInput
-        label="Search sound effects"
-        hideLabel
-        placeholder="Search sound effects: lion, siren, voicemail, lambo..."
-        shortcut=""
-        value={q}
-        onChange={(e) => {
-          setQ(e.target.value);
-          setShown(PAGE);
-          setSelected(0);
-        }}
-        onClear={() => setQ("")}
-        className="tablet:max-w-xl"
-      />
-
-      <nav aria-label="SFX categories" className="sfx-cats -mx-3 flex gap-2 overflow-x-auto px-3 pb-1 tablet:mx-0 tablet:grid tablet:grid-cols-4 tablet:overflow-visible tablet:px-0 desktop:grid-cols-7">
-        <button
-          type="button"
-          aria-pressed={cat === null}
-          onClick={() => pick(null)}
-          className="sfx-cat flex w-36 shrink-0 flex-col tablet:w-auto items-start gap-1 rounded-control border border-border bg-surface p-3 text-left ui-hover:border-border-strong aria-pressed:border-accent aria-pressed:bg-raised"
-        >
-          <span className="font-mono text-title tabular text-text">{matching.length}</span>
-          <span className="text-small text-text-muted">All</span>
-        </button>
-        {SFX_CATEGORIES.map((c) => (
-          <button
-            key={c.id}
-            type="button"
-            aria-pressed={cat === c.id}
-            disabled={catCount(c.id) === 0}
-            onClick={() => pick(c.id)}
-            className="sfx-cat flex w-36 shrink-0 flex-col tablet:w-auto items-start gap-1 rounded-control border border-border bg-surface p-3 text-left ui-hover:border-border-strong aria-pressed:border-accent aria-pressed:bg-raised disabled:opacity-50"
-          >
-            <span className="font-mono text-title tabular text-text">{catCount(c.id)}</span>
-            <span className="text-small text-text-muted">{c.name}</span>
-          </button>
-        ))}
-      </nav>
-
-      {cat && (
-        <div role="group" aria-label={`${categoryName(cat)} subcategories`} className="flex flex-wrap gap-2">
-          <FilterChip selected={sub === null} onToggle={() => pick(cat)}>
-            {`All ${categoryName(cat).toLowerCase()} · ${inCat.length}`}
-          </FilterChip>
-          {SFX_CATEGORIES.find((c) => c.id === cat)!
-            .subs.filter((s) => subCount(s.id) > 0)
-            .map((s) => (
-              <FilterChip key={s.id} selected={sub === s.id} onToggle={() => pick(cat, s.id)}>
-                {`${s.name} · ${subCount(s.id)}`}
-              </FilterChip>
-            ))}
-        </div>
-      )}
-
+    <main className="mx-auto flex w-full max-w-content flex-col gap-3 px-3 py-4 tablet:px-4 desktop:px-6">
       <div className="flex flex-col gap-3 tablet:flex-row tablet:items-center tablet:justify-between">
-        <div className="flex flex-col">
-          <h2 className="text-body-strong text-text">{where}</h2>
-          <span className="text-small text-text-muted">{`${list.length} ${list.length === 1 ? "sound" : "sounds"}`}</span>
-        </div>
-        <div className="flex flex-wrap items-center gap-2">
-          <div role="group" aria-label="Sort" className="flex gap-2">
-            {(["featured", "short", "long"] as Sort[]).map((k) => (
-              <FilterChip key={k} selected={sort === k} onToggle={() => setSort(k)}>
-                {k === "featured" ? "Featured" : k === "short" ? "Shortest" : "Longest"}
-              </FilterChip>
-            ))}
+        <h1 className="text-title">Sound effects</h1>
+        <SearchInput
+          label="Search sound effects"
+          hideLabel
+          placeholder="Search: lion, siren, voicemail, lambo..."
+          shortcut=""
+          value={q}
+          onChange={(e) => {
+            setQ(e.target.value);
+            setShown(PAGE);
+            setSelected(0);
+          }}
+          onClear={() => setQ("")}
+          className="tablet:w-96"
+        />
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <nav aria-label="SFX categories" className="-mx-3 flex gap-2 overflow-x-auto px-3 tablet:mx-0 tablet:flex-wrap tablet:px-0">
+          <FilterChip selected={cat === null} onToggle={() => pick(null)}>
+            {`All · ${matching.length}`}
+          </FilterChip>
+          {SFX_CATEGORIES.filter((c) => catCount(c.id) > 0).map((c) => (
+            <FilterChip key={c.id} selected={cat === c.id} onToggle={() => pick(c.id)}>
+              {`${c.name} · ${catCount(c.id)}`}
+            </FilterChip>
+          ))}
+        </nav>
+        {cat && (
+          <div role="group" aria-label={`${categoryName(cat)} subcategories`} className="-mx-3 flex gap-2 overflow-x-auto px-3 tablet:mx-0 tablet:flex-wrap tablet:px-0">
+            <FilterChip selected={sub === null} onToggle={() => pick(cat)}>
+              {`All ${categoryName(cat).toLowerCase()}`}
+            </FilterChip>
+            {SFX_CATEGORIES.find((c) => c.id === cat)!
+              .subs.filter((s) => subCount(s.id) > 0)
+              .map((s) => (
+                <FilterChip key={s.id} selected={sub === s.id} onToggle={() => pick(cat, s.id)}>
+                  {`${s.name} · ${subCount(s.id)}`}
+                </FilterChip>
+              ))}
           </div>
+        )}
+      </div>
+
+      <div className="flex items-center justify-between gap-2">
+        <span className="text-small text-text-muted">{`${where} · ${list.length} ${list.length === 1 ? "sound" : "sounds"}`}</span>
+        <div className="flex items-center gap-2">
+          <select
+            aria-label="Sort"
+            value={sort}
+            onChange={(e) => setSort(e.target.value as Sort)}
+            className="h-8 rounded-control border border-border-strong bg-bg px-2 text-small text-text"
+          >
+            <option value="featured">Featured</option>
+            <option value="short">Shortest</option>
+            <option value="long">Longest</option>
+          </select>
           {list.length > 1 && (cat || needle) && (
             <Button variant="secondary" size="sm" icon={Download} loading={busy === "zip"} disabled={busy !== null && busy !== "zip"} onClick={() => void grab(list, zipName, "zip")}>
-              {list.length > MAX_ZIP ? `Grab the first ${MAX_ZIP}` : `Grab all ${list.length}`}
+              {list.length > MAX_ZIP ? `Grab ${MAX_ZIP}` : `Grab all`}
             </Button>
           )}
         </div>
@@ -286,7 +267,7 @@ export function SfxPage() {
 
       <p className="text-small text-text-muted">
         {
-          "Arrow keys move and play, Space plays again, D downloads the selected sound. Downloads come as a wav with a LICENSE.txt naming the source. Gibberish voices are synthesized: the words are made up on purpose, so no one's voice is in them."
+          "Free to use in your music: Stash originals and public-domain or CC0 recordings. Each download includes its license. Keys: arrows play, D downloads."
         }
       </p>
     </main>
