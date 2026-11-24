@@ -14,6 +14,8 @@ const config: NextConfig = {
     return [
       // Every page but the embed refuses to be framed; /embed/[id] sets its own headers (ticket 305).
       { source: "/((?!embed/).*)", headers: [...securityHeaders, { key: "X-Frame-Options", value: "DENY" }] },
+      // The stretch worklet carries its library version in its name (request 135-serve-stretch-worklet).
+      { source: "/worklets/:path*", headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }] },
     ];
   },
 };
