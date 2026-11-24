@@ -46,8 +46,16 @@ services:
     # (request 112-worker-isolation-ci): setuid/setgid for the child, chown/fowner to hand it its
     # folders, dac_override to read its outcome and remove the folder, kill for timeouts.
     cap_drop: [ALL]
-    cap_add: [SETUID, SETGID, CHOWN, FOWNER, DAC_OVERRIDE, KILL]
+    # SYS_ADMIN lets the root parent give each job child its own empty network namespace
+    # (decision 0017); children drop every capability before running a handler.
+    cap_add: [SETUID, SETGID, CHOWN, FOWNER, DAC_OVERRIDE, KILL, SYS_ADMIN]
     security_opt: ["no-new-privileges:true"]
+    # Bound what a hostile file can do to the host (PR #8 security review).
+    read_only: true
+    tmpfs:
+      - /tmp:size=4g,mode=1777
+    pids_limit: 512
+    mem_limit: 4g
     depends_on:
       storage-init:
         condition: service_completed_successfully

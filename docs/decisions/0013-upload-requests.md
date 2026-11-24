@@ -16,7 +16,7 @@ Accepted. The "Types, lint and unit tests" job starts the compose `storage` serv
   SeaweedFS 4.53 answers an allowed origin with all methods and headers allowed and exposed
   (ETag included) and refuses other origins with 403 (weed/s3api/s3api_server.go,
   handleCORSOriginValidation).
-- Production: the originals bucket on R2 gets docs/deploy/r2-cors.json with the real site origin:
+- Production: the originals bucket on R2 gets docs/deploy/r2-originals-cors.json with the real site origin:
   PUT only, `content-type` allowed, `ETag` exposed, max age 3600. Exact origins, no wildcards.
 
 ## Suspended accounts finishing an upload

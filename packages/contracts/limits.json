@@ -60,7 +60,8 @@
     "loopBitrateKbpsShort": 192,
     "loopShortMaxMs": 20000,
     "loopBitrateKbpsLong": 128,
-    "oneshotBitrateKbps": 192
+    "oneshotBitrateKbps": 192,
+    "loopMaxBytes": 1024384
   },
   "loudness": {
     "targetLufs": -14,
@@ -107,7 +108,7 @@
     "itemPageCls": 0.05,
     "scriptBeforeAudioBytes": 204800
   },
-  "bpm": { "min": 40, "max": 300, "fileNameMin": 60, "fileNameMax": 200 },
+  "bpm": { "min": 40, "max": 300, "fileNameMin": 60, "fileNameMax": 200, "keyConfidenceMin": 0.15 },
   "licenses": {
     "royalty_free": { "version": "1.0" },
     "credit_required": { "version": "1.0" },
