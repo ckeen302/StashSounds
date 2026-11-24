@@ -640,9 +640,10 @@ describe("worker functions", () => {
     await db.as(service, `delete from public.processing_jobs`);
     const first = await queuedItem("Dup original");
     const job1 = (await db.as(service, `select * from public.claim_job()`)).rows[0]!;
-    const sha = "d".repeat(64); // a 31 s duration no other test uses keeps the window to this pair
+    const sha = "d".repeat(64);
+    // 31 s is a duration no other test uses, so the window holds only this pair.
     const f1 = (await db.q(`select id from public.item_files where item_id = $1 and role = 'original'`, [first.item_id])).rows[0]!.id;
-    const call = (job: { id: string; attempts: number }, file: string, hash: string, min: number | null, max: number | null) =>
+    const call = (job: { id?: unknown; attempts?: unknown }, file: string, hash: string, min: number | null, max: number | null) =>
       db.as(service, `select * from public.worker_duplicate_candidates($1, $2, $3, $4, $5, $6)`, [job.id, job.attempts, file, hash, min, max]);
     expect((await call(job1, f1, sha, 30000, 33000)).rows).toEqual([]);
     expect((await db.q(`select sha256 from public.item_files where id = $1`, [f1])).rows[0]!.sha256).toBe(sha);
