@@ -1,0 +1,2940 @@
+[
+ {
+  "song": "Mob Ties",
+  "artist": "Drake",
+  "producer": "Boi-1da, Ritter",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": null,
+  "role": "Main guitar melody",
+  "confidence": "press",
+  "source": {
+   "label": "Splice Blog, Boi-1da on his Grammy win, working with Drake on \"Mob Ties\"",
+   "url": "https://www.splice.com/blog/boi-1da-grammys-producing-mob-ties/"
+  },
+  "quote": "built around a guitar melody Ritter had created using Spectrasonics' Omnisphere."
+ },
+ {
+  "song": "I'm On One",
+  "artist": "DJ Khaled feat. Drake, Rick Ross & Lil Wayne",
+  "producer": "T-Minus",
+  "plugin": "Native Instruments Guitar Rig",
+  "preset": null,
+  "role": "Synth/lead sound design processing",
+  "confidence": "producer",
+  "source": {
+   "label": "Native Instruments Blog, T-Minus",
+   "url": "https://blog.native-instruments.com/t-minus/"
+  },
+  "quote": "I definitely used Guitar Rig on this record, and on \"She Will\" by Lil' Wayne.",
+  "quoteBy": "T-Minus"
+ },
+ {
+  "song": "She Will",
+  "artist": "Lil Wayne feat. Drake",
+  "producer": "T-Minus",
+  "plugin": "Native Instruments Guitar Rig",
+  "preset": null,
+  "role": "Synth/lead sound design processing",
+  "confidence": "producer",
+  "source": {
+   "label": "Native Instruments Blog, T-Minus",
+   "url": "https://blog.native-instruments.com/t-minus/"
+  },
+  "quote": "I definitely used Guitar Rig on this record, and on \"She Will\" by Lil' Wayne.",
+  "quoteBy": "T-Minus"
+ },
+ {
+  "song": "Too Much",
+  "artist": "Drake",
+  "producer": "Nineteen85",
+  "plugin": "Spectrasonics Stylus RMX",
+  "preset": null,
+  "role": "Drums",
+  "confidence": "producer",
+  "source": {
+   "label": "AudioTechnology, Nineteen85 interview",
+   "url": "https://www.audiotechnology.com/?p=95568"
+  },
+  "quote": "I used the Spectrasonics Stylus RMX instrument plugin.",
+  "quoteBy": "Nineteen85 (Paul Jefferies)"
+ },
+ {
+  "song": "Wait For U",
+  "artist": "Future feat. Drake & Tems",
+  "producer": "FNZ (co-producers)",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Drake Moog (FNZ's own saved name for an Omnisphere Moog sound)",
+  "role": "Moog synth on the '2021 Drake' track",
+  "confidence": "producer",
+  "source": {
+   "label": "Sound On Sound, Inside Track: FNZ",
+   "url": "https://www.soundonsound.com/techniques/inside-track-fnz?page=2"
+  },
+  "quote": "The track called '2021 Drake' contains a Moog sound from Omnisphere that we called 'Drake Moog', hence the track name.",
+  "quoteBy": "Michael Mulé (FNZ)"
+ },
+ {
+  "song": "Wait For U",
+  "artist": "Future feat. Drake & Tems",
+  "producer": "FNZ (co-producers)",
+  "plugin": "Not named in source",
+  "preset": "Moog Modular Big Booty",
+  "role": "Bass",
+  "confidence": "producer",
+  "source": {
+   "label": "Sound On Sound, Inside Track: FNZ",
+   "url": "https://www.soundonsound.com/techniques/inside-track-fnz?page=2"
+  },
+  "quote": "The preset we used for the bass sound is 'Moog Modular Big Booty'.",
+  "quoteBy": "Michael Mulé (FNZ)"
+ },
+ {
+  "song": "What's The Move",
+  "artist": "The Kid LAROI",
+  "producer": "FNZ",
+  "plugin": "Output Substance",
+  "preset": null,
+  "role": "Chords/keys",
+  "confidence": "producer",
+  "source": {
+   "label": "Sound On Sound, Inside Track: FNZ",
+   "url": "https://www.soundonsound.com/techniques/inside-track-fnz?page=2"
+  },
+  "quote": "The sound comes from Output's Substance.",
+  "quoteBy": "Zac De Boni (FNZ)"
+ },
+ {
+  "song": "What's The Move",
+  "artist": "The Kid LAROI",
+  "producer": "FNZ",
+  "plugin": "iZotope Iris 2",
+  "preset": null,
+  "role": "Moog-style bass",
+  "confidence": "producer",
+  "source": {
+   "label": "Sound On Sound, Inside Track: FNZ",
+   "url": "https://www.soundonsound.com/techniques/inside-track-fnz?page=2"
+  },
+  "quote": "The Bass Moog is from iZotope's Iris 2,",
+  "quoteBy": "Michael Mulé (FNZ)"
+ },
+ {
+  "song": "Add It Up",
+  "artist": "Migos",
+  "producer": "Zaytoven",
+  "plugin": "Roland M-DC1 sound module (hardware; also on Roland Fantom-S)",
+  "preset": "Aaaah! (169)",
+  "role": "Vocal 'aaah' stab/choir hits",
+  "confidence": "press",
+  "source": {
+   "label": "Complex, This Sound Is All Over Hip-Hop Today. It Comes From an Unexpected Place",
+   "url": "https://www.complex.com/music/2018/08/this-sound-is-all-over-hip-hop-today-comes-from-unexpected-place"
+  },
+  "quote": "One of Zaytoven's most notable uses of the sound is in Migos' 2014 track \"Add It Up.\""
+ },
+ {
+  "song": "When I Think About It",
+  "artist": "Future",
+  "producer": "Zaytoven",
+  "plugin": "Roland M-DC1 sound module (hardware; also on Roland Fantom-S)",
+  "preset": "Aaaah! (169)",
+  "role": "Vocal 'aaah' stab/choir hits",
+  "confidence": "press",
+  "source": {
+   "label": "Complex, This Sound Is All Over Hip-Hop Today. It Comes From an Unexpected Place",
+   "url": "https://www.complex.com/music/2018/08/this-sound-is-all-over-hip-hop-today-comes-from-unexpected-place"
+  },
+  "quote": "Future's \"When I Think About It,\" from BEASTMODE 2, released in July."
+ },
+ {
+  "song": "Wat U Mean (Aye, Aye, Aye)",
+  "artist": "Dae Dae",
+  "producer": "Young Mercy Beatz",
+  "plugin": "Roland M-DC1 sound module (hardware)",
+  "preset": "Aaaah! (169)",
+  "role": "Vocal 'aaah' stab/choir hits",
+  "confidence": "press",
+  "source": {
+   "label": "Complex, This Sound Is All Over Hip-Hop Today. It Comes From an Unexpected Place",
+   "url": "https://www.complex.com/music/2018/08/this-sound-is-all-over-hip-hop-today-comes-from-unexpected-place"
+  },
+  "quote": "Producer Young Mercy Beatz, who used the sound in Dae Dae's popular 2016 single \"Wat U Mean (Aye, Aye, Aye)\""
+ },
+ {
+  "song": "3500",
+  "artist": "Travis Scott feat. Future & 2 Chainz",
+  "producer": "Unknown",
+  "plugin": "Roland M-DC1 sound module (hardware)",
+  "preset": "Aaaah! (169)",
+  "role": "Vocal 'aaah' stab",
+  "confidence": "press",
+  "source": {
+   "label": "Complex, This Sound Is All Over Hip-Hop Today. It Comes From an Unexpected Place",
+   "url": "https://www.complex.com/music/2018/08/this-sound-is-all-over-hip-hop-today-comes-from-unexpected-place"
+  },
+  "quote": "It's peeked its aural head up in tracks by well-known names like Travis Scott (\"3500\")"
+ },
+ {
+  "song": "Want Some More",
+  "artist": "Nicki Minaj",
+  "producer": "Zaytoven, Metro Boomin, Hitmaka",
+  "plugin": "Roland M-DC1 sound module (hardware)",
+  "preset": "Aaaah! (169)",
+  "role": "Vocal 'aaah' stab",
+  "confidence": "press",
+  "source": {
+   "label": "Complex, This Sound Is All Over Hip-Hop Today. It Comes From an Unexpected Place",
+   "url": "https://www.complex.com/music/2018/08/this-sound-is-all-over-hip-hop-today-comes-from-unexpected-place"
+  },
+  "quote": "and Nicki Minaj (\"Want Some More\")"
+ },
+ {
+  "song": "End of Discussion",
+  "artist": "Rich the Kid",
+  "producer": "Unknown",
+  "plugin": "Roland M-DC1 sound module (hardware)",
+  "preset": "Aaaah! (169)",
+  "role": "Vocal 'aaah' stab",
+  "confidence": "press",
+  "source": {
+   "label": "Complex, This Sound Is All Over Hip-Hop Today. It Comes From an Unexpected Place",
+   "url": "https://www.complex.com/music/2018/08/this-sound-is-all-over-hip-hop-today-comes-from-unexpected-place"
+  },
+  "quote": "and by rising artists like Rich the Kid (\"End of Discussion\")"
+ },
+ {
+  "song": "Capeesh",
+  "artist": "Maxo Kream",
+  "producer": "Unknown",
+  "plugin": "Roland M-DC1 sound module (hardware)",
+  "preset": "Aaaah! (169)",
+  "role": "Vocal 'aaah' stab",
+  "confidence": "press",
+  "source": {
+   "label": "Complex, This Sound Is All Over Hip-Hop Today. It Comes From an Unexpected Place",
+   "url": "https://www.complex.com/music/2018/08/this-sound-is-all-over-hip-hop-today-comes-from-unexpected-place"
+  },
+  "quote": "and Maxo Kream (\"Capeesh\")."
+ },
+ {
+  "song": "Used to This",
+  "artist": "Future feat. Drake",
+  "producer": "Zaytoven (co-prod. StepBfly, Cassius Jay)",
+  "plugin": "Roland M-DC1 sound module (hardware)",
+  "preset": "Aaaah! (169)",
+  "role": "Vocal 'aaah' stab on the downbeat",
+  "confidence": "press",
+  "source": {
+   "label": "Splice Blog, The Roland M-DC1's \"Aaaah! (169)\" sample | One Shots",
+   "url": "https://splice.com/blog/?p=6270"
+  },
+  "quote": "places the \"Aaaah!\" sample on the downbeat, pitched a few semitones higher than other examples."
+ },
+ {
+  "song": "Crank That (Soulja Boy)",
+  "artist": "Soulja Boy Tell 'Em",
+  "producer": "Soulja Boy",
+  "plugin": "Image-Line FL Studio (demo) stock sound library",
+  "preset": null,
+  "role": "Whole beat incl. looping steel-drum riff",
+  "confidence": "press",
+  "source": {
+   "label": "Wikipedia, Crank That (Soulja Boy) (citing VICE)",
+   "url": "https://en.wikipedia.org/wiki/Crank_That_(Soulja_Boy)"
+  },
+  "quote": "self-produced by Way in the unregistered demo copy of FL Studio, utilizing only the software's most basic library of sounds"
+ },
+ {
+  "song": "Saint Pablo",
+  "artist": "Kanye West feat. Sampha",
+  "producer": "Mike Dean (co-producer) et al.",
+  "plugin": "Roland Juno-106 (hardware)",
+  "preset": null,
+  "role": "Main synth in the verses",
+  "confidence": "press",
+  "source": {
+   "label": "Reverb Machine, Kanye West's Saint Pablo Synths",
+   "url": "https://reverbmachine.com/blog/kanye-west-saint-pablo-synths/"
+  },
+  "quote": "The main synth in the verses was recorded from co-producer Mike Dean's Roland Juno-106."
+ },
+ {
+  "song": "IGOR'S THEME",
+  "artist": "Tyler, the Creator",
+  "producer": "Tyler, the Creator",
+  "plugin": "Roland JX-8P (hardware)",
+  "preset": null,
+  "role": "Bass",
+  "confidence": "press",
+  "source": {
+   "label": "Reverb Machine, Tyler, the Creator's IGOR'S THEME Synth Breakdown",
+   "url": "https://reverbmachine.com/blog/tyler-the-creator-igors-theme-breakdown/"
+  },
+  "quote": "The sound no doubt came from Tyler's Roland JX-8P."
+ },
+ {
+  "song": "Money Trees",
+  "artist": "Kendrick Lamar feat. Jay Rock",
+  "producer": "DJ Dahi",
+  "plugin": "Native Instruments Razor",
+  "preset": "Caffeteria",
+  "role": "Bass",
+  "confidence": "press",
+  "source": {
+   "label": "Native Instruments Blog, 25 for 25",
+   "url": "https://blog.native-instruments.com/25-for-25/"
+  },
+  "quote": "The bass sounds like the \"Caffeteria\" preset from RAZOR."
+ },
+ {
+  "song": "Money Trees",
+  "artist": "Kendrick Lamar feat. Jay Rock",
+  "producer": "DJ Dahi",
+  "plugin": "Native Instruments Kontakt (West Africa library)",
+  "preset": null,
+  "role": "Percussion",
+  "confidence": "press",
+  "source": {
+   "label": "Native Instruments Blog, 25 for 25",
+   "url": "https://blog.native-instruments.com/25-for-25/"
+  },
+  "quote": "uses KONTAKT's WEST AFRICA collection."
+ },
+ {
+  "song": "Magnolia",
+  "artist": "Playboi Carti",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Native Instruments FM8",
+  "preset": "Classic Flute",
+  "role": "Main flute melody / refrain",
+  "confidence": "press",
+  "source": {
+   "label": "Native Instruments Blog, 25 for 25",
+   "url": "https://blog.native-instruments.com/25-for-25/"
+  },
+  "quote": "The preset in question is \"Classic Flute\"."
+ },
+ {
+  "song": "Auto Pilot",
+  "artist": "Migos",
+  "producer": "DJ Durel",
+  "plugin": "Native Instruments Massive",
+  "preset": "Butterfly Stance",
+  "role": "Arpeggios",
+  "confidence": "press",
+  "source": {
+   "label": "Native Instruments Blog, 25 for 25",
+   "url": "https://blog.native-instruments.com/25-for-25/"
+  },
+  "quote": "it was MASSIVE's Butterfly Stance that fit the bill."
+ },
+ {
+  "song": "Hero",
+  "artist": "Nas",
+  "producer": "Unknown",
+  "plugin": "Native Instruments Massive",
+  "preset": "Butterfly Stance",
+  "role": "Synth (role not specified)",
+  "confidence": "press",
+  "source": {
+   "label": "Native Instruments Blog, 25 for 25",
+   "url": "https://blog.native-instruments.com/25-for-25/"
+  },
+  "quote": "features in a rash of other tracks from this time too, including Nas's \"Hero,\""
+ },
+ {
+  "song": "Garbage",
+  "artist": "Tyler, the Creator",
+  "producer": "Tyler, the Creator",
+  "plugin": "Native Instruments Battery",
+  "preset": "Berlin Headquarters (kit)",
+  "role": "Drum sounds",
+  "confidence": "press",
+  "source": {
+   "label": "Native Instruments Blog, 25 for 25",
+   "url": "https://blog.native-instruments.com/25-for-25/"
+  },
+  "quote": "Some of them come from the BATTERY kit \"Berlin Headquarters\"."
+ },
+ {
+  "song": "F*ckwithmeyouknowigotit",
+  "artist": "Jay-Z feat. Rick Ross",
+  "producer": "Boi-1da, Vinylz, Timbaland, J-Roc",
+  "plugin": "Native Instruments Massive",
+  "preset": "Basement",
+  "role": "Sub synth patch heard throughout",
+  "confidence": "press",
+  "source": {
+   "label": "Native Instruments Blog, 25 for 25",
+   "url": "https://blog.native-instruments.com/25-for-25/"
+  },
+  "quote": "the subterranean synth patch heard throughout is the aptly named Basement preset from the original MASSIVE."
+ },
+ {
+  "song": "Back To Basics",
+  "artist": "Headie One feat. Skepta",
+  "producer": "Nyge",
+  "plugin": "Native Instruments Absynth",
+  "preset": null,
+  "role": "Plucked chords",
+  "confidence": "press",
+  "source": {
+   "label": "Native Instruments Blog, 25 for 25",
+   "url": "https://blog.native-instruments.com/25-for-25/"
+  },
+  "quote": "he used ABSYNTH for the track's ethereal plucked chords, and GUITAR RIG to process the odd, glitched-out melody."
+ },
+ {
+  "song": "Helicopter",
+  "artist": "J Hus",
+  "producer": "TSB",
+  "plugin": "Native Instruments Scarbee Rickenbacker Bass",
+  "preset": null,
+  "role": "Bassline",
+  "confidence": "press",
+  "source": {
+   "label": "Native Instruments Blog, 25 for 25",
+   "url": "https://blog.native-instruments.com/25-for-25/"
+  },
+  "quote": "It's NI's SCARBEE RICKENBACKER BASS."
+ },
+ {
+  "song": "Bubba (album)",
+  "artist": "Kaytranada",
+  "producer": "Kaytranada",
+  "plugin": "Native Instruments FM8",
+  "preset": "Custom patches",
+  "role": "Organ-like melodies",
+  "confidence": "press",
+  "source": {
+   "label": "Native Instruments Blog, 25 for 25",
+   "url": "https://blog.native-instruments.com/25-for-25/"
+  },
+  "quote": "uses FM8 for the purpose, deploying custom-made patches for distinctive organ-like melodies."
+ },
+ {
+  "song": "Umbrella",
+  "artist": "Rihanna feat. Jay-Z",
+  "producer": "Unknown",
+  "plugin": "Apple GarageBand (Apple Loops)",
+  "preset": "Vintage Funk Kit 03",
+  "role": "Drum loop",
+  "confidence": "press",
+  "source": {
+   "label": "The Guardian (via inkl), More synthetic bamboo! The greatest preset sounds in pop music",
+   "url": "https://www.inkl.com/news/more-synthetic-bamboo-the-greatest-preset-sounds-in-pop-music"
+  },
+  "quote": "perhaps most famously powered Rihanna's 2007 single Umbrella."
+ },
+ {
+  "song": "Anaconda",
+  "artist": "Nicki Minaj",
+  "producer": "Unknown",
+  "plugin": "E-mu sampler factory library",
+  "preset": "Wind-chimes, Birds and Streams (Loop Garden)",
+  "role": "Keyboard sound",
+  "confidence": "press",
+  "source": {
+   "label": "The Guardian (via inkl), More synthetic bamboo! The greatest preset sounds in pop music",
+   "url": "https://www.inkl.com/news/more-synthetic-bamboo-the-greatest-preset-sounds-in-pop-music"
+  },
+  "quote": "the keyboard sound in Nicki Minaj's Anaconda, 25 years later."
+ },
+ {
+  "song": "Clique",
+  "artist": "Kanye West feat. Jay-Z & Big Sean",
+  "producer": "Unknown",
+  "plugin": "Zero-G Africa (sample library, 1991)",
+  "preset": "Africa voice 161",
+  "role": "Vocal sample",
+  "confidence": "press",
+  "source": {
+   "label": "The Guardian (via inkl), More synthetic bamboo! The greatest preset sounds in pop music",
+   "url": "https://www.inkl.com/news/more-synthetic-bamboo-the-greatest-preset-sounds-in-pop-music"
+  },
+  "quote": "Kanye West uses Zero-G's Africa voice 161 from 1991 in his 2012 track Clique."
+ },
+ {
+  "song": "Big Shot",
+  "artist": "Kendrick Lamar & Travis Scott",
+  "producer": "Unknown",
+  "plugin": "Zero-G Africa (sample library)",
+  "preset": "Africa 13 111",
+  "role": "Vocal sample",
+  "confidence": "press",
+  "source": {
+   "label": "The Guardian (via inkl), More synthetic bamboo! The greatest preset sounds in pop music",
+   "url": "https://www.inkl.com/news/more-synthetic-bamboo-the-greatest-preset-sounds-in-pop-music"
+  },
+  "quote": "'Africa 13 111' appears in Big Shot, Kendrick Lamar's recent coupling with Travi$ Scott."
+ },
+ {
+  "song": "FEEL.",
+  "artist": "Kendrick Lamar",
+  "producer": "Unknown",
+  "plugin": "Loopmasters (Sample Boutique) sample library",
+  "preset": "COF_125_Am_LaidOut_Underwater / COF_134_B_Changed_Dopey",
+  "role": "Melodic loops",
+  "confidence": "press",
+  "source": {
+   "label": "The Guardian (via inkl), More synthetic bamboo! The greatest preset sounds in pop music",
+   "url": "https://www.inkl.com/news/more-synthetic-bamboo-the-greatest-preset-sounds-in-pop-music"
+  },
+  "quote": "Kendrick Lamar's FEEL (2017) uses two of the company's off-the-peg samples."
+ },
+ {
+  "song": "Love in This Club",
+  "artist": "Usher feat. Young Jeezy",
+  "producer": "Polow Da Don",
+  "plugin": "Apple GarageBand Jam Pack: Remix Tools",
+  "preset": "Euro Hero Synth",
+  "role": "Main synth riff",
+  "confidence": "press",
+  "source": {
+   "label": "Microchop (Substack), Royalty-Free Loops and Stock Sounds",
+   "url": "https://microchop.substack.com/p/royalty-free-loops-and-stock-sounds"
+  },
+  "quote": "by using large chunks of \"Euro Hero Synth\" samples from Apple Remix Tools Jam Pack for GarageBand."
+ },
+ {
+  "song": "Break Up",
+  "artist": "Mario feat. Gucci Mane & Sean Garrett",
+  "producer": "Unknown",
+  "plugin": "Image-Line FL Studio stock content",
+  "preset": null,
+  "role": "Main melody",
+  "confidence": "press",
+  "source": {
+   "label": "Microchop (Substack), Royalty-Free Loops and Stock Sounds",
+   "url": "https://microchop.substack.com/p/royalty-free-loops-and-stock-sounds"
+  },
+  "quote": "is also made of yet of another stock sound, this time a melody from FL Studio."
+ },
+ {
+  "song": "Rock Your Body",
+  "artist": "Justin Timberlake",
+  "producer": "Unknown",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": "B069 Strato-Chime",
+  "role": "Featured Triton sound (part not specified by source)",
+  "confidence": "press",
+  "source": {
+   "label": "Sonicstate, Korg Triton – Famous Songs and Sounds (midierror)",
+   "url": "https://sonicstate.com/news/2026/09/29/-korg-triton-famous-songs-and-sounds/"
+  },
+  "quote": "Justin Timberlake - Rock Your Body: B069 Strato-Chime"
+ },
+ {
+  "song": "P.I.M.P.",
+  "artist": "50 Cent",
+  "producer": "Unknown",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": "B121 Steel Pan Band combi",
+  "role": "Featured Triton sound (part not specified by source)",
+  "confidence": "press",
+  "source": {
+   "label": "Sonicstate, Korg Triton – Famous Songs and Sounds (midierror)",
+   "url": "https://sonicstate.com/news/2026/09/29/-korg-triton-famous-songs-and-sounds/"
+  },
+  "quote": "50 Cent - P.I.M.P.: B121 Steel Pan Band combi"
+ },
+ {
+  "song": "Tokyo Drift (Fast & Furious)",
+  "artist": "Teriyaki Boyz",
+  "producer": "Unknown",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": "A111 Bali Gamelon",
+  "role": "Featured Triton sound (part not specified by source)",
+  "confidence": "press",
+  "source": {
+   "label": "Sonicstate, Korg Triton – Famous Songs and Sounds (midierror)",
+   "url": "https://sonicstate.com/news/2026/09/29/-korg-triton-famous-songs-and-sounds/"
+  },
+  "quote": "Teriyaki Boyz - Tokyo Drift: A111 Bali Gamelon"
+ },
+ {
+  "song": "I Just Wanna Love U (Give It 2 Me)",
+  "artist": "JAY-Z",
+  "producer": "Unknown",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": "C021 Nu Strat",
+  "role": "Featured Triton sound (part not specified by source)",
+  "confidence": "press",
+  "source": {
+   "label": "Sonicstate, Korg Triton – Famous Songs and Sounds (midierror)",
+   "url": "https://sonicstate.com/news/2026/09/29/-korg-triton-famous-songs-and-sounds/"
+  },
+  "quote": "JAY-Z - I Just Wanna Love U (Give It 2 Me): C021 Nu Strat"
+ },
+ {
+  "song": "Nothin'",
+  "artist": "N.O.R.E.",
+  "producer": "Unknown",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": "B045 BambuSilverFlute",
+  "role": "Featured Triton sound (part not specified by source)",
+  "confidence": "press",
+  "source": {
+   "label": "Sonicstate, Korg Triton – Famous Songs and Sounds (midierror)",
+   "url": "https://sonicstate.com/news/2026/09/29/-korg-triton-famous-songs-and-sounds/"
+  },
+  "quote": "N.O.R.E. - Nothin': B045 BambuSilverFlute"
+ },
+ {
+  "song": "Rubber Band Man",
+  "artist": "T.I.",
+  "producer": "Unknown",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": "C055 Jazz Organ 2",
+  "role": "Featured Triton sound (part not specified by source)",
+  "confidence": "press",
+  "source": {
+   "label": "Sonicstate, Korg Triton – Famous Songs and Sounds (midierror)",
+   "url": "https://sonicstate.com/news/2026/09/29/-korg-triton-famous-songs-and-sounds/"
+  },
+  "quote": "T.I. - Rubber Band Man: C055 Jazz Organ 2"
+ },
+ {
+  "song": "Down Bottom",
+  "artist": "Ruff Ryders",
+  "producer": "Unknown",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": "A009 Fat Brass",
+  "role": "Featured Triton sound (part not specified by source)",
+  "confidence": "press",
+  "source": {
+   "label": "Sonicstate, Korg Triton – Famous Songs and Sounds (midierror)",
+   "url": "https://sonicstate.com/news/2026/09/29/-korg-triton-famous-songs-and-sounds/"
+  },
+  "quote": "Ruff Ryders - Down Bottom: A009 Fat Brass"
+ },
+ {
+  "song": "Excuse Me Miss",
+  "artist": "JAY-Z",
+  "producer": "Unknown",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": "A096 Digital PolySix",
+  "role": "Featured Triton sound (part not specified by source)",
+  "confidence": "press",
+  "source": {
+   "label": "Sonicstate, Korg Triton – Famous Songs and Sounds (midierror)",
+   "url": "https://sonicstate.com/news/2026/09/29/-korg-triton-famous-songs-and-sounds/"
+  },
+  "quote": "JAY-Z - Excuse Me Miss: A096 Digital PolySix"
+ },
+ {
+  "song": "Shake That Monkey",
+  "artist": "Too Short",
+  "producer": "Unknown",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": "G013 Marimba",
+  "role": "Featured Triton sound (part not specified by source)",
+  "confidence": "press",
+  "source": {
+   "label": "Sonicstate, Korg Triton – Famous Songs and Sounds (midierror)",
+   "url": "https://sonicstate.com/news/2026/09/29/-korg-triton-famous-songs-and-sounds/"
+  },
+  "quote": "Too Short - Shake That Monkey: G013 Marimba"
+ },
+ {
+  "song": "Cot Damn",
+  "artist": "Clipse",
+  "producer": "Unknown",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": "A001 Acoustic Piano",
+  "role": "Featured Triton sound (part not specified by source)",
+  "confidence": "press",
+  "source": {
+   "label": "Sonicstate, Korg Triton – Famous Songs and Sounds (midierror)",
+   "url": "https://sonicstate.com/news/2026/09/29/-korg-triton-famous-songs-and-sounds/"
+  },
+  "quote": "Clipse - Cot Damn: A001 Acoustic Piano"
+ },
+ {
+  "song": "I'm Not You",
+  "artist": "Clipse",
+  "producer": "Unknown",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": "E001 Strings",
+  "role": "Featured Triton sound (part not specified by source)",
+  "confidence": "press",
+  "source": {
+   "label": "Sonicstate, Korg Triton – Famous Songs and Sounds (midierror)",
+   "url": "https://sonicstate.com/news/2026/09/29/-korg-triton-famous-songs-and-sounds/"
+  },
+  "quote": "Clipse - I'm Not You: E001 Strings"
+ },
+ {
+  "song": "Dirt Off Your Shoulder",
+  "artist": "JAY-Z",
+  "producer": "Unknown",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": "C062 Stereo Rez Sweep",
+  "role": "Featured Triton sound (part not specified by source)",
+  "confidence": "press",
+  "source": {
+   "label": "Sonicstate, Korg Triton – Famous Songs and Sounds (midierror)",
+   "url": "https://sonicstate.com/news/2026/09/29/-korg-triton-famous-songs-and-sounds/"
+  },
+  "quote": "JAY-Z - Dirt Off Your Shoulder: C062 Stereo Rez Sweep"
+ },
+ {
+  "song": "Flap Your Wings",
+  "artist": "Nelly",
+  "producer": "Unknown",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": "A096 Digital PolySix",
+  "role": "Featured Triton sound (part not specified by source)",
+  "confidence": "press",
+  "source": {
+   "label": "Sonicstate, Korg Triton – Famous Songs and Sounds (midierror)",
+   "url": "https://sonicstate.com/news/2026/09/29/-korg-triton-famous-songs-and-sounds/"
+  },
+  "quote": "Nelly - Flap Your Wings: A096 Digital PolySix"
+ },
+ {
+  "song": "I'm A G",
+  "artist": "N.O.R.E.",
+  "producer": "Unknown",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": "B115 Harmonica",
+  "role": "Featured Triton sound (part not specified by source)",
+  "confidence": "press",
+  "source": {
+   "label": "Sonicstate, Korg Triton – Famous Songs and Sounds (midierror)",
+   "url": "https://sonicstate.com/news/2026/09/29/-korg-triton-famous-songs-and-sounds/"
+  },
+  "quote": "N.O.R.E. - I'm A G: B115 Harmonica"
+ },
+ {
+  "song": "Ring",
+  "artist": "Cardi B feat. Kehlani",
+  "producer": "Scribz Riley",
+  "plugin": "Output Signal",
+  "preset": null,
+  "role": "Signal preset in the beat",
+  "confidence": "press",
+  "source": {
+   "label": "Output Blog, The Secret Sauce Plugins Behind Your Favorite Music",
+   "url": "https://output.com/blog/secret-sauce"
+  },
+  "quote": "That's a preset from our powerful engine Signal."
+ },
+ {
+  "song": "Needed Me",
+  "artist": "Rihanna",
+  "producer": "Unknown",
+  "plugin": "Output Exhale",
+  "preset": null,
+  "role": "Vocal textures under the beat",
+  "confidence": "press",
+  "source": {
+   "label": "Output Blog, The Secret Sauce Plugins Behind Your Favorite Music",
+   "url": "https://output.com/blog/secret-sauce"
+  },
+  "quote": "Sensual vocal textures from Exhale are the bed under the beat"
+ },
+ {
+  "song": "Faithful",
+  "artist": "Drake feat. Pimp C & dvsn",
+  "producer": "Unknown",
+  "plugin": "Output Exhale",
+  "preset": null,
+  "role": "Filtered keys, bass and pitched vocals",
+  "confidence": "press",
+  "source": {
+   "label": "Output Blog, The Secret Sauce Plugins Behind Your Favorite Music",
+   "url": "https://output.com/blog/secret-sauce"
+  },
+  "quote": "Filtered keys, bouncing bass, and pitched vocals from Exhale"
+ },
+ {
+  "song": "Group Home",
+  "artist": "Future feat. Young Thug",
+  "producer": "Unknown",
+  "plugin": "Output Exhale",
+  "preset": null,
+  "role": "Vocal chops",
+  "confidence": "press",
+  "source": {
+   "label": "Output Blog, The Secret Sauce Plugins Behind Your Favorite Music",
+   "url": "https://output.com/blog/secret-sauce"
+  },
+  "quote": "Heavy bass, Exhale chops"
+ },
+ {
+  "song": "Don't Wanna Know",
+  "artist": "Maroon 5 feat. Kendrick Lamar",
+  "producer": "The Arcade",
+  "plugin": "Output Exhale",
+  "preset": null,
+  "role": "Vocal sounds",
+  "confidence": "press",
+  "source": {
+   "label": "Output Blog, The Secret Sauce Plugins Behind Your Favorite Music",
+   "url": "https://output.com/blog/secret-sauce"
+  },
+  "quote": "The pop hit notably uses sounds from Exhale."
+ },
+ {
+  "song": "Morning Light",
+  "artist": "Justin Timberlake feat. Alicia Keys",
+  "producer": "Rob Knox",
+  "plugin": "Output Exhale",
+  "preset": null,
+  "role": "Vocal chops",
+  "confidence": "press",
+  "source": {
+   "label": "Output Blog, The Secret Sauce Plugins Behind Your Favorite Music",
+   "url": "https://output.com/blog/secret-sauce"
+  },
+  "quote": "Producer Rob Knox relies on soulful Exhale vocal chops"
+ },
+ {
+  "song": "Winter",
+  "artist": "Khalid",
+  "producer": "Scribz Riley",
+  "plugin": "Output Signal (and Substance)",
+  "preset": null,
+  "role": "Pulsing texture on top of the piano",
+  "confidence": "producer",
+  "source": {
+   "label": "Output Blog, In the Studio: Scribz Riley",
+   "url": "https://output.com/blog/in-the-studio-with-scribz-riley"
+  },
+  "quote": "So we got SIGNAL on top of the piano.",
+  "quoteBy": "Scribz Riley"
+ },
+ {
+  "song": "Boss",
+  "artist": "Lil Pump",
+  "producer": "Diablo",
+  "plugin": "reFX Nexus",
+  "preset": null,
+  "role": "Main melodic sound",
+  "confidence": "producer",
+  "source": {
+   "label": "Splice Blog, Diablo on his collaborations with Lil Pump, Lil Yachty, and What So Not",
+   "url": "https://splice.com/blog/?p=7035"
+  },
+  "quote": "That sound came from Nexus — love that VST!",
+  "quoteBy": "Diablo"
+ },
+ {
+  "song": "Drop the World",
+  "artist": "Lil Wayne feat. Eminem",
+  "producer": "Hit-Boy",
+  "plugin": "Image-Line Sytrus",
+  "preset": "Cube",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Drop The World - Lil Wayne: Cube in Sytrus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Loud",
+  "artist": "Mac Miller",
+  "producer": "ID Labs",
+  "plugin": "LennarDigital Sylenth1",
+  "preset": "019 ARP Trancemania",
+  "role": "Arp synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Loud - Mac Miller: 019 ARP Trancemania in Sylenth",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Gonorrhea",
+  "artist": "Lil Wayne feat. Drake",
+  "producer": "Kane Beatz",
+  "plugin": "LennarDigital Sylenth1",
+  "preset": "ARP Airbow",
+  "role": "Arp synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Gonorrhea - Lil Wayne & Drake: ARP Airbow in Sylenth",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "BedRock",
+  "artist": "Young Money",
+  "producer": "Kane Beatz",
+  "plugin": "LennarDigital Sylenth1",
+  "preset": "KEY Pizzicato",
+  "role": "Pizzicato keys",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "BedRock - Young Money: KEY Pizzicato in Sylenth",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "A Zip & A Double Cup",
+  "artist": "Juicy J",
+  "producer": "Lex Luger",
+  "plugin": "Tone2 Gladiator",
+  "preset": "LD Alienscape AVB",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Lead",
+  "quote": "A Zip & A Double Cup - Juicy J: LD Alienscape AVB, under Lead in Gladiator",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Gang Bang",
+  "artist": "Wiz Khalifa & Big Sean",
+  "producer": "Lex Luger",
+  "plugin": "Tone2 Gladiator",
+  "preset": "PE Reflections2 MF",
+  "role": "Percussion/FX",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "FX Drum Perc",
+  "quote": "Gang Bang - Wiz Khalifa & Big Sean : PE Reflections2 MF , under FX Drum Perc in Gladiator",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Midget",
+  "artist": "OJ Da Juiceman",
+  "producer": "Lex Luger",
+  "plugin": "Toxic Biohazard (Image-Line)",
+  "preset": "8SEQ GENUSis ToTc",
+  "role": "Sequence synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Midget - OJ Da Juiceman: 8SEQ GENUSis ToTc in Toxic Biohazard",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Cabin Fever",
+  "artist": "Wiz Khalifa",
+  "producer": "Lex Luger",
+  "plugin": "Tone2 Gladiator",
+  "preset": "AR Tension MS",
+  "role": "Arp synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Cabin Fever - Wiz Khalifa: AR Tension MS in Gladiator",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Tupac Back",
+  "artist": "Meek Mill feat. Rick Ross",
+  "producer": "Mike WiLL Made-It",
+  "plugin": "Tone2 Gladiator",
+  "preset": "ST Orchestrahit 3 MF",
+  "role": "Orchestra hit",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Nature Vintage",
+  "quote": "Tupac Back - Meek Mill & Rick Ross: ST Orchestrahit 3 MF, under Nature Vintage in Gladiator",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Itchin'",
+  "artist": "Future",
+  "producer": "Mike WiLL Made-It",
+  "plugin": "Synapse Audio DUNE",
+  "preset": "Beauty Of Simplicity LE",
+  "role": "Arp synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Arpeggiator",
+  "quote": "Itchin' - Future: Beauty Of Simplicity LE, under Arpeggiator in Dune",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Turn On the Lights",
+  "artist": "Future",
+  "producer": "Mike WiLL Made-It",
+  "plugin": "Tone2 Gladiator",
+  "preset": "AR Walruss2 MF",
+  "role": "Arp synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Arpeggiator",
+  "quote": "Neva End/Turn On The Lights - Future: AR Walruss2 MF, under Arpeggiator in Gladiator",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Turn On the Lights",
+  "artist": "Future",
+  "producer": "Mike WiLL Made-It",
+  "plugin": "Image-Line Purity",
+  "preset": "Ocean Harpsi",
+  "role": "Harpsichord",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Neva End/Turn On The Lights - Future: Ocean Harpsi in Purity",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Love in This Club",
+  "artist": "Usher feat. Young Jeezy",
+  "producer": "Polow Da Don",
+  "plugin": "Apple GarageBand",
+  "preset": "Euro Hero Synth 01, 02 & 03",
+  "role": "Synth lead",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Love In This Club - Usher & Young Jeezy: Euro Hero Synth 01, 02 & 03 in GarageBand",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Hero",
+  "artist": "Nas",
+  "producer": "Polow Da Don",
+  "plugin": "Native Instruments Massive",
+  "preset": "Butterfly Stance",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Hero - Nas: Butterfly Stance in Massive",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "So Sophisticated",
+  "artist": "Rick Ross feat. Meek Mill",
+  "producer": "The Beat Bully",
+  "plugin": "Steinberg HyperSonic 2",
+  "preset": "Hard Sync Lead",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "So Sophisticated - Rick Ross & Meek Mill: Hard Sync Lead in Hypersonic 2",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "M.I.A.",
+  "artist": "Omarion feat. Wale",
+  "producer": "The Beat Bully",
+  "plugin": "Native Instruments Massive",
+  "preset": "Whirlpool",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "M.I.A. - Omarion & Wale: Whirlpool in Massive",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Return the Favor",
+  "artist": "Keri Hilson feat. Timbaland",
+  "producer": "Timbaland",
+  "plugin": "Native Instruments FireBird (Reaktor)",
+  "preset": "ARP Flute",
+  "role": "Arp flute",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Return The Favor - Keri Hilson: ARP Flute in FireBird",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Off That",
+  "artist": "Jay-Z feat. Drake",
+  "producer": "Timbaland",
+  "plugin": "Native Instruments FireBird (Reaktor)",
+  "preset": "PAD Slow Odd",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Off That - Jay-Z & Drake: PAD Slow Odd in FireBird",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Real",
+  "artist": "Rich Homie Quan",
+  "producer": "Metro Boomin",
+  "plugin": "reFX Nexus",
+  "preset": "LD Crying Female",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "XP Psytrance",
+  "quote": "Real - Rich Homie Quan: LD Crying Female, under XP Psytrance in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "9 Times Out of 10",
+  "artist": "Ludacris",
+  "producer": "Metro Boomin",
+  "plugin": "reFX Nexus",
+  "preset": "Delayed Piano",
+  "role": "Piano",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Piano",
+  "quote": "9 Times Out Of 10 - Ludacris: Delayed Piano, under Piano in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Just Do It",
+  "artist": "Kid Ink",
+  "producer": "Metro Boomin",
+  "plugin": "reFX Nexus",
+  "preset": "SQ Epic Sines",
+  "role": "Sequence",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Dance Vol. 1",
+  "quote": "Just Do It - Kid Ink: SQ Epic Sines, under Dance Vol. 1 in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "How Can I Not",
+  "artist": "Future",
+  "producer": "Metro Boomin",
+  "plugin": "reFX Nexus",
+  "preset": "DRZA Manyte Pad",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "DRZA XP Vol.2",
+  "quote": "How Can I Not - Future: DRZA Manyte Pad, under DRZA XP Vol.2 in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Karate Chop",
+  "artist": "Future",
+  "producer": "Metro Boomin",
+  "plugin": "LennarDigital Sylenth1",
+  "preset": "182: LD Highlander",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Karate Chop - Future: 182: LD Highlander in Sylenth1",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Monster",
+  "artist": "Future",
+  "producer": "Metro Boomin",
+  "plugin": "Image-Line Nemesis (Studio)",
+  "preset": "Intended Lead STS",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Synth",
+  "quote": "Monster - Future: Intended Lead STS, under Synth in Nemesis",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Radical",
+  "artist": "Future",
+  "producer": "Metro Boomin",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Tuvan Male 3 Drone 4",
+  "role": "Vocal drone",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Human Voices",
+  "quote": "Radical - Future: Tuvan Male 3 Drone 4, under Human Voices in Omnisphere",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Wesley Presley",
+  "artist": "Future",
+  "producer": "Metro Boomin",
+  "plugin": "Native Instruments Massive",
+  "preset": "Outro",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Massive Factory",
+  "quote": "Wesley Presley - Future: Outro, under Massive Factory in Massive",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Chanel Vintage",
+  "artist": "Metro Boomin",
+  "producer": "Metro Boomin",
+  "plugin": "Tone2 ElectraX",
+  "preset": "Fright Night MAS",
+  "role": "Arp synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Arpeggiator",
+  "quote": "Chanel Vintage - Metro Boomin: Fright Night MAS, under Arpeggiator in ElectraX",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Want Some More",
+  "artist": "Nicki Minaj",
+  "producer": "Metro Boomin",
+  "plugin": "Tone2 ElectraX",
+  "preset": "Fright Night MAS",
+  "role": "Arp synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Arpeggiator",
+  "quote": "Want Some More - Nicki Minaj: Fright Night MAS, under Arpeggiator in ElectraX",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "The Blanguage",
+  "artist": "Young Thug",
+  "producer": "Metro Boomin",
+  "plugin": "reFX Nexus",
+  "preset": "Chill House Lounge 3",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "XP House Vol.1",
+  "quote": "The Blanguage - Young Thug: Chill House Lounge 3, under XP House Vol.1 in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Cash Money",
+  "artist": "Rich Homie Quan",
+  "producer": "Metro Boomin",
+  "plugin": "reFX Nexus",
+  "preset": "PD Sinepad 2",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Single Layer Pads",
+  "quote": "Cash Money - Rich Homie Quan: PD Sinepad 2, under Single Layer Pads in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Sneakin N Geekin",
+  "artist": "Pee Wee Longway",
+  "producer": "Metro Boomin",
+  "plugin": "reFX Nexus",
+  "preset": "PL Bellstrings",
+  "role": "Bell pluck",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Plucked",
+  "quote": "Sneakin N Geekin - Pee Wee Longway: PL Bellstrings, under Plucked in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Sneakin N Geekin",
+  "artist": "Pee Wee Longway",
+  "producer": "Metro Boomin",
+  "plugin": "Tone2 ElectraX",
+  "preset": "1 Star RR",
+  "role": "Arp synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Arpeggiator",
+  "quote": "Sneakin N Geekin - Pee Wee Longway: 1 Star RR, under Arpeggiator in ElectraX",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Maneuvering",
+  "artist": "ILOVEMAKONNEN",
+  "producer": "Metro Boomin",
+  "plugin": "Tone2 ElectraX",
+  "preset": "1 Star RR",
+  "role": "Arp synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Arpeggiator",
+  "quote": "Maneuvering - ILOVEMAKONNEN: 1 Star RR, under Arpeggiator in ElectraX",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Maneuvering",
+  "artist": "ILOVEMAKONNEN",
+  "producer": "Metro Boomin",
+  "plugin": "Tone2 ElectraX",
+  "preset": "1Fantastic FM MF",
+  "role": "Keys",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Keys",
+  "quote": "ILOVEMAKONNEN - Maneuvering ElectraX -> Keys -> 1Fantastic FM MF",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Roccsan",
+  "artist": "Skooly",
+  "producer": "Metro Boomin",
+  "plugin": "reFX Nexus",
+  "preset": "AR Krystaline",
+  "role": "Arp synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Arpeggios",
+  "quote": "Roccsan - Skooly: AR Krystaline, under Arpeggios in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "No Way",
+  "artist": "Rich Homie Quan",
+  "producer": "Metro Boomin",
+  "plugin": "reFX Nexus",
+  "preset": "LD Crying Female",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "XP Psytrance",
+  "quote": "No Way - Rich Homie Quan: LD Crying Female, under XP Psytrance in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "No Way",
+  "artist": "Rich Homie Quan",
+  "producer": "Metro Boomin",
+  "plugin": "reFX Nexus",
+  "preset": "LD A Simple Saw",
+  "role": "Saw lead",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Dance Leads",
+  "quote": "No Way - Rich Homie Quan: LD A Simple Saw, under Dance Leads in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Disloyal",
+  "artist": "Ace Hood",
+  "producer": "Metro Boomin",
+  "plugin": "Tonehammer Requiem Light (Kontakt)",
+  "preset": "Staccato_full",
+  "role": "Choir stabs",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Staccato",
+  "quote": "Disloyal - Ace Hood: Staccato_full, under Staccato under Tonehammer Requiem Light (Kontakt)",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Mink on the Floor",
+  "artist": "Curren$y",
+  "producer": "Metro Boomin",
+  "plugin": "reFX Nexus",
+  "preset": "PL Digital Xylophone",
+  "role": "Xylophone pluck",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Plucked",
+  "quote": "Mink On The Floor - Curren$y: PL Digital Xylophone, under Plucked in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Diamonds Dancing",
+  "artist": "Drake & Future",
+  "producer": "Metro Boomin",
+  "plugin": "reFX Nexus",
+  "preset": "DRZA Lean Pad",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "DRZA Vol.2",
+  "quote": "Diamonds Dancing - Drake/Future: DRZA Lean Pad, under DRZA Vol.2 in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Ziplock",
+  "artist": "OJ Da Juiceman",
+  "producer": "Metro Boomin",
+  "plugin": "Tone2 Gladiator",
+  "preset": "SY Ethereal",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Synth",
+  "quote": "Ziplock - OJ Da Juiceman: SY Ethereal, under Synth in Gladiator",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Paper (Remix)",
+  "artist": "Chip",
+  "producer": "Metro Boomin",
+  "plugin": "Xfer Serum",
+  "preset": "Sy Runtheharm GS",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Synth",
+  "quote": "Paper (Remix) - Chip: Sy Runtheharm GS, under Synth in Serum",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Thursday",
+  "artist": "The Weeknd",
+  "producer": "Illangelo",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Children of Time",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Retro Underground",
+  "quote": "Thursday - The Weeknd: Children of Time, under Retro Underground in Omnisphere",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Thursday",
+  "artist": "The Weeknd",
+  "producer": "Illangelo",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Chrysanthemum Pins",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Bob Moog Tribute Library > Retro Underground",
+  "quote": "Thursday - The Weeknd: Chrysanthemum Pins, under Retro Underground, under Bob Moog Tribute Library in Omnisphere",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Outside",
+  "artist": "The Weeknd",
+  "producer": "Illangelo",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Rulebreaker Pad",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Bob Moog Tribute Library > Pads & Strings",
+  "quote": "Outside - The Weeknd: Rulebreaker Pad, Pads & Strings, under Bob Moog Tribute Library in Omnisphere",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "I Be U",
+  "artist": "Future",
+  "producer": "Detail",
+  "plugin": "reFX Nexus",
+  "preset": "SY Noizy Sonar",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "XP Stratosphere",
+  "quote": "I Be U - Future: SY Noizy Sonar, under XP Stratosphere in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Leggo",
+  "artist": "Ace Hood",
+  "producer": "Mike WiLL Made-It",
+  "plugin": "Tone2 Gladiator",
+  "preset": "SY Ethereal",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Synth",
+  "quote": "Leggo - Ace Hood: SY Ethereal, under Synth in Gladiator",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Truth Gonna Hurt You",
+  "artist": "Future",
+  "producer": "Mike WiLL Made-It",
+  "plugin": "Roland Fantom-X",
+  "preset": "032 What What?",
+  "role": "Synth FX",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Synth FX",
+  "quote": "Truth Gonna Hurt You - Future: 032 What What?, under Synth FX in Roland Fantom X",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Don't Save No Hoes",
+  "artist": "Gucci Mane",
+  "producer": "Mike WiLL Made-It",
+  "plugin": "Tone2 Gladiator",
+  "preset": "SY Ethereal",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Synth",
+  "quote": "Don't Save No ****es - Gucci Mane: SY Ethereal, under Synth in Gladiator",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "23",
+  "artist": "Mike WiLL Made-It feat. Miley Cyrus, Wiz Khalifa & Juicy J",
+  "producer": "Mike WiLL Made-It",
+  "plugin": "Image-Line Purity",
+  "preset": "Glide Fly",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Slow Synth",
+  "quote": "23 - Mike Will: Glide Fly under Slow Synth in Purity",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "23",
+  "artist": "Mike WiLL Made-It feat. Miley Cyrus, Wiz Khalifa & Juicy J",
+  "producer": "Mike WiLL Made-It",
+  "plugin": "reFX Nexus",
+  "preset": "SY Minimal C",
+  "role": "Sequence",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Single Layer Sequences",
+  "quote": "23 - Mike Will: SY Minimal C, under Single Layer Sequences in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Fightin' Words",
+  "artist": "T.I.",
+  "producer": "Mike WiLL Made-It",
+  "plugin": "Native Instruments Massive",
+  "preset": "Zombie",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Massive Threat",
+  "quote": "Fightin' Words - T.I.: Zombie, under Massive Threat in Massive",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Fightin' Words",
+  "artist": "T.I.",
+  "producer": "Mike WiLL Made-It",
+  "plugin": "Tone2 Gladiator",
+  "preset": "LD Delia MaxS",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "StateOfArt2",
+  "quote": "Fightin' Words - T.I.: LD Delia MaxS, under StateOfArt2 in Gladiator",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "4 Zones",
+  "artist": "Young Jeezy",
+  "producer": "Mike WiLL Made-It",
+  "plugin": "reFX Nexus",
+  "preset": "PD 70s pad 01",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "XP Bigtone Signature 3",
+  "quote": "4 Zones - Young Jeezy: PD 70s pad 01, under XP Bigtone Signature 3 in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Move That Dope",
+  "artist": "Future feat. Pharrell, Pusha T & Casino",
+  "producer": "Mike WiLL Made-It",
+  "plugin": "Steinberg HyperSonic",
+  "preset": "Train Whistle",
+  "role": "Train whistle FX",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Sound FX",
+  "quote": "Move That Dope - Future: Train Whistle, under Sound FX in Hypersonic",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Believe Me",
+  "artist": "Usher",
+  "producer": "Mike WiLL Made-It",
+  "plugin": "reFX Nexus",
+  "preset": "AR Roulette",
+  "role": "Arp synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Arpeggios",
+  "quote": "Believe Me - Usher: AR Roulette, under Arpeggios in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "No Tomorrow",
+  "artist": "Chief Keef",
+  "producer": "Mike WiLL Made-It",
+  "plugin": "Tone2 Gladiator",
+  "preset": "AR Complex 2 RR",
+  "role": "Arp synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Arpeggiator",
+  "quote": "No Tomorrow - Chief Keef: AR Complex 2 RR, under Arpeggiator in Gladiator",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "I Got",
+  "artist": "Young Thug",
+  "producer": "Mike WiLL Made-It",
+  "plugin": "reFX Nexus",
+  "preset": "PD Ad Absurdum",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "XP Bigtone Signature",
+  "quote": "I Got - Young Thug: PD Ad Absurdum, under XP Bigtone Signature in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Did It",
+  "artist": "Two-9",
+  "producer": "Mike WiLL Made-It",
+  "plugin": "reFX Nexus",
+  "preset": "PD Sinepad 2",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Single Layer Pads",
+  "quote": "Did It - Two-9: PD Sinepad 2, under Single Layer Pads in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "I Lied",
+  "artist": "Nicki Minaj",
+  "producer": "Mike WiLL Made-It",
+  "plugin": "Tone2 Gladiator",
+  "preset": "AR Classic Trance2 MF",
+  "role": "Arp synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "DanceTrance1",
+  "quote": "I Lied - Nicki Minaj: AR Classic Trance2 MF, under DanceTrance1 in Gladiator",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Paradise",
+  "artist": "Big Sean",
+  "producer": "Mike WiLL Made-It",
+  "plugin": "reFX Nexus",
+  "preset": "BA Pryda PWM Bass",
+  "role": "Bass",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "XP Hands Up-Electro Bass 2",
+  "quote": "Paradise - Big Sean: BA Pryda PWM Bass, XP Hands Up-Electro Bass 2 in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Unlock the Swag",
+  "artist": "Rae Sremmurd",
+  "producer": "Mike WiLL Made-It",
+  "plugin": "reFX Nexus",
+  "preset": "DR Pinball Toms",
+  "role": "Toms",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "XP Dance Vol. 2",
+  "quote": "Unlock The Swag - Rae Sremmurd: DR Pinball Toms, under XP Dance Vol. 2 in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Whole Thang",
+  "artist": "Juicy J",
+  "producer": "Mike WiLL Made-It",
+  "plugin": "reFX Nexus",
+  "preset": "VZ Bells 2",
+  "role": "Bells",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Plucked",
+  "quote": "Whole Thang - Juicy J: VZ Bells 2, under Plucked in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Superthug",
+  "artist": "Noreaga",
+  "producer": "The Neptunes",
+  "plugin": "Korg 01/W (hardware)",
+  "preset": "Clav preset",
+  "role": "Clav",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Superthug - Noreaga: Clav preset in Korg 01/W(Keyboard)",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "I'm Not You",
+  "artist": "Clipse",
+  "producer": "The Neptunes",
+  "plugin": "Korg Triton (hardware)",
+  "preset": "D015 Warm Steel Drums",
+  "role": "Steel drums",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Bell/Mallet",
+  "quote": "I'm Not You - The Clipse: D015 Warm Steel Drums, under Bell/Mallet in Korg Triton(Keyboard)",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Cot Damn",
+  "artist": "Clipse",
+  "producer": "The Neptunes",
+  "plugin": "Korg Triton (hardware)",
+  "preset": "A001 Acoustic Piano",
+  "role": "Piano",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Keyboard",
+  "quote": "Cot Damn - The Clipse: A001 Acoustic Piano, under Keyboard in Korg Triton(Keyboard)",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Flap Your Wings",
+  "artist": "Nelly",
+  "producer": "The Neptunes",
+  "plugin": "Korg Triton (hardware)",
+  "preset": "A096 Digital PolySix",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "FastSynth",
+  "quote": "Flap Your Wings - Nelly: A096 Digital PolySix, under FastSynth in Korg Triton(Keyboard)",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Holla Back",
+  "artist": "Fabolous",
+  "producer": "The Neptunes",
+  "plugin": "Korg Triton (hardware)",
+  "preset": "A021 Chorus E. Guitar",
+  "role": "Guitar",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Guitar/Plucked",
+  "quote": "Holla Back - Fabolous: A021: Chorus E. Guitar, under Guitar/Plucked in Korg Triton(Keyboard)",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Nothin'",
+  "artist": "N.O.R.E.",
+  "producer": "The Neptunes",
+  "plugin": "Korg Triton (hardware)",
+  "preset": "B045 BambuSilverFlute",
+  "role": "Flute",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Woodwind/Reed",
+  "quote": "Nothin - Noreaga: B045 BambuSilverFlute, under Woodwind/Reed in Korg Triton(Keyboard)",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "I'm a G",
+  "artist": "N.O.R.E.",
+  "producer": "The Neptunes",
+  "plugin": "Korg Triton (hardware)",
+  "preset": "B115 Harmonica",
+  "role": "Harmonica",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Woodwind/Reed",
+  "quote": "I'm a G - Noreaga: B115 Harmonica, under Woodwind/Reed in Korg Triton(Keyboard)",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "I Just Wanna Love U (Give It 2 Me)",
+  "artist": "Jay-Z",
+  "producer": "The Neptunes",
+  "plugin": "Korg Triton (hardware)",
+  "preset": "B069 Strato-Chime",
+  "role": "Guitar chime",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Guit/Plucked",
+  "quote": "I Just Wanna Love You - Jay-Z: B069 Strato-Chime, under Guit/Plucked in Korg Triton(Keyboard)",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Nigga Please",
+  "artist": "Jay-Z",
+  "producer": "The Neptunes",
+  "plugin": "Korg Triton (hardware)",
+  "preset": "A116 Orchestra&Ethnic",
+  "role": "Drum kit",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Drums",
+  "quote": "Nigga Please - Jay-z(Drums): A116:Orchestra&Ethnic, under Drums in Korg Triton(Keyboard)",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Rock Your Body",
+  "artist": "Justin Timberlake",
+  "producer": "The Neptunes",
+  "plugin": "Korg Triton (hardware)",
+  "preset": "D031 GlassBell Bright",
+  "role": "Bell",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Bell/Mallet",
+  "quote": "Rock Your Body - Justin Timberlake: D031 GlassBell Bright, under Bell/Mallet in Korg Triton(Keyboard)",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Up Down (Do This All Day)",
+  "artist": "T-Pain feat. B.o.B",
+  "producer": "DJ Mustard",
+  "plugin": "reFX Nexus",
+  "preset": "PD Phantompad",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Single Layer Pads",
+  "quote": "Up Down - T-Pain: PD Phantompad, under Single Layer Pads in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Bring Em Out",
+  "artist": "Clyde Carson",
+  "producer": "DJ Mustard",
+  "plugin": "reFX Nexus",
+  "preset": "VZ Bells 2",
+  "role": "Bells",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Plucked",
+  "quote": "Bring Em Out - Clyde Carson: Vz Bells 2, under Plucked in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Bring Em Out",
+  "artist": "Clyde Carson",
+  "producer": "DJ Mustard",
+  "plugin": "reFX Nexus",
+  "preset": "LD Theme Init 1",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Dance Leads",
+  "quote": "Bring Em Out - Clyde Carson: LD Theme Init 1, under Dance Leads in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Paranoid",
+  "artist": "Ty Dolla $ign feat. B.o.B",
+  "producer": "DJ Mustard",
+  "plugin": "Novation V-Station",
+  "preset": "Dance2",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Paranoid - Ty Dolla $ign: Dance2 in Novation Vstation",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Paranoid",
+  "artist": "Ty Dolla $ign feat. B.o.B",
+  "producer": "DJ Mustard",
+  "plugin": "reFX Nexus",
+  "preset": "Organ 2",
+  "role": "Organ bass",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "XP Bass",
+  "quote": "Paranoid - Ty Dolla $ign: Organ 2, under XP Bass in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "How to Be the Man",
+  "artist": "Riff Raff",
+  "producer": "DJ Mustard",
+  "plugin": "reFX Nexus",
+  "preset": "Arp Bell",
+  "role": "Bell arp",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "XP Crank",
+  "quote": "How To Be The Man - Riff Raff: Arp Bell, under XP Crank in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Shirt by Versace",
+  "artist": "Kirko Bangz",
+  "producer": "DJ Mustard",
+  "plugin": "reFX Nexus",
+  "preset": "AR Bullet Time",
+  "role": "Arp synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Arpeggios",
+  "quote": "Shirt by Versace - Kirko Bangz: AR Bullet Time, under Arpeggios in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Don't Panic",
+  "artist": "French Montana",
+  "producer": "DJ Mustard",
+  "plugin": "reFX Nexus",
+  "preset": "PN Netherworlds",
+  "role": "Piano",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Piano",
+  "quote": "Don't Panic - French Montana: PN Netherworlds, Piano in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Burn Rubber",
+  "artist": "DJ Mustard",
+  "producer": "DJ Mustard",
+  "plugin": "Image-Line Purity",
+  "preset": "FM Sticky",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Fast Synth",
+  "quote": "Burn Rubber - DJ Mustard: FM Sticky, under Fast Synth in Purity",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "No Mediocre",
+  "artist": "T.I. feat. Iggy Azalea",
+  "producer": "DJ Mustard",
+  "plugin": "reFX Nexus",
+  "preset": "BA Organ Bass 1",
+  "role": "Bass",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Bass",
+  "quote": "No Mediocore - T.I.: BA Organ Bass 1, under Bass in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Body Language",
+  "artist": "Kid Ink feat. Usher & Tinashe",
+  "producer": "DJ Mustard",
+  "plugin": "reFX Nexus",
+  "preset": "Hands Up Bells 1",
+  "role": "Bells",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Plucked",
+  "quote": "Body Language - Kid Ink: Hands Up Bells 1, under Plucked in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "BPT",
+  "artist": "YG",
+  "producer": "DJ Mustard",
+  "plugin": "reFX Nexus",
+  "preset": "LD Theme Init 1",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Dance Leads",
+  "quote": "BTP - Y.G: LD Theme Init 1, under Dance Leads in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Type of Shit I Hate",
+  "artist": "Ty Dolla $ign",
+  "producer": "DJ Mustard",
+  "plugin": "Unknown (preset name only)",
+  "preset": "LD CoolNES XS",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Type of **** I Hate - Ty Dolla $ign: LD CoolNES XS",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Down on Me",
+  "artist": "DJ Mustard",
+  "producer": "DJ Mustard",
+  "plugin": "reFX Nexus",
+  "preset": "WW Dance Piccolo",
+  "role": "Piccolo",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Classical",
+  "quote": "Down On Me - DJ Mustard: WW Dance Piccolo, under Classical in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Thuggin",
+  "artist": "Jay 305",
+  "producer": "DJ Mustard",
+  "plugin": "Tone2 Gladiator",
+  "preset": "LD SiDated XS",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Lead",
+  "quote": "Thuggin - Jay 305: LD SiDated XS, under Lead in Gladiator",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Bicken Back Being Bool",
+  "artist": "YG",
+  "producer": "DJ Mustard",
+  "plugin": "reFX Nexus",
+  "preset": "BA Big Bad",
+  "role": "Bass",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Bass",
+  "quote": "Bicken Back Being Boo - YG: BA Big Bad, under Bass in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Maison Margiela",
+  "artist": "Future",
+  "producer": "Sonny Digital",
+  "plugin": "reFX Nexus",
+  "preset": "LD Crying Female",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "XP Psytrance",
+  "quote": "Maison Margiela - Future: LD Crying Female, under XP Psytrance in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "I Don't Sell Molly No More",
+  "artist": "ILOVEMAKONNEN",
+  "producer": "Sonny Digital",
+  "plugin": "reFX Nexus",
+  "preset": "SY Dreamy SawPluck",
+  "role": "Pluck",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Fantasy & Dream",
+  "quote": "I Don't Sell Molly No More - ILOVEMAKONNEN: SY Dreamy SawPluck, under Fantasy & Dream in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Standout",
+  "artist": "Que",
+  "producer": "Sonny Digital",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Octophonic Ensemble Filters",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Pads & Strings",
+  "quote": "Standout - Que: Octophonic Ensemble Filters, under Pads & Strings in Omnisphere",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Trap Back",
+  "artist": "Gucci Mane",
+  "producer": "Southside",
+  "plugin": "Image-Line Purity",
+  "preset": "Chu+32",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Lead Synth",
+  "quote": "Trap Back - Gucci Mane: Chu+32, under Lead Synth in Purity",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Don't Deserve It",
+  "artist": "Gucci Mane",
+  "producer": "Southside",
+  "plugin": "reFX Nexus",
+  "preset": "CL Angels Harp",
+  "role": "Harp",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Classical",
+  "quote": "Don't Deserve It - Gucci Mane: CL Angels Harp, under Classical in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Darker",
+  "artist": "Gucci Mane",
+  "producer": "Southside",
+  "plugin": "reFX Nexus",
+  "preset": "Unknown Lifeforms",
+  "role": "Texture/FX",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Textures and FX",
+  "quote": "Darker - Gucci Mane: Unknown Lifeforms, under Textures and FX in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Tweakin",
+  "artist": "Waka Flocka Flame",
+  "producer": "Southside",
+  "plugin": "reFX Nexus",
+  "preset": "PL Pizza Cult",
+  "role": "Pluck",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Tweakin - Waka Flocka Flame: PL Pizza Cult in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Tweakin",
+  "artist": "Waka Flocka Flame",
+  "producer": "Southside",
+  "plugin": "Tone2 Gladiator",
+  "preset": "SY HCMisUnique",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Synth",
+  "quote": "Tweakin - Waka Flocka Flame: SY HCMisUnique, under Synth in Gladiator",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Tweakin",
+  "artist": "Waka Flocka Flame",
+  "producer": "Southside",
+  "plugin": "reFX Vanguard",
+  "preset": "LD Hale Bopp",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Tweakin - Waka Flocka Flame: LD Hale Bopp in Vanguard",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Tweakin",
+  "artist": "Waka Flocka Flame",
+  "producer": "Southside",
+  "plugin": "Image-Line Sytrus",
+  "preset": "LD Gold SAW",
+  "role": "Saw lead",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Tweakin - Waka Flocka Flame: LD Gold SAW in Sytrus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "Petro",
+  "artist": "SpaceGhostPurrp",
+  "producer": "SpaceGhostPurrp",
+  "plugin": "reFX Nexus",
+  "preset": "LV Vocal Lead",
+  "role": "Vocal lead",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "LV XP Vol 3",
+  "quote": "Petro - SpaceGhostPurrp: LV Vocal Lead under LV XP Vol 3 in Nexus",
+  "quoteBy": "zazaza"
+ },
+ {
+  "song": "VCR",
+  "artist": "Tyler, the Creator",
+  "producer": "Tyler, the Creator",
+  "plugin": "Image-Line Sytrus",
+  "preset": "Synth Bass",
+  "role": "Bass",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Sequence",
+  "quote": "VCR - Tyler The Creator: Synth Bass, under Sequence in Sytrus",
+  "quoteBy": "debold"
+ },
+ {
+  "song": "VCR",
+  "artist": "Tyler, the Creator",
+  "producer": "Tyler, the Creator",
+  "plugin": "Image-Line Sytrus",
+  "preset": "Blown Bottle",
+  "role": "Blown bottle",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Wind",
+  "quote": "VCR - Tyler The Creator: Blown Bottle, under Wind in Sytrus",
+  "quoteBy": "debold"
+ },
+ {
+  "song": "VCR",
+  "artist": "Tyler, the Creator",
+  "producer": "Tyler, the Creator",
+  "plugin": "Image-Line Sytrus",
+  "preset": "Zen",
+  "role": "Pluck",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Plucked",
+  "quote": "VCR - Tyler The Creator: Zen, under Plucked in Sytrus",
+  "quoteBy": "debold"
+ },
+ {
+  "song": "Inglorious",
+  "artist": "Tyler, the Creator",
+  "producer": "Tyler, the Creator",
+  "plugin": "Image-Line Sytrus",
+  "preset": "Soundtrack",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Pad",
+  "quote": "Inglorious - Tyler The Creator: Soundtrack, under Pad in Sytrus",
+  "quoteBy": "debold"
+ },
+ {
+  "song": "Inglorious",
+  "artist": "Tyler, the Creator",
+  "producer": "Tyler, the Creator",
+  "plugin": "Image-Line Sytrus",
+  "preset": "Celestial 3",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Short Synth",
+  "quote": "Inglorious - Tyler The Creator: Celestial 3, under Short Synth in Sytrus",
+  "quoteBy": "debold"
+ },
+ {
+  "song": "Fish",
+  "artist": "Tyler, the Creator",
+  "producer": "Tyler, the Creator",
+  "plugin": "Image-Line Sytrus",
+  "preset": "Silver Saw",
+  "role": "Synth strings",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Synth String",
+  "quote": "Fish - Tyler The Creator: Silver Saw, under Synth String in Sytrus",
+  "quoteBy": "debold"
+ },
+ {
+  "song": "Tina",
+  "artist": "Tyler, the Creator",
+  "producer": "Tyler, the Creator",
+  "plugin": "Image-Line Sytrus",
+  "preset": "Cube",
+  "role": "Arp synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Arp",
+  "quote": "Tina - Tyler The Creator: Cube, under Arp in Sytrus",
+  "quoteBy": "debold"
+ },
+ {
+  "song": "Parade",
+  "artist": "Tyler, the Creator",
+  "producer": "Tyler, the Creator",
+  "plugin": "Image-Line Sytrus",
+  "preset": "Lost Arch",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Pad",
+  "quote": "Parade - Tyler The Creator: Lost Arch, under Pad in Sytrus",
+  "quoteBy": "debold"
+ },
+ {
+  "song": "Her",
+  "artist": "Tyler, the Creator",
+  "producer": "Tyler, the Creator",
+  "plugin": "Reason Thor",
+  "preset": "Glossy Plastic Lead",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Lead Synths",
+  "quote": "Her - Tyler The Creator: Glossy Plastic Lead, Lead Synths, under Thor in Reason",
+  "quoteBy": "debold"
+ },
+ {
+  "song": "Her",
+  "artist": "Tyler, the Creator",
+  "producer": "Tyler, the Creator",
+  "plugin": "Reason Malstrom",
+  "preset": "Beauty",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Pads",
+  "quote": "Her - Tyler The Creator: Beauty, under Pads, under Pads, under Malstrom in Reason",
+  "quoteBy": "debold"
+ },
+ {
+  "song": "Golden",
+  "artist": "Tyler, the Creator",
+  "producer": "Tyler, the Creator",
+  "plugin": "Reason Thor",
+  "preset": "SynConga",
+  "role": "Conga",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Misc Percussion",
+  "quote": "Golden - Tyler the Creator: SynConga, under Misc Percussion, under Thor in Reason",
+  "quoteBy": "debold"
+ },
+ {
+  "song": "Tron Cat",
+  "artist": "Tyler, the Creator",
+  "producer": "Tyler, the Creator",
+  "plugin": "Reason NN-XT",
+  "preset": "My House",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Synth Poly",
+  "quote": "Tron Cat - Tyler the Creator: My House, under Synth Poly, under NN-XT in Reason",
+  "quoteBy": "debold"
+ },
+ {
+  "song": "Tron Cat",
+  "artist": "Tyler, the Creator",
+  "producer": "Tyler, the Creator",
+  "plugin": "Reason Kong",
+  "preset": "69 Kong",
+  "role": "Drums",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Hip Hop - RnB",
+  "quote": "Tron Cat - Tyler the Creator: 69 Kong, under Hip Hop - RnB, under Kong Drums in Reason",
+  "quoteBy": "debold"
+ },
+ {
+  "song": "Sandwitches",
+  "artist": "Tyler, the Creator feat. Hodgy Beats",
+  "producer": "Tyler, the Creator",
+  "plugin": "Reason Thor",
+  "preset": "Gangsta Lead 3",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Synth",
+  "quote": "Sandwitches - Tyler The Creator: Gangsta Lead 3, under Synth, under Thor in Reason",
+  "quoteBy": "debold"
+ },
+ {
+  "song": "Sandwitches",
+  "artist": "Tyler, the Creator feat. Hodgy Beats",
+  "producer": "Tyler, the Creator",
+  "plugin": "Reason NN19",
+  "preset": "FarfisaOrgan",
+  "role": "Organ",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Organ",
+  "quote": "Sandwitches - Tyler The Creator: FarfisaOrgan, under Organ, under NN19 in Reason",
+  "quoteBy": "debold"
+ },
+ {
+  "song": "Slater",
+  "artist": "Tyler, the Creator feat. Frank Ocean",
+  "producer": "Tyler, the Creator",
+  "plugin": "Reason NN19",
+  "preset": "Farfisa Organ",
+  "role": "Organ",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Organ",
+  "quote": "Slatter - Tyler The Creator: Farfisa Organ, under Organ, under NN19 in Reason",
+  "quoteBy": "debold"
+ },
+ {
+  "song": "Cowboy",
+  "artist": "Tyler, the Creator",
+  "producer": "Tyler, the Creator",
+  "plugin": "Reason NN-XT",
+  "preset": "Bright Piano",
+  "role": "Piano",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Piano",
+  "quote": "Cowboy - Tyler The Creator: Bright Piano, under Piano, under NN-XT in Reason",
+  "quoteBy": "debold"
+ },
+ {
+  "song": "Cowboy",
+  "artist": "Tyler, the Creator",
+  "producer": "Tyler, the Creator",
+  "plugin": "Reason NN19",
+  "preset": "Big Strings",
+  "role": "Strings",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Strings",
+  "quote": "Cowboy - Tyler The Creator: Big Strings, under Strings, under NN19 in Reason",
+  "quoteBy": "debold"
+ },
+ {
+  "song": "IFHY",
+  "artist": "Tyler, the Creator feat. Pharrell",
+  "producer": "Tyler, the Creator",
+  "plugin": "Reason Combinator",
+  "preset": "M100 Organ Combo",
+  "role": "Organ",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Organ",
+  "quote": "IFHY - Tyler The Creator: M100 Organ Combo, under Organ, under Combinator in Reason",
+  "quoteBy": "debold"
+ },
+ {
+  "song": "IFHY",
+  "artist": "Tyler, the Creator feat. Pharrell",
+  "producer": "Tyler, the Creator",
+  "plugin": "Reason Thor",
+  "preset": "Beyond Trance Keys",
+  "role": "Synth keys",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Poly Synths",
+  "quote": "IFHY - Tyler The Creator: Beyond Trance Keys, under Poly Synths, under Thor in Reason",
+  "quoteBy": "debold"
+ },
+ {
+  "song": "Answer",
+  "artist": "Tyler, the Creator",
+  "producer": "Tyler, the Creator",
+  "plugin": "Reason Combinator",
+  "preset": "Soundtrack Strat",
+  "role": "Guitar",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Electric Guitar",
+  "quote": "Answer - Tyler the Creator: Soundtrack Strat, under Electric Guitar, under Combinator in Reason",
+  "quoteBy": "debold"
+ },
+ {
+  "song": "Rusty",
+  "artist": "Tyler, the Creator feat. Domo Genesis & Earl Sweatshirt",
+  "producer": "Tyler, the Creator",
+  "plugin": "Reason Subtractor",
+  "preset": "Chronic Bass",
+  "role": "Bass",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Synth Bass",
+  "quote": "Rusty - Tyler the Creator: Chronic Bass, under Synth Bass, under Subtrator in Reason",
+  "quoteBy": "debold"
+ },
+ {
+  "song": "Earl",
+  "artist": "Earl Sweatshirt",
+  "producer": "Tyler, the Creator",
+  "plugin": "Image-Line Sytrus",
+  "preset": "Hoovinator",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Synth String",
+  "quote": "EARL - Earl Sweatshirt: Hoovinator, under Synth String, in Sytrus",
+  "quoteBy": "debold"
+ },
+ {
+  "song": "Whoa",
+  "artist": "Earl Sweatshirt feat. Tyler, the Creator",
+  "producer": "Tyler, the Creator",
+  "plugin": "Reason NN-XT",
+  "preset": "Sub Bass",
+  "role": "Bass",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Synth Bass",
+  "quote": "Whoa - Earl Sweatshirt: Sub Bass, under Synth Bass, under NN-XT in Reason",
+  "quoteBy": "debold"
+ },
+ {
+  "song": "Sam (Is Dead)",
+  "artist": "Odd Future",
+  "producer": "Tyler, the Creator",
+  "plugin": "Reason NN19",
+  "preset": "RhodesMK1",
+  "role": "Electric piano",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Electric Piano",
+  "quote": "Sam Is Dead - Odd Future: RhodesMK1, under Electric Piano, under NN19 in Reason",
+  "quoteBy": "debold"
+ },
+ {
+  "song": "Smuckers",
+  "artist": "Tyler, the Creator feat. Kanye West & Lil Wayne",
+  "producer": "Tyler, the Creator",
+  "plugin": "Native Instruments Battery",
+  "preset": "Old Jazz Kit",
+  "role": "Drums",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Acoustic Kits",
+  "quote": "Smuckers - Tyler The Creator: Old Jazz Kit, under Acoustic Kits in Battery",
+  "quoteBy": "debold"
+ },
+ {
+  "song": "Smuckers",
+  "artist": "Tyler, the Creator feat. Kanye West & Lil Wayne",
+  "producer": "Tyler, the Creator",
+  "plugin": "Apple Logic Pro X (Studio Horns)",
+  "preset": "Pop Trumpets",
+  "role": "Trumpets",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum thread: Presets used in popular songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Studio Horns",
+  "quote": "Smuckers - Tyler The Creator: Pop Trumpets, under Studio Horns in Logic Pro X",
+  "quoteBy": "debold"
+ },
+ {
+  "song": "Magnolia",
+  "artist": "Playboi Carti",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Native Instruments FM8",
+  "preset": "Adam the Psycho",
+  "role": "Main synth melody",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard: Pi'erre Bourne's Gear",
+   "url": "https://equipboard.com/pierre-bourne"
+  },
+  "quote": "Pierre used FM8 preset \"Adam the Psycho\" in Magnolia",
+  "quoteBy": "Equipboard contributors"
+ },
+ {
+  "song": "Long Ride",
+  "artist": "Young Nudy",
+  "producer": "Pi'erre Bourne",
+  "plugin": "GForce Oddity3",
+  "preset": "Academia Lead",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard: Pi'erre Bourne's Gear",
+   "url": "https://equipboard.com/pierre-bourne"
+  },
+  "quote": "Pierre Bourne uses the preset titled \"Academia Lead\" in Young Nudy's \"Long Ride\" beat.",
+  "quoteBy": "Equipboard contributors"
+ },
+ {
+  "song": "Hot Wings",
+  "artist": "Artist not named in the source",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Siegfried Kullmann SQ8L",
+  "preset": "ANABAS",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard: Pi'erre Bourne's Gear",
+   "url": "https://equipboard.com/pierre-bourne"
+  },
+  "quote": "The preset 'ANABAS' is used in the track, Hot Wings",
+  "quoteBy": "Equipboard contributors"
+ },
+ {
+  "song": "Dispatch",
+  "artist": "Artist not named in the source",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Siegfried Kullmann SQ8L",
+  "preset": "SORROW",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard: Pi'erre Bourne's Gear",
+   "url": "https://equipboard.com/pierre-bourne"
+  },
+  "quote": "The preset 'SORROW' is used on the track, Dispatch",
+  "quoteBy": "Equipboard contributors"
+ },
+ {
+  "song": "All Girls Are the Same",
+  "artist": "Juice WRLD",
+  "producer": "Nick Mira",
+  "plugin": "reFX Nexus",
+  "preset": "VZ Bells 2",
+  "role": "Bell melody",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard: Nick Mira's Gear",
+   "url": "https://equipboard.com/nick-mira"
+  },
+  "quote": "He used it to produce the beat to \"All Girls Are The Same\" which Juice WRLD rapped on... He used the VZ Bells 2 sound.",
+  "quoteBy": "Equipboard contributors"
+ },
+ {
+  "song": "Black Beatles",
+  "artist": "Rae Sremmurd feat. Gucci Mane",
+  "producer": "Mike WiLL Made-It",
+  "plugin": "Synapse Audio DUNE 2",
+  "preset": "Scimtar EDT",
+  "role": "Main synth melody",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard: Mike WiLL Made-It's Gear",
+   "url": "https://equipboard.com/mike-will-made-it"
+  },
+  "quote": "At 1:26 of the video, we can see that he has Dune 2 opened on his laptop on the \"Scimtar EDT\" demo patch",
+  "quoteBy": "Equipboard contributors"
+ },
+ {
+  "song": "Moonlight",
+  "artist": "XXXTentacion",
+  "producer": "Unknown",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": null,
+  "role": "Main melody (preset shown in video)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube short: FAMOUS PRESETS #361: \"Moonlight\" by XXXTentacion (BLUE STEEL)",
+   "url": "https://www.youtube.com/watch?v=shQ0szJDCVo"
+  },
+  "quote": "FAMOUS PRESETS #361: \"Moonlight\" by XXXTentacion ... #omnisphere #omnispherepresets",
+  "quoteBy": "bluesteel.wav_"
+ }
+]

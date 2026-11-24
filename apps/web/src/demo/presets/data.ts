@@ -1,3 +1,5 @@
+import found from "./found.json" with { type: "json" };
+
 /**
  * The presets tab: which synth (and, where anyone has said, which preset) is on a song. Researched
  * on 24 November 2026 from producer interviews, engineer interviews, press and community threads.
@@ -32,8 +34,8 @@ export type PresetEntry = {
   quote?: string;
   quoteBy?: string;
   source: Source;
-  /** The demo patch that gets closest, for "Hear a sketch". */
-  sketch: string;
+  /** The demo patch that gets closest (older rows; the page no longer plays sketches). */
+  sketch?: string;
 };
 
 const NI_ROGET: Source = { label: "Native Instruments blog, interview with Rogét Chahayed", url: "https://blog.native-instruments.com/roget-chahayed-interview/" };
@@ -46,7 +48,7 @@ const WIKI_XO: Source = { label: "Wikipedia, XO Tour Llif3 (citing Rap-Up)", url
 const YT_XO: Source = { label: "YouTube, \"The Real Original XO Tour Llif3 beat | TM88\" (upload description)", url: "https://www.youtube.com/watch?v=SdMVe3G5ivo" };
 const KTT2: Source = { label: "KTT2 forum, \"Presets used in popular songs\" thread", url: "https://www.ktt2.com/presets-used-in-popular-songs-74935" };
 
-export const PRESETS: PresetEntry[] = [
+const HAND: PresetEntry[] = [
   // ---- Producer's own words
   {
     song: "SICKO MODE", artist: "Travis Scott feat. Drake", producer: "Rogét Chahayed, Hit-Boy", plugin: "Native Instruments Kontakt (Factory Library)",
@@ -140,4 +142,19 @@ export const PRESETS: PresetEntry[] = [
   { song: "Yonkers", artist: "Tyler, the Creator", producer: "Tyler, the Creator", plugin: "Reason (Thor, Redrum)", preset: "Gangsta Lead 1; Fx3_Hard&Soft kit", role: "Lead and drums", confidence: "community", source: KTT2, sketch: "Vapor brass" },
 ];
 
-export const SOURCES_READ = [NI_ROGET, SOS_ROGET, SOS_HARLOW, SOS_TECCA, SOS_SKI, MR_KENDRICK, WIKI_XO, YT_XO, KTT2];
+/**
+ * Rows gathered in the second research pass (found.json): each one read from the linked page, with
+ * a verbatim quote where the page gave one. Merged after the hand-written rows; a row for the same
+ * song, preset and plugin as an earlier one is dropped.
+ */
+const seen = new Set<string>();
+const keyOf = (p: PresetEntry) => [p.song, p.plugin, p.preset ?? p.role].join("|").toLowerCase();
+export const PRESETS: PresetEntry[] = [...HAND, ...(found as unknown as PresetEntry[])].filter((p) => {
+  const k = keyOf(p);
+  if (seen.has(k)) return false;
+  seen.add(k);
+  return true;
+});
+
+/** Every page a row links to, once each. */
+export const SOURCES_READ: Source[] = [...new Map(PRESETS.map((p) => [p.source.url, p.source])).values()].sort((a, b) => a.label.localeCompare(b.label));
