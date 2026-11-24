@@ -76,7 +76,7 @@ Every choice below favors boring, well-documented tools, because AI agents write
 | File storage | Cloudflare R2 | $0.015 per GB-month stored, egress free. | Supabase Storage: $0.09 per GB of egress past the included 250 GB on Pro. |
 | Uploads | Browser uploads straight to R2 with presigned URLs | Files never pass through your web server, so large kits do not time out. | Uploading through an API route: slow and size-capped. |
 | Job queue | A jobs table in Postgres, claimed with row locks | No extra service; jobs sit next to the data they change. | Supabase Queues or Redis: a second mechanism beside the jobs table you need anyway. |
-| Worker | Python 3.12 container: ffmpeg, librosa, mido, Chromaprint, vita | Best audio tooling lives in Python. | Doing analysis in Node: thinner libraries. |
+| Worker | Python 3.12 container: ffmpeg, numpy, mido, Chromaprint, vita | Best audio tooling lives in Python. | Doing analysis in Node: thinner libraries. |
 | Waveforms | wavesurfer.js 7 fed precomputed peaks | Its docs recommend pre-decoded peaks for large files; with peaks the waveform draws before audio loads. | Decoding in the browser: slow on long files. |
 | Tempo and key shift | Signalsmith Stretch (MIT, official Web Audio build) | High quality, runs in an AudioWorklet, permissive license. | Rubber Band: GPL or paid license. |
 | MIDI playback | SpessaSynth (Apache-2.0) with a small SoundFont | Full MIDI synth in the browser, real-time and offline. | Tone.js samplers: more assembly for the same result. |
@@ -86,7 +86,7 @@ Every choice below favors boring, well-documented tools, because AI agents write
 | Tests | Vitest for units, Playwright for end-to-end | Agents need a command that proves their work. | No tests: parallel agents break each other unnoticed. |
 | Hosting | Vercel for the web app; any container host for the worker | Least setup for Next.js. Moving to Cloudflare later is possible. | Self-managed servers: time sink. |
 
-Two license traps to avoid. Essentia is the best-known key and BPM library, but it is released under the Affero GPL, which can oblige you to publish your own source. Use librosa on the worker instead; it is ISC-licensed. Vital's source is GPLv3, so keep the Vital renderer as its own isolated worker process and have a lawyer confirm that arrangement.
+Two license traps to avoid. Essentia is the best-known key and BPM library, but it is released under the Affero GPL, which can oblige you to publish your own source. Write onset tempo and chroma on numpy (BSD-3-Clause) instead. librosa itself is ISC, but it pulls in soxr and soundfile, which are LGPL (decision 0017). Vital's source is GPLv3, so keep the Vital renderer as its own isolated worker process and have a lawyer confirm that arrangement.
 
 ## Social layer
 
@@ -230,7 +230,7 @@ The technology here is well understood. The risks that can actually stop the pro
 
 ## Things to verify before building on them
 
-- Key-detection accuracy on your fixture loops. librosa itself is ISC-licensed, which is permissive, but it ships no finished key detector. If accuracy is poor, test alternatives before committing.
+- Key-detection accuracy on your fixture loops. The worker's numpy chroma ships no finished key detector, so the profile match is our own code. If accuracy is poor, test alternatives before committing.
 - That the vita package renders your own Vital presets faithfully, including ones with custom wavetables.
 - The duplicate-fingerprint threshold against your fixtures, including a trimmed copy and a re-encoded copy of the same loop.
 - ACRCloud pricing for your expected upload volume.

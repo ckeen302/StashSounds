@@ -250,6 +250,52 @@ def count_my_uid(ctx: JobContext) -> dict[str, Any]:
     return loop_result(ctx.payload["itemId"])
 
 
+def seccomp_probe(ctx: JobContext) -> dict[str, Any]:
+    """Tries what the child's seccomp filter refuses, and what it must still allow."""
+    import ctypes
+    import errno
+    import platform
+
+    from stash_worker.seccomp import ARCHES
+
+    libc = ctypes.CDLL(None, use_errno=True)
+    nr = ARCHES[platform.machine()].syscalls
+
+    def errno_of(fn) -> str:
+        ctypes.set_errno(0)
+        r = fn()
+        if r == 0 and fn is clone_newns:  # the clone went through: this is the new child
+            os._exit(0)
+        return "ok" if r >= 0 else errno.errorcode.get(ctypes.get_errno(), str(ctypes.get_errno()))
+
+    def clone_newns() -> int:
+        return libc.syscall(nr["clone"], 0x00020000 | 17, 0, 0, 0, 0)  # CLONE_NEWNS | SIGCHLD
+
+    facts: dict[str, Any] = {}
+    try:
+        os.unshare(0x10000000)  # CLONE_NEWUSER
+        facts["unshare_user"] = "ok"
+    except OSError as e:
+        facts["unshare_user"] = errno.errorcode[e.errno]
+    facts["mount"] = errno_of(lambda: libc.mount(b"none", b"/tmp", b"tmpfs", 0, None))
+    facts["clone_newns"] = errno_of(clone_newns)
+    facts["clone3"] = errno_of(lambda: libc.syscall(nr["clone3"], None, 0))
+    facts["bpf"] = errno_of(lambda: libc.syscall(nr["bpf"], 0, None, 0))
+    facts["ptrace"] = errno_of(lambda: libc.syscall(nr["ptrace"], 0, 0, 0, 0))  # PTRACE_TRACEME
+    status = dict(line.split(":", 1) for line in open("/proc/self/status") if ":" in line)  # noqa: PTH123
+    facts["no_new_privs"] = status["NoNewPrivs"].strip()
+    facts["seccomp"] = status["Seccomp"].strip()
+    # Ordinary process starts must still work: Python's subprocess, and a thread (clone3 falls back).
+    import threading
+
+    t = threading.Thread(target=lambda: None)
+    t.start()
+    t.join()
+    facts["ffmpeg"] = subprocess.run(["ffmpeg", "-version"], capture_output=True, check=False).returncode  # noqa: S607
+    (ctx.workdir / "probe.json").write_text(json.dumps(facts))
+    return loop_result(ctx.payload["itemId"])
+
+
 def network_probe(ctx: JobContext) -> dict[str, Any]:
     import socket
 

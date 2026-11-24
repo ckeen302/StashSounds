@@ -4,6 +4,10 @@ from __future__ import annotations
 
 import json
 import os
+import platform
+import signal
+import subprocess
+import sys
 import threading
 import time
 import uuid
@@ -14,6 +18,7 @@ import pytest
 import stash_worker.sandbox as sandbox
 from stash_worker.jobs import Rejected
 from stash_worker.sandbox import CHILD_FILE_BYTES, CHILD_PROCESSES, _uid_task_count, run_isolated
+from stash_worker.seccomp import Filter, Unsupported
 
 PAYLOAD = {"id": str(uuid.uuid4()), "itemId": str(uuid.uuid4()), "kind": "process_loop", "attempts": 1}
 MiB = 1 << 20
@@ -205,3 +210,47 @@ def test_an_outcome_over_the_size_cap_is_not_read(tmp_path: Path):
     out = run("forge_huge_outcome", tmp_path)
     assert out.status == "crashed"
     assert "too large" in out.detail
+
+
+# -- the child's seccomp filter (PR #8 re-review N1, A1) -------------------------------------------------
+
+linux_only = pytest.mark.skipif(sys.platform != "linux", reason="seccomp is Linux only")
+
+SECCOMP_EXPECTED = {
+    "unshare_user": "EPERM",
+    "mount": "EPERM",
+    "clone_newns": "EPERM",
+    "clone3": "ENOSYS",
+    "bpf": "EPERM",
+    "ptrace": "EPERM",
+    "no_new_privs": "1",
+    "seccomp": "2",
+    "ffmpeg": 0,
+}
+
+
+@linux_only
+def test_the_child_runs_under_no_new_privs_and_the_seccomp_filter(tmp_path: Path):
+    assert run("seccomp_probe", tmp_path).status == "ok"
+    assert json.loads((tmp_path / "work" / "probe.json").read_text()) == SECCOMP_EXPECTED
+
+
+@linux_only
+def test_the_filter_kills_a_process_on_a_foreign_architecture():
+    other = "aarch64" if platform.machine() == "x86_64" else "x86_64"
+    p = subprocess.run(  # noqa: S603
+        [sys.executable, "-I", "-S", "-c", "pass"],
+        preexec_fn=Filter(other).install,  # noqa: PLW1509
+        check=False,
+    )
+    assert p.returncode == -signal.SIGSYS
+
+
+def test_there_is_no_filter_for_an_unknown_architecture():
+    with pytest.raises(Unsupported):
+        Filter("riscv64")
+
+
+@linux_only
+def test_a_filter_is_available_here():
+    assert sandbox.syscall_filter_available()

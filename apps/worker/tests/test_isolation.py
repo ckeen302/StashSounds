@@ -275,11 +275,20 @@ def listener() -> Iterator[int]:
 
 def test_the_child_has_no_network(job_user: JobUser, job_root: Path, listener: int):
     if not sandbox.network_isolation_available():
-        pytest.fail("no CAP_SYS_ADMIN for a network namespace (see docs/requests/112-child-network.md)")
+        pytest.fail("no CAP_SYS_ADMIN for a network namespace (decision 0017)")
     status, probe = run_as(job_user, job_root, "network_probe", {"port": listener})
     assert status == "ok", probe
     assert probe["connect"] != "connected"
     assert probe["interfaces"] == ["lo"]  # down, and nothing else
+
+
+def test_the_job_users_child_runs_under_the_seccomp_filter(job_user: JobUser, job_root: Path):
+    # With SYS_ADMIN in the container, Docker's own profile allows these; the child's filter must not.
+    from test_sandbox import SECCOMP_EXPECTED
+
+    status, probe = run_as(job_user, job_root, "seccomp_probe", {})
+    assert status == "ok", probe
+    assert probe == SECCOMP_EXPECTED
 
 
 def test_the_network_probe_connects_when_isolation_is_off(job_user: JobUser, job_root: Path, listener: int):

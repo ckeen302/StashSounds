@@ -15,6 +15,7 @@ import {
   isoDateTimeSchema,
   musicalKeySchema,
   publicIdSchema,
+  sameSitePathSchema,
   splitPercentSchema,
   tagNameSchema,
   titleSchema,
@@ -63,7 +64,11 @@ export const completeUploadInput = z.object({
   itemId: uuidSchema,
   fileId: uuidSchema,
   /** Multipart only: the ETag of each uploaded part. */
-  parts: z.array(z.object({ partNumber: z.int().min(1).max(10_000), etag: z.string().min(1).max(128) })).max(10_000).optional(),
+  parts: z
+    .array(z.object({ partNumber: z.int().min(1).max(10_000), etag: z.string().min(1).max(128) }))
+    .max(10_000)
+    .refine((ps) => new Set(ps.map((p) => p.partNumber)).size === ps.length, "Part numbers must be unique")
+    .optional(),
 });
 /**
  * Processing starts once every file is in. A preset whose original is confirmed before its demo
@@ -111,7 +116,7 @@ export const publishItemInput = z.object({
    */
   wavetablesConfirmed: z.boolean().default(false),
 });
-export const publishItemOutput = z.object({ itemId: uuidSchema, publishedAt: isoDateTimeSchema, href: z.string() });
+export const publishItemOutput = z.object({ itemId: uuidSchema, publishedAt: isoDateTimeSchema, href: sameSitePathSchema });
 
 export const itemIdInput = z.object({ itemId: uuidSchema });
 export const unpublishItemInput = itemIdInput;
@@ -281,7 +286,7 @@ export const notificationSchema = z.object({
   id: uuidSchema,
   kind: notificationKindSchema,
   actor: ownerSummarySchema.nullable(),
-  item: z.object({ id: uuidSchema, title: z.string(), href: z.string() }).nullable(),
+  item: z.object({ id: uuidSchema, title: z.string(), href: sameSitePathSchema }).nullable(),
   /** Batched: ten likes on one item within an hour are one notification with count 10. */
   count: z.int().positive(),
   readAt: isoDateTimeSchema.nullable(),

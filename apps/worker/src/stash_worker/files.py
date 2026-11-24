@@ -73,9 +73,14 @@ def stage_inputs(storage: Storage, job_input: dict[str, Any], in_dir: Path) -> N
 
 
 def loop_preview_max_bytes() -> int:
-    """The largest loop preview: the longest loop at the bitrate it is encoded at, whichever regime is
-    bigger, plus 5% and 16 KiB for frame padding and the ID3 and Xing headers. Derived until limits.json
-    names it (request 112-preview-max-bytes)."""
+    """The largest loop preview the parent publishes: limits.preview.loopMaxBytes (decision 0017)."""
+    return int(limits()["preview"]["loopMaxBytes"])
+
+
+def loop_preview_needed_bytes() -> int:
+    """What the longest loop's preview can take: the longest loop at the bitrate it is encoded at,
+    whichever regime is bigger, plus 5% and 16 KiB for frame padding and the ID3 and Xing headers.
+    The limit must be at least this, or a valid preview would be refused."""
     lim = limits()
     p = lim["preview"]
     short = p["loopShortMaxMs"] / 1000 * p["loopBitrateKbpsShort"] * 1000 / 8
