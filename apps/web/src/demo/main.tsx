@@ -35,9 +35,15 @@ import { SoundDesign } from "./sound-design";
 import { BrowsePage, LibraryPage, NewCrateHost, ProfilePage, useCrateEntries, type RenderLoops } from "./explore";
 import { FlipPanel } from "./flip";
 import { LoopsPage } from "./loops";
+import { pack, PACK_WEEK } from "./packs";
+import { saveFiles } from "./save";
+import { SmartSearch, useQuery } from "./search-ui";
+import { loopProfile, midiProfile } from "./search-index";
+import { match, moreLike } from "./smart-search";
+import { writeMidi } from "./midi/write";
 import { KitPage, KitsPage, KitUploadPage } from "./kits/pages";
 import type { MidiKind } from "@stash/contracts";
-import { FilterChip, SearchInput, UiLink } from "@stash/ui";
+import { Button, Download, FilterChip, UiLink } from "@stash/ui";
 
 /**
  * The browser-only demo (ticket 137): the real shell, player bar, result rows, loop page and audio
@@ -67,6 +73,10 @@ function pageForViewer(page: ItemPage): ItemPage {
 
 let searchQuery = "";
 const searchListeners = new Set<() => void>();
+function setSearchQuery(q: string) {
+  searchQuery = q;
+  for (const l of searchListeners) l();
+}
 function useSearchQuery(): string {
   return useSyncExternalStore(
     (l) => {
@@ -256,29 +266,136 @@ function LibraryRoute() {
 function SearchResults() {
   const [rows, refresh] = useRows();
   const query = useSearchQuery();
-  const q = query.trim().toLowerCase();
-  const hits = q
-    ? rows.filter((r) => [r.title, r.owner.handle, r.owner.displayName, ...r.tags].some((s) => s.toLowerCase().includes(q)))
-    : rows;
+  const parsed = useQuery(query);
+  const ranked = <T,>(list: T[], prof: (x: T) => Parameters<typeof match>[0]) =>
+    list
+      .map((x) => ({ x, hit: match(prof(x), parsed) }))
+      .filter((r) => r.hit)
+      .sort((a, b) => b.hit!.score - a.hit!.score)
+      .map((r) => r.x);
+  const hits = ranked(rows, (r) => loopProfile(r, catalog));
   const midi = useMidiItems();
-  const midiHits = q ? midi.filter((m) => [m.title, m.owner.handle, m.owner.displayName, m.kind, ...m.tags].some((s) => s.toLowerCase().includes(q))) : midi;
+  const midiHits = ranked(midi, midiProfile);
   return (
     <Page>
-      <header className="flex flex-col gap-1">
+      <header className="flex flex-col gap-3">
         <span className="text-label text-label-caps text-text-muted">Search</span>
-        <h1 className="text-title">{q ? `Results for “${query.trim()}”` : "All loops"}</h1>
+        <h1 className="text-title">{query.trim() ? `Results for “${query.trim()}”` : "Search every sound"}</h1>
+        <SmartSearch
+          value={query}
+          onChange={setSearchQuery}
+          examples={["dark piano 140 like metro", "pluggnb bells", "drill 140-145", "boom bap 90", "c minor", "drake"]}
+        />
       </header>
       {hits.length > 0 || midiHits.length > 0 ? (
         <>
-          {hits.length > 0 && <LoopList label="Search results" rows={hits} onChange={refresh} />}
-          {midiHits.length > 0 && <MidiList label="MIDI results" items={midiHits} />}
+          {hits.length > 0 && (
+            <section className="flex flex-col gap-3">
+              <h2 className="text-title">{`Loops ${hits.length}`}</h2>
+              <LoopList label="Search results" rows={hits} onChange={refresh} />
+            </section>
+          )}
+          {midiHits.length > 0 && (
+            <section className="flex flex-col gap-3">
+              <h2 className="text-title">{`MIDI ${midiHits.length}`}</h2>
+              <MidiList label="MIDI results" items={midiHits.slice(0, 60)} />
+            </section>
+          )}
         </>
       ) : (
-        <EmptyState icon={Search} title="No loops match" action={<ButtonLink href="/" variant="secondary">See every loop</ButtonLink>}>
-          The demo has five loops and a few MIDI patterns. Try “trap”, “soul”, “drums” or “nova”.
+        <EmptyState icon={Search} title="Nothing matches all of that" action={<ButtonLink href="/loops" variant="secondary">See every loop</ButtonLink>}>
+          Drop one of the chips above, or try “trap”, “bells 150” or “like dilla”.
         </EmptyState>
       )}
     </Page>
+  );
+}
+
+/** A hand-picked pack: its loops as one queue, the MIDI that fits, and one zip of all of it. */
+function PackPage({ id }: { id: string }) {
+  const p = pack(id);
+  const [rows] = useRows();
+  const midi = useMidiItems();
+  const toast = useToast();
+  const [busy, setBusy] = useState(false);
+  const query = useQuery(p?.midi ?? "");
+  if (!p) return <NotFound />;
+  const loops = p.loops.map((t) => rows.find((r) => r.title === t)).filter((r): r is ItemRow => !!r);
+  const fits = midi
+    .map((m) => ({ m, hit: match(midiProfile(m), query) }))
+    .filter((x) => x.hit)
+    .sort((a, b) => b.hit!.score - a.hit!.score)
+    .slice(0, 8)
+    .map((x) => x.m);
+  const download = async () => {
+    setBusy(true);
+    try {
+      const files: { name: string; data: Blob }[] = [];
+      for (const r of loops) {
+        if (!("previewUrl" in r.playable)) continue;
+        const res = await fetch(r.playable.previewUrl);
+        if (res.ok) files.push({ name: `Loops/${r.title} ${r.bpm ?? ""}bpm.mp3`.replace(/ bpm/, ""), data: await res.blob() });
+      }
+      for (const m of fits) files.push({ name: `MIDI/${m.title}.mid`, data: new Blob([writeMidi(m.notes, m.title)]) });
+      const out = await saveFiles(`${p.name} (Stash pack)`, files);
+      if (out === "saved") toast({ tone: "success", title: "Pack saved", description: `${loops.length} loops and ${fits.length} MIDI files.` });
+      else if (out === "failed") toast({ tone: "error", title: "The pack did not save", description: "Try again in a moment." });
+    } finally {
+      setBusy(false);
+    }
+  };
+  return (
+    <Page>
+      <header className="flex flex-col gap-2">
+        <span className="text-label text-label-caps text-text-muted">{`Pack · ${PACK_WEEK}`}</span>
+        <h1 className="text-title">{p.name}</h1>
+        <p className="max-w-prose text-body text-text-muted">{p.blurb}</p>
+        <div className="flex flex-wrap gap-2">
+          <Button icon={Download} disabled={busy} onClick={() => void download()}>
+            {busy ? "Packing…" : `Download pack (${loops.length} loops, ${fits.length} MIDI)`}
+          </Button>
+          <ButtonLink href="/loops" variant="secondary">
+            All loops
+          </ButtonLink>
+        </div>
+      </header>
+      <section className="flex flex-col gap-3">
+        <h2 className="text-title">{`Loops ${loops.length}`}</h2>
+        {renderLoops("Pack loops", loops)}
+      </section>
+      {fits.length > 0 && (
+        <section className="flex flex-col gap-3">
+          <h2 className="text-title">{`MIDI that fits ${fits.length}`}</h2>
+          <MidiList label="Pack MIDI" items={fits} />
+        </section>
+      )}
+    </Page>
+  );
+}
+
+/** Under a loop: the loops and MIDI most like it. */
+function MoreLikeThis({ row }: { row: ItemRow }) {
+  const [rows] = useRows();
+  const midi = useMidiItems();
+  const me = loopProfile(row, catalog);
+  const loops = moreLike(
+    me,
+    rows.map((r) => ({ r, profile: loopProfile(r, catalog) })),
+    6,
+  ).map((x) => x.r);
+  const pats = moreLike(
+    me,
+    midi.map((m) => ({ m, profile: midiProfile(m) })),
+    6,
+  ).map((x) => x.m);
+  if (!loops.length && !pats.length) return null;
+  return (
+    <section aria-label="More like this" className="mx-auto flex w-full max-w-content flex-col gap-3 px-3 pb-8 tablet:px-4 desktop:px-6">
+      <h2 className="text-title">More like this</h2>
+      <p className="text-small text-text-muted">Same genre and key first, then tempo, sound and mood.</p>
+      {loops.length > 0 && renderLoops("Similar loops", loops)}
+      {pats.length > 0 && <MidiList label="Similar MIDI" items={pats} />}
+    </section>
   );
 }
 
@@ -302,6 +419,7 @@ function LoopPage({ publicId }: { publicId: string }) {
     <>
       <ItemView key={publicId} view={view} />
       <FlipPanel key={`flip-${publicId}`} row={view.page.item} />
+      <MoreLikeThis key={`like-${publicId}`} row={view.page.item} />
     </>
   );
 }
@@ -327,10 +445,13 @@ function AllMidi() {
   const [origin, setOrigin] = useState<Origin>("all");
   const [kind, setKind] = useState<MidiKind | "all">("all");
   const [q, setQ] = useState("");
-  const needle = q.trim().toLowerCase();
+  const query = useQuery(q);
   const midi = all
     .filter((m) => origin === "all" || (origin === "songs") === !!m.song)
-    .filter((m) => !needle || [m.title, m.owner.displayName, ...m.tags, m.song?.producer ?? ""].some((s) => s.toLowerCase().includes(needle)));
+    .map((m) => ({ m, hit: match(midiProfile(m), query) }))
+    .filter((x) => x.hit)
+    .sort((a, b) => b.hit!.score - a.hit!.score)
+    .map((x) => x.m);
   const shown = kind === "all" ? midi : midi.filter((m) => m.kind === kind);
   return (
     <Page>
@@ -343,7 +464,9 @@ function AllMidi() {
         </p>
       </header>
       <div className="flex flex-col gap-3 tablet:flex-row tablet:items-center tablet:justify-between">
-        <SearchInput label="Search songs, artists, tags" shortcut="" value={q} onChange={(e) => setQ(e.target.value)} onClear={() => setQ("")} className="tablet:w-80" />
+        <div className="min-w-0 flex-1">
+          <SmartSearch value={q} onChange={setQ} placeholder="Try: c minor 140 like metro" examples={["like metro", "pierre bells", "drake", "dilla chords", "d minor drill", "sza"]} />
+        </div>
         <div role="group" aria-label="Where it comes from" className="flex flex-wrap gap-2">
           {(Object.keys(ORIGIN_NAME) as Origin[]).map((o) => (
             <FilterChip key={o} selected={origin === o} onToggle={() => setOrigin(o)}>
@@ -423,6 +546,7 @@ function Route() {
   const kitPage = /^\/kit\/([a-z0-9]+)$/.exec(path);
   if (kitPage) return <KitPage key={kitPage[1]} id={kitPage[1]!} />;
   if (path === "/kit-upload") return <KitUploadPage />;
+  if (path.startsWith("/pack/")) return <PackPage id={path.slice(6)} />;
   if (path === "/loops") return <LoopsRoute />;
   if (path === "/notifications")
     return <NotInDemo title="Notifications" icon={Bell}>Notifications arrive when producers you follow post. The demo has no account to send them to.</NotInDemo>;
@@ -476,8 +600,7 @@ document.addEventListener("submit", (e) => {
   const form = e.target as HTMLFormElement;
   e.preventDefault();
   if (form.getAttribute("role") === "search") {
-    searchQuery = String(new FormData(form).get("q") ?? "");
-    for (const l of searchListeners) l();
+    setSearchQuery(String(new FormData(form).get("q") ?? ""));
     navigate("/search");
   }
 });

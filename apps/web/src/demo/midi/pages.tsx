@@ -30,6 +30,8 @@ import { has, set } from "../store";
 import { midiItem, midiItems, midiVersion, postUpload, removeUpload, slugify, subscribeMidi, type MidiItem } from "./catalog";
 import { MidiError, parseMidi, SOUND_FOR, type MidiAnalysis } from "./parse";
 import { PianoRoll } from "./piano-roll";
+import { saveFiles } from "../save";
+import { writeMidi } from "./write";
 import { midiPlayer, type MidiPlayerState } from "./synth";
 
 const player = midiPlayer();
@@ -343,7 +345,12 @@ export function MidiPage({ publicId }: { publicId: string }) {
                 variant="primary"
                 icon={Download}
                 className="flex-1"
-                onClick={() => toast({ tone: "info", title: "Downloads are off in the demo", description: "In Stash this saves the .mid file with its license record." })}
+                onClick={() =>
+                  void saveFiles(item.title, [{ name: `${item.title}${item.key ? ` ${formatKey(item.key)}` : ""} ${Math.round(item.notes.bpm)}bpm.mid`, data: new Blob([writeMidi(item.notes, item.title)]) }]).then((out) => {
+                    if (out === "saved") toast({ tone: "success", title: "Saved the MIDI file", description: "Drop it on any instrument in your DAW." });
+                    else if (out === "failed") toast({ tone: "error", title: "The MIDI file did not save", description: "Try again in a moment." });
+                  })
+                }
               >
                 Download .mid
               </Button>

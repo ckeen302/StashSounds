@@ -19,6 +19,8 @@ export function nameFor(path: string): string {
   if (midi) return `midi-${midi[1]}`;
   const kit = /^\/kit\/([a-z0-9]+)$/.exec(clean);
   if (kit) return `kit-${kit[1]}`;
+  const pk = /^\/pack\/([a-z0-9-]+)$/.exec(clean);
+  if (pk) return `pack-${pk[1]}`;
   const first = clean.split("/").filter(Boolean)[0];
   if (!first) return "home";
   if (first === "u") {
@@ -36,6 +38,7 @@ export function pathFor(name: string, loopHref: (publicId: string) => string | n
   if (name === "browse") return "/browse/loops";
   if (name === "kit-upload") return "/kit-upload";
   if (name.startsWith("kit-")) return `/kit/${name.slice(4)}`;
+  if (name.startsWith("pack-")) return `/pack/${name.slice(5)}`;
   if (name === "profile") return "/login";
   if (name.startsWith("u-")) return `/u/${name.slice(2).replace(/--/g, "_")}`;
   return `/${name}`;

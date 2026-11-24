@@ -75,7 +75,7 @@ export async function makeZip(files: { name: string; data: Blob }[]): Promise<Bl
   let offset = 0;
   const used = new Set<string>();
   for (const f of files) {
-    let name = f.name.replace(/[\\/:*?"<>|]/g, " ").trim() || "file";
+    let name = f.name.replace(/[\\:*?"<>|]/g, " ").replace(/^\/+|\/{2,}/g, "").trim() || "file";
     for (let i = 2; used.has(name); i++) name = name.replace(/(\.[^.]*)?$/, ` ${i}$1`);
     used.add(name);
     const nameBytes = new Uint8Array(enc.encode(name));

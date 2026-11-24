@@ -13,7 +13,6 @@ import {
   IconButton,
   Menu,
   PlayButton,
-  SearchInput,
   TagChip,
   UiLink,
   useToast,
@@ -26,7 +25,11 @@ import type { Catalog } from "./data";
 import { GENRES, useCrateEntries } from "./explore";
 import { Dropdown } from "./presets/page";
 import { saveFetched } from "./save";
-import { set } from "./store";
+import { PACK_WEEK, PACKS } from "./packs";
+import { Why, SmartSearch } from "./search-ui";
+import { loopProfile } from "./search-index";
+import { likeness, match, parseQuery, quality, type Profile } from "./smart-search";
+import { addPlay, plays, set } from "./store";
 
 /**
  * The Loops tab as a loop library reads: a search bar with dropdown filters and date presets, then
@@ -67,6 +70,17 @@ const SORTS: Record<
   string,
   { label: string; by: (a: Loop, b: Loop) => number }
 > = {
+  match: {
+    label: "Best match",
+    // Relevance when there is a search, newest when there is not.
+    by: (a, b) => b.score - a.score || b.row.publishedAt.localeCompare(a.row.publishedAt),
+  },
+  best: {
+    label: "Best (downloads per play)",
+    by: (a, b) =>
+      quality(b.row.downloadsCount, plays(b.row.id)) - quality(a.row.downloadsCount, plays(a.row.id)) ||
+      b.row.publishedAt.localeCompare(a.row.publishedAt),
+  },
   newest: {
     label: "Newest",
     by: (a, b) => b.row.publishedAt.localeCompare(a.row.publishedAt),
@@ -111,6 +125,9 @@ type Loop = {
   category: string;
   description: string;
   keyId: string | null;
+  profile: Profile;
+  score: number;
+  why: string[];
 };
 type Filters = {
   q: string;
@@ -122,6 +139,8 @@ type Filters = {
   when: string;
   sort: string;
   page: number;
+  /** "More like this": the loop the list is ranked against. */
+  like: string | null;
 };
 const DEFAULT: Filters = {
   q: "",
@@ -131,8 +150,9 @@ const DEFAULT: Filters = {
   tempo: "any",
   bpm: null,
   when: "all",
-  sort: "newest",
+  sort: "match",
   page: 1,
+  like: null,
 };
 // Filters survive leaving the tab and coming back, for this visit.
 let saved: Filters = DEFAULT;
@@ -195,6 +215,9 @@ export function LoopsPage({
               "",
             ),
             keyId: row.key ? keyId(row.key) : null,
+            profile: loopProfile(row, catalog),
+            score: 0,
+            why: [] as string[],
           };
         }),
     [catalog, rows],
@@ -235,7 +258,8 @@ export function LoopsPage({
 
   const tempo = TEMPOS.find((t) => t.id === f.tempo) ?? TEMPOS[0]!;
   const hours = WHEN.find((w) => w.id === f.when)?.hours ?? Infinity;
-  const q = f.q.trim().toLowerCase();
+  const query = parseQuery(f.q);
+  const likeOf = f.like ? loops.find((l) => l.row.id === f.like) ?? null : null;
   const shown = loops
     .filter((l) => f.genre === "all" || l.genre === f.genre)
     .filter((l) => f.category === "all" || l.category === f.category)
@@ -247,19 +271,15 @@ export function LoopsPage({
           (l.row.bpm >= tempo.min && l.row.bpm <= tempo.max),
     )
     .filter((l) => now - Date.parse(l.row.publishedAt) <= hours * 3_600_000)
-    .filter(
-      (l) =>
-        !q ||
-        [
-          l.row.title,
-          l.row.owner.handle,
-          l.row.owner.displayName,
-          l.genre,
-          l.category,
-          l.description,
-          ...l.row.tags,
-        ].some((s) => s.toLowerCase().includes(q)),
-    )
+    .flatMap((l): Loop[] => {
+      if (likeOf) {
+        if (l.row.id === likeOf.row.id) return [];
+        const m = likeness(likeOf.profile, l.profile);
+        return m.score >= 3 ? [{ ...l, score: m.score, why: m.why }] : [];
+      }
+      const m = match(l.profile, query);
+      return m ? [{ ...l, score: m.score, why: m.why }] : [];
+    })
     .sort(SORTS[f.sort]!.by);
 
   const pages = Math.max(1, Math.ceil(shown.length / PER_PAGE));
@@ -270,6 +290,7 @@ export function LoopsPage({
   const touched = JSON.stringify({ ...f, page: 1 }) !== JSON.stringify(DEFAULT);
 
   const engine = getEngine();
+  const currentId = usePlayerState((s) => s.current?.id ?? null);
   useEffect(() => {
     for (const r of queue) engine.preload(r.playable);
   }, [engine, queue]);
@@ -297,14 +318,10 @@ export function LoopsPage({
         aria-label="Search loops"
         className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-3"
       >
-        <SearchInput
-          label="Search loops by title, producer, tag or description"
-          hideLabel
-          placeholder="Search loops"
-          shortcut=""
+        <SmartSearch
           value={f.q}
-          onChange={(e) => update({ q: e.target.value })}
-          onClear={() => update({ q: "" })}
+          onChange={(v) => update({ q: v, like: null })}
+          examples={["dark piano 140 like metro", "pluggnb bells", "drill strings 142", "boom bap 90 dusty", "c minor 808", "phonk cowbell"]}
         />
         <div className="flex flex-wrap items-center gap-2">
           <Dropdown
@@ -397,6 +414,23 @@ export function LoopsPage({
         </div>
       </section>
 
+      {likeOf && (
+        <div className="flex flex-wrap items-center justify-between gap-2 rounded-panel border border-accent bg-surface p-3">
+          <span className="text-body text-text">
+            {"More like "}
+            <UiLink href={likeOf.row.href} className="text-body-strong ui-hover:underline">
+              {likeOf.row.title}
+            </UiLink>
+            <span className="text-text-muted">{": same genre and key first, then tempo, sound and mood."}</span>
+          </span>
+          <Button size="sm" variant="secondary" onClick={() => update({ like: null })}>
+            Back to every loop
+          </Button>
+        </div>
+      )}
+
+      {!likeOf && query.empty && page === 1 && <PackStrip />}
+
       <div className="flex flex-wrap items-center justify-between gap-2">
         <span
           aria-live="polite"
@@ -419,7 +453,10 @@ export function LoopsPage({
               key={l.row.id}
               loop={l}
               now={now}
-              onPlay={() => void nowPlaying().playFrom(engine, queue, i)}
+              onPlay={() => {
+                if (currentId !== l.row.playable.id) addPlay(l.row.id);
+                void nowPlaying().playFrom(engine, queue, i);
+              }}
               onFilter={(patch) => update(patch)}
               onChange={onChange}
             />
@@ -649,6 +686,7 @@ function LoopEntry({
       {loop.description && (
         <p className="line-clamp-2 text-small text-text">{loop.description}</p>
       )}
+      <Why why={loop.why} />
 
       <div className="flex flex-wrap items-center gap-2">
         <Button
@@ -662,6 +700,16 @@ function LoopEntry({
         <ButtonLink href={row.href} size="sm" variant="secondary">
           Flip it
         </ButtonLink>
+        <Button
+          size="sm"
+          variant="ghost"
+          onClick={() => {
+            onFilter({ like: row.id, q: "" });
+            window.scrollTo({ top: 0 });
+          }}
+        >
+          More like this
+        </Button>
         <IconButton
           icon={Heart}
           label={liked ? `Unlike ${row.title}` : `Like ${row.title}`}
@@ -679,5 +727,28 @@ function LoopEntry({
         />
       </div>
     </li>
+  );
+}
+
+/** This week's hand-picked packs, as a row of cards above the list. */
+function PackStrip() {
+  return (
+    <section aria-label="Packs" className="flex flex-col gap-2">
+      <div className="flex items-baseline justify-between gap-2">
+        <h2 className="text-body-strong text-text">{`Packs picked this week · ${PACK_WEEK}`}</h2>
+      </div>
+      {/* A sideways row on a phone, so the loops stay near the top; a grid from tablet up. */}
+      <ul className="-mx-3 flex gap-2 overflow-x-auto px-3 pb-1 tablet:mx-0 tablet:grid tablet:grid-cols-2 tablet:overflow-visible tablet:px-0 desktop:grid-cols-3">
+        {PACKS.map((p) => (
+          <li key={p.id} className="w-64 shrink-0 tablet:w-auto">
+            <UiLink href={`/pack/${p.id}`} className="flex h-full flex-col gap-1 rounded-panel border border-border bg-surface p-3 ui-hover:border-border-strong">
+              <span className="text-body-strong text-text">{p.name}</span>
+              <span className="line-clamp-2 text-small text-text-muted">{p.blurb}</span>
+              <span className="font-mono text-numeric tabular text-text-muted">{`${p.loops.length} loops + MIDI`}</span>
+            </UiLink>
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }

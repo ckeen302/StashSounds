@@ -32,3 +32,27 @@ export function set(kind: Kind, id: string, on: boolean) {
     // Kept in memory above.
   }
 }
+
+// Plays per sound in this browser, for ranking by downloads per play.
+let playMemory: Record<string, number> = {};
+function loadPlays(): Record<string, number> {
+  try {
+    const raw = window.localStorage.getItem("stash.demo.plays");
+    if (raw) return JSON.parse(raw) as Record<string, number>;
+  } catch {
+    // Blocked or malformed: the memory copy stands.
+  }
+  return playMemory;
+}
+export function plays(id: string): number {
+  return loadPlays()[id] ?? 0;
+}
+export function addPlay(id: string) {
+  const all = { ...loadPlays(), [id]: plays(id) + 1 };
+  playMemory = all;
+  try {
+    window.localStorage.setItem("stash.demo.plays", JSON.stringify(all));
+  } catch {
+    // Kept in memory above.
+  }
+}
