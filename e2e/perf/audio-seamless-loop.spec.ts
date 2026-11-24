@@ -235,7 +235,7 @@ for (const c of cases) {
     // Against the same render without the seek, so the loop's own level changes do not count.
     expect(r.before, "both renders are the same up to the seek").toBeCloseTo(1, 3);
     expect(r.fadeOut, "the old position fades out instead of being cut").toBeGreaterThan(0.5);
-    expect(r.fadeOut, "the old position fades out, it does not play on at full level").toBeLessThan(1);
+    expect(r.fadeOut, "the old position fades out, it does not play on at full level").toBeLessThan(0.99);
     expect(r.fadeIn, "the new position ramps in from silence").toBeLessThan(0.3);
     expect(r.joins[0]!.faults.click, "click at the seek").toBe(false);
     expect(r.joins[1]!.faults.click, "click at the new start").toBe(false);
