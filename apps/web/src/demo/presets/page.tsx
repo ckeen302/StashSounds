@@ -1,6 +1,6 @@
-import { Button, Check, ChevronDown, FilterChip, Info, Menu, SearchInput, type MenuEntry } from "@stash/ui";
+import { Button, Check, ChevronDown, FilterChip, Menu, SearchInput, type MenuEntry } from "@stash/ui";
 import { useMemo, useState } from "react";
-import { CONFIDENCE, PRESETS, SOURCES_READ, type Confidence, type PresetEntry } from "./data";
+import { CONFIDENCE, PRESETS, type Confidence, type PresetEntry } from "./data";
 
 /**
  * The presets tab: the synth and preset behind famous songs, which sound in the song it is, how
@@ -141,24 +141,6 @@ export function PresetsPage() {
       )}
       {rows.length === 0 && <p className="text-body text-text-muted">Nothing matches. Clear the search or pick another filter.</p>}
 
-      <section aria-label="About this list" className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-4">
-        <h2 className="flex items-center gap-2 text-label text-label-caps text-text-muted">
-          <Info className="size-4" aria-hidden="true" /> About this list
-        </h2>
-        <p className="text-small text-text-muted">
-          Researched November 2026. No audio from the songs or the presets is hosted here. Community rows come from producers matching sounds by ear in forums and
-          videos; treat them as leads to check, not facts. {`Sources read (${SOURCES_READ.length}):`}
-        </p>
-        <ul className="flex max-h-80 flex-col gap-1 overflow-y-auto">
-          {SOURCES_READ.map((src) => (
-            <li key={src.url}>
-              <a href={src.url} target="_blank" rel="noreferrer" className="text-small text-text underline underline-offset-2">
-                {src.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </section>
     </main>
   );
 }
