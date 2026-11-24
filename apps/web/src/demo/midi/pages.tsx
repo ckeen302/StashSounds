@@ -421,9 +421,11 @@ export function UploadPage() {
   const fromSample = async (name: string) => {
     setBusy(true);
     try {
-      const r = await fetch(new URL(`demo/midi/${name.replace(/#/g, "sharp")}`, document.baseURI));
+      const r = await fetch(new URL("demo/midi/samples.json", document.baseURI));
       if (!r.ok) throw new Error(String(r.status));
-      read(new Uint8Array(await r.arrayBuffer()), name);
+      const b64 = ((await r.json()) as Record<string, string>)[name];
+      if (!b64) throw new Error("missing sample");
+      read(Uint8Array.from(atob(b64), (c) => c.charCodeAt(0)), name);
     } catch {
       setError("The sample file did not load. Try picking a file of your own.");
     } finally {

@@ -10,7 +10,7 @@
 // including inside an Artifact frame.
 //
 // Output: apps/web/out-demo/ (gitignored)
-//   index.html  app.js  app.css  demo/media/*.mp3  demo/midi/*.mid  worklets/signalsmith-stretch-<v>.mjs
+//   index.html  app.js  app.css  demo/media/*.mp3  demo/midi/samples.json  worklets/signalsmith-stretch-<v>.mjs
 // The looks' display fonts load from Google Fonts (the one font host an Artifact frame allows).
 //
 // Usage: node scripts/build-demo-app.mjs   (runs scripts/build-demo.mjs first if the media are missing)
@@ -126,8 +126,11 @@ const midiFiles = [
   ...["sad_piano_chords_72bpm_C#m.mid", "bell_melody_150_F#m.mid", "808_bassline_140_Am.mid", "drill_drums_142.mid"].map((f) => join(root, "fixtures/generated/midi", f)),
   join(root, "fixtures/generated/hostile/not_midi.mid"),
 ];
-// Served names are plain ("#" would start a fragment); the page keeps the original name for reading.
-for (const f of midiFiles) copyFileSync(f, join(out, "demo/midi", basename(f).replace(/#/g, "sharp")));
+// One JSON file of base64 bytes, keyed by the original name: an Artifact frame does not serve .mid.
+writeFileSync(
+  join(out, "demo/midi/samples.json"),
+  JSON.stringify(Object.fromEntries(midiFiles.map((f) => [basename(f), readFileSync(f).toString("base64")]))),
+);
 const worklet = await import(pathToFileURL(webRequire.resolve("@stash/audio/stretch-worklet-file")).href);
 mkdirSync(join(out, "worklets"), { recursive: true });
 copyFileSync(worklet.stretchWorkletFile, join(out, worklet.STRETCH_WORKLET_PATH.replace(/^\//, "")));
