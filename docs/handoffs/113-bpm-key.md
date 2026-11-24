@@ -173,3 +173,83 @@ ignoring the name:
 BPF decode test. They merged without conflict. As root, with isolation and the database required:
 `308 passed, 2 skipped in 53.02s`. As uid 65534: `292 passed, 18 skipped in 36.11s`. Ruff: `All checks
 passed!` and `32 files already formatted`.
+
+## PR #13 review round
+**Blocking: confidence is the margin.**
+- `test_key_confidence_is_exactly_the_best_correlation_minus_the_second` (6 seeded random chromas) and
+  `test_a_chroma_that_is_a_key_profile_...` write the 24 Pearson correlations out again in the test. They
+  assert the confidence is exactly best minus second, rounded to 4 places, so a constant would fail.
+- A relative-major and relative-minor blend (C major and A minor profiles) scores 0.0166, below
+  `limits.bpm.keyConfidenceMin` (0.15).
+- A clear i-iv-v-i progression scores above it: 0.1724 in C major and 0.2759 in A minor.
+- **A lone tonic triad scores 0.0735, below the minimum.** C-E-G is most of A minor and E minor too, so
+  the measure is right to call it unclear. The test asserts that as well. If the lead wants "a clear
+  triad" to clear 0.15, the threshold, not the measure, is what would change.
+
+**Must fix: octave errors on hats.** I reproduced the review's sweep with the probe's eighth-note hats
+(`over.py` with `hat=True`). Before: 16 bad of 40, every one at double tempo and agreed. The fix is more
+than normalising, because normalising alone made things worse. A slower octave's lags (2, 4, 8 beats)
+are a subset of the faster one's (1, 2, 4 beats), so a mean of them cannot tell 90 from 45, and with the
+old log1p(100|X|) the off-beat hats were as loud as the on-beat ones in the envelope. What changed in
+`tempo.py`:
+- **Lighter compression,** log1p(0.1|X|), so an accent survives into the envelope.
+- **Unbiased autocorrelation:** each lag is divided by its overlap, and peaks are read within a frame
+  (`_at(spread=True)`). Lags beyond 75% of the envelope are not used.
+- **`strength`** is the mean of the measurable 1, 2 and 4 beat lags, normalised by their count.
+- **`choose_octave`** starts at the fastest level with an onset on every beat (autocorrelation at one
+  beat ≥ 60% of the best). It steps down at most one octave:
+  - when the slower level is stronger by 0.05;
+  - by 0.10 when the faster level is already inside 70 to 160, because a backbeat at 140 is "stronger
+    at 70" in the same way accented hats at 70 are;
+  - on a near-tie, when only the slower level is inside 70 to 160. This is the mild prior.
+
+  A loop with no low-end onsets (under 1.5% of onset energy below 200 Hz, so hats alone) uses 0.05
+  inside the range too.
+- **The duration tempo is the whole-bar candidate at the onsets' octave.** So `bpmAgreed` can only mean
+  that the onsets heard that tempo (test below), and a name an octave from the onsets is never agreed.
+- **No periodicity:** below 0.3 strength, white noise for example, the onsets give no tempo. The
+  candidates are then ordered by the 120 BPM prior and nothing is agreed.
+
+**Sweep after the fix** (`over.py`, 40 cases each; the review's probe, unchanged):
+- Eighth-note hats (`hat=True`): **39 of 40.** The miss is 70 BPM, 1 bar (1.7 s), which gives 140,
+  agreed. Both octaves are inside 70 to 160, and one bar is too short for the 4-beat lag.
+- Quarter-note clicks (`hat=False`): **37 of 40** (it was 40 of 40). 174 at 2, 4 and 8 bars now gives
+  87, agreed. That is the prior working as asked: a click on every beat at 174 cannot be told from
+  eighths at 87, and 87 is the hip-hop reading. A 174 in the file name still wins. If the lead wants
+  174 kept, the prior's top would move from 160 to about 180.
+- The beatless pad gives an onset tempo (112 or 162), never agreed, the same as before the fix.
+- Edge probe (`probe.py`):
+  - No non-finite values anywhere. 0 samples no longer raises (it was a ZeroDivisionError).
+  - Silence, all-NaN, a single NaN or inf, DC, 1e30 and white noise give the prior's 120, not agreed.
+
+**NaN and inf.** `detect_bpm` and `pitch_chroma` run `nan_to_num` on the signal. A non-finite envelope,
+autocorrelation or correlation gives no onset tempo or key, so nothing is agreed.
+
+**Missing tests, added in `test_detection.py`:**
+- Boom-bap drums made in the test: kick on 1 and 3, snare on 2 and 4, eighth hats, at 85, 88, 90, 92
+  and 95 BPM over 2 and 4 bars. All give their tempo, duration, agreed. Fixtures are the lead's, so
+  these are generated in the test. Ask if you want one in fixtures/.
+- Eighth-note hats alone at 70, 80, 85, 90 and 100 BPM, over 2, 4 and 8 bars.
+- M10: `beat_180bpm.wav` on a 90 BPM 2-bar loop gives 180 from the name, 4 bars, not agreed.
+- 16 bars: drums at 140 BPM give 140, 16 bars, agreed.
+- Agreement:
+  - An onset tempo patched to the other octave is never agreed with a name.
+  - `test_whatever_is_agreed_is_within_2_percent_of_the_onset_tempo` covers 24 patterns, with and without
+    names.
+- The silence prior: candidates `[120, 60, 240]`, and `[150, 75, 300]` for a 75/150 loop.
+- White noise is not agreed. An empty signal has no tempo.
+- `_tidy`: 141.9997 and 142.0049 become 142, while 87.07, 141.5 and 89.99 stay.
+- `"\x1cAm"` and `"\u0085Am"` give None, and `" Am　"` gives A minor, all as JavaScript's
+  trim does.
+- A 40 Hz kick under a C major progression changes neither the key nor its confidence (within 0.01).
+- NaN and inf for key and tempo.
+- Hats alone have no low-end onsets; drums with a kick do.
+
+Checks. As root, `STASH_REQUIRE_DB=1 STASH_REQUIRE_ISOLATION=1 pnpm worker:test`:
+```
+SKIPPED [1] tests/test_contracts.py:74: got empty parameter set for (path)
+SKIPPED [1] tests/test_sandbox.py:167: measured on the job uid as root
+387 passed, 2 skipped in 48.78s
+```
+As uid 65534: `371 passed, 18 skipped in 37.15s`. Ruff: `All checks passed!` and `32 files already formatted`.
+Every loop fixture still gets its manifest BPM, bars and key, with and without its name.
