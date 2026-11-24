@@ -16,7 +16,7 @@ export function Placeholder({ title, icon, children }: { title: string; icon: Ic
       <h1 className="text-title">{title}</h1>
       <EmptyState
         icon={icon}
-        title={`${title} is on the way`}
+        title="This screen is on the way"
         action={
           <ButtonLink href="/" variant="secondary">
             Go home

@@ -234,6 +234,15 @@ describe("Result row", () => {
     expect(out).toContain("boom bap");
     expect(out).not.toContain("dusty</span>");
   });
+  it("shows the tags column only when its list is at least 880 px wide (PR #12 review)", () => {
+    const list = html(h(ResultList, { label: "Loops", children: h(ResultRow, { row }) }));
+    expect(list).toMatch(/^<div class="[^"]*@container\/result-list/);
+    expect(list).toMatch(/<div class="[^"]*\blist-wide:flex\b[^"]*"><span aria-hidden="true"/);
+    expect(list).not.toMatch(/desktop:flex[^"]*"><span aria-hidden="true" class="-me-1/);
+  });
+  it("widens the actions cell to three 40 px targets on touch, clear of the BPM (PR #12 review)", () => {
+    expect(out).toMatch(/class="[^"]*\bw-24\b[^"]*\bpointer-coarse:w-30\b/);
+  });
   it("reflects the viewer's like", () => {
     expect(out).toMatch(/aria-label="Like Dusty soul chops" aria-pressed="true"/);
   });

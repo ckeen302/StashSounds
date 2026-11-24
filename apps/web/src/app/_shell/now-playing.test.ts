@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 import type { EngineState, Playable } from "@stash/audio";
 import type { ItemRow } from "@stash/contracts";
 import { createNowPlaying, type PlayerEngine } from "./now-playing";
-import { readVolume, VOLUME_KEY, writeVolume } from "./volume";
+import { readUnmuteVolume, readVolume, rememberVolume, UNMUTE_KEY, VOLUME_KEY, writeVolume } from "./volume";
 
 const row = (n: number): ItemRow =>
   ({
@@ -113,6 +113,11 @@ describe("remembered volume", () => {
     expect(readVolume(store("-1"))).toBe(0);
     expect(readVolume(null)).toBeNull();
   });
+  it("treats a blank stored value as no value, not as muted", () => {
+    // Number("") is 0: a blank entry must not silence the player.
+    expect(readVolume(store(""))).toBeNull();
+    expect(readVolume(store("   "))).toBeNull();
+  });
   it("survives storage that throws", () => {
     const broken = { getItem: () => { throw new Error("blocked"); }, setItem: () => { throw new Error("blocked"); } };
     expect(readVolume(broken)).toBeNull();
@@ -122,5 +127,36 @@ describe("remembered volume", () => {
     const s = store(null);
     writeVolume(s, 0.42);
     expect(s.setItem).toHaveBeenCalledWith(VOLUME_KEY, "0.42");
+  });
+});
+
+describe("the level from before mute", () => {
+  const memory = () => {
+    const m = new Map<string, string>();
+    return { getItem: (k: string) => m.get(k) ?? null, setItem: (k: string, v: string) => void m.set(k, v), m };
+  };
+
+  it("is kept when the volume goes to 0, so unmute after a reload returns to it", () => {
+    const s = memory();
+    rememberVolume(s, 0.6, 0);
+    expect(s.m.get(VOLUME_KEY)).toBe("0");
+    expect(readUnmuteVolume(s)).toBe(0.6);
+  });
+  it("is not overwritten by moves that are not a mute", () => {
+    const s = memory();
+    rememberVolume(s, 0.6, 0);
+    rememberVolume(s, 0, 0);
+    expect(readUnmuteVolume(s)).toBe(0.6);
+    rememberVolume(s, 0, 0.3);
+    expect(s.m.get(VOLUME_KEY)).toBe("0.3");
+    expect(readUnmuteVolume(s)).toBe(0.6);
+  });
+  it("ignores a blank, zero or malformed level, and storage that throws", () => {
+    for (const raw of ["", "0", "loud", null]) {
+      expect(readUnmuteVolume({ getItem: (k: string) => (k === UNMUTE_KEY ? raw : null) })).toBeNull();
+    }
+    const broken = { getItem: () => { throw new Error("blocked"); }, setItem: () => { throw new Error("blocked"); } };
+    expect(readUnmuteVolume(broken)).toBeNull();
+    expect(() => rememberVolume(broken, 0.5, 0)).not.toThrow();
   });
 });

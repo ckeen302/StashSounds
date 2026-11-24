@@ -49,6 +49,24 @@ test.describe("shell", () => {
   });
 });
 
+/**
+ * The tablet frame at 800 px (PR #12 review): icon rail, top bar, the list with a loaded player bar
+ * (title, transport, progress line and volume, no waveform). Projects are lead-owned, so this rides
+ * the laptop project at its own viewport instead of adding a fourth width to every screenshot.
+ */
+test.describe("tablet frame", () => {
+  test.use({ viewport: { width: 800, height: 900 } });
+
+  test("matches its baseline at 800", async ({ page }, info) => {
+    test.skip(info.project.name !== "visual-laptop", "One width, taken once.");
+    await page.goto("/dev/player");
+    await page.evaluate(() => document.fonts.ready);
+    await expect(page.getByRole("navigation", { name: "Main" })).toHaveScreenshot("shell-tablet-rail.png", exact);
+    await expect(page.getByRole("banner")).toHaveScreenshot("shell-tablet-top-bar.png", exact);
+    await expect(page.getByRole("list", { name: "Fixture loops" })).toHaveScreenshot("shell-tablet-list.png", exact);
+  });
+});
+
 test.describe("gallery", () => {
   for (const id of [...tokenSections, ...componentSections.map((s) => s.id)]) {
     test(`${id} matches its baseline`, async ({ page }) => {
