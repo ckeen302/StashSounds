@@ -58,11 +58,10 @@ export function Transport({ title, tempo, keyShift, loop, volume, hints = false,
   const muted = volume?.muted ?? false;
 
   return (
-    <section
-      aria-label={`Transport for ${title}`}
-      className={cx("grid grid-cols-2 gap-x-6 gap-y-4 rounded-panel border border-border bg-surface p-4 tablet:grid-cols-12", className)}
-    >
-      <Section name="tempo" label="Tempo" hint={hints ? "- =" : undefined} disabled={!tempo} className="col-span-2 tablet:col-span-4">
+    <section aria-label={`Transport for ${title}`} className={cx("@container rounded-panel border border-border bg-surface p-4", className)}>
+      {/* Laid out by its own width: stacked in a narrow column, one row of four from 44rem. */}
+      <div className="grid grid-cols-2 gap-x-6 gap-y-4 cq-lg:grid-cols-12">
+      <Section name="tempo" label="Tempo" hint={hints ? "- =" : undefined} disabled={!tempo} className="col-span-2 cq-lg:col-span-4">
         <span className="flex w-20 shrink-0 items-baseline gap-1">
           <span data-tempo-readout className={cx(readout, tempo ? "text-text" : "text-border-strong")}>
             {bpm ?? "—"}
@@ -82,7 +81,7 @@ export function Transport({ title, tempo, keyShift, loop, volume, hints = false,
         />
       </Section>
 
-      <Section name="key" label="Key" hint={hints ? "[ ]" : undefined} disabled={!keyShift} className="col-span-2 tablet:col-span-4">
+      <Section name="key" label="Key" hint={hints ? "[ ]" : undefined} disabled={!keyShift} className="col-span-2 cq-lg:col-span-4">
         <span data-key-readout className={cx(readout, "w-8 shrink-0", keyShift ? "text-text" : "text-border-strong")}>
           {keyShift ? (keyName ?? semitoneText(semis)) : "—"}
         </span>
@@ -108,11 +107,11 @@ export function Transport({ title, tempo, keyShift, loop, volume, hints = false,
         </Tooltip>
       </Section>
 
-      <Section name="loop" label="Loop" disabled={!loop} className="col-span-1 tablet:col-span-1">
+      <Section name="loop" label="Loop" disabled={!loop} className="col-span-1 cq-lg:col-span-1">
         <IconButton icon={Repeat} label="Loop" size="md" on={loop?.on ?? false} disabled={!loop} onClick={() => loop?.onChange(!loop.on)} />
       </Section>
 
-      <Section name="volume" label="Volume" disabled={!volume} className="col-span-1 tablet:col-span-3">
+      <Section name="volume" label="Volume" disabled={!volume} className="col-span-1 cq-lg:col-span-3">
         <Tooltip content={muted ? "Unmute" : "Mute"}>
           <IconButton
             icon={muted || (volume?.value ?? 0) === 0 ? VolumeX : Volume2}
@@ -131,7 +130,7 @@ export function Transport({ title, tempo, keyShift, loop, volume, hints = false,
           className="min-w-0 flex-1"
         />
       </Section>
-
+      </div>
     </section>
   );
 }

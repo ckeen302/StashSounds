@@ -252,9 +252,9 @@ export function ItemView({ view }: { view: ItemViewData }) {
   );
 
   return (
-    <main aria-labelledby="item-title" className="mx-auto flex w-full max-w-content flex-col gap-8 px-3 pt-6 tablet:px-4 tablet:pb-8 desktop:px-6 desktop:pt-8">
-      <div className="grid grid-cols-1 gap-6 desktop:grid-cols-3 desktop:gap-8">
-        <div className="flex min-w-0 flex-col gap-6 desktop:col-span-2">
+    <main aria-labelledby="item-title" className="@container mx-auto flex w-full max-w-content flex-col gap-8 px-3 pt-6 tablet:px-4 tablet:pb-8 desktop:px-6 desktop:pt-8">
+      <div className="grid grid-cols-1 gap-6 cq-xl:grid-cols-3 cq-xl:gap-8">
+        <div className="flex min-w-0 flex-col gap-6 cq-xl:col-span-2">
           <header className="flex min-w-0 flex-col gap-3">
             <div className="flex items-center gap-3">
               <TypeChip type={item.type} />
@@ -275,7 +275,13 @@ export function ItemView({ view }: { view: ItemViewData }) {
           <section aria-label="Loop player" className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-4 tablet:flex-row tablet:items-end tablet:gap-4">
             <div className="flex items-center gap-3 tablet:flex-col tablet:items-start">
               <PlayButton size="hero" title={item.title} state={player.playState} onClick={player.toggle} />
-              <span className="font-mono text-numeric tabular text-text-muted tablet:hidden">{formatTime(player.durationMs)}</span>
+              {/* Phone: the facts beside the play pad, since the waveform sits on its own row. */}
+              <span className="flex flex-col tablet:hidden">
+                <span className="font-mono text-numeric tabular text-text">
+                  {[item.bpm ? `${item.bpm} BPM` : null, item.key ? formatKey(item.key) : null].filter(Boolean).join(" \u00b7 ")}
+                </span>
+                <span className="font-mono text-numeric tabular text-text-muted">{[bars ? `${bars} bars` : null, formatTime(player.durationMs)].filter(Boolean).join(" \u00b7 ")}</span>
+              </span>
             </div>
             <Waveform
               variant="hero"
@@ -319,7 +325,7 @@ export function ItemView({ view }: { view: ItemViewData }) {
           )}
         </div>
 
-        <aside aria-label="Uploader and license" className="flex min-w-0 flex-col gap-4">
+        <aside aria-label="Uploader and license" className="grid min-w-0 grid-cols-1 content-start gap-4 cq-md:grid-cols-2 cq-xl:grid-cols-1">
           <UploaderCard
             variant="full"
             owner={owner}
@@ -357,14 +363,14 @@ export function ItemView({ view }: { view: ItemViewData }) {
             </div>
           </section>
 
-          <section aria-label="Details" className="grid grid-cols-3 gap-x-4 gap-y-4 rounded-panel border border-border bg-surface p-4">
+          <section aria-label="Details" className="grid grid-cols-3 gap-x-4 gap-y-4 rounded-panel cq-md:col-span-2 cq-md:grid-cols-6 cq-xl:col-span-1 cq-xl:grid-cols-3 border border-border bg-surface p-4">
             <Stat label="BPM" value={item.bpm ?? "—"} />
             <Stat label="Key" value={item.key ? formatKey(item.key) : "—"} />
             <Stat label="Bars" value={bars ?? "—"} />
             <Stat label="Len" value={item.durationMs ? formatTime(item.durationMs) : "—"} />
             <Stat label="Likes" value={row.likesCount} />
             <Stat label="Downloads" value={item.downloadsCount} />
-            {item.genre && <Stat label="Genre" value={item.genre} className="col-span-3" />}
+            {item.genre && <Stat label="Genre" value={item.genre} className="col-span-3 cq-md:col-span-1 cq-xl:col-span-3" />}
           </section>
         </aside>
       </div>

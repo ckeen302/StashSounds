@@ -29,6 +29,26 @@
   }
 }
 
+/*
+ * Container widths, for layouts that follow their own column rather than the window (the rail
+ * collapses, so the same window can leave very different room). Put `@container` on the parent.
+ */
+@custom-variant cq-md {
+  @container (width >= 40rem) {
+    @slot;
+  }
+}
+@custom-variant cq-lg {
+  @container (width >= 44rem) {
+    @slot;
+  }
+}
+@custom-variant cq-xl {
+  @container (width >= 60rem) {
+    @slot;
+  }
+}
+
 @layer base {
   /* The focus ring from theme.css, drawn for the gallery's frozen focus state. */
   [data-focus] {

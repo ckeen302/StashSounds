@@ -69,3 +69,20 @@ test.describe("gallery", () => {
     });
   }
 });
+
+/**
+ * The loop item page (ticket 135), idle, at each width: the fixture loop served with no database
+ * (STASH_DEV_PAGES=1, see e2e/journeys/loop-page.spec.ts). The window grows to fit the whole page,
+ * since only the content area scrolls.
+ */
+test("the loop page matches its baseline", async ({ page }) => {
+  await page.route("https://media.stash.local/**", (route) => route.fulfill({ status: 404 }));
+  await page.goto("/loop/dusty-soul-chops-k3j9x0a2b1");
+  await page.evaluate(() => document.fonts.ready);
+  const main = page.getByRole("main");
+  const chrome = await page.evaluate(() => window.innerHeight - document.getElementById("content")!.clientHeight);
+  const viewport = page.viewportSize()!;
+  await page.setViewportSize({ width: viewport.width, height: Math.ceil((await main.boundingBox())!.height) + chrome });
+  await page.waitForFunction(() => [...document.querySelectorAll("canvas")].every((c) => c.width > 0));
+  await expect(main).toHaveScreenshot("loop-page.png", exact);
+});
