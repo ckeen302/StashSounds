@@ -27,6 +27,9 @@ import { buildCatalog, type Catalog } from "./data";
 import { HashLink } from "./hash-link";
 import { navigate, startRouter, usePath } from "./router";
 import { has, set } from "./store";
+import { LookPicker, startLooks, useLook } from "./looks";
+import { midiItem } from "./midi/catalog";
+import { MidiList, MidiPage, UploadPage, useMidiItems } from "./midi/pages";
 
 /**
  * The browser-only demo (ticket 137): the real shell, player bar, result rows, loop page and audio
@@ -130,6 +133,7 @@ function Page({ children }: { children: ReactNode }) {
 
 function Home() {
   const [rows, refresh] = useRows();
+  const midi = useMidiItems();
   return (
     <Page>
       <section className="flex flex-col gap-4 rounded-panel border border-border bg-surface p-6">
@@ -140,14 +144,24 @@ function Home() {
         </div>
         <h1 className="text-display text-balance">Find a sound, hear it instantly, grab it.</h1>
         <p className="max-w-prose text-body text-text-muted">
-          Press play on any loop. Open one to change its tempo and key while it plays, scrub the waveform and grab it with its license. Space plays
-          and pauses; the arrow keys move through the list. Everything here runs in your browser: the producers are made up, and likes and
-          follows stay on this device.
+          Press play on any loop. Open one to change its tempo and key while it plays, scrub the waveform and grab it with its license. MIDI plays
+          live in a piano roll, and you can post your own .mid file. Space plays and pauses; the arrow keys move through the list. Everything here
+          runs in your browser: the producers are made up, and what you like, follow and post stays on this device.
         </p>
+        <div className="flex flex-col gap-4 tablet:flex-row tablet:items-end tablet:justify-between">
+          <LookPicker />
+          <ButtonLink href="/upload" variant="primary" icon={Upload}>
+            Post a MIDI file
+          </ButtonLink>
+        </div>
       </section>
       <section className="flex flex-col gap-3">
         <h2 className="text-title">Fresh loops</h2>
         <LoopList label="Fresh loops" rows={rows} onChange={refresh} />
+      </section>
+      <section className="flex flex-col gap-3">
+        <h2 className="text-title">MIDI, live in the piano roll</h2>
+        <MidiList label="MIDI" items={midi} />
       </section>
     </Page>
   );
@@ -174,17 +188,22 @@ function SearchResults() {
   const hits = q
     ? rows.filter((r) => [r.title, r.owner.handle, r.owner.displayName, ...r.tags].some((s) => s.toLowerCase().includes(q)))
     : rows;
+  const midi = useMidiItems();
+  const midiHits = q ? midi.filter((m) => [m.title, m.owner.handle, m.owner.displayName, m.kind, ...m.tags].some((s) => s.toLowerCase().includes(q))) : midi;
   return (
     <Page>
       <header className="flex flex-col gap-1">
         <span className="text-label text-label-caps text-text-muted">Search</span>
         <h1 className="text-title">{q ? `Results for “${query.trim()}”` : "All loops"}</h1>
       </header>
-      {hits.length > 0 ? (
-        <LoopList label="Search results" rows={hits} onChange={refresh} />
+      {hits.length > 0 || midiHits.length > 0 ? (
+        <>
+          {hits.length > 0 && <LoopList label="Search results" rows={hits} onChange={refresh} />}
+          {midiHits.length > 0 && <MidiList label="MIDI results" items={midiHits} />}
+        </>
       ) : (
         <EmptyState icon={Search} title="No loops match" action={<ButtonLink href="/" variant="secondary">See every loop</ButtonLink>}>
-          The demo has five loops. Try “trap”, “soul” or “nova”.
+          The demo has five loops and a few MIDI patterns. Try “trap”, “soul”, “drums” or “nova”.
         </EmptyState>
       )}
     </Page>
@@ -224,16 +243,18 @@ function Route() {
   const path = usePath();
   useEffect(() => {
     const page = /^\/loop\/(?:.*-)?([a-z0-9]+)$/.exec(path);
-    const title = page ? catalog.page(page[1]!)?.item.title : null;
+    const midiPage = /^\/midi\/(?:.*-)?([a-z0-9]+)$/.exec(path);
+    const title = page ? catalog.page(page[1]!)?.item.title : midiPage ? midiItem(midiPage[1]!)?.title : null;
     document.title = title ? `${title} · Stash demo` : "Stash demo";
   }, [path]);
   const loop = /^\/loop\/(?:.*-)?([a-z0-9]+)$/.exec(path);
   if (loop) return <LoopPage publicId={loop[1]!} />;
+  const midi = /^\/midi\/(?:.*-)?([a-z0-9]+)$/.exec(path);
+  if (midi) return <MidiPage key={midi[1]} publicId={midi[1]!} />;
   if (path === "/") return <Home />;
   if (path.startsWith("/browse")) return <Browse />;
   if (path === "/search") return <SearchResults />;
-  if (path === "/upload")
-    return <NotInDemo title="Upload" icon={Upload}>Uploading needs an account and the processing pipeline, so it is not part of this demo.</NotInDemo>;
+  if (path === "/upload") return <UploadPage />;
   if (path === "/library")
     return <NotInDemo title="Library" icon={Library}>Your library lives with your account. In the demo, the loops you like stay liked on this device.</NotInDemo>;
   if (path === "/notifications")
@@ -244,12 +265,14 @@ function Route() {
 }
 
 function App() {
+  // Canvases (waveforms, the piano roll) read the theme when they mount: a new look remounts the page.
+  const look = useLook();
   return (
     <LinkProvider component={HashLink}>
       <TooltipProvider>
         <ToastProvider viewport={false}>
           <AppShell>
-            <Route />
+            <Route key={look} />
           </AppShell>
         </ToastProvider>
       </TooltipProvider>
@@ -257,7 +280,8 @@ function App() {
   );
 }
 
-startRouter(catalog.hrefOf);
+startLooks();
+startRouter(catalog.hrefOf, (id) => midiItem(id)?.href ?? null);
 
 // Any app link that is not a packages/ui link (plain anchors) stays in the page.
 document.addEventListener("click", (e) => {

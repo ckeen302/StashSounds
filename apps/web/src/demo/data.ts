@@ -8,9 +8,9 @@ import generated from "./generated/loops.json" with { type: "json" };
  * demo data: the producers and their numbers are made up.
  */
 
-type Producer = { id: string; handle: string; displayName: string; followers: number };
+export type Producer = { id: string; handle: string; displayName: string; followers: number };
 
-const producers = {
+export const producers = {
   kilo: { id: "00000000-0000-4000-8000-0000000000a1", handle: "kilo_beats", displayName: "Kilo Beats", followers: 1204 },
   nova: { id: "00000000-0000-4000-8000-0000000000a2", handle: "nova", displayName: "Nova", followers: 8730 },
   marcus: { id: "00000000-0000-4000-8000-0000000000a3", handle: "mvrcus", displayName: "Marcus Vale", followers: 96 },

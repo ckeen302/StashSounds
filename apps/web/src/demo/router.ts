@@ -15,6 +15,8 @@ export function nameFor(path: string): string {
   const clean = path.split(/[?#]/)[0] ?? "/";
   const loop = /^\/loop\/(?:.*-)?([a-z0-9]+)$/.exec(clean);
   if (loop) return `loop-${loop[1]}`;
+  const midi = /^\/midi\/(?:.*-)?([a-z0-9]+)$/.exec(clean);
+  if (midi) return `midi-${midi[1]}`;
   const first = clean.split("/").filter(Boolean)[0];
   if (!first) return "home";
   if (first === "u") return "profile";
@@ -22,15 +24,17 @@ export function nameFor(path: string): string {
 }
 
 /** The app path for a hash name; `loopHref` resolves a loop's public id to its full path. */
-export function pathFor(name: string, loopHref: (publicId: string) => string | null): string {
+export function pathFor(name: string, loopHref: (publicId: string) => string | null, midiHref: (publicId: string) => string | null = () => null): string {
   if (!name || name === "home") return "/";
   if (name.startsWith("loop-")) return loopHref(name.slice(5)) ?? "/not-found";
+  if (name.startsWith("midi-")) return midiHref(name.slice(5)) ?? "/not-found";
   if (name === "browse") return "/browse/loops";
   if (name === "profile") return "/login";
   return `/${name}`;
 }
 
 let resolveLoop: (publicId: string) => string | null = () => null;
+let resolveMidi: (publicId: string) => string | null = () => null;
 
 function readHash(): string {
   try {
@@ -41,11 +45,12 @@ function readHash(): string {
 }
 
 /** Starts the router: reads the hash now and on every change. */
-export function startRouter(loopHref: (publicId: string) => string | null) {
+export function startRouter(loopHref: (publicId: string) => string | null, midiHref?: (publicId: string) => string | null) {
   resolveLoop = loopHref;
-  current = pathFor(readHash(), resolveLoop);
+  if (midiHref) resolveMidi = midiHref;
+  current = pathFor(readHash(), resolveLoop, resolveMidi);
   window.addEventListener("hashchange", () => {
-    const next = pathFor(readHash(), resolveLoop);
+    const next = pathFor(readHash(), resolveLoop, resolveMidi);
     if (next !== current) {
       current = next;
       emit();

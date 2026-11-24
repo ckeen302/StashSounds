@@ -2,3 +2,114 @@
 @import "tailwindcss";
 @import "@stash/ui/theme.css";
 @import "@stash/ui/components.css";
+
+/*
+ * Looks (demo only). Each one re-points the theme tokens, so every component and the piano roll
+ * follow without a change of their own. Picking one for the product means moving its values into
+ * packages/ui/src/tokens.ts; until then they live here, behind html[data-look].
+ */
+html[data-look="tape"] {
+  color-scheme: dark;
+  --color-bg: #15100c;
+  --color-surface: #201812;
+  --color-raised: #2c2119;
+  --color-border: #3d2f25;
+  --color-border-strong: #7d6552;
+  --color-text: #f5e8d2;
+  --color-text-muted: #bba78c;
+  --color-accent: #ff8a1f;
+  --color-type-loop: #e9b949;
+  --color-type-oneshot: #ef7a45;
+  --color-type-kit: #e2557a;
+  --color-type-midi: #6fc2b0;
+  --color-type-preset: #a9c95e;
+  --font-mono: "Space Mono", "JetBrains Mono Variable", ui-monospace, monospace;
+  --radius-control: 3px;
+  --radius-panel: 6px;
+}
+html[data-look="tape"] .text-display,
+html[data-look="tape"] .text-title {
+  font-family: "Fraunces", Georgia, serif;
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+html[data-look="tape"] body {
+  background-image: repeating-linear-gradient(90deg, transparent 0 3px, rgb(255 200 140 / 0.012) 3px 4px);
+}
+/* Wood-grain stripe: a thin three-colour band under the top bar, the cassette label. */
+html[data-look="tape"] #content::before {
+  content: "";
+  display: block;
+  height: 4px;
+  background: linear-gradient(90deg, #e9b949 0 33%, #ef7a45 33% 66%, #e2557a 66% 100%);
+}
+
+html[data-look="arcade"] {
+  color-scheme: dark;
+  --color-bg: #06060e;
+  --color-surface: #0d0d1d;
+  --color-raised: #17172e;
+  --color-border: #27275a;
+  --color-border-strong: #5d5db0;
+  --color-text: #ecebff;
+  --color-text-muted: #9a99d6;
+  --color-accent: #ff3fd8;
+  --color-type-loop: #3df0ff;
+  --color-type-oneshot: #ffb23d;
+  --color-type-kit: #ff5a7a;
+  --color-type-midi: #8b7bff;
+  --color-type-preset: #57ff9a;
+  --font-mono: "Silkscreen", "JetBrains Mono Variable", ui-monospace, monospace;
+  --radius-control: 0px;
+  --radius-panel: 0px;
+}
+html[data-look="arcade"] .text-display,
+html[data-look="arcade"] .text-title {
+  font-family: "VT323", "JetBrains Mono Variable", monospace;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-shadow: 0 0 12px rgb(255 63 216 / 0.45);
+}
+html[data-look="arcade"] .text-display { font-size: 56px; line-height: 52px; }
+html[data-look="arcade"] .text-title { font-size: 30px; line-height: 30px; }
+html[data-look="arcade"] .rounded-panel.border { box-shadow: 4px 4px 0 0 #27275a; }
+/* Scanlines over everything, under the pointer. */
+html[data-look="arcade"] body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  background: repeating-linear-gradient(0deg, rgb(0 0 0 / 0.18) 0 1px, transparent 1px 3px);
+  mix-blend-mode: multiply;
+}
+
+html[data-look="sampler"] {
+  color-scheme: light;
+  --color-bg: #e6dfd0;
+  --color-surface: #f2ede2;
+  --color-raised: #dcd3c0;
+  --color-border: #c6bba5;
+  --color-border-strong: #857a64;
+  --color-text: #1b1915;
+  --color-text-muted: #5c5548;
+  --color-accent: #c8361f;
+  --color-type-loop: #1c74a8;
+  --color-type-oneshot: #b8501a;
+  --color-type-kit: #b5174f;
+  --color-type-midi: #5d3bbd;
+  --color-type-preset: #0f7a5f;
+  --font-mono: "Space Mono", "JetBrains Mono Variable", ui-monospace, monospace;
+  --radius-control: 4px;
+  --radius-panel: 8px;
+}
+html[data-look="sampler"] .text-display,
+html[data-look="sampler"] .text-title {
+  font-family: "Space Grotesk", "Inter Variable", sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+/* Hardware panels: a hard lower edge, like a pad on an old sampler. */
+html[data-look="sampler"] .rounded-panel.border { box-shadow: 0 3px 0 0 #c6bba5; }

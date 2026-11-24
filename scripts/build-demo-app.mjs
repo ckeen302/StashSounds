@@ -10,13 +10,14 @@
 // including inside an Artifact frame.
 //
 // Output: apps/web/out-demo/ (gitignored)
-//   index.html  app.js  app.css  demo/media/*.mp3  worklets/signalsmith-stretch-<v>.mjs
+//   index.html  app.js  app.css  demo/media/*.mp3  demo/midi/*.mid  worklets/signalsmith-stretch-<v>.mjs
+// The looks' display fonts load from Google Fonts (the one font host an Artifact frame allows).
 //
 // Usage: node scripts/build-demo-app.mjs   (runs scripts/build-demo.mjs first if the media are missing)
 import { spawnSync } from "node:child_process";
 import { copyFileSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
-import { dirname, join } from "node:path";
+import { basename, dirname, join } from "node:path";
 import { pathToFileURL } from "node:url";
 
 const root = join(import.meta.dirname, "..");
@@ -63,6 +64,29 @@ const swaps = {
       args.importer.includes(join("app", "_item")) ? { path: join(demoSrc, "actions-source.ts") } : undefined,
     );
     build.onResolve({ filter: /^next(\/|$)/ }, (args) => ({ errors: [{ text: `the demo cannot use ${args.path} (imported by ${args.importer})` }] }));
+    // The demo's looks re-point the CSS tokens; canvases (the waveform) read the JS copies. Make those
+    // follow the page's current values, so a waveform drawn under a look takes that look's colors.
+    build.onLoad({ filter: /packages[\\/]ui[\\/]src[\\/]tokens\.ts$/ }, (args) => ({
+      contents:
+        readFileSync(args.path, "utf8") +
+        `
+if (typeof document !== "undefined") {
+  let look: string | undefined = "-";
+  let cache: Record<string, string> = {};
+  const live = (name: string, fallback: string): string => {
+    const now = document.documentElement.dataset.look;
+    if (now !== look) {
+      look = now;
+      cache = {};
+    }
+    return (cache[name] ??= getComputedStyle(document.documentElement).getPropertyValue("--color-" + name).trim() || fallback);
+  };
+  for (const [k, v] of Object.entries(color)) Object.defineProperty(color, k, { get: () => live(k, v), enumerable: true });
+  for (const [k, v] of Object.entries(typeColor)) Object.defineProperty(typeColor, k, { get: () => live("type-" + k, v), enumerable: true });
+}
+`,
+      loader: "ts",
+    }));
     build.onLoad({ filter: /packages[\\/]audio[\\/]src[\\/]web-audio\.ts$/ }, (args) => {
       const src = readFileSync(args.path, "utf8");
       const from = "export const STRETCH_WORKLET_PATH = `/worklets/signalsmith-stretch-${STRETCH_VERSION}.mjs`;";
@@ -96,6 +120,14 @@ for (const l of loops) {
   mkdirSync(dirname(join(out, l.preview.path)), { recursive: true });
   copyFileSync(join(web, "public", l.preview.path), join(out, l.preview.path));
 }
+// The upload page's sample files: the MIDI fixtures, good and broken.
+mkdirSync(join(out, "demo/midi"), { recursive: true });
+const midiFiles = [
+  ...["sad_piano_chords_72bpm_C#m.mid", "bell_melody_150_F#m.mid", "808_bassline_140_Am.mid", "drill_drums_142.mid"].map((f) => join(root, "fixtures/generated/midi", f)),
+  join(root, "fixtures/generated/hostile/not_midi.mid"),
+];
+// Served names are plain ("#" would start a fragment); the page keeps the original name for reading.
+for (const f of midiFiles) copyFileSync(f, join(out, "demo/midi", basename(f).replace(/#/g, "sharp")));
 const worklet = await import(pathToFileURL(webRequire.resolve("@stash/audio/stretch-worklet-file")).href);
 mkdirSync(join(out, "worklets"), { recursive: true });
 copyFileSync(worklet.stretchWorkletFile, join(out, worklet.STRETCH_WORKLET_PATH.replace(/^\//, "")));
@@ -108,6 +140,9 @@ writeFileSync(
 <meta name="description" content="Find a sound, hear it instantly, grab it. A browser-only demo of Stash with five loops.">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,600&family=Silkscreen&family=Space+Grotesk:wght@500;700&family=Space+Mono:wght@400;700&family=VT323&display=swap">
 <link rel="stylesheet" href="app.css">
 <style>:root{color-scheme:dark}html,body{height:100%}</style>
 <div id="root"></div>
