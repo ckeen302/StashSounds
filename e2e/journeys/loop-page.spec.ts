@@ -90,7 +90,7 @@ test("the hero waveform is drawn from the stored peaks before any audio arrives"
   release();
 });
 
-test("space plays and pauses; tempo and key change the sound live", async ({ page }) => {
+test("space plays and pauses; tempo and key drive the engine while it plays", async ({ page }) => {
   await serveAudio(page);
   await page.goto(PATH);
   await page.keyboard.press("Space");

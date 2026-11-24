@@ -12,7 +12,8 @@ playwright.config.ts and the CI `browser` job set none of them, so `/`, `/dev/ga
 
 Either:
 1. Lead: set placeholder values for the test server, in playwright.config.ts's `webServer.env` and
-   in ci.yml's `browser` job, for example
+   in ci.yml's `browser` job and in visual-update.yml (its `wait-on /api/health` also goes through
+   the proxy, so baseline regeneration cannot start either), for example
    `NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54321`, `NEXT_PUBLIC_SUPABASE_ANON_KEY=e2e-placeholder`,
    `NEXT_PUBLIC_PREVIEWS_BASE_URL=https://media.stash.local` (what the fixtures already use). With
    nothing listening on 54321, `getUser()` fails fast and visitors are signed out. Or
