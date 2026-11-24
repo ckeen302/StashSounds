@@ -56,6 +56,7 @@ The MVP has 19 routes. Public pages are rendered on the server so search engines
 | `/terms`, `/privacy` | Legal | Lawyer-supplied text. |
 | `/admin` | Admin | Review queue for flagged items, reports, takedown notices, user lookup, suspend and restore. Admin role only. |
 | `/dev/gallery` | Component gallery | Every component in every state. Not linked, not indexed. |
+| `/dev/player` | Player test page | Real rows played through the engine, for end-to-end tests. Answers 404 unless the server runs with `STASH_DEV_PAGES=1` (never set in production). |
 
 ### Behavior every screen shares
 
@@ -118,8 +119,8 @@ One job kind per content type, each a pure function of the original file: the sa
 | --- | --- |
 | Decode | ffmpeg to 44.1 kHz stereo floating-point audio. Reject silence and files over 60 s. |
 | Duration and loop length | Record the exact sample count. The player loops on this number, not on the preview file's length. |
-| BPM | Three sources, in order of trust. A number in the file name between 60 and 200. Then duration: assume a whole number of bars (1, 2, 4, 8, 16) in 4/4 and list the tempos that fit. Then onset-based tempo from librosa to choose among those candidates. Store the value, the source and whether the sources agreed. |
-| Key | A key in the file name, such as `Cmin` or `F#m`. Otherwise compare the loop's averaged chroma against the 24 major and minor key profiles and take the best match, storing the margin over the runner-up as confidence. librosa provides chroma but no finished key detector, so this comparison is about thirty lines the Pipeline builder writes and tests. |
+| BPM | Three sources, in order of trust. A number in the file name between 60 and 200. Then duration: assume a whole number of bars (1, 2, 4, 8, 16) in 4/4 and list the tempos that fit. Then onset-based tempo (numpy STFT onset envelope) to choose among those candidates. Store the value, the source and whether the sources agreed. |
+| Key | A key in the file name, such as `Cmin` or `F#m`. Otherwise compare the loop's averaged chroma against the 24 major and minor key profiles and take the best match, storing the margin over the runner-up as confidence. Chroma is computed with numpy (decision 0017: librosa's soxr and soundfile dependencies are LGPL), and the profile comparison is about thirty lines the Pipeline builder writes and tests. |
 | Preview | Loudness-match to −14 LUFS, encode MP3 at the bitrate in the limits table. |
 | Peaks | 800 values of peak amplitude from the mono mix, stored as bytes. |
 | Fingerprint | Chromaprint via `fpcalc`. Compare against stored fingerprints of similar duration; similarity over the threshold flags the item. Start the threshold at 0.90 and tune it on the fixtures. |
@@ -195,6 +196,7 @@ export interface EngineState {
   tempoRatio: number;   // 1 = original speed
   transpose: number;    // semitones
   volume: number;       // 0 to 1
+  loop: boolean;        // default true; false: a loop plays its current pass to the end, then pauses at 0
   queue: Playable[];
   queueIndex: number;
 }
@@ -208,6 +210,7 @@ export interface Engine {
   setTempo(bpm: number): void;               // loops and MIDI
   setTranspose(semitones: number): void;     // loops, MIDI, one-shots
   setVolume(volume: number): void;
+  setLoop(on: boolean): void;                // loops; the end is placed on the audio clock
   setSound(sound: SoundId): void;            // MIDI
   triggerPad(index: number, velocity?: number): void;   // kits
   noteOn(pitch: number, velocity?: number): void;       // one-shots and Vital presets
@@ -231,6 +234,8 @@ export function usePlayerState<T>(select: (state: EngineState) => T): T;    // R
 - Heavy parts load late. The stretch processor and the MIDI synth are fetched the first time something needs them, not with the page.
 - Everything is scheduled on the audio clock, never with timers, so MIDI and the kit demo pattern stay in time under load.
 - Loops are seamless by test. A unit test renders two passes of every fixture loop offline and fails if there is a gap or a click at the join. If MP3 previews cannot pass it, loop previews move to a format that can.
+- Loop off plays the current pass to its end, fades out over 5 ms and pauses at 0. A seek, a resume or a tempo change moves the end. Switching loop back on before the end carries on with no gap. One-shots and demos end by themselves.
+- The stretch processor loads from a static, versioned file the web app serves (`/worklets/signalsmith-stretch-<version>.mjs`, copied at build time), never from bundled code. If it fails to load within 3 s, the loop plays on at tempo 1 and key 0.
 - Kits behave like a drum machine. A closed hat cuts off an open hat. A limiter on the output keeps stacked pads from clipping.
 - The preset sampler plays the nearest rendered note, repitched by at most one semitone in either direction.
 - Failures are quiet and recoverable. A preview that fails to load sets status to error with a retry; it never throws into the UI.

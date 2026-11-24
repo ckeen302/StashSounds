@@ -16,6 +16,9 @@ const stateOut = $<HTMLPreElement>("state");
 type LoopPlayable = Extract<Playable, { kind: "loop" }>;
 const loops: LoopPlayable[] = await (await fetch("/fixtures.json")).json();
 for (const l of loops) select.add(new Option(`${l.id} (${l.bpm} BPM)`, l.id));
+// ?loop=<file> preselects a fixture without the change event, so nothing is preloaded (first-sound runs).
+const wanted = new URLSearchParams(location.search).get("loop");
+if (wanted && loops.some((l) => l.id === wanted)) select.value = wanted;
 
 const chosen = () => loops.find((l) => l.id === select.value);
 const tempo = $<HTMLInputElement>("tempo");

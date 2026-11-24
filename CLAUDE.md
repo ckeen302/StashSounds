@@ -40,15 +40,17 @@ pnpm check                types and lint
 pnpm test                 unit tests
 pnpm db:test              database policy tests (needs Postgres 16+; see supabase/tests/README.md)
 pnpm worker:test          worker tests
-pnpm e2e                  end-to-end tests
+pnpm e2e                  end-to-end tests (STASH_E2E_PORT picks the server port; use a free one per worktree)
 pnpm visual               screenshot comparison in the pinned Playwright container (needs Docker)
-pnpm visual:update        rewrite screenshot baselines in the same container; commit them with the change
+pnpm visual:update        rewrite the baselines that fail or are missing, in the same container; commit them
+                          (no Docker? push to visual-update/<name>; CI commits the new PNGs back to that branch)
 pnpm perf                 performance budgets
 pnpm run licenses         dependency license check (plain `pnpm licenses` is a pnpm built-in)
 ```
 Generators (lead only): `pnpm --filter @stash/contracts gen` (JSON Schemas for the worker),
 `pnpm --filter @stash/ui gen` (theme.css from tokens), `node scripts/sync-limits.mjs` (limits
-migration), `python3 scripts/gen-fixtures.py` (synthetic fixtures).
+migration), `python3 scripts/gen-fixtures.py` (synthetic fixtures), `node scripts/build-demo.mjs`
+(demo previews and apps/web/src/demo/generated/loops.json, ticket 137).
 
 ## Rules
 1. Edit only the paths your lane owns. For anything else, write docs/requests/NNN-name.md.
