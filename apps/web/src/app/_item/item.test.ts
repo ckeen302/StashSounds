@@ -5,7 +5,6 @@ import { itemKeyAction, type KeyInput } from "./keys";
 import { loadItemViewWith } from "./load-core";
 import { lazyLocalActions } from "./lazy-local-actions";
 import { localActions } from "./local-actions";
-import { createWrapWatch } from "./loop-watch";
 import { itemDescription, itemMetadata } from "./meta";
 
 const fixture = (): ItemPage => {
@@ -143,31 +142,6 @@ describe("page keys", () => {
     expect(itemKeyAction(k("ArrowLeft", { target: { tagName: "SPAN", role: "slider", editable: false } }))).toBeNull();
     // Letters still work from a focused button.
     expect(itemKeyAction(k("l", { target: { tagName: "BUTTON", role: null, editable: false } }))).toBe("like");
-  });
-});
-
-describe("loop off", () => {
-  it("sees the wrap back to the start exactly once per pass", () => {
-    const seen = createWrapWatch();
-    expect(seen(100, 5000)).toBe(false);
-    expect(seen(4900, 5000)).toBe(false);
-    expect(seen(30, 5000)).toBe(true);
-    expect(seen(60, 5000)).toBe(false);
-  });
-
-  it("does not mistake a small step back (a seek) for a wrap", () => {
-    const seen = createWrapWatch();
-    seen(3000, 5000);
-    expect(seen(2000, 5000)).toBe(false);
-    seen(0, 0);
-    expect(seen(0, 0)).toBe(false);
-  });
-
-  it("forgets the last position when reset, so a seek to the start is not a wrap", () => {
-    const seen = createWrapWatch();
-    seen(4800, 5000);
-    seen.reset();
-    expect(seen(0, 5000)).toBe(false);
   });
 });
 

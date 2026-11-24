@@ -4,10 +4,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { getEngine, usePlayerState } from "@stash/audio";
 import type { ItemRow } from "@stash/contracts";
 import limits from "@stash/contracts/limits.json" with { type: "json" };
-import { TRANSPOSE_LIMIT, useFrameLoop, type PlayState } from "@stash/ui";
+import { TRANSPOSE_LIMIT, type PlayState } from "@stash/ui";
 import { nowPlaying } from "../_shell/now-playing";
 import { browserStorage, readUnmuteVolume, rememberVolume } from "../_shell/volume";
-import { createWrapWatch } from "./loop-watch";
 
 /**
  * The item page's player, bound to the one engine. Tempo, key and volume are read back from engine
@@ -27,10 +26,10 @@ export function useItemPlayer(row: ItemRow, queue: ItemRow[]) {
 
   const baseBpm = row.bpm ?? (row.playable.kind === "loop" || row.playable.kind === "midi" ? (row.playable.bpm ?? null) : null);
   const [want, setWant] = useState<{ bpm: number | null; semitones: number }>({ bpm: baseBpm, semitones: 0 });
-  const [loop, setLoop] = useState(true);
+  // Loop is the engine's, like tempo and key: off, a loop plays its pass once and stops at the start.
+  const loop = usePlayerState((s) => s.loop);
   const restoreVolume = useRef(0.8);
   const pendingSeek = useRef<number | null>(null);
-  const wrap = useRef(createWrapWatch());
   const durationMs = engineDuration > 0 ? engineDuration : (row.durationMs ?? 0);
 
   const bpm = current && baseBpm ? baseBpm * tempoRatio : want.bpm;
@@ -75,7 +74,6 @@ export function useItemPlayer(row: ItemRow, queue: ItemRow[]) {
   const seek = useCallback(
     (fraction: number) => {
       const ms = Math.max(0, Math.min(1, fraction)) * durationMs;
-      wrap.current.reset();
       if (current && status !== "loading") return engine.seek(ms);
       pendingSeek.current = ms;
       if (!current) start();
@@ -126,17 +124,6 @@ export function useItemPlayer(row: ItemRow, queue: ItemRow[]) {
     return engine.getPositionMs() / durationMs;
   }, [current, durationMs, engine]);
 
-  // Loop off: the engine always loops, so the page stops at the wrap (request 135-engine-loop-switch).
-  const watchWrap = useCallback(() => {
-    if (wrap.current(engine.getPositionMs(), durationMs)) {
-      engine.pause();
-      engine.seek(0);
-      wrap.current.reset();
-    }
-  }, [engine, durationMs]);
-  useFrameLoop(watchWrap, current && status === "playing" && !loop);
-  useEffect(() => wrap.current.reset(), [loop]);
-
   const playState: PlayState = status === "playing" ? "playing" : status === "loading" ? "loading" : status === "error" ? "error" : "paused";
 
   return {
@@ -150,7 +137,7 @@ export function useItemPlayer(row: ItemRow, queue: ItemRow[]) {
     getProgress,
     tempo: baseBpm ? { bpm: bpm ?? baseBpm, baseBpm, onChange: setTempo } : undefined,
     keyShift: { semitones, baseKey: row.key, onChange: setSemitones },
-    loop: { on: loop, onChange: setLoop },
+    loop: { on: loop, onChange: (on: boolean) => engine.setLoop(on) },
     volume: { value: volume, muted: volume === 0, onChange: setVolume, onMuteChange: setMuted },
     nudgeTempo: (d: number) => (bpm ? setTempo(bpm + d) : undefined),
     nudgeKey: (d: number) => setSemitones(semitones + d),

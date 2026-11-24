@@ -121,11 +121,8 @@ test("space plays and pauses; tempo and key drive the engine while it plays", as
   await expect(heroPlay(page)).toHaveAttribute("aria-label", "Play Dusty soul chops");
 });
 
-// Today's measured state, asserted outright: in the built app the stretch's worklet fails after
-// minification and never loads, so at 180 BPM the loop still plays at its own speed (rate about 1).
-// docs/requests/135-stretch-in-production-build.md. The Audio lane is fixing it; when that lands,
-// this flips to `toBeGreaterThan(1.5)` and its name to "really plays twice as fast".
-test("at double tempo the loop plays at its own speed until the stretch works in the built app", async ({ page }) => {
+// The stretch really plays: at 180 BPM the playhead covers about twice the wall time.
+test("at double tempo the loop really plays twice as fast", async ({ page }) => {
   await serveAudio(page);
   await page.goto(PATH);
   await page.keyboard.press("Space");
@@ -142,8 +139,9 @@ test("at double tempo the loop plays at its own speed until the stretch works in
   const p1 = await positionMs(page);
   const moved = (p1 - p0 + 5333) % 5333;
   const rate = moved / (t1 - t0);
-  expect(rate, "playback rate at 180 BPM (request 135-stretch-in-production-build)").toBeGreaterThan(0.7);
-  expect(rate, "playback rate at 180 BPM (request 135-stretch-in-production-build)").toBeLessThan(1.3);
+  console.log(`loop page playback rate at 180 BPM: ${rate.toFixed(2)}`);
+  expect(rate, "playback rate at 180 BPM").toBeGreaterThan(1.5);
+  expect(rate, "playback rate at 180 BPM").toBeLessThan(2.5);
 });
 
 test("tempo and key set before play are applied when it starts", async ({ page }) => {
