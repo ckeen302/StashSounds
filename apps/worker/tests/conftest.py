@@ -85,11 +85,17 @@ class TestDb:
         return str(uid)
 
     def queued_item(
-        self, type_: str = "loop", ext: str = "wav", file_name: str | None = None, content: bytes = b"0123456789"
+        self,
+        type_: str = "loop",
+        ext: str = "wav",
+        file_name: str | None = None,
+        content: bytes = b"0123456789",
+        owner: str | None = None,
     ) -> dict[str, str]:
-        """A draft uploaded and enqueued through the real functions, as the web app does it. The
-        original's bytes are put in self.storage at the path the database gave it."""
-        owner = self.make_user()
+        """A draft uploaded and enqueued through the real functions, as the web app does it, by a new
+        user unless `owner` is given. The original's bytes are put in self.storage at the path the
+        database gave it."""
+        owner = owner or self.make_user()
         row = self.as_role(
             "authenticated",
             "select * from public.create_upload_draft(cast(:t as public.item_type), :title, :n, :ext, :fn)",
@@ -160,6 +166,9 @@ def _database() -> Iterator[str]:
         build = _admin(name)
         for sql in schema_sql():
             build.run(sql)
+        # Request 114-duplicate-lookup: a stand-in until the migration lands; delete with the file.
+        if build.run("select to_regprocedure('public.worker_duplicate_candidates(uuid, int, uuid, text, int, int)')")[0][0] is None:
+            build.run((TESTS / "sql" / "worker_duplicate_candidates.sql").read_text())
         build.close()
         yield name
     finally:
@@ -172,5 +181,8 @@ def _database() -> Iterator[str]:
 def db(_database: str, tmp_path: Path) -> Iterator[TestDb]:
     t = TestDb(_database, LocalStorage(tmp_path / "store"))
     t.q("delete from public.processing_jobs")
+    # Each test starts with an empty catalog to screen against: earlier tests' files are not duplicates.
+    t.q("delete from public.fingerprints")
+    t.q("update public.item_files set sha256 = null where role = 'original'")
     yield t
     t.conn.close()
