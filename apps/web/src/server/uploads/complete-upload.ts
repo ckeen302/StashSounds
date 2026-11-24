@@ -110,9 +110,11 @@ export const completeUpload = defineAction({
       });
       if (error) {
         // Refused for good (wrong size, suspended account): the worker will never process this
-        // object, and the claim (still held, or the answer would be conflict) proves it is this
-        // call's own copy, so it must not stay in storage. A conflict (the item left draft, or the
-        // claim was taken over) deletes nothing: the worker or another call may be using it.
+        // object, so it must not stay in storage. The delete is safe because enqueue_processing
+        // checks the claim first, before size or suspension (foundations 0da7500): invalid or
+        // forbidden reaches only the call that still holds the claim, so the copy is this call's
+        // own. A conflict (the item left draft, or the claim was taken over) deletes nothing: the
+        // worker or another call may be using it.
         const code = mapError(error)?.code;
         if (code === "invalid" || code === "forbidden") await removeAll(storage, [path, staged]);
         throw error;
