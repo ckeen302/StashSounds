@@ -7,7 +7,8 @@ import { randomUUID } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { profileLinkKindSchema, slugify } from "@stash/contracts";
-import { TestDb, anon, rejection, service, superuser, user } from "./db.ts";
+import pg from "pg";
+import { TestDb, anon, dbUrl, rejection, service, superuser, user } from "./db.ts";
 
 /** Claims a file the way completeUpload does and returns the token for enqueue_processing. */
 async function claimFile(db: TestDb, owner: string, itemId: string, fileId: string): Promise<string> {
@@ -665,6 +666,53 @@ describe("worker functions", () => {
     expect(await rejection(call({ id: job2.id, attempts: job2.attempts + 1 }, f2, sha, null, null))).toMatch(/^conflict:/);
     // Users cannot call it.
     expect(await rejection(db.as(user(bob), `select * from public.worker_duplicate_candidates($1, 1, $2, $3, null, null)`, [job2.id, f2, sha]))).toMatch(/permission denied/);
+  });
+
+  it("worker_duplicate_candidates skips the item's own fingerprints, and overlapping lookups of one hash see each other", async () => {
+    await db.as(service, `delete from public.processing_jobs`);
+    const a = await queuedItem("Race a");
+    const b = await queuedItem("Race b");
+    const [ja, jb] = [(await db.as(service, `select * from public.claim_job()`)).rows[0]!, (await db.as(service, `select * from public.claim_job()`)).rows[0]!];
+    const jobFor = (itemId: string) => [ja, jb].find((j) => j.item_id === itemId)!;
+    const original = async (itemId: string) =>
+      (await db.q(`select id from public.item_files where item_id = $1 and role = 'original'`, [itemId])).rows[0]!.id as string;
+    const fa = await original(a.item_id);
+    const fb = await original(b.item_id);
+    // A stored fingerprint of the item being processed (from an earlier run) is not a candidate.
+    await db.q(`insert into public.fingerprints (item_file_id, item_id, duration_ms, chromaprint) values ($1, $2, 52000, '{1}')`, [fa, a.item_id]);
+    const call = (job: { id?: unknown; attempts?: unknown }, file: string, hash: string) =>
+      db.as(service, `select * from public.worker_duplicate_candidates($1, $2, $3, $4, 50000, 54000)`, [job.id, job.attempts, file, hash]);
+    const sha = "e".repeat(64);
+    expect((await call(jobFor(a.item_id), fa, sha)).rows.filter((r) => r.match === "fingerprint")).toEqual([]);
+
+    // Two lookups of one hash overlap: a's transaction is still open when b's starts. b must wait for
+    // a to commit, then find a. Two raw sessions hold the transactions open deterministically.
+    await db.q(`update public.item_files set sha256 = null where id = $1`, [fa]);
+    const session = async () => {
+      const c = new pg.Client({ connectionString: dbUrl(db.name) });
+      await c.connect();
+      await c.query("begin");
+      await c.query(`set local role service_role`);
+      return c;
+    };
+    const lookup = `select match, item_id from public.worker_duplicate_candidates($1, $2, $3, $4, null, null)`;
+    const [ca, cb] = [await session(), await session()];
+    try {
+      const ja2 = jobFor(a.item_id);
+      const jb2 = jobFor(b.item_id);
+      expect((await ca.query(lookup, [ja2.id, ja2.attempts, fa, sha])).rows).toEqual([]);
+      let bDone = false;
+      const pendingB = cb.query(lookup, [jb2.id, jb2.attempts, fb, sha]).then((r) => { bDone = true; return r; });
+      await new Promise((r) => setTimeout(r, 300));
+      expect(bDone).toBe(false); // b is waiting on a's lock
+      await ca.query("commit");
+      const rb = await pendingB;
+      await cb.query("commit");
+      expect(rb.rows).toEqual([{ match: "exact", item_id: a.item_id }]);
+    } finally {
+      await ca.end();
+      await cb.end();
+    }
   });
 
   it("worker_complete refuses a job that is not running, a result of another type and paths outside the item", async () => {
