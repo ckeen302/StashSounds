@@ -51,7 +51,7 @@ export function ClaimHandleForm({ next }: { next: string }) {
         value={handle}
         onChange={(e) => setHandle(normalizeHandle(e.target.value))}
         error={errors.fields.handle}
-        hint="3 to 24 characters: a to z, 0 to 9 and underscore.."
+        hint="3 to 24 characters: a to z, 0 to 9 and underscore."
       />
       <TextInput
         label="Display name (optional)"

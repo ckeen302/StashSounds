@@ -6,6 +6,7 @@ import {
   Avatar,
   Button,
   DialogPreview,
+  DialogSurface,
   PanelDialog,
   EmptyState,
   ErrorState,
@@ -251,7 +252,29 @@ describe("Result row", () => {
 });
 
 describe("PanelDialog", () => {
-  it("renders nothing while closed, and its own body with no confirm row (sign-in, ticket 133)", () => {
+  it("renders nothing while closed", () => {
     expect(html(h(PanelDialog, { open: false, onOpenChange: () => {}, title: "Sign in to like this", children: h("p", null, "body") }))).toBe("");
+  });
+});
+
+describe("DialogSurface for a panel dialog (sign-in, ticket 133)", () => {
+  const out = html(
+    h(DialogSurface, {
+      title: h("h2", null, "Sign in to like this"),
+      close: h("button", { "aria-label": "Close" }),
+      closeFirst: true,
+      children: h("input", { "aria-label": "Email" }),
+    }),
+  );
+  it("puts Close first in the reading and tab order, before the title and the form", () => {
+    expect(out.indexOf('aria-label="Close"')).toBeLessThan(out.indexOf("Sign in to like this"));
+    expect(out.indexOf("Sign in to like this")).toBeLessThan(out.indexOf('aria-label="Email"'));
+  });
+  it("draws no actions row without a footer", () => {
+    expect(out).not.toContain("justify-end gap-2");
+  });
+  it("keeps Close last for confirm dialogs, so focus lands on their actions", () => {
+    const confirm = html(h(DialogSurface, { title: h("h2", null, "Delete"), close: h("button", { "aria-label": "Close" }), footer: h("button", null, "Delete") }));
+    expect(confirm.indexOf('aria-label="Close"')).toBeGreaterThan(confirm.indexOf(">Delete</button>"));
   });
 });

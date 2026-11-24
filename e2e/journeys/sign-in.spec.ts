@@ -11,6 +11,20 @@ import AxeBuilder from "@axe-core/playwright";
 const SUPABASE = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "http://127.0.0.1:54321";
 const MAILPIT = process.env.STASH_MAILPIT_URL ?? "http://127.0.0.1:54324";
 
+/** A toast in the notifications stack (Radix also copies its text into an announcer, so scope to the list). */
+const toastWith = (page: Page, text: string) => page.getByRole("region", { name: /Notifications/ }).getByRole("listitem").filter({ hasText: text });
+const toasts = (page: Page) => page.getByRole("region", { name: /Notifications/ }).getByRole("listitem");
+
+/** The browser's pending sign-in action (apps/web/src/app/_auth/intent-store.ts). */
+const INTENT_KEY = "stash.intent";
+const NONCE = /[0-9a-f]{32}/;
+
+/** Proves the page is hydrated (a client handler ran) before asserting that something did not happen. */
+async function hydrated(page: Page) {
+  await page.getByRole("button", { name: "Show a toast" }).click();
+  await expect(page.getByRole("region", { name: /Notifications/ }).getByRole("listitem").filter({ hasText: "Saved to your library" })).toBeVisible();
+}
+
 const axe = async (page: Page) => (await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze()).violations.map((v) => `${v.id}: ${v.help}`);
 
 /** Stops the browser at Supabase's authorize page and returns where it was sent. */
@@ -79,9 +93,9 @@ test.describe("signed out", () => {
   });
 
   for (const [kind, press, title, next] of [
-    ["like", (p: Page) => p.getByRole("button", { name: "Like Dusty soul chops" }).click(), "Sign in to like this", "/dev/player?do=like%3Ak3j9x0a2b1"],
-    ["download", (p: Page) => p.getByRole("button", { name: "Download Dusty soul chops" }).click(), "Sign in to download", "/dev/player?do=download%3Ak3j9x0a2b1"],
-    ["follow", (p: Page) => p.getByRole("button", { name: "Follow @nova" }).click(), "Sign in to follow", "/dev/player?do=follow%3Anova"],
+    ["like", (p: Page) => p.getByRole("button", { name: "Like Dusty soul chops" }).click(), "Sign in to like this", "/dev/player?do=like%3Ak3j9x0a2b1%3A"],
+    ["download", (p: Page) => p.getByRole("button", { name: "Download Dusty soul chops" }).click(), "Sign in to download", "/dev/player?do=download%3Ak3j9x0a2b1%3A"],
+    ["follow", (p: Page) => p.getByRole("button", { name: "Follow @nova" }).click(), "Sign in to follow", "/dev/player?do=follow%3Anova%3A"],
   ] as const) {
     test(`a signed-out ${kind} opens the sign-in dialog, which remembers it`, async ({ page }) => {
       const sent = await catchAuthorize(page);
@@ -95,7 +109,15 @@ test.describe("signed out", () => {
       await expect(page.getByRole("button", { name: "Like Dusty soul chops", includeHidden: true })).toHaveAttribute("aria-pressed", "false");
 
       await dialog.getByRole("button", { name: "Continue with Google" }).click();
-      expect(nextOf(await sent())).toBe(next);
+      // next carries a nonce that only this browser has stored, so a bare or copied link runs nothing.
+      const back = nextOf(await sent())!;
+      expect(back.startsWith(next)).toBe(true);
+      const nonce = back.slice(next.length);
+      expect(nonce).toMatch(new RegExp(`^${NONCE.source}$`));
+      const stored = JSON.parse((await page.evaluate((k) => localStorage.getItem(k), INTENT_KEY))!);
+      expect(stored).toMatchObject({ kind, nonce });
+      expect(stored.expiresAt - Date.now()).toBeGreaterThan(14 * 60 * 1000);
+    });
     });
   }
 
@@ -110,7 +132,9 @@ test.describe("signed out", () => {
   });
 
   test("a do parameter does nothing for a visitor", async ({ page }) => {
-    await page.goto("/dev/player?do=like%3Ak3j9x0a2b1");
+    await page.goto("/dev/player?do=like%3Ak3j9x0a2b1%3A0123456789abcdef0123456789abcdef");
+    await hydrated(page);
+    await expect(toastWith(page, "Liked")).toHaveCount(0);
     await expect(page.getByRole("button", { name: "Like Dusty soul chops" })).toHaveAttribute("aria-pressed", "false");
     await expect(page.getByRole("dialog")).toBeHidden();
   });
@@ -136,9 +160,6 @@ async function reachable(url: string): Promise<boolean> {
     return false;
   }
 }
-
-/** A toast in the notifications stack (Radix also copies its text into an announcer, so scope to the list). */
-const toastWith = (page: Page, text: string) => page.getByRole("region", { name: /Notifications/ }).getByRole("listitem").filter({ hasText: text });
 
 const unique = () => `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
 
@@ -237,6 +258,8 @@ test.describe("with the local Supabase stack", () => {
     await claim(page, `liker_${id}`);
     await expect(page).toHaveURL("/dev/player");
     await expect(toastWith(page, "Liked Dusty soul chops")).toBeVisible();
+    // Only the like ran: no other kind's action fired with it.
+    await expect(toasts(page)).toHaveCount(1);
     await expect(page.getByRole("button", { name: "Like Dusty soul chops" })).toHaveAttribute("aria-pressed", "true");
     // It ran once: a reload does not like it again.
     await page.reload();
@@ -265,6 +288,65 @@ test.describe("with the local Supabase stack", () => {
       await expect(toastWith(page, toast)).toBeVisible();
       await context.clearCookies();
     }
+  });
+
+  test("a member's bare or forged do link runs nothing", async ({ page }) => {
+    const id = unique();
+    await page.goto("/login");
+    await signUpByEmail(page, page, `clicker-${id}@example.com`);
+    await claim(page, `clicker_${id}`);
+    await expect(page).toHaveURL("/");
+    for (const link of ["/dev/player?do=follow%3Anova", "/dev/player?do=follow%3Anova%3A0123456789abcdef0123456789abcdef"]) {
+      await page.goto(link);
+      await hydrated(page);
+      await expect(toastWith(page, "Following")).toHaveCount(0);
+      await expect(page.getByRole("button", { name: "Follow @nova" })).toBeVisible();
+    }
+  });
+
+  test("a stored intent runs only for its own kind and target, once", async ({ page }) => {
+    const id = unique();
+    await page.goto("/login");
+    await signUpByEmail(page, page, `kinds-${id}@example.com`);
+    await claim(page, `kinds_${id}`);
+    await expect(page).toHaveURL("/");
+    const nonce = "abcdef0123456789abcdef0123456789";
+    await page.evaluate(
+      ([k, n]) => localStorage.setItem(k!, JSON.stringify({ kind: "like", target: "k3j9x0a2b1", nonce: n, expiresAt: Date.now() + 600000 })),
+      [INTENT_KEY, nonce],
+    );
+    // The right nonce under another kind, or another target: nothing.
+    for (const link of [`/dev/player?do=follow%3Anova%3A${nonce}`, `/dev/player?do=like%3Ak3j9x0a2b2%3A${nonce}`]) {
+      await page.goto(link);
+      await hydrated(page);
+      await expect(toastWith(page, "Following")).toHaveCount(0);
+      await expect(toastWith(page, "Liked")).toHaveCount(0);
+    }
+    // Its own kind and target: the like runs once, alone.
+    await page.goto(`/dev/player?do=like%3Ak3j9x0a2b1%3A${nonce}`);
+    await expect(toastWith(page, "Liked Dusty soul chops")).toBeVisible();
+    await expect(toasts(page)).toHaveCount(1);
+    await expect(page).toHaveURL("/dev/player");
+    expect(await page.evaluate((k) => localStorage.getItem(k), INTENT_KEY)).toBeNull();
+  });
+
+  test("a member sent to /login with a hostile next lands on this site", async ({ page, baseURL }) => {
+    const id = unique();
+    await page.goto("/login");
+    await signUpByEmail(page, page, `hostile-${id}@example.com`);
+    await claim(page, `hostile_${id}`);
+    await expect(page).toHaveURL("/");
+    for (const next of ["//evil.example/steal", "https://evil.example/", "/\\evil.example"]) {
+      await page.goto(`/login?next=${encodeURIComponent(next)}`);
+      await expect(page).toHaveURL(`${baseURL}/`);
+    }
+  });
+
+  test("on the claim screen the top bar does not offer to sign in", async ({ page }) => {
+    await page.goto("/login");
+    await signUpByEmail(page, page, `claimbar-${unique()}@example.com`);
+    await expect(page.getByRole("heading", { level: 1, name: "Choose your handle" })).toBeVisible();
+    await expect(page.getByRole("banner").getByRole("link", { name: "Sign in" })).toHaveCount(0);
   });
 
   test("sign out from the account menu", async ({ page }) => {
