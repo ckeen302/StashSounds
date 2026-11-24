@@ -207,10 +207,13 @@ linux_only = pytest.mark.skipif(sys.platform != "linux", reason="seccomp is Linu
 
 SECCOMP_EXPECTED = {
     "unshare_user": "EPERM",
-    "mount": "EPERM",
-    "clone_newns": "EPERM",
+    "clone_newuser": "EPERM",
+    "keyctl": "EPERM",
+    "add_key": "EPERM",
+    "userfaultfd": "EPERM",
+    "io_uring_setup": "EPERM",
+    "open_tree": "EPERM",
     "clone3": "ENOSYS",
-    "bpf": "EPERM",
     "ptrace": "EPERM",
     "no_new_privs": "1",
     "seccomp": "2",
@@ -233,6 +236,35 @@ def test_the_filter_kills_a_process_on_a_foreign_architecture():
         check=False,
     )
     assert p.returncode == -signal.SIGSYS
+
+
+PROBE = str(Path(__file__).with_name("syscall_probe.py"))
+
+
+def _probe(preexec_fn=None) -> dict[str, str]:
+    env = {**os.environ, "PYTHONPATH": os.pathsep.join(sys.path)}
+    p = subprocess.run(  # noqa: S603
+        [sys.executable, PROBE],
+        preexec_fn=preexec_fn,  # noqa: PLW1509
+        capture_output=True,
+        text=True,
+        check=True,
+        env=env,
+        timeout=20,
+    )
+    return json.loads(p.stdout)
+
+
+@linux_only
+def test_each_probe_is_refused_with_the_filter_and_answered_without_it():
+    # The probes must tell the filter being on from it being off (PR #8 third review): every call is
+    # EPERM under the filter, and none is EPERM without it.
+    without = _probe()
+    with_filter = _probe(Filter().install)
+    probed = {"clone_newuser", "keyctl", "add_key", "userfaultfd", "io_uring_setup", "open_tree"}
+    assert set(without) == set(with_filter) == probed
+    assert with_filter == dict.fromkeys(without, "EPERM")
+    assert [k for k, v in without.items() if v == "EPERM"] == []
 
 
 def test_there_is_no_filter_for_an_unknown_architecture():

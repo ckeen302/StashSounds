@@ -69,7 +69,33 @@ DENIED = (
     "process_vm_readv",
     "process_vm_writev",
     "userfaultfd",
+    # The new mount API and io_uring (decision 0017 addendum, PR #8 third review).
+    "open_tree",
+    "move_mount",
+    "fsopen",
+    "fsconfig",
+    "fsmount",
+    "fspick",
+    "mount_setattr",
+    "io_uring_setup",
+    "io_uring_enter",
+    "io_uring_register",
 )
+
+# Since Linux 5.1 every architecture gives a new syscall the same number (asm-generic/unistd.h and
+# syscall_64.tbl agree from 424 on).
+_COMMON = {
+    "io_uring_setup": 425,
+    "io_uring_enter": 426,
+    "io_uring_register": 427,
+    "open_tree": 428,
+    "move_mount": 429,
+    "fsopen": 430,
+    "fsconfig": 431,
+    "fsmount": 432,
+    "fspick": 433,
+    "mount_setattr": 442,
+}
 
 
 @dataclass(frozen=True)
@@ -104,6 +130,7 @@ ARCHES = {
             "userfaultfd": 323,
             "clone": 56,
             "clone3": 435,
+            **_COMMON,
         },
     ),
     "aarch64": Arch(
@@ -128,6 +155,7 @@ ARCHES = {
             "userfaultfd": 282,
             "clone": 220,
             "clone3": 435,
+            **_COMMON,
         },
     ),
 }

@@ -316,3 +316,48 @@ SKIPPED [1] tests/test_sandbox.py:156: measured on the job uid as root
 ```
 As uid 65534: `176 passed, 18 skipped in 26.39s`. The skips are the 17 isolation tests and the empty
 `fixtures/own` case. Ruff: `All checks passed!` and `27 files already formatted`.
+
+## Third security review: the two advisories (decision 0017 addendum)
+The third review closed N1, A1 and A2 with no blockers and left two advisories. Both are done.
+
+**1. Probes that tell the filter being on from it being off.** Without CAP_SYS_ADMIN, `mount`,
+`clone(CLONE_NEWNS)` and `bpf` fail with EPERM whether the filter is loaded or not, so they proved
+nothing and are gone from the probe. In their place, `tests/syscall_probe.py` makes six calls that an
+ordinary process here answers without error, as root and as uid 65534 alike:
+- a raw `clone(CLONE_NEWUSER | SIGCHLD)`;
+- `keyctl(KEYCTL_GET_KEYRING_ID, session)` and `add_key("user", ...)`;
+- `userfaultfd(UFFD_USER_MODE_ONLY)`, which unprivileged processes may call since Linux 5.11;
+- `io_uring_setup(1, ...)` and `open_tree(AT_FDCWD, "/", OPEN_TREE_CLOEXEC)`, one call each from the new
+  deny entries that an unprivileged process can make.
+
+`test_each_probe_is_refused_with_the_filter_and_answered_without_it` runs the probe twice in a fresh
+process, once without the filter and once with it. Every call must be EPERM with the filter and none
+may be EPERM without it. If an environment refuses one of these calls by itself, for example under
+Docker's default profile without SYS_ADMIN, the test fails rather than passing for the wrong reason.
+The job-child probe in `test_sandbox` and `test_isolation` now runs the same six calls, plus
+`unshare(CLONE_NEWUSER)`, `clone3` (ENOSYS) and `ptrace(PTRACE_TRACEME)`, which also succeed without
+the filter.
+
+`tests/test_seccomp.py` (new, 9 cases) decodes `program()` for x86_64 and aarch64:
+- The deny list is exactly the decided one.
+- Every syscall number and audit architecture matches a table rewritten in the test from the kernel
+  headers. The numbers are not read from `seccomp.py`.
+- The exact instruction sequence: architecture load and check, KILL, number load, the x32 `JGE
+  0x40000000` and its EPERM (x86_64 only), one `JEQ`/EPERM pair per denied call, clone3 ENOSYS, the
+  clone flag test on args[0], and the final default ALLOW.
+- A small classic-BPF interpreter runs the program. It checks that every denied call gives EPERM, that
+  each `CLONE_NEW*` bit gives EPERM, that fork and pthread clone flags and ordinary calls give ALLOW, and
+  that x32 numbers are refused. A foreign or i386 architecture gives KILL.
+
+**2. More denied calls.** `DENIED` now also has the new mount API (open_tree, move_mount, fsopen,
+fsconfig, fsmount, fspick and mount_setattr) and io_uring_setup, io_uring_enter and io_uring_register.
+Since Linux 5.1 these numbers are shared across architectures (425 to 433, and 442), so one table
+(`_COMMON`) serves both.
+
+Checks. As root, `STASH_REQUIRE_DB=1 STASH_REQUIRE_ISOLATION=1 pnpm worker:test`:
+```
+SKIPPED [1] tests/test_contracts.py:74: got empty parameter set for (path)
+SKIPPED [1] tests/test_sandbox.py:156: measured on the job uid as root
+202 passed, 2 skipped in 39.52s
+```
+As uid 65534: `186 passed, 18 skipped in 34.06s`. Ruff: `All checks passed!` and `29 files already formatted`.
