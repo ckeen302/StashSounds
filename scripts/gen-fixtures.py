@@ -50,13 +50,19 @@ def write_wav(path: Path, frames: list[tuple[float, float]] | list[float], chann
         w.writeframes(bytes(buf))
 
 
+
+def fixed_entry(name: str, z: zipfile.ZipFile) -> zipfile.ZipInfo:
+    """A zip entry with a fixed date and the archive's compression, so regenerating is byte-identical."""
+    info = zipfile.ZipInfo(name, (2026, 1, 1, 0, 0, 0))
+    info.compress_type = z.compression
+    return info
+
 def chord_loop(bpm: float, bars: int, root_midi: int, minor: bool, seed: int) -> list[tuple[float, float]]:
     """A loop whose length is exactly `bars` bars of 4/4 at `bpm`, with a kick on every beat and a
     triad of the key, so BPM comes out of onsets and duration, and key out of chroma."""
     rng = random.Random(seed)
     beat = 60.0 / bpm
     n = round(bars * 4 * beat * SR)
-    third = 3 if minor else 4
     # i - VI - iv - v style movement inside the key, one chord per bar.
     degrees = [0, 8, 5, 7] if minor else [0, 9, 5, 7]
     out: list[tuple[float, float]] = []
@@ -64,7 +70,11 @@ def chord_loop(bpm: float, bars: int, root_midi: int, minor: bool, seed: int) ->
         t = i / SR
         bar = int(t / (4 * beat)) % len(degrees)
         r = root_midi + degrees[bar] - (12 if degrees[bar] > 7 else 0)
-        scale_third = third if degrees[bar] in (0, 5, 7) and minor else (4 if not minor else 3)
+        # Diatonic triads: in major the vi chord is minor; in natural minor the VI chord is major.
+        if minor:
+            scale_third = 4 if degrees[bar] == 8 else 3
+        else:
+            scale_third = 3 if degrees[bar] == 9 else 4
         chord = [r, r + scale_third, r + 7]
         tone = sum(math.sin(2 * math.pi * hz(m) * t) for m in chord) / 3 * 0.25
         # kick on each beat: decaying 55 Hz sine
@@ -297,29 +307,29 @@ write_wav(H / "too_long_70s.wav", [math.sin(2 * math.pi * 220 * i / 8000) * 0.3 
 add(H / "too_long_70s.wav", "loop", {"status": "draft", "reason": "too_long"}, hostile=True)
 
 with zipfile.ZipFile(H / "zip_bomb.zip", "w", zipfile.ZIP_DEFLATED, compresslevel=9) as z:
-    z.writestr("kick.wav", b"\x00" * (200 * 1024 * 1024))     # ratio far above maxCompressionRatio
+    z.writestr(fixed_entry("kick.wav", z), b"\x00" * (200 * 1024 * 1024))     # ratio far above maxCompressionRatio
 add(H / "zip_bomb.zip", "kit", {"status": "draft", "reason": "unsafe_archive"}, hostile=True)
 
 with zipfile.ZipFile(H / "path_traversal.zip", "w") as z:
-    z.writestr("../../etc/evil.wav", wav_bytes(hit(60, 14, 0.05, 0.2, 1)))
-    z.writestr("ok/kick.wav", wav_bytes(hit(60, 14, 0.05, 0.2, 1)))
+    z.writestr(fixed_entry("../../etc/evil.wav", z), wav_bytes(hit(60, 14, 0.05, 0.2, 1)))
+    z.writestr(fixed_entry("ok/kick.wav", z), wav_bytes(hit(60, 14, 0.05, 0.2, 1)))
 add(H / "path_traversal.zip", "kit", {"status": "draft", "reason": "unsafe_archive"}, hostile=True)
 
 inner = io.BytesIO()
 with zipfile.ZipFile(inner, "w") as z:
-    z.writestr("kick.wav", wav_bytes(hit(60, 14, 0.05, 0.2, 1)))
+    z.writestr(fixed_entry("kick.wav", z), wav_bytes(hit(60, 14, 0.05, 0.2, 1)))
 with zipfile.ZipFile(H / "nested_archive.zip", "w") as z:
-    z.writestr("more_drums.zip", inner.getvalue())
-    z.writestr("snare.wav", wav_bytes(hit(200, 25, 0.6, 0.2, 3)))
+    z.writestr(fixed_entry("more_drums.zip", z), inner.getvalue())
+    z.writestr(fixed_entry("snare.wav", z), wav_bytes(hit(200, 25, 0.6, 0.2, 3)))
 add(H / "nested_archive.zip", "kit", {"status": "draft", "reason": "unsafe_archive"}, hostile=True)
 
 with zipfile.ZipFile(H / "too_deep.zip", "w") as z:
-    z.writestr("a/b/c/d/e/f/kick.wav", wav_bytes(hit(60, 14, 0.05, 0.2, 1)))
+    z.writestr(fixed_entry("a/b/c/d/e/f/kick.wav", z), wav_bytes(hit(60, 14, 0.05, 0.2, 1)))
 add(H / "too_deep.zip", "kit", {"status": "draft", "reason": "unsafe_archive"}, hostile=True)
 
 with zipfile.ZipFile(H / "no_audio.zip", "w") as z:
-    z.writestr("readme.txt", "nothing here")
-    z.writestr("cover.jpg", b"\xff\xd8\xff\xe0" + b"\x00" * 64)
+    z.writestr(fixed_entry("readme.txt", z), "nothing here")
+    z.writestr(fixed_entry("cover.jpg", z), b"\xff\xd8\xff\xe0" + b"\x00" * 64)
 add(H / "no_audio.zip", "kit", {"status": "draft", "reason": "no_audio_in_kit"}, hostile=True)
 
 (H / "empty_notes.mid").write_bytes(midi_file([], 120))

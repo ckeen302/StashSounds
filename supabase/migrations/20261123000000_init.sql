@@ -821,6 +821,15 @@ begin
   if v_item.id is null or v_item.owner_id is distinct from p_user_id then perform public.fail('not_found', 'Item not found.'); end if;
   -- Status first: once the worker owns the item, no other answer may lead the caller to clean up.
   if v_item.status <> 'draft' then perform public.fail('conflict', 'This item is already processing.'); end if;
+  -- The claim next: a call that no longer holds it gets conflict before any answer (forbidden,
+  -- invalid) that would make it clean up files another call confirmed.
+  if not exists (select 1 from public.item_files where id = p_file_id and item_id = p_item_id and bucket = 'originals'
+                    and uploaded_at is null and meta ->> 'completing' = p_token::text) then
+    if exists (select 1 from public.item_files where id = p_file_id and item_id = p_item_id and bucket = 'originals') then
+      perform public.fail('conflict', 'This file is being completed by another request.');
+    end if;
+    perform public.fail('not_found', 'File not found.');
+  end if;
   if exists (select 1 from public.accounts where id = p_user_id and suspended_at is not null) then
     perform public.fail('forbidden', 'This account is suspended.');
   end if;

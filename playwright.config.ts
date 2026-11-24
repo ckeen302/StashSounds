@@ -7,7 +7,9 @@ import { defineConfig, devices } from "@playwright/test";
  *   pnpm perf    performance budgets from limits.json    (e2e/perf)
  * The web app is built and started for the run unless STASH_BASE_URL points at a running one.
  */
-const baseURL = process.env.STASH_BASE_URL ?? "http://localhost:3100";
+/** STASH_E2E_PORT lets parallel worktrees run their own server without clashing on 3100. */
+const port = Number(process.env.STASH_E2E_PORT ?? 3100);
+const baseURL = process.env.STASH_BASE_URL ?? `http://localhost:${port}`;
 // Sign-in links are built from this origin (request 101-site-url-env); the built server inherits it.
 process.env.NEXT_PUBLIC_SITE_URL ??= baseURL;
 const widths = { desktop: 1440, laptop: 1024, phone: 380 } as const;
@@ -34,9 +36,12 @@ export default defineConfig({
   webServer: process.env.STASH_BASE_URL
     ? undefined
     : {
-        command: "pnpm --filter @stash/web build && pnpm --filter @stash/web exec next start --port 3100",
+        command: `pnpm --filter @stash/web build && pnpm --filter @stash/web exec next start --port ${port}`,
         url: `${baseURL}/api/health`,
-        reuseExistingServer: !process.env.CI,
+        // Never test against another worktree's server: a busy port fails loudly (use STASH_E2E_PORT).
+        reuseExistingServer: false,
         timeout: 240_000,
+        // Test-only pages such as /dev/player (request 132-dev-pages-flag); never set in production.
+        env: { ...process.env, STASH_DEV_PAGES: "1" } as Record<string, string>,
       },
 });
