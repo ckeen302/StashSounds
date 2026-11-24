@@ -1,16 +1,13 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useSyncExternalStore, type ReactNode } from "react";
+import { lazy, Suspense, useEffect, useSyncExternalStore, type ReactNode } from "react";
 import {
-  Avatar,
   Bell,
   ButtonLink,
   Icon,
   IconButton,
   IconLink,
-  LogOut,
-  Menu,
   PanelLeftClose,
   PanelLeftOpen,
   Search,
@@ -18,13 +15,13 @@ import {
   ToastViewport,
   Tooltip,
   UiLink,
-  User,
-  useToast,
 } from "@stash/ui";
-import { signOut } from "@/server/auth/actions";
 import { useViewer } from "../_auth/viewer-context";
 import type { Viewer } from "../_auth/viewer";
 import { LogoMark } from "../logo-mark";
+
+// Members only: the menu, avatar and sign-out action stay out of a visitor's first load.
+const AccountMenu = lazy(() => import("./account-menu"));
 import { isCurrent, navFor, type NavItem } from "./nav";
 import { PlayerDock } from "./player-dock";
 
@@ -181,39 +178,6 @@ function TabBar({ pathname, navItems }: { pathname: string; navItems: NavItem[] 
   );
 }
 
-/** A member's avatar opens their menu: profile and sign out. */
-function AccountMenu({ viewer }: { viewer: Extract<Viewer, { status: "member" }> }) {
-  const router = useRouter();
-  const toast = useToast();
-  const name = viewer.displayName || viewer.handle;
-  return (
-    <Menu
-      entries={[
-        { label: "Your profile", icon: User, onSelect: () => router.push(`/u/${viewer.handle}`) },
-        { separator: true },
-        {
-          label: "Sign out",
-          icon: LogOut,
-          onSelect: () =>
-            void signOut().then((r) => {
-              if (!r.ok) return toast({ tone: "error", title: "Could not sign out", description: r.message });
-              router.refresh();
-            }),
-        },
-      ]}
-      trigger={
-        <button
-          type="button"
-          aria-label={`Account, @${viewer.handle}`}
-          className="inline-flex size-10 shrink-0 items-center justify-center rounded-full transition-colors duration-control ui-hover:bg-raised"
-        >
-          <Avatar name={name} src={viewer.avatarUrl} size={32} />
-        </button>
-      }
-    />
-  );
-}
-
 /** 56 px: search centred up to 560 px, notifications, sign in. Phone, 48 px: logo, search, notifications. */
 function TopBar({ viewer }: { viewer: Viewer }) {
   return (
@@ -229,7 +193,10 @@ function TopBar({ viewer }: { viewer: Viewer }) {
       <IconLink href="/search" icon={Search} label="Search" className="tablet:hidden" />
       <IconLink href="/notifications" icon={Bell} label="Notifications" />
       {viewer.status === "member" ? (
-        <AccountMenu viewer={viewer} />
+        // Holds the avatar's 40 px while the menu loads, so the bar does not shift.
+        <Suspense fallback={<span className="size-10 shrink-0" />}>
+          <AccountMenu viewer={viewer} />
+        </Suspense>
       ) : (
         // Phone: signing in is the Profile tab.
         <span className="hidden tablet:contents">

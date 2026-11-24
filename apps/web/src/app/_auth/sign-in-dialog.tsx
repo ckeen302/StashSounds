@@ -1,11 +1,12 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from "react";
-import { PanelDialog } from "@stash/ui";
+import { createContext, lazy, Suspense, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import { parseIntent, pathWithIntent, pathWithoutIntent, INTENT_PARAM, type IntentKind } from "./intent";
-import { SignInPanel } from "./sign-in-panel";
 import { useViewer } from "./viewer-context";
+
+// Loaded on the first ask: the dialog and the sign-in form are not part of any page's first load.
+const SignInDialogView = lazy(() => import("./sign-in-dialog-view"));
 
 const TITLE: Record<IntentKind, string> = {
   like: "Sign in to like this",
@@ -33,10 +34,9 @@ export function SignInDialogProvider({ children }: { children: ReactNode }) {
     <AskContext.Provider value={ask}>
       {children}
       {state && (
-        <PanelDialog open={open} onOpenChange={setOpen} title={TITLE[state.kind]} description={DESCRIPTION[state.kind]}>
-          {/* A fresh panel per ask, so a sent state never carries over to another action. */}
-          <SignInPanel key={state.next} next={state.next} />
-        </PanelDialog>
+        <Suspense fallback={null}>
+          <SignInDialogView open={open} onOpenChange={setOpen} title={TITLE[state.kind]} description={DESCRIPTION[state.kind]} next={state.next} />
+        </Suspense>
       )}
     </AskContext.Provider>
   );
