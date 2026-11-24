@@ -1,18 +1,21 @@
 "use client";
 
-import { formatKey, type ItemRow } from "@stash/contracts";
-import { Dialog as D } from "radix-ui";
-import { useCallback, useRef, useState, type ReactNode } from "react";
+import type { ItemRow } from "@stash/contracts";
+import { lazy, Suspense, useCallback, useRef, useState } from "react";
 import { cx } from "./cx.ts";
 import { useFrameLoop } from "./frame.ts";
-import { ChevronDown, SkipBack, SkipForward, Volume2, VolumeX } from "./icon.tsx";
+import { SkipBack, SkipForward, Volume2, VolumeX } from "./icon.tsx";
 import { IconButton } from "./icon-button.tsx";
-import { UiLink } from "./link.tsx";
 import { PlayButton, type PlayState } from "./play-button.tsx";
-import { describeRow } from "./result-row.tsx";
 import { Slider, volumeText } from "./slider.tsx";
-import { Waveform } from "./waveform.tsx";
-import { formatTime } from "./waveform-bars.ts";
+
+/*
+ * What is playing (title, waveform, readouts) and the phone sheet load on first use, from
+ * player-details.tsx. They pull in the waveform and the contracts helpers, which the first paint
+ * of an idle bar does not need (the script budget before audio, limits.performance).
+ */
+const PlayerDetails = lazy(() => import("./player-details.tsx").then((m) => ({ default: m.PlayerDetails })));
+const LazySheet = lazy(() => import("./player-details.tsx").then((m) => ({ default: m.PlayerSheet })));
 
 /** The engine's status (packages/audio EngineState["status"]). */
 export type PlayerStatus = "idle" | "loading" | "playing" | "paused" | "error";
@@ -64,25 +67,8 @@ export function playerFraction(positionMs: number, durationMs: number): number {
   return Math.min(1, Math.max(0, positionMs / durationMs));
 }
 
-const playState = (s: PlayerStatus): PlayState => (s === "idle" ? "paused" : s);
-const durationOf = (p: Pick<PlayerBarProps, "durationMs" | "item">) => (p.durationMs > 0 ? p.durationMs : (p.item?.durationMs ?? 0));
-
-/** Elapsed time, written by the animation frame straight into the element. */
-function Elapsed({ getPositionMs, durationMs, running }: { getPositionMs: () => number; durationMs: number; running: boolean }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const frame = useCallback(() => {
-    const el = ref.current;
-    if (!el) return;
-    const text = formatTime(playerFraction(getPositionMs(), durationMs) * durationMs);
-    if (el.textContent !== text) el.textContent = text;
-  }, [getPositionMs, durationMs]);
-  useFrameLoop(frame, running);
-  return (
-    <span ref={ref} data-player-elapsed="" className="font-mono text-numeric tabular text-text">
-      0:00
-    </span>
-  );
-}
+export const playState = (s: PlayerStatus): PlayState => (s === "idle" ? "paused" : s);
+export const durationOf = (p: Pick<PlayerBarProps, "durationMs" | "item">) => (p.durationMs > 0 ? p.durationMs : (p.item?.durationMs ?? 0));
 
 /** The 2 px progress line along the bar's top edge, on phone and tablet where there is no waveform. */
 function ProgressLine({ getPositionMs, durationMs, running, lit }: { getPositionMs: () => number; durationMs: number; running: boolean; lit: boolean }) {
@@ -98,16 +84,7 @@ function ProgressLine({ getPositionMs, durationMs, running, lit }: { getPosition
   );
 }
 
-function Readout({ label, value }: { label: string; value: string }) {
-  return (
-    <span className="flex w-14 flex-col">
-      <span className="text-label text-label-caps text-text-muted">{label}</span>
-      <span className="font-mono text-numeric tabular text-text">{value}</span>
-    </span>
-  );
-}
-
-function Volume({ volume, onVolumeChange, unmuteVolume, className }: Pick<PlayerBarProps, "volume" | "onVolumeChange" | "unmuteVolume"> & { className?: string }) {
+export function Volume({ volume, onVolumeChange, unmuteVolume, className }: Pick<PlayerBarProps, "volume" | "onVolumeChange" | "unmuteVolume"> & { className?: string }) {
   // Mute remembers the level to come back to; a level the caller remembers wins.
   const [own, setRestore] = useState(volume > 0 ? volume : 0.8);
   const restore = unmuteVolume ?? own;
@@ -141,7 +118,6 @@ export function PlayerBar(props: PlayerBarProps) {
   const durationMs = durationOf(props);
   const running = status === "playing";
   const idle = !item || status === "idle";
-  const getProgress = useCallback(() => playerFraction(getPositionMs(), durationMs), [getPositionMs, durationMs]);
   const title = item?.title ?? "";
 
   return (
@@ -173,61 +149,9 @@ export function PlayerBar(props: PlayerBarProps) {
         <p className="min-w-0 flex-1 truncate text-small text-text-muted">Nothing playing</p>
       ) : (
         <>
-          {/* Phone: the whole text area opens the sheet. */}
-          {onOpenSheet && (
-            <button
-              type="button"
-              aria-label="Open player"
-              onClick={onOpenSheet}
-              className="flex h-10 min-w-0 flex-1 flex-col items-start justify-center rounded-control text-left tablet:hidden"
-            >
-              <span className="w-full truncate text-body-strong text-text">{title}</span>
-              <span className="w-full truncate text-small text-text-muted">@{item.owner.handle}</span>
-            </button>
-          )}
-          {/*
-            The title never shrinks below 128 px; at 1024 with everything shown it keeps about 160.
-            Tablet: title and handle share one line so each is a 40 px tap target inside the 64 px bar.
-          */}
-          <div
-            className={cx(
-              "min-w-32 flex-1 items-center gap-2 desktop:flex-col desktop:items-start desktop:gap-0",
-              onOpenSheet ? "hidden tablet:flex" : "flex",
-            )}
-          >
-            <UiLink
-              href={item.href}
-              className="flex h-10 min-w-0 items-center rounded-control text-body-strong text-text ui-hover:underline desktop:block desktop:h-auto desktop:max-w-full"
-            >
-              <span className="block min-w-0 truncate">{title}</span>
-            </UiLink>
-            <UiLink
-              href={`/u/${item.owner.handle}`}
-              className="flex h-10 max-w-40 shrink-0 items-center rounded-control text-small text-text-muted ui-hover:text-text desktop:block desktop:h-auto desktop:max-w-full"
-            >
-              <span className="block min-w-0 truncate">@{item.owner.handle}</span>
-            </UiLink>
-          </div>
-
-          {/* Desktop only: a tablet bar keeps the transport, the title and volume. */}
-          <div className="hidden shrink-0 items-center gap-3 desktop:flex">
-            <Elapsed getPositionMs={getPositionMs} durationMs={durationMs} running={running} />
-            <Waveform
-              peaks={item.peaks}
-              type={item.type}
-              getProgress={getProgress}
-              playing={running}
-              durationMs={durationMs}
-              onScrub={onSeek && durationMs > 0 ? (f) => onSeek(f * durationMs) : undefined}
-              label={describeRow(item)}
-            />
-            <span className="font-mono text-numeric tabular text-text-muted">{formatTime(durationMs)}</span>
-          </div>
-
-          <div className="hidden shrink-0 items-center gap-4 desktop:flex">
-            <Readout label="BPM" value={item.bpm ? String(Math.round(item.bpm)) : "—"} />
-            <Readout label="KEY" value={item.key ? formatKey(item.key) : "—"} />
-          </div>
+          <Suspense fallback={<div className="min-w-0 flex-1" />}>
+            <PlayerDetails item={item} status={status} durationMs={durationMs} getPositionMs={getPositionMs} onSeek={onSeek} onOpenSheet={onOpenSheet} />
+          </Suspense>
         </>
       )}
 
@@ -242,98 +166,11 @@ export type PlayerSheetProps = Omit<PlayerBarProps, "onOpenSheet" | "className" 
   onOpenChange: (open: boolean) => void;
 };
 
-/**
- * Phone: the full-screen sheet the mini player opens. It slides up from the bottom and holds the
- * hero waveform with seek, the transport and volume. Escape or the close button lowers it and focus
- * goes back to the mini player.
- */
+/** Phone: the full-screen sheet, loaded the first time something plays (player-details.tsx). */
 export function PlayerSheet(props: PlayerSheetProps) {
-  const { open, onOpenChange, ...controls } = props;
-  const returnTo = useRef<HTMLElement | null>(null);
   return (
-    <D.Root open={open} onOpenChange={onOpenChange}>
-      <D.Portal>
-        <D.Content
-          aria-describedby={undefined}
-          // No Radix trigger here (the mini player opens it), so remember what had focus and go back to it.
-          onOpenAutoFocus={() => {
-            returnTo.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-          }}
-          onCloseAutoFocus={(e) => {
-            e.preventDefault();
-            returnTo.current?.focus();
-          }}
-          className="fixed inset-0 z-40 animate-sheet overflow-y-auto bg-bg outline-none"
-        >
-          <SheetBody
-            {...controls}
-            title={<D.Title className="line-clamp-2 text-title text-text">{controls.item.title}</D.Title>}
-            close={
-              <D.Close asChild>
-                <IconButton icon={ChevronDown} label="Close player" size="md" />
-              </D.Close>
-            }
-          />
-        </D.Content>
-      </D.Portal>
-    </D.Root>
-  );
-}
-
-/** The gallery's frozen picture of the phone sheet, drawn in place instead of over the page. */
-export function PlayerSheetPreview(props: Omit<PlayerSheetProps, "open" | "onOpenChange">) {
-  return (
-    <div inert className="w-full max-w-95 rounded-panel border border-border bg-bg">
-      <SheetBody
-        {...props}
-        title={<p className="line-clamp-2 text-title text-text">{props.item.title}</p>}
-        close={<IconButton icon={ChevronDown} label="Close player" size="md" />}
-      />
-    </div>
-  );
-}
-
-function SheetBody(props: Omit<PlayerSheetProps, "open" | "onOpenChange"> & { title: ReactNode; close: ReactNode }) {
-  const { item, status, getPositionMs, onPlayPause, onSeek, onPrevious, onNext, volume, onVolumeChange, unmuteVolume, title, close } = props;
-  const durationMs = durationOf(props);
-  const running = status === "playing";
-  const getProgress = useCallback(() => playerFraction(getPositionMs(), durationMs), [getPositionMs, durationMs]);
-  return (
-    <div className="flex flex-col gap-6 px-3 pt-2 pb-8">
-      <div className="flex items-center justify-between">
-        <span className="text-label text-label-caps text-text-muted">Now playing</span>
-        {close}
-      </div>
-      <div className="flex min-w-0 flex-col gap-1">
-        {title}
-        <UiLink href={`/u/${item.owner.handle}`} className="inline-flex h-10 items-center self-start rounded-control text-small text-text-muted">
-          @{item.owner.handle}
-        </UiLink>
-      </div>
-      <Waveform
-        variant="hero"
-        peaks={item.peaks}
-        type={item.type}
-        getProgress={getProgress}
-        playing={running}
-        durationMs={durationMs}
-        onScrub={onSeek && durationMs > 0 ? (f) => onSeek(f * durationMs) : undefined}
-        label={describeRow(item)}
-      />
-      <div className="flex justify-between">
-        <Elapsed getPositionMs={getPositionMs} durationMs={durationMs} running={running} />
-        <span className="font-mono text-numeric tabular text-text-muted">{formatTime(durationMs)}</span>
-      </div>
-      <div className="flex items-center justify-center gap-6">
-        <IconButton icon={SkipBack} label="Previous" size="md" disabled={!onPrevious} onClick={onPrevious} />
-        <PlayButton title={item.title} state={playState(status)} size="hero" onClick={onPlayPause} />
-        <IconButton icon={SkipForward} label="Next" size="md" disabled={!onNext} onClick={onNext} />
-      </div>
-      <div className="flex justify-between gap-4">
-        <Readout label="BPM" value={item.bpm ? String(Math.round(item.bpm)) : "—"} />
-        <Readout label="KEY" value={item.key ? formatKey(item.key) : "—"} />
-        <Volume volume={volume} onVolumeChange={onVolumeChange} unmuteVolume={unmuteVolume} className="flex flex-1 justify-end" />
-      </div>
-    </div>
+    <Suspense fallback={null}>
+      <LazySheet {...props} />
+    </Suspense>
   );
 }
