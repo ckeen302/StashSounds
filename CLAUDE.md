@@ -42,7 +42,8 @@ pnpm db:test              database policy tests (needs Postgres 16+; see supabas
 pnpm worker:test          worker tests
 pnpm e2e                  end-to-end tests (STASH_E2E_PORT picks the server port; use a free one per worktree)
 pnpm visual               screenshot comparison in the pinned Playwright container (needs Docker)
-pnpm visual:update        rewrite screenshot baselines in the same container; commit them with the change
+pnpm visual:update        rewrite the baselines that fail or are missing, in the same container; commit them
+                          (no Docker? push to visual-update/<name>; CI commits the new PNGs back to that branch)
 pnpm perf                 performance budgets
 pnpm run licenses         dependency license check (plain `pnpm licenses` is a pnpm built-in)
 ```
