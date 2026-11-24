@@ -167,3 +167,9 @@ ignoring the name:
 - The preview byte cap from 112 is now read from `limits.preview.loopMaxBytes` (decision 0017).
   `test_the_preview_cap_comes_from_limits_and_fits_the_longest_loop` keeps the derivation as a check that
   the limit is at least the derived size.
+
+## After merging 112's third-review advisories (3974bad)
+112 gained the new mount API and io_uring deny entries, probes that differ with the filter off, and a
+BPF decode test. They merged without conflict. As root, with isolation and the database required:
+`308 passed, 2 skipped in 53.02s`. As uid 65534: `292 passed, 18 skipped in 36.11s`. Ruff: `All checks
+passed!` and `32 files already formatted`.
