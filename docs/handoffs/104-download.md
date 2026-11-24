@@ -17,7 +17,7 @@ Branch: lane/platform-104 (from lane/platform-103, with origin/phase-0/foundatio
    - For an item, the `original` row in the originals bucket of that item.
    - For a kit sample, the `original_path` of that sample, filtered by item.
    - This is the only service-role read in the lane, and it is scoped to ids the database has just approved.
-3. **The signed GET.** A new storage method `presignGet(key, { fileName, contentType, ttlSeconds })`:
+3. **The signed GET.** A new storage method `presignGet(key, { contentDisposition, contentType }): Promise<{ url, expiresAt }>` (the lifetime is the storage's own, not an argument; corrected in the PR #11 review round):
    - Always sets ResponseContentDisposition `attachment` (an ASCII `filename=` plus an RFC 5987 `filename*=`).
    - Always sets ResponseContentType from the row (PR #6 security note): the item_files row's `mime`, or for a kit sample `public.mime_for_ext` of its stored extension, called with the service role so the database's table is not retyped.
    - Expires after `limits.urls.downloadTtlSeconds`, read when the URL is signed.
@@ -60,7 +60,7 @@ Tests first:
 ## What changed
 
 **Storage**
-- `storage/originals.ts` has a new method, `presignGet(key, { contentDisposition, contentType })`.
+- `storage/originals.ts` has a new method, `presignGet(key, { contentDisposition, contentType })`, returning `{ url, expiresAt }` (since the PR #11 review round).
   - It signs a GetObject with ResponseContentDisposition and ResponseContentType.
   - It refuses to sign unless the disposition starts with `attachment` and a content type is given.
   - Expiry is `limits.urls.downloadTtlSeconds`, read when the URL is signed. `s3Originals({ downloadTtlSeconds })` can override it, which the tests use.
@@ -78,7 +78,7 @@ Tests first:
    - for a kit sample, `public.mime_for_ext` of the stored extension, called with the service role. This reuses the database's table rather than copying it into TypeScript.
 4. The output is `{ downloadId, url, expiresAt, fileName, license, licenseVersion }`.
    - downloadId, license and licenseVersion come from the downloads row.
-   - expiresAt is now plus downloadTtlSeconds.
+   - expiresAt is the one presignGet returns: its signing date plus the lifetime it signed (since the PR #11 review round).
 
 **File names** (`downloads/file-name.ts`)
 - `downloadFileName(title, originalPath, sampleName?)` works like this:
@@ -139,9 +139,39 @@ The library screen (ticket 333).
 
 ## Surprises and decisions
 - **Record before URL.** The record is written before the URL is signed, as the ticket says. If the path read or the signing then fails (an outage, or a published item missing its original), a record exists without a URL. The record is the license grant, so I kept it.
-- **Owner downloads count.** record_download lets the owner download their own unpublished item, and the downloads trigger counts it in `downloads_count`. So an owner's own downloads are counted too. That is the lead's function, so I am noting it only and filed no request.
+- **Owner downloads are not counted** (phase-0/foundations d280464, "An owner's own download is not counted"). record_download still lets the owner download their own item and writes a record, but the downloads trigger no longer adds it to `downloads_count`. Before that commit I had noted that owner downloads were counted. supabase/tests/downloads.test.ts now pins the new behavior.
 - **Kit sample types.** kit_samples has no `mime` column, so a sample's type comes from `mime_for_ext` of its stored extension, which is the same table the uploads use.
 - **Signed out.** The wrapper answers `unauthorized` before the database is reached. record_download would refuse anon anyway, because execute is not granted to anon.
 
 ## Requests filed
 None.
+
+## Review round (PR #11)
+
+Merged lane/platform-103 at d36ffc9, which carries phase-0/foundations 76b8476 and the 102 fenced claims.
+
+- **B1 (blocking).** The 100-character cap on the file name now counts code points (`Array.from(...).slice(0, 100)`), so it can never split a surrogate pair and leave encodeURIComponent to throw a URIError (a 500 after the record was written). Tests put an astral character (U+1F525) on the boundary for a title and for a kit sample name, and contentDisposition of each does not throw.
+- **A1.** `[\p{Cc}\p{Cf}  ]` (u flag) becomes a space. That covers C0 and C1 controls, bidi and other format characters (U+202E, U+2066, U+200B, U+FEFF) and the line and paragraph separators. Tests use U+202E, `\u0000`, U+0085, U+200B, U+2028, U+2029 and U+FEFF, plus a name made only of format characters, which becomes `download`.
+- **A2.** "Surprises and decisions" now says owner downloads are no longer counted (foundations d280464). A DB test pins it.
+- **A3.** `presignGet` returns `{ url, expiresAt }`. It reads the clock once (`signingDate`, passed to getSignedUrl) and uses one lifetime (`downloadTtlSeconds ?? limits.urls.downloadTtlSeconds`) for both the signature and expiresAt, and expiresAt is computed before signing. requestDownload returns that expiresAt. A test checks that expiresAt equals X-Amz-Date plus X-Amz-Expires.
+- **A4.** The `ActionContext.service` comment now lists every service-role use: the claim functions and enqueue_processing, mime_for_ext, and the path read after record_download. The plan's presignGet signature is corrected.
+- **Tests.**
+  - The fixture record has license_version "2.3", distinct from the default.
+  - New: the path read finds no row after the record, giving `not_found` "Not found." (PGRST116), and nothing is signed. The same holds for a kit sample.
+  - New: an unexpected database error on the path read (57014) is thrown rather than answered, and nothing is signed.
+  - New DB test: two downloads by one user give two records and a count of 2, and the owner's own download is recorded but not counted.
+
+### Proof
+
+```
+$ pnpm check && pnpm test && pnpm db:test
+packages/ui typecheck: Done
+packages/contracts typecheck: Done
+packages/audio typecheck: Done
+apps/web typecheck: Done
+ Test Files  15 passed | 1 skipped (16)
+      Tests  323 passed | 9 skipped (332)
+ Test Files  5 passed (5)
+      Tests  147 passed (147)
+```
+The 9 skipped tests are the SeaweedFS suite, which needs storage that is not available here.
