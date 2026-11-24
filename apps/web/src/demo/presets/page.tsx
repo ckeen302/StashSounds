@@ -1,4 +1,4 @@
-import { Button, FilterChip, Info, SearchInput } from "@stash/ui";
+import { Button, Check, ChevronDown, FilterChip, Info, Menu, SearchInput, type MenuEntry } from "@stash/ui";
 import { useMemo, useState } from "react";
 import { CONFIDENCE, PRESETS, SOURCES_READ, type Confidence, type PresetEntry } from "./data";
 
@@ -98,44 +98,35 @@ export function PresetsPage() {
         <h1 className="text-title">The presets behind the songs</h1>
       </header>
 
-      <section aria-label="Filters" className="flex flex-col gap-4 rounded-panel border border-border bg-surface p-4">
-        <div className="flex flex-col gap-3 tablet:flex-row tablet:items-center tablet:justify-between">
-          <SearchInput label="Search songs, artists, producers, presets" shortcut="" value={q} onChange={(e) => reset(() => setQ(e.target.value))} onClear={() => reset(() => setQ(""))} className="tablet:w-96" />
+      <section aria-label="Filters" className="flex flex-col gap-3 tablet:flex-row tablet:flex-wrap tablet:items-center">
+        <SearchInput label="Search songs, artists, producers, presets" hideLabel shortcut="" value={q} onChange={(e) => reset(() => setQ(e.target.value))} onClear={() => reset(() => setQ(""))} className="tablet:w-80" />
+        <div className="flex flex-wrap items-center gap-2">
+          <Dropdown
+            name="How sure"
+            value={conf === "all" ? "Any" : CONFIDENCE[conf].label}
+            options={[["all", `Any ${PRESETS.length}`], ...(Object.keys(CONFIDENCE) as Confidence[]).map((c): [string, string] => [c, `${CONFIDENCE[c].label} ${counts(c)}`])]}
+            selected={conf}
+            onPick={(v) => reset(() => setConf(v as Confidence | "all"))}
+          />
+          <Dropdown
+            name="VST"
+            value={family === "All" ? "Any" : family}
+            options={[["All", `Any ${PRESETS.length}`], ...families.map(([f, n]): [string, string] => [f, `${f} ${n}`])]}
+            selected={family}
+            onPick={(v) => reset(() => setFamily(v))}
+          />
+          <Dropdown
+            name="Sound"
+            value={sound === "All" ? "Any" : sound}
+            options={[["All", "Any"], ...SOUNDS.map(([n]): [string, string] => [n, `${n} ${indexed.filter((x) => x.sounds.includes(n)).length}`])]}
+            selected={sound}
+            onPick={(v) => reset(() => setSound(v))}
+          />
           <FilterChip selected={named} onToggle={() => reset(() => setNamed(!named))}>
             Exact preset named
           </FilterChip>
+          <span aria-live="polite" className="font-mono text-numeric tabular text-text-muted">{`${rows.length} ${rows.length === 1 ? "sound" : "sounds"}`}</span>
         </div>
-        <div className="flex flex-col gap-2">
-          <span className="text-label text-label-caps text-text-muted">How sure</span>
-          <div role="group" aria-label="How sure" className="flex flex-wrap gap-2">
-            {(["all", ...Object.keys(CONFIDENCE)] as (Confidence | "all")[]).map((c) => (
-              <FilterChip key={c} selected={conf === c} onToggle={() => reset(() => setConf(c))}>
-                {c === "all" ? `All ${PRESETS.length}` : `${CONFIDENCE[c].label} ${counts(c)}`}
-              </FilterChip>
-            ))}
-          </div>
-        </div>
-        <div className="flex flex-col gap-2">
-          <span className="text-label text-label-caps text-text-muted">VST</span>
-          <div role="group" aria-label="VST" className="flex flex-wrap gap-2">
-            {[["All", PRESETS.length] as [string, number], ...families].map(([f, n]) => (
-              <FilterChip key={f} selected={family === f} onToggle={() => reset(() => setFamily(f))}>
-                {`${f} ${n}`}
-              </FilterChip>
-            ))}
-          </div>
-        </div>
-        <div className="flex flex-col gap-2">
-          <span className="text-label text-label-caps text-text-muted">Sound in the song</span>
-          <div role="group" aria-label="Sound in the song" className="flex flex-wrap gap-2">
-            {["All", ...SOUNDS.map(([n]) => n)].map((s) => (
-              <FilterChip key={s} selected={sound === s} onToggle={() => reset(() => setSound(s))}>
-                {s === "All" ? s : `${s} ${indexed.filter((x) => x.sounds.includes(s)).length}`}
-              </FilterChip>
-            ))}
-          </div>
-        </div>
-        <span aria-live="polite" className="font-mono text-numeric tabular text-text-muted">{`${rows.length} ${rows.length === 1 ? "sound" : "sounds"}`}</span>
       </section>
 
       <ul aria-label="Songs and presets" className="grid grid-cols-1 gap-3 desktop:grid-cols-2">
@@ -169,6 +160,22 @@ export function PresetsPage() {
         </ul>
       </section>
     </main>
+  );
+}
+
+/** A filter as one compact button that opens its options. */
+function Dropdown({ name, value, options, selected, onPick }: { name: string; value: string; options: [string, string][]; selected: string; onPick: (v: string) => void }) {
+  const entries: MenuEntry[] = options.map(([v, label]) => ({ label, icon: v === selected ? Check : undefined, onSelect: () => onPick(v) }));
+  return (
+    <Menu
+      align="start"
+      entries={entries}
+      trigger={
+        <Button size="sm" variant={value === "Any" ? "secondary" : "primary"} icon={ChevronDown} aria-label={`${name}: ${value}`}>
+          {`${name}: ${value}`}
+        </Button>
+      }
+    />
   );
 }
 
