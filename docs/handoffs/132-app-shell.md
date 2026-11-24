@@ -403,3 +403,22 @@ $ STASH_E2E_PORT=3132 pnpm perf
   ✓ [perf] › e2e/perf/budgets.spec.ts › / stays inside the page budgets
   2 passed (11.6s)
 ```
+
+### Update: `@stash/contracts/format` (foundations 5a05d1e)
+I merged foundations. `Waveform`, `ResultRow`, the player details and `LicenseBadge` now import
+`formatKey`, `decodePeaks` and `LICENSE_LABELS` from the zod-free `@stash/contracts/format`, so
+zod is no longer on any player or row path. I kept the lazy split because it still saves about
+19 KB. Measured on `/`:
+
+| Build | Script before audio (gz bytes) |
+|---|---|
+| Before (0173d54) | 243,671 |
+| Format entry, details loaded statically (trial) | 202,135 |
+| Format entry plus lazy details and sheet (this commit) | 183,047 |
+
+```
+$ pnpm check                       exit 0
+$ pnpm test                        Tests  289 passed (289)
+$ STASH_E2E_PORT=3132 pnpm e2e     51 passed (33.2s)
+$ STASH_E2E_PORT=3132 pnpm perf    2 passed (9.3s)   (/ stays inside the page budgets)
+```
