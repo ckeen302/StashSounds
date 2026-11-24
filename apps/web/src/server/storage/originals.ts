@@ -168,7 +168,8 @@ export function s3Originals(opts: {
       // One clock reading and one lifetime: the URL is signed at signingDate for ttl seconds, and
       // expiresAt is computed from the same two values before signing.
       const ttl = opts.downloadTtlSeconds ?? limits.urls.downloadTtlSeconds;
-      const signingDate = new Date();
+      // Whole seconds: X-Amz-Date has no milliseconds, so expiresAt matches the signature exactly.
+      const signingDate = new Date(Math.floor(Date.now() / 1000) * 1000);
       const expiresAt = new Date(signingDate.getTime() + ttl * 1000).toISOString();
       const url = await getSignedUrl(
         client,

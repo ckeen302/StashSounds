@@ -175,3 +175,23 @@ apps/web typecheck: Done
       Tests  147 passed (147)
 ```
 The 9 skipped tests are the SeaweedFS suite, which needs storage that is not available here.
+
+### Follow-up (re-review advisories, foundations 0da7500)
+
+Merged foundations 0da7500 through 101, 102 and 103.
+
+- **Lone surrogates.** `\p{Cs}` is added to the stripped class, so a lone surrogate becomes a space and the name is always well formed. New test: `a\uD83Db\uDC00c` becomes `a b c`, a name made only of lone surrogates becomes `download`, and contentDisposition does not throw.
+- **ASCII fallback cap.** NFKD can turn one character into many (U+FDFA decomposes into 18), so the `filename=` fallback is capped again after NFKD at 100 characters plus the extension. New test: 100 × U+FDFA gives a fallback of at most 104 characters ending in `.wav`. A short name is untouched (`㎡ Kit.zip` becomes `m2 Kit.zip`).
+- **Whole-second signing date.** presignGet rounds `signingDate` down to whole seconds before computing expiresAt, so expiresAt is exactly X-Amz-Date plus X-Amz-Expires. New test: at 10:00:00.750, X-Amz-Date is `20261124T100000Z` and expiresAt is `10:05:00.000Z`.
+
+```
+$ pnpm check && pnpm test && pnpm db:test
+packages/ui typecheck: Done
+packages/contracts typecheck: Done
+packages/audio typecheck: Done
+apps/web typecheck: Done
+ Test Files  15 passed | 1 skipped (16)
+      Tests  326 passed | 9 skipped (335)
+ Test Files  5 passed (5)
+      Tests  148 passed (148)
+```

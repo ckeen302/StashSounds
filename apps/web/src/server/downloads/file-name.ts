@@ -10,8 +10,9 @@ function clean(text: string): string {
   return text
     .normalize("NFC")
     // C0 and C1 controls (CR, LF, NUL), format characters (bidi overrides such as U+202E, zero
-    // widths, BOM) and the line and paragraph separators.
-    .replace(/[\p{Cc}\p{Cf}\u2028\u2029]/gu, " ")
+    // widths, BOM), lone surrogates (encodeURIComponent throws on one) and the line and
+    // paragraph separators.
+    .replace(/[\p{Cc}\p{Cf}\p{Cs}\u2028\u2029]/gu, " ")
     .replace(/[/\\";:*?<>|]/g, " ") // path separators and characters file systems or headers reject
     .replace(/\s+/g, " ")
     .replace(/^[.\s]+|[.\s]+$/g, ""); // no leading dots (hidden or relative names), no trailing dots
@@ -34,12 +35,22 @@ export function downloadFileName(title: string, originalPath: string, sampleName
   return ext ? `${base}.${ext}` : base;
 }
 
+function capAscii(name: string): string {
+  const ext = /\.[A-Za-z0-9]{1,10}$/.exec(name)?.[0] ?? "";
+  const stem = name.slice(0, name.length - ext.length);
+  return stem.length <= MAX_BASE ? name : stem.slice(0, MAX_BASE).replace(/[.\s]+$/, "") + ext;
+}
+
 /** RFC 6266 attachment with an ASCII fallback and the UTF-8 name (RFC 5987). */
 export function contentDisposition(fileName: string): string {
-  const ascii = fileName
-    .normalize("NFKD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^\x20-\x7e]|["\\']/g, "_");
+  // NFKD can turn one character into many (U+FDFA into 18), so the fallback is capped again,
+  // keeping the extension. It is ASCII by then, so its length counts characters.
+  const ascii = capAscii(
+    fileName
+      .normalize("NFKD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^\x20-\x7e]|["\\']/g, "_"),
+  );
   const encoded = encodeURIComponent(fileName).replace(/['()*]/g, (c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`);
   return `attachment; filename="${ascii}"; filename*=UTF-8''${encoded}`;
 }

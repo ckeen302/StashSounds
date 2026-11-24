@@ -202,6 +202,24 @@ describe("file names", () => {
     expect(() => contentDisposition(sample)).not.toThrow();
   });
 
+  it("a lone surrogate becomes a space, so the name is always well formed", () => {
+    const name = downloadFileName("a\uD83Db\uDC00c", "x/original.wav");
+    expect(name).toBe("a b c.wav");
+    expect(() => contentDisposition(downloadFileName("\uD83D".repeat(5), "x/original.wav"))).not.toThrow();
+    expect(downloadFileName("\uDC00", "x/original.wav")).toBe("download.wav");
+  });
+
+  it("the ASCII fallback is capped after NFKD, which can expand one character into many", () => {
+    // U+FDFA decomposes into 18 characters; 100 of them would be 1800 before the cap.
+    const name = downloadFileName("\uFDFA".repeat(100), "x/original.wav");
+    expect(Array.from(name)).toHaveLength(104);
+    const fallback = /filename="([^"]*)"/.exec(contentDisposition(name))![1]!;
+    expect(fallback.length).toBeLessThanOrEqual(100 + 4);
+    expect(fallback.endsWith(".wav")).toBe(true);
+    // Short names are untouched.
+    expect(/filename="([^"]*)"/.exec(contentDisposition("\u33A1 Kit.zip"))![1]).toBe("m2 Kit.zip");
+  });
+
   it("control, format and bidi characters and line separators become spaces", () => {
     expect(downloadFileName("evil\u202Evaw.exe", "x/original.wav")).toBe("evil vaw.exe.wav");
     expect(downloadFileName("nul\u0000byte", "x/original.wav")).toBe("nul byte.wav");

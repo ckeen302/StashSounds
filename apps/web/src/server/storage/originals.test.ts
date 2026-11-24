@@ -154,8 +154,8 @@ describe("presignGet (downloads)", () => {
     // The expiry is the signing date plus the one lifetime that was signed.
     const signedAt = /^(\d{4})(\d\d)(\d\d)T(\d\d)(\d\d)(\d\d)Z$/.exec(u.searchParams.get("X-Amz-Date")!)!;
     const signedMs = Date.UTC(+signedAt[1]!, +signedAt[2]! - 1, +signedAt[3]!, +signedAt[4]!, +signedAt[5]!, +signedAt[6]!);
-    expect(Math.floor(Date.parse(expiresAt) / 1000) * 1000).toBe(signedMs + limits.urls.downloadTtlSeconds * 1000);
-    expect(Date.parse(expiresAt)).toBeGreaterThanOrEqual(before + limits.urls.downloadTtlSeconds * 1000);
+    expect(Date.parse(expiresAt)).toBe(signedMs + limits.urls.downloadTtlSeconds * 1000);
+    expect(Date.parse(expiresAt)).toBeGreaterThan(before + limits.urls.downloadTtlSeconds * 1000 - 1000);
     expect(decodeURIComponent(u.pathname)).toBe(`/originals/${KEY}`);
     expect(u.searchParams.get("X-Amz-Expires")).toBe(String(limits.urls.downloadTtlSeconds));
     expect(u.searchParams.get("response-content-disposition")).toBe(DISPOSITION);
@@ -185,8 +185,23 @@ describe("presignGet (downloads)", () => {
     const before = Date.now();
     const { url, expiresAt } = await short.presignGet(KEY, { contentDisposition: DISPOSITION, contentType: "audio/wav" });
     expect(new URL(url).searchParams.get("X-Amz-Expires")).toBe("30");
-    expect(Date.parse(expiresAt) - before).toBeGreaterThanOrEqual(30_000);
+    expect(Date.parse(expiresAt) - before).toBeGreaterThan(29_000);
     expect(Date.parse(expiresAt) - Date.now()).toBeLessThanOrEqual(30_000);
+  });
+});
+
+describe("presignGet expiry", () => {
+  it("the signing date is rounded down to whole seconds, so expiresAt is exactly X-Amz-Date plus X-Amz-Expires", async () => {
+    const now = Date.UTC(2026, 10, 24, 10, 0, 0, 750);
+    vi.useFakeTimers({ now, toFake: ["Date"] });
+    try {
+      const { url, expiresAt } = await storage.presignGet(KEY, { contentDisposition: "attachment", contentType: "audio/wav" });
+      expect(new URL(url).searchParams.get("X-Amz-Date")).toBe("20261124T100000Z");
+      expect(expiresAt).toBe(new Date(Date.UTC(2026, 10, 24, 10, 0, 0) + limits.urls.downloadTtlSeconds * 1000).toISOString());
+      expect(expiresAt.endsWith(".000Z")).toBe(true);
+    } finally {
+      vi.useRealTimers();
+    }
   });
 });
 
