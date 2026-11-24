@@ -12,6 +12,12 @@ const port = Number(process.env.STASH_E2E_PORT ?? 3100);
 const baseURL = process.env.STASH_BASE_URL ?? `http://localhost:${port}`;
 // Sign-in links are built from this origin (request 101-site-url-env); the built server inherits it.
 process.env.NEXT_PUBLIC_SITE_URL ??= baseURL;
+// Public settings the proxy needs on every page (request 135-e2e-supabase-env). CI sets real ones
+// from `supabase status`; locally, with no stack on 54321, getUser() fails fast and visitors are
+// signed out. Previews point at the host the e2e fixtures route (page.route on media.stash.local).
+process.env.NEXT_PUBLIC_SUPABASE_URL ??= "http://127.0.0.1:54321";
+process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ??= "e2e-placeholder";
+process.env.NEXT_PUBLIC_PREVIEWS_BASE_URL ??= "https://media.stash.local";
 const widths = { desktop: 1440, laptop: 1024, tablet: 800, phone: 380 } as const;
 
 export default defineConfig({
