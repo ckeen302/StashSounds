@@ -1,8 +1,9 @@
 # Handoff 133 Sign-in screens and handle claim
 
 ## Plan (proceeding on the lead's go-ahead: stays within the ticket and the Interface paths)
-Branch `lane/interface-133` from `lane/interface-132` (the shell), with `origin/lane/platform-101`
-(the sign-in actions) and `origin/phase-0/foundations` merged in. No contract or schema change:
+Branch `lane/interface-133` from `lane/interface-132` (the shell, after the PR #12 review round),
+with `origin/lane/platform-104` merged in. It carries 101's sign-in, profile and handle-claim
+actions, and foundations through 75f06c8. No contract or schema change:
 Platform's actions (`signInWithEmail`, `signInWithProvider`, `claimHandle`, `signOut`), `getSession`
 and `safeNextPath` cover everything.
 
@@ -54,3 +55,72 @@ and `safeNextPath` cover everything.
    needs both on every request, so `pnpm e2e` and `pnpm visual` cannot pass in CI as they stand.
    The sign-up journey also needs Mailpit. I am filing `docs/requests/133-e2e-supabase.md` for the
    lead.
+
+## What changed
+- **`apps/web/src/app/_auth/`**
+  - `form.ts`: `normalizeHandle`, `formErrors` (turns a Result's errors into field and form messages), `signInFailedMessage`.
+  - `intent.ts`: `do=<kind>:<target>`, strict pattern.
+  - `viewer.ts`: a Session reduced to what the shell draws; never the email or account.
+  - `viewer-context.tsx`.
+  - `sign-in-panel.tsx`: email link, Google, Discord, and the "Check your inbox" state.
+  - `claim-handle-form.tsx`.
+  - `sign-in-dialog.tsx`: `SignInDialogProvider` and `useSignedInAction`.
+- **`/login`:** dynamic. It shows the sign-in panel, then the handle claim for a signed-in user with no profile, then redirects a member to `safeNextPath(next)`. `?error=` shows the failure line.
+- **Root layout:** reads `getSession()` once and passes `viewerFrom(...)` through `Providers`. An auth outage draws the signed-out frame instead of failing every page; screens that need a user still check with `requireUser`.
+- **Shell:**
+  - A member gets an avatar menu ("Your profile", "Sign out") in place of "Sign in", and the Profile item points at `/u/<handle>` (`navFor`).
+  - A `needs_handle` viewer is sent to `/login?next=<here>` from every other page.
+  - `/u/[handle]` is a placeholder.
+- **`/dev/player`:** like, download and a "Follow @nova" button go through `useSignedInAction`. They mark local state and raise a toast, because the real like, follow and download actions come with their own tickets.
+- **packages/ui:**
+  - `PanelDialog`: a modal whose body holds its own buttons, and which returns focus to what opened it.
+  - `DialogSurface`'s footer is now optional.
+  - Icons added: `AtSign`, `LogOut`, `Mail`, `MailCheck`.
+
+## Proof
+```
+$ pnpm check
+apps/web typecheck: Done
+packages/contracts typecheck: Done
+packages/audio typecheck: Done
+packages/ui typecheck: Done
+(eslint . --max-warnings 0: clean, exit 0)
+
+$ pnpm test
+      Tests  525 passed | 9 skipped (534)        (the 9 skipped are Platform's storage tests without SeaweedFS)
+
+$ STASH_E2E_PORT=3132 pnpm e2e
+  ✓ signed out › /login offers an email link, Google and Discord, and passes the accessibility scan
+  ✓ signed out › a link that did not work says so and what to do
+  ✓ signed out › an empty or malformed email gets the action's message under the field
+  ✓ signed out › Continue with Google goes to Supabase's authorize URL and comes back to next
+  ✓ signed out › Continue with Discord goes to Supabase's authorize URL and comes back to next
+  ✓ signed out › a hostile next is replaced by home before it reaches the link
+  ✓ signed out › a signed-out like opens the sign-in dialog, which remembers it
+  ✓ signed out › a signed-out download opens the sign-in dialog, which remembers it
+  ✓ signed out › a signed-out follow opens the sign-in dialog, which remembers it
+  ✓ signed out › Escape closes the dialog and focus goes back to the action
+  ✓ signed out › a do parameter does nothing for a visitor
+  ✓ signed out › at 380 the sign-in screen fits and its controls are 40 px targets
+  - with the local Supabase stack › sign up by email link, claim a handle, land on home
+  - with the local Supabase stack › the claim shows reserved, malformed and taken handles under the field
+  - with the local Supabase stack › a signed-out like completes after sign-up and the claim
+  - with the local Supabase stack › follow and download complete after an existing member signs in
+  - with the local Supabase stack › sign out from the account menu
+  5 skipped
+  63 passed (48.6s)
+```
+
+## Not done
+- **The five stack-backed journeys did not run here.** That includes the ticket's "sign up by email link, claim handle, land on home". This container has no Docker daemon, and starting one was refused, so there is no Supabase or Mailpit. The tests are written against the local stack's real Mailpit API. With `CI` set they fail rather than skip when the stack is missing. docs/requests/133-e2e-supabase.md asks for the stack on the browser job.
+- **`pnpm visual`:** no Docker. The new `login.png` and `sign-in-dialog.png` have no baselines. A `visual-update/133-*` run is pointless until the public Supabase env is on that workflow (same request, item 1): without it the proxy throws on every page. The `shell-tablet-list` shot will also move, because the fixture rows' liked state now comes from `/dev/player`'s local state.
+
+## Surprises and decisions
+- **No `useSearchParams`.** The intent replay reads `window.location.search` in an effect. It only matters after a full page load (the auth callback), and this keeps pages free of Suspense boundaries.
+- **The replay runs once.** A ref guards against React's double effects, and `router.replace` strips `do` before the action runs, so a reload never repeats it. e2e covers that in the stack block.
+- **Profile current state.** For a member, the Profile item is current only on their own `/u/<handle>`, not on someone else's profile.
+- **Outage handling.** The layout treats an Auth outage as signed out for the frame only. The alternative was a 500 on every page.
+- **Signed-out `do` is ignored.** A visitor who opens a `?do=` link sees nothing happen, and no dialog opens by itself.
+
+## Requests filed
+- docs/requests/133-e2e-supabase.md

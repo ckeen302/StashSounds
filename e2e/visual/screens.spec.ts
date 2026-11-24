@@ -67,6 +67,26 @@ test.describe("tablet frame", () => {
   });
 });
 
+/** Ticket 133: the sign-in panel on /login and in the dialog a signed-out like opens. */
+test.describe("sign-in", () => {
+  test("/login matches its baseline", async ({ page }) => {
+    await page.goto("/login");
+    await page.evaluate(() => document.fonts.ready);
+    await expect(page.getByRole("main")).toHaveScreenshot("login.png", exact);
+  });
+
+  test("the sign-in dialog matches its baseline", async ({ page }) => {
+    await page.goto("/dev/player");
+    await page.evaluate(() => document.fonts.ready);
+    await page.getByRole("button", { name: "Like Dusty soul chops" }).click();
+    const dialog = page.getByRole("dialog", { name: "Sign in to like this" });
+    await expect(dialog).toBeVisible();
+    // Blur the field so the caret and the focus ring do not enter the image.
+    await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur());
+    await expect(dialog).toHaveScreenshot("sign-in-dialog.png", exact);
+  });
+});
+
 test.describe("gallery", () => {
   for (const id of [...tokenSections, ...componentSections.map((s) => s.id)]) {
     test(`${id} matches its baseline`, async ({ page }) => {

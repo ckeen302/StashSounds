@@ -1,7 +1,7 @@
 "use client";
 
 import { Dialog as D } from "radix-ui";
-import type { FormEvent, ReactElement, ReactNode } from "react";
+import { useRef, type FormEvent, type ReactElement, type ReactNode } from "react";
 import { Button } from "./button.tsx";
 import { cx } from "./cx.ts";
 import { CircleExclamationPoint, Icon, X } from "./icon.tsx";
@@ -168,11 +168,23 @@ export function PanelDialog({
   description?: string;
   children: ReactNode;
 }) {
+  const returnTo = useRef<HTMLElement | null>(null);
   return (
     <D.Root open={open} onOpenChange={onOpenChange}>
       <D.Portal>
         <D.Overlay className="fixed inset-0 z-40 grid animate-scrim place-items-center overflow-y-auto bg-bg/80 p-4">
-          <D.Content className="flex w-full animate-overlay justify-center" {...(description ? {} : { "aria-describedby": undefined })}>
+          <D.Content
+            className="flex w-full animate-overlay justify-center"
+            {...(description ? {} : { "aria-describedby": undefined })}
+            // Opened by code, not a Radix trigger: remember what had focus and go back to it on close.
+            onOpenAutoFocus={() => {
+              returnTo.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+            }}
+            onCloseAutoFocus={(e) => {
+              e.preventDefault();
+              returnTo.current?.focus();
+            }}
+          >
             <DialogSurface
               title={<D.Title className={titleClass}>{title}</D.Title>}
               description={description ? <D.Description className={descriptionClass}>{description}</D.Description> : undefined}

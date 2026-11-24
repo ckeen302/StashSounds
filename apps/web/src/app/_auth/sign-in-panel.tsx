@@ -59,7 +59,7 @@ export function SignInPanel({ next, initialError }: { next: string; initialError
     return (
       <div className="flex flex-col gap-4" data-sign-in-sent="">
         <div className="flex items-start gap-3">
-          <Icon icon={MailCheck} size={20} className="mt-0.5 text-text-muted" />
+          <Icon icon={MailCheck} size={20} className="text-text-muted" />
           <div className="flex flex-col gap-1">
             <p className="text-body-strong text-text" role="status">
               Check your inbox
