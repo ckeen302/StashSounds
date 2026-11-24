@@ -255,3 +255,64 @@ As uid 65534 (setpriv, `STASH_REQUIRE_DB=1`): `172 passed, 17 skipped in 31.09s`
 tests and the empty `fixtures/own` case are skipped.
 
 Ruff: `All checks passed!` and `26 files already formatted`.
+
+## Decision 0017 and the second security re-review
+**Requests answered (decision 0017), and both request files are removed:**
+- `112-child-network`: compose gives the worker SYS_ADMIN. `STASH_CHILD_NETWORK=shared` is never set in
+  compose or CI, and the startup message now says so.
+- `112-preview-max-bytes`: `limits.preview.loopMaxBytes` = 1,024,384. `loop_preview_max_bytes()` reads
+  it. `loop_preview_needed_bytes()` keeps the derivation, and a test checks the limit is at least that.
+
+**Merge fallout:** foundations' 76b8476 fences upload completion with a token. The test helper
+`queued_item` now claims the file with `claim_file_completion` and passes that token to
+`enqueue_processing`, as `completeUpload` does, instead of setting `uploaded_at` by hand.
+
+**N1, seccomp in the child (blocking):** new `seccomp.py`, a classic-BPF filter loaded through ctypes
+and prctl. libseccomp is LGPL and is not used.
+- `sandbox._child_setup` runs, in order: leave the network, drop to the job user, set
+  `PR_SET_NO_NEW_PRIVS`, load the filter, apply the limits.
+- The filter is built in the parent, so the forked child only makes the two prctl calls.
+- It checks the audit architecture first and kills the process on a mismatch. On x86_64 it also
+  refuses x32 syscall numbers.
+- It returns EPERM for the 17 calls in the decision, EPERM for `clone` with any CLONE_NEW* flag
+  (`0x7E020000`; CLONE_NEWTIME overlaps clone's exit-signal byte and only clone3 and unshare accept
+  it), and ENOSYS for `clone3`.
+- Syscall numbers for x86_64 and aarch64 were checked against this machine's `asm/unistd_64.h` and
+  `asm-generic/unistd.h`.
+- **Fail-closed:** with a job user, `run_isolated` refuses to run without a filter, and the worker
+  refuses to start unless a probe child reports `NoNewPrivs: 1` and `Seccomp: 2`.
+- In same-uid development mode the filter is also loaded on Linux, so a tool the filter breaks shows up
+  in development too.
+- **Tests:**
+  - A child probe, run as the worker's uid in `test_sandbox` and as the job user in `test_isolation`,
+    must give exactly: `unshare(CLONE_NEWUSER)` EPERM, `mount` EPERM, `clone(CLONE_NEWNS)` EPERM,
+    `clone3` ENOSYS, `bpf` EPERM, `ptrace` EPERM, `NoNewPrivs` 1, `Seccomp` 2, a thread starts, and
+    `ffmpeg -version` exits 0. A scratch run of the same probe with the filter off did not return that
+    result: the child was killed.
+  - A filter built for the other architecture kills its process with SIGSYS.
+  - There is no filter for an unknown architecture.
+  - The real FLAC decode runs as the job user under the filter, with an 8-task cap
+    (`test_the_loop_processor_runs_as_the_job_user_within_its_limits`).
+
+**A1, NoNewPrivs:** set by the child itself. It is checked at startup and in the probe above, so it no
+longer depends on compose's `no-new-privileges`.
+
+**A2, process-group kill and pid reuse:** the parent waits with `waitid(WEXITED | WNOWAIT)`, kills the
+group while the child is an unreaped zombie, then reaps it. The pid, and so the group id, cannot have
+been reused. A timeout does the same. Grandchildren that left the group are left to `clear_job_user`.
+
+**A3, accepted:** replicas on one host that share the `stash-job` uid share its RLIMIT_NPROC count.
+Each replica also kills every `stash-job` process before and after its jobs, which would kill the other
+replicas' children. Until each job has its own container, run one worker replica per host, or give each
+replica its own job uid.
+
+**A4:** done; see `112-preview-max-bytes` above.
+
+Checks after this round. As root, `STASH_REQUIRE_DB=1 STASH_REQUIRE_ISOLATION=1 pnpm worker:test`:
+```
+SKIPPED [1] tests/test_contracts.py:74: got empty parameter set for (path)
+SKIPPED [1] tests/test_sandbox.py:156: measured on the job uid as root
+192 passed, 2 skipped in 31.76s
+```
+As uid 65534: `176 passed, 18 skipped in 26.39s`. The skips are the 17 isolation tests and the empty
+`fixtures/own` case. Ruff: `All checks passed!` and `27 files already formatted`.
