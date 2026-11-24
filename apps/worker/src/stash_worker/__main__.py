@@ -16,7 +16,7 @@ from types import FrameType
 from stash_worker.config import load_settings
 from stash_worker.db import PgJobQueue
 from stash_worker.runner import Runner
-from stash_worker.sandbox import network_isolation_available
+from stash_worker.sandbox import network_isolation_available, syscall_filter_available
 from stash_worker.storage import S3Storage
 
 log = logging.getLogger("stash_worker")
@@ -38,6 +38,11 @@ def main() -> int:
 
     if settings.job_user is None:
         log.warning("jobs run as the worker's own uid (STASH_WORKER_ALLOW_SAME_UID=1): development only")
+    if settings.job_user is not None and not syscall_filter_available():
+        raise SystemExit(
+            "stash-worker: job children must run with no_new_privs and the worker's seccomp filter "
+            "(decision 0017), which could not be installed here (Linux on x86_64 or aarch64 only)."
+        )
     if settings.isolate_network and not network_isolation_available():
         raise SystemExit(
             "stash-worker: job children need their own network namespace, which needs CAP_SYS_ADMIN "

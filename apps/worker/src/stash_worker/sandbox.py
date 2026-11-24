@@ -40,6 +40,7 @@ from typing import Any, Literal
 from stash_worker.contracts import limits
 from stash_worker.jobs import rejection_reasons
 from stash_worker.safefs import UnsafePath, open_beneath
+from stash_worker.seccomp import Filter, Unsupported
 
 log = logging.getLogger(__name__)
 
@@ -85,10 +86,16 @@ def _uid_task_count(uid: int | None = None, proc: Path = Path("/proc")) -> int |
     return n
 
 
-def _child_setup(memory_bytes: int, nproc: int | None, job_user: JobUser | None, isolate_network: bool):
+def _child_setup(
+    memory_bytes: int,
+    nproc: int | None,
+    job_user: JobUser | None,
+    isolate_network: bool,
+    syscall_filter: Filter | None,
+):
     """Runs in the forked child before exec. Still root (when the worker is), it leaves the network,
-    then becomes the job user with no supplementary groups, then applies the limits, so they bind
-    that uid."""
+    then becomes the job user with no supplementary groups, then sets no_new_privs and loads the
+    seccomp filter (built in the parent), then applies the limits, so they bind that uid."""
 
     def apply() -> None:
         if isolate_network:
@@ -97,6 +104,8 @@ def _child_setup(memory_bytes: int, nproc: int | None, job_user: JobUser | None,
             os.setgroups([])
             os.setresgid(job_user.gid, job_user.gid, job_user.gid)
             os.setresuid(job_user.uid, job_user.uid, job_user.uid)
+        if syscall_filter is not None:
+            syscall_filter.install()
         resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
         resource.setrlimit(resource.RLIMIT_FSIZE, (CHILD_FILE_BYTES, CHILD_FILE_BYTES))
         if sys.platform == "linux":
@@ -281,6 +290,58 @@ def network_isolation_available() -> bool:
     return True
 
 
+_filter: Filter | None = None
+
+
+def syscall_filter() -> Filter | None:
+    """The child's seccomp filter for this machine, built once; None where there is none (not Linux,
+    or an architecture without syscall numbers here)."""
+    global _filter  # noqa: PLW0603
+    if _filter is None and sys.platform == "linux":
+        try:
+            _filter = Filter()
+        except Unsupported:
+            return None
+    return _filter
+
+
+_STATUS_PROBE = (
+    "import sys\n"
+    "s = dict(l.split(':', 1) for l in open('/proc/self/status') if ':' in l)\n"
+    "sys.exit(0 if (s['NoNewPrivs'].strip(), s['Seccomp'].strip()) == ('1', '2') else 1)\n"
+)
+
+
+def syscall_filter_available() -> bool:
+    """True when a child here ends up with no_new_privs set and the filter loaded."""
+    f = syscall_filter()
+    if f is None:
+        return False
+    try:
+        subprocess.run(  # noqa: S603 - fixed interpreter and code, no shell
+            [sys.executable, "-I", "-S", "-c", _STATUS_PROBE],
+            preexec_fn=f.install,  # noqa: PLW1509
+            check=True,
+            timeout=10,
+        )
+    except (subprocess.SubprocessError, OSError):
+        return False
+    return True
+
+
+def _wait_unreaped(proc: subprocess.Popen, timeout_s: float) -> bool:
+    """Waits for the child to exit without reaping it, so its pid (and process group id) stays
+    reserved while the group is killed. False on timeout."""
+    deadline = time.monotonic() + timeout_s
+    while True:
+        if os.waitid(os.P_PID, proc.pid, os.WEXITED | os.WNOWAIT | os.WNOHANG) is not None:
+            return True
+        left = deadline - time.monotonic()
+        if left <= 0:
+            return False
+        time.sleep(min(0.02, left))
+
+
 def run_isolated(
     handler: str,
     payload: dict[str, Any],
@@ -303,6 +364,9 @@ def run_isolated(
     _prepare(job_dir, job_user)
     if sys.platform != "linux":
         log.warning("no memory cap on %s: RLIMIT_AS is enforced on Linux only", sys.platform)
+    seccomp = syscall_filter()
+    if job_user is not None and seccomp is None:
+        raise RuntimeError("a job user needs the seccomp filter, which this machine has none of")
     if job_user is not None:
         nproc: int | None = CHILD_PROCESSES
     else:
@@ -315,16 +379,15 @@ def run_isolated(
             env=_child_env(job_dir),
             stdin=subprocess.DEVNULL,
             start_new_session=True,
-            preexec_fn=_child_setup(memory_bytes, nproc, job_user, isolate_network),  # noqa: PLW1509
+            preexec_fn=_child_setup(memory_bytes, nproc, job_user, isolate_network, seccomp),  # noqa: PLW1509
         )
-        try:
-            code = proc.wait(timeout=timeout_s)
-        except subprocess.TimeoutExpired:
-            _kill_group(proc.pid)
-            proc.wait()
+        # The group is killed while the child is exited but not yet reaped, so its pid cannot have been
+        # reused (PR #8 re-review A2); grandchildren that left the group are clear_job_user's.
+        finished = _wait_unreaped(proc, timeout_s)
+        _kill_group(proc.pid)
+        code = proc.wait()
+        if not finished:
             return Outcome("timeout", detail=f"no result after {timeout_s:g} s")
-        finally:
-            _kill_group(proc.pid)
     finally:
         if job_user is not None:
             clear_job_user(job_user)
