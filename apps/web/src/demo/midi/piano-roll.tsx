@@ -236,7 +236,7 @@ export function PianoRoll({ notes, getBeat, playing = false, transpose = 0, vari
       ref={wrap}
       role="img"
       aria-label={label}
-      className={["relative overflow-hidden", hero ? "h-64 rounded-control border border-border tablet:h-72" : "h-8 rounded-control", onSeek || onAudition ? "cursor-pointer" : "", className ?? ""].join(" ")}
+      className={["relative overflow-hidden", hero ? "st-box h-64 rounded-control border border-border tablet:h-72" : "h-8 rounded-control", onSeek || onAudition ? "cursor-pointer" : "", className ?? ""].join(" ")}
       onPointerDown={(e) => {
         const r = e.currentTarget.getBoundingClientRect();
         const x = e.clientX - r.left;

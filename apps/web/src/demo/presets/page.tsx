@@ -1,6 +1,6 @@
 import { Button, Check, ChevronDown, FilterChip, Menu, SearchInput, UiLink, type MenuEntry } from "@stash/ui";
 import { useMemo, useState } from "react";
-import { Cover, coverFor } from "./cover";
+import { coverFor } from "./cover";
 import { CONFIDENCE, PRESETS, type Confidence, type PresetEntry } from "./data";
 import { groupSongs, LEVEL, madeBy, songHref, TOP_PRODUCERS, type Song } from "./songs";
 
@@ -154,7 +154,7 @@ export function PresetsPage() {
                   type="button"
                   aria-pressed={on}
                   onClick={() => reset(() => setFamily(on && f !== "All" ? "All" : f))}
-                  className={`flex min-w-24 flex-col items-start gap-1 rounded-control border px-3 py-2 text-left transition-colors ${on ? "border-accent bg-raised" : "border-border bg-surface ui-hover:border-border-strong"}`}
+                  className={`flex st-box min-w-24 flex-col items-start gap-1 rounded-control border px-3 py-2 text-left transition-colors ${on ? "border-accent bg-raised" : "border-border bg-surface ui-hover:border-border-strong"}`}
                 >
                   <span className={`text-small ${on ? "text-text" : "text-text-muted"}`}>{f === "All" ? "Every plugin" : f}</span>
                   <span className={`font-mono text-body-strong tabular ${on ? "text-accent" : "text-text"}`}>{n}</span>
@@ -261,9 +261,6 @@ function SongCard({ s }: { s: Song }) {
   return (
     <li className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-4">
       <div className="flex items-center gap-4">
-        <UiLink href={songHref(s.song, s.artist)} aria-label={`${s.song} page`} className="shrink-0">
-          <Cover song={s.song} artist={s.artist} />
-        </UiLink>
         <div className="flex min-w-0 flex-1 flex-col gap-0.5">
           <UiLink href={songHref(s.song, s.artist)} className="text-title break-words text-text ui-hover:underline">
             {s.song}
@@ -299,7 +296,7 @@ export function PatchStrip({ e }: { e: PresetEntry }) {
   return (
     <li className="flex flex-col gap-2">
       <span className="text-label text-label-caps text-text-muted">{/^not stated/i.test(e.role) ? "Sound not stated" : e.role}</span>
-      <div className="flex flex-col gap-1 rounded-control border border-border-strong bg-bg px-3 py-2">
+      <div className="st-box flex flex-col gap-1 rounded-control border border-border-strong bg-bg px-3 py-2">
         <span className="font-mono text-small break-words text-text-muted">{[e.plugin, e.path].filter(Boolean).join(" › ")}</span>
         <span className={`font-mono text-body-strong break-words ${e.preset ? "text-accent" : "text-text-muted"}`}>{e.preset ?? "Preset not named"}</span>
       </div>
@@ -336,7 +333,6 @@ function FromTheProducer() {
         {rows.map((e, i) => (
           <li key={`${e.song}-${e.preset}-${i}`} className="flex w-64 shrink-0 flex-col gap-2 rounded-panel border border-accent bg-surface p-3">
             <div className="flex items-center gap-3">
-              <Cover song={e.song} artist={e.artist} size="sm" />
               <div className="flex min-w-0 flex-col">
                 <UiLink href={songHref(e.song, e.artist)} className="truncate text-body-strong text-text ui-hover:underline">
                   {e.song}
@@ -344,7 +340,7 @@ function FromTheProducer() {
                 <span className="truncate text-small text-text-muted">{`${e.artist} · ${e.role}`}</span>
               </div>
             </div>
-            <div className="flex flex-col gap-1 rounded-control border border-border-strong bg-bg px-3 py-2">
+            <div className="st-box flex flex-col gap-1 rounded-control border border-border-strong bg-bg px-3 py-2">
               <span className="truncate font-mono text-small text-text-muted">{e.plugin}</span>
               <span className="font-mono text-body-strong break-words text-accent">{e.preset}</span>
             </div>

@@ -1021,21 +1021,6 @@
   "quoteBy": "zazaza"
  },
  {
-  "song": "Hero",
-  "artist": "Nas",
-  "producer": "Polow Da Don",
-  "plugin": "Native Instruments Massive",
-  "preset": "Butterfly Stance",
-  "role": "Synth",
-  "confidence": "community",
-  "source": {
-   "label": "KTT2 forum thread: Presets used in popular songs",
-   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
-  },
-  "quote": "Hero - Nas: Butterfly Stance in Massive",
-  "quoteBy": "zazaza"
- },
- {
   "song": "So Sophisticated",
   "artist": "Rick Ross feat. Meek Mill",
   "producer": "The Beat Bully",
@@ -1846,38 +1831,6 @@
   "quoteBy": "zazaza"
  },
  {
-  "song": "Cot Damn",
-  "artist": "Clipse",
-  "producer": "The Neptunes",
-  "plugin": "Korg Triton (hardware)",
-  "preset": "A001 Acoustic Piano",
-  "role": "Piano",
-  "confidence": "community",
-  "source": {
-   "label": "KTT2 forum thread: Presets used in popular songs",
-   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
-  },
-  "path": "Keyboard",
-  "quote": "Cot Damn - The Clipse: A001 Acoustic Piano, under Keyboard in Korg Triton(Keyboard)",
-  "quoteBy": "zazaza"
- },
- {
-  "song": "Flap Your Wings",
-  "artist": "Nelly",
-  "producer": "The Neptunes",
-  "plugin": "Korg Triton (hardware)",
-  "preset": "A096 Digital PolySix",
-  "role": "Synth",
-  "confidence": "community",
-  "source": {
-   "label": "KTT2 forum thread: Presets used in popular songs",
-   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
-  },
-  "path": "FastSynth",
-  "quote": "Flap Your Wings - Nelly: A096 Digital PolySix, under FastSynth in Korg Triton(Keyboard)",
-  "quoteBy": "zazaza"
- },
- {
   "song": "Holla Back",
   "artist": "Fabolous",
   "producer": "The Neptunes",
@@ -1891,38 +1844,6 @@
   },
   "path": "Guitar/Plucked",
   "quote": "Holla Back - Fabolous: A021: Chorus E. Guitar, under Guitar/Plucked in Korg Triton(Keyboard)",
-  "quoteBy": "zazaza"
- },
- {
-  "song": "Nothin'",
-  "artist": "N.O.R.E.",
-  "producer": "The Neptunes",
-  "plugin": "Korg Triton (hardware)",
-  "preset": "B045 BambuSilverFlute",
-  "role": "Flute",
-  "confidence": "community",
-  "source": {
-   "label": "KTT2 forum thread: Presets used in popular songs",
-   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
-  },
-  "path": "Woodwind/Reed",
-  "quote": "Nothin - Noreaga: B045 BambuSilverFlute, under Woodwind/Reed in Korg Triton(Keyboard)",
-  "quoteBy": "zazaza"
- },
- {
-  "song": "I'm a G",
-  "artist": "N.O.R.E.",
-  "producer": "The Neptunes",
-  "plugin": "Korg Triton (hardware)",
-  "preset": "B115 Harmonica",
-  "role": "Harmonica",
-  "confidence": "community",
-  "source": {
-   "label": "KTT2 forum thread: Presets used in popular songs",
-   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
-  },
-  "path": "Woodwind/Reed",
-  "quote": "I'm a G - Noreaga: B115 Harmonica, under Woodwind/Reed in Korg Triton(Keyboard)",
   "quoteBy": "zazaza"
  },
  {
@@ -6752,36 +6673,6 @@
   "quoteBy": "eza333"
  },
  {
-  "song": "4U",
-  "artist": "Pi'erre Bourne",
-  "producer": "Unknown",
-  "plugin": "u-he TyrellN6",
-  "preset": "HS Norgan",
-  "role": "Not stated",
-  "confidence": "community",
-  "source": {
-   "label": "YouTube: Pierre Bourne - 4U Presets | Preset Finds",
-   "url": "https://www.youtube.com/watch?v=NhJF0JYVRow"
-  },
-  "quote": "VST: TyrellN6 by U-he and FM8 by Native Instruments ... Presets: HS Norgan and Dazzle Synth",
-  "quoteBy": "omar16riyaz"
- },
- {
-  "song": "4U",
-  "artist": "Pi'erre Bourne",
-  "producer": "Unknown",
-  "plugin": "Native Instruments FM8",
-  "preset": "Dazzle Synth",
-  "role": "Not stated",
-  "confidence": "community",
-  "source": {
-   "label": "YouTube: Pierre Bourne - 4U Presets | Preset Finds",
-   "url": "https://www.youtube.com/watch?v=NhJF0JYVRow"
-  },
-  "quote": "VST: TyrellN6 by U-he and FM8 by Native Instruments ... Presets: HS Norgan and Dazzle Synth",
-  "quoteBy": "omar16riyaz"
- },
- {
   "song": "Convinced (Mystery Machine)",
   "artist": "Chavo / Pi'erre Bourne",
   "producer": "Pi'erre Bourne",
@@ -7243,5 +7134,1781 @@
    "url": "https://equipboard.com/items/lennar-digital-sylenth1-software-synthesizer"
   },
   "quote": "Lennar Digital Sylenth1 Software Synthesizer as heard on Missing by Pierre Bourne (2021)"
+ },
+ {
+  "song": "So Icy",
+  "artist": "Gucci Mane feat. Boo",
+  "producer": "Zaytoven",
+  "plugin": "Korg Triton",
+  "preset": null,
+  "role": "Keys / melodic sounds (Zaytoven's only keyboard at the time)",
+  "confidence": "producer",
+  "source": {
+   "label": "Red Bull Music Academy: Metro Boomin, Sonny Digital, Zaytoven lecture",
+   "url": "https://www.redbullmusicacademy.com/lectures/metro-boomin-sonny-digital-zaytoven"
+  },
+  "quote": "I had the MPC 2000 XL, and I just had the Triton keyboard. That's all I used on that right there.",
+  "quoteBy": "Zaytoven"
+ },
+ {
+  "song": "So Icy",
+  "artist": "Gucci Mane feat. Boo",
+  "producer": "Zaytoven",
+  "plugin": "Akai MPC 2000XL",
+  "preset": null,
+  "role": "Drum sequencing / beat construction",
+  "confidence": "producer",
+  "source": {
+   "label": "Red Bull Music Academy: Metro Boomin, Sonny Digital, Zaytoven lecture",
+   "url": "https://www.redbullmusicacademy.com/lectures/metro-boomin-sonny-digital-zaytoven"
+  },
+  "quote": "I had the MPC 2000 XL, and I just had the Triton keyboard. That's all I used on that right there.",
+  "quoteBy": "Zaytoven"
+ },
+ {
+  "song": "SICKO MODE",
+  "artist": "Travis Scott feat. Drake",
+  "producer": "Hit-Boy, Rogét Chahayed, OZ, Tay Keith, CuBeatz, Mike Dean",
+  "plugin": "Native Instruments Kontakt Factory Library",
+  "preset": "Rapman Waw",
+  "role": "Intro organ hook (sound inspired by the patch)",
+  "confidence": "engineer",
+  "source": {
+   "label": "Native Instruments Blog: Rogét Chahayed interview",
+   "url": "https://blog.native-instruments.com/roget-chahayed-interview/"
+  },
+  "path": "Factory Library > Vintage > Vintage Toys",
+  "quote": "It was inspired by the almighty Rapman Waw patch",
+  "quoteBy": "Rogét Chahayed"
+ },
+ {
+  "song": "SICKO MODE",
+  "artist": "Travis Scott feat. Drake",
+  "producer": "Hit-Boy, Rogét Chahayed, OZ, Tay Keith, CuBeatz, Mike Dean",
+  "plugin": "Native Instruments Kontakt",
+  "preset": null,
+  "role": "Intro organ sound (dissonant hook)",
+  "confidence": "press",
+  "source": {
+   "label": "Native Instruments Blog: Watch SICKO MODE producer Rogét Chahayed on crafting killer hooks",
+   "url": "https://blog.native-instruments.com/watch-sicko-mode-producer-roget-chahayed-on-crafting-killer-hooks/"
+  },
+  "quote": "Chahayed pulled up an unusual organ sound on KONTAKT"
+ },
+ {
+  "song": "Vertigo",
+  "artist": "Khalid",
+  "producer": "Rogét Chahayed",
+  "plugin": "Native Instruments Kontakt Factory Library",
+  "preset": "Jazz Guitar",
+  "role": "Guitar part",
+  "confidence": "producer",
+  "source": {
+   "label": "Native Instruments Blog: Rogét Chahayed interview",
+   "url": "https://blog.native-instruments.com/roget-chahayed-interview/"
+  },
+  "quote": "I pulled up one of my favorite Kontakt instruments, which is the Jazz Guitar factory sample library",
+  "quoteBy": "Rogét Chahayed"
+ },
+ {
+  "song": "Blue Benz",
+  "artist": "Nas",
+  "producer": "Hit-Boy, Rogét Chahayed",
+  "plugin": "Native Instruments Kontakt",
+  "preset": null,
+  "role": "All of Chahayed's sounds on the track",
+  "confidence": "producer",
+  "source": {
+   "label": "Native Instruments Blog: Rogét Chahayed interview",
+   "url": "https://blog.native-instruments.com/roget-chahayed-interview/"
+  },
+  "quote": "I exclusively used all Kontakt plugins and Native Instruments stuff for \"Blue Benz,\"",
+  "quoteBy": "Rogét Chahayed"
+ },
+ {
+  "song": "Guard Your Heart",
+  "artist": "Big Sean",
+  "producer": "Hit-Boy, Rogét Chahayed",
+  "plugin": "Native Instruments Kontakt Factory Library",
+  "preset": "Classic Bass",
+  "role": "Bass",
+  "confidence": "producer",
+  "source": {
+   "label": "Native Instruments Blog: Rogét Chahayed interview",
+   "url": "https://blog.native-instruments.com/roget-chahayed-interview/"
+  },
+  "quote": "The bass was also from the Factory Library, the Classic Bass sound, which is one of my favorite simple sounds.",
+  "quoteBy": "Rogét Chahayed"
+ },
+ {
+  "song": "First Class",
+  "artist": "Jack Harlow",
+  "producer": "Rogét Chahayed and others",
+  "plugin": "Nord Stage 3",
+  "preset": null,
+  "role": "Most keyboard sounds incl. fairytale-sounding string part",
+  "confidence": "producer",
+  "source": {
+   "label": "Sound On Sound: Inside Track: Rogét Chahayed",
+   "url": "https://soundonsound.com/techniques/inside-track-roget-chahayed"
+  },
+  "quote": "Most of my sounds on that song are from the Nord, including the fairytale‑sounding string part.",
+  "quoteBy": "Rogét Chahayed"
+ },
+ {
+  "song": "First Class",
+  "artist": "Jack Harlow",
+  "producer": "Rogét Chahayed and others",
+  "plugin": "Logic Pro Electric Piano (stock)",
+  "preset": null,
+  "role": "Rhodes at the end",
+  "confidence": "producer",
+  "source": {
+   "label": "Sound On Sound: Inside Track: Rogét Chahayed",
+   "url": "https://soundonsound.com/techniques/inside-track-roget-chahayed"
+  },
+  "quote": "the Rhodes at the end comes from Logic's standard electric piano",
+  "quoteBy": "Rogét Chahayed"
+ },
+ {
+  "song": "Banana Split",
+  "artist": "Murda Beatz & YNW Melly feat. Lil Durk",
+  "producer": "Murda Beatz",
+  "plugin": "Splice Sounds Murda Beatz sample pack",
+  "preset": null,
+  "role": "Drums (included in his Splice kit)",
+  "confidence": "producer",
+  "source": {
+   "label": "Splice Blog: Murda Beatz on his new sample pack and four iconic tracks",
+   "url": "https://splice.com/blog/murda-beatz-q-and-a"
+  },
+  "quote": "I put some of the drums I used in that track in the Splice kit as well.",
+  "quoteBy": "Murda Beatz"
+ },
+ {
+  "song": "Lucid Dreams",
+  "artist": "Juice WRLD",
+  "producer": "Nick Mira",
+  "plugin": "Guitar (replayed live by Nick Mira)",
+  "preset": null,
+  "role": "Main guitar melody (replay of Sting's Shape of My Heart)",
+  "confidence": "producer",
+  "source": {
+   "label": "SongwriterUniverse: Nick Mira Interview",
+   "url": "https://www.songwriteruniverse.com/nick-mira-producer-2018/"
+  },
+  "quote": "So I replayed it on guitar at the studio, and I tweaked with the notes a little bit",
+  "quoteBy": "Nick Mira"
+ },
+ {
+  "song": "Presidential",
+  "artist": "Rick Ross feat. Elijah Blake",
+  "producer": "Pharrell Williams",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": null,
+  "role": "Not stated (preset demonstrated in video)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Rick Ross x Pharrell - Presidential | Omnisphere Preset | [I Found those VST Presets #19]",
+   "url": "https://www.youtube.com/watch?v=fB_yr2pu40w"
+  },
+  "quote": "Rick Ross x Pharrell - Presidential | Omnisphere Preset | [I Found those VST Presets #19]",
+  "quoteBy": "JC Biffro"
+ },
+ {
+  "song": "TEFLON DON",
+  "artist": "Future",
+  "producer": "Peeb",
+  "plugin": "EastWest Play",
+  "preset": null,
+  "role": "Main trumpet loop running through the whole beat",
+  "confidence": "producer",
+  "source": {
+   "label": "Studio Talks: Peeb on 21 Savage's redrum & Future's TEFLON DON",
+   "url": "https://studiotalksevents.com/blog/peeb-21-savage-redrum-future-teflon-don-interview"
+  },
+  "quote": "“TEFLON DON” started from a trumpet loop I made using EastWest’s Play—an idea I created like four years ago.",
+  "quoteBy": "Peeb"
+ },
+ {
+  "song": "Red Moon",
+  "artist": "Lil Uzi Vert",
+  "producer": "Slo Meezy and others",
+  "plugin": "Rhodes piano (played by Slo Meezy)",
+  "preset": null,
+  "role": "Background Rhodes fills",
+  "confidence": "producer",
+  "source": {
+   "label": "Studio Talks: Slo Meezy (Crash Dummy) producer interview",
+   "url": "https://studiotalksevents.com/blog/slo-meezy-crash-dummy-producer-interview"
+  },
+  "quote": "If you listen closely to \"Red Moon,\" you'll hear the Rhodes piano in the background—that's me filling in the extra spaces.",
+  "quoteBy": "Slo Meezy"
+ },
+ {
+  "song": "OKAY",
+  "artist": "JT",
+  "producer": "Akachi",
+  "plugin": "E-MU Proteus 2000",
+  "preset": null,
+  "role": "Sound module used while making the beat",
+  "confidence": "producer",
+  "source": {
+   "label": "Studio Talks: Akachi interview (Chief Keef, Rod Wave)",
+   "url": "https://studiotalksevents.com/blog/akachi-chief-keef-rod-wave-interview"
+  },
+  "quote": "I had picked up a Proteus 2000 module from E-MU Audio, along with some other hardware I was testing at the time.",
+  "quoteBy": "Akachi"
+ },
+ {
+  "song": "Grindin'",
+  "artist": "Clipse",
+  "producer": "The Neptunes",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": "B116 Percussion Kit",
+  "role": "Drum kit / percussion (the beat)",
+  "confidence": "press",
+  "source": {
+   "label": "Splice Blog: 6 iconic songs that use KORG synthesizers",
+   "url": "https://splice.com/blog/iconic-songs-korg-synthesizers/"
+  },
+  "quote": "the exact same sounds Pharrell and Chad Hugo used in the preset 'B116: Percussion Kit'"
+ },
+ {
+  "song": "Cry Me a River",
+  "artist": "Justin Timberlake",
+  "producer": "Timbaland & Scott Storch",
+  "plugin": "Fender Rhodes (electric piano)",
+  "preset": null,
+  "role": "Keys the song was written on",
+  "confidence": "engineer",
+  "source": {
+   "label": "Red Bull Music Academy: Scott Storch lecture",
+   "url": "https://redbullmusicacademy.com/lectures/scott-storch-hits-dr-dre-fat-joe-the-roots"
+  },
+  "quote": "we set up a Rhodes in that little room.",
+  "quoteBy": "Scott Storch"
+ },
+ {
+  "song": "Raid",
+  "artist": "Madvillain (Madlib & MF DOOM)",
+  "producer": "Madlib",
+  "plugin": "Roland SP-303 Dr. Sample (hardware sampler)",
+  "preset": null,
+  "role": "Sample-based beat (chopped and sequenced on the 303)",
+  "confidence": "press",
+  "source": {
+   "label": "Roland Articles: Retracing the Roland Sound in Hip-Hop",
+   "url": "https://articles.roland.com/?p=3147"
+  },
+  "quote": "He pioneered gritty sample-based instrumentals with his 303, a portable record player, and his hotel room cassette deck."
+ },
+ {
+  "song": "Rhinestone Cowboy",
+  "artist": "Madvillain (Madlib & MF DOOM)",
+  "producer": "Madlib",
+  "plugin": "Roland SP-303 Dr. Sample (hardware sampler)",
+  "preset": null,
+  "role": "Sample-based beat (chopped and sequenced on the 303)",
+  "confidence": "press",
+  "source": {
+   "label": "Roland Articles: Retracing the Roland Sound in Hip-Hop",
+   "url": "https://articles.roland.com/?p=3147"
+  },
+  "quote": "several of these songs turned into tracks like \"Raid,\" \"Rhinestone Cowboy,\" and \"Strange Ways\""
+ },
+ {
+  "song": "Strange Ways",
+  "artist": "Madvillain (Madlib & MF DOOM)",
+  "producer": "Madlib",
+  "plugin": "Roland SP-303 Dr. Sample (hardware sampler)",
+  "preset": null,
+  "role": "Sample-based beat (chopped and sequenced on the 303)",
+  "confidence": "press",
+  "source": {
+   "label": "Roland Articles: Retracing the Roland Sound in Hip-Hop",
+   "url": "https://articles.roland.com/?p=3147"
+  },
+  "quote": "several of these songs turned into tracks like \"Raid,\" \"Rhinestone Cowboy,\" and \"Strange Ways\""
+ },
+ {
+  "song": "Last Donut of the Night",
+  "artist": "J Dilla",
+  "producer": "J Dilla",
+  "plugin": "Roland SP-303 Dr. Sample (hardware sampler)",
+  "preset": null,
+  "role": "Sample-based beat (Donuts was made on the 303)",
+  "confidence": "press",
+  "source": {
+   "label": "Roland Articles: Retracing the Roland Sound in Hip-Hop",
+   "url": "https://articles.roland.com/?p=3147"
+  },
+  "quote": "many beautiful instrumentals like \"Last Donut of the Night\" and \"Two Can Win\" were crafted in a hospital bed"
+ },
+ {
+  "song": "Two Can Win",
+  "artist": "J Dilla",
+  "producer": "J Dilla",
+  "plugin": "Roland SP-303 Dr. Sample (hardware sampler)",
+  "preset": null,
+  "role": "Sample-based beat (Donuts was made on the 303)",
+  "confidence": "press",
+  "source": {
+   "label": "Roland Articles: Retracing the Roland Sound in Hip-Hop",
+   "url": "https://articles.roland.com/?p=3147"
+  },
+  "quote": "J Dilla also produced the bulk of his 2006 record Donuts with an SP-303 and a portable turntable."
+ },
+ {
+  "song": "Saint Pablo",
+  "artist": "Kanye West feat. Sampha",
+  "producer": "Kanye West, Mike Dean et al.",
+  "plugin": "Moog Minimoog (hardware)",
+  "preset": null,
+  "role": "Melodic solo breakdown at 3:53 (performed by Mike Dean)",
+  "confidence": "community",
+  "source": {
+   "label": "Reverb Machine: Kanye West's Saint Pablo Synths",
+   "url": "https://reverbmachine.com/blog/kanye-west-saint-pablo-synths/"
+  },
+  "quote": "a classic Moog lead patch consisting of detuned sawtooth oscillators with the filter and envelopes open."
+ },
+ {
+  "song": "Good Life",
+  "artist": "Kanye West feat. T-Pain",
+  "producer": "Kanye West & DJ Toomp",
+  "plugin": "Akai MPC 2000XL (hardware sampler)",
+  "preset": null,
+  "role": "Drum beat",
+  "confidence": "community",
+  "source": {
+   "label": "Reverb Machine: How Kanye West Created Good Life",
+   "url": "https://reverbmachine.com/blog/dissecting-kanye-wests-good-life/"
+  },
+  "quote": "The drumbeat is classic Kanye, and as seen in the studio video, comes from his Akai MPC 2000XL."
+ },
+ {
+  "song": "Good Life",
+  "artist": "Kanye West feat. T-Pain",
+  "producer": "Kanye West & DJ Toomp",
+  "plugin": "Moog Minimoog (hardware)",
+  "preset": null,
+  "role": "Dirty bass in the bridge, plus a squelchy lead likely played by Mike Dean",
+  "confidence": "community",
+  "source": {
+   "label": "Reverb Machine: How Kanye West Created Good Life",
+   "url": "https://reverbmachine.com/blog/dissecting-kanye-wests-good-life/"
+  },
+  "quote": "There is also a squelchy lead sound that is undoubtably a Minimoog too, again likely played by Mike Dean."
+ },
+ {
+  "song": "Good Life",
+  "artist": "Kanye West feat. T-Pain",
+  "producer": "Kanye West & DJ Toomp",
+  "plugin": "Ensoniq ASR-10 (hardware sampler)",
+  "preset": null,
+  "role": "Chopping the pitched-up P.Y.T. sample",
+  "confidence": "community",
+  "source": {
+   "label": "Reverb Machine: How Kanye West Created Good Life",
+   "url": "https://reverbmachine.com/blog/dissecting-kanye-wests-good-life/"
+  },
+  "quote": "Kanye is a master of the second approach, and he does this on his Ensoniq ASR-10 keyboard,"
+ },
+ {
+  "song": "Good Morning",
+  "artist": "Kanye West",
+  "producer": "Kanye West",
+  "plugin": "Ensoniq ASR-10 (hardware sampler)",
+  "preset": null,
+  "role": "Chopping the Elton John 'Someone Saved My Life Tonight' sample",
+  "confidence": "community",
+  "source": {
+   "label": "Reverb Machine: Deconstructing Kanye West's Good Morning Beat",
+   "url": "https://reverbmachine.com/blog/deconstructing-kanye-west-good-morning/"
+  },
+  "quote": "which he does on an Ensoniq ASR-10."
+ },
+ {
+  "song": "Love Lockdown",
+  "artist": "Kanye West",
+  "producer": "Kanye West",
+  "plugin": "Roland TR-808 (drum machine)",
+  "preset": null,
+  "role": "Thumping 808 bass drum, distorted",
+  "confidence": "press",
+  "source": {
+   "label": "Roland Articles: Love Lockdown, Kanye West",
+   "url": "https://articles.roland.com/love-lockdown-kanye-west/"
+  },
+  "quote": "utilizes the Roland TR-808, the heartbeat of electronic music production since the early 1980s."
+ },
+ {
+  "song": "Young'n (Holla Back)",
+  "artist": "Fabolous",
+  "producer": "The Neptunes",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": "A021 Chorus E. Guitar",
+  "role": "Chorused electric guitar part",
+  "confidence": "community",
+  "source": {
+   "label": "Ali Jamieson: 8 important synths in the development of hip-hop",
+   "url": "https://alijamieson.co.uk/2021/12/01/8-important-synths-development-hip-hop/"
+  },
+  "quote": "Fabolous – Young’n (A021 Chorus E. Guitar)"
+ },
+ {
+  "song": "Nuthin' but a 'G' Thang",
+  "artist": "Dr. Dre feat. Snoop Doggy Dogg",
+  "producer": "Dr. Dre",
+  "plugin": "Roland TR-808 (drum machine)",
+  "preset": null,
+  "role": "808 layered under the kick to make it thump harder",
+  "confidence": "press",
+  "source": {
+   "label": "Reverb: When Hip-Hop Went Hi-Fi",
+   "url": "https://applink.reverb.com/news/when-hip-hop-went-hi-fi"
+  },
+  "quote": "Dre added an 808 to the kick to make it thump harder,",
+  "quoteBy": "Colin Wolfe"
+ },
+ {
+  "song": "The Real Slim Shady",
+  "artist": "Eminem",
+  "producer": "Dr. Dre & Mel-Man",
+  "plugin": "Akai MPC3000 (hardware sampler/sequencer)",
+  "preset": null,
+  "role": "Drum beat Dre programmed as the starting point",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Producing Eminem & Fiona Apple (Mike Elizondo)",
+   "url": "https://www.soundonsound.com/techniques/producing-eminem-fiona-apple"
+  },
+  "quote": "we began with a drumbeat that Dre programmed into an MPC3000",
+  "quoteBy": "Mike Elizondo"
+ },
+ {
+  "song": "The Real Slim Shady",
+  "artist": "Eminem",
+  "producer": "Dr. Dre & Mel-Man",
+  "plugin": "Clavia Nord Lead (hardware synth)",
+  "preset": null,
+  "role": "Keyboard bass doubling the electric bass",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Producing Eminem & Fiona Apple (Mike Elizondo)",
+   "url": "https://www.soundonsound.com/techniques/producing-eminem-fiona-apple"
+  },
+  "quote": "I later doubled the electric bass with a keyboard bass that I had programmed on a Nord Lead",
+  "quoteBy": "Mike Elizondo"
+ },
+ {
+  "song": "Family Affair",
+  "artist": "Mary J. Blige",
+  "producer": "Dr. Dre",
+  "plugin": "Akai MPC3000 (hardware sampler/sequencer)",
+  "preset": null,
+  "role": "Drum and rhythm programming",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Producing Eminem & Fiona Apple (Mike Elizondo)",
+   "url": "https://www.soundonsound.com/techniques/producing-eminem-fiona-apple"
+  },
+  "quote": "'Family Affair' was again Dre with an MPC3000, myself and a keyboard player throwing out ideas",
+  "quoteBy": "Mike Elizondo"
+ },
+ {
+  "song": "Just Lose It",
+  "artist": "Eminem",
+  "producer": "Dr. Dre & Mike Elizondo",
+  "plugin": "Arturia Minimoog V",
+  "preset": null,
+  "role": "Bass sound",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Producing Eminem & Fiona Apple (Mike Elizondo)",
+   "url": "https://www.soundonsound.com/techniques/producing-eminem-fiona-apple"
+  },
+  "quote": "I think the bass sound came from a Minimoog soft synth made by Arturia",
+  "quoteBy": "Mike Elizondo"
+ },
+ {
+  "song": "Just Lose It",
+  "artist": "Eminem",
+  "producer": "Dr. Dre & Mike Elizondo",
+  "plugin": "Plastix (soft synth)",
+  "preset": null,
+  "role": "Main keyboard riff",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Producing Eminem & Fiona Apple (Mike Elizondo)",
+   "url": "https://www.soundonsound.com/techniques/producing-eminem-fiona-apple"
+  },
+  "quote": "the main keyboard riff came from a soft synth called Plastix",
+  "quoteBy": "Mike Elizondo"
+ },
+ {
+  "song": "Nuthin' but a 'G' Thang",
+  "artist": "Dr. Dre feat. Snoop Doggy Dogg",
+  "producer": "Dr. Dre",
+  "plugin": "Moog Minimoog Model D (hardware)",
+  "preset": null,
+  "role": "The squiggly 'G-Funk whistle' lead",
+  "confidence": "press",
+  "source": {
+   "label": "Reverb: Recreating 5 Classic Minimoog Model D Synth Sounds",
+   "url": "https://reverb.com/news/video-the-synth-sounds-of-5-classic-minimoog-tracks"
+  },
+  "quote": "Dre brings up the volume of the third oscillator to around 7 for a fuller, lower octave sound."
+ },
+ {
+  "song": "If I Should Die",
+  "artist": "Jay-Z",
+  "producer": "Swizz Beatz",
+  "plugin": "Korg M1 (hardware workstation)",
+  "preset": null,
+  "role": "Sounds sampled from the M1 into his drum machine",
+  "confidence": "producer",
+  "source": {
+   "label": "Complex: Swizz Beatz Tells All The Stories Behind His Classic Records (Part 1)",
+   "url": "https://www.complex.com/music/2011/08/swizz-beatz-tells-all-the-stories-behind-his-classic-records-part-1"
+  },
+  "quote": "I had the black M1 where I was doing 'If I Should Die' and 'Coming Of Age' for [Jay-Z's Vol. 2...Hard Knock Life].",
+  "quoteBy": "Swizz Beatz"
+ },
+ {
+  "song": "Coming of Age (Da Sequel)",
+  "artist": "Jay-Z feat. Memphis Bleek",
+  "producer": "Swizz Beatz",
+  "plugin": "Korg M1 (hardware workstation)",
+  "preset": null,
+  "role": "Sounds sampled from the M1 into his drum machine",
+  "confidence": "producer",
+  "source": {
+   "label": "Complex: Swizz Beatz Tells All The Stories Behind His Classic Records (Part 1)",
+   "url": "https://www.complex.com/music/2011/08/swizz-beatz-tells-all-the-stories-behind-his-classic-records-part-1"
+  },
+  "quote": "I had the black M1 where I was doing 'If I Should Die' and 'Coming Of Age' for [Jay-Z's Vol. 2...Hard Knock Life].",
+  "quoteBy": "Swizz Beatz"
+ },
+ {
+  "song": "Money, Cash, Hoes",
+  "artist": "Jay-Z feat. DMX",
+  "producer": "Swizz Beatz",
+  "plugin": "Korg M1 (hardware workstation)",
+  "preset": null,
+  "role": "The beat's keyboard sounds",
+  "confidence": "producer",
+  "source": {
+   "label": "Complex: Swizz Beatz Tells All The Stories Behind His Classic Records (Part 1)",
+   "url": "https://www.complex.com/music/2011/08/swizz-beatz-tells-all-the-stories-behind-his-classic-records-part-1"
+  },
+  "quote": "As a matter of fact, I did 'Money, Cash, Hoes' on the Korg M1 too.",
+  "quoteBy": "Swizz Beatz"
+ },
+ {
+  "song": "Down Bottom",
+  "artist": "Ruff Ryders (Drag-On & Juvenile)",
+  "producer": "Swizz Beatz",
+  "plugin": "Korg Trinity (hardware workstation)",
+  "preset": null,
+  "role": "Looped factory sounds (the Triton wasn't out yet)",
+  "confidence": "producer",
+  "source": {
+   "label": "Complex: Swizz Beatz Tells All The Stories Behind His Classic Records (Part 1)",
+   "url": "https://www.complex.com/music/2011/08/swizz-beatz-tells-all-the-stories-behind-his-classic-records-part-1"
+  },
+  "quote": "I was using the Trinities, these silver keyboards. The Triton hadn't come out yet.",
+  "quoteBy": "Swizz Beatz"
+ },
+ {
+  "song": "Who Want What",
+  "artist": "Beanie Sigel",
+  "producer": "Just Blaze",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": null,
+  "role": "Scratch sound effect",
+  "confidence": "producer",
+  "source": {
+   "label": "Complex: Just Blaze Tells All The Stories Behind His Classic Records (Part 1)",
+   "url": "https://www.complex.com/music/2011/09/just-blaze-tells-all-the-stories-behind-his-classic-records-part-1"
+  },
+  "quote": "the same scratch sound from the Triton that so many people used to use",
+  "quoteBy": "Just Blaze"
+ },
+ {
+  "song": "Streets Is Talking",
+  "artist": "Jay-Z feat. Beanie Sigel",
+  "producer": "Just Blaze",
+  "plugin": "Akai MPC (hardware sampler) + Avid Pro Tools",
+  "preset": null,
+  "role": "Beat built across Pro Tools and the MPC",
+  "confidence": "producer",
+  "source": {
+   "label": "Complex: Just Blaze Tells All The Stories Behind His Classic Records (Part 1)",
+   "url": "https://www.complex.com/music/2011/09/just-blaze-tells-all-the-stories-behind-his-classic-records-part-1"
+  },
+  "quote": "a combination of Pro Tools and the [MPC]",
+  "quoteBy": "Just Blaze"
+ },
+ {
+  "song": "Roc the Mic",
+  "artist": "State Property (Beanie Sigel & Freeway)",
+  "producer": "Just Blaze",
+  "plugin": "Ensoniq ASR-X (hardware sampler)",
+  "preset": null,
+  "role": "The sounds used on the beat",
+  "confidence": "producer",
+  "source": {
+   "label": "Complex: Just Blaze Tells All The Stories Behind His Classic Records (Part 2)",
+   "url": "https://www.complex.com/music/2011/09/just-blaze-tells-all-the-stories-behind-his-classic-records-part-2"
+  },
+  "quote": "the sounds that I was using in the ASRX at the time.",
+  "quoteBy": "Just Blaze"
+ },
+ {
+  "song": "Gangsta Gangsta",
+  "artist": "N.W.A",
+  "producer": "Dr. Dre & DJ Yella",
+  "plugin": "Roland TR-808 (drum machine)",
+  "preset": null,
+  "role": "808 drum sounds",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard: Dr. Dre's Gear",
+   "url": "https://equipboard.com/dr-dre"
+  },
+  "quote": "the signature sounds of the Roland TR-808 can be heard several times."
+ },
+ {
+  "song": "They Reminisce Over You (T.R.O.Y.)",
+  "artist": "Pete Rock & CL Smooth",
+  "producer": "Pete Rock",
+  "plugin": "Akai S950 (hardware sampler; called 'SP-950' in the interview)",
+  "preset": null,
+  "role": "Finishing the beat (borrowed sampler)",
+  "confidence": "producer",
+  "source": {
+   "label": "Complex: Pete Rock Tells All The Stories Behind His Classic Records",
+   "url": "https://www.complex.com/music/a/daniel-isenberg/interview-pete-rock-classics"
+  },
+  "quote": "I made the base of the beat at my house, and I finished the rest at his house using his SP-950.",
+  "quoteBy": "Pete Rock"
+ },
+ {
+  "song": "I'm So Fly",
+  "artist": "Lloyd Banks",
+  "producer": "Timbaland (with Danja)",
+  "plugin": "Ensoniq ASR-10 (hardware sampler)",
+  "preset": null,
+  "role": "Sampling Danja's played parts and building the beat",
+  "confidence": "engineer",
+  "source": {
+   "label": "Complex: Danja Tells All the Stories Behind His Biggest Hits",
+   "url": "https://www.complex.com/music/a/insanul-ahmed/danja-tells-all-the-stories-behind-his-biggest-hits"
+  },
+  "quote": "Tim would sample that and put a beat to it in his ASR-10.",
+  "quoteBy": "Danja"
+ },
+ {
+  "song": "Hurt",
+  "artist": "T.I. feat. Alfamega & Busta Rhymes",
+  "producer": "Danja",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": null,
+  "role": "Horn, sampled back into the MPC",
+  "confidence": "producer",
+  "source": {
+   "label": "Complex: Danja Tells All the Stories Behind His Biggest Hits",
+   "url": "https://www.complex.com/music/a/insanul-ahmed/danja-tells-all-the-stories-behind-his-biggest-hits"
+  },
+  "quote": "So I did that horn and I did it all on the Triton and sampled it back into the MPC.",
+  "quoteBy": "Danja"
+ },
+ {
+  "song": "Ha",
+  "artist": "Juvenile",
+  "producer": "Mannie Fresh",
+  "plugin": "E-mu SP-1200 (hardware sampler/drum machine)",
+  "preset": null,
+  "role": "The whole beat, including key sounds made by tuning bass sounds",
+  "confidence": "producer",
+  "source": {
+   "label": "Micro-Chop (Medium): Mannie Fresh Made 'Ha' With An E-mu SP-1200",
+   "url": "https://medium.com/micro-chop/mannie-fresh-made-ha-with-an-emu-sp-1200-2ecf13d67b2b"
+  },
+  "quote": "The whole song was created on my SP 1200…It was no keyboards, none of that.",
+  "quoteBy": "Mannie Fresh"
+ },
+ {
+  "song": "Top Back",
+  "artist": "T.I.",
+  "producer": "Mannie Fresh",
+  "plugin": "E-mu SP-1200 + Ensoniq EPS (hardware samplers)",
+  "preset": null,
+  "role": "Beat built by combining the two machines",
+  "confidence": "press",
+  "source": {
+   "label": "Micro-Chop (Medium): Mannie Fresh Made 'Ha' With An E-mu SP-1200",
+   "url": "https://medium.com/micro-chop/mannie-fresh-made-ha-with-an-emu-sp-1200-2ecf13d67b2b"
+  },
+  "quote": "by using both."
+ },
+ {
+  "song": "Used 2",
+  "artist": "2 Chainz",
+  "producer": "Mannie Fresh",
+  "plugin": "Intua BeatMaker 2 (iOS app)",
+  "preset": null,
+  "role": "The whole beat",
+  "confidence": "press",
+  "source": {
+   "label": "Micro-Chop (Medium): Mannie Fresh Made 'Ha' With An E-mu SP-1200",
+   "url": "https://medium.com/micro-chop/mannie-fresh-made-ha-with-an-emu-sp-1200-2ecf13d67b2b"
+  },
+  "quote": "made the hit 2 Chainz single \"Used 2\" with Beatmaker 2"
+ },
+ {
+  "song": "Back That Azz Up",
+  "artist": "Juvenile feat. Mannie Fresh & Lil Wayne",
+  "producer": "Mannie Fresh",
+  "plugin": "Roland TR-808 (drum machine)",
+  "preset": null,
+  "role": "808 'Triggerman' beat under classical strings",
+  "confidence": "producer",
+  "source": {
+   "label": "Red Bull Music Academy: Mannie Fresh lecture (New Orleans, 2011)",
+   "url": "https://www.redbullmusicacademy.com/lectures/mannie-fresh-new-orleans-2011"
+  },
+  "quote": "If I put this 808 \"Trigger Man\" beat behind it and I put some classical music on top of it",
+  "quoteBy": "Mannie Fresh"
+ },
+ {
+  "song": "Buck Jump Time",
+  "artist": "Gregory D & Mannie Fresh",
+  "producer": "Mannie Fresh",
+  "plugin": "Roland TR-808 (drum machine)",
+  "preset": null,
+  "role": "808 drums under second-line brass elements",
+  "confidence": "producer",
+  "source": {
+   "label": "Red Bull Music Academy: Mannie Fresh lecture (New Orleans, 2011)",
+   "url": "https://www.redbullmusicacademy.com/lectures/mannie-fresh-new-orleans-2011"
+  },
+  "quote": "\"Buck Jump Time,\" there's elements of second line [brass band parade music] basically and 808.",
+  "quoteBy": "Mannie Fresh"
+ },
+ {
+  "song": "Owe You Back (as written in the comment; likely Nas's 'You Owe Me')",
+  "artist": "Nas",
+  "producer": "Timbaland",
+  "plugin": "E-mu Proteus 2000 (hardware sound module)",
+  "preset": "Plexy",
+  "role": "Bass riff (patch audition riff sampled straight)",
+  "confidence": "community",
+  "source": {
+   "label": "Music Thing: Friday is Timbaland Day - Pt 2: How Tim makes records",
+   "url": "https://musicthing.blogspot.com/2004/09/friday-is-timbaland-day-pt-2-how-tim.html"
+  },
+  "quote": "Nas's Owe You Back is an audition riff sampled straight from a bass patch called Plexy.",
+  "quoteBy": "Anonymous commenter (Music Thing blog)"
+ },
+ {
+  "song": "More Than a Woman",
+  "artist": "Aaliyah",
+  "producer": "Timbaland",
+  "plugin": "Akai MPC (hardware sampler)",
+  "preset": null,
+  "role": "The eight-bar loop the whole song runs on",
+  "confidence": "press",
+  "source": {
+   "label": "MusicRadar: 5 songs producers need to hear by Timbaland",
+   "url": "https://www.musicradar.com/news/5-songs-producers-need-to-hear-by-timbaland"
+  },
+  "quote": "the intro, verses and chorus are all essentially the same eight-bar Akai MPC loop, repeated for the track’s 3:49 duration."
+ },
+ {
+  "song": "4 Minutes",
+  "artist": "Madonna feat. Justin Timberlake & Timbaland",
+  "producer": "Timbaland, Danja & Justin Timberlake",
+  "plugin": "Akai MPC3000 (hardware sampler)",
+  "preset": null,
+  "role": "Beats",
+  "confidence": "press",
+  "source": {
+   "label": "MusicRadar: 5 songs producers need to hear by Timbaland",
+   "url": "https://www.musicradar.com/news/5-songs-producers-need-to-hear-by-timbaland"
+  },
+  "quote": "The beats come hard and fast via an Akai MPC3000, and the parping horns"
+ },
+ {
+  "song": "4 Minutes",
+  "artist": "Madonna feat. Justin Timberlake & Timbaland",
+  "producer": "Timbaland, Danja & Justin Timberlake",
+  "plugin": "Yamaha Motif (hardware workstation)",
+  "preset": null,
+  "role": "The parping horns",
+  "confidence": "press",
+  "source": {
+   "label": "MusicRadar: 5 songs producers need to hear by Timbaland",
+   "url": "https://www.musicradar.com/news/5-songs-producers-need-to-hear-by-timbaland"
+  },
+  "quote": "are all Yamaha Motif."
+ },
+ {
+  "song": "Drop It Like It's Hot",
+  "artist": "Snoop Dogg feat. Pharrell",
+  "producer": "The Neptunes",
+  "plugin": "Korg microKORG (hardware synth)",
+  "preset": null,
+  "role": "Chords",
+  "confidence": "press",
+  "source": {
+   "label": "RouteNote Create: Producer Profile: Pharrell Williams",
+   "url": "https://create.routenote.com/blog/?p=21166"
+  },
+  "quote": "Small compact synth used for the chords in Drop it like it's hot."
+ },
+ {
+  "song": "SexyBack",
+  "artist": "Justin Timberlake",
+  "producer": "Timbaland, Justin Timberlake & Danja",
+  "plugin": "Akai MPC3000 (hardware sampler)",
+  "preset": null,
+  "role": "Danja's beat programming during the session",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Secrets Of The Mix Engineers: Jimmy Douglass",
+   "url": "https://www.soundonsound.com/node/4911071"
+  },
+  "quote": "Timbaland and Danja were jamming behind me, with Danja on an Akai MPC3000 and Tim an Ensoniq ASR10.",
+  "quoteBy": "Jimmy Douglass"
+ },
+ {
+  "song": "SexyBack",
+  "artist": "Justin Timberlake",
+  "producer": "Timbaland, Justin Timberlake & Danja",
+  "plugin": "Ensoniq ASR-10 (hardware sampler)",
+  "preset": null,
+  "role": "Timbaland's parts during the session",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Secrets Of The Mix Engineers: Jimmy Douglass",
+   "url": "https://www.soundonsound.com/node/4911071"
+  },
+  "quote": "Timbaland and Danja were jamming behind me, with Danja on an Akai MPC3000 and Tim an Ensoniq ASR10.",
+  "quoteBy": "Jimmy Douglass"
+ },
+ {
+  "song": "Headlines",
+  "artist": "Drake",
+  "producer": "Boi-1da (co-produced by Noah '40' Shebib)",
+  "plugin": "Avid Xpand! (Pro Tools stock instrument)",
+  "preset": null,
+  "role": "One of the main keyboard parts (40's overdub), through a guitar amp sim",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Noah '40' Shebib: Recording Drake's 'Headlines'",
+   "url": "https://www.soundonsound.com/techniques/noah-40-shebib-recording-drakes-headlines"
+  },
+  "quote": "One of the main keyboard parts in the song was added by 40 using the basic Xpand! instrument in Pro Tools"
+ },
+ {
+  "song": "Headlines",
+  "artist": "Drake",
+  "producer": "Boi-1da (co-produced by Noah '40' Shebib)",
+  "plugin": "Avid Xpand! (bass track)",
+  "preset": null,
+  "role": "40's added bass track, sample-rate degraded with Lo-Fi",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Noah '40' Shebib: Recording Drake's 'Headlines'",
+   "url": "https://www.soundonsound.com/techniques/noah-40-shebib-recording-drakes-headlines"
+  },
+  "quote": "I also added a bass track, using Xpand!, which is a stock plug-in in Pro Tools",
+  "quoteBy": "Noah '40' Shebib"
+ },
+ {
+  "song": "Headlines",
+  "artist": "Drake",
+  "producer": "Boi-1da (co-produced by Noah '40' Shebib)",
+  "plugin": "Avid Xpand! 2 + Waves GTR Solo (unnamed preset)",
+  "preset": null,
+  "role": "'Outro40lead' synth lead",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Noah '40' Shebib: Recording Drake's 'Headlines'",
+   "url": "https://www.soundonsound.com/techniques/noah-40-shebib-recording-drakes-headlines"
+  },
+  "quote": "I used an instrument in Xpand! 2 and then the GTR Solo plug-in preset and, again, some Lo-Fi.",
+  "quoteBy": "Noah '40' Shebib"
+ },
+ {
+  "song": "Headlines",
+  "artist": "Drake",
+  "producer": "Boi-1da (co-produced by Noah '40' Shebib)",
+  "plugin": "Avid Lo-Fi (Pro Tools stock plugin)",
+  "preset": null,
+  "role": "Sample-rate reduction and distortion on keys and bass",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Noah '40' Shebib: Recording Drake's 'Headlines'",
+   "url": "https://www.soundonsound.com/techniques/noah-40-shebib-recording-drakes-headlines"
+  },
+  "quote": "Three of my five additional keyboard parts have the Lo-Fi,",
+  "quoteBy": "Noah '40' Shebib"
+ },
+ {
+  "song": "Headlines",
+  "artist": "Drake",
+  "producer": "Boi-1da (co-produced by Noah '40' Shebib)",
+  "plugin": "Avid SansAmp PSA-1",
+  "preset": null,
+  "role": "Amp-style grit on 40's extra keyboard parts",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Noah '40' Shebib: Recording Drake's 'Headlines'",
+   "url": "https://www.soundonsound.com/techniques/noah-40-shebib-recording-drakes-headlines"
+  },
+  "quote": "Those keyboards also have the Sansamp on them.",
+  "quoteBy": "Noah '40' Shebib"
+ },
+ {
+  "song": "Headlines",
+  "artist": "Drake",
+  "producer": "Boi-1da (co-produced by Noah '40' Shebib)",
+  "plugin": "Image-Line FL Studio (Fruity Loops)",
+  "preset": null,
+  "role": "Boi-1da's beat (strings, saw bass, drums)",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Noah '40' Shebib: Recording Drake's 'Headlines'",
+   "url": "https://www.soundonsound.com/techniques/noah-40-shebib-recording-drakes-headlines"
+  },
+  "quote": "Boi-1da and T-Minus both use Fruity Loops to do their beats, and until recently it only spat out 16-bit files,",
+  "quoteBy": "Noah '40' Shebib"
+ },
+ {
+  "song": "Run This Town",
+  "artist": "Jay-Z feat. Rihanna & Kanye West",
+  "producer": "Kanye West, No I.D. & Jeff Bhasker",
+  "plugin": "Ensoniq ASR-10 + Akai MPC 2000XL (hardware)",
+  "preset": null,
+  "role": "Kanye's drum loop (sampled on ASR10, sequenced on MPC)",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Secrets Of The Mix Engineers: Young Guru",
+   "url": "https://www.soundonsound.com/node/4908473"
+  },
+  "quote": "He mainly uses the [Ensoniq] ASR10 and sequences that with an [Akai] MPC 2000XL.",
+  "quoteBy": "Young Guru"
+ },
+ {
+  "song": "Run This Town",
+  "artist": "Jay-Z feat. Rihanna & Kanye West",
+  "producer": "Kanye West, No I.D. & Jeff Bhasker",
+  "plugin": "Moog synthesizer (bass)",
+  "preset": null,
+  "role": "Bass track 'BAS05', played by Jeff Bhasker",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Secrets Of The Mix Engineers: Young Guru",
+   "url": "https://www.soundonsound.com/node/4908473"
+  },
+  "quote": "'BAS05' is a bass Moog, played by Jeff Bhasker.",
+  "quoteBy": "Young Guru"
+ },
+ {
+  "song": "Run This Town",
+  "artist": "Jay-Z feat. Rihanna & Kanye West",
+  "producer": "Kanye West, No I.D. & Jeff Bhasker",
+  "plugin": "Avid Eleven (guitar amp plugin)",
+  "preset": null,
+  "role": "Guitar tone (placed by Kanye)",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Secrets Of The Mix Engineers: Young Guru",
+   "url": "https://www.soundonsound.com/node/4908473"
+  },
+  "quote": "The Eleven plug‑in was put on by Kanye, for the tone, so I just left that.",
+  "quoteBy": "Young Guru"
+ },
+ {
+  "song": "D.O.A. (Death of Auto-Tune)",
+  "artist": "Jay-Z",
+  "producer": "No I.D. & Kanye West",
+  "plugin": "Apple Logic",
+  "preset": null,
+  "role": "No I.D.'s whole beat",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Secrets Of The Mix Engineers: Young Guru",
+   "url": "https://www.soundonsound.com/node/4908473"
+  },
+  "quote": "No ID works completely in Logic; even when he is in a room with all this equipment, he does not use any of it.",
+  "quoteBy": "Young Guru"
+ },
+ {
+  "song": "All the Stars",
+  "artist": "Kendrick Lamar & SZA",
+  "producer": "Sounwave & Al Shux",
+  "plugin": "Akai MPC Studio (MPC software) + MIDI keyboard",
+  "preset": null,
+  "role": "Sounwave's melodic parts and drums played live",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Inside Track: Kendrick Lamar | Black Panther 'All The Stars'",
+   "url": "https://www.soundonsound.com/techniques/inside-track-kendrick-lamar-black-panther-all-stars"
+  },
+  "quote": "Sounwave has an MPC Studio with MPC software and plays melodic parts with a MIDI keyboard,",
+  "quoteBy": "Matt Schaeffer"
+ },
+ {
+  "song": "All the Stars",
+  "artist": "Kendrick Lamar & SZA",
+  "producer": "Sounwave & Al Shux",
+  "plugin": "iZotope VocalSynth",
+  "preset": null,
+  "role": "Robotic vocoder-like effect on Kendrick's pre-hook",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Inside Track: Kendrick Lamar | Black Panther 'All The Stars'",
+   "url": "https://www.soundonsound.com/techniques/inside-track-kendrick-lamar-black-panther-all-stars"
+  },
+  "quote": "The main robotic effect comes from the iZotope VocalSynth, which gives it a vocoder-like sound.",
+  "quoteBy": "Matt Schaeffer"
+ },
+ {
+  "song": "Happy",
+  "artist": "Pharrell Williams",
+  "producer": "Pharrell Williams",
+  "plugin": "Roland TR-808 (drum machine)",
+  "preset": null,
+  "role": "Programmed claps track",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Inside Track: Pharrell Williams 'Happy'",
+   "url": "https://www.soundonsound.com/techniques/inside-track-pharrell-williams-happy"
+  },
+  "quote": "Next is a claps track which was programmed using a Roland 808 and on which had the SSL Channel EQ.",
+  "quoteBy": "Leslie Brathwaite"
+ },
+ {
+  "song": "These Walls",
+  "artist": "Kendrick Lamar feat. Bilal, Anna Wise & Thundercat",
+  "producer": "Terrace Martin, Sounwave & Larrance Dopson",
+  "plugin": "Ableton Live",
+  "preset": null,
+  "role": "Programmed drums, bass, keyboards and some effects",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Inside Track: Kendrick Lamar's To Pimp A Butterfly",
+   "url": "https://www.soundonsound.com/techniques/inside-track-kendrick-lamars-pimp-butterfly"
+  },
+  "quote": "tracks originally programmed and played in Ableton Live, including drums, bass and keyboards, plus some effect tracks"
+ },
+ {
+  "song": "Not Afraid",
+  "artist": "Eminem",
+  "producer": "Boi-1da (co-produced by Luis Resto)",
+  "plugin": "Oberheim OB-8 (hardware synth)",
+  "preset": null,
+  "role": "Luis Resto's added synth sound",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Mike Strange Jr: Eminem Recovery",
+   "url": "https://www.soundonsound.com/techniques/mike-strange-jr-eminem-recovery"
+  },
+  "quote": "on an OB8 sound.",
+  "quoteBy": "Mike Strange"
+ },
+ {
+  "song": "Not Afraid",
+  "artist": "Eminem",
+  "producer": "Boi-1da (co-produced by Luis Resto)",
+  "plugin": "Antares Auto-Tune",
+  "preset": null,
+  "role": "Keeping the pitch of Luis Resto's added 808 kick stable",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Mike Strange Jr: Eminem Recovery",
+   "url": "https://www.soundonsound.com/techniques/mike-strange-jr-eminem-recovery"
+  },
+  "quote": "I used a Trim and Auto‑Tune on the 808 kick that was added by Luis.",
+  "quoteBy": "Mike Strange"
+ },
+ {
+  "song": "The Way I Are",
+  "artist": "Timbaland feat. Keri Hilson & D.O.E.",
+  "producer": "Timbaland & Danja",
+  "plugin": "Waves MondoMod",
+  "preset": "Medium Chorus",
+  "role": "Movement on the pad ('Coolio' track)",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Secrets Of The Mix Engineers: Marcella Araica",
+   "url": "https://www.soundonsound.com/techniques/secrets-mix-engineers-marcella-araica"
+  },
+  "quote": "I wanted to give it a little bit more movement, so I stuck it through a MondoMod on a preset called ‘Medium Chorus’.",
+  "quoteBy": "Marcella Araica"
+ },
+ {
+  "song": "The Way I Are",
+  "artist": "Timbaland feat. Keri Hilson & D.O.E.",
+  "producer": "Timbaland & Danja",
+  "plugin": "Waves MetaFlanger + Waves Enigma",
+  "preset": null,
+  "role": "Two flangers on the main synth line ('Nutts' track)",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Secrets Of The Mix Engineers: Marcella Araica",
+   "url": "https://www.soundonsound.com/techniques/secrets-mix-engineers-marcella-araica"
+  },
+  "quote": "I made it sound more spaced-out with two flangers, using the Enigma and MetaFlanger plugins.",
+  "quoteBy": "Marcella Araica"
+ },
+ {
+  "song": "The Way I Are",
+  "artist": "Timbaland feat. Keri Hilson & D.O.E.",
+  "producer": "Timbaland & Danja",
+  "plugin": "Waves SuperTap",
+  "preset": null,
+  "role": "Delay on the 'block' percussion to make it bounce",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Secrets Of The Mix Engineers: Marcella Araica",
+   "url": "https://www.soundonsound.com/techniques/secrets-mix-engineers-marcella-araica"
+  },
+  "quote": "used the SuperTap [delay] to make it bounce more",
+  "quoteBy": "Marcella Araica"
+ },
+ {
+  "song": "4 Minutes",
+  "artist": "Madonna feat. Justin Timberlake & Timbaland",
+  "producer": "Timbaland, Danja & Justin Timberlake",
+  "plugin": "Ensoniq ASR-10 (hardware sampler)",
+  "preset": null,
+  "role": "Building the backing track (with the MPC3000)",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Secrets Of The Mix Engineers: Demacio 'Demo' Castellon",
+   "url": "https://www.soundonsound.com/techniques/secrets-mix-engineers-demacio-demo-castellon"
+  },
+  "quote": "Timbaland and Danja used their trusted Akai MPC3000 and Ensoniq ASR10 sampling drum machines"
+ },
+ {
+  "song": "Stronger",
+  "artist": "Kanye West",
+  "producer": "Kanye West & Mike Dean",
+  "plugin": "Ensoniq ASR-10 (hardware sampler)",
+  "preset": null,
+  "role": "Chopping and playing the Daft Punk 'Harder, Better, Faster, Stronger' sample",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Secrets Of The Mix Engineers: Manny Marroquin",
+   "url": "https://www.soundonsound.com/techniques/secrets-mix-engineers-manny-marroquin"
+  },
+  "quote": "putting words and phrases and chord changes under different keyboard keys, in this case on the Ensoniq ASR10.",
+  "quoteBy": "Manny Marroquin"
+ },
+ {
+  "song": "Stronger",
+  "artist": "Kanye West",
+  "producer": "Kanye West & Mike Dean",
+  "plugin": "Roland Juno-106 (hardware synth)",
+  "preset": null,
+  "role": "Synth parts added in the New York sessions (played by Mike Dean)",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Secrets Of The Mix Engineers: Manny Marroquin",
+   "url": "https://www.soundonsound.com/techniques/secrets-mix-engineers-manny-marroquin"
+  },
+  "quote": "I think using a Juno 106 and a [Clavia] Nord Lead, among other synths.",
+  "quoteBy": "Manny Marroquin"
+ },
+ {
+  "song": "Stronger",
+  "artist": "Kanye West",
+  "producer": "Kanye West & Mike Dean",
+  "plugin": "Clavia Nord Lead (hardware synth)",
+  "preset": null,
+  "role": "Synth parts added in the New York sessions (played by Mike Dean)",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Secrets Of The Mix Engineers: Manny Marroquin",
+   "url": "https://www.soundonsound.com/techniques/secrets-mix-engineers-manny-marroquin"
+  },
+  "quote": "I think using a Juno 106 and a [Clavia] Nord Lead, among other synths.",
+  "quoteBy": "Manny Marroquin"
+ },
+ {
+  "song": "Stronger",
+  "artist": "Kanye West",
+  "producer": "Kanye West & Mike Dean",
+  "plugin": "Roland TR-808 (kick)",
+  "preset": null,
+  "role": "'Kick Soft' track, one of three kicks",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Secrets Of The Mix Engineers: Manny Marroquin",
+   "url": "https://www.soundonsound.com/techniques/secrets-mix-engineers-manny-marroquin"
+  },
+  "quote": "'Kick Soft' is an 808 kick.",
+  "quoteBy": "Manny Marroquin"
+ },
+ {
+  "song": "Stronger",
+  "artist": "Kanye West",
+  "producer": "Kanye West & Mike Dean",
+  "plugin": "Eventide Eclipse (hardware effects unit)",
+  "preset": "Rich Chorus",
+  "role": "Chorus on the Daft Punk sample and on the main synth line",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Secrets Of The Mix Engineers: Manny Marroquin",
+   "url": "https://www.soundonsound.com/techniques/secrets-mix-engineers-manny-marroquin"
+  },
+  "quote": "the main synth line was treated with the Rich Chorus effect from the Eclipse",
+  "quoteBy": "Manny Marroquin"
+ },
+ {
+  "song": "Broke Boi",
+  "artist": "Playboi Carti",
+  "producer": "MexikoDro",
+  "plugin": "reFX Nexus",
+  "preset": "AR Sinebells",
+  "role": "Sine bell melody",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard: MexikoDro's Gear",
+   "url": "https://equipboard.com/mexikodro"
+  },
+  "quote": "the track uses the AR Sinebells preset"
+ },
+ {
+  "song": "Gassed Up",
+  "artist": "Nebu Kiniza",
+  "producer": "MexikoDro",
+  "plugin": "Luxonix Purity",
+  "preset": "Pretty Suitcase",
+  "role": "Keys melody",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard: MexikoDro's Gear",
+   "url": "https://equipboard.com/mexikodro"
+  },
+  "quote": "MexikoDro uses Luxonix Purity in Nebu Kiniza’s “Gassed Up”"
+ },
+ {
+  "song": "surf",
+  "artist": "Vince Staples",
+  "producer": "Clams Casino",
+  "plugin": "Yamaha PSR-D1 DJX (hardware keyboard)",
+  "preset": null,
+  "role": "Drums",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard: Clams Casino's Gear",
+   "url": "https://equipboard.com/clams-casino"
+  },
+  "quote": "Used this for drums on"
+ },
+ {
+  "song": "Thanks to You",
+  "artist": "Clams Casino",
+  "producer": "Clams Casino",
+  "plugin": "Apple iPad drum app (app not named)",
+  "preset": null,
+  "role": "Drums",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard: Clams Casino's Gear",
+   "url": "https://equipboard.com/clams-casino"
+  },
+  "quote": "used an iPad app for the drums on 'Thanks to You'"
+ },
+ {
+  "song": "Talk",
+  "artist": "Yeat",
+  "producer": "BNYX",
+  "plugin": "Xfer Serum",
+  "preset": "Screamy Sync Square",
+  "role": "Lead synth (Serum factory preset)",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard: BNYX's Gear",
+   "url": "https://equipboard.com/bnyx"
+  },
+  "quote": "\"Screamy Sync Square,\" which is included in the factory presets"
+ },
+ {
+  "song": "How To Talk",
+  "artist": "Lil Uzi Vert",
+  "producer": "Unknown",
+  "plugin": "Waves OneKnob",
+  "preset": null,
+  "role": "Taking highs out of the telephone-style intro voice note",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Inside Track: Lil Uzi Vert 'How To Talk'",
+   "url": "https://www.soundonsound.com/techniques/inside-track-lil-uzi-vert"
+  },
+  "quote": "I tried to take out some of the highs with the Waves OneKnob",
+  "quoteBy": "Kesha Lee"
+ },
+ {
+  "song": "A Lot",
+  "artist": "21 Savage feat. J. Cole",
+  "producer": "DJ Dahi & J White",
+  "plugin": "Acustica Audio Diamond (Pensado edition)",
+  "preset": null,
+  "role": "100Hz boost on all drums",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Inside Track: 21 Savage 'A Lot'",
+   "url": "https://www.soundonsound.com/techniques/inside-track-21-savage?page=2"
+  },
+  "quote": "has the Acustica Diamond, in a special edition made for Dave Pensado",
+  "quoteBy": "Chanbuny \"Maddmix\" Chhim"
+ },
+ {
+  "song": "Ransom",
+  "artist": "Lil Tecca",
+  "producer": "Nick Mira & Taz Taylor",
+  "plugin": "Roland Juno-106",
+  "preset": null,
+  "role": "One of the two melodic/chord synth parts in the beat",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Inside Track: Lil Tecca 'Ransom'",
+   "url": "https://www.soundonsound.com/techniques/inside-track-lil-tecca-ransom"
+  },
+  "quote": "One is from a [Roland] Juno 106 and the other from [Spectrasonics] Omnisphere.",
+  "quoteBy": "Joseph Colmenero"
+ },
+ {
+  "song": "Ransom",
+  "artist": "Lil Tecca",
+  "producer": "Nick Mira & Taz Taylor",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": null,
+  "role": "The other melodic/chord synth part in the beat",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Inside Track: Lil Tecca 'Ransom'",
+   "url": "https://www.soundonsound.com/techniques/inside-track-lil-tecca-ransom"
+  },
+  "quote": "One is from a [Roland] Juno 106 and the other from [Spectrasonics] Omnisphere.",
+  "quoteBy": "Joseph Colmenero"
+ },
+ {
+  "song": "Ransom",
+  "artist": "Lil Tecca",
+  "producer": "Nick Mira & Taz Taylor",
+  "plugin": "Waves NLS Channel",
+  "preset": "Nevo",
+  "role": "Analogue saturation on the kick and 808",
+  "confidence": "engineer",
+  "source": {
+   "label": "Sound On Sound: Inside Track: Lil Tecca 'Ransom'",
+   "url": "https://www.soundonsound.com/techniques/inside-track-lil-tecca-ransom"
+  },
+  "quote": "the NLS plug-in, set to Nevo, added the analogue saturation.",
+  "quoteBy": "Joseph Colmenero"
+ },
+ {
+  "song": "Hacked My Instagram",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "DJ Spinz 808 (drum sample)",
+  "preset": null,
+  "role": "Distorted, bouncy 808 (writer's guess)",
+  "confidence": "community",
+  "source": {
+   "label": "The Linx (Substack): Hacked My Instagram: A Pi'erre Bourne Deep Dive",
+   "url": "https://thelinx.substack.com/p/hacked-my-instagram-a-pierre-bourne-leak-playboi-carti-nudy"
+  },
+  "quote": "It's most likely just a Spinz 808 with a ton of distortion and/or compression"
+ },
+ {
+  "song": "Redbone",
+  "artist": "Childish Gambino",
+  "producer": "Ludwig Göransson & Donald Glover",
+  "plugin": "Mellotron M4000D Mini (hardware)",
+  "preset": null,
+  "role": "opening keys",
+  "confidence": "press",
+  "source": {
+   "label": "Mixdown: Gear Rundown: Redbone by Childish Gambino",
+   "url": "https://mixdownmag.com.au/features/gear-rundown-childish-gambinos-redbone/"
+  }
+ },
+ {
+  "song": "Redbone",
+  "artist": "Childish Gambino",
+  "producer": "Ludwig Göransson & Donald Glover",
+  "plugin": "Fender Rhodes Stage Mark II (hardware)",
+  "preset": null,
+  "role": "keys licks after the intro",
+  "confidence": "press",
+  "source": {
+   "label": "Mixdown: Gear Rundown: Redbone by Childish Gambino",
+   "url": "https://mixdownmag.com.au/features/gear-rundown-childish-gambinos-redbone/"
+  }
+ },
+ {
+  "song": "Redbone",
+  "artist": "Childish Gambino",
+  "producer": "Ludwig Göransson & Donald Glover",
+  "plugin": "Roland Juno-106 (hardware)",
+  "preset": null,
+  "role": "synth bass layer under the Precision bass",
+  "confidence": "press",
+  "source": {
+   "label": "Mixdown: Gear Rundown: Redbone by Childish Gambino",
+   "url": "https://mixdownmag.com.au/features/gear-rundown-childish-gambinos-redbone/"
+  }
+ },
+ {
+  "song": "Redbone",
+  "artist": "Childish Gambino",
+  "producer": "Ludwig Göransson & Donald Glover",
+  "plugin": "Dave Smith Instruments Pro 2 (hardware)",
+  "preset": null,
+  "role": "third bass layer",
+  "confidence": "press",
+  "source": {
+   "label": "Mixdown: Gear Rundown: Redbone by Childish Gambino",
+   "url": "https://mixdownmag.com.au/features/gear-rundown-childish-gambinos-redbone/"
+  }
+ },
+ {
+  "song": "Redbone",
+  "artist": "Childish Gambino",
+  "producer": "Ludwig Göransson & Donald Glover",
+  "plugin": "Hohner Clavinet (hardware)",
+  "preset": null,
+  "role": "brass-like stabs",
+  "confidence": "press",
+  "source": {
+   "label": "Mixdown: Gear Rundown: Redbone by Childish Gambino",
+   "url": "https://mixdownmag.com.au/features/gear-rundown-childish-gambinos-redbone/"
+  }
+ },
+ {
+  "song": "Blinding Lights",
+  "artist": "The Weeknd",
+  "producer": "Max Martin, Oscar Holter & The Weeknd",
+  "plugin": "Roland Juno-60 (hardware)",
+  "preset": null,
+  "role": "lead synth hook (probable)",
+  "confidence": "press",
+  "source": {
+   "label": "MusicRadar: How The Weeknd created an authentic '80s sound in Blinding Lights",
+   "url": "https://www.musicradar.com/how-to/how-the-weeknd-recreated-80s-sound-blinding-lights"
+  }
+ },
+ {
+  "song": "Guard Your Heart",
+  "artist": "Big Sean",
+  "producer": "Rogét Chahayed",
+  "plugin": "Sequential Prophet X (hardware)",
+  "preset": null,
+  "role": "piano layer",
+  "confidence": "producer",
+  "source": {
+   "label": "Native Instruments Blog: Rogét Chahayed interview",
+   "url": "https://blog.native-instruments.com/roget-chahayed-interview/"
+  }
+ },
+ {
+  "song": "Blue Benz",
+  "artist": "Nas",
+  "producer": "Rogét Chahayed & Hit-Boy",
+  "plugin": "Native Instruments Kontakt",
+  "preset": null,
+  "role": "all instrument sounds",
+  "confidence": "producer",
+  "source": {
+   "label": "Native Instruments Blog: Rogét Chahayed interview",
+   "url": "https://blog.native-instruments.com/roget-chahayed-interview/"
+  }
+ },
+ {
+  "song": "Nitrous",
+  "artist": "Joji",
+  "producer": "Rogét Chahayed",
+  "plugin": "Casio toy keyboard (hardware) through pedals",
+  "preset": null,
+  "role": "main keyboard sound",
+  "confidence": "producer",
+  "source": {
+   "label": "Native Instruments Blog: Rogét Chahayed interview",
+   "url": "https://blog.native-instruments.com/roget-chahayed-interview/"
+  }
+ },
+ {
+  "song": "First Class",
+  "artist": "Jack Harlow",
+  "producer": "Rogét Chahayed, Angel López, Federico Vindver & others",
+  "plugin": "Nord Stage 3 (hardware)",
+  "preset": null,
+  "role": "fairytale-sounding string part and most keys",
+  "confidence": "producer",
+  "source": {
+   "label": "Sound On Sound: Inside Track: Rogét Chahayed",
+   "url": "https://www.soundonsound.com/techniques/inside-track-roget-chahayed"
+  }
+ },
+ {
+  "song": "First Class",
+  "artist": "Jack Harlow",
+  "producer": "Rogét Chahayed, Angel López, Federico Vindver & others",
+  "plugin": "Apple Logic Pro Vintage Electric Piano",
+  "preset": null,
+  "role": "Rhodes at the end, through HalfTime and RC-20",
+  "confidence": "producer",
+  "source": {
+   "label": "Sound On Sound: Inside Track: Rogét Chahayed",
+   "url": "https://www.soundonsound.com/techniques/inside-track-roget-chahayed"
+  }
+ },
+ {
+  "song": "Drew Barrymore",
+  "artist": "SZA",
+  "producer": "Carter Lang & Scum",
+  "plugin": "Native Instruments Kontakt (drums)",
+  "preset": null,
+  "role": "drums still in the final song",
+  "confidence": "producer",
+  "source": {
+   "label": "Reverb: Interview: Producer Carter Lang on Making SZA's \"Ctrl\"",
+   "url": "https://reverb.com/news/interview-carter-lang-on-making-szas-ctrl-and-his-macgyver-home-studio"
+  }
+ },
+ {
+  "song": "Lost",
+  "artist": "Frank Ocean",
+  "producer": "Frank Ocean & Malay",
+  "plugin": "GForce M-Tron Pro",
+  "preset": null,
+  "role": "Mellotron strings (likely)",
+  "confidence": "community",
+  "source": {
+   "label": "Reverb Machine: How Frank Ocean Created Lost",
+   "url": "https://reverbmachine.com/blog/how-frank-ocean-created-lost/"
+  }
+ },
+ {
+  "song": "Skyline To",
+  "artist": "Frank Ocean",
+  "producer": "Frank Ocean, James Blake & others",
+  "plugin": "Moog synthesizer (hardware)",
+  "preset": null,
+  "role": "breakdown synths (credited Moog solo by Chassol)",
+  "confidence": "community",
+  "source": {
+   "label": "Reverb Machine: Frank Ocean Synth Sounds, Part Two",
+   "url": "https://reverbmachine.com/blog/frank-ocean-synth-sounds/"
+  }
+ },
+ {
+  "song": "Dancing With a Stranger",
+  "artist": "Sam Smith & Normani",
+  "producer": "Stargate & Jimmy Napes",
+  "plugin": "Native Instruments Absynth 5",
+  "preset": "Untitled Sound",
+  "role": "sine-wave pad, with Valhalla Room",
+  "confidence": "press",
+  "source": {
+   "label": "Native Instruments Blog: Stargate's Mikkel Eriksen reveals the production secrets of pop's biggest hits",
+   "url": "https://blog.native-instruments.com/stargate/"
+  },
+  "quote": "the preset Tor played is ‘Untitled Sound,’ the first sound that comes up in the synth."
+ },
+ {
+  "song": "Dancing With a Stranger",
+  "artist": "Sam Smith & Normani",
+  "producer": "Stargate & Jimmy Napes",
+  "plugin": "Native Instruments Massive",
+  "preset": "Apologize This",
+  "role": "bassline",
+  "confidence": "press",
+  "source": {
+   "label": "Native Instruments Blog: Stargate's Mikkel Eriksen reveals the production secrets of pop's biggest hits",
+   "url": "https://blog.native-instruments.com/stargate/"
+  },
+  "quote": "For the bassline, Mikkel used the intoxicating power of MASSIVE, specifically the groovy but edgy preset ‘Apologize This.’"
+ },
+ {
+  "song": "Dancing With a Stranger",
+  "artist": "Sam Smith & Normani",
+  "producer": "Stargate & Jimmy Napes",
+  "plugin": "Orange Tree Samples Evolution Strawberry (Kontakt)",
+  "preset": "Kimchi",
+  "role": "muted chorus guitar",
+  "confidence": "press",
+  "source": {
+   "label": "Native Instruments Blog: Stargate's Mikkel Eriksen reveals the production secrets of pop's biggest hits",
+   "url": "https://blog.native-instruments.com/stargate/"
+  },
+  "quote": "specifically the Evolution Strawberry instrument’s preset Kimchi."
+ },
+ {
+  "song": "House of Balloons / Glass Table Girls",
+  "artist": "The Weeknd",
+  "producer": "Doc McKinney & Illangelo",
+  "plugin": "LennarDigital Sylenth1",
+  "preset": null,
+  "role": "hoover sound",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets/Sounds used by popular producers",
+   "url": "https://www.ktt2.com/presets-sounds-used-by-popular-producers-34684"
+  },
+  "path": "Soundbank Factory 1"
+ },
+ {
+  "song": "White Ferrari",
+  "artist": "Frank Ocean",
+  "producer": "Frank Ocean, Buddy Ross & others",
+  "plugin": "Roland Juno-106 (hardware)",
+  "preset": null,
+  "role": "synth credited to Buddy Ross",
+  "confidence": "press",
+  "source": {
+   "label": "Reverb: Video: The Synth Sounds of Frank Ocean",
+   "url": "https://reverb.com/news/recreating-frank-oceans-keys-and-synths-with-software-instruments"
+  }
+ },
+ {
+  "song": "Pyramids",
+  "artist": "Frank Ocean",
+  "producer": "Frank Ocean & Om'Mas Keith",
+  "plugin": "Moog Voyager (hardware)",
+  "preset": null,
+  "role": "groovy bassline after the first drop",
+  "confidence": "press",
+  "source": {
+   "label": "Reverb: Video: The Synth Sounds of Frank Ocean",
+   "url": "https://reverb.com/news/recreating-frank-oceans-keys-and-synths-with-software-instruments"
+  }
+ },
+ {
+  "song": "Thinkin Bout You",
+  "artist": "Frank Ocean",
+  "producer": "Shea Taylor",
+  "plugin": "Sequential Prophet (hardware)",
+  "preset": null,
+  "role": "main synth (by ear)",
+  "confidence": "community",
+  "source": {
+   "label": "Reverb: Video: The Synth Sounds of Frank Ocean",
+   "url": "https://reverb.com/news/recreating-frank-oceans-keys-and-synths-with-software-instruments"
+  }
+ },
+ {
+  "song": "Good Guy",
+  "artist": "Frank Ocean",
+  "producer": "Frank Ocean & others",
+  "plugin": "Wurlitzer electric piano (hardware)",
+  "preset": null,
+  "role": "electric piano",
+  "confidence": "press",
+  "source": {
+   "label": "Reverb: Video: The Synth Sounds of Frank Ocean",
+   "url": "https://reverb.com/news/recreating-frank-oceans-keys-and-synths-with-software-instruments"
+  }
+ },
+ {
+  "song": "Crack Rock",
+  "artist": "Frank Ocean",
+  "producer": "Frank Ocean & Malay",
+  "plugin": "Wurlitzer electric piano (hardware)",
+  "preset": null,
+  "role": "electric piano",
+  "confidence": "press",
+  "source": {
+   "label": "Reverb: Video: The Synth Sounds of Frank Ocean",
+   "url": "https://reverb.com/news/recreating-frank-oceans-keys-and-synths-with-software-instruments"
+  }
+ },
+ {
+  "song": "Persuasive",
+  "artist": "Doechii & SZA",
+  "producer": "Unknown",
+  "plugin": "DECAP Drums That Knock Vol. 3 (sample pack)",
+  "preset": null,
+  "role": "shaker loop (first half)",
+  "confidence": "press",
+  "source": {
+   "label": "Splice Blog: DECAP on 8 hits built on Drums That Knock",
+   "url": "https://splice.com/blog/?p=40818"
+  }
+ },
+ {
+  "song": "Slow Down",
+  "artist": "VanJess feat. Lucky Daye",
+  "producer": "Unknown",
+  "plugin": "DECAP Drums That Knock Vol. 5 (sample pack)",
+  "preset": null,
+  "role": "reworked drum loop",
+  "confidence": "press",
+  "source": {
+   "label": "Splice Blog: DECAP on 8 hits built on Drums That Knock",
+   "url": "https://splice.com/blog/?p=40818"
+  }
+ },
+ {
+  "song": "Doggystylin",
+  "artist": "Snoop Dogg",
+  "producer": "Unknown",
+  "plugin": "DECAP Drums That Knock Vol. 5 (sample pack)",
+  "preset": null,
+  "role": "percussion loop",
+  "confidence": "press",
+  "source": {
+   "label": "Splice Blog: DECAP on 8 hits built on Drums That Knock",
+   "url": "https://splice.com/blog/?p=40818"
+  }
+ },
+ {
+  "song": "LORD FORGIVE ME",
+  "artist": "Tobe Nwigwe, Fat Nwigwe, Pharrell Williams & EARTHGANG",
+  "producer": "Unknown",
+  "plugin": "DECAP Drums That Knock (sample pack)",
+  "preset": "golden / face v2 / raw ssl",
+  "role": "closed hi-hat (golden), kick (face v2) and snare (raw ssl) one-shots",
+  "confidence": "press",
+  "source": {
+   "label": "Splice Blog: DECAP on 8 hits built on Drums That Knock",
+   "url": "https://splice.com/blog/?p=40818"
+  }
+ },
+ {
+  "song": "I Feel It Coming",
+  "artist": "The Weeknd feat. Daft Punk",
+  "producer": "Daft Punk, Doc McKinney & Cirkut",
+  "plugin": "Sample pack (unnamed, Daft Punk-inspired)",
+  "preset": null,
+  "role": "low-pass resonant bass replacing the original legato bass line",
+  "confidence": "producer",
+  "source": {
+   "label": "Sound On Sound: Cirkut",
+   "url": "https://www.soundonsound.com/node/4931194"
+  }
+ },
+ {
+  "song": "Twist & Turn",
+  "artist": "Popcaan feat. Drake & PARTYNEXTDOOR",
+  "producer": "Nineteen85",
+  "plugin": "Ableton Live stock instruments",
+  "preset": null,
+  "role": "every sound in the track",
+  "confidence": "producer",
+  "source": {
+   "label": "AudioTechnology: Nineteen85 interview",
+   "url": "https://www.audiotechnology.com/?p=95568"
+  }
  }
 ]

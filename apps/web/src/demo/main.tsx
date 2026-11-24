@@ -53,7 +53,6 @@ import { FlipPanel } from "./flip";
 import { LoopsPage } from "./loops";
 import { pack, PACK_WEEK } from "./packs";
 import { ALL_SONGS, madeBy, songHref, TOP_PRODUCERS } from "./presets/songs";
-import { Cover } from "./presets/cover";
 import { PRESETS, type Confidence } from "./presets/data";
 import { kits } from "./kits/store";
 import { saveFiles } from "./save";
@@ -375,8 +374,8 @@ function Home() {
               const r = RARITY[BY_LEVEL[s.best] ?? "community"];
               return (
                 <li key={s.slug} className="w-40 shrink-0 tablet:w-44">
-                  <UiLink href={songHref(s.song, s.artist)} className="group flex flex-col gap-2">
-                    <Cover song={s.song} artist={s.artist} size="fill" />
+                  <UiLink href={songHref(s.song, s.artist)} className="group flex h-full flex-col justify-between gap-6 rounded-panel border border-border bg-surface p-4 ui-hover:border-border-strong">
+                    <span className="st-box line-clamp-2 rounded-control text-small text-text-muted">{s.entries.find((e) => e.preset)?.plugin ?? s.entries[0]?.plugin}</span>
                     <span className="flex min-w-0 flex-col">
                       <span className="truncate text-body-strong text-text group-hover:underline">{s.song}</span>
                       <span className="truncate text-small text-text-muted">{s.artist}</span>

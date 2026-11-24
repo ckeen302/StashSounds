@@ -284,7 +284,7 @@ export function FlipPanel({ row }: { row: ItemRow }) {
                 aria-label={`Slice ${i + 1}, key ${KEYS[i]!.toUpperCase()}`}
                 data-armed={armed === i || undefined}
                 data-hit={lit === i || undefined}
-                className="flex h-14 touch-manipulation select-none flex-col justify-between rounded-control border border-border-strong bg-raised p-2 text-left data-armed:border-text data-hit:border-accent data-hit:bg-accent data-hit:text-bg"
+                className="st-box flex h-14 touch-manipulation select-none flex-col justify-between rounded-control border border-border-strong bg-raised p-2 text-left data-armed:border-text data-hit:border-accent data-hit:bg-accent data-hit:text-bg"
               >
                 <span className="font-mono text-label opacity-70">{`Key ${KEYS[i]!.toUpperCase()}`}</span>
                 <span className="font-mono text-small">{`Slice ${i + 1}`}</span>

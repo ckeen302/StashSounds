@@ -151,7 +151,7 @@ function Scope() {
     draw();
     return () => cancelAnimationFrame(raf);
   }, []);
-  return <canvas ref={ref} aria-hidden="true" className="h-32 w-full rounded-control border border-border bg-bg" />;
+  return <canvas ref={ref} aria-hidden="true" className="st-box h-32 w-full rounded-control border border-border bg-bg" />;
 }
 
 function Keyboard({ octave, down, onDown, onUp }: { octave: number; down: Set<number>; onDown: (p: number) => void; onUp: (p: number) => void }) {

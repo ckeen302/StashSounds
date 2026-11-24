@@ -1,6 +1,6 @@
 import { ButtonLink, EmptyState, UiLink } from "@stash/ui";
 import { songChordItems } from "../midi/catalog";
-import { Cover, coverFor } from "./cover";
+import { coverFor } from "./cover";
 import { CONFIDENCE, type Confidence } from "./data";
 import { ConfidenceKey, familyOf, Meter, PatchStrip } from "./page";
 import {
@@ -67,7 +67,6 @@ export function PresetSongPage({ slug }: { slug: string }) {
       </UiLink>
 
       <header className="flex flex-col gap-5 tablet:flex-row tablet:items-end">
-        <Cover song={s.song} artist={s.artist} size="lg" />
         <div className="flex min-w-0 flex-col gap-2">
           <span className="text-label text-label-caps text-text-muted">
             The presets behind
@@ -166,9 +165,8 @@ function Shelf({ title, songs }: { title: string; songs: Song[] }) {
           <li key={x.key} className="w-36 shrink-0">
             <UiLink
               href={songHref(x.song, x.artist)}
-              className="group flex flex-col gap-2"
+              className="group flex h-full flex-col gap-2 rounded-panel border border-border bg-surface p-3 ui-hover:border-border-strong"
             >
-              <Cover song={x.song} artist={x.artist} size="fill" />
               <span className="flex min-w-0 flex-col">
                 <span className="truncate text-small text-text group-hover:underline">
                   {x.song}

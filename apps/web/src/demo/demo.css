@@ -385,4 +385,5 @@ html[data-look="stash"] .os-type-count { font-family: var(--font-display); font-
 .st-shelf > * { scroll-snap-align: start; }
 .st-cta { background: linear-gradient(120deg, var(--st-pink, var(--color-accent)), var(--st-violet, var(--color-type-midi)) 55%, var(--st-blue, var(--color-type-loop))); color: var(--px-k); }
 html[data-look="stash"] .st-cover { border-radius: 12px; }
-.st-cta h2 { font-size: clamp(28px, 4vw, 44px); line-height: 1.05; }
+html .st-cta h2, html[data-look] .st-cta h2 { font-size: clamp(28px, 4vw, 44px); line-height: 1.05; }
+html[data-look="stash"] .st-box { border-radius: 12px; }

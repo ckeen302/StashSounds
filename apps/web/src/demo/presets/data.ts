@@ -148,7 +148,9 @@ const HAND: PresetEntry[] = [
  * song, preset and plugin as an earlier one is dropped.
  */
 const seen = new Set<string>();
-const keyOf = (p: PresetEntry) => [p.song, p.plugin, p.preset ?? p.role].join("|").toLowerCase();
+const flat = (x: string) => x.toLowerCase().replace(/\(.*?\)/g, "").replace(/[^a-z0-9]/g, "");
+// A named preset is one row per song, however the plugin is spelled ("Kontakt (Factory Library)" vs "Kontakt Factory Library").
+const keyOf = (p: PresetEntry) => (p.preset ? `${flat(p.song)}|${flat(p.preset)}` : [flat(p.song), flat(p.plugin), flat(p.role)].join("|"));
 export const PRESETS: PresetEntry[] = [...HAND, ...(found as unknown as PresetEntry[])].filter((p) => {
   const k = keyOf(p);
   if (seen.has(k)) return false;

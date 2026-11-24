@@ -137,7 +137,7 @@ function ChordChart({ song }: { song: NonNullable<MidiItem["song"]> }) {
       </div>
       <ol aria-label="Chords" className="flex flex-wrap gap-2">
         {song.chords.map(([c, beats], i) => (
-          <li key={i} className="flex flex-col rounded-control border border-border-strong bg-raised px-3 py-2">
+          <li key={i} className="st-box flex flex-col rounded-control border border-border-strong bg-raised px-3 py-2">
             <span className="font-mono text-body-strong text-text">{c}</span>
             <span className="text-small text-text-muted">{beats === 4 ? "1 bar" : beats % 4 === 0 ? `${beats / 4} bars` : `${beats} beats`}</span>
           </li>
