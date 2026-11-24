@@ -32,10 +32,9 @@ import {
 } from "@stash/ui";
 import { nowPlaying } from "../_shell/now-playing";
 import type { DownloadResult, ItemActions } from "./actions";
+import { actionsFor } from "./actions-source";
 import { itemKeyAction, keyInputFrom } from "./keys";
 import type { ItemView as ItemViewData } from "./load-core";
-import { lazyLocalActions } from "./lazy-local-actions";
-import { serverActions } from "./server-actions";
 import type { SignInIntent } from "./sign-in-dialog";
 import { useItemPlayer } from "./use-item-player";
 
@@ -99,7 +98,7 @@ export function ItemView({ view }: { view: ItemViewData }) {
   const router = useRouter();
   const toast = useToast();
   const engine = getEngine();
-  const actions = useMemo<ItemActions>(() => (source === "local" ? lazyLocalActions(page) : serverActions), [source, page]);
+  const actions = useMemo(() => actionsFor(source, page), [source, page]);
 
   // Likes and follows the visitor changed on this page (the server's answer, or the local one).
   const [liked, setLiked] = useState<Record<string, boolean>>({});
