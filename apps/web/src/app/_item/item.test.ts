@@ -72,6 +72,14 @@ describe("the item loader", () => {
     expect(view.page.item.title).toBe("Dusty soul chops");
   });
 
+  it("never answers from fixtures on a production deployment, even with the flag set by mistake", async () => {
+    const d = deps({ STASH_DEV_PAGES: "1", VERCEL_ENV: "production" }, "member");
+    const view = await loadItemViewWith(d, "loop", "dusty-soul-chops-k3j9x0a2b1");
+    expect(d.itemPage).toHaveBeenCalled();
+    expect(d.cookie).not.toHaveBeenCalled();
+    expect(view.source).toBe("server");
+  });
+
   it("signs the fixture viewer in with the dev cookie", async () => {
     const view = await loadItemViewWith(deps({ STASH_DEV_PAGES: "1" }, "member"), "loop", "dusty-soul-chops-k3j9x0a2b1");
     expect(view.viewer.signedIn).toBe(true);

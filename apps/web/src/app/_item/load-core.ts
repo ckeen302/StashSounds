@@ -22,7 +22,9 @@ export type LoadDeps = {
  * tests' stub). Ticket 137 adds its static demo data here, so no component forks.
  */
 export async function loadItemViewWith(deps: LoadDeps, type: string, param: string): Promise<ItemView> {
-  if (devPagesEnabled(deps.env) && isFixtureParam(param)) {
+  // A production deployment never serves fixtures, even if the flag were set there by mistake.
+  const fixturesAllowed = devPagesEnabled(deps.env) && deps.env.VERCEL_ENV !== "production";
+  if (fixturesAllowed && isFixtureParam(param)) {
     const signedIn = (await deps.cookie(FIXTURE_VIEWER_COOKIE)) === "member";
     const r = fixtureItemPage(type, param, { signedIn });
     if (r.kind === "redirect") deps.redirect(r.href);
