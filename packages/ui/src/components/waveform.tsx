@@ -1,6 +1,7 @@
 "use client";
 
-import { decodePeaks, type ItemRow, type ItemType } from "@stash/contracts";
+import type { ItemRow, ItemType } from "@stash/contracts";
+import { decodePeaks } from "@stash/contracts/format";
 import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent, type RefObject } from "react";
 import { color, typeColor, WAVEFORM_UNPLAYED_OPACITY } from "../tokens.ts";
 import type {} from "./css-vars.ts";

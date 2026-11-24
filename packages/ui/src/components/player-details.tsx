@@ -1,6 +1,7 @@
 "use client";
 
-import { formatKey, type ItemRow } from "@stash/contracts";
+import type { ItemRow } from "@stash/contracts";
+import { formatKey } from "@stash/contracts/format";
 import { Dialog as D } from "radix-ui";
 import { useCallback, useRef, type ReactNode } from "react";
 import { cx } from "./cx.ts";

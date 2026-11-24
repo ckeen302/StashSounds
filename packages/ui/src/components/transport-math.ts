@@ -1,4 +1,6 @@
-import { formatKey, limits, type MusicalKey } from "@stash/contracts";
+import type { MusicalKey } from "@stash/contracts";
+import { formatKey } from "@stash/contracts/format";
+import limits from "@stash/contracts/limits.json" with { type: "json" };
 
 /** The engine clamps a key shift to one octave either way (packages/audio setTranspose). */
 export const TRANSPOSE_LIMIT = 12;

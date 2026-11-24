@@ -1,5 +1,11 @@
-import { err, limits, LICENSES, ok, type ItemPage, type ItemRow } from "@stash/contracts";
+import type { ErrorResult, ItemPage, ItemRow, OkResult } from "@stash/contracts";
+import { LICENSE_LABELS as LICENSES } from "@stash/contracts/format";
+import limits from "@stash/contracts/limits.json" with { type: "json" };
 import type { ItemActions } from "./actions";
+
+// Client code: no value import from "@stash/contracts" (it would ship zod, about 55 KB).
+const ok = <T>(data: T): OkResult<T> => ({ ok: true, data });
+const notFound: ErrorResult = { ok: false, code: "not_found", message: "Not found." };
 
 /** A file name the way requestDownload builds one: the title plus the file's own extension. */
 function fileNameFor(title: string, url: string): string {
@@ -24,7 +30,7 @@ export function localActions(page: ItemPage, opts: { downloadUrl?: (row: ItemRow
     save: "blob",
     async download(itemId) {
       const row = rows.get(itemId);
-      if (!row) return err("not_found", "Not found.");
+      if (!row) return notFound;
       const url = (opts.downloadUrl ?? previewOf)(row);
       return ok({
         downloadId: crypto.randomUUID(),
@@ -37,11 +43,11 @@ export function localActions(page: ItemPage, opts: { downloadUrl?: (row: ItemRow
     },
     async like(itemId, liked) {
       const base = likesBase.get(itemId);
-      if (base === undefined) return err("not_found", "Not found.");
+      if (base === undefined) return notFound;
       return ok({ liked, likesCount: base + (liked ? 1 : 0) });
     },
     async follow(profileId, following) {
-      if (profileId !== page.owner.id) return err("not_found", "Not found.");
+      if (profileId !== page.owner.id) return notFound;
       return ok({ following, followersCount: followersBase + (following ? 1 : 0) });
     },
   };

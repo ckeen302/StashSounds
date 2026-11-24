@@ -2,7 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { getEngine, usePlayerState } from "@stash/audio";
-import { limits, type ItemRow } from "@stash/contracts";
+import type { ItemRow } from "@stash/contracts";
+import limits from "@stash/contracts/limits.json" with { type: "json" };
 import { TRANSPOSE_LIMIT, useFrameLoop, type PlayState } from "@stash/ui";
 import { nowPlaying } from "../_shell/now-playing";
 import { browserStorage, readUnmuteVolume, rememberVolume } from "../_shell/volume";
