@@ -30,6 +30,10 @@ import { has, set } from "./store";
 import { LookPicker, startLooks, useLook } from "./looks";
 import { midiItem } from "./midi/catalog";
 import { MidiList, MidiPage, UploadPage, useMidiItems } from "./midi/pages";
+import { PresetsPage } from "./presets/page";
+import { SoundDesign } from "./sound-design";
+import type { MidiKind } from "@stash/contracts";
+import { FilterChip, UiLink } from "@stash/ui";
 
 /**
  * The browser-only demo (ticket 137): the real shell, player bar, result rows, loop page and audio
@@ -160,8 +164,13 @@ function Home() {
         <LoopList label="Fresh loops" rows={rows} onChange={refresh} />
       </section>
       <section className="flex flex-col gap-3">
-        <h2 className="text-title">MIDI, live in the piano roll</h2>
-        <MidiList label="MIDI" items={midi} />
+        <div className="flex items-end justify-between gap-3">
+          <h2 className="text-title">MIDI, live in the piano roll</h2>
+          <ButtonLink href="/midi" variant="ghost" size="sm">
+            {`All ${midi.length} MIDI`}
+          </ButtonLink>
+        </div>
+        <MidiList label="MIDI" items={midi.slice(0, 6)} />
       </section>
     </Page>
   );
@@ -239,6 +248,63 @@ function NotFound() {
   );
 }
 
+const KINDS: (MidiKind | "all")[] = ["all", "chords", "melody", "bass", "drums"];
+const KIND_NAME: Record<MidiKind | "all", string> = { all: "All", chords: "Chords", melody: "Melody", bass: "Bass", drums: "Drums" };
+
+function AllMidi() {
+  const midi = useMidiItems();
+  const [kind, setKind] = useState<MidiKind | "all">("all");
+  const shown = kind === "all" ? midi : midi.filter((m) => m.kind === kind);
+  return (
+    <Page>
+      <header className="flex flex-col gap-1">
+        <span className="text-label text-label-caps text-text-muted">MIDI</span>
+        <h1 className="text-title">Every MIDI pattern</h1>
+        <p className="max-w-prose text-body text-text-muted">Original patterns across trap, boom bap, plugg, rage, drill, phonk, R&B, lo-fi, Jersey club and West Coast. Press play to hear them in the piano roll.</p>
+      </header>
+      <div role="group" aria-label="Kind" className="flex flex-wrap gap-2">
+        {KINDS.map((k) => (
+          <FilterChip key={k} selected={kind === k} onToggle={() => setKind(k)}>
+            {`${KIND_NAME[k]} ${k === "all" ? midi.length : midi.filter((m) => m.kind === k).length}`}
+          </FilterChip>
+        ))}
+      </div>
+      <MidiList label="MIDI" items={shown} />
+    </Page>
+  );
+}
+
+const TABS = [
+  { href: "/", name: "Sounds" },
+  { href: "/midi", name: "MIDI" },
+  { href: "/sound-design", name: "Sound design" },
+  { href: "/presets", name: "Presets" },
+  { href: "/upload", name: "Upload" },
+];
+
+/** The demo's own tabs across the top of every page, for the screens the app's rail does not list yet. */
+function DemoTabs() {
+  const path = usePath();
+  const current = (href: string) => (href === "/" ? path === "/" : path === href || (href === "/midi" && path.startsWith("/midi")));
+  return (
+    <nav aria-label="Demo sections" className="border-b border-border bg-bg">
+      <ul className="mx-auto flex max-w-content gap-1 overflow-x-auto px-3 tablet:px-4 desktop:px-6">
+        {TABS.map((t) => (
+          <li key={t.href} className="shrink-0">
+            <UiLink
+              href={t.href}
+              aria-current={current(t.href) ? "page" : undefined}
+              className={`flex h-11 items-center border-b-2 px-3 text-body-strong ${current(t.href) ? "border-accent text-text" : "border-transparent text-text-muted ui-hover:text-text"}`}
+            >
+              {t.name}
+            </UiLink>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
+
 function Route() {
   const path = usePath();
   useEffect(() => {
@@ -255,6 +321,9 @@ function Route() {
   if (path.startsWith("/browse")) return <Browse />;
   if (path === "/search") return <SearchResults />;
   if (path === "/upload") return <UploadPage />;
+  if (path === "/midi") return <AllMidi />;
+  if (path === "/sound-design") return <SoundDesign />;
+  if (path === "/presets") return <PresetsPage />;
   if (path === "/library")
     return <NotInDemo title="Library" icon={Library}>Your library lives with your account. In the demo, the loops you like stay liked on this device.</NotInDemo>;
   if (path === "/notifications")
@@ -272,6 +341,7 @@ function App() {
       <TooltipProvider>
         <ToastProvider viewport={false}>
           <AppShell>
+            <DemoTabs />
             <Route key={look} />
           </AppShell>
         </ToastProvider>

@@ -1,5 +1,6 @@
 import type { LicenseKind, MidiKind, MidiNotesFile, MusicalKey, SoundId } from "@stash/contracts";
 import { producers, type Producer } from "../data";
+import * as lib from "./library";
 
 /**
  * The demo's MIDI items: four patterns written for the demo, plus whatever this browser's viewer
@@ -29,6 +30,11 @@ export type MidiItem = {
   /** Posted from this browser on the upload page. */
   mine?: boolean;
 };
+
+const extra = {
+  juno: { id: "00000000-0000-4000-8000-0000000000a4", handle: "junovega", displayName: "Juno Vega", followers: 15400 },
+  dre: { id: "00000000-0000-4000-8000-0000000000a5", handle: "drestatic", displayName: "Dre Static", followers: 4210 },
+} satisfies Record<string, Producer>;
 
 export const VIEWER: Producer = { id: "00000000-0000-4000-8000-0000000000f0", handle: "you", displayName: "You", followers: 0 };
 
@@ -145,8 +151,26 @@ const built: MidiItem[] = [
     description: "A, C, F and G roots with octave jumps. Long notes so the 808 rings; layer it with any of the trap loops.",
     license: "royalty_free" as const, likes: 377, downloads: 1295, publishedAt: "2026-11-21T14:05:00Z",
   },
+  ...([
+    [5, "Dark trap piano", "dark-trap-piano", "juno", "melody", "keys", [0, "minor"], lib.darkTrapPiano(), ["trap", "piano", "dark"], "A falling C minor line over octave roots and a quiet triad bed. Leaves the low end for your 808.", "royalty_free", 1488, 5120, "2026-11-23T22:10:00Z"],
+    [6, "Boom bap Rhodes", "boom-bap-rhodes", "kilo", "chords", "keys", [2, "minor"], lib.boomBapRhodes(), ["boom bap", "rhodes", "jazzy"], "Dm9, G13, Cmaj9 and an A7#9, swung hard. Chop it like a record.", "royalty_free", 720, 2890, "2026-11-22T15:30:00Z"],
+    [7, "Plugg chords in B flat", "plugg-chords-in-b-flat", "nova", "chords", "pad", [10, "major"], lib.pluggChords(), ["plugg", "pluggnb", "chords"], "Ebmaj7, Dm7, Cm7, Fsus with a little top-line answer every bar. Eight bars, made for a pad.", "credit_required", 2210, 8400, "2026-11-23T20:00:00Z"],
+    [8, "Rage stab lead", "rage-stab-lead", "dre", "melody", "pluck", [5, "minor"], lib.rageLead(), ["rage", "lead", "f minor"], "Sixteenth stabs in F minor with an octave-up answer. Put it through distortion and a wide supersaw.", "royalty_free", 3040, 9930, "2026-11-24T01:20:00Z"],
+    [9, "Swung boom bap drums", "swung-boom-bap-drums", "kilo", "drums", "drums", null, lib.boomBapDrums(), ["boom bap", "drums", "swing"], "Kick and snare with ghost notes, hats swung at about 62 percent. General MIDI map.", "royalty_free", 940, 4100, "2026-11-20T18:45:00Z"],
+    [10, "Trap drums with hat rolls", "trap-drums-with-hat-rolls", "dre", "drums", "drums", null, lib.trapDrums(), ["trap", "drums", "hat rolls"], "Half-time clap and snare, bouncing kicks, a triplet run in bar two and a 32nd roll at the end.", "royalty_free", 2650, 11800, "2026-11-23T05:40:00Z"],
+    [11, "Jersey club bounce", "jersey-club-bounce", "juno", "drums", "drums", null, lib.jerseyClub(), ["jersey club", "drums", "140"], "The five-kick bounce with claps on the ands and a crash to turn it around.", "royalty_free", 610, 1980, "2026-11-22T23:55:00Z"],
+    [12, "Phonk cowbell melody", "phonk-cowbell-melody", "dre", "melody", "bell", [10, "minor"], lib.phonkBell(), ["phonk", "cowbell", "memphis"], "A B flat minor cowbell line. Play it on bell here; load an 808 cowbell in your DAW.", "royalty_free", 1730, 6050, "2026-11-21T19:10:00Z"],
+    [13, "Phonk 808 line", "phonk-808-line", "dre", "bass", "808", [10, "minor"], lib.phonkBass(), ["phonk", "808", "bass"], "The bass for the cowbell melody: same key, same tempo, drop them in together.", "royalty_free", 820, 2400, "2026-11-21T19:12:00Z"],
+    [14, "Drill strings in C sharp minor", "drill-strings-in-c-sharp-minor", "marcus", "melody", "strings", [1, "minor"], lib.drillStrings(), ["uk drill", "strings", "dark"], "Half-step answers over open fifths. Slide an 808 under the roots.", "royalty_free", 455, 1340, "2026-11-22T12:00:00Z"],
+    [15, "Late night R&B in G flat", "late-night-rnb-in-g-flat", "juno", "chords", "pad", [6, "major"], lib.rnbChords(), ["rnb", "chords", "slow"], "Gbmaj9, Fm7, Ebm9 and Abadd9 at 68, with a top line in the second half.", "credit_required", 1320, 3770, "2026-11-23T03:30:00Z"],
+    [16, "Lo-fi nines", "lo-fi-nines", "kilo", "chords", "keys", [9, "minor"], lib.lofiChords(), ["lo-fi", "chords", "jazzy"], "Am9, Dm9, Gmaj7, Cmaj7, lazy and swung. Lowpass it and add vinyl.", "royalty_free", 1980, 7260, "2026-11-19T09:00:00Z"],
+    [17, "West Coast whistle", "west-coast-whistle", "marcus", "melody", "strings", [7, "minor"], lib.westCoastLead(), ["west coast", "g funk", "lead"], "A long, high lead over a bouncing G minor bass line. Play it on a sine lead with glide.", "royalty_free", 690, 2050, "2026-11-20T21:20:00Z"],
+    [18, "Melodic trap arp", "melodic-trap-arp", "nova", "melody", "pluck", [4, "minor"], lib.trapArp(), ["melodic trap", "arp", "guitar"], "Em, C, G, D broken into eighths, the way a guitar loop would sit. Try it on pluck.", "royalty_free", 2875, 10400, "2026-11-23T16:00:00Z"],
+  ] as const).map(([n, title, slug, who, kind, sound, key, notes, tags, description, license, likes, downloads, publishedAt]) => ({
+    n, title, slug, owner: { ...producers, ...extra }[who], kind, sound, key: key ? { root: key[0], mode: key[1] } : null, notes, tags: [...tags], description, license, likes, downloads, publishedAt,
+  })),
 ].map(({ n, ...c }) => {
-  const publicId = `demomidi0${n}`;
+  const publicId = `demomidi${String(n).padStart(2, "0")}`;
   return { ...c, id: `00000000-0000-4000-8000-0000000001${String(n).padStart(2, "0")}`, publicId, href: `/midi/${c.slug}-${publicId}` };
 });
 

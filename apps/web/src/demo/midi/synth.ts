@@ -1,4 +1,5 @@
 import type { MidiNotesFile, SoundId } from "@stash/contracts";
+import type { Patch } from "./patch";
 
 /**
  * The demo's MIDI player: a small Web Audio synth with a lookahead scheduler on the audio clock.
@@ -42,6 +43,11 @@ export class MidiPlayer {
   /** Beat where playback stopped, for resume. */
   private pausedBeat = 0;
   private voices = new Set<{ stop: (at: number) => void; start: number; end: number }>();
+  /** A sound design patch: when set, melodic notes play through it instead of the sound. */
+  private patch: Patch | null = null;
+  /** The output, for the sound design page's scope. */
+  analyser: AnalyserNode | null = null;
+  private held = new Map<number, { release: (at: number) => void }>();
   /** Called when the player starts, so the loop engine can pause. */
   onStart: (() => void) | null = null;
 
@@ -69,7 +75,10 @@ export class MidiPlayer {
     comp.ratio.value = 4;
     comp.attack.value = 0.004;
     comp.release.value = 0.2;
-    comp.connect(ctx.destination);
+    this.analyser = ctx.createAnalyser();
+    this.analyser.fftSize = 2048;
+    this.analyser.smoothingTimeConstant = 0.75;
+    comp.connect(this.analyser).connect(ctx.destination);
     this.out = ctx.createGain();
     this.out.gain.value = this.state.volume;
     this.out.connect(comp);
@@ -179,6 +188,27 @@ export class MidiPlayer {
     this.set({ volume: v });
   }
 
+  setPatch(p: Patch | null) {
+    this.patch = p;
+  }
+
+  /** Hold a note on the current patch (or sound) until noteOff: the sound design keyboard. */
+  noteOn(pitch: number, velocity = 100) {
+    const ctx = this.ensure();
+    void ctx.resume();
+    this.noteOff(pitch);
+    const v = this.patch ? this.patchVoice(this.patch, pitch, velocity, ctx.currentTime + 0.005, null) : null;
+    if (v) this.held.set(pitch, v);
+    else this.audition(pitch, velocity);
+  }
+
+  noteOff(pitch: number) {
+    const v = this.held.get(pitch);
+    if (!v || !this.ctx) return;
+    v.release(this.ctx.currentTime);
+    this.held.delete(pitch);
+  }
+
   /** Play one note now, for the keyboard strip and the upload preview. */
   audition(pitch: number, velocity = 100) {
     const ctx = this.ensure();
@@ -259,6 +289,10 @@ export class MidiPlayer {
     const ctx = this.ctx!;
     const amp = 0.32 * (vel / 127) ** 1.4;
     if (drums || sound === "drums") return this.drum(pitch, amp, at);
+    if (this.patch) {
+      this.patchVoice(this.patch, pitch, vel, at, dur);
+      return;
+    }
     const f = 440 * 2 ** ((pitch - 69) / 12);
     const g = ctx.createGain();
     g.gain.value = 0;
@@ -423,6 +457,107 @@ export class MidiPlayer {
       },
     };
     this.voices.add(v);
+  }
+
+  /** One note through a sound design patch. With `dur` null it holds until released. */
+  private patchVoice(pt: Patch, pitch: number, vel: number, at: number, dur: number | null): { release: (t: number) => void } {
+    const ctx = this.ctx!;
+    const f = 440 * 2 ** ((pitch - 69) / 12);
+    const amp = pt.level * 0.3 * (vel / 127) ** 1.2;
+    const out = ctx.createGain();
+    out.gain.value = 0;
+    out.connect(this.out);
+    let tail: AudioNode = out;
+    if (pt.drive > 0) {
+      const sh = ctx.createWaveShaper();
+      const k = 1 + pt.drive * 8;
+      const curve = new Float32Array(512);
+      for (let i = 0; i < 512; i++) curve[i] = Math.tanh((i / 256 - 1) * k) / Math.tanh(k);
+      sh.curve = curve;
+      sh.connect(out);
+      tail = sh;
+    }
+    const fl = ctx.createBiquadFilter();
+    fl.type = "lowpass";
+    fl.Q.value = pt.filter.resonance;
+    fl.connect(tail);
+    const cut = Math.min(18000, pt.filter.cutoff);
+    fl.frequency.setValueAtTime(Math.min(18000, cut + pt.filter.envAmount), at);
+    fl.frequency.setTargetAtTime(cut, at + 0.002, Math.max(0.01, pt.filter.decay / 3));
+    const nodes: AudioScheduledSourceNode[] = [];
+    const vib = pt.vibrato.depth > 0 ? ctx.createOscillator() : null;
+    let vibGain: GainNode | null = null;
+    if (vib) {
+      vib.frequency.value = pt.vibrato.rate;
+      vibGain = ctx.createGain();
+      vibGain.gain.value = 0;
+      vibGain.gain.setValueAtTime(0, at);
+      vibGain.gain.linearRampToValueAtTime(pt.vibrato.depth, at + 0.35);
+      vib.connect(vibGain);
+      nodes.push(vib);
+    }
+    const osc = (wave: OscillatorType, freq: number, detune: number, level: number) => {
+      const o = ctx.createOscillator();
+      o.type = wave;
+      o.frequency.value = freq;
+      o.detune.value = detune;
+      if (pt.pitchDrop > 0) {
+        o.frequency.setValueAtTime(freq * 2 ** (pt.pitchDrop / 12), at);
+        o.frequency.exponentialRampToValueAtTime(freq, at + 0.06);
+      }
+      if (vibGain) vibGain.connect(o.detune);
+      const g = ctx.createGain();
+      g.gain.value = level;
+      o.connect(g).connect(fl);
+      nodes.push(o);
+    };
+    const n = Math.max(1, Math.round(pt.osc1.voices));
+    for (let i = 0; i < n; i++) {
+      const d = n === 1 ? 0 : (i / (n - 1) - 0.5) * 2 * pt.osc1.spread;
+      osc(pt.osc1.wave, f * 2 ** pt.osc1.octave, d, 1 / Math.sqrt(n));
+    }
+    if (pt.osc2.level > 0) osc(pt.osc2.wave, f * 2 ** (pt.osc2.octave + pt.osc2.semis / 12), 3, pt.osc2.level);
+    if (pt.sub > 0) osc("sine", f / 2, 0, pt.sub);
+    if (pt.noise > 0) {
+      const src = ctx.createBufferSource();
+      src.buffer = this.noise;
+      src.loop = true;
+      const g = ctx.createGain();
+      g.gain.value = pt.noise;
+      src.connect(g).connect(fl);
+      nodes.push(src);
+    }
+    if (pt.reverb > 0) {
+      const s = ctx.createGain();
+      s.gain.value = pt.reverb;
+      out.connect(s).connect(this.reverb);
+    }
+    const { attack, decay, sustain, release } = pt.amp;
+    const env = out.gain;
+    env.setValueAtTime(0, at);
+    env.linearRampToValueAtTime(amp, at + Math.max(0.002, attack));
+    env.setTargetAtTime(amp * sustain, at + attack, Math.max(0.01, decay / 3));
+    for (const nd of nodes) nd.start(at);
+    let released = false;
+    const doRelease = (t: number) => {
+      if (released) return;
+      released = true;
+      const r = Math.max(t, at + 0.01);
+      env.cancelScheduledValues(r);
+      env.setTargetAtTime(0, r, Math.max(0.01, release / 4));
+      for (const nd of nodes) {
+        try {
+          nd.stop(r + release + 0.2);
+        } catch {
+          // already stopped
+        }
+      }
+    };
+    if (dur !== null) {
+      doRelease(at + Math.max(dur, 0.05));
+      this.track_(out, nodes, at, at + dur + release);
+    } else this.voices.add({ start: at, end: Infinity, stop: (t) => doRelease(t) });
+    return { release: doRelease };
   }
 
   /** General MIDI drums from a sine, a noise buffer and filters. */
