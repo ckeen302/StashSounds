@@ -118,8 +118,8 @@ One job kind per content type, each a pure function of the original file: the sa
 | --- | --- |
 | Decode | ffmpeg to 44.1 kHz stereo floating-point audio. Reject silence and files over 60 s. |
 | Duration and loop length | Record the exact sample count. The player loops on this number, not on the preview file's length. |
-| BPM | Three sources, in order of trust. A number in the file name between 60 and 200. Then duration: assume a whole number of bars (1, 2, 4, 8, 16) in 4/4 and list the tempos that fit. Then onset-based tempo from librosa to choose among those candidates. Store the value, the source and whether the sources agreed. |
-| Key | A key in the file name, such as `Cmin` or `F#m`. Otherwise compare the loop's averaged chroma against the 24 major and minor key profiles and take the best match, storing the margin over the runner-up as confidence. librosa provides chroma but no finished key detector, so this comparison is about thirty lines the Pipeline builder writes and tests. |
+| BPM | Three sources, in order of trust. A number in the file name between 60 and 200. Then duration: assume a whole number of bars (1, 2, 4, 8, 16) in 4/4 and list the tempos that fit. Then onset-based tempo (numpy STFT onset envelope) to choose among those candidates. Store the value, the source and whether the sources agreed. |
+| Key | A key in the file name, such as `Cmin` or `F#m`. Otherwise compare the loop's averaged chroma against the 24 major and minor key profiles and take the best match, storing the margin over the runner-up as confidence. Chroma is computed with numpy (decision 0017: librosa's soxr and soundfile dependencies are LGPL), and the profile comparison is about thirty lines the Pipeline builder writes and tests. |
 | Preview | Loudness-match to −14 LUFS, encode MP3 at the bitrate in the limits table. |
 | Peaks | 800 values of peak amplitude from the mono mix, stored as bytes. |
 | Fingerprint | Chromaprint via `fpcalc`. Compare against stored fingerprints of similar duration; similarity over the threshold flags the item. Start the threshold at 0.90 and tune it on the fixtures. |
