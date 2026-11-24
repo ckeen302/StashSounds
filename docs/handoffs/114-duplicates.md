@@ -96,8 +96,8 @@ All of it is under `apps/worker/`, except this handoff and the request.
     admins can hear it.
 - **Tests:**
   - `test_duplicates.py` (new, 25 cases).
-  - 4 runner cases with the fake queue.
-  - 7 real-database cases.
+  - 5 runner cases with the fake queue.
+  - 8 real-database cases.
   - `test_audio.py` now expects one fingerprint per loop fixture.
   - `conftest.py`: the stand-in SQL from `tests/sql/`, an `owner=` argument for `queued_item`, and an empty
     catalog (no fingerprints, no original hashes) at the start of each database test.
