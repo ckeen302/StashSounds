@@ -3,10 +3,18 @@
  * state-change functions. Run with pnpm db:test. The Platform lane owns and extends this file.
  */
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { randomUUID } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { profileLinkKindSchema, slugify } from "@stash/contracts";
 import { TestDb, anon, rejection, service, superuser, user } from "./db.ts";
+
+/** Claims a file the way completeUpload does and returns the token for enqueue_processing. */
+async function claimFile(db: TestDb, owner: string, itemId: string, fileId: string): Promise<string> {
+  const token = randomUUID();
+  await db.as(service, `select public.claim_file_completion($1, $2, $3, $4)`, [owner, itemId, fileId, token]);
+  return token;
+}
 
 let db: TestDb;
 let alice: string; // uploader
@@ -138,6 +146,25 @@ describe("items", () => {
     );
     const r = await db.q(`select title, bpm, license, split_percent from public.items where id = $1`, [draft]);
     expect(r.rows[0]).toMatchObject({ title: "Renamed", bpm: "140.00", license: "split_on_placement", split_percent: 10 });
+  });
+  it("the slug follows a title change", async () => {
+    const id = await db.makeItem(alice, { status: "draft", title: "Old name" });
+    await db.as(user(alice), `update public.items set title = 'Dark Keys Über' where id = $1`, [id]);
+    const r = await db.q(`select slug from public.items where id = $1`, [id]);
+    expect(r.rows[0]!.slug).toBe("dark-keys-uber");
+  });
+  it("the owner's BPM or key correction marks detection as the uploader's", async () => {
+    const id = await db.makeItem(alice, { status: "draft", title: "Detected" });
+    const detection = { bpmSource: "onset", bpmAgreed: false, bpmCandidates: [140], keySource: "chroma", keyConfidence: 0.05 };
+    await db.q(`update public.items set details = $2::jsonb where id = $1`, [id, JSON.stringify({ detection })]);
+    await db.as(user(alice), `update public.items set title = 'Detected again' where id = $1`, [id]);
+    expect((await db.q(`select details -> 'detection' as d from public.items where id = $1`, [id])).rows[0]!.d).toEqual(detection);
+    await db.as(user(alice), `update public.items set bpm = 141 where id = $1`, [id]);
+    let d = (await db.q(`select details -> 'detection' as d from public.items where id = $1`, [id])).rows[0]!.d;
+    expect(d).toMatchObject({ bpmSource: "uploader", bpmAgreed: true, keySource: "chroma", keyConfidence: 0.05 });
+    await db.as(user(alice), `update public.items set key_root = 2, key_mode = 'minor' where id = $1`, [id]);
+    d = (await db.q(`select details -> 'detection' as d from public.items where id = $1`, [id])).rows[0]!.d;
+    expect(d).toMatchObject({ keySource: "uploader", keyConfidence: null });
   });
   it("status, counts and details cannot be written directly", async () => {
     for (const set of ["status = 'published'", "likes_count = 9", "details = '{}'", "owner_id = owner_id", "published_at = now()"]) {
@@ -290,6 +317,11 @@ describe("downloads", () => {
     expect(r.rows[0]).toMatchObject({ user_id: bob, item_id: published, owner_handle: "alice", license: "royalty_free", license_version: "1.0" });
     expect((await db.q(`select downloads_count from public.items where id = $1`, [published])).rows[0]!.downloads_count).toBe(1);
   });
+  it("an owner's own download is recorded but not counted", async () => {
+    await db.as(user(alice), `select * from public.record_download($1)`, [published]);
+    expect((await db.q(`select downloads_count from public.items where id = $1`, [published])).rows[0]!.downloads_count).toBe(1);
+    await db.q(`delete from public.downloads where user_id = $1`, [alice]);
+  });
   it("the downloader reads only their own rows", async () => {
     expect((await db.as(user(bob), `select 1 from public.downloads`)).rowCount).toBe(1);
     expect((await db.as(user(alice), `select 1 from public.downloads`)).rowCount).toBe(0);
@@ -384,7 +416,9 @@ describe("processing_jobs", () => {
       `select public.worker_complete(gen_random_uuid(), 1, '{}')`,
       `select public.worker_fail(gen_random_uuid(), 1, 'x', true)`,
       `select public.requeue_stale_jobs('1 hour')`,
-      `select public.enqueue_processing(gen_random_uuid(), gen_random_uuid(), gen_random_uuid(), 1)`,
+      `select public.enqueue_processing(gen_random_uuid(), gen_random_uuid(), gen_random_uuid(), 1, gen_random_uuid())`,
+      `select public.file_claim_held(gen_random_uuid(), gen_random_uuid())`,
+      `select public.mark_file_copied(gen_random_uuid(), gen_random_uuid())`,
       `select public.hit_rate_limit('x', 1000, '1 hour')`,
       `select public.rate_limit_user('like')`,
     ]) {
@@ -435,24 +469,97 @@ describe("upload pipeline functions", () => {
   it("enqueue_processing (service role, after measuring the object) moves the owner's draft to processing", async () => {
     const r = await db.as(user(bob), `select * from public.create_upload_draft('loop', 'Queue me', 10, 'wav')`);
     const { item_id, file_id } = r.rows[0]!;
-    const enqueue = `select public.enqueue_processing($1, $2, $3, $4) as id`;
-    expect(await rejection(db.as(user(bob), enqueue, [bob, item_id, file_id, 10]))).toMatch(DENIED);
-    expect(await rejection(db.as(service, enqueue, [alice, item_id, file_id, 10]))).toMatch(/^not_found:/);
-    expect(await rejection(db.as(service, enqueue, [bob, item_id, file_id, 11]))).toMatch(/^invalid: The uploaded file is not the size/);
-    const job = await db.as(service, enqueue, [bob, item_id, file_id, 10]);
+    const enqueue = `select public.enqueue_processing($1, $2, $3, $4, $5) as id`;
+    const token = await claimFile(db, bob, item_id, file_id);
+    expect(await rejection(db.as(user(bob), enqueue, [bob, item_id, file_id, 10, token]))).toMatch(DENIED);
+    expect(await rejection(db.as(service, enqueue, [alice, item_id, file_id, 10, token]))).toMatch(/^not_found:/);
+    expect(await rejection(db.as(service, enqueue, [bob, item_id, file_id, 11, token]))).toMatch(/^invalid: The uploaded file is not the size/);
+    expect(await rejection(db.as(service, enqueue, [bob, item_id, file_id, 10, randomUUID()]))).toMatch(/^conflict:/);
+    const job = await db.as(service, enqueue, [bob, item_id, file_id, 10, token]);
     expect(job.rows[0]!.id).toBeTruthy();
     const s = await db.q(`select i.status, j.kind from public.items i join public.processing_jobs j on j.item_id = i.id where i.id = $1`, [item_id]);
     expect(s.rows[0]).toEqual({ status: "processing", kind: "process_loop" });
-    expect(await rejection(db.as(service, enqueue, [bob, item_id, file_id, 10]))).toMatch(/^conflict:/);
+    expect(await rejection(db.as(service, enqueue, [bob, item_id, file_id, 10, token]))).toMatch(/^conflict:/);
   });
   it("a preset waits for its demo before processing", async () => {
     const r = await db.as(user(bob), `select * from public.create_upload_draft('preset', 'Glass pad', 10, 'vital')`);
     const { item_id, file_id } = r.rows[0]!;
-    const first = await db.as(service, `select public.enqueue_processing($1, $2, $3, 10) as id`, [bob, item_id, file_id]);
+    const first = await db.as(service, `select public.enqueue_processing($1, $2, $3, 10, $4) as id`, [bob, item_id, file_id, await claimFile(db, bob, item_id, file_id)]);
     expect(first.rows[0]!.id).toBeNull();
     const demo = await db.as(user(bob), `select * from public.add_demo_file($1, 10, 'wav')`, [item_id]);
-    const second = await db.as(service, `select public.enqueue_processing($1, $2, $3, 10) as id`, [bob, item_id, demo.rows[0]!.file_id]);
+    const demoId = demo.rows[0]!.file_id;
+    const second = await db.as(service, `select public.enqueue_processing($1, $2, $3, 10, $4) as id`, [bob, item_id, demoId, await claimFile(db, bob, item_id, demoId)]);
     expect(second.rows[0]!.id).toBeTruthy();
+  });
+  it("a replaced demo keeps one storage key whatever its extension", async () => {
+    const r = await db.as(user(bob), `select * from public.create_upload_draft('preset', 'Swap pad', 10, 'vital')`);
+    const { item_id } = r.rows[0]!;
+    const wav = await db.as(user(bob), `select * from public.add_demo_file($1, 10, 'wav')`, [item_id]);
+    const mp3 = await db.as(user(bob), `select * from public.add_demo_file($1, 10, 'mp3')`, [item_id]);
+    expect(mp3.rows[0]!.path).toBe(wav.rows[0]!.path);
+    expect(mp3.rows[0]!.path).toMatch(/\/demo$/);
+    const rows = await db.q(`select mime from public.item_files where item_id = $1 and role = 'demo'`, [item_id]);
+    expect(rows.rows).toEqual([{ mime: "audio/mpeg" }]);
+  });
+  it("a file can be claimed for completion once, never after it is confirmed or the item has moved on", async () => {
+    const r = await db.as(user(bob), `select * from public.create_upload_draft('loop', 'Claimed loop', 10, 'wav')`);
+    const { item_id, file_id } = r.rows[0]!;
+    const claim = `select public.claim_file_completion($1, $2, $3, gen_random_uuid()) as ok`;
+    expect(await rejection(db.as(user(bob), claim, [bob, item_id, file_id]))).toMatch(/permission denied for function/);
+    expect((await db.as(service, claim, [bob, item_id, file_id])).rows[0]!.ok).toBe(true);
+    expect((await db.as(service, claim, [bob, item_id, file_id])).rows[0]!.ok).toBe(false);
+    expect(await rejection(db.as(service, claim, [alice, item_id, file_id]))).toMatch(/^not_found:/);
+    const token = (await db.q(`select meta ->> 'completing' as t from public.item_files where id = $1`, [file_id])).rows[0]!.t;
+    await db.as(service, `select public.release_file_completion($1, $2)`, [file_id, token]);
+    expect((await db.as(service, claim, [bob, item_id, file_id])).rows[0]!.ok).toBe(true);
+    const held = (await db.q(`select meta ->> 'completing' as t from public.item_files where id = $1`, [file_id])).rows[0]!.t;
+    await db.as(service, `select public.enqueue_processing($1, $2, $3, 10, $4)`, [bob, item_id, file_id, held]);
+    const meta = (await db.q(`select meta from public.item_files where id = $1`, [file_id])).rows[0]!.meta;
+    expect(meta).not.toHaveProperty("completing");
+    expect(await rejection(db.as(service, claim, [bob, item_id, file_id]))).toMatch(/^conflict:/);
+  });
+  it("a preset's confirmed original cannot be claimed again while it waits for its demo", async () => {
+    const r = await db.as(user(bob), `select * from public.create_upload_draft('preset', 'Claimed pad', 10, 'vital')`);
+    const { item_id, file_id } = r.rows[0]!;
+    await db.as(service, `select public.enqueue_processing($1, $2, $3, 10, $4)`, [bob, item_id, file_id, await claimFile(db, bob, item_id, file_id)]);
+    const again = await db.as(service, `select public.claim_file_completion($1, $2, $3, gen_random_uuid()) as ok`, [bob, item_id, file_id]);
+    expect(again.rows[0]!.ok).toBe(false);
+  });
+  it("enqueue_processing answers conflict before anything that would make the caller clean up", async () => {
+    const sus = await db.makeUser("suspended_late");
+    const r = await db.as(user(sus), `select * from public.create_upload_draft('loop', 'Late loop', 10, 'wav')`);
+    const { item_id, file_id } = r.rows[0]!;
+    const token = await claimFile(db, sus, item_id, file_id);
+    await db.as(service, `select public.enqueue_processing($1, $2, $3, 10, $4)`, [sus, item_id, file_id, token]);
+    await db.q(`update public.accounts set suspended_at = now() where id = $1`, [sus]);
+    expect(await rejection(db.as(service, `select public.enqueue_processing($1, $2, $3, 99, $4)`, [sus, item_id, file_id, token]))).toMatch(/^conflict:/);
+  });
+  it("a call whose claim lapsed and was taken over can neither copy nor confirm", async () => {
+    const r = await db.as(user(bob), `select * from public.create_upload_draft('preset', 'Stalled pad', 10, 'vital')`);
+    const { item_id, file_id } = r.rows[0]!;
+    const stale = await claimFile(db, bob, item_id, file_id);
+    expect((await db.as(service, `select public.file_claim_held($1, $2) as ok`, [file_id, stale])).rows[0]!.ok).toBe(true);
+    await db.q(`update public.item_files set meta = meta || jsonb_build_object('completingAt', now() - interval '1 day') where id = $1`, [file_id]);
+    const fresh = await claimFile(db, bob, item_id, file_id);
+    expect((await db.as(service, `select public.mark_file_copied($1, $2) as ok`, [file_id, fresh])).rows[0]!.ok).toBe(true);
+    await db.as(service, `select public.enqueue_processing($1, $2, $3, 10, $4)`, [bob, item_id, file_id, fresh]);
+    expect((await db.as(service, `select public.file_claim_held($1, $2) as ok`, [file_id, stale])).rows[0]!.ok).toBe(false);
+    expect((await db.as(service, `select public.mark_file_copied($1, $2) as ok`, [file_id, stale])).rows[0]!.ok).toBe(false);
+    expect(await rejection(db.as(service, `select public.enqueue_processing($1, $2, $3, 10, $4)`, [bob, item_id, file_id, stale]))).toMatch(/^conflict:/);
+    const meta = (await db.q(`select meta from public.item_files where id = $1`, [file_id])).rows[0]!.meta;
+    expect(meta).toHaveProperty("copiedAt");
+    expect(meta).not.toHaveProperty("completing");
+  });
+  it("a suspended account cannot attach a demo or have its upload queued", async () => {
+    const sus = await db.makeUser("suspended_uploader");
+    const r = await db.as(user(sus), `select * from public.create_upload_draft('preset', 'Late pad', 10, 'vital')`);
+    const { item_id, file_id } = r.rows[0]!;
+    const token = await claimFile(db, sus, item_id, file_id);
+    await db.q(`update public.accounts set suspended_at = now() where id = $1`, [sus]);
+    expect(await rejection(db.as(user(sus), `select * from public.add_demo_file($1, 10, 'wav')`, [item_id]))).toMatch(/^forbidden:/);
+    expect(await rejection(db.as(service, `select public.enqueue_processing($1, $2, $3, 10, $4)`, [sus, item_id, file_id, token]))).toMatch(/^forbidden:/);
+    const s = await db.q(`select status from public.items where id = $1`, [item_id]);
+    expect(s.rows[0]!.status).toBe("draft");
   });
 });
 
@@ -460,9 +567,11 @@ describe("worker functions", () => {
   async function queuedItem(title: string, type = "loop", ext = "wav") {
     const r = await db.as(user(bob), `select * from public.create_upload_draft($1, $2, 10, $3)`, [type, title, ext]);
     const { item_id, file_id } = r.rows[0]!;
-    if (type === "preset") await db.as(user(bob), `select * from public.add_demo_file($1, 10, 'wav')`, [item_id]);
-    await db.as(service, `update public.item_files set uploaded_at = now() where item_id = $1`, [item_id]);
-    await db.as(service, `select public.enqueue_processing($1, $2, $3, 10)`, [bob, item_id, file_id]);
+    const files = [file_id as string];
+    if (type === "preset") files.push((await db.as(user(bob), `select * from public.add_demo_file($1, 10, 'wav')`, [item_id])).rows[0]!.file_id);
+    for (const f of files) {
+      await db.as(service, `select public.enqueue_processing($1, $2, $3, 10, $4)`, [bob, item_id, f, await claimFile(db, bob, item_id, f)]);
+    }
     return r.rows[0]! as { item_id: string; path: string };
   }
   const loopResult = (itemId: string, extra: Record<string, unknown> = {}) => ({
@@ -597,7 +706,7 @@ describe("worker functions", () => {
     await db.as(service, `delete from public.processing_jobs`);
     const r = await db.as(user(bob), `select * from public.create_upload_draft('loop', 'Named', 10, 'wav', ' Dark Keys 140bpm Am.wav ')`);
     const { item_id, file_id } = r.rows[0]!;
-    await db.as(service, `select public.enqueue_processing($1, $2, $3, 10)`, [bob, item_id, file_id]);
+    await db.as(service, `select public.enqueue_processing($1, $2, $3, 10, $4)`, [bob, item_id, file_id, await claimFile(db, bob, item_id, file_id)]);
     const job = (await db.as(service, `select * from public.claim_job()`)).rows[0]!;
     const input = (await db.as(service, `select public.worker_job_input($1, $2) as i`, [job.id, job.attempts])).rows[0]!.i;
     expect(input).toMatchObject({ jobId: job.id, attempt: 1, itemId: item_id, ownerId: bob, type: "loop", title: "Named" });

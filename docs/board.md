@@ -19,19 +19,19 @@ Statuses: todo, planning, building, review, merged.
 | # | Lane | Ticket | Status | Blocker |
 |---|---|---|---|---|
 | 101 | platform | Sign-in, profile and account rows, handle claim | review: PR #4 | Phase 0 merge |
-| 102 | platform | createUploadSlot, completeUpload | in progress | 101 |
-| 103 | platform | Item reads and lifecycle actions | todo | 102 |
-| 104 | platform | requestDownload | todo | 103 |
+| 102 | platform | createUploadSlot, completeUpload | review: PR #6 | 101 |
+| 103 | platform | Item reads and lifecycle actions | review: PR #9 | 102 |
+| 104 | platform | requestDownload | review: PR #11 | 103 |
 | 111 | pipeline | Job runner | review: PR #3 | Phase 0 merge |
-| 112 | pipeline | Decode, preview, peaks, loop length | in progress | 111 |
+| 112 | pipeline | Decode, preview, peaks, loop length | review: PR #8 | 111 |
 | 113 | pipeline | BPM and key | todo | 112 |
 | 114 | pipeline | Duplicate check | todo | 112 |
 | 121 | audio | Engine core | review: PR #2 | Phase 0 merge |
-| 122 | audio | Loop player with stretch | in progress | 121 |
-| 123 | audio | Preload, queue, first-sound test | todo | 122 |
+| 122 | audio | Loop player with stretch | review: PR #7 | 121 |
+| 123 | audio | Preload, queue, first-sound test | review: PR #10 | 122 |
 | 131 | interface | Core components in the gallery | review: PR #5 | Design refs (decision 0006) |
-| 132 | interface | App shell and player bar | todo | 131, 121 |
-| 133 | interface | Sign-in screens | todo | 131, 101 |
+| 132 | interface | App shell and player bar | review: PR #12 | 131, 121 |
+| 133 | interface | Sign-in screens | building | 131, 101 |
 | 134 | interface | Upload flow for one loop | todo | 132, 102 |
 | 135 | interface | Loop item page | todo | 132, 103, 122 |
 | 136 | interface | Polish pass 1 | todo | 135 |
@@ -42,3 +42,7 @@ Statuses: todo, planning, building, review, merged.
 - Run worker handlers under a separate uid or container (now in ticket 112).
 - Production database: a dedicated login role granted only `service_role`, not `postgres` (PR #3).
 - Rate limits for sign-in, handle claim and profile edits (ticket 203).
+- Clean up abandoned drafts and unfinished multipart uploads, which count toward quota; consider longer part-URL lifetime for 500 MB kits (ticket 102).
+- A job child can escape the timeout kill with setsid(); use a cgroup or container per job (ticket 215, decision 0014).
+- Worker records the SHA-256 of the original it downloaded; publishing compares it, closing the last upload swap race (decision 0015).
+- `cleanup_item` job: remove_item queues it; the worker deletes the item's files and releases storage bytes (decision 0015).
