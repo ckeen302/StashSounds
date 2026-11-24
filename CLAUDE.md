@@ -40,7 +40,7 @@ pnpm check                types and lint
 pnpm test                 unit tests
 pnpm db:test              database policy tests (needs Postgres 16+; see supabase/tests/README.md)
 pnpm worker:test          worker tests
-pnpm e2e                  end-to-end tests
+pnpm e2e                  end-to-end tests (STASH_E2E_PORT picks the server port; use a free one per worktree)
 pnpm visual               screenshot comparison in the pinned Playwright container (needs Docker)
 pnpm visual:update        rewrite screenshot baselines in the same container; commit them with the change
 pnpm perf                 performance budgets
