@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { safeNextPath } from "@/server/auth/next-path";
+import { safeNextPath } from "../../server/auth/next-path";
 import { INTENT_PARAM, encodeIntent, parseIntent, pathWithIntent, pathWithoutIntent } from "./intent";
 
 describe("intent", () => {
