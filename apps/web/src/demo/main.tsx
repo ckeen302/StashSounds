@@ -33,6 +33,7 @@ import { MidiList, MidiPage, UploadPage, useMidiItems } from "./midi/pages";
 import { PresetsPage } from "./presets/page";
 import { SoundDesign } from "./sound-design";
 import { BrowsePage, LibraryPage, NewCrateHost, ProfilePage, useCrateEntries, type RenderLoops } from "./explore";
+import { FlipPanel } from "./flip";
 import { KitPage, KitsPage, KitUploadPage } from "./kits/pages";
 import type { MidiKind } from "@stash/contracts";
 import { FilterChip, SearchInput, UiLink } from "@stash/ui";
@@ -295,7 +296,12 @@ function LoopPage({ publicId }: { publicId: string }) {
   // Read once per visit to the page, so the viewer's like and follow show as left.
   const view = useMemo(() => (page ? { page: pageForViewer(page), viewer: { signedIn: true }, source: "local" as const } : null), [page]);
   if (!view) return <NotFound />;
-  return <ItemView key={publicId} view={view} />;
+  return (
+    <>
+      <ItemView key={publicId} view={view} />
+      <FlipPanel key={`flip-${publicId}`} row={view.page.item} />
+    </>
+  );
 }
 
 function NotFound() {
