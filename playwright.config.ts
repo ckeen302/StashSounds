@@ -12,7 +12,7 @@ const port = Number(process.env.STASH_E2E_PORT ?? 3100);
 const baseURL = process.env.STASH_BASE_URL ?? `http://localhost:${port}`;
 // Sign-in links are built from this origin (request 101-site-url-env); the built server inherits it.
 process.env.NEXT_PUBLIC_SITE_URL ??= baseURL;
-const widths = { desktop: 1440, laptop: 1024, phone: 380 } as const;
+const widths = { desktop: 1440, laptop: 1024, tablet: 800, phone: 380 } as const;
 
 export default defineConfig({
   testDir: "e2e",
@@ -30,7 +30,7 @@ export default defineConfig({
       testDir: "e2e/visual",
       use: { ...devices["Desktop Chrome"], viewport: { width, height: 900 }, deviceScaleFactor: 1 },
     })),
-    { name: "visual", testDir: "e2e/visual", testMatch: /$^/, dependencies: ["visual-desktop", "visual-laptop", "visual-phone"] },
+    { name: "visual", testDir: "e2e/visual", testMatch: /$^/, dependencies: ["visual-desktop", "visual-laptop", "visual-tablet", "visual-phone"] },
     { name: "perf", testDir: "e2e/perf", use: { ...devices["Desktop Chrome"] } },
   ],
   webServer: process.env.STASH_BASE_URL

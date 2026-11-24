@@ -13,13 +13,10 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-24.04
-    container:
-      image: mcr.microsoft.com/playwright:v1.63.0-noble
-      options: --ipc=host
+    # Host runner: Supabase for the app, screenshots in the pinned container via scripts/visual.mjs.
     env:
-      STASH_PLAYWRIGHT_CONTAINER: "1"
       NEXT_PUBLIC_SITE_URL: http://localhost:3100
-      HOME: /root
+      NEXT_PUBLIC_PREVIEWS_BASE_URL: http://127.0.0.1:9000/previews
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -28,6 +25,10 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - name: Start Supabase
+        run: |
+          npx supabase start
+          npx supabase status -o env | sed -n 's/^API_URL="\(.*\)"$/NEXT_PUBLIC_SUPABASE_URL=\1/p; s/^ANON_KEY="\(.*\)"$/NEXT_PUBLIC_SUPABASE_ANON_KEY=\1/p; s/^SERVICE_ROLE_KEY="\(.*\)"$/SUPABASE_SERVICE_ROLE_KEY=\1/p' >> "$GITHUB_ENV"
       - name: Build and start the web app
         run: |
           pnpm --filter @stash/web build
@@ -38,7 +39,6 @@ jobs:
         run: pnpm visual:update
       - name: Commit changed baselines to this visual-update branch
         run: |
-          git config --global --add safe.directory "$GITHUB_WORKSPACE"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A -- '*.png'
