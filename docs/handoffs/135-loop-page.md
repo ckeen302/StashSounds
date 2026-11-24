@@ -313,16 +313,17 @@ $ pnpm run licenses
 All dependency licenses are on the allowed list.
 ```
 
-**`pnpm visual` was not run**: Docker is not available on this machine. CI runs it. The new loop page test
-(`loop-page.png` at three widths) and the gallery sections `c-stepper` and `c-transport` have no
-baselines yet. The `visual-update/*` workflow cannot make them either until request
-135-e2e-supabase-env lands, because that server also answers 500. I looked at the page myself at 1440,
-1024 and 380 (idle, playing with tempo and key changed, the phone page end) and fixed what I saw:
-- the loop switch was a second lit element, and is now a ghost toggle;
-- the key hints showed on the phone;
-- the tags were invisible on the page background;
-- the transport and the license actions were cramped at 1024 (fixed by the container queries);
-- two links were told apart by color alone (found by axe).
+**`pnpm visual`**: no Docker here, so the baselines came from CI: this head (3bbbb4f) was pushed to
+`visual-update/135-r1`, the Visual baselines run passed (45306948613) and committed 18 PNGs, and I
+reviewed them before merging them in (a8c537a):
+- `loop-page` at desktop, laptop, tablet (800) and phone: Download in the license panel at
+  desktop, and in the pinned bar with the license name at the other three; the transport is one row,
+  then two by two, then stacked; the loop switch shows ON.
+- `gallery-c-stepper` and `gallery-c-transport` (new) at the four widths.
+- Small changes to `gallery-c-license` (laptop) and `gallery-c-player` (four widths), from the
+  badge and row-title touch targets.
+- `home-visual-tablet`: the merge kept foundations' copy, which had no shell; the new one has the
+  shell, like the other home baselines.
 
 ## Not done
 - Similar items (204), the share image route `/og/[id]` (the card is `summary` until it exists), the
