@@ -265,7 +265,7 @@ export function ItemView({ view }: { view: ItemViewData }) {
             </h1>
             <p className="text-small text-text-muted">
               by{" "}
-              <UiLink href={profileHref} className="rounded-control text-text ui-hover:underline">
+              <UiLink href={profileHref} className="rounded-control text-text underline decoration-border-strong underline-offset-4 ui-hover:decoration-text">
                 {ownerName}
               </UiLink>{" "}
               <span>@{owner.handle}</span>
@@ -299,7 +299,7 @@ export function ItemView({ view }: { view: ItemViewData }) {
           <Transport title={item.title} hints tempo={player.tempo} keyShift={player.keyShift} loop={player.loop} volume={player.volume} />
 
           {(item.description || tags.length > 0 || references.length > 0) && (
-            <section aria-label="About" className="flex flex-col gap-3">
+            <section aria-label="About" className="flex flex-col gap-4 rounded-panel border border-border bg-surface p-4">
               {item.description && <p className="max-w-160 text-body text-text">{item.description}</p>}
               {(tags.length > 0 || references.length > 0) && (
                 <ul aria-label="Tags" className="flex flex-wrap gap-2">
@@ -343,7 +343,7 @@ export function ItemView({ view }: { view: ItemViewData }) {
             </p>
             <p className="text-small text-text-muted">
               Version {item.licenseVersion}.{" "}
-              <UiLink href="/licenses" className="rounded-control text-text ui-hover:underline">
+              <UiLink href="/licenses" className="rounded-control text-text underline decoration-border-strong underline-offset-4 ui-hover:decoration-text">
                 Read the full license
               </UiLink>
             </p>

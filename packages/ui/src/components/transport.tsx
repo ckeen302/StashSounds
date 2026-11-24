@@ -31,7 +31,12 @@ function Section({ name, label, hint, disabled, children, className }: { name: s
     <div data-section={name} data-disabled={disabled || undefined} className={cx("flex min-w-0 flex-col gap-2", className)}>
       <div className="flex h-5 items-center gap-2">
         <span className={cx("text-label text-label-caps", disabled ? "text-border-strong" : "text-text-muted")}>{label}</span>
-        {hint && !disabled && <Kbd className="hidden desktop:inline-flex">{hint}</Kbd>}
+        {hint && !disabled && (
+          // Kbd's own inline-flex would win over a plain `hidden`; the wrapper decides display.
+          <span className="hidden desktop:contents">
+            <Kbd>{hint}</Kbd>
+          </span>
+        )}
       </div>
       <div className="flex h-10 items-center gap-3">{children}</div>
     </div>
@@ -104,7 +109,7 @@ export function Transport({ title, tempo, keyShift, loop, volume, hints = false,
       </Section>
 
       <Section name="loop" label="Loop" disabled={!loop} className="col-span-1 tablet:col-span-1">
-        <IconButton icon={Repeat} label="Loop" variant="pad" size="md" on={loop?.on ?? false} disabled={!loop} onClick={() => loop?.onChange(!loop.on)} />
+        <IconButton icon={Repeat} label="Loop" size="md" on={loop?.on ?? false} disabled={!loop} onClick={() => loop?.onChange(!loop.on)} />
       </Section>
 
       <Section name="volume" label="Volume" disabled={!volume} className="col-span-1 tablet:col-span-3">
