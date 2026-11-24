@@ -197,7 +197,7 @@ function TopBar({ viewer }: { viewer: Viewer }) {
         <Suspense fallback={<span className="size-10 shrink-0" />}>
           <AccountMenu viewer={viewer} />
         </Suspense>
-      ) : (
+      ) : viewer.status === "needs_handle" ? null : ( // Signed in, choosing a handle: nothing to sign in to.
         // Phone: signing in is the Profile tab.
         <span className="hidden tablet:contents">
           <ButtonLink href="/login" size="sm">

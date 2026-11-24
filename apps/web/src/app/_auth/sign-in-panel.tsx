@@ -2,10 +2,9 @@
 
 import { useState, type FormEvent } from "react";
 import { Button, CircleExclamationPoint, Icon, Mail, MailCheck, TextInput } from "@stash/ui";
+import type { SignInProvider as Provider } from "@stash/contracts";
 import { signInWithEmail, signInWithProvider } from "@/server/auth/actions";
 import { formErrors } from "./form";
-
-type Provider = "google" | "discord";
 
 /**
  * Email link, Google and Discord (build spec: /login). `next` is passed to Platform's actions as it

@@ -16,13 +16,20 @@ type SurfaceProps = {
   footer?: ReactNode;
   error?: string;
   close?: ReactNode;
+  /**
+   * Close first in the DOM (still drawn top right), so it comes before the form in the reading and
+   * tab order. For panel dialogs; a confirm dialog keeps it last so focus lands on its actions.
+   */
+  closeFirst?: boolean;
   className?: string;
 };
 
 /** The dialog face: a raised panel, title, one line of description, body, error, actions. */
-export function DialogSurface({ title, description, children, footer, error, close, className }: SurfaceProps) {
+export function DialogSurface({ title, description, children, footer, error, close, closeFirst = false, className }: SurfaceProps) {
+  const closeSlot = close && <div className="absolute top-4 right-4">{close}</div>;
   return (
     <div className={cx("relative flex w-full max-w-110 flex-col gap-4 rounded-panel border border-border bg-raised p-6", className)}>
+      {closeFirst && closeSlot}
       <div className="flex flex-col gap-1 pr-8">
         {title}
         {description}
@@ -35,7 +42,7 @@ export function DialogSurface({ title, description, children, footer, error, clo
         </p>
       )}
       {footer && <div className="flex flex-wrap justify-end gap-2">{footer}</div>}
-      {close && <div className="absolute top-4 right-4">{close}</div>}
+      {!closeFirst && closeSlot}
     </div>
   );
 }
@@ -169,6 +176,7 @@ export function PanelDialog({
   children: ReactNode;
 }) {
   const returnTo = useRef<HTMLElement | null>(null);
+  const content = useRef<HTMLDivElement>(null);
   return (
     <D.Root open={open} onOpenChange={onOpenChange}>
       <D.Portal>
@@ -177,8 +185,15 @@ export function PanelDialog({
             className="flex w-full animate-overlay justify-center"
             {...(description ? {} : { "aria-describedby": undefined })}
             // Opened by code, not a Radix trigger: remember what had focus and go back to it on close.
-            onOpenAutoFocus={() => {
+            ref={content}
+            onOpenAutoFocus={(e) => {
               returnTo.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+              // Close comes first in the DOM; start in the form's first field instead, when there is one.
+              const field = content.current?.querySelector<HTMLElement>("input, select, textarea");
+              if (field) {
+                e.preventDefault();
+                field.focus();
+              }
             }}
             onCloseAutoFocus={(e) => {
               e.preventDefault();
@@ -186,6 +201,7 @@ export function PanelDialog({
             }}
           >
             <DialogSurface
+              closeFirst
               title={<D.Title className={titleClass}>{title}</D.Title>}
               description={description ? <D.Description className={descriptionClass}>{description}</D.Description> : undefined}
               close={

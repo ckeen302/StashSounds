@@ -108,16 +108,18 @@ test.describe("signed out", () => {
       // Nothing ran: the like is not pressed (the page behind the modal is hidden from the tree).
       await expect(page.getByRole("button", { name: "Like Dusty soul chops", includeHidden: true })).toHaveAttribute("aria-pressed", "false");
 
+      // Opening the dialog stored the pending action, for about 15 minutes.
+      const stored = JSON.parse((await page.evaluate((k) => localStorage.getItem(k), INTENT_KEY))!);
+      expect(stored.kind).toBe(kind);
+      expect(stored.expiresAt - Date.now()).toBeGreaterThan(14 * 60 * 1000);
+
       await dialog.getByRole("button", { name: "Continue with Google" }).click();
-      // next carries a nonce that only this browser has stored, so a bare or copied link runs nothing.
+      // next carries that record's nonce, which only this browser has, so a bare or copied link runs nothing.
       const back = nextOf(await sent())!;
       expect(back.startsWith(next)).toBe(true);
       const nonce = back.slice(next.length);
       expect(nonce).toMatch(new RegExp(`^${NONCE.source}$`));
-      const stored = JSON.parse((await page.evaluate((k) => localStorage.getItem(k), INTENT_KEY))!);
-      expect(stored).toMatchObject({ kind, nonce });
-      expect(stored.expiresAt - Date.now()).toBeGreaterThan(14 * 60 * 1000);
-    });
+      expect(nonce).toBe(stored.nonce);
     });
   }
 
