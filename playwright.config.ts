@@ -40,5 +40,7 @@ export default defineConfig({
         url: `${baseURL}/api/health`,
         reuseExistingServer: !process.env.CI,
         timeout: 240_000,
+        // Test-only pages such as /dev/player (request 132-dev-pages-flag); never set in production.
+        env: { ...process.env, STASH_DEV_PAGES: "1" } as Record<string, string>,
       },
 });
