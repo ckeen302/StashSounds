@@ -1,5 +1,6 @@
 import { Button, Check, ChevronDown, FilterChip, Menu, SearchInput, type MenuEntry } from "@stash/ui";
 import { useMemo, useState } from "react";
+import { Cover, coverFor } from "./cover";
 import { CONFIDENCE, PRESETS, type Confidence, type PresetEntry } from "./data";
 
 /**
@@ -272,15 +273,16 @@ export function Dropdown({ name, value, options, selected, onPick, active = valu
 function SongCard({ s }: { s: Song }) {
   return (
     <li className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-4">
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex min-w-0 flex-col">
+      <div className="flex items-center gap-4">
+        <Cover song={s.song} artist={s.artist} />
+        <div className="flex min-w-0 flex-1 flex-col gap-0.5">
           <span className="text-title break-words text-text">{s.song}</span>
+          <span className="text-small text-text">{s.artist}</span>
           <span className="text-small text-text-muted">
-            {s.artist}
-            {s.producer && s.producer !== "Unknown" ? ` · prod. ${s.producer}` : ""}
+            {[coverFor(s.song, s.artist)?.album, s.producer && s.producer !== "Unknown" ? `prod. ${s.producer}` : null].filter(Boolean).join(" · ")}
           </span>
+          <span className="font-mono text-numeric tabular text-text-muted">{`${s.entries.length} ${s.entries.length === 1 ? "sound" : "sounds"}`}</span>
         </div>
-        <span className="shrink-0 font-mono text-numeric tabular text-text-muted">{`${s.entries.length} ${s.entries.length === 1 ? "sound" : "sounds"}`}</span>
       </div>
       <ul className="flex flex-col gap-4">
         {s.entries.map((e, i) => (
@@ -342,9 +344,12 @@ function FromTheProducer() {
       <ul className="-mx-3 flex gap-2 overflow-x-auto px-3 pb-1 tablet:mx-0 tablet:px-0">
         {rows.map((e, i) => (
           <li key={`${e.song}-${e.preset}-${i}`} className="flex w-64 shrink-0 flex-col gap-2 rounded-panel border border-accent bg-surface p-3">
-            <div className="flex min-w-0 flex-col">
-              <span className="truncate text-body-strong text-text">{e.song}</span>
-              <span className="truncate text-small text-text-muted">{`${e.artist} · ${e.role}`}</span>
+            <div className="flex items-center gap-3">
+              <Cover song={e.song} artist={e.artist} size="sm" />
+              <div className="flex min-w-0 flex-col">
+                <span className="truncate text-body-strong text-text">{e.song}</span>
+                <span className="truncate text-small text-text-muted">{`${e.artist} · ${e.role}`}</span>
+              </div>
             </div>
             <div className="flex flex-col gap-1 rounded-control border border-border-strong bg-bg px-3 py-2">
               <span className="truncate font-mono text-small text-text-muted">{e.plugin}</span>
