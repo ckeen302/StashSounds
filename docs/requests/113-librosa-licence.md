@@ -2,6 +2,7 @@
 From lane: pipeline
 For: lead (docs/spec/build-spec.md wording, or scripts/licenses.mjs exceptions)
 Blocking ticket: none (113 is built on numpy and meets its acceptance criteria)
+Status: answered in decision 0017 (option 1: numpy accepted, build-spec.md names numpy)
 
 ## What I need changed
 One of the two:

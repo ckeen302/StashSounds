@@ -225,6 +225,14 @@ def test_every_loop_fixture_gets_its_manifest_key(decoded, fixture: dict[str, An
         assert confidence is None
 
 
+@pytest.mark.parametrize("fixture", LOOPS, ids=name_of)
+def test_without_a_name_chroma_finds_every_loop_fixtures_key(decoded, fixture: dict[str, Any]):
+    # The fixtures' chords are diatonic since decision 0017, so chroma alone agrees with every name.
+    key, source, confidence = detect_key(decoded[fixture["path"]], SR, "untitled.wav")
+    assert (key, source) == (fixture["expect"]["key"], "chroma")
+    assert confidence is not None and 0 < confidence <= 1
+
+
 def test_drill_lead_gets_g_minor_from_chroma(decoded):
     [f] = [f for f in LOOPS if name_of(f) == "drill_lead_142.flac"]
     key, source, confidence = detect_key(decoded[f["path"]], SR, name_of(f))

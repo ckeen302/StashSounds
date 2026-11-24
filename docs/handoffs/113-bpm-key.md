@@ -89,33 +89,35 @@ All of it is under `apps/worker/`.
   real-database run (bpm 140, A minor and the detection record on the row) and the child environment.
 
 ## Proof
-As root, `STASH_REQUIRE_DB=1 STASH_REQUIRE_ISOLATION=1 pnpm worker:test` (after merging the PR #8
-review fixes from 112):
+Re-run on the regenerated fixtures (decision 0017), with 112's second review round (seccomp,
+no_new_privs, group kill) merged forward at b755414. As root, `STASH_REQUIRE_DB=1
+STASH_REQUIRE_ISOLATION=1 pnpm worker:test`:
 ```
 SKIPPED [1] tests/test_contracts.py:74: got empty parameter set for (path)
-SKIPPED [1] tests/test_sandbox.py:162: measured on the job uid as root
-288 passed, 2 skipped in 43.30s
+SKIPPED [1] tests/test_sandbox.py:167: measured on the job uid as root
+298 passed, 2 skipped in 45.83s
 ```
-The same suite as uid 65534 (setpriv, `STASH_REQUIRE_DB=1`); the skips are the 16 isolation tests and
+The same suite as uid 65534 (setpriv, `STASH_REQUIRE_DB=1`); the skips are the isolation tests and
 the empty `fixtures/own` case:
 ```
-273 passed, 17 skipped in 35.18s
+SKIPPED [1] tests/test_isolation.py:311: starting the child as another uid needs root
+282 passed, 18 skipped in 37.11s
 ```
 `uv run --frozen ruff check .` and `uv run --frozen ruff format --check .`:
 ```
 All checks passed!
-29 files already formatted
+30 files already formatted
 ```
 What each loop fixture gets. "No name" means named `untitled.wav`, and "chroma only" means the key
 ignoring the name:
 
 | Fixture | BPM, source, agreed | Candidates, best first | Bars | No name | Key | Chroma only |
 | --- | --- | --- | --- | --- | --- | --- |
-| drill_lead_142.flac | 142, filename, yes | 142, 284, 71 | 2 | 142, duration, yes | G minor, chroma, 0.104 | G minor |
-| midnight_keys_140bpm_Am.wav | 140, filename, yes | 140, 280, 70 | 4 | 140, duration, yes | A minor, filename | A minor (0.127) |
-| dusty_soul_90_Dmin.wav | 90, filename, yes | 90, 180, 45 | 2 | 90, duration, yes | D minor, filename | D minor (0.130) |
-| rnb_pad_72bpm_Ebmaj.aiff | 72, filename, yes | 72, 144, 288 | 2 | 72, duration, yes | E♭ major, filename | G minor (0.140) |
-| trap_bells_150_F#m.mp3 | 150, filename, yes | 150, 75, 300 | 4 | 150, duration, yes | F♯ minor, filename | F♯ minor (0.116) |
+| drill_lead_142.flac | 142, filename, yes | 142, 284, 71 | 2 | 142, duration, yes | G minor, chroma, 0.275 | G minor (0.275) |
+| midnight_keys_140bpm_Am.wav | 140, filename, yes | 140, 280, 70 | 4 | 140, duration, yes | A minor, filename | A minor (0.245) |
+| dusty_soul_90_Dmin.wav | 90, filename, yes | 90, 180, 45 | 2 | 90, duration, yes | D minor, filename | D minor (0.299) |
+| rnb_pad_72bpm_Ebmaj.aiff | 72, filename, yes | 72, 144, 288 | 2 | 72, duration, yes | E♭ major, filename | E♭ major (0.083) |
+| trap_bells_150_F#m.mp3 | 150, filename, yes | 150, 75, 300 | 4 | 150, duration, yes | F♯ minor, filename | F♯ minor (0.222) |
 
 - **The trimmed duplicate** is 0.25 s short of whole bars. It gets `onset`, 140 ±1, not agreed, with
   `bars` null.
@@ -133,11 +135,13 @@ ignoring the name:
 ## Surprises and decisions
 - **librosa cannot pass the licenses gate.** Its required `soxr` is LGPL, its required `soundfile` ships
   LGPL `libsndfile`, and `certifi` (MPL) comes in through pooch. It was replaced by two numpy modules of about 160 lines each
-  (request `113-librosa-licence`). The behaviour is the spec's; only the library differs.
-- **The rnb_pad fixture reads as G minor to chroma.** The generator's major branch plays C *major*
-  (with E natural) on the vi degree, which is not in E♭ major. The name gives E♭ major, which the
-  manifest expects, so nothing fails. The lead may want `scripts/gen-fixtures.py` to use a minor triad
-  on vi, ii and iii in major keys before the fixtures are used to tune chroma.
+  (request `113-librosa-licence`, accepted in decision 0017). The behaviour is the spec's; only the library differs.
+- **The rnb_pad fixture read as G minor to chroma**, before decision 0017. The generator played a C
+  *major* chord on vi in E♭ major. The lead fixed the generator: major keys now have a minor vi and minor
+  keys a major VI. Every chord loop changed, so the numbers above are from the regenerated fixtures.
+  Chroma alone now finds every loop's manifest key, and a new test holds it to that
+  (`test_without_a_name_chroma_finds_every_loop_fixtures_key`). E♭ major has the smallest margin, 0.083
+  over its relative C minor.
 - **Name rules are stricter than `parseKey` on its own.** `parseKey("am")` is A minor, but in a file
   name "am", "a", "em" and "bb" are ordinary words. Lowercase tokens of one or two letters are ignored.
   "Am", "A", "dmin" and "f#m" count. A key followed by digits ("Cmaj7", "Am7") is a chord name and is
@@ -158,4 +162,8 @@ ignoring the name:
 
 ## Requests filed
 - `docs/requests/113-librosa-licence.md`: change the spec's "librosa" wording to numpy (recommended), or
-  grant licence exceptions for soxr, soundfile and certifi.
+  grant licence exceptions for soxr, soundfile and certifi. **Answered in decision 0017:** numpy is
+  accepted and the spec names it. The request file is kept, marked answered, as the record.
+- The preview byte cap from 112 is now read from `limits.preview.loopMaxBytes` (decision 0017).
+  `test_the_preview_cap_comes_from_limits_and_fits_the_longest_loop` keeps the derivation as a check that
+  the limit is at least the derived size.
