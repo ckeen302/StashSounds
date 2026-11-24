@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { getEngine, usePlayerState } from "@stash/audio";
 import { PlayerBar, PlayerSheet } from "@stash/ui";
 import { nowPlaying } from "./now-playing";
-import { browserStorage, readVolume, writeVolume } from "./volume";
+import { browserStorage, readUnmuteVolume, readVolume, rememberVolume } from "./volume";
 
 /**
  * The player bar wired to the engine. It selects the smallest slices of engine state (status, the
@@ -20,6 +20,8 @@ export function PlayerDock() {
   const hasPrevious = usePlayerState((s) => s.queueIndex > 0);
   const hasNext = usePlayerState((s) => s.queueIndex >= 0 && s.queueIndex < s.queue.length - 1);
   const [sheetOpen, setSheetOpen] = useState(false);
+  // Read on the first client render; it changes no markup, only where unmute returns to.
+  const [unmuteVolume, setUnmuteVolume] = useState<number | undefined>(() => readUnmuteVolume(browserStorage()) ?? undefined);
   const row = nowPlaying().rowFor(currentId);
 
   // The remembered volume, applied before anything plays (design spec, Accessibility: Sound).
@@ -40,9 +42,12 @@ export function PlayerDock() {
     onPrevious: hasPrevious ? () => engine.previous() : undefined,
     onNext: hasNext ? () => engine.next() : undefined,
     volume,
+    unmuteVolume,
     onVolumeChange: (v: number) => {
+      // A mute keeps the level it left, across reloads too (PR #12 review).
+      if (v === 0 && volume > 0) setUnmuteVolume(volume);
       engine.setVolume(v);
-      writeVolume(browserStorage(), v);
+      rememberVolume(browserStorage(), volume, v);
     },
   };
 

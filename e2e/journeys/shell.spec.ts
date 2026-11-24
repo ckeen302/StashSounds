@@ -301,7 +301,8 @@ test("at 1024 with the 232 px rail, long titles truncate and nothing overflows",
   await list.getByRole("button", { name: /^Play Late night R&B pad/ }).click();
   const barTitle = player(page).getByRole("link", { name: /^Late night R&B pad/ });
   await expect(barTitle).toBeVisible();
-  expect(await barTitle.evaluate((el) => el.scrollWidth > el.clientWidth && getComputedStyle(el).textOverflow === "ellipsis")).toBe(true);
+  // The link is the tap target; the text inside it is what truncates.
+  expect(await barTitle.locator("span").evaluate((el) => el.scrollWidth > el.clientWidth && getComputedStyle(el).textOverflow === "ellipsis")).toBe(true);
   expect(await player(page).evaluate((el) => el.scrollWidth <= el.clientWidth)).toBe(true);
 });
 
@@ -311,7 +312,7 @@ test("on a wide list the tags column shows", async ({ page }) => {
   const list = page.getByRole("list", { name: "Fixture loops" });
   expect(await list.evaluate((el) => el.getBoundingClientRect().width)).toBeGreaterThanOrEqual(880);
   await expect(list.locator("li").first().locator(":scope > div:nth-child(4)")).toBeVisible();
-  await expect(list.locator("li").first().getByText("soul")).toBeVisible();
+  await expect(list.locator("li").first().getByText("soul", { exact: true })).toBeVisible();
 });
 
 test.describe("on a touch tablet", () => {

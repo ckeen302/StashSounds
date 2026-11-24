@@ -16,6 +16,7 @@ import {
   LinkProvider,
   PlayButton,
   ProgressSteps,
+  ResultList,
   ResultRow,
   SearchInput,
   Stat,

@@ -29,6 +29,16 @@
   }
 }
 
+/*
+ * A result list's own width, not the viewport's: the tags column shows only from 880 px of list
+ * (PR #12 review). ResultList and ResultListSkeleton are the result-list containers.
+ */
+@custom-variant list-wide {
+  @container result-list (width >= 880px) {
+    @slot;
+  }
+}
+
 @layer base {
   /* The focus ring from theme.css, drawn for the gallery's frozen focus state. */
   [data-focus] {
