@@ -81,15 +81,18 @@ interface PageGlobals {
 
 /**
  * Taps the output, and records every worklet module added and every processor error. With `deaf`,
- * every worklet node's messages to the page are dropped: a worklet that never says it is ready.
+ * every worklet node's messages to the page are dropped: a worklet that never says it is ready. With
+ * `failFirst`, the first worklet module added is refused as a failed fetch is (worklet module fetches
+ * do not pass through page.route, so the refusal is made here, where the library sees it).
  */
-async function instrument(page: Page, { deaf = false } = {}) {
-  await page.addInitScript((deaf) => {
+async function instrument(page: Page, { deaf = false, failFirst = false } = {}) {
+  await page.addInitScript(([deaf, failFirst]) => {
     const g = window as unknown as PageGlobals & { AudioContext: unknown };
     g.__worklet = { modules: [], errors: [] };
     const addModule = AudioWorklet.prototype.addModule;
     AudioWorklet.prototype.addModule = function (url: string | URL, options?: WorkletOptions) {
       g.__worklet.modules.push(String(url));
+      if (failFirst && g.__worklet.modules.length === 1) return Promise.reject(new DOMException("Unable to load a worklet's module.", "AbortError"));
       return addModule.call(this, url, options);
     };
     const Node = window.AudioWorkletNode;
@@ -121,7 +124,7 @@ async function instrument(page: Page, { deaf = false } = {}) {
         return this.tap as unknown as AudioDestinationNode;
       }
     };
-  }, deaf);
+  }, [deaf, failFirst] as const);
   // The main-thread library, minified as in the production build.
   await page.route("**/vendor/signalsmith-stretch.mjs", (route) => route.fulfill({ status: 200, contentType: "text/javascript", body: minified }));
 }
@@ -215,5 +218,28 @@ test("a stretch worklet that never says it is ready falls back to the original t
   expect(rate, "playhead at the original speed").toBeGreaterThan(0.9);
   expect(rate, "playhead at the original speed").toBeLessThan(1.1);
   expect(await rms(page), "the loop still reaches the output").toBeGreaterThan(0.001);
+  expect(errors).toEqual([]);
+});
+
+// PR #10 delta review (lead, advisory): the library keeps a rejected addModule on the context. One
+// failed fetch of the worklet file must not disable the stretch until reload.
+test("after one failed fetch of the worklet file, the next tempo change loads it again and is heard", async ({ page }) => {
+  const errors: string[] = [];
+  page.on("pageerror", (e) => errors.push(e.message));
+  await instrument(page, { failFirst: true });
+  await playWav(page);
+  const engine = () => page.evaluate(() => (window as unknown as PageGlobals).stashEngine.getState());
+
+  await page.evaluate(() => (window as unknown as PageGlobals).stashEngine.setTempo(280));
+  await expect.poll(async () => (await engine()).tempoRatio, { message: "the first load fails and falls back" }).toBe(1);
+  await page.evaluate(() => (window as unknown as PageGlobals).stashEngine.setTempo(280));
+  await page.waitForTimeout(800);
+  const rate = await playheadRate(page);
+  console.log(`after the retry: playhead at ${rate.toFixed(3)}x`);
+  expect(await engine()).toMatchObject({ status: "playing", tempoRatio: 2 });
+  expect(rate, "the stretch took over on the second try").toBeGreaterThan(1.8);
+  expect(rate).toBeLessThan(2.2);
+  const worklet = await page.evaluate(() => (window as unknown as PageGlobals).__worklet);
+  expect(worklet.modules).toEqual([expect.stringMatching(/\/worklets\/signalsmith-stretch-[\d.]+\.mjs$/), expect.stringMatching(/\/worklets\/signalsmith-stretch-[\d.]+\.mjs\?r=1$/)]);
   expect(errors).toEqual([]);
 });

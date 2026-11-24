@@ -261,3 +261,139 @@ describe("loop off through the stretch", () => {
     expect(e.getState().status).toBe("paused");
   });
 });
+
+// PR #10 delta review (lead, must-fix 1): every re-timing takes back the fade it placed before.
+describe("loop off: the end moves later", () => {
+  it("slowing the tempo twice leaves no fade at either earlier end", async () => {
+    const { e, ctx, node, stretchGain } = setup();
+    await e.play(loop("a"));
+    e.setTempo(70); // ratio 0.5
+    await settle();
+    e.setLoop(false);
+    const endOf = (c: { output?: number; input?: number; rate?: number }) => c.output! + (LOOP_S - (c.input! - 1)) / c.rate!;
+    const first = endOf(node.lastStart!);
+    ctx.advance(0.3);
+    e.setTempo(60);
+    const second = endOf(node.schedules.at(-1)!);
+    ctx.advance(0.3);
+    e.setTempo(50);
+    const third = endOf(node.schedules.at(-1)!);
+    expect(first).toBeLessThan(second);
+    expect(second).toBeLessThan(third);
+    const gain = stretchGain().gain;
+    for (const old of [first, second]) {
+      expect(gain.at(old + 0.001), `no fade left at ${old.toFixed(3)} s`).toBeCloseTo(1, 3);
+      expect(gain.at(old + STOP_AFTER), `no fade left at ${old.toFixed(3)} s`).toBeCloseTo(1, 3);
+    }
+    expect(gain.at(third + STOP_AFTER)).toBeLessThan(0.01);
+    ctx.advance(second + 0.1 - ctx.currentTime);
+    await settle();
+    expect(e.getState().status, "still playing past the earlier ends").toBe("playing");
+  });
+});
+
+// PR #10 delta review (lead, must-fix 2): once the end is less than a lead away, a tempo or key change
+// can no longer be heard in this pass. The pass finishes, the engine pauses at 0, and the change is
+// kept for the next play.
+describe("loop off: a tempo or key change too close to the end", () => {
+  it("plain path: no handoff; the pass ends at the loop end and the next play uses the new tempo", async () => {
+    const { e, ctx, node, latest, plainGain } = setup();
+    e.setLoop(false);
+    await e.play(loop("a"));
+    ctx.advance(LOOP_S - 0.1); // the end is 0.1 s away, less than a lead (0.14 s)
+    e.setTempo(70);
+    await settle();
+    expect(node.lastStart, "the stretch is not started for a pass that is ending").toBeUndefined();
+    expect(latest().stoppedAt).toBeCloseTo(LOOP_S + STOP_AFTER);
+    expect(plainGain().gain.at(LOOP_S + STOP_AFTER), "the fade at the loop end stands").toBeLessThan(0.01);
+    expect(e.getState().tempoRatio).toBe(0.5);
+    ctx.advance(0.2);
+    await settle();
+    expect(e.getState()).toMatchObject({ status: "paused", tempoRatio: 0.5 });
+    expect(e.getPositionMs()).toBe(0);
+    await e.play();
+    await settle();
+    expect(node.lastStart).toMatchObject({ active: true, rate: 0.5, input: 1 });
+  });
+  it("stretch path: a change just before the end sends nothing, and the pass ends there", async () => {
+    const { e, ctx, node, stretchGain } = setup();
+    await e.play(loop("a"));
+    e.setTempo(70);
+    await settle();
+    e.setLoop(false);
+    const start = node.lastStart!;
+    const end = start.output! + (LOOP_S - (start.input! - 1)) / 0.5;
+    const sent = node.schedules.length;
+    ctx.advance(end - 0.05 - ctx.currentTime);
+    e.setTempo(50);
+    e.setTranspose(2);
+    expect(node.schedules, "nothing sent for a pass that is ending").toHaveLength(sent);
+    expect(stretchGain().gain.at(end + STOP_AFTER)).toBeLessThan(0.01);
+    ctx.advance(0.1);
+    await settle();
+    expect(e.getState()).toMatchObject({ status: "paused", tempoRatio: 50 / 140, transpose: 2 });
+    expect(e.getPositionMs()).toBe(0);
+  });
+  it("stretch path: a change during the final fade does not re-time to the next pass", async () => {
+    const { e, ctx, node } = setup();
+    await e.play(loop("a"));
+    e.setTempo(70);
+    await settle();
+    e.setLoop(false);
+    const start = node.lastStart!;
+    const end = start.output! + (LOOP_S - (start.input! - 1)) / 0.5;
+    ctx.advance(end + 0.01 - ctx.currentTime); // inside the 30 ms after the end
+    e.setTempo(50);
+    ctx.advance(0.05);
+    await settle();
+    expect(e.getState(), "paused, not playing a silent pass").toMatchObject({ status: "paused" });
+    expect(e.getPositionMs()).toBe(0);
+  });
+});
+
+// PR #10 delta review (lead, advisory): loop switched back on during the final fade carries on from the
+// start of the next pass without a gap.
+describe("loop switched back on during the final fade", () => {
+  it("plain path: a new voice from where the next pass is, ramping in while the old one fades", async () => {
+    const { e, ctx, latest } = setup();
+    e.setLoop(false);
+    await e.play(loop("a"));
+    ctx.advance(LOOP_S + 0.01); // 10 ms into the fade
+    const fading = latest();
+    e.setLoop(true);
+    const next = latest();
+    expect(next).not.toBe(fading);
+    expect(next.startedAt).toBeCloseTo(LOOP_S + 0.01);
+    expect(next.startOffset).toBeCloseTo(0.01);
+    expect(next.loop).toBe(true);
+    expect(next.stoppedAt).toBeNull();
+    const g = next.connected[0] as FakeGain;
+    expect(g.gain.at(LOOP_S + 0.01)).toBe(0);
+    expect(g.gain.at(LOOP_S + 0.05)).toBeGreaterThan(0.99);
+    ctx.advance(1);
+    await settle();
+    expect(e.getState().status).toBe("playing");
+    expect(e.getPositionMs()).toBeCloseTo(1010);
+  });
+  it("stretch path: the gain ramps back up from where the fade has got to, with nothing sent", async () => {
+    const { e, ctx, node, stretchGain } = setup();
+    await e.play(loop("a"));
+    e.setTempo(70);
+    await settle();
+    e.setLoop(false);
+    const start = node.lastStart!;
+    const end = start.output! + (LOOP_S - (start.input! - 1)) / 0.5;
+    const sent = node.schedules.length;
+    ctx.advance(end + 0.01 - ctx.currentTime);
+    const gain = stretchGain().gain;
+    const now = ctx.currentTime;
+    const before = gain.at(now);
+    e.setLoop(true);
+    expect(gain.at(now), "no jump: the ramp starts from the fade's value").toBeCloseTo(before, 6);
+    expect(gain.at(now + 0.05)).toBeGreaterThan(0.99);
+    expect(node.schedules).toHaveLength(sent);
+    ctx.advance(1);
+    await settle();
+    expect(e.getState().status).toBe("playing");
+  });
+});

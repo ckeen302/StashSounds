@@ -443,3 +443,176 @@ loopoff trap_bells_150_F#m.mp3 stretch: end 6.54 s, rms before 0.113, after 0.00
 
   40 passed (59.8s)
 ```
+
+## Review round (PR #10 delta 5cd3ad4..473aa6e)
+
+Pulled 473aa6e (the lead's worklet serving) first. Then `origin/phase-0/foundations` (a11435b, which includes 8dc75a3 and the 800 px baselines) was merged in as 7bf3ffe. The only conflict was in `.gitignore`: each side added one ignore line, and both are kept. Tests are in 572233b and the fix in the commit after it.
+
+**Must-fix 1: the previous end's fade must be taken back.** New test: with loop off, slow the tempo twice. It requires full gain at both earlier ends and the fade only at the last end. I deleted `gain.cancelScheduledValues(prev)` as a mutation: the test fails. With the line restored, it passes.
+
+**Must-fix 2: changes too close to the end.** A new `ending()` is true when loop is off and the end is within a lead of now.
+- While it is true, `applyTempoAndKey` returns without handing off or re-timing.
+- `handoff` checks again after the stretch has loaded, because the lead is only known then (0.14 s, against 0.05 s before the load).
+- The pass ends and the engine pauses at 0. State keeps the new tempo and key, so the next `play()` starts on the stretch with them.
+- Tests, all failing before the fix:
+  - Plain path, 0.1 s before the end: no stretch start, the fade at the loop end stands, then paused at 0. The next play starts the stretch at rate 0.5 from input 1 (position 0).
+  - Stretch path, 50 ms before the end: nothing is sent to the worklet, then paused.
+  - Stretch path, 10 ms into the final fade: paused, not sitting at "playing" in silence for a whole pass.
+
+**Advisory: loop turned back on during the final fade.** It now carries on from the next pass.
+- Plain path: the fading source cannot be restarted, so a new voice starts at that moment from where the next pass is (10 ms in) and ramps in while the old one fades.
+- Stretch path: the gain gets a new target of 1 that starts from the fade's current value. A cancel would make it jump back to full level. Nothing is sent to the worklet.
+- Once the item is silent, `endOfItem` starts it over from 0, as before.
+- Tests cover both paths: no jump in gain, the ramp, and still playing a second later.
+
+**Advisory: one retry for a refused worklet module.** The library caches a refused `addModule` on the context.
+- After one failed load, `createBrowserStretch` adds `<path>?r=1` itself once. With that module in, the library's first `new AudioWorkletNode` succeeds and the cached refusal is never read.
+- After a second failure it fails fast. Failures are counted per context.
+- Unit tests:
+  - One refusal: two `addModule` calls, then a node.
+  - Two refusals: no third request.
+- Perf case in `audio-stretch-minified.spec.ts`:
+  - Worklet module fetches do not pass through `page.route`, so the page's `addModule` refuses the first worklet module itself.
+  - Before the fix the second try stayed at 1.001x; after it, 2.002x.
+
+**Advisory: tighter fade-out bound.** It is now `< 0.99`. The largest of the 7 fixtures reads 0.966.
+
+### Lane check after the round
+`STASH_E2E_PORT=3123 pnpm check && pnpm test && pnpm perf`, exit 0.
+
+`pnpm check`
+```
+
+> stash@ check /home/claude/stash/.claude/worktrees/agent-ac6da61f7773dd06e
+> pnpm -r --parallel typecheck && tsc -p tsconfig.json && eslint . --max-warnings 0
+
+Scope: 4 of 5 workspace projects
+apps/web typecheck$ next typegen && tsc -p tsconfig.json
+packages/audio typecheck$ tsc -p tsconfig.json && tsc -p tsconfig.entry.json
+packages/contracts typecheck$ tsc -p tsconfig.json
+packages/ui typecheck$ tsc -p tsconfig.json
+apps/web typecheck: Generating route types...
+apps/web typecheck: ✓ Types generated successfully
+packages/ui typecheck: Done
+packages/contracts typecheck: Done
+apps/web typecheck: Done
+packages/audio typecheck: Done
+
+```
+
+`pnpm test`
+```
+ Test Files  12 passed (12)
+      Tests  264 passed (264)
+   Duration  2.82s (tests 83%, import 13%, transform 3%, worker 1%)
+```
+
+`pnpm perf`
+```
+> playwright test --project=perf
+
+
+Running 41 tests using 2 workers
+
+first sound fast, cold: 124 ms
+plain   drill_lead_142.flac @44100: loopFrames 149070, maxDiff 3.58e-8, join step 0.109 vs 0.118, min rms 0.0213 vs 0.00791
+plain   drill_lead_142.flac @48000: loopFrames 162253, maxDiff 3.58e-8, join step 0.102 vs 0.108, min rms 0.0231 vs 0.00746
+  ✓   2 [perf] › e2e/perf/audio-seamless-loop.spec.ts:191:3 › drill_lead_142.flac: two passes on the plain path are the loop twice, with no gap or click (701ms)
+first sound fast, cold: 124 ms
+first sound fast, cold: 90 ms
+  ✓   1 [perf] › e2e/perf/audio-first-sound.spec.ts:154:1 › first sound on a fast connection, nothing preloaded: under 300 ms (1.3s)
+first sound throttled, cold: 457 ms
+stretch drill_lead_142.flac @44100: diff 0.00 at 0.240 s, joins step 0.0157 vs 0.209; step 0.00552 vs 0.209
+first sound throttled, cold: 436 ms
+stretch drill_lead_142.flac @48000: diff 0.00 at 0.240 s, joins step 0.00192 vs 0.165; step 0.00227 vs 0.165
+  ✓   3 [perf] › e2e/perf/audio-seamless-loop.spec.ts:208:3 › drill_lead_142.flac: two passes through the stretch match an unlooped render, with no gap or click (1.9s)
+first sound throttled, cold: 467 ms
+  ✓   4 [perf] › e2e/perf/audio-first-sound.spec.ts:166:1 › first sound throttled (CPU 4x, 4G), nothing preloaded: under 800 ms (1.9s)
+live    drill_lead_142.flac @48000: diff 0.00000960 at 1.19 s, changes step 0.00193 vs 0.142, rms 0.0251 vs 0.00530; step 0.000637 vs 0.142, rms 0.00870 vs 0.00530
+  ✓   5 [perf] › e2e/perf/audio-seamless-loop.spec.ts:220:3 › drill_lead_142.flac: a live tempo then key change continues from the same place, with no gap or click (701ms)
+seek    drill_lead_142.flac @48000: seek step 0.00366 vs 0.209; restart step 0.000143 vs 0.209, fade out 0.930 (before 1.00), fade in 0.0133, from 1.25 s for 1.25 s
+  ✓   7 [perf] › e2e/perf/audio-seamless-loop.spec.ts:229:3 › drill_lead_142.flac: a seek while stretched fades out and back in, with no click (655ms)
+plain   dusty_soul_90_Dmin.wav @44100: loopFrames 235200, maxDiff 3.58e-8, join step 0.0839 vs 0.109, min rms 0.0254 vs 0.00275
+plain   dusty_soul_90_Dmin.wav @48000: loopFrames 256000, maxDiff 3.58e-8, join step 0.0745 vs 0.0936, min rms 0.0306 vs 0.00301
+  ✓   8 [perf] › e2e/perf/audio-seamless-loop.spec.ts:191:3 › dusty_soul_90_Dmin.wav: two passes on the plain path are the loop twice, with no gap or click (610ms)
+first sound slow, preloaded on hover: 114 ms, requests after click: 0
+stretch dusty_soul_90_Dmin.wav @44100: diff 0.00 at 0.240 s, joins step 0.00201 vs 0.187; step 0.00222 vs 0.187
+first sound slow, preloaded on hover: 129 ms, requests after click: 0
+stretch dusty_soul_90_Dmin.wav @48000: diff 0.00 at 0.240 s, joins step 0.0685 vs 0.142; step 0.00200 vs 0.142
+  ✓   9 [perf] › e2e/perf/audio-seamless-loop.spec.ts:208:3 › dusty_soul_90_Dmin.wav: two passes through the stretch match an unlooped render, with no gap or click (3.0s)
+live    dusty_soul_90_Dmin.wav @48000: diff 0.0000140 at 1.19 s, changes step 0.000985 vs 0.132, rms 0.00971 vs 0.00526; step 0.00170 vs 0.132, rms 0.0128 vs 0.00526
+  ✓  10 [perf] › e2e/perf/audio-seamless-loop.spec.ts:220:3 › dusty_soul_90_Dmin.wav: a live tempo then key change continues from the same place, with no gap or click (801ms)
+seek    dusty_soul_90_Dmin.wav @48000: seek step 0.00119 vs 0.150; restart step 0.000493 vs 0.150, fade out 0.966 (before 1.00), fade in 0.00938, from 1.97 s for 1.97 s
+first sound slow, preloaded on hover: 98 ms, requests after click: 0
+  ✓  11 [perf] › e2e/perf/audio-seamless-loop.spec.ts:229:3 › dusty_soul_90_Dmin.wav: a seek while stretched fades out and back in, with no click (789ms)
+  ✓   6 [perf] › e2e/perf/audio-first-sound.spec.ts:179:1 › first sound on a slow connection after a hover preload: under 800 ms and no request after the click (6.1s)
+plain   midnight_keys_140bpm_Am.wav @44100: loopFrames 302400, maxDiff 3.58e-8, join step 0.0112 vs 0.122, min rms 0.0287 vs 0.00878
+plain   midnight_keys_140bpm_Am.wav @48000: loopFrames 329142, maxDiff 3.58e-8, join step 0.0111 vs 0.108, min rms 0.0323 vs 0.00940
+  ✓  12 [perf] › e2e/perf/audio-seamless-loop.spec.ts:191:3 › midnight_keys_140bpm_Am.wav: two passes on the plain path are the loop twice, with no gap or click (647ms)
+plain   trap_bells_150_F#m.mp3 @44100: loopFrames 282240, maxDiff 3.58e-8, join step 0.0755 vs 0.143, min rms 0.0213 vs 0.00585
+plain   trap_bells_150_F#m.mp3 @48000: loopFrames 307200, maxDiff 3.58e-8, join step 0.0681 vs 0.128, min rms 0.0226 vs 0.00584
+  ✓  13 [perf] › e2e/perf/audio-seamless-loop.spec.ts:191:3 › trap_bells_150_F#m.mp3: two passes on the plain path are the loop twice, with no gap or click (620ms)
+stretch midnight_keys_140bpm_Am.wav @44100: diff 0.00 at 0.240 s, joins step 0.00309 vs 0.221; step 0.00511 vs 0.221
+stretch trap_bells_150_F#m.mp3 @44100: diff 0.00 at 0.240 s, joins step 0.0198 vs 0.170; step 0.00135 vs 0.170
+stretch midnight_keys_140bpm_Am.wav @48000: diff 0.00 at 0.240 s, joins step 0.00423 vs 0.167; step 0.00150 vs 0.167
+  ✓  14 [perf] › e2e/perf/audio-seamless-loop.spec.ts:208:3 › midnight_keys_140bpm_Am.wav: two passes through the stretch match an unlooped render, with no gap or click (3.4s)
+stretch trap_bells_150_F#m.mp3 @48000: diff 0.00 at 0.240 s, joins step 0.0421 vs 0.172; step 0.00445 vs 0.172
+  ✓  15 [perf] › e2e/perf/audio-seamless-loop.spec.ts:208:3 › trap_bells_150_F#m.mp3: two passes through the stretch match an unlooped render, with no gap or click (3.1s)
+live    midnight_keys_140bpm_Am.wav @48000: diff 0.0000233 at 1.19 s, changes step 0.00129 vs 0.157, rms 0.0136 vs 0.00901; step 0.00164 vs 0.157, rms 0.0172 vs 0.00901
+  ✓  16 [perf] › e2e/perf/audio-seamless-loop.spec.ts:220:3 › midnight_keys_140bpm_Am.wav: a live tempo then key change continues from the same place, with no gap or click (1.1s)
+live    trap_bells_150_F#m.mp3 @48000: diff 0.0000176 at 1.19 s, changes step 0.00467 vs 0.127, rms 0.0189 vs 0.00417; step 0.00234 vs 0.127, rms 0.0278 vs 0.00417
+  ✓  17 [perf] › e2e/perf/audio-seamless-loop.spec.ts:220:3 › trap_bells_150_F#m.mp3: a live tempo then key change continues from the same place, with no gap or click (974ms)
+seek    trap_bells_150_F#m.mp3 @48000: seek step 0.00564 vs 0.117; restart step 0.000427 vs 0.117, fade out 0.865 (before 1.00), fade in 0.0312, from 2.37 s for 2.37 s
+  ✓  19 [perf] › e2e/perf/audio-seamless-loop.spec.ts:229:3 › trap_bells_150_F#m.mp3: a seek while stretched fades out and back in, with no click (1.1s)
+seek    midnight_keys_140bpm_Am.wav @48000: seek step 0.0217 vs 0.135; restart step 0.000186 vs 0.135, fade out 0.948 (before 1.00), fade in 0.00687, from 2.54 s for 2.54 s
+  ✓  18 [perf] › e2e/perf/audio-seamless-loop.spec.ts:229:3 › midnight_keys_140bpm_Am.wav: a seek while stretched fades out and back in, with no click (1.4s)
+plain   midnight_keys_reencoded.mp3 @44100: loopFrames 302400, maxDiff 3.58e-8, join step 0.0112 vs 0.118, min rms 0.0272 vs 0.00835
+plain   midnight_keys_reencoded.mp3 @48000: loopFrames 329142, maxDiff 3.58e-8, join step 0.0104 vs 0.108, min rms 0.0307 vs 0.00899
+  ✓  20 [perf] › e2e/perf/audio-seamless-loop.spec.ts:191:3 › midnight_keys_reencoded.mp3: two passes on the plain path are the loop twice, with no gap or click (586ms)
+plain   rnb_pad_72bpm_Ebmaj.aiff @44100: loopFrames 294000, maxDiff 3.58e-8, join step 0.0138 vs 0.120, min rms 0.0182 vs 0.00484
+plain   rnb_pad_72bpm_Ebmaj.aiff @48000: loopFrames 320000, maxDiff 3.58e-8, join step 0.0121 vs 0.109, min rms 0.0187 vs 0.00406
+  ✓  21 [perf] › e2e/perf/audio-seamless-loop.spec.ts:191:3 › rnb_pad_72bpm_Ebmaj.aiff: two passes on the plain path are the loop twice, with no gap or click (993ms)
+stretch midnight_keys_reencoded.mp3 @44100: diff 0.00 at 0.240 s, joins step 0.00252 vs 0.134; step 0.00529 vs 0.134
+stretch rnb_pad_72bpm_Ebmaj.aiff @44100: diff 0.00 at 0.240 s, joins step 0.00202 vs 0.166; step 0.00303 vs 0.166
+stretch midnight_keys_reencoded.mp3 @48000: diff 0.00 at 0.240 s, joins step 0.00393 vs 0.123; step 0.00424 vs 0.123
+  ✓  22 [perf] › e2e/perf/audio-seamless-loop.spec.ts:208:3 › midnight_keys_reencoded.mp3: two passes through the stretch match an unlooped render, with no gap or click (3.5s)
+live    midnight_keys_reencoded.mp3 @48000: diff 0.0000220 at 1.19 s, changes step 0.00123 vs 0.122, rms 0.0174 vs 0.00263; step 0.00114 vs 0.122, rms 0.0240 vs 0.00263
+  ✓  24 [perf] › e2e/perf/audio-seamless-loop.spec.ts:220:3 › midnight_keys_reencoded.mp3: a live tempo then key change continues from the same place, with no gap or click (760ms)
+stretch rnb_pad_72bpm_Ebmaj.aiff @48000: diff 0.00 at 0.240 s, joins step 0.00447 vs 0.137; step 0.00158 vs 0.137
+  ✓  23 [perf] › e2e/perf/audio-seamless-loop.spec.ts:208:3 › rnb_pad_72bpm_Ebmaj.aiff: two passes through the stretch match an unlooped render, with no gap or click (4.1s)
+seek    midnight_keys_reencoded.mp3 @48000: seek step 0.0128 vs 0.128; restart step 0.000164 vs 0.128, fade out 0.953 (before 1.00), fade in 0.00844, from 2.54 s for 2.54 s
+  ✓  25 [perf] › e2e/perf/audio-seamless-loop.spec.ts:229:3 › midnight_keys_reencoded.mp3: a seek while stretched fades out and back in, with no click (901ms)
+live    rnb_pad_72bpm_Ebmaj.aiff @48000: diff 0.0000167 at 1.19 s, changes step 0.00303 vs 0.131, rms 0.0125 vs 0.00574; step 0.000346 vs 0.131, rms 0.0133 vs 0.00574
+  ✓  26 [perf] › e2e/perf/audio-seamless-loop.spec.ts:220:3 › rnb_pad_72bpm_Ebmaj.aiff: a live tempo then key change continues from the same place, with no gap or click (1.0s)
+plain   midnight_keys_with_tail.wav @44100: loopFrames 302400, maxDiff 3.58e-8, join step 0.0112 vs 0.122, min rms 0.0287 vs 0.00878
+plain   midnight_keys_with_tail.wav @48000: loopFrames 329143, maxDiff 3.58e-8, join step 0.0111 vs 0.108, min rms 0.0323 vs 0.00920
+  ✓  27 [perf] › e2e/perf/audio-seamless-loop.spec.ts:191:3 › midnight_keys_with_tail.wav: two passes on the plain path are the loop twice, with no gap or click (916ms)
+seek    rnb_pad_72bpm_Ebmaj.aiff @48000: seek step 0.000311 vs 0.132; restart step 0.000462 vs 0.132, fade out 0.942 (before 1.00), fade in 0.00853, from 2.47 s for 2.47 s
+  ✓  28 [perf] › e2e/perf/audio-seamless-loop.spec.ts:229:3 › rnb_pad_72bpm_Ebmaj.aiff: a seek while stretched fades out and back in, with no click (999ms)
+stretch midnight_keys_with_tail.wav @44100: diff 0.00 at 0.240 s, joins step 0.00309 vs 0.221; step 0.00511 vs 0.221
+playhead at 2.002x after a change to double tempo
+  ✓  30 [perf] › e2e/perf/audio-stretch-minified.spec.ts:166:1 › with the library minified as in the production build, a tempo and key change is heard (2.5s)
+stretch midnight_keys_with_tail.wav @48000: diff 0.00 at 0.240 s, joins step 0.00293 vs 0.166; step 0.00210 vs 0.166
+  ✓  29 [perf] › e2e/perf/audio-seamless-loop.spec.ts:208:3 › midnight_keys_with_tail.wav: two passes through the stretch match an unlooped render, with no gap or click (3.9s)
+live    midnight_keys_with_tail.wav @48000: diff 0.0000233 at 1.19 s, changes step 0.00129 vs 0.157, rms 0.0136 vs 0.00901; step 0.00164 vs 0.157, rms 0.0172 vs 0.00901
+  ✓  32 [perf] › e2e/perf/audio-seamless-loop.spec.ts:220:3 › midnight_keys_with_tail.wav: a live tempo then key change continues from the same place, with no gap or click (858ms)
+seek    midnight_keys_with_tail.wav @48000: seek step 0.0211 vs 0.113; restart step 0.000197 vs 0.113, fade out 0.948 (before 1.00), fade in 0.00669, from 2.54 s for 2.54 s
+  ✓  33 [perf] › e2e/perf/audio-seamless-loop.spec.ts:229:3 › midnight_keys_with_tail.wav: a seek while stretched fades out and back in, with no click (1.1s)
+loopoff midnight_keys_with_tail.wav plain: end 6.86 s, rms before 0.116, after 0.00, maxDiff 3.58e-8
+  ✓  34 [perf] › e2e/perf/audio-seamless-loop.spec.ts:248:3 › midnight_keys_with_tail.wav: with loop off, one pass on the plain path, then silence and paused at 0 (628ms)
+fallback after 3002 ms
+  ✓  31 [perf] › e2e/perf/audio-stretch-minified.spec.ts:190:1 › a stretch worklet that never says it is ready falls back to the original tempo and key within 3 s (4.4s)
+after the retry: playhead at 2.002x
+  ✓  36 [perf] › e2e/perf/audio-stretch-minified.spec.ts:226:1 › after one failed fetch of the worklet file, the next tempo change loads it again and is heard (2.5s)
+loopoff midnight_keys_with_tail.wav stretch: end 7.00 s, rms before 0.113, after 0.00000274
+  ✓  35 [perf] › e2e/perf/audio-seamless-loop.spec.ts:257:3 › midnight_keys_with_tail.wav: with loop off, one pass through the stretch, then silence and paused at 0 (7.7s)
+loopoff trap_bells_150_F#m.mp3 plain: end 6.40 s, rms before 0.119, after 0.00, maxDiff 3.58e-8
+  ✓  38 [perf] › e2e/perf/audio-seamless-loop.spec.ts:248:3 › trap_bells_150_F#m.mp3: with loop off, one pass on the plain path, then silence and paused at 0 (295ms)
+  ✓  37 [perf] › e2e/perf/audio-test-page.spec.ts:47:1 › the audio test page plays a WAV fixture loop (4.8s)
+  ✓  40 [perf] › e2e/perf/audio-test-page.spec.ts:146:1 › when the stretch cannot load, the loop plays on at its original tempo with no page error (1.1s)
+  ✓  41 [perf] › e2e/perf/budgets.spec.ts:14:3 › / stays inside the page budgets (1.2s)
+loopoff trap_bells_150_F#m.mp3 stretch: end 6.54 s, rms before 0.113, after 0.00000237
+  ✓  39 [perf] › e2e/perf/audio-seamless-loop.spec.ts:257:3 › trap_bells_150_F#m.mp3: with loop off, one pass through the stretch, then silence and paused at 0 (6.9s)
+
+  41 passed (52.3s)
+```
