@@ -72,8 +72,6 @@ export function PresetsPage() {
     for (const x of indexed) counts.set(x.family, (counts.get(x.family) ?? 0) + 1);
     return [...counts.entries()].sort((a, b) => b[1] - a[1]);
   }, [indexed]);
-  const songs = useMemo(() => new Set(PRESETS.map((p) => `${p.song}|${p.artist}`)).size, []);
-  const withName = PRESETS.filter((p) => p.preset).length;
 
   const needle = q.trim().toLowerCase();
   const rows = indexed
@@ -98,26 +96,7 @@ export function PresetsPage() {
       <header className="flex flex-col gap-1">
         <span className="text-label text-label-caps text-text-muted">Presets</span>
         <h1 className="text-title">The presets behind the songs</h1>
-        <p className="max-w-prose text-body text-text-muted">
-          {`${PRESETS.length} sounds from ${songs} songs, ${withName} with the exact preset named. Each row says which VST it is, which sound in the song, how sure it is and where it came from. Producers rarely publish their presets, so look at the label before you rely on a row.`}
-        </p>
       </header>
-
-      <section aria-label="How sure" className="grid grid-cols-2 gap-3 desktop:grid-cols-4">
-        {(Object.keys(CONFIDENCE) as Confidence[]).map((c) => (
-          <button
-            key={c}
-            type="button"
-            aria-pressed={conf === c}
-            onClick={() => reset(() => setConf(conf === c ? "all" : c))}
-            className={`flex flex-col gap-1 rounded-panel border bg-surface p-4 text-left ${conf === c ? "border-text" : "border-border ui-hover:border-border-strong"}`}
-          >
-            <span className={`w-fit rounded-control border px-2 text-label text-label-caps ${TONE[c]}`}>{CONFIDENCE[c].label}</span>
-            <span className="font-mono text-numeric tabular text-text">{counts(c)}</span>
-            <span className="hidden text-small text-text-muted tablet:block">{CONFIDENCE[c].blurb}</span>
-          </button>
-        ))}
-      </section>
 
       <section aria-label="Filters" className="flex flex-col gap-4 rounded-panel border border-border bg-surface p-4">
         <div className="flex flex-col gap-3 tablet:flex-row tablet:items-center tablet:justify-between">
@@ -125,6 +104,16 @@ export function PresetsPage() {
           <FilterChip selected={named} onToggle={() => reset(() => setNamed(!named))}>
             Exact preset named
           </FilterChip>
+        </div>
+        <div className="flex flex-col gap-2">
+          <span className="text-label text-label-caps text-text-muted">How sure</span>
+          <div role="group" aria-label="How sure" className="flex flex-wrap gap-2">
+            {(["all", ...Object.keys(CONFIDENCE)] as (Confidence | "all")[]).map((c) => (
+              <FilterChip key={c} selected={conf === c} onToggle={() => reset(() => setConf(c))}>
+                {c === "all" ? `All ${PRESETS.length}` : `${CONFIDENCE[c].label} ${counts(c)}`}
+              </FilterChip>
+            ))}
+          </div>
         </div>
         <div className="flex flex-col gap-2">
           <span className="text-label text-label-caps text-text-muted">VST</span>
