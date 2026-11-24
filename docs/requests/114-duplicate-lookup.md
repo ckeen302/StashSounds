@@ -2,6 +2,7 @@
 From lane: pipeline
 For: lead (supabase/migrations, docs/decisions)
 Blocking ticket: 114 merges with a test-only stand-in; production needs the migration
+Status: answered in decision 0018 and migration 20261124010000 (the function as proposed, with execute also revoked from anon and authenticated; threshold 0.90; flag.detail deferred to the admin queue ticket). The test-only stand-in is deleted.
 
 ## What I need changed
 1. **A new service-role function** (migration). The worker reads nothing but the worker functions

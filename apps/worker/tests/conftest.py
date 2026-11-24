@@ -166,14 +166,6 @@ def _database() -> Iterator[str]:
         build = _admin(name)
         for sql in schema_sql():
             build.run(sql)
-        # Request 114-duplicate-lookup: a stand-in until the migration lands; delete with the file.
-        if (
-            build.run("select to_regprocedure('public.worker_duplicate_candidates(uuid, int, uuid, text, int, int)')")[
-                0
-            ][0]
-            is None
-        ):
-            build.run((TESTS / "sql" / "worker_duplicate_candidates.sql").read_text())
         build.close()
         yield name
     finally:

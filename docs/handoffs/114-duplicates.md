@@ -155,9 +155,7 @@ So 0.90 sits between 0.781 and 0.992, and I propose keeping it. **Cost:** compar
 fingerprints (476 items) takes 0.4 ms, and fpcalc on a 60 s decode takes 0.06 s.
 
 ## Not done
-- **The migration.** `worker_duplicate_candidates` is a stand-in in `tests/sql/` until the lead adds it.
-  Deploying this branch before the migration makes every loop job fail `internal` and retry, then go
-  back to draft. Nothing goes unscreened to ready.
+- ~~The migration.~~ Done by the lead: migration 20261124010000 (decision 0018). See the last section.
 - **Kits** (fingerprint every sample; flag the kit over a share) are ticket 212 with the kit processor.
   `screen()` already takes several originals, and kit samples would add fingerprint rows with their own
   `filePath`.
@@ -196,3 +194,46 @@ fingerprints (476 items) takes 0.4 ms, and fpcalc on a 60 s decode takes 0.06 s.
   1. The `worker_duplicate_candidates` migration, with the exact SQL.
   2. A decision recording the 0.90 threshold and the numbers above.
   3. Optional: a place for `flag.detail`.
+
+## After decision 0018
+The lead answered request 114-duplicate-lookup on foundations (d0bb9ba). Decision 0018 covers four
+points:
+- Migration 20261124010000 adds `worker_duplicate_candidates` as proposed. Execute is also revoked from
+  anon and authenticated, and an access-audit test proves it.
+- The fingerprint threshold stays 0.90, with the measurements above.
+- The tempo prior stays 70 to 160, and 113's 174-to-87 change is accepted. The key threshold stays 0.15.
+- `flag.detail` waits for the admin queue ticket.
+
+Foundations is merged at 6ab69b9. The test-only stand-in, `tests/sql/worker_duplicate_candidates.sql`,
+is deleted, and so are the lines in `conftest.py` that applied it. The database tests now run against
+the lead's migration. 113's head (20064aa) has not moved since the last merge.
+
+As root, `STASH_REQUIRE_DB=1 STASH_REQUIRE_ISOLATION=1 pnpm worker:test`:
+```
+SKIPPED [1] tests/test_contracts.py:74: got empty parameter set for (path)
+SKIPPED [1] tests/test_sandbox.py:167: measured on the job uid as root
+425 passed, 2 skipped in 76.23s (0:01:16)
+```
+As uid 65534 (`setpriv --reuid=65534 --regid=65534 --clear-groups env HOME=/tmp STASH_REQUIRE_DB=1
+.venv/bin/python -B -m pytest -q -p no:cacheprovider -rs`):
+```
+SKIPPED [1] tests/test_contracts.py:74: got empty parameter set for (path)
+SKIPPED [1] tests/test_isolation.py:77: starting the child as another uid needs root
+SKIPPED [1] tests/test_isolation.py:85: starting the child as another uid needs root
+SKIPPED [1] tests/test_isolation.py:92: starting the child as another uid needs root
+SKIPPED [1] tests/test_isolation.py:99: starting the child as another uid needs root
+SKIPPED [1] tests/test_isolation.py:112: starting the child as another uid needs root
+SKIPPED [1] tests/test_isolation.py:126: starting the child as another uid needs root
+SKIPPED [2] tests/test_isolation.py:146: starting the child as another uid needs root
+SKIPPED [1] tests/test_isolation.py:184: starting the child as another uid needs root
+SKIPPED [1] tests/test_isolation.py:196: starting the child as another uid needs root
+SKIPPED [1] tests/test_isolation.py:215: starting the child as another uid needs root
+SKIPPED [1] tests/test_isolation.py:224: starting the child as another uid needs root
+SKIPPED [1] tests/test_isolation.py:235: starting the child as another uid needs root
+SKIPPED [1] tests/test_isolation.py:276: starting the child as another uid needs root
+SKIPPED [1] tests/test_isolation.py:285: starting the child as another uid needs root
+SKIPPED [1] tests/test_isolation.py:294: starting the child as another uid needs root
+SKIPPED [1] tests/test_isolation.py:311: starting the child as another uid needs root
+409 passed, 18 skipped in 67.27s (0:01:07)
+```
+Ruff: `All checks passed!` and `35 files already formatted`.
