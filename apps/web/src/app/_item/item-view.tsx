@@ -7,11 +7,9 @@ import type { ItemPage, ItemRow } from "@stash/contracts";
 import { formatKey, LICENSE_LABELS as LICENSES } from "@stash/contracts/format";
 import {
   Button,
-  CircleCheck,
   Download,
   formatTime,
   Heart,
-  Icon,
   IconButton,
   LicenseBadge,
   Link as LinkIcon,
@@ -32,7 +30,7 @@ import {
   type PlayState,
 } from "@stash/ui";
 import { nowPlaying } from "../_shell/now-playing";
-import type { DownloadResult, ItemActions } from "./actions";
+import type { DownloadResult } from "./actions";
 import { actionsFor } from "./actions-source";
 import { itemKeyAction, keyInputFrom } from "./keys";
 import type { ItemView as ItemViewData } from "./load-core";
@@ -40,6 +38,8 @@ import type { SignInIntent } from "./sign-in-dialog";
 import { useItemPlayer } from "./use-item-player";
 
 const SignInDialog = lazy(() => import("./sign-in-dialog"));
+// Only after a download: the record and the code that saves the file (script budget, ticket 135).
+const LicenseRecord = lazy(() => import("./download-record"));
 
 /** After sign-in the visitor comes back with this, and the action they asked for completes. */
 const INTENT = "then";
@@ -53,41 +53,6 @@ const dateText = (iso: string) => new Intl.DateTimeFormat("en-US", { day: "numer
 function describeSound(item: ItemPage["item"]): string {
   const bars = item.length?.unit === "bars" ? `${item.length.value} ${item.length.value === 1 ? "bar" : "bars"}` : null;
   return ["Loop", bars, item.bpm ? `${item.bpm} BPM` : null, item.key ? formatKey(item.key) : null].filter(Boolean).join(", ");
-}
-
-/** Saves a download: follows a signed attachment URL, or fetches a local file into a blob first. */
-async function saveFile(how: ItemActions["save"], url: string, fileName: string): Promise<void> {
-  let href = url;
-  let revoke: string | null = null;
-  if (how === "blob") {
-    const res = await fetch(url);
-    if (!res.ok) throw new Error(`download failed: ${res.status}`);
-    href = revoke = URL.createObjectURL(await res.blob());
-  }
-  const a = document.createElement("a");
-  a.href = href;
-  a.download = fileName;
-  a.rel = "noopener";
-  document.body.append(a);
-  a.click();
-  a.remove();
-  if (revoke) setTimeout(() => URL.revokeObjectURL(revoke), 10_000);
-}
-
-/** The license the visitor now holds, drawn from the record requestDownload returned. */
-function LicenseRecord({ record }: { record: DownloadResult }) {
-  return (
-    <div role="status" data-license-record className="flex items-start gap-3 rounded-control border border-border bg-bg p-3">
-      <Icon icon={CircleCheck} className="text-type-preset" />
-      <div className="flex min-w-0 flex-col gap-1">
-        <p className="text-body-strong text-text">
-          Downloaded under {LICENSES[record.license].label} {record.licenseVersion}
-        </p>
-        <p className="truncate font-mono text-numeric tabular text-text-muted">{record.fileName}</p>
-        <p className="text-small text-text-muted">The license record is kept in your library under Downloads.</p>
-      </div>
-    </div>
-  );
 }
 
 /**
@@ -131,6 +96,7 @@ export function ItemView({ view }: { view: ItemViewData }) {
       try {
         const r = await actions.download(target.id);
         if (!r.ok) return toast({ tone: "error", title: "Download did not start", description: r.message });
+        const { saveFile } = await import("./download-record");
         await saveFile(actions.save, r.data.url, r.data.fileName);
         if (target.id === item.id) setRecord(r.data);
         toast({ tone: "success", title: `Downloading ${r.data.fileName}`, description: `${LICENSES[r.data.license].label} ${r.data.licenseVersion}. ${LICENSES[r.data.license].summary}` });
@@ -368,7 +334,11 @@ export function ItemView({ view }: { view: ItemViewData }) {
                 Read the full license
               </UiLink>
             </p>
-            {record && <LicenseRecord record={record} />}
+            {record && (
+              <Suspense fallback={null}>
+                <LicenseRecord record={record} />
+              </Suspense>
+            )}
             {/* In the panel only where the panel is beside the player (the wide layout); narrower, the bar below. */}
             <div className="hidden gap-2 cq-xl:flex">
               {downloadButton("bottom")}

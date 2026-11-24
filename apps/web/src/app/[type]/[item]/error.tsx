@@ -1,14 +1,15 @@
 "use client";
 
-import { ErrorState } from "@stash/ui";
+import { lazy, Suspense } from "react";
 
-/** The item page could not load (not a missing item: that is the 404). Retry fetches it again. */
+// Next loads an error boundary with its page, so the view itself waits until an error happens
+// (the loop page's script budget, ticket 135).
+const ItemErrorView = lazy(() => import("../../_item/item-error"));
+
 export default function ItemError({ retry }: { error: unknown; retry: () => void }) {
   return (
-    <main className="mx-auto flex w-full max-w-content flex-col px-3 pt-6 tablet:px-4 desktop:px-6 desktop:pt-8">
-      <ErrorState title="This sound did not load" onRetry={retry}>
-        Your connection or our server had a moment. Try again; nothing you did was lost.
-      </ErrorState>
-    </main>
+    <Suspense fallback={null}>
+      <ItemErrorView retry={retry} />
+    </Suspense>
   );
 }
