@@ -7,7 +7,9 @@
    down when accents say so, with a mild prior toward 70 to 160 BPM (PR #13 review). The whole-bar
    candidate at the onsets' octave is the duration tempo.
 
-`bpmAgreed` is true only when the sources that are present agree.
+`bpmAgreed` is true only when the onsets agree with the value: a name or a duration fit with no onset
+tempo to check it against (silence, a beatless pad, noise) is never agreed, so the loop is marked "check
+this" (decision of the PR #13 re-review).
 """
 
 from __future__ import annotations
@@ -39,7 +41,6 @@ LAG_MULTIPLES = (1, 2, 4)  # a beat lag is scored with the lags of 2 and 4 beats
 PRIOR_BPM = 120.0  # orders candidates when the audio says nothing (silence)
 PRIOR_RANGE = (70.0, 160.0)  # hip-hop's usual tempos: a mild prior toward them breaks octave near-ties
 STEP_DOWN = 0.05  # a slower octave must be this much stronger to be the beat (or within it for the prior)
-STEP_CLEAR = 0.1  # ... and this much when the faster octave is already inside PRIOR_RANGE
 PERIODIC_SHARE = 0.6  # the fastest level considered has at least this share of the best strength
 MIN_PERIODIC = 0.3  # below this strength the onsets have no tempo (white noise: 0.03 to 0.16)
 MAX_LAG_SHARE = 0.75  # lags beyond this share of the envelope are too few frames to trust
@@ -172,10 +173,11 @@ def choose_octave(
     - Start at the fastest level with an onset on every one of its beats (`beats`, the autocorrelation
       at one beat). That is often the hats.
     - Step down one octave when the slower level is stronger, because its beats are accented over the
-      subdivisions, as on-beat hats are over off-beat ones. The gain needed is STEP_DOWN, or
-      STEP_CLEAR when the faster level is already inside PRIOR_RANGE (70 to 160). On a near-tie the
-      step is taken when only the slower level is inside the range. With `high_only` (no low-end
-      onsets, hats alone), STEP_DOWN applies inside the range as well.
+      subdivisions, as on-beat hats are over off-beat ones. The gain needed is STEP_DOWN. On a
+      near-tie (within STEP_DOWN either way) the step is taken when only the slower level is inside
+      PRIOR_RANGE (70 to 160). A level already inside the range steps down only with `high_only` (no
+      low-end onsets: hats alone), and only to a tempo inside the range.
+    - Never below limits.bpm.min.
     - Never more than one octave: a kick on 1 and 3 makes the half note stronger still, and that is not
       the beat.
     """
@@ -187,13 +189,14 @@ def choose_octave(
         return None
     level = next(t for t in finite if beats[t] >= PERIODIC_SHARE * top)
     slower = next((t for t in finite if _close(t * 2, level, 0.001)), None)
-    if slower is None:
+    if slower is None or slower < limits()["bpm"]["min"]:
         return level
     gain = score[slower] - score[level]
     if _in_prior(level):
-        # Inside the prior both octaves are plausible: a backbeat at 140 is as much "stronger at 70" as
-        # accented hats at 70 are, so only a clear gain steps down.
-        return slower if gain > (STEP_DOWN if high_only else STEP_CLEAR) else level
+        # Inside the prior both octaves are plausible, and a kick on 1 and 3 makes any backbeat
+        # "stronger" an octave down (a 128 BPM loop would read 64). Only hats alone, with no low end,
+        # step down here, and only to a tempo still inside the prior.
+        return slower if high_only and _in_prior(slower) and gain > STEP_DOWN else level
     if _in_prior(slower):
         return slower if gain > -STEP_DOWN else level  # a near-tie or better: the prior decides
     return slower if gain > STEP_DOWN else level
