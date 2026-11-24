@@ -162,20 +162,16 @@ export function OneShotsPage() {
     >
       <header className="flex flex-col gap-4 tablet:flex-row tablet:items-end tablet:justify-between">
         <div className="flex flex-col gap-1">
-          <span className="text-label text-label-caps text-text-muted">One-shots</span>
-          <h1 className="text-title">Every hit, one tap away</h1>
-          <p className="max-w-prose text-body text-text-muted">
-            {`${all.length} single hits from every kit on Stash, sorted by type. Pick a type, run down the list with the arrow keys to hear each one, and grab the one that fits as a wav.`}
-          </p>
+          <h1 className="text-title">One-shots</h1>
         </div>
-        <label className="os-upload inline-flex h-10 shrink-0 cursor-pointer items-center gap-2 rounded-control bg-accent px-4 text-body-strong text-bg focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-accent">
+        <label className="os-upload st-wide-only inline-flex h-10 shrink-0 cursor-pointer items-center gap-2 rounded-control bg-accent px-4 text-body-strong text-bg focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-accent">
           <Upload className="size-4" aria-hidden="true" />
           Post your one-shots
           <input type="file" accept="audio/*,.wav,.mp3,.aif,.aiff,.flac,.ogg" multiple className="sr-only" onChange={(e) => void add([...(e.target.files ?? [])])} />
         </label>
       </header>
 
-      <div role="group" aria-label="Sound type" className="os-types grid grid-cols-3 gap-2 tablet:grid-cols-5">
+      <div role="group" aria-label="Sound type" className="os-types -mx-3 flex gap-2 overflow-x-auto px-3 pb-1 tablet:mx-0 tablet:grid tablet:grid-cols-5 tablet:overflow-visible tablet:px-0 tablet:pb-0">
         {types.map((c) => (
           <button
             key={c}
@@ -186,7 +182,7 @@ export function OneShotsPage() {
               setCat(c);
               setSelected(0);
             }}
-            className="os-type flex flex-col items-start gap-1 rounded-control border border-border bg-surface p-3 text-left ui-hover:border-border-strong aria-pressed:border-accent aria-pressed:bg-raised"
+            className="os-type flex w-24 shrink-0 flex-col items-start gap-1 rounded-control border border-border bg-surface p-3 text-left tablet:w-auto ui-hover:border-border-strong aria-pressed:border-accent aria-pressed:bg-raised"
           >
             <span className="os-type-count font-mono text-title tabular text-text">{count(c)}</span>
             <span className="text-label text-label-caps text-text-muted">{CATEGORIES.find((x) => x.id === c)!.plural}</span>
@@ -199,7 +195,7 @@ export function OneShotsPage() {
             setCat("all");
             setSelected(0);
           }}
-          className="os-type flex flex-col items-start gap-1 rounded-control border border-border bg-surface p-3 text-left ui-hover:border-border-strong aria-pressed:border-accent aria-pressed:bg-raised"
+          className="os-type flex w-24 shrink-0 flex-col items-start gap-1 rounded-control border border-border bg-surface p-3 text-left tablet:w-auto ui-hover:border-border-strong aria-pressed:border-accent aria-pressed:bg-raised"
         >
           <span className="os-type-count font-mono text-title tabular text-text">{matching.length}</span>
           <span className="text-label text-label-caps text-text-muted">All</span>

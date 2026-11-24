@@ -329,10 +329,7 @@ function Home() {
         <h1 className="st-hero-title st-hero-xl text-display max-w-4xl text-balance">
           Find the sound. Hear it now. <span className="st-grad">Follow who made it.</span>
         </h1>
-        <p className="max-w-prose text-body text-text-muted">
-          Loops, one-shots, drum kits and MIDI from producers, plus the exact presets behind the records you know. Every sound plays the moment you tap it, so you
-          can stop digging through YouTube.
-        </p>
+        <p className="max-w-prose text-body text-text-muted">Loops, kits, MIDI, SFX and the presets behind the records. Tap to hear, one click to grab.</p>
         <form
           role="search"
           className="flex w-full max-w-2xl gap-2"
@@ -839,14 +836,7 @@ function AllMidi() {
   return (
     <Page>
       <header className="flex flex-col gap-1">
-        <span className="text-label text-label-caps text-text-muted">MIDI</span>
-        <h1 className="text-title">Every MIDI pattern</h1>
-        <p className="max-w-prose text-body text-text-muted">
-          Original patterns across trap, boom bap, plugg, rage, drill, phonk,
-          R&B, lo-fi, Jersey club and West Coast, and the chord progressions of
-          popular songs at their key and tempo, each with where the chords came
-          from. Press play to hear any of them in the piano roll.
-        </p>
+        <h1 className="text-title">MIDI</h1>
       </header>
       <div className="flex flex-col gap-3 tablet:flex-row tablet:items-center tablet:justify-between">
         <div className="min-w-0 flex-1">
@@ -854,14 +844,7 @@ function AllMidi() {
             value={q}
             onChange={setQ}
             placeholder="Try: c minor 140 like metro"
-            examples={[
-              "like metro",
-              "pierre bells",
-              "drake",
-              "dilla chords",
-              "d minor drill",
-              "sza",
-            ]}
+            examples={[]}
           />
         </div>
         <div
@@ -884,7 +867,6 @@ function AllMidi() {
         <section aria-labelledby="classics" className="flex flex-col gap-3">
           <div className="flex flex-col gap-1">
             <h2 id="classics" className="text-title">Classic progressions</h2>
-            <p className="max-w-prose text-small text-text-muted">The moves under decades of records: the four-chord axis, the &apos;50s, ii–V–I, the blues, the Andalusian cadence and more. Play one, shift it to your key, and drag the MIDI into your DAW.</p>
           </div>
           <MidiList label="Classic progressions" items={allClassics ? classics : classics.slice(0, 8)} />
           {classics.length > 8 && (

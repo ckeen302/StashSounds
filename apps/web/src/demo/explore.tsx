@@ -184,10 +184,6 @@ export function BrowsePage({ catalog, rows, renderLoops, only }: { catalog: Cata
       <header className="flex flex-col gap-1">
         <span className="text-label text-label-caps text-text-muted">{only ? "Loops" : "Browse"}</span>
         <h1 className="text-title">{only ? "Loops, filtered the way you search" : "Every sound, filtered the way you search"}</h1>
-        <p className="max-w-prose text-body text-text-muted">
-          Pick a genre, a tempo range and a key. Turn on “Mixes with” to also see the keys that sit with it: the relative key and the neighbours on the circle
-          of fifths. Every result plays right here.
-        </p>
       </header>
 
       <section aria-label="Filters" className="flex flex-col gap-4 rounded-panel border border-border bg-surface p-4">
@@ -483,9 +479,7 @@ export function LibraryPage({ catalog, rows, renderLoops }: { catalog: Catalog; 
   return (
     <main className="mx-auto flex w-full max-w-content flex-col gap-8 px-3 py-8 tablet:px-4 desktop:px-6">
       <header className="flex flex-col gap-1">
-        <span className="text-label text-label-caps text-text-muted">Library</span>
         <h1 className="text-title">Your stash</h1>
-        <p className="max-w-prose text-body text-text-muted">What you liked, the crates you made, who you follow and what you posted. Kept in this browser for the demo.</p>
       </header>
 
       <nav aria-label="Library sections" className="flex flex-wrap gap-2">

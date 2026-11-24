@@ -75,14 +75,9 @@ export function KitsPage() {
     <main className="mx-auto flex w-full max-w-content flex-col gap-6 px-3 py-8 tablet:px-4 desktop:px-6">
       <header className="flex flex-col gap-4 tablet:flex-row tablet:items-end tablet:justify-between">
         <div className="flex flex-col gap-1">
-          <span className="text-label text-label-caps text-text-muted">Drum kits</span>
-          <h1 className="text-title">Drum kits from producers</h1>
-          <p className="max-w-prose text-body text-text-muted">
-            Kicks, 808s, snares, claps, hats and percs, sorted by type. Hear any sound in one click before you grab the kit, and post your own kit by dropping in your
-            one-shots.
-          </p>
+          <h1 className="text-title">Drum kits</h1>
         </div>
-        <ButtonLink href="/kit-upload" variant="primary" icon={Upload}>
+        <ButtonLink href="/kit-upload" variant="secondary" icon={Upload} className="st-wide-only">
           Upload a kit
         </ButtonLink>
       </header>
@@ -350,12 +345,7 @@ export function KitUploadPage({ embedded = false }: { embedded?: boolean } = {})
   return (
     <Wrap className={embedded ? "flex w-full flex-col gap-6" : "mx-auto flex w-full max-w-content flex-col gap-6 px-3 py-8 tablet:px-4 desktop:px-6"}>
       <header className={embedded ? "sr-only" : "flex flex-col gap-1"}>
-        <span className="text-label text-label-caps text-text-muted">Upload a kit</span>
         <h1 className="text-title">Post your drum kit</h1>
-        <p className="max-w-prose text-body text-text-muted">
-          Drop in your one-shots or a whole kit folder. Each sound is sorted into kicks, 808s, snares, claps, hats and so on from its file name; fix any that land in
-          the wrong place, name the kit and post it. In the demo the kit stays in this browser.
-        </p>
       </header>
 
       <section

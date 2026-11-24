@@ -271,7 +271,6 @@ export function SoundDesign() {
   return (
     <main className="mx-auto flex w-full max-w-content flex-col gap-6 px-3 py-8 tablet:px-4 desktop:px-6">
       <header className="flex flex-col gap-1">
-        <span className="text-label text-label-caps text-text-muted">Sound design</span>
         <h1 className="text-title">Shape a sound</h1>
         <p className="max-w-prose text-body text-text-muted">
           Start from a patch, turn it into your own, and play it on the keys below or your computer keys (A to K, Z and X change the octave). Loop any MIDI from the

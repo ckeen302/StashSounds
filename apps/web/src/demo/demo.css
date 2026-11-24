@@ -407,3 +407,8 @@ html[data-look="stash"] main h2.text-title { font-size: 20px; line-height: 26px;
 .sfx-wave rect { fill: var(--color-border-strong); }
 .sfx-row[data-selected] .sfx-wave rect { fill: var(--color-text-muted); }
 .sfx-wave rect[data-lit] { fill: var(--color-accent); }
+
+/* Shown from tablet up only: on a phone the nav already has it (the Loops page's Upload button). */
+@media (max-width: 639.98px) {
+  .st-wide-only { display: none !important; }
+}

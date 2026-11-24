@@ -31,7 +31,7 @@ export function SmartSearch({
     <div className="flex flex-col gap-2">
       <SearchInput label={label} hideLabel placeholder={placeholder} shortcut="" value={value} onChange={(e) => onChange(e.target.value)} onClear={() => onChange("")} />
       {q.empty ? (
-        <div className="flex flex-wrap items-center gap-2">
+        examples.length > 0 && <div className="flex flex-wrap items-center gap-2">
           <span className="text-label text-label-caps text-text-muted">Try</span>
           {examples.map((x) => (
             <TagChip key={x} onClick={() => onChange(x)}>

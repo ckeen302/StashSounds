@@ -115,33 +115,33 @@ export function PresetsPage() {
     setLimit(PAGE);
   };
   const counts = (c: Confidence) => PRESETS.filter((p) => p.confidence === c).length;
+  const [open, setOpen] = useState(false);
   const touched = conf !== "all" || family !== "All" || sound !== "All" || named || needle !== "" || who !== "All";
 
   return (
-    <main className="mx-auto flex w-full max-w-content flex-col gap-5 px-3 py-8 tablet:px-4 desktop:px-6">
+    <main className="mx-auto flex w-full max-w-content flex-col gap-3 px-3 py-5 tablet:px-4 desktop:px-6">
+      {/* Title, one row of controls, then the songs: plugins, producers and sorting wait behind Filters. */}
       <header className="flex flex-col gap-3">
-        <div className="flex flex-col gap-1">
-          <span className="text-label text-label-caps text-text-muted">Presets</span>
-          <h1 className="text-display text-balance">The presets behind the songs</h1>
+        <h1 className="text-title">Presets</h1>
+        <div className="flex items-start gap-2">
+          <SearchInput
+            label="Search songs, artists, producers, presets"
+            hideLabel
+            placeholder="Song, artist, plugin or preset"
+            shortcut=""
+            value={q}
+            onChange={(e) => reset(() => setQ(e.target.value))}
+            onClear={() => reset(() => setQ(""))}
+            className="min-w-0 flex-1"
+          />
+          <Button variant={open ? "primary" : "secondary"} aria-expanded={open} onClick={() => setOpen(!open)}>
+            {touched && !needle ? "Filters ·" : "Filters"}
+          </Button>
         </div>
-        <p className="max-w-prose text-body text-text-muted">
-          The synth, plugin and exact patch on the records you know, each one linked to where it was said and graded by who said it: the producer, the engineer, the
-          press or the community.
-        </p>
       </header>
 
-      {!touched && <FromTheProducer />}
-
-      <SearchInput
-        label="Search songs, artists, producers, presets"
-        hideLabel
-        placeholder="Search a song, artist, producer or preset name"
-        shortcut=""
-        value={q}
-        onChange={(e) => reset(() => setQ(e.target.value))}
-        onClear={() => reset(() => setQ(""))}
-      />
-
+      {open && (
+      <div className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-3">
       {/* The plugin shelf: every VST with its count; tap one to see only its presets. */}
       <section aria-label="Plugins" className="flex flex-col gap-2">
         <span className="text-label text-label-caps text-text-muted">Pick a plugin</span>
@@ -220,6 +220,13 @@ export function PresetsPage() {
           {`${songs.length} ${songs.length === 1 ? "song" : "songs"} · ${shownSounds} ${shownSounds === 1 ? "sound" : "sounds"}`}
         </span>
       </section>
+      </div>
+      )}
+      {!open && (
+        <span aria-live="polite" className="font-mono text-numeric tabular text-text-muted">
+          {`${songs.length} ${songs.length === 1 ? "song" : "songs"} · ${shownSounds} ${shownSounds === 1 ? "sound" : "sounds"}`}
+        </span>
+      )}
 
       <ul aria-label="Songs and their presets" className="grid grid-cols-1 items-start gap-3 desktop:grid-cols-2">
         {songs.slice(0, limit).map((s) => (
@@ -232,6 +239,7 @@ export function PresetsPage() {
         </Button>
       )}
       {songs.length === 0 && <p className="text-body text-text-muted">Nothing matches. Clear the search or pick another plugin.</p>}
+      {!touched && <FromTheProducer />}
     </main>
   );
 }

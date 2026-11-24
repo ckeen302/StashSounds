@@ -297,6 +297,7 @@ export function LoopsPage({
     for (const l of loops) for (const t of l.row.tags.map(norm)) n.set(t, (n.get(t) ?? 0) + 1);
     return [...n.entries()].filter(([t]) => t.length > 1).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, 18);
   }, [loops]);
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const [advanced, setAdvanced] = useState(() => saved.bpmFrom !== null || saved.bpmTo !== null || saved.tsig !== "all");
   const [fromText, setFromText] = useState(saved.bpmFrom === null ? "" : String(saved.bpmFrom));
   const [toText, setToText] = useState(saved.bpmTo === null ? "" : String(saved.bpmTo));
@@ -373,28 +374,29 @@ export function LoopsPage({
   };
 
   return (
-    <main className="mx-auto flex w-full max-w-content flex-col gap-4 px-3 py-8 tablet:px-4 desktop:px-6">
-      <header className="flex flex-wrap items-end justify-between gap-2">
-        <div className="flex flex-col gap-1">
-          <span className="text-label text-label-caps text-text-muted">
-            Loops
-          </span>
-          <h1 className="text-title">Free loops from producers</h1>
+    <main className="mx-auto flex w-full max-w-content flex-col gap-3 px-3 py-5 tablet:px-4 desktop:px-6">
+      {/* Title, one row of controls, then the loops: everything else waits behind Filters. */}
+      <header className="flex flex-col gap-3">
+        <h1 className="text-title">Free loops</h1>
+        <div className="flex flex-wrap items-start gap-2">
+          <div className="min-w-0 flex-1 basis-64">
+            <SmartSearch value={f.q} onChange={(v) => update({ q: v, like: null })} examples={[]} placeholder="Search loops: dark piano 140" />
+          </div>
+          <Button size="md" variant={filtersOpen ? "primary" : "secondary"} aria-expanded={filtersOpen} onClick={() => setFiltersOpen(!filtersOpen)}>
+            {applied.length ? `Filters · ${applied.length}` : "Filters"}
+          </Button>
+          {/* The Upload tab is one tap away in the nav on a phone. */}
+          <ButtonLink href="/upload" variant="secondary" size="md" className="st-wide-only">
+            Upload
+          </ButtonLink>
         </div>
-        <ButtonLink href="/upload" variant="secondary" size="sm">
-          Upload a loop
-        </ButtonLink>
       </header>
 
+      {filtersOpen && (
       <section
-        aria-label="Search loops"
+        aria-label="Filters"
         className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-3"
       >
-        <SmartSearch
-          value={f.q}
-          onChange={(v) => update({ q: v, like: null })}
-          examples={["dark piano 140 like metro", "pluggnb bells", "drill strings 142", "boom bap 90 dusty", "c minor 808", "phonk cowbell"]}
-        />
         <div className="flex flex-wrap items-center gap-2">
           <Dropdown
             name="Category"
@@ -524,6 +526,7 @@ export function LoopsPage({
           ))}
         </div>
       </section>
+      )}
 
       {applied.length > 0 && (
         <div role="group" aria-label="Filters on" className="flex flex-wrap items-center gap-2">
@@ -571,7 +574,6 @@ export function LoopsPage({
         </div>
       )}
 
-      {!likeOf && query.empty && page === 1 && <PackStrip />}
 
       <div className="flex flex-wrap items-center justify-between gap-2">
         <span
@@ -622,6 +624,8 @@ export function LoopsPage({
           <Pager page={page} pages={pages} onPage={goTo} />
         </div>
       )}
+
+      {!likeOf && query.empty && page === 1 && <PackStrip />}
     </main>
   );
 }
@@ -728,7 +732,7 @@ function LoopEntry({
       data-playing={state === "playing" || undefined}
       className={`flex flex-col gap-3 border-b border-border p-3 last:border-b-0 tablet:p-4 ${state === "playing" ? "bg-raised" : ""}`}
     >
-      <div className="flex items-start gap-3">
+      <div className="flex flex-wrap items-start gap-x-3 gap-y-2">
         <UiLink
           href={`/u/${row.owner.handle}`}
           aria-label={`${row.owner.displayName}'s profile`}
@@ -758,7 +762,8 @@ function LoopEntry({
             {` · ${postedText(row.publishedAt, now)}`}
           </span>
         </div>
-        <div className="flex shrink-0 items-center gap-1.5">
+        {/* Counts sit beside the title on wider screens and under it on a phone. */}
+        <div className="flex shrink-0 basis-full items-center gap-1.5 pl-11 tablet:basis-auto tablet:pl-0">
           <button
             type="button"
             aria-pressed={liked}

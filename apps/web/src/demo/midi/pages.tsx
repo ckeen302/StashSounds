@@ -612,12 +612,7 @@ export function UploadPage({ embedded = false }: { embedded?: boolean } = {}) {
   return (
     <Wrap className={embedded ? "flex w-full flex-col gap-6" : "mx-auto flex w-full max-w-content flex-col gap-6 px-3 py-8 tablet:px-4 desktop:px-6"}>
       <header className={embedded ? "sr-only" : "flex flex-col gap-1"}>
-        <span className="text-label text-label-caps text-text-muted">Upload</span>
         <h1 className="text-title">Post a MIDI file</h1>
-        <p className="max-w-prose text-body text-text-muted">
-          Drop a .mid from your DAW. It is read right here in the browser: tempo, key, bars and what kind of part it is. Check it, hear it on a sound, and post it.
-          In the demo your post stays on this device.
-        </p>
       </header>
 
       <section
