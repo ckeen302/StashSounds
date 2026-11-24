@@ -56,6 +56,7 @@ The MVP has 19 routes. Public pages are rendered on the server so search engines
 | `/terms`, `/privacy` | Legal | Lawyer-supplied text. |
 | `/admin` | Admin | Review queue for flagged items, reports, takedown notices, user lookup, suspend and restore. Admin role only. |
 | `/dev/gallery` | Component gallery | Every component in every state. Not linked, not indexed. |
+| `/dev/player` | Player test page | Real rows played through the engine, for end-to-end tests. Answers 404 unless the server runs with `STASH_DEV_PAGES=1` (never set in production). |
 
 ### Behavior every screen shares
 

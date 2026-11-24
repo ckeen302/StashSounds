@@ -38,7 +38,8 @@ export default defineConfig({
     : {
         command: `pnpm --filter @stash/web build && pnpm --filter @stash/web exec next start --port ${port}`,
         url: `${baseURL}/api/health`,
-        reuseExistingServer: !process.env.CI,
+        // Never test against another worktree's server: a busy port fails loudly (use STASH_E2E_PORT).
+        reuseExistingServer: false,
         timeout: 240_000,
         // Test-only pages such as /dev/player (request 132-dev-pages-flag); never set in production.
         env: { ...process.env, STASH_DEV_PAGES: "1" } as Record<string, string>,
