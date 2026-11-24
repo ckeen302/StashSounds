@@ -13,13 +13,13 @@ import { groupSongs, LEVEL, madeBy, songHref, TOP_PRODUCERS, type Song } from ".
 
 const TONE: Record<Confidence, string> = {
   producer: "bg-accent",
-  engineer: "bg-type-preset",
+  engineer: "bg-type-midi",
   press: "bg-type-loop",
   community: "bg-border-strong",
 };
 const TONE_TEXT: Record<Confidence, string> = {
   producer: "text-accent",
-  engineer: "text-type-preset",
+  engineer: "text-type-midi",
   press: "text-type-loop",
   community: "text-text-muted",
 };

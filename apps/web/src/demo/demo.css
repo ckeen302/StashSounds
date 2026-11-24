@@ -9,136 +9,106 @@
  * packages/ui/src/tokens.ts; until then they live here, behind html[data-look].
  */
 /*
- * Wax: the default look. A crate-digger's identity: bone type on warm black like a record sleeve,
- * one hot label orange, heavy condensed caps like a tracklist on the back of a pressing, mono
- * catalogue numbers, square corners, printed hard shadows and a little paper grain.
+ * Console: the default look. A fantasy games console's 16-colour palette (navy, yellow, pink, blue),
+ * pixel type for headings and labels only, plain Inter for anything you read, square pixel frames
+ * and a hard drop shadow on buttons. The --px-* colours also paint the pixel sprites (pixel.tsx).
  */
-html[data-look="wax"] {
+html {
+  --px-k: #000000; --px-white: #fff1e8; --px-lgray: #c2c3c7; --px-dgray: #5f574f; --px-navy: #1d2b53;
+  --px-red: #ff004d; --px-orange: #ffa300; --px-yellow: #ffec27; --px-green: #00e436; --px-blue: #29adff;
+  --px-lav: #83769c; --px-pink: #ff77a8; --px-peach: #ffccaa; --px-brown: #ab5236;
+}
+html[data-look="console"] {
   color-scheme: dark;
-  --color-bg: #0c0b09;
-  --color-surface: #15130f;
-  --color-raised: #201d18;
-  --color-border: #2f2b24;
-  --color-border-strong: #6f675a;
-  --color-text: #f1eadb;
-  --color-text-muted: #a69d8b;
-  --color-accent: #ff5b14;
-  --color-type-loop: #f7c531;
-  --color-type-oneshot: #ff8fb1;
-  --color-type-kit: #ff4057;
-  --color-type-midi: #8b97ff;
-  --color-type-preset: #2fd39a;
-  --font-mono: "IBM Plex Mono", "JetBrains Mono Variable", ui-monospace, monospace;
-  --font-display: "Big Shoulders Display", "Arial Narrow", "Inter Variable", sans-serif;
-  --radius-control: 2px;
-  --radius-panel: 3px;
+  --color-bg: #1d2b53;
+  --color-surface: #0d1430;
+  --color-raised: #26376a;
+  --color-border: #34467e;
+  --color-border-strong: #83769c;
+  --color-text: #fff1e8;
+  --color-text-muted: #c2c3c7;
+  --color-accent: #ffec27;
+  --color-type-loop: #29adff;
+  --color-type-oneshot: #ffa300;
+  --color-type-kit: #ff004d;
+  --color-type-midi: #ff77a8;
+  --color-type-preset: #00e436;
+  --font-mono: "Space Mono", "JetBrains Mono Variable", ui-monospace, monospace;
+  --font-pixel: "Pixelify Sans", "Silkscreen", "Inter Variable", sans-serif;
+  --font-pixel-caps: "Silkscreen", "Space Mono", monospace;
+  --radius-control: 0px;
+  --radius-panel: 0px;
 }
-html[data-look="wax"] .text-display,
-html[data-look="wax"] .text-title,
-html[data-look="wax"] h1,
-html[data-look="wax"] h2 {
-  font-family: var(--font-display);
-  font-weight: 900;
+html[data-look="console"] body {
+  background-color: var(--color-bg);
+  background-image: radial-gradient(circle at 1px 1px, rgb(255 241 232 / 0.06) 1px, transparent 1.5px);
+  background-size: 8px 8px;
+}
+html[data-look="console"] .text-display,
+html[data-look="console"] .text-title,
+html[data-look="console"] h1,
+html[data-look="console"] h2 { font-family: var(--font-pixel); font-weight: 700; letter-spacing: 0; }
+html[data-look="console"] .text-display { font-size: clamp(36px, 5vw, 52px); line-height: 1; }
+html[data-look="console"] .text-title { font-size: 24px; line-height: 1.1; }
+html[data-look="console"] .text-label-caps { font-family: var(--font-pixel-caps); font-weight: 400; letter-spacing: 0.04em; }
+/* The top bar is the console's black bezel; the tabs are a cartridge menu. */
+html[data-look="console"] header.border-b { background: var(--px-k); border-bottom: 0; }
+html[data-look="console"] header .text-title { font-family: var(--font-pixel-caps); font-size: 22px; }
+html[data-look="console"] header form input { background: var(--color-bg); }
+html[data-look="console"] nav[aria-label="Demo sections"] { background: var(--px-k); border-bottom: 4px solid var(--color-border); }
+html[data-look="console"] nav[aria-label="Demo sections"] a {
+  font-family: var(--font-pixel-caps);
+  font-size: 13px;
+  font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: 0.005em;
-}
-html[data-look="wax"] .text-display { font-size: clamp(44px, 7vw, 76px); line-height: 0.92; }
-html[data-look="wax"] .text-title { font-size: 26px; line-height: 1; }
-html[data-look="wax"] h1:not(.text-display):not(.text-title),
-html[data-look="wax"] h2:not(.text-display):not(.text-title) { font-weight: 800; letter-spacing: 0.03em; }
-html[data-look="wax"] .text-label-caps { letter-spacing: 0.12em; font-weight: 500; }
-html[data-look="wax"] body { background: var(--color-bg); }
-/* Paper grain over everything, under the pointer. */
-html[data-look="wax"] body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 100;
-  opacity: 0.07;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-/* The top bar sits on a heavy rule, like the edge of a sleeve. */
-html[data-look="wax"] header.border-b { border-bottom: 2px solid var(--color-text); }
-html[data-look="wax"] header .text-title { font-size: 22px; }
-/* The section tabs read like a tracklist: condensed caps, the current one a printed sticker. */
-html[data-look="wax"] nav[aria-label="Demo sections"] { border-bottom: 1px solid var(--color-border); }
-html[data-look="wax"] nav[aria-label="Demo sections"] a {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 19px;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
   border-bottom-width: 0;
-  margin-block: 6px;
-  height: 34px;
-  border-radius: 2px;
+  height: 30px;
+  margin-block: 7px;
+  color: var(--color-text-muted);
 }
-html[data-look="wax"] nav[aria-label="Demo sections"] a[aria-current="page"] { background: var(--color-accent); color: var(--color-bg); }
-/* Panels: square, and anything you can open gets a printed offset shadow on hover. */
-html[data-look="wax"] a.rounded-panel,
-html[data-look="wax"] li.rounded-panel { transition: transform 0.12s ease, box-shadow 0.12s ease; }
-html[data-look="wax"] a.rounded-panel:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 0 var(--color-accent); border-color: var(--color-text); }
-html[data-look="wax"] button.border-accent.bg-accent,
-html[data-look="wax"] a.border-accent.bg-accent { box-shadow: 3px 3px 0 0 var(--color-text); font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
-html[data-look="wax"] ::selection { background: var(--color-accent); color: var(--color-bg); }
+html[data-look="console"] nav[aria-label="Demo sections"] a:hover { color: var(--color-text); }
+html[data-look="console"] nav[aria-label="Demo sections"] a[aria-current="page"] { background: var(--color-accent); color: var(--px-k); }
+/* Panels sit on black with a 2px frame; anything you can open lights its frame yellow. */
+html[data-look="console"] .rounded-panel.border { border-width: 2px; }
+html[data-look="console"] a.rounded-panel:hover,
+html[data-look="console"] li.rounded-panel:hover { border-color: var(--color-accent); }
+/* Buttons: a hard pixel drop shadow, pressed down on click. */
+html[data-look="console"] button.border-accent.bg-accent,
+html[data-look="console"] a.border-accent.bg-accent { box-shadow: 0 4px 0 0 var(--px-k); font-family: var(--font-pixel-caps); font-weight: 400; text-transform: uppercase; color: var(--px-k); }
+html[data-look="console"] button.border-accent.bg-accent:active,
+html[data-look="console"] a.border-accent.bg-accent:active { transform: translateY(4px); box-shadow: none; }
+html[data-look="console"] ::selection { background: var(--color-accent); color: var(--px-k); }
 
-/* Home page pieces (used only under Wax; the classes carry their own colors from the tokens). */
-.wax-ticker {
-  overflow: hidden;
-  border-block: 2px solid var(--color-text);
-  background: var(--color-accent);
-  color: var(--color-bg);
-  white-space: nowrap;
-}
-.wax-ticker > div {
-  display: inline-flex;
-  gap: 2.5rem;
-  padding-block: 0.45rem;
-  animation: wax-scroll 60s linear infinite;
-  font-family: var(--font-display, sans-serif);
-  font-weight: 900;
-  font-size: 20px;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-}
-.wax-ticker span::after { content: "\2726"; margin-left: 2.5rem; }
-@keyframes wax-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-.wax-hero-line {
-  display: block;
-  font-family: var(--font-display, sans-serif);
-  font-weight: 900;
-  text-transform: uppercase;
-  font-size: clamp(64px, 13vw, 168px);
-  line-height: 0.84;
-  letter-spacing: -0.01em;
-}
-.wax-hero-line.is-outline { color: transparent; -webkit-text-stroke: 2px var(--color-text); }
-.wax-hero-line.is-lit { color: var(--color-accent); }
-.wax-record { animation: wax-spin 9s linear infinite; }
-@keyframes wax-spin { to { transform: rotate(360deg); } }
-.wax-track {
-  display: grid;
-  grid-template-columns: 3.25rem 1fr auto;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.9rem 0.75rem;
-  border-top: 1px solid var(--color-border);
-  transition: background 0.12s ease, color 0.12s ease;
-}
-.wax-track:hover { background: var(--color-text); color: var(--color-bg); }
-.wax-track:hover .wax-muted { color: var(--color-bg); opacity: 0.7; }
-.wax-track-name {
-  font-family: var(--font-display, sans-serif);
-  font-weight: 900;
-  text-transform: uppercase;
-  font-size: clamp(28px, 4.5vw, 46px);
-  line-height: 0.95;
-}
-.wax-muted { color: var(--color-text-muted); }
-@media (prefers-reduced-motion: reduce) {
-  .wax-ticker > div, .wax-record { animation: none; }
-}
+/* Pixel sprites stay crisp at any size. */
+.px-sprite { image-rendering: pixelated; display: block; }
+@keyframes px-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@keyframes px-blink { 50% { opacity: 0; } }
+.px-bob { animation: px-bob 1.6s steps(2) infinite; }
+.px-blink { animation: px-blink 0.9s steps(1) infinite; }
+@media (prefers-reduced-motion: reduce) { .px-bob, .px-blink { animation: none; } }
+
+/* Home: title screen pieces. */
+.px-title-line { display: block; font-family: var(--font-pixel, sans-serif); font-weight: 700; font-size: clamp(48px, 8vw, 84px); line-height: 0.95; }
+.px-c-yellow { color: var(--px-yellow); }
+.px-c-pink { color: var(--px-pink); }
+.px-c-blue { color: var(--px-blue); }
+.px-c-peach { color: var(--px-peach); }
+.px-c-green { color: var(--px-green); }
+.px-c-lav { color: var(--px-lav); }
+.px-caps { font-family: var(--font-pixel-caps, monospace); text-transform: uppercase; letter-spacing: 0.04em; }
+.px-stage { position: relative; height: 300px; display: flex; align-items: flex-end; justify-content: center; gap: 12px; padding-bottom: 14px; }
+.px-stage::after { content: ""; position: absolute; left: 0; right: 0; bottom: 8px; height: 6px; background: var(--px-k); opacity: 0.5; }
+.px-bubble { position: absolute; right: 0; top: 0; background: var(--px-white); color: var(--px-k); padding: 8px 12px; box-shadow: 0 -3px 0 0 var(--px-k), 0 3px 0 0 var(--px-k), -3px 0 0 0 var(--px-k), 3px 0 0 0 var(--px-k); }
+.px-frame { background: var(--color-surface); box-shadow: 0 -4px 0 0 var(--px-lav), 0 4px 0 0 var(--px-lav), -4px 0 0 0 var(--px-lav), 4px 0 0 0 var(--px-lav); }
+.px-frame-y { box-shadow: 0 -4px 0 0 var(--px-yellow), 0 4px 0 0 var(--px-yellow), -4px 0 0 0 var(--px-yellow), 4px 0 0 0 var(--px-yellow); }
+.px-frame-p { box-shadow: 0 -4px 0 0 var(--px-pink), 0 4px 0 0 var(--px-pink), -4px 0 0 0 var(--px-pink), 4px 0 0 0 var(--px-pink); }
+.px-frame-b { box-shadow: 0 -4px 0 0 var(--px-blue), 0 4px 0 0 var(--px-blue), -4px 0 0 0 var(--px-blue), 4px 0 0 0 var(--px-blue); }
+.px-frame-g { box-shadow: 0 -4px 0 0 var(--px-dgray), 0 4px 0 0 var(--px-dgray), -4px 0 0 0 var(--px-dgray), 4px 0 0 0 var(--px-dgray); }
+.px-menu a { display: grid; grid-template-columns: 1.5rem 1fr auto; align-items: center; gap: 0.75rem; padding: 0.7rem 0.9rem; }
+.px-menu a .px-cur { visibility: hidden; color: var(--px-yellow); }
+.px-menu a:hover, .px-menu a:focus-visible { background: var(--color-raised); }
+.px-menu a:hover .px-cur, .px-menu a:focus-visible .px-cur { visibility: visible; }
+.px-slot { background: var(--color-bg); display: grid; place-items: center; }
 
 html[data-look="tape"] {
   color-scheme: dark;

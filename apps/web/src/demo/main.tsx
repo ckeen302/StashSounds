@@ -32,7 +32,8 @@ import { buildCatalog, type Catalog } from "./data";
 import { HashLink } from "./hash-link";
 import { navigate, startRouter, usePath } from "./router";
 import { has, set } from "./store";
-import { LookPicker, startLooks, useLook } from "./looks";
+import { startLooks, useLook } from "./looks";
+import { Sprite, spriteForRole } from "./pixel";
 import { midiItem } from "./midi/catalog";
 import { MidiList, MidiPage, UploadPage, useMidiItems } from "./midi/pages";
 import { PresetsPage } from "./presets/page";
@@ -48,9 +49,9 @@ import {
 } from "./explore";
 import { FlipPanel } from "./flip";
 import { LoopsPage } from "./loops";
-import { pack, PACK_WEEK, PACKS } from "./packs";
-import { ALL_SONGS } from "./presets/songs";
-import { PRESETS } from "./presets/data";
+import { pack, PACK_WEEK } from "./packs";
+import { songHref } from "./presets/songs";
+import { PRESETS, type Confidence } from "./presets/data";
 import { kits } from "./kits/store";
 import { saveFiles } from "./save";
 import { SmartSearch, useQuery } from "./search-ui";
@@ -219,71 +220,33 @@ function Page({ children }: { children: ReactNode }) {
 
 const TODAY = Math.floor(Date.now() / 86_400_000);
 
-/** The home page's record: a pressing on the platter, label in the accent, slowly turning. */
-function Record() {
-  return (
-    <svg
-      viewBox="0 0 200 200"
-      role="img"
-      aria-label="A record turning"
-      className="w-64 max-w-full tablet:w-80 desktop:w-full"
-    >
-      <g className="wax-record" style={{ transformOrigin: "100px 100px" }}>
-        <circle
-          cx="100"
-          cy="100"
-          r="98"
-          fill="var(--color-surface)"
-          stroke="var(--color-text)"
-          strokeWidth="2"
-        />
-        {[88, 80, 72, 64, 56, 48].map((r) => (
-          <circle
-            key={r}
-            cx="100"
-            cy="100"
-            r={r}
-            fill="none"
-            stroke="var(--color-border-strong)"
-            strokeOpacity="0.35"
-            strokeWidth="0.6"
-          />
-        ))}
-        <path
-          d="M 40 60 A 70 70 0 0 1 90 32"
-          fill="none"
-          stroke="var(--color-text)"
-          strokeOpacity="0.25"
-          strokeWidth="3"
-          strokeLinecap="round"
-        />
-        <circle cx="100" cy="100" r="36" fill="var(--color-accent)" />
-        <text
-          x="100"
-          y="94"
-          textAnchor="middle"
-          fill="var(--color-bg)"
-          style={{
-            font: "900 17px var(--font-display, sans-serif)",
-            letterSpacing: "1px",
-          }}
-        >
-          STASH
-        </text>
-        <text
-          x="100"
-          y="116"
-          textAnchor="middle"
-          fill="var(--color-bg)"
-          style={{ font: "600 8px var(--font-mono)", letterSpacing: "1px" }}
-        >
-          33⅓
-        </text>
-        <circle cx="100" cy="100" r="3" fill="var(--color-bg)" />
-      </g>
-    </svg>
-  );
-}
+const RARITY: Record<
+  Confidence,
+  { name: string; frame: string; text: string; mark: string }
+> = {
+  producer: {
+    name: "Legendary",
+    frame: "px-frame-y",
+    text: "px-c-yellow",
+    mark: "★",
+  },
+  engineer: { name: "Epic", frame: "px-frame-p", text: "px-c-pink", mark: "♦" },
+  press: { name: "Rare", frame: "px-frame-b", text: "px-c-blue", mark: "◆" },
+  community: {
+    name: "Common",
+    frame: "px-frame-g",
+    text: "px-c-lav",
+    mark: "●",
+  },
+};
+
+/** One of each rarity that names a preset, so the home page shows what the grades mean. */
+const LOOT = (["producer", "press", "community"] as Confidence[]).flatMap(
+  (c) => {
+    const row = PRESETS.find((p) => p.confidence === c && p.preset);
+    return row ? [row] : [];
+  },
+);
 
 function Home() {
   const [rows, refresh] = useRows();
@@ -296,164 +259,180 @@ function Home() {
       .sort((a, b) => a.k - b.k)
       .map((x) => x.m);
   }, [midi]);
-  const tracks = [
+  const modes = [
     {
-      n: "A1",
       href: "/loops",
       name: "Loops",
-      blurb: "Press play, then flip the tempo and key while it plays.",
-      count: rows.length,
+      blurb: "Play, then change tempo and key while it plays",
+      count: `${rows.length}`,
     },
     {
-      n: "A2",
       href: "/presets",
       name: "Presets behind the songs",
-      blurb:
-        "The synth and the exact patch on the records you know, with receipts.",
-      count: PRESETS.length,
+      blurb: "The synth and patch on the records you know",
+      count: `${PRESETS.length}`,
     },
     {
-      n: "A3",
       href: "/midi",
       name: "Chords from the songs",
-      blurb:
-        "Progressions from real records, at their key and tempo, live in a piano roll.",
-      count: songs.length,
+      blurb: "Real progressions at their key and tempo",
+      count: `${songs.length}`,
     },
     {
-      n: "B1",
       href: "/kits",
       name: "Drum kits",
-      blurb: "Kicks, 808s, snares and hats. Drop in your own one-shots.",
-      count: kits().length,
+      blurb: "Kicks, 808s, snares and hats",
+      count: `${kits().length}`,
     },
     {
-      n: "B2",
       href: "/sound-design",
       name: "Sound design",
-      blurb: "Knobs, a scope, your keyboard. Save the patch.",
-      count: null,
+      blurb: "Knobs, a scope and your keyboard",
+      count: "",
     },
     {
-      n: "B3",
       href: "/browse",
       name: "Dig by key and tempo",
-      blurb: "A BPM range, a key and the keys that mix with it.",
-      count: null,
+      blurb: "A BPM range, a key and the keys that mix",
+      count: "",
     },
   ];
-  const ticker = [
-    `${PACK_WEEK}`,
-    ...PACKS.map((p) => p.name),
-    `${ALL_SONGS.length} songs with their presets`,
-    `${songs.length} song chord charts`,
-    "Every sound plays in your browser",
-  ];
   return (
-    <>
-      <div
-        className="wax-ticker"
-        aria-label={`This week: ${ticker.join(", ")}`}
-      >
-        <div aria-hidden="true">
-          {[...ticker, ...ticker].map((t, i) => (
-            <span key={`${t}-${i}`}>{t}</span>
-          ))}
+    <Page>
+      <section className="grid grid-cols-1 items-center gap-8 desktop:grid-cols-2">
+        <div className="flex flex-col gap-5">
+          <span className="px-caps text-small px-c-peach">
+            ★ Player 1 · New game
+          </span>
+          <h1 aria-label="Find it. Hear it. Flip it." className="flex flex-col">
+            <span className="px-title-line px-c-yellow">Find it.</span>
+            <span className="px-title-line px-c-pink">Hear it.</span>
+            <span className="px-title-line px-c-blue">Flip it.</span>
+          </h1>
+          <p className="max-w-prose text-body text-text-muted">
+            Loops, drum kits, MIDI and the exact presets behind the songs, for
+            producers done digging through YouTube. Every sound plays the second
+            you press it.
+          </p>
+          <div className="flex flex-wrap gap-4">
+            <ButtonLink href="/loops" variant="primary">
+              ▶ Start digging
+            </ButtonLink>
+            <ButtonLink href="/presets" variant="secondary">
+              Presets behind the songs
+            </ButtonLink>
+          </div>
         </div>
-      </div>
-      <Page>
-        <section className="grid grid-cols-1 items-center gap-8 desktop:grid-cols-5">
-          <div className="flex flex-col gap-6 desktop:col-span-3">
-            <span className="text-label text-label-caps text-text-muted">
-              Stash · cat. no. STSH-001 · side A
-            </span>
-            <h1
-              aria-label="Find it. Hear it. Flip it."
-              className="flex flex-col"
-            >
-              <span className="wax-hero-line">Find it.</span>
-              <span className="wax-hero-line is-outline">Hear it.</span>
-              <span className="wax-hero-line is-lit">Flip it.</span>
-            </h1>
-            <p className="max-w-prose text-body text-text-muted">
-              Loops, drum kits, MIDI and the presets behind the records, for
-              producers who are done digging through YouTube for sounds in the
-              style of somebody. Everything plays the second you press it.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <ButtonLink href="/loops" variant="primary">
-                Dig the loops
-              </ButtonLink>
-              <ButtonLink href="/presets" variant="secondary">
-                Presets behind the songs
-              </ButtonLink>
-            </div>
-          </div>
-          <div className="flex justify-center desktop:col-span-2">
-            <Record />
-          </div>
-        </section>
+        <div className="px-stage" aria-hidden="true">
+          <span className="px-bubble px-caps text-small">{`${rows[0]?.bpm ?? 140} bpm, let's go!`}</span>
+          <Sprite id="speaker" size={56} />
+          <Sprite id="producer" size={176} className="px-bob" />
+          <Sprite id="sampler" size={150} />
+        </div>
+      </section>
 
-        <section aria-label="What's on Stash" className="flex flex-col">
-          <div className="flex items-baseline justify-between gap-3 pb-2">
-            <h2 className="text-title">Tracklist</h2>
-            <span className="text-label text-label-caps text-text-muted">
-              Side A · Side B
-            </span>
-          </div>
-          <ol className="border-b border-border">
-            {tracks.map((t) => (
-              <li key={t.href}>
-                <UiLink href={t.href} className="wax-track">
-                  <span className="wax-muted font-mono text-small">{t.n}</span>
-                  <span className="flex min-w-0 flex-col gap-1">
-                    <span className="wax-track-name">{t.name}</span>
-                    <span className="wax-muted text-small">{t.blurb}</span>
+      <section aria-labelledby="modes" className="flex flex-col gap-4">
+        <div className="flex items-baseline justify-between gap-3">
+          <h2 id="modes" className="text-title">
+            Select mode
+          </h2>
+          <span className="px-caps text-small text-text-muted">
+            Pick one to play
+          </span>
+        </div>
+        <ul className="px-frame px-menu grid grid-cols-1 tablet:grid-cols-2">
+          {modes.map((m) => (
+            <li key={m.href}>
+              <UiLink href={m.href}>
+                <span className="px-cur px-blink">▶</span>
+                <span className="flex min-w-0 flex-col">
+                  <span className="text-body-strong text-text">{m.name}</span>
+                  <span className="truncate text-small text-text-muted">
+                    {m.blurb}
                   </span>
-                  <span className="font-mono text-body-strong tabular">
-                    {t.count == null ? "→" : t.count}
+                </span>
+                <span className="px-caps text-small px-c-yellow">
+                  {m.count}
+                </span>
+              </UiLink>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section aria-labelledby="loot" className="flex flex-col gap-4">
+        <div className="flex items-baseline justify-between gap-3">
+          <h2 id="loot" className="text-title">
+            Loot: presets behind the songs
+          </h2>
+          <ButtonLink href="/presets" variant="ghost" size="sm">
+            {`All ${PRESETS.length}`}
+          </ButtonLink>
+        </div>
+        <ul className="grid grid-cols-1 gap-6 px-1 py-1 tablet:grid-cols-3">
+          {LOOT.map((e) => {
+            const r = RARITY[e.confidence];
+            return (
+              <li
+                key={`${e.song}-${e.preset}`}
+                className={`px-frame ${r.frame}`}
+              >
+                <UiLink
+                  href={songHref(e.song, e.artist)}
+                  className="flex items-center gap-4 p-4"
+                >
+                  <span className="px-slot size-16">
+                    <Sprite id={spriteForRole(e.role)} size={44} />
+                  </span>
+                  <span className="flex min-w-0 flex-col gap-0.5">
+                    <span
+                      className={`px-caps text-small ${r.text}`}
+                    >{`${r.mark} ${r.name}`}</span>
+                    <span className="truncate text-title text-text">
+                      {e.preset}
+                    </span>
+                    <span className="truncate text-small text-text-muted">{`${e.song} · ${e.plugin}`}</span>
                   </span>
                 </UiLink>
               </li>
-            ))}
-          </ol>
-        </section>
-        <section className="flex flex-col gap-3">
-          <h2 className="text-title">Fresh loops</h2>
-          <LoopList label="Fresh loops" rows={rows} onChange={refresh} />
-        </section>
+            );
+          })}
+        </ul>
+      </section>
+
+      <section className="flex flex-col gap-3">
+        <div className="flex items-baseline justify-between gap-3">
+          <h2 className="text-title">Sound test</h2>
+          <span className="px-caps text-small text-text-muted">
+            Space plays · arrows pick
+          </span>
+        </div>
+        <LoopList label="Sound test" rows={rows} onChange={refresh} />
+      </section>
+      <section className="flex flex-col gap-3">
+        <div className="flex items-end justify-between gap-3">
+          <h2 className="text-title">MIDI, live in the piano roll</h2>
+          <ButtonLink href="/midi" variant="ghost" size="sm">
+            {`All ${midi.length} MIDI`}
+          </ButtonLink>
+        </div>
+        <MidiList
+          label="MIDI"
+          items={midi.filter((m) => !m.song).slice(0, 6)}
+        />
+      </section>
+      {songs.length > 0 && (
         <section className="flex flex-col gap-3">
           <div className="flex items-end justify-between gap-3">
-            <h2 className="text-title">MIDI, live in the piano roll</h2>
+            <h2 className="text-title">Chords from the songs</h2>
             <ButtonLink href="/midi" variant="ghost" size="sm">
-              {`All ${midi.length} MIDI`}
+              {`All ${songs.length} songs`}
             </ButtonLink>
           </div>
-          <MidiList
-            label="MIDI"
-            items={midi.filter((m) => !m.song).slice(0, 6)}
-          />
+          <MidiList label="Song chords" items={songs.slice(0, 6)} />
         </section>
-        {songs.length > 0 && (
-          <section className="flex flex-col gap-3">
-            <div className="flex items-end justify-between gap-3">
-              <h2 className="text-title">Chords from the songs</h2>
-              <ButtonLink href="/midi" variant="ghost" size="sm">
-                {`All ${songs.length} songs`}
-              </ButtonLink>
-            </div>
-            <p className="max-w-prose text-body text-text-muted">
-              The progressions behind popular records, at their key and tempo.
-              Each one links to where the chords came from.
-            </p>
-            <MidiList label="Song chords" items={songs.slice(0, 6)} />
-          </section>
-        )}
-        <section className="border-t border-border pt-6">
-          <LookPicker />
-        </section>
-      </Page>
-    </>
+      )}
+    </Page>
   );
 }
 

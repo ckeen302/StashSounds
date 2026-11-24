@@ -10,10 +10,10 @@ import found from "./found.json" with { type: "json" };
 export type Confidence = "producer" | "engineer" | "press" | "community";
 
 export const CONFIDENCE: Record<Confidence, { label: string; blurb: string }> = {
-  producer: { label: "Producer said it", blurb: "The producer named the sound in their own words, in an interview." },
-  engineer: { label: "Engineer said it", blurb: "The song's mix engineer named it in an interview about the session." },
-  press: { label: "Press reported", blurb: "A music-tech outlet or reference page reported it. It may be by ear." },
-  community: { label: "Community reported", blurb: "Producers in a forum thread matched it by ear. Unverified: check before you rely on it." },
+  producer: { label: "Legendary · producer said it", blurb: "The producer named the sound in their own words, in an interview." },
+  engineer: { label: "Epic · engineer said it", blurb: "The song's mix engineer named it in an interview about the session." },
+  press: { label: "Rare · press reported", blurb: "A music-tech outlet or reference page reported it. It may be by ear." },
+  community: { label: "Common · community found", blurb: "Producers in a forum thread matched it by ear. Unverified: check before you rely on it." },
 };
 
 export type Source = { label: string; url: string };
