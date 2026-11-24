@@ -82,6 +82,19 @@ def render_synth(i: int) -> tuple[int, np.ndarray]:
 # Recordings
 
 
+def fetch_url(url: str) -> Path:
+    CACHE.mkdir(parents=True, exist_ok=True)
+    dest = CACHE / (hashlib.sha1(url.encode()).hexdigest()[:16] + Path(urllib.parse.urlparse(url).path).suffix.lower())
+    if not dest.exists():
+        with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=600) as r:
+            dest.write_bytes(r.read())
+    return dest
+
+
+def fetch_any(r: dict) -> Path:
+    return fetch_url(r["url"]) if "url" in r else fetch(r["file"])
+
+
 def fetch(title: str) -> Path:
     CACHE.mkdir(parents=True, exist_ok=True)
     name = title.removeprefix("File:")
@@ -104,25 +117,27 @@ def decode(path: Path, start: float, end: float | None) -> np.ndarray:
     return np.frombuffer(raw, dtype=np.float32).reshape(-1, 2).astype(float)
 
 
-def loudest(x: np.ndarray, sec: float) -> np.ndarray:
-    """The `sec`-long stretch with the most energy: the roar, not the minute of zoo around it."""
-    win = int(sec * SR)
-    if len(x) <= win:
-        return x
-    hop = int(0.05 * SR)
-    e = np.array([np.mean(x[i : i + hop] ** 2) for i in range(0, len(x) - hop, hop)])
-    k = max(1, win // hop)
-    sums = np.convolve(e, np.ones(k), "valid")
-    best = int(np.argmax(sums)) * hop
-    # Start a touch early so the attack is whole.
-    best = max(0, best - int(0.15 * SR))
-    return x[best : best + win]
+def loudest_start(path: Path, sec: float) -> float:
+    """Where the loudest `sec` seconds begin, from a cheap low-rate pass (long files stay cheap)."""
+    raw = subprocess.run(["ffmpeg", "-v", "error", "-i", str(path), "-ac", "1", "-ar", "2000", "-f", "f32le", "-"], check=True, capture_output=True).stdout
+    y = np.frombuffer(raw, dtype=np.float32).astype(float)
+    hop = 100  # 50 ms at 2 kHz
+    if len(y) <= sec * 2000 + hop:
+        return 0.0
+    e = np.add.reduceat(y**2, np.arange(0, len(y) - hop, hop))
+    k = max(1, int(sec * 20))
+    best = int(np.argmax(np.convolve(e, np.ones(k), "valid")))
+    return max(0.0, best * 0.05 - 0.15)
 
 
 def render_recording(r: dict) -> np.ndarray:
-    x = decode(fetch(r["file"]), r.get("start", 0.0), r.get("end"))
-    if "end" not in r:
-        x = loudest(x, r.get("length", 10.0))
+    path = fetch_any(r)
+    if "end" in r:
+        x = decode(path, r.get("start", 0.0), r["end"])
+    else:
+        length = r.get("length", 10.0)
+        start = loudest_start(path, length)
+        x = decode(path, start, start + length)
     if r.get("highpass"):
         x = hp(x, r["highpass"])
     if r.get("lowpass"):
@@ -195,7 +210,7 @@ def main() -> None:
         print(f"  recording {r['name']}", flush=True)
         entries.append({
             "cat": r["cat"], "sub": r["sub"], "name": r["name"], "tags": r.get("tags", []), "audio": x,
-            "source": {"kind": "recording", "license": r["license"], "by": r["author"], "page": r["page"], "title": r["file"].removeprefix("File:")},
+            "source": {"kind": "recording", "license": r["license"], "by": r["author"], "page": r["page"], "title": r.get("title") or r["file"].removeprefix("File:")},
         })
 
     known = {(c, s) for c, _, subs in CATEGORIES for s, _ in subs}
