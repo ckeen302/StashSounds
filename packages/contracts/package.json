@@ -5,6 +5,7 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
+    "./format": "./src/format.ts",
     "./limits.json": "./limits.json"
   },
   "scripts": {
@@ -13,5 +14,6 @@
   },
   "dependencies": {
     "zod": "4.6.7"
-  }
+  },
+  "sideEffects": false
 }

@@ -11,3 +11,4 @@ export * from "./api.ts";
 export * from "./worker.ts";
 export * from "./licenses.ts";
 export * from "./paths.ts";
+export { LICENSE_LABELS } from "./format.ts";
