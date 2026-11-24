@@ -39,9 +39,11 @@ function setup() {
   };
   const e = new WebAudioEngine({ createContext: () => ctx, fetch: net.fetch, loadStretch: stretch.load, sleep });
   const plainPlaying = () => ctx.playing.filter((s) => s.buffer);
+  /** The newest buffer source (a scheduled stop does not count as stopped here, unlike plainPlaying). */
+  const latest = () => ctx.sources.filter((s) => s.buffer).at(-1)!;
   const plainGain = (i = -1) => ctx.sources.filter((s) => s.buffer).at(i)!.connected[0] as FakeGain;
   const stretchGain = () => stretch.node.connected[0] as FakeGain;
-  return { e, ctx, stretch, node: stretch.node, plainPlaying, plainGain, stretchGain, sleeps };
+  return { e, ctx, stretch, node: stretch.node, plainPlaying, latest, plainGain, stretchGain, sleeps };
 }
 
 describe("the loop switch", () => {
@@ -72,10 +74,10 @@ describe("the loop switch", () => {
 
 describe("loop off on the plain path", () => {
   it("set before play: plays once, fades at the loop end on the audio clock, then pauses at 0", async () => {
-    const { e, ctx, plainPlaying, plainGain } = setup();
+    const { e, ctx, latest, plainGain } = setup();
     e.setLoop(false);
     await e.play(loop("a"));
-    const src = plainPlaying()[0]!;
+    const src = latest();
     expect(src.stoppedAt).toBeCloseTo(LOOP_S + STOP_AFTER);
     expect(plainGain().gain.at(LOOP_S - 0.001)).toBeCloseTo(1);
     expect(plainGain().gain.at(LOOP_S + STOP_AFTER)).toBeLessThan(0.01);
@@ -86,44 +88,43 @@ describe("loop off on the plain path", () => {
     expect(e.getPositionMs()).toBe(0);
   });
   it("set mid-pass after a few repeats: ends at the end of the pass now playing", async () => {
-    const { e, ctx, plainPlaying } = setup();
+    const { e, ctx, latest } = setup();
     await e.play(loop("a"));
     ctx.advance(2.5); // second pass, 0.5 s in
     e.setLoop(false);
-    expect(plainPlaying()[0]!.stoppedAt).toBeCloseTo(2 * LOOP_S + STOP_AFTER);
+    expect(latest().stoppedAt).toBeCloseTo(2 * LOOP_S + STOP_AFTER);
     ctx.advance(1.6);
     expect(e.getState()).toMatchObject({ status: "paused" });
     expect(e.getPositionMs()).toBe(0);
   });
   it("play after the end starts again from 0 and ends again after one pass", async () => {
-    const { e, ctx, plainPlaying } = setup();
+    const { e, ctx, latest } = setup();
     e.setLoop(false);
     await e.play(loop("a"));
     ctx.advance(2.1);
     await e.play();
     expect(e.getState().status).toBe("playing");
-    const src = plainPlaying()[0]!;
+    const src = latest();
     expect(src.startOffset).toBe(0);
     expect(src.stoppedAt).toBeCloseTo(2.1 + LOOP_S + STOP_AFTER);
   });
   it("a seek with loop off ends at the end of the pass from the new position", async () => {
-    const { e, ctx, plainPlaying } = setup();
+    const { e, ctx, latest } = setup();
     e.setLoop(false);
     await e.play(loop("a"));
     ctx.advance(0.5);
     e.seek(1500);
-    expect(plainPlaying()).toHaveLength(1);
-    expect(plainPlaying()[0]!.stoppedAt).toBeCloseTo(0.5 + 0.5 + STOP_AFTER);
+    expect(latest().stoppedAt).toBeCloseTo(0.5 + 0.5 + STOP_AFTER);
   });
   it("pause and resume with loop off still ends at the loop end", async () => {
-    const { e, ctx, plainPlaying } = setup();
+    const { e, ctx, latest } = setup();
     e.setLoop(false);
     await e.play(loop("a"));
     ctx.advance(0.5);
     e.pause();
     ctx.advance(1);
     await e.play();
-    expect(plainPlaying()[0]!.stoppedAt).toBeCloseTo(1.5 + 1.5 + STOP_AFTER);
+    expect(latest().stoppedAt).toBeCloseTo(1.5 + 1.5 + STOP_AFTER);
   });
   it("turned back on before the end: carries on from the loop start at the loop end, with no gap", async () => {
     const { e, ctx, plainPlaying, plainGain } = setup();
@@ -170,67 +171,93 @@ describe("loop off through the stretch", () => {
     await settle();
     return s;
   }
+  /** The end the engine should place, from the stretch's last start or change. */
+  const endFrom = (change: { output?: number; input?: number; rate?: number }) => change.output! + (LOOP_S - (change.input! - 1)) / change.rate!; // input is pad (1 s) + position
 
-  it("ends when the position reaches the loop end at the stretched tempo, then pauses at 0", async () => {
+  it("fades out when the position reaches the loop end at the stretched tempo, then stops and pauses at 0", async () => {
     const { e, ctx, node, stretchGain } = await stretched();
-    const T = node.lastStart!.output!; // the handoff, from position LEAD at ratio 0.5
-    const startPos = node.lastStart!.input! - 1; // input is pad (1 s) + position
+    const start = node.lastStart!;
+    const sent = node.schedules.length;
     e.setLoop(false);
-    const end = T + (LOOP_S - startPos) / 0.5;
-    expect(node.schedules.at(-1)).toMatchObject({ active: false, output: expect.closeTo(end + STOP_AFTER) });
+    const end = endFrom(start);
+    expect(end).toBeCloseTo(LEAD + (LOOP_S - LEAD) / 0.5);
+    // The worklet keeps one pending change: nothing is sent to it while the start or the end waits.
+    expect(node.schedules).toHaveLength(sent);
     expect(stretchGain().gain.at(end - 0.001)).toBeCloseTo(1, 2);
     expect(stretchGain().gain.at(end + STOP_AFTER)).toBeLessThan(0.01);
     ctx.advance(end - 0.1 - ctx.currentTime);
+    await settle();
     expect(e.getState().status).toBe("playing");
+    ctx.advance(0.2);
     await settle();
     expect(e.getState()).toMatchObject({ status: "paused", tempoRatio: 0.5, loop: false });
-    expect(ctx.currentTime, "the pause waited on the audio clock for the fade").toBeGreaterThanOrEqual(end + STOP_AFTER - 1e-9);
+    expect(node.schedules.at(-1), "told to stop once silent").toMatchObject({ active: false });
+    expect(node.schedules.at(-1)!.output).toBeGreaterThanOrEqual(end + STOP_AFTER - 1e-9);
     expect(e.getPositionMs()).toBe(0);
   });
   it("a tempo change with loop off moves the end to match the new tempo", async () => {
-    const { e, ctx, node } = await stretched();
-    e.setLoop(false);
-    ctx.advance(1);
-    e.setTempo(140); // back to ratio 1, still on the stretch
-    const change = node.schedules.filter((s) => s.active).at(-1)!;
-    const pos = change.input! - 1;
-    expect(node.schedules.at(-1)).toMatchObject({ active: false, output: expect.closeTo(change.output! + (LOOP_S - pos) + STOP_AFTER) });
-  });
-  it("turned back on before the end: the end is dropped and the loop carries on", async () => {
     const { e, ctx, node, stretchGain } = await stretched();
     e.setLoop(false);
-    const end = node.schedules.at(-1)!.output! - STOP_AFTER;
+    const oldEnd = endFrom(node.lastStart!);
+    ctx.advance(1);
+    e.setTempo(140); // back to ratio 1, still on the stretch
+    const change = node.schedules.at(-1)!;
+    expect(change).toMatchObject({ active: true, rate: 1 });
+    const end = endFrom(change);
+    expect(end).toBeLessThan(oldEnd);
+    expect(stretchGain().gain.at(end - 0.001)).toBeCloseTo(1, 2);
+    expect(stretchGain().gain.at(end + STOP_AFTER)).toBeLessThan(0.01);
+    ctx.advance(end + 0.05 - ctx.currentTime);
+    await settle();
+    expect(e.getState().status).toBe("paused");
+  });
+  it("turned back on before the end: the fade is taken back and the loop carries on", async () => {
+    const { e, ctx, node, stretchGain } = await stretched();
+    e.setLoop(false);
+    const end = endFrom(node.lastStart!);
+    const sent = node.schedules.length;
     ctx.advance(0.5);
     e.setLoop(true);
-    // A new complete change drops the pending stop in the worklet; it must keep the position.
-    expect(node.schedules.at(-1)).toMatchObject({ active: true, rate: 0.5, loopEnd: 1 + LOOP_S });
     expect(stretchGain().gain.at(end + STOP_AFTER)).toBeCloseTo(1, 2);
     ctx.advance(end + 1 - ctx.currentTime);
     await settle();
     expect(e.getState().status).toBe("playing");
+    expect(node.schedules).toHaveLength(sent);
   });
-  it("a loop that starts on the stretch with loop off ends after one pass", async () => {
-    const { e, ctx, node } = setup();
+  it("a loop that starts on the stretch with loop off keeps its start, and ends after one pass", async () => {
+    const { e, ctx, node, stretchGain } = setup();
     e.setLoop(false);
     e.setTranspose(3);
     await e.play(loop("a"));
     await settle();
-    const T = node.lastStart!.output!;
-    expect(T).toBeCloseTo(LEAD);
-    expect(node.schedules.at(-1)).toMatchObject({ active: false, output: expect.closeTo(T + LOOP_S + STOP_AFTER) });
-    ctx.advance(T + LOOP_S - 0.1);
+    const start = node.lastStart!;
+    expect(start.output).toBeCloseTo(LEAD);
+    expect(node.schedules.at(-1), "nothing sent after the start, which would drop it").toBe(start);
+    const end = endFrom(start);
+    expect(end).toBeCloseTo(LEAD + LOOP_S);
+    expect(stretchGain().gain.at(end + STOP_AFTER)).toBeLessThan(0.01);
+    ctx.advance(end - 0.1 - ctx.currentTime);
+    await settle();
+    expect(e.getState().status).toBe("playing");
+    ctx.advance(0.2);
     await settle();
     expect(e.getState()).toMatchObject({ status: "paused", transpose: 3 });
   });
   it("a handoff from plain to stretch with loop off places the end on the stretch", async () => {
-    const { e, ctx, node } = setup();
+    const { e, ctx, node, stretchGain } = setup();
     e.setLoop(false);
     await e.play(loop("a"));
     ctx.advance(0.5);
     e.setTempo(70);
     await settle();
     const start = node.lastStart!;
-    const pos = start.input! - 1;
-    expect(node.schedules.at(-1)).toMatchObject({ active: false, output: expect.closeTo(start.output! + (LOOP_S - pos) / 0.5 + STOP_AFTER) });
+    expect(node.schedules.at(-1)).toBe(start);
+    const end = endFrom(start);
+    expect(end).toBeCloseTo(start.output! + (LOOP_S - (start.output! - 0)) / 0.5, 5);
+    expect(stretchGain().gain.at(end - 0.001)).toBeCloseTo(1, 2);
+    expect(stretchGain().gain.at(end + STOP_AFTER)).toBeLessThan(0.01);
+    ctx.advance(end + 0.05 - ctx.currentTime);
+    await settle();
+    expect(e.getState().status).toBe("paused");
   });
 });
