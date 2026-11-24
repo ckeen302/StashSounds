@@ -164,3 +164,44 @@ export function songKey(s: SongChords): MusicalKey | null {
     .replace(/\s*\(.*\)$/, "");
   return parseKey(k.replace(/\s+/g, ""));
 }
+
+const MAJOR_DEG = ["I", "bII", "II", "bIII", "III", "IV", "bV", "V", "bVI", "VI", "bVII", "VII"];
+const MINOR_DEG = ["I", "bII", "II", "III", "#III", "IV", "bV", "V", "VI", "#VI", "VII", "#VII"];
+
+/**
+ * The song's progression as roman numerals in its own key ("i–VI–III–VII"), so songs that share a
+ * progression group together whatever key they are in. Inversions and extensions are dropped, a
+ * repeated cycle counts once, and at most four chords are kept. Null when the key or a chord can't be read.
+ */
+export function progressionOf(s: SongChords): { label: string; minor: boolean } | null {
+  const km = /^([A-G][#b♯♭]?)\s*(.*)$/.exec(s.key.trim());
+  if (!km) return null;
+  const tonic = pitchClass(km[1]!);
+  if (tonic === null) return null;
+  const minor = /minor|dorian|phrygian|aeolian|locrian/i.test(km[2]!);
+  const degs = minor ? MINOR_DEG : MAJOR_DEG;
+  const out: string[] = [];
+  for (const [sym] of s.chords) {
+    const c = parseChord(sym);
+    if (!c) return null;
+    const isMinor = c.tones.includes(3) && !c.tones.includes(4);
+    const isDim = isMinor && c.tones.includes(6) && !c.tones.includes(7);
+    let n = degs[(c.root - tonic + 12) % 12]!;
+    if (isMinor) n = n.replace(/[IV]+/, (r) => r.toLowerCase());
+    if (isDim) n += "°";
+    if (out[out.length - 1] !== n) out.push(n);
+  }
+  if (out.length > 1 && out[0] === out[out.length - 1]) out.pop();
+  // A cycle written out twice ("i VI i VI") is the cycle once.
+  for (let p = 1; p <= out.length / 2; p++) {
+    if (out.length % p === 0 && out.every((x, i) => x === out[i % p])) {
+      out.length = p;
+      break;
+    }
+  }
+  if (out.length < 2) return null;
+  // A loop has no first chord: start it on the home chord, so "VI–i" and "i–VI" are one progression.
+  const home = out.findIndex((x) => x === "I" || x === "i");
+  const loop = home > 0 ? [...out.slice(home), ...out.slice(0, home)] : out;
+  return { label: loop.slice(0, 4).join("–"), minor };
+}

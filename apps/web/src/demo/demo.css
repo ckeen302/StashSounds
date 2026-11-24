@@ -34,7 +34,7 @@ html[data-look="console"] {
   --color-type-midi: #ff77a8;
   --color-type-preset: #00e436;
   --font-mono: "Space Mono", "JetBrains Mono Variable", ui-monospace, monospace;
-  --font-pixel: "Pixelify Sans", "Silkscreen", "Inter Variable", sans-serif;
+  --font-pixel: "Jersey 10", "Pixelify Sans", "Inter Variable", sans-serif;
   --font-pixel-caps: "Silkscreen", "Space Mono", monospace;
   --radius-control: 0px;
   --radius-panel: 0px;
@@ -47,9 +47,9 @@ html[data-look="console"] body {
 html[data-look="console"] .text-display,
 html[data-look="console"] .text-title,
 html[data-look="console"] h1,
-html[data-look="console"] h2 { font-family: var(--font-pixel); font-weight: 700; letter-spacing: 0; }
-html[data-look="console"] .text-display { font-size: clamp(36px, 5vw, 52px); line-height: 1; }
-html[data-look="console"] .text-title { font-size: 24px; line-height: 1.1; }
+html[data-look="console"] h2 { font-family: var(--font-pixel); font-weight: 400; letter-spacing: 0.01em; }
+html[data-look="console"] .text-display { font-size: clamp(44px, 6vw, 64px); line-height: 0.95; }
+html[data-look="console"] .text-title { font-size: 30px; line-height: 1; }
 html[data-look="console"] .text-label-caps { font-family: var(--font-pixel-caps); font-weight: 400; letter-spacing: 0.04em; }
 /* The top bar is the console's black bezel; the tabs are a cartridge menu. */
 html[data-look="console"] header.border-b { background: var(--px-k); border-bottom: 0; }
@@ -88,7 +88,6 @@ html[data-look="console"] ::selection { background: var(--color-accent); color: 
 @media (prefers-reduced-motion: reduce) { .px-bob, .px-blink { animation: none; } }
 
 /* Home: title screen pieces. */
-.px-title-line { display: block; font-family: var(--font-pixel, sans-serif); font-weight: 700; font-size: clamp(48px, 8vw, 84px); line-height: 0.95; }
 .px-c-yellow { color: var(--px-yellow); }
 .px-c-pink { color: var(--px-pink); }
 .px-c-blue { color: var(--px-blue); }
@@ -109,6 +108,50 @@ html[data-look="console"] ::selection { background: var(--color-accent); color: 
 .px-menu a:hover, .px-menu a:focus-visible { background: var(--color-raised); }
 .px-menu a:hover .px-cur, .px-menu a:focus-visible .px-cur { visibility: visible; }
 .px-slot { background: var(--color-bg); display: grid; place-items: center; }
+
+/* ---- Title screen: full-bleed bands, starfield, the handheld ---- */
+.px-band { position: relative; overflow: hidden; }
+.px-band-hero { background: linear-gradient(180deg, var(--px-k) 0%, var(--px-navy) 100%); border-bottom: 4px solid var(--px-k); }
+.px-band-yellow { background: var(--px-yellow); color: var(--px-k); border-block: 4px solid var(--px-k); }
+.px-starfield { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; pointer-events: none; }
+.px-hero-title { font-family: var(--font-pixel, sans-serif); font-weight: 400; font-size: clamp(64px, 10vw, 128px); line-height: 0.82; letter-spacing: 0.01em; }
+.px-hero-title span { display: block; }
+.px-hero-title .px-shadow { text-shadow: 4px 4px 0 var(--px-k), 0 0 32px rgb(255 236 39 / 0.25); }
+.px-band-yellow .px-menu a:hover, .px-band-yellow .px-menu a:focus-visible { background: var(--px-k); color: var(--px-yellow); }
+.px-band-yellow .px-menu a:hover .px-sub, .px-band-yellow .px-menu a:focus-visible .px-sub { color: var(--px-yellow); }
+.px-band-yellow .px-sub { color: rgb(0 0 0 / 0.7); }
+.px-band-yellow .px-menu li { border-top: 3px solid var(--px-k); }
+
+.dv { --dv-body: var(--px-white); --dv-shade: var(--px-lgray); position: relative; width: min(100%, 400px); padding: 18px 22px 16px; background: var(--dv-body); color: var(--px-k); border-radius: 18px 18px 56px 18px; box-shadow: inset -6px -8px 0 0 var(--dv-shade), 0 0 0 4px var(--px-k), 10px 12px 0 0 rgb(0 0 0 / 0.45); outline: none; }
+.dv:focus-visible { box-shadow: inset -6px -8px 0 0 var(--dv-shade), 0 0 0 4px var(--px-yellow), 10px 12px 0 0 rgb(0 0 0 / 0.45); }
+.dv-top { display: flex; align-items: center; gap: 8px; font-size: 10px; color: var(--px-dgray); margin-bottom: 8px; }
+.dv-led { width: 8px; height: 8px; background: var(--px-dgray); box-shadow: 0 0 0 2px var(--px-k); }
+.dv-led[data-on] { background: var(--px-red); box-shadow: 0 0 0 2px var(--px-k), 0 0 10px var(--px-red); }
+.dv-bezel { background: var(--px-navy); padding: 14px; border-radius: 8px 8px 24px 8px; box-shadow: inset 0 0 0 3px var(--px-k); position: relative; }
+.dv-screen { display: block; width: 100%; aspect-ratio: 4 / 3; image-rendering: pixelated; background: var(--px-k); box-shadow: 0 0 0 3px var(--px-k), 0 0 24px rgb(41 173 255 / 0.25); }
+.dv-bezel::after { content: ""; position: absolute; inset: 14px; pointer-events: none; background: repeating-linear-gradient(0deg, rgb(0 0 0 / 0.22) 0 1px, transparent 1px 3px), radial-gradient(ellipse at 30% 20%, rgb(255 255 255 / 0.10), transparent 55%); }
+.dv-controls { display: flex; align-items: center; justify-content: space-between; margin-top: 18px; padding-inline: 6px; }
+.dv-dpad { display: grid; grid-template-columns: repeat(3, 30px); grid-template-rows: repeat(3, 30px); }
+.dv-d { background: var(--px-k); border: 0; padding: 0; cursor: pointer; }
+.dv-d:active { background: var(--px-dgray); }
+.dv-up { grid-column: 2; grid-row: 1; border-radius: 4px 4px 0 0; }
+.dv-left { grid-column: 1; grid-row: 2; border-radius: 4px 0 0 4px; }
+.dv-mid { grid-column: 2; grid-row: 2; background: var(--px-k); }
+.dv-right { grid-column: 3; grid-row: 2; border-radius: 0 4px 4px 0; }
+.dv-down { grid-column: 2; grid-row: 3; border-radius: 0 0 4px 4px; }
+.dv-ab { display: flex; gap: 14px; transform: rotate(-18deg); }
+.dv-btn { width: 52px; height: 52px; border-radius: 50%; border: 0; font: 400 16px var(--font-pixel-caps, monospace); color: var(--px-white); cursor: pointer; box-shadow: inset -3px -4px 0 0 rgb(0 0 0 / 0.35), 0 0 0 3px var(--px-k), 0 4px 0 3px var(--px-k); }
+.dv-btn:active { transform: translateY(3px); box-shadow: inset -3px -4px 0 0 rgb(0 0 0 / 0.35), 0 0 0 3px var(--px-k), 0 1px 0 3px var(--px-k); }
+.dv-a { background: var(--px-red); margin-top: -18px; }
+.dv-b { background: var(--px-lav); }
+.dv-pads { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 18px; }
+.dv-pad { aspect-ratio: 1.4; border: 0; border-radius: 6px; cursor: pointer; display: flex; align-items: flex-end; justify-content: flex-start; padding: 5px 7px; font-size: 11px; color: var(--px-k); box-shadow: inset -3px -4px 0 0 rgb(0 0 0 / 0.25), 0 0 0 3px var(--px-k), 0 4px 0 3px var(--px-k); }
+.dv-pad:active, .dv-pad[data-on] { transform: translateY(3px); box-shadow: inset -3px -4px 0 0 rgb(0 0 0 / 0.25), 0 0 0 3px var(--px-k), 0 1px 0 3px var(--px-k), 0 0 18px currentColor; }
+.dv-pad-1 { background: var(--px-pink); } .dv-pad-2 { background: var(--px-orange); } .dv-pad-3 { background: var(--px-yellow); } .dv-pad-4 { background: var(--px-green); }
+.dv-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 14px; font-size: 10px; color: var(--px-dgray); }
+.dv-sfx { border: 0; background: var(--px-k); color: var(--px-white); padding: 4px 8px; font-size: 10px; cursor: pointer; }
+.dv-sfx[aria-pressed="false"] { background: var(--px-dgray); }
+
 
 html[data-look="tape"] {
   color-scheme: dark;
@@ -230,3 +273,116 @@ header > a[aria-label="Stash"] {
 [data-loop-wave] .w-50 {
   width: 100%;
 }
+
+/* One-shots tab: the row's waveform, and each sound type's color on its tile. */
+.os-wave rect { fill: var(--color-text-muted); }
+.os-row[data-selected] .os-wave rect { fill: var(--color-accent); }
+.os-type { position: relative; overflow: hidden; }
+.os-type::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 4px; background: var(--os-c, var(--color-border-strong)); }
+.os-type[data-cat="808"] { --os-c: var(--px-red); }
+.os-type[data-cat="kick"] { --os-c: var(--px-orange); }
+.os-type[data-cat="snare"] { --os-c: var(--px-yellow); }
+.os-type[data-cat="clap"] { --os-c: var(--px-peach); }
+.os-type[data-cat="hat"] { --os-c: var(--px-green); }
+.os-type[data-cat="open-hat"] { --os-c: var(--px-blue); }
+.os-type[data-cat="perc"] { --os-c: var(--px-lav); }
+.os-type[data-cat="cymbal"] { --os-c: var(--px-pink); }
+.os-type[data-cat="fx"] { --os-c: var(--px-white); }
+html[data-look="console"] .os-type { border-width: 2px; border-radius: 0; }
+html[data-look="console"] .os-type[aria-pressed="true"] { box-shadow: 4px 4px 0 0 var(--px-k); transform: translate(-2px, -2px); }
+html[data-look="console"] .os-type-count { font-family: var(--font-pixel); font-size: 40px; line-height: 1; }
+html[data-look="console"] .os-row[data-selected] { box-shadow: inset 4px 0 0 0 var(--color-accent); }
+html[data-look="console"] .os-upload { border-radius: 0; box-shadow: 4px 4px 0 0 var(--px-k); }
+html[data-look="console"] .os-upload:active { transform: translate(4px, 4px); box-shadow: none; }
+
+/*
+ * Stash: the default look. Modern and social, the way creator platforms dress: a near-black base
+ * that lets cover art and avatars carry the color, one hot pink for actions, a soft glow of pink
+ * and blue at the top of the page, pill controls, rounded cards and a grotesk for headings.
+ * The game touches (rarity tags, pixel cover icons) stay as accents only.
+ */
+html[data-look="stash"] {
+  color-scheme: dark;
+  --color-bg: #09090b;
+  --color-surface: #121216;
+  --color-raised: #1b1b21;
+  --color-border: #25252c;
+  --color-border-strong: #3d3d48;
+  --color-text: #f7f7f8;
+  --color-text-muted: #a3a3af;
+  --color-accent: #ff4f8b;
+  --color-type-loop: #5b9cff;
+  --color-type-oneshot: #ffc23d;
+  --color-type-kit: #ff7a45;
+  --color-type-midi: #b58cff;
+  --color-type-preset: #3ddc97;
+  --font-display: "Bricolage Grotesque", "Inter Variable", ui-sans-serif, sans-serif;
+  --radius-control: 9999px;
+  --radius-panel: 16px;
+  --st-pink: #ff4f8b;
+  --st-orange: #ff8a3d;
+  --st-blue: #5b9cff;
+  --st-violet: #9b7bff;
+  --st-glow-pink: rgb(255 79 139 / 0.14);
+  --st-glow-blue: rgb(91 156 255 / 0.10);
+  --st-glass: rgb(9 9 11 / 0.72);
+}
+html[data-look="stash"] body {
+  background:
+    radial-gradient(1100px 460px at 12% -8%, var(--st-glow-pink), transparent 62%),
+    radial-gradient(900px 420px at 92% -12%, var(--st-glow-blue), transparent 60%),
+    var(--color-bg);
+  background-repeat: no-repeat;
+}
+html[data-look="stash"] .text-display,
+html[data-look="stash"] .text-title,
+html[data-look="stash"] h1,
+html[data-look="stash"] h2 { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em; }
+html[data-look="stash"] .text-title { font-size: 22px; line-height: 28px; }
+html[data-look="stash"] .text-display { font-size: clamp(40px, 6vw, 72px); line-height: 0.98; font-weight: 800; letter-spacing: -0.035em; }
+html[data-look="stash"] header.border-b { background: var(--st-glass); backdrop-filter: blur(16px); }
+html[data-look="stash"] header .text-title { font-size: 22px; }
+/* Tabs as pills, the way social apps switch feeds. */
+html[data-look="stash"] nav[aria-label="Demo sections"] { background: transparent; border-bottom: 0; }
+html[data-look="stash"] nav[aria-label="Demo sections"] ul { gap: 8px; padding-block: 12px; }
+html[data-look="stash"] nav[aria-label="Demo sections"] a {
+  height: 36px; border: 1px solid var(--color-border); border-radius: 9999px; padding-inline: 16px;
+  background: var(--color-surface); color: var(--color-text-muted);
+}
+html[data-look="stash"] nav[aria-label="Demo sections"] a:hover { color: var(--color-text); border-color: var(--color-border-strong); }
+html[data-look="stash"] nav[aria-label="Demo sections"] a[aria-current="page"] { background: var(--color-text); border-color: var(--color-text); color: var(--color-bg); }
+html[data-look="stash"] a.rounded-panel,
+html[data-look="stash"] li.rounded-panel { transition: border-color 150ms ease, transform 150ms ease; }
+html[data-look="stash"] a.rounded-panel:hover,
+html[data-look="stash"] li.rounded-panel:hover { border-color: var(--color-border-strong); }
+html[data-look="stash"] button.border-accent.bg-accent,
+html[data-look="stash"] a.border-accent.bg-accent { font-weight: 600; box-shadow: 0 8px 24px -10px var(--st-pink); }
+html[data-look="stash"] ::selection { background: var(--color-accent); color: var(--color-bg); }
+html[data-look="stash"] .os-type { border-radius: 14px; }
+html[data-look="stash"] .os-type-count { font-family: var(--font-display); font-weight: 700; font-size: 28px; line-height: 1.1; }
+
+/* Home (Stash look and every other): the parts the home page draws itself. */
+.st-hero-title { font-family: var(--font-display, inherit); }
+.st-grad { background: linear-gradient(90deg, var(--st-pink, var(--color-accent)), var(--st-orange, var(--color-accent))); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.st-avatar { background: linear-gradient(135deg, var(--a1, var(--color-accent)), var(--a2, var(--color-type-loop))); color: var(--px-k); }
+.st-avatar[data-hue="0"] { --a1: var(--st-pink, #ff4f8b); --a2: var(--st-orange, #ff8a3d); }
+.st-avatar[data-hue="1"] { --a1: var(--st-blue, #5b9cff); --a2: var(--st-violet, #9b7bff); }
+.st-avatar[data-hue="2"] { --a1: var(--color-type-preset); --a2: var(--st-blue, #5b9cff); }
+.st-avatar[data-hue="3"] { --a1: var(--color-type-oneshot); --a2: var(--st-pink, #ff4f8b); }
+.st-avatar[data-hue="4"] { --a1: var(--st-violet, #9b7bff); --a2: var(--st-pink, #ff4f8b); }
+.st-avatar[data-hue="5"] { --a1: var(--color-type-kit); --a2: var(--color-type-oneshot); }
+.st-type { position: relative; overflow: hidden; }
+.st-type::after { content: ""; position: absolute; inset: auto -30% -60% auto; width: 70%; aspect-ratio: 1; border-radius: 9999px; background: var(--t, var(--color-accent)); opacity: 0.18; filter: blur(28px); transition: opacity 200ms ease; }
+.st-type:hover::after { opacity: 0.32; }
+.st-type[data-t="loop"] { --t: var(--color-type-loop); }
+.st-type[data-t="oneshot"] { --t: var(--color-type-oneshot); }
+.st-type[data-t="kit"] { --t: var(--color-type-kit); }
+.st-type[data-t="midi"] { --t: var(--color-type-midi); }
+.st-type[data-t="preset"] { --t: var(--color-type-preset); }
+.st-dot { background: var(--t, var(--color-accent)); }
+.st-shelf { scrollbar-width: none; scroll-snap-type: x mandatory; }
+.st-shelf::-webkit-scrollbar { display: none; }
+.st-shelf > * { scroll-snap-align: start; }
+.st-cta { background: linear-gradient(120deg, var(--st-pink, var(--color-accent)), var(--st-violet, var(--color-type-midi)) 55%, var(--st-blue, var(--color-type-loop))); color: var(--px-k); }
+html[data-look="stash"] .st-cover { border-radius: 12px; }
+.st-cta h2 { font-size: clamp(28px, 4vw, 44px); line-height: 1.05; }

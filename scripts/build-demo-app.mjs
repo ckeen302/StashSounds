@@ -175,7 +175,7 @@ writeFileSync(
 <meta name="color-scheme" content="dark">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&family=Fraunces:ital,opsz,wght@1,9..144,600&family=Silkscreen&family=Space+Grotesk:wght@500;700&family=Space+Mono:wght@400;700&family=VT323&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Jersey+10&family=Pixelify+Sans:wght@500;700&family=Fraunces:ital,opsz,wght@1,9..144,600&family=Silkscreen&family=Space+Grotesk:wght@500;700&family=Space+Mono:wght@400;700&family=VT323&display=swap">
 <link rel="stylesheet" href="app.css">
 <style>:root{color-scheme:dark}html,body{height:100%}</style>
 <div id="root"></div>

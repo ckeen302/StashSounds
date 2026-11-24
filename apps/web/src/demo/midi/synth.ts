@@ -69,7 +69,25 @@ export class MidiPlayer {
 
   private ensure(): AudioContext {
     if (this.ctx) return this.ctx;
-    const ctx = new AudioContext({ latencyHint: "interactive" });
+    return this.wire(new AudioContext({ latencyHint: "interactive" }));
+  }
+
+  /**
+   * Renders one drum hit to a buffer, through the same chain as the pads, for downloads. Runs on
+   * its own offline context, so nothing plays and the live player is untouched.
+   */
+  static async renderHit(pitch: number, tune = 1, stretch = 1, seconds = 1): Promise<AudioBuffer> {
+    const rate = 44100;
+    const off = new OfflineAudioContext(2, Math.ceil(rate * Math.max(0.2, seconds)), rate);
+    const p = new MidiPlayer();
+    // The offline context offers every node the drum chain uses; the live-only calls are never reached.
+    p.wire(off as unknown as AudioContext);
+    p.reverb.gain.value = 0.12;
+    p.drum(pitch, (112 / 127) * 0.8, 0, tune, stretch);
+    return off.startRendering();
+  }
+
+  private wire(ctx: AudioContext): AudioContext {
     const comp = ctx.createDynamicsCompressor();
     comp.threshold.value = -14;
     comp.ratio.value = 4;

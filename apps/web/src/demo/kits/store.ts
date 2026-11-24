@@ -189,7 +189,7 @@ function db(): Promise<IDBDatabase | null> {
     }
   });
 }
-async function putFile(key: string, data: ArrayBuffer) {
+export async function putFile(key: string, data: ArrayBuffer) {
   memFiles.set(key, data);
   const d = await db();
   if (!d) return;
@@ -200,7 +200,7 @@ async function putFile(key: string, data: ArrayBuffer) {
     tx.onerror = () => resolve();
   });
 }
-async function getFile(key: string): Promise<ArrayBuffer | null> {
+export async function getFile(key: string): Promise<ArrayBuffer | null> {
   const m = memFiles.get(key);
   if (m) return m;
   const d = await db();
@@ -211,7 +211,7 @@ async function getFile(key: string): Promise<ArrayBuffer | null> {
     req.onerror = () => resolve(null);
   });
 }
-async function deleteFile(key: string) {
+export async function deleteFile(key: string) {
   memFiles.delete(key);
   const d = await db();
   if (!d) return;

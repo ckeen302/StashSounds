@@ -96,16 +96,6 @@ export function PresetsPage() {
     for (const x of indexed) counts.set(x.family, (counts.get(x.family) ?? 0) + 1);
     return [...counts.entries()].sort((a, b) => b[1] - a[1]);
   }, [indexed]);
-  const stats = useMemo(
-    () => ({
-      sounds: PRESETS.length,
-      exact: PRESETS.filter((p) => p.preset).length,
-      songs: new Set(PRESETS.map((p) => `${p.song}|${p.artist}`.toLowerCase())).size,
-      producers: PRESETS.filter((p) => p.confidence === "producer").length,
-    }),
-    [],
-  );
-
   const needle = q.trim().toLowerCase();
   const matching = indexed
     .filter(
@@ -134,21 +124,10 @@ export function PresetsPage() {
           <span className="text-label text-label-caps text-text-muted">Presets</span>
           <h1 className="text-display text-balance">The presets behind the songs</h1>
         </div>
-        <dl className="flex flex-wrap gap-x-6 gap-y-2">
-          {(
-            [
-              [stats.sounds, "sounds"],
-              [stats.exact, "exact presets"],
-              [stats.songs, "songs"],
-              [stats.producers, "from the producer"],
-            ] as const
-          ).map(([n, label]) => (
-            <div key={label} className="flex items-baseline gap-2">
-              <dd className="font-mono text-title tabular text-accent">{n}</dd>
-              <dt className="text-small text-text-muted">{label}</dt>
-            </div>
-          ))}
-        </dl>
+        <p className="max-w-prose text-body text-text-muted">
+          The synth, plugin and exact patch on the records you know, each one linked to where it was said and graded by who said it: the producer, the engineer, the
+          press or the community.
+        </p>
       </header>
 
       {!touched && <FromTheProducer />}

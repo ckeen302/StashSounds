@@ -76,7 +76,7 @@ export function Cover({
         role="img"
         aria-label={`${row.album} cover`}
         style={{ backgroundImage: `url("${row.file}")` }}
-        className={`${box} shrink-0 rounded-control border border-border bg-raised bg-cover bg-center shadow-lg`}
+        className={`${box} st-cover shrink-0 rounded-control border border-border bg-raised bg-cover bg-center shadow-lg`}
       />
     );
   }
@@ -87,7 +87,7 @@ export function Cover({
   return (
     <span
       aria-hidden="true"
-      className={`${box} flex shrink-0 items-center justify-center overflow-hidden rounded-control border border-border ${sleeve}`}
+      className={`${box} flex shrink-0 items-center justify-center st-cover overflow-hidden rounded-control border border-border ${sleeve}`}
     >
       <Sprite id={icon} size={px} />
     </span>

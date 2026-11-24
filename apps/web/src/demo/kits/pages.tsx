@@ -266,7 +266,7 @@ const MAX_LENGTH_MS = 15_000;
 
 type Row = Draft & { key: string };
 
-export function KitUploadPage() {
+export function KitUploadPage({ embedded = false }: { embedded?: boolean } = {}) {
   const toast = useToast();
   const [rows, setRows] = useState<Row[]>([]);
   const [problems, setProblems] = useState<string[]>([]);
@@ -328,9 +328,10 @@ export function KitUploadPage() {
     }
   };
 
+  const Wrap = embedded ? "div" : "main";
   return (
-    <main className="mx-auto flex w-full max-w-content flex-col gap-6 px-3 py-8 tablet:px-4 desktop:px-6">
-      <header className="flex flex-col gap-1">
+    <Wrap className={embedded ? "flex w-full flex-col gap-6" : "mx-auto flex w-full max-w-content flex-col gap-6 px-3 py-8 tablet:px-4 desktop:px-6"}>
+      <header className={embedded ? "sr-only" : "flex flex-col gap-1"}>
         <span className="text-label text-label-caps text-text-muted">Upload a kit</span>
         <h1 className="text-title">Post your drum kit</h1>
         <p className="max-w-prose text-body text-text-muted">
@@ -426,6 +427,6 @@ export function KitUploadPage() {
           </section>
         </>
       )}
-    </main>
+    </Wrap>
   );
 }

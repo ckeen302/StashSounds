@@ -1,6 +1,6 @@
 import { getEngine } from "@stash/audio";
 import type { ItemRow } from "@stash/contracts";
-import { saveFiles } from "./save";
+import { saveFiles, wav } from "./save";
 import { Button, Download, FilterChip, Pause, Play, RotateCcw, Slider, Stepper, useToast } from "@stash/ui";
 import { useEffect, useRef, useState } from "react";
 import { audioContext } from "./kits/store";
@@ -31,36 +31,6 @@ function reversed(ctx: BaseAudioContext, buf: AudioBuffer): AudioBuffer {
   return out;
 }
 
-/** 16-bit PCM wav. */
-function wav(buf: AudioBuffer): Blob {
-  const ch = buf.numberOfChannels;
-  const len = buf.length * ch * 2;
-  const view = new DataView(new ArrayBuffer(44 + len));
-  const str = (o: number, s: string) => [...s].forEach((c, i) => view.setUint8(o + i, c.charCodeAt(0)));
-  str(0, "RIFF");
-  view.setUint32(4, 36 + len, true);
-  str(8, "WAVE");
-  str(12, "fmt ");
-  view.setUint32(16, 16, true);
-  view.setUint16(20, 1, true);
-  view.setUint16(22, ch, true);
-  view.setUint32(24, buf.sampleRate, true);
-  view.setUint32(28, buf.sampleRate * ch * 2, true);
-  view.setUint16(32, ch * 2, true);
-  view.setUint16(34, 16, true);
-  str(36, "data");
-  view.setUint32(40, len, true);
-  const data = Array.from({ length: ch }, (_, c) => buf.getChannelData(c));
-  let o = 44;
-  for (let i = 0; i < buf.length; i++) {
-    for (let c = 0; c < ch; c++) {
-      const v = Math.max(-1, Math.min(1, data[c]![i]!));
-      view.setInt16(o, v < 0 ? v * 0x8000 : v * 0x7fff, true);
-      o += 2;
-    }
-  }
-  return new Blob([view], { type: "audio/wav" });
-}
 
 /** Schedules the arrangement on any context: each step plays its slice, rests leave a gap. */
 function schedule(ctx: BaseAudioContext, buf: AudioBuffer, s: Settings, loopSeconds: number, dest: AudioNode, start: number, fromStep = 0, steps = s.order.length) {

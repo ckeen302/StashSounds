@@ -443,7 +443,7 @@ const SAMPLES = [
 type Draft = { analysis: MidiAnalysis; fileName: string; title: string; kind: MidiKind; sound: SoundId; bpm: string; tags: string };
 
 /** The demo's upload: pick or drop a .mid, check what was read from it, hear it, post it. */
-export function UploadPage() {
+export function UploadPage({ embedded = false }: { embedded?: boolean } = {}) {
   const [draft, setDraft] = useState<Draft | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -518,9 +518,10 @@ export function UploadPage() {
   const titleOk = !!draft && draft.title.trim().length > 0 && draft.title.trim().length <= 80;
   const previewing = s.currentId === previewId;
 
+  const Wrap = embedded ? "div" : "main";
   return (
-    <main className="mx-auto flex w-full max-w-content flex-col gap-6 px-3 py-8 tablet:px-4 desktop:px-6">
-      <header className="flex flex-col gap-1">
+    <Wrap className={embedded ? "flex w-full flex-col gap-6" : "mx-auto flex w-full max-w-content flex-col gap-6 px-3 py-8 tablet:px-4 desktop:px-6"}>
+      <header className={embedded ? "sr-only" : "flex flex-col gap-1"}>
         <span className="text-label text-label-caps text-text-muted">Upload</span>
         <h1 className="text-title">Post a MIDI file</h1>
         <p className="max-w-prose text-body text-text-muted">
@@ -684,7 +685,7 @@ export function UploadPage() {
           </form>
         </section>
       )}
-    </main>
+    </Wrap>
   );
 }
 

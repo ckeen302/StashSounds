@@ -6,6 +6,7 @@ import { useSyncExternalStore } from "react";
  * the design spec's own; the others are directions to react to. The pick is kept in this browser.
  */
 export const LOOKS = [
+  { id: "stash", name: "Stash", blurb: "Modern and social: near black, one hot pink, artwork and people up front." },
   { id: "console", name: "Console", blurb: "Fantasy games console: 16 colours, pixel type, loot rarity." },
   { id: "studio", name: "Studio", blurb: "The spec: ink black, one lime light." },
   { id: "tape", name: "Tape", blurb: "70s cassette: warm brown, orange, italic serif." },
@@ -14,9 +15,9 @@ export const LOOKS = [
 ] as const;
 export type LookId = (typeof LOOKS)[number]["id"];
 
-const KEY = "stash.demo.look.v3";
+const KEY = "stash.demo.look.v4";
 const listeners = new Set<() => void>();
-let current: LookId = "console";
+let current: LookId = "stash";
 
 function apply(id: LookId) {
   current = id;
@@ -32,10 +33,10 @@ export function startLooks() {
   try {
     saved = window.localStorage.getItem(KEY);
   } catch {
-    // Storage blocked: start on Console.
+    // Storage blocked: start on Stash.
   }
   const found = LOOKS.find((l) => l.id === saved);
-  apply(found ? found.id : "console");
+  apply(found ? found.id : "stash");
 }
 
 export function setLook(id: LookId) {
@@ -54,7 +55,7 @@ export function useLook(): LookId {
       return () => listeners.delete(l);
     },
     () => current,
-    () => "console",
+    () => "stash",
   );
 }
 
