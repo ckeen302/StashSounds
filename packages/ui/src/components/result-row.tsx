@@ -1,6 +1,7 @@
 "use client";
 
-import { formatKey, type ItemRow } from "@stash/contracts";
+import type { ItemRow } from "@stash/contracts";
+import { formatKey } from "@stash/contracts/format";
 import { useState, type ReactNode } from "react";
 import { TagChip, TYPE_LABEL } from "./chip.tsx";
 import { cx, transition, type PreviewState } from "./cx.ts";
@@ -15,19 +16,33 @@ import { Waveform } from "./waveform.tsx";
 
 /**
  * Column widths, shared by the header and every row so the numbers line up down the list.
- * Design spec: The result row. Waveform drops out on phone; tags and length drop out below desktop.
+ * Design spec: The result row. Waveform drops out on phone; length drops out below desktop. Tags show
+ * only when the list itself is at least 880 px wide (the list-wide container variant, PR #12 review):
+ * at 1024 with the 232 px rail the list is about 744 wide and the title gets that room instead. Where
+ * tags do show, only the chips that fit whole are drawn (they wrap into a clipped line).
+ * On touch the three actions are 40 px each, so their cell grows to 120 and stays clear of the BPM.
  */
 const col = {
   play: "w-10 shrink-0",
   wave: "hidden w-50 shrink-0 tablet:block",
-  title: "min-w-0 flex-1",
-  tags: "hidden w-44 shrink-0 desktop:flex",
+  title: "min-w-24 flex-1",
+  tags: "hidden h-6 w-44 min-w-0 flex-wrap items-center overflow-hidden list-wide:flex",
   key: "hidden w-14 shrink-0 tablet:block",
   bpm: "w-14 shrink-0 text-right",
   len: "hidden w-14 shrink-0 text-right desktop:block",
-  actions: "hidden w-24 shrink-0 justify-end tablet:flex",
+  actions: "hidden w-24 shrink-0 justify-end tablet:flex pointer-coarse:w-30",
 };
-const rowGrid = "flex items-center gap-4 px-3";
+// 12 px between columns: at 1024 with the 232 px rail the spec's columns plus a 96 px title just fit.
+const rowGrid = "flex items-center gap-3 px-3";
+
+/**
+ * A zero-width first item in the tags cell. A wrapping line always keeps its first item, so without
+ * it a chip wider than the cell would be cut; behind it, that chip wraps to the clipped second line.
+ * The negative margin cancels the gap so the chips still start at the cell's edge.
+ */
+function TagSpacer() {
+  return <span aria-hidden="true" className="-me-1 h-6 w-0" />;
+}
 
 /** Engraved column labels over a list of rows. Visual only: each cell names itself to screen readers. */
 export function ResultHeader({ lengthLabel = "Bars", className }: { lengthLabel?: string; className?: string }) {
@@ -60,7 +75,7 @@ export function ResultList({
   className?: string;
 }) {
   return (
-    <div className={cx("overflow-hidden rounded-panel border border-border bg-surface", className)}>
+    <div className={cx("@container/result-list overflow-hidden rounded-panel border border-border bg-surface", className)}>
       <ResultHeader lengthLabel={lengthLabel} />
       <ul aria-label={label}>{children}</ul>
     </div>
@@ -170,7 +185,8 @@ export function ResultRow({
         </UiLink>
         <span className="truncate text-small text-text-muted">@{row.owner.handle}</span>
       </div>
-      <div className={cx(col.tags, "gap-1 overflow-hidden")}>
+      <div className={cx(col.tags, "gap-1")}>
+        <TagSpacer />
         {row.tags.slice(0, 2).map((t) => (
           <TagChip key={t}>{t}</TagChip>
         ))}
@@ -228,6 +244,7 @@ export function ResultRowSkeleton() {
         <SkeletonBlock className="h-3 w-20" />
       </div>
       <div className={cx(col.tags, "gap-1")}>
+        <TagSpacer />
         <SkeletonBlock className="h-6 w-14" />
         <SkeletonBlock className="h-6 w-12" />
       </div>
@@ -248,7 +265,7 @@ export function ResultRowSkeleton() {
 /** A list's loading state: header and skeleton rows, announced once. */
 export function ResultListSkeleton({ rows = 4, label = "Loading sounds" }: { rows?: number; label?: string }) {
   return (
-    <div role="status" aria-label={label} className="overflow-hidden rounded-panel border border-border bg-surface">
+    <div role="status" aria-label={label} className="@container/result-list overflow-hidden rounded-panel border border-border bg-surface">
       <ResultHeader />
       <ul>
         {Array.from({ length: rows }, (_, i) => (

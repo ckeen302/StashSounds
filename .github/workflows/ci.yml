@@ -37,8 +37,18 @@ jobs:
           # Catches edits and new untracked files alike.
           test -z "$(git status --porcelain -- packages/contracts/generated packages/ui/src/theme.css supabase/migrations)" \
             || { git status --porcelain; git diff; exit 1; }
+      - name: Local storage for the signed-URL tests (SeaweedFS, as in pnpm dev)
+        run: |
+          docker compose up -d --wait storage
+          docker compose run --rm storage-init
+          grep -E '^STASH_(S3|BUCKET)_' .env.example >> "$GITHUB_ENV"
       - name: pnpm test
         run: pnpm test
+        env:
+          STASH_REQUIRE_STORAGE: "1"
+      - name: Storage logs on failure
+        if: failure()
+        run: docker compose logs storage storage-init || true
       - name: Changed audio and contracts code has tests
         if: github.event_name == 'pull_request'
         env:
@@ -94,6 +104,15 @@ jobs:
       - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg libchromaprint-tools
       - name: pnpm worker:test
         run: pnpm worker:test
+      # Isolation tests start the job child as another uid, which needs root. As root with
+      # STASH_REQUIRE_ISOLATION=1 they fail instead of skipping (request 112-worker-isolation-ci).
+      - name: Worker isolation tests (as root)
+        working-directory: apps/worker
+        # The job user (nobody) must reach the venv's interpreter and the checkout: open search
+        # permission on each folder above it (the runner's home is 0750).
+        run: |
+          d="$PWD"; while [ "$d" != / ]; do sudo chmod o+x "$d"; d="$(dirname "$d")"; done
+          sudo --preserve-env=DATABASE_ADMIN_URL,STASH_REQUIRE_DB env STASH_REQUIRE_ISOLATION=1 .venv/bin/python -m pytest -q -p no:cacheprovider
       - name: Lint and format
         working-directory: apps/worker
         run: uv run --frozen ruff check . && uv run --frozen ruff format --check .
@@ -101,14 +120,13 @@ jobs:
   browser:
     name: End-to-end, visual, accessibility and performance
     runs-on: ubuntu-24.04
-    # The same image scripts/visual.mjs uses locally, so screenshots render identically everywhere.
-    container:
-      image: mcr.microsoft.com/playwright:v1.63.0-noble
-      options: --ipc=host
+    # Runs on the host so the Supabase stack (Docker) and Mailpit can serve the sign-up journeys
+    # (request 133-e2e-supabase). Screenshots still come from the pinned Playwright container:
+    # scripts/visual.mjs runs it with --network host, so baselines render identically everywhere.
     env:
-      STASH_PLAYWRIGHT_CONTAINER: "1"
       NEXT_PUBLIC_SITE_URL: http://localhost:3100
-      HOME: /root
+      NEXT_PUBLIC_PREVIEWS_BASE_URL: http://127.0.0.1:9000/previews
+      STASH_MAILPIT_URL: http://127.0.0.1:54324
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -117,15 +135,21 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - name: Start Supabase (migrations and seed) and Mailpit
+        run: |
+          npx supabase start
+          npx supabase status -o env | sed -n 's/^API_URL="\(.*\)"$/NEXT_PUBLIC_SUPABASE_URL=\1/p; s/^ANON_KEY="\(.*\)"$/NEXT_PUBLIC_SUPABASE_ANON_KEY=\1/p; s/^SERVICE_ROLE_KEY="\(.*\)"$/SUPABASE_SERVICE_ROLE_KEY=\1/p' >> "$GITHUB_ENV"
+      - name: Install the Playwright browser for e2e and perf on the host
+        run: pnpm exec playwright install --with-deps chromium
       - name: Build and start the web app once for all three gates
         run: |
           pnpm --filter @stash/web build
-          (pnpm --filter @stash/web exec next start --port 3100 &)
+          (STASH_DEV_PAGES=1 pnpm --filter @stash/web exec next start --port 3100 &)
           npx --yes wait-on@8 http://localhost:3100/api/health
       - name: pnpm e2e (includes the accessibility scan)
         env: { STASH_BASE_URL: "http://localhost:3100" }
         run: pnpm e2e
-      - name: pnpm visual
+      - name: pnpm visual (pinned container, host network)
         env: { STASH_BASE_URL: "http://localhost:3100" }
         run: pnpm visual
       - name: pnpm perf
@@ -154,6 +178,8 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - name: pnpm dev starts Supabase (migrations and seed), storage, the worker and the web app
         run: pnpm dev --check
+      - name: The production worker image builds
+        run: docker compose --profile worker build worker
       - name: Logs on failure
         if: failure()
         run: docker compose logs storage storage-init || true

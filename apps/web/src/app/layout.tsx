@@ -4,6 +4,7 @@ import "@fontsource-variable/inter";
 import "@fontsource-variable/jetbrains-mono";
 import "./globals.css";
 import { Providers } from "./providers";
+import { AppShell } from "./_shell/app-shell";
 
 export const metadata: Metadata = {
   title: { default: "Stash", template: "%s · Stash" },
@@ -13,14 +14,16 @@ export const metadata: Metadata = {
 export const viewport: Viewport = { themeColor: color.bg, colorScheme: "dark" };
 
 /**
- * Root layout. The app shell, the player bar and the audio engine mount here in ticket 132, outside
- * page content, so playback survives every navigation.
+ * Root layout. The app shell and the player bar mount here, outside page content, and the engine is
+ * one instance for the session, so playback survives every client navigation.
  */
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="min-h-dvh bg-bg text-text">
-        <Providers>{children}</Providers>
+      <body className="h-dvh overflow-hidden bg-bg text-text">
+        <Providers>
+          <AppShell>{children}</AppShell>
+        </Providers>
       </body>
     </html>
   );

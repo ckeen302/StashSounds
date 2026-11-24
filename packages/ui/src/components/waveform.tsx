@@ -1,10 +1,12 @@
 "use client";
 
-import { decodePeaks, type ItemRow, type ItemType } from "@stash/contracts";
+import type { ItemRow, ItemType } from "@stash/contracts";
+import { decodePeaks } from "@stash/contracts/format";
 import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent, type RefObject } from "react";
 import { color, typeColor, WAVEFORM_UNPLAYED_OPACITY } from "../tokens.ts";
 import type {} from "./css-vars.ts";
 import { cx } from "./cx.ts";
+import { useFrameLoop } from "./frame.ts";
 import {
   barHeight,
   barLayout,
@@ -28,6 +30,11 @@ export type WaveformProps = {
   variant?: WaveformVariant;
   /** Playback position from 0 to 1. The color change is the playhead. */
   progress?: number;
+  /**
+   * Reads the position (0 to 1) on every animation frame while `playing`, instead of `progress`.
+   * The player passes the engine's clock here so position never becomes React state.
+   */
+  getProgress?: () => number;
   /** Hero only: shows the accent playhead and its time. */
   playing?: boolean;
   /** The peaks could not be read. */
@@ -73,6 +80,7 @@ export function Waveform({
   type,
   variant = "mini",
   progress: rawProgress = 0,
+  getProgress,
   playing = false,
   error = false,
   durationMs,
@@ -87,7 +95,8 @@ export function Waveform({
   const [hoverAt, setHoverAt] = useState<number | null>(null);
   const [scrubbing, setScrubbing] = useState(false);
   const hero = variant === "hero";
-  const progress = clamp01(rawProgress);
+  const progress = clamp01(getProgress ? 0 : rawProgress);
+  const sliderRef = useRef<HTMLDivElement>(null);
   const pointer = pointerPreview === undefined ? hoverAt : clamp01(pointerPreview);
 
   const decoded = useMemo(() => {
@@ -105,12 +114,17 @@ export function Waveform({
     return barValues(decoded, layout.count).map(loudness);
   }, [decoded, error, layout.count]);
 
-  useEffect(() => {
+  const paint = useCallback((progress: number) => {
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext("2d");
     if (!canvas || !ctx || width === 0 || height === 0) return;
-    canvas.width = Math.round(width * dpr);
-    canvas.height = Math.round(height * dpr);
+    const w = Math.round(width * dpr);
+    const hgt = Math.round(height * dpr);
+    // Resizing a canvas reallocates it; do it only when the size changes, not every frame.
+    if (canvas.width !== w || canvas.height !== hgt) {
+      canvas.width = w;
+      canvas.height = hgt;
+    }
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, width, height);
 
@@ -145,22 +159,45 @@ export function Waveform({
       ctx.fillStyle = color.accent;
       ctx.fillRect(Math.min(width - 1, Math.round(playedX)), 0, 1, height);
     }
-  }, [width, height, dpr, layout, values, decoded, progress, playing, pointer, error, hero, bars, type, variant]);
+  }, [width, height, dpr, layout, values, decoded, playing, pointer, error, hero, bars, type, variant]);
+
+  const ms = durationMs && Number.isFinite(durationMs) && durationMs > 0 ? durationMs : 0;
+  const frame = useCallback(() => {
+    if (!getProgress) return paint(progress);
+    const p = clamp01(getProgress());
+    paint(p);
+    // The slider's value follows the clock too, written straight to the element.
+    const el = sliderRef.current;
+    if (el?.getAttribute("role") === "slider") {
+      const now = String(Math.round(p * 100));
+      if (el.getAttribute("aria-valuenow") !== now) {
+        el.setAttribute("aria-valuenow", now);
+        if (ms > 0) el.setAttribute("aria-valuetext", `${formatTime(p * ms)} of ${formatTime(ms)}`);
+      }
+    }
+  }, [getProgress, paint, progress, ms]);
+  useFrameLoop(frame, Boolean(getProgress) && playing);
 
   const fromEvent = useCallback((e: PointerEvent<HTMLElement>) => fractionAt(e.clientX - e.currentTarget.getBoundingClientRect().left, e.currentTarget.clientWidth), []);
   const interactive = Boolean(onScrub) && !error;
 
+  const scrub = (f: number) => {
+    onScrub?.(f);
+    // With a clock reader, show the new position at once even while paused.
+    if (getProgress) frame();
+  };
   const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
-    const next = onScrub ? seekFromKey(e.key, progress, e.shiftKey) : null;
+    const now = getProgress ? clamp01(getProgress()) : progress;
+    const next = onScrub ? seekFromKey(e.key, now, e.shiftKey) : null;
     if (next === null) return;
     e.preventDefault();
-    onScrub?.(next);
+    scrub(next);
   };
 
-  const ms = durationMs && Number.isFinite(durationMs) && durationMs > 0 ? durationMs : 0;
   const timeAt = (f: number) => formatTime(f * ms);
   const edge = (f: number) => (f < 0.08 ? "translate-x-0" : f > 0.92 ? "-translate-x-full" : "-translate-x-1/2");
-  const showPlayhead = hero && (playing || progress > 0) && !error && ms > 0;
+  // With a clock reader the time is shown by the player, not as a floating label.
+  const showPlayhead = hero && !getProgress && (playing || progress > 0) && !error && ms > 0;
 
   return (
     <div className={cx("relative flex min-w-0 flex-col", hero ? "gap-1" : "", className)}>
@@ -179,6 +216,7 @@ export function Waveform({
         </div>
       )}
       <div
+        ref={sliderRef}
         role={interactive && hero ? "slider" : "img"}
         aria-label={interactive && hero ? `Seek, ${label}` : label}
         aria-valuemin={interactive && hero ? 0 : undefined}
@@ -191,13 +229,13 @@ export function Waveform({
         onPointerMove={interactive ? (e) => {
           const f = fromEvent(e);
           setHoverAt(f);
-          if (scrubbing) onScrub?.(f);
+          if (scrubbing) scrub(f);
         } : undefined}
         onPointerLeave={interactive ? () => !scrubbing && setHoverAt(null) : undefined}
         onPointerDown={interactive ? (e) => {
           e.currentTarget.setPointerCapture(e.pointerId);
           setScrubbing(true);
-          onScrub?.(fromEvent(e));
+          scrub(fromEvent(e));
         } : undefined}
         onPointerUp={interactive ? (e) => {
           e.currentTarget.releasePointerCapture(e.pointerId);

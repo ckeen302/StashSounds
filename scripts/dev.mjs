@@ -58,7 +58,8 @@ const procs = [
   ["worker", "uv", ["run", "python", "-m", "stash_worker"], join(root, "apps/worker")],
   ["web", "pnpm", ["--filter", "@stash/web", "dev"], root],
 ].map(([name, cmd, args, cwd]) => {
-  const p = spawn(cmd, args, { cwd, env: { ...process.env, FORCE_COLOR: "1" }, stdio: ["ignore", "pipe", "pipe"] });
+  // STASH_DEV_PAGES turns on test-only pages such as /dev/player for local work (request 132-dev-pages-flag).
+  const p = spawn(cmd, args, { cwd, env: { ...process.env, FORCE_COLOR: "1", STASH_DEV_PAGES: "1" }, stdio: ["ignore", "pipe", "pipe"] });
   const tag = `[${name}]`.padEnd(9);
   for (const s of [p.stdout, p.stderr]) s.on("data", (d) => process.stdout.write(d.toString().replace(/^(?=.)/gm, tag)));
   p.on("exit", (code) => console.log(`${tag}exited with ${code}`));

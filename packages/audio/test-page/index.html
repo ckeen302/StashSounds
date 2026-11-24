@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Audio engine test page</title>
+  </head>
+  <body>
+    <!-- Bare test page for packages/audio (ticket 121). Not product UI: no tokens, no components. -->
+    <h1>Audio engine test page</h1>
+    <p>
+      <label>Fixture loop <select id="fixture"></select></label>
+    </p>
+    <p>
+      <button id="play" type="button">Play</button>
+      <button id="pause" type="button">Pause</button>
+      <button id="retry" type="button">Play (no argument: resume or retry)</button>
+    </p>
+    <p>
+      <label>Position <input id="seek" type="range" min="0" max="1000" value="0" /></label>
+      <output id="position">0 ms</output>
+    </p>
+    <p>
+      <label>Volume <input id="volume" type="range" min="0" max="100" value="80" /></label>
+    </p>
+    <pre id="state"></pre>
+    <script type="module" src="/test-page/main.ts"></script>
+  </body>
+</html>

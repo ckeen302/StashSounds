@@ -11,6 +11,7 @@ export const componentSections: { id: string; name: string; states: string[] }[]
   { id: "c-icon-button", name: "Icon button", states: ["ghost", "pad", "hover", "focus", "pressed", "disabled", "on"] },
   { id: "c-play", name: "Play button", states: ["paused", "loading", "playing", "error", "hover", "focus"] },
   { id: "c-input", name: "Text and search input", states: ["search", "text", "focus", "filled", "invalid", "disabled", "hint"] },
+  { id: "c-slider", name: "Slider", states: ["volume", "hover", "dragging", "focus", "disabled", "live"] },
   { id: "c-chip", name: "Chip", states: ["type", "tag", "filter", "selected", "removable", "hover"] },
   { id: "c-license", name: "License badge", states: ["royalty-free", "credit required", "split on placement", "hover shows the summary"] },
   { id: "c-avatar", name: "Avatar", states: ["fallback initials", "loading"] },
@@ -26,6 +27,7 @@ export const componentSections: { id: string; name: string; states: string[] }[]
   { id: "c-steps", name: "Progress steps", states: ["uploading", "analyzing", "ready", "flagged", "active", "done", "failed"] },
   { id: "c-row", name: "Result row, loop", states: ["default", "hover", "selected", "playing", "loading", "error", "skeleton", "live"] },
   { id: "c-wave", name: "Waveform", states: ["mini", "hero", "loading", "playing", "scrubbing", "error", "idle"] },
+  { id: "c-player", name: "Player bar", states: ["idle", "loading", "playing", "paused", "error", "phone sheet"] },
 ];
 
 export const sectionSelector = (id: string) => `section[aria-labelledby="${id}"]`;

@@ -1,0 +1,11 @@
+{
+  "rules": [
+    {
+      "id": "expire-staging-uploads",
+      "enabled": true,
+      "conditions": { "prefix": "staging/" },
+      "deleteObjectsTransition": { "condition": { "type": "Age", "maxAge": 86400 } },
+      "abortMultipartUploadsTransition": { "condition": { "type": "Age", "maxAge": 86400 } }
+    }
+  ]
+}

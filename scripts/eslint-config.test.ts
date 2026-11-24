@@ -21,6 +21,7 @@ const cases: Array<{ name: string; path: string; code: string; expect: string | 
   { name: "app may not reach into package internals", path: "apps/web/src/app/x/page.tsx", code: `import { x } from "@stash/contracts/src/item.ts";\nexport const c = x;\n`, expect: "no-restricted-imports" },
   { name: "app may not use relative paths into packages", path: "apps/web/src/app/x/y/page.tsx", code: `import { x } from "../../../../../packages/contracts/src/index.ts";\nexport const c = x;\n`, expect: "no-restricted-imports" },
   { name: "app may use the contracts entry", path: "apps/web/src/app/x/page.tsx", code: `import { limits } from "@stash/contracts";\nexport const c = limits;\n`, expect: null },
+  { name: "ui may use the zod-free contracts entry", path: "packages/ui/src/components/x.tsx", code: `import { formatKey } from "@stash/contracts/format";\nexport const c = formatKey;\n`, expect: null },
   { name: "app may not use raw colors", path: "apps/web/src/app/x/page.tsx", code: `export const C = () => <div className="bg-[#ff0000]" />;\n`, expect: "stash/no-raw-color" },
   { name: "app may not use arbitrary values", path: "apps/web/src/app/x/page.tsx", code: `export const C = () => <div className="p-[13px]" />;\n`, expect: "stash/no-arbitrary-values" },
   // Platform lane, including route handlers under app/api
