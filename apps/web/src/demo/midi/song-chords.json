@@ -15420,5 +15420,828 @@
    "url": "https://www.hooktheory.com/theorytab/view/akon/dont-matter"
   },
   "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED."
+ },
+ {
+  "song": "Leave the Door Open",
+  "artist": "Silk Sonic",
+  "producer": null,
+  "key": "A minor",
+  "bpm": 74,
+  "chords": [
+   [
+    "Fmaj7",
+    4
+   ],
+   [
+    "G7/F",
+    4
+   ],
+   [
+    "Em7",
+    4
+   ],
+   [
+    "Am7",
+    4
+   ],
+   [
+    "G/B",
+    4
+   ]
+  ],
+  "section": "Verse (VI7 - VII42 - v7 - i7 - VII6)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Leave the Door Open by Silk Sonic",
+   "url": "https://www.hooktheory.com/theorytab/view/silk-sonic/leave-the-door-open"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Leave the Door Open by Silk Sonic",
+   "url": "https://www.hooktheory.com/theorytab/view/silk-sonic/leave-the-door-open"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Hooktheory lists A minor for verse/chorus and Eb major for the pre-chorus (I7 IV7 iii7 ii7 III11 = Ebmaj7 Abmaj7 Gm7 Fm7 G11 per Hooktheory). Chorus: VI7 VII42 v7 i VI7 (Fmaj7 G7/F Em7 Am Fmaj7). Key/BPM Hooktheory-only, not cross-checked."
+ },
+ {
+  "song": "Bad Habit",
+  "artist": "Steve Lacy",
+  "producer": null,
+  "key": "F minor",
+  "bpm": 85,
+  "chords": [
+   [
+    "Dbmaj7",
+    4
+   ],
+   [
+    "Abmaj7",
+    4
+   ],
+   [
+    "Bbm11",
+    4
+   ],
+   [
+    "Cm7",
+    4
+   ]
+  ],
+  "section": "Intro / Verse / Chorus (VI7 - III7 - iv11 - v7)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Bad Habit by Steve Lacy",
+   "url": "https://www.hooktheory.com/theorytab/view/steve-lacy/bad-habit"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Bad Habit by Steve Lacy",
+   "url": "https://www.hooktheory.com/theorytab/view/steve-lacy/bad-habit"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Same loop in intro, verse and chorus per Hooktheory; outro i7 iv7 VII7 v7 i9 (Fm7 Bbm7 Eb7 Cm7 Fm9), not encoded here. Hooktheory gives 85 BPM (verse listed at 84). Key/BPM Hooktheory-only."
+ },
+ {
+  "song": "Adorn",
+  "artist": "Miguel",
+  "producer": null,
+  "key": "D major",
+  "bpm": 88,
+  "chords": [
+   [
+    "Em7",
+    4
+   ],
+   [
+    "F#m7",
+    4
+   ],
+   [
+    "Bm7",
+    4
+   ],
+   [
+    "G",
+    4
+   ]
+  ],
+  "section": "Verse (ii7 - iii7 - vi7 - IV)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Adorn by Miguel",
+   "url": "https://www.hooktheory.com/theorytab/view/miguel/adorn"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Adorn by Miguel",
+   "url": "https://www.hooktheory.com/theorytab/view/miguel/adorn"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Chorus per Hooktheory: ii7 IV7 V vi7 iii7 (Em7 Gmaj7 A Bm7 F#m7). Key/BPM Hooktheory-only."
+ },
+ {
+  "song": "Gold Digger",
+  "artist": "Kanye West ft. Jamie Foxx",
+  "producer": null,
+  "key": "Ab Mixolydian",
+  "bpm": 93,
+  "chords": [
+   [
+    "Ab",
+    4
+   ],
+   [
+    "Gb",
+    4
+   ]
+  ],
+  "section": "Chorus (I - bVII)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Gold Digger by Kanye West ft. Jamie Foxx",
+   "url": "https://www.hooktheory.com/theorytab/view/kanye-west-(feat-jamie-foxx)/gold-digger"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Gold Digger by Kanye West ft. Jamie Foxx",
+   "url": "https://www.hooktheory.com/theorytab/view/kanye-west-(feat-jamie-foxx)/gold-digger"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Hooktheory key is Ab Mixolydian, so the VII numeral is the flat seventh (Gb). Key/BPM Hooktheory-only."
+ },
+ {
+  "song": "Sing About Me, I'm Dying of Thirst",
+  "artist": "Kendrick Lamar",
+  "producer": null,
+  "key": "C# Dorian",
+  "bpm": 166,
+  "chords": [
+   [
+    "Amaj7",
+    4
+   ],
+   [
+    "D#7sus4",
+    4
+   ],
+   [
+    "C#m9",
+    4
+   ],
+   [
+    "Emaj7",
+    4
+   ],
+   [
+    "A#m7b5",
+    4
+   ]
+  ],
+  "section": "Instrumental (bVI7 - ii7sus4 - i9 - III7(add13) - viø9)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Sing About Me, I'm Dying of Thirst by Kendrick Lamar",
+   "url": "https://www.hooktheory.com/theorytab/view/kendrick-lamar/sing-about-me-im-dying-of-thirst"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Sing About Me, I'm Dying of Thirst by Kendrick Lamar",
+   "url": "https://www.hooktheory.com/theorytab/view/kendrick-lamar/sing-about-me-im-dying-of-thirst"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). DOUBTFUL extensions simplified: bVI7 read as Amaj7 (borrowed from C# minor), ii7sus4 written D#7sus4 (sus4 has no third), III7(add13) simplified to Emaj7 (add13 dropped), viø9 simplified to A#m7b5 (9th dropped). 166 BPM is Hooktheory's figure (likely double-time of ~83). Key/BPM Hooktheory-only."
+ },
+ {
+  "song": "meet the grahams",
+  "artist": "Kendrick Lamar",
+  "producer": null,
+  "key": "A Dorian",
+  "bpm": 75,
+  "chords": [
+   [
+    "Am9",
+    4
+   ],
+   [
+    "Em11",
+    4
+   ]
+  ],
+  "section": "Intro (i9 - v11)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, meet the grahams by Kendrick Lamar",
+   "url": "https://www.hooktheory.com/theorytab/view/kendrick-lamar/meet-the-grahams"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, meet the grahams by Kendrick Lamar",
+   "url": "https://www.hooktheory.com/theorytab/view/kendrick-lamar/meet-the-grahams"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Hooktheory lists A Dorian for the intro and A minor for the verse (verse numerals I42 i(add9), not encoded). Key/BPM Hooktheory-only."
+ },
+ {
+  "song": "HUMBLE.",
+  "artist": "Kendrick Lamar",
+  "producer": "Mike WiLL Made-It",
+  "key": "Eb Phrygian",
+  "bpm": 76,
+  "chords": [
+   [
+    "Abm",
+    4
+   ],
+   [
+    "Ebm",
+    4
+   ]
+  ],
+  "section": "Main piano riff (whole song)",
+  "chordSource": {
+   "label": "Splice blog, Hits decoded: 3 musical elements that define Kendrick Lamar's HUMBLE.",
+   "url": "https://splice.com/blog/?p=3569"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Humble by Kendrick Lamar",
+   "url": "https://www.hooktheory.com/theorytab/view/kendrick-lamar/humble"
+  },
+  "notes": "Splice: \"the song bounces between just two chords, Ab minor and Eb minor\"; the page shows no durations, so 4 beats per chord is ASSUMED. Hooktheory lists the key as D# Phrygian (written here enharmonically as Eb Phrygian) at 76 BPM (half-time feel; often listed ~150). Hooktheory shows no chord progression table for this song. Producer per common credit, not from a fetched page.",
+  "instrument": {
+   "name": "piano",
+   "quote": "the piano, the main harmonic instrument, takes care of the mid-range",
+   "source": {
+    "label": "Splice blog, Hits decoded: HUMBLE.",
+    "url": "https://splice.com/blog/?p=3569"
+   }
+  }
+ },
+ {
+  "song": "HIGHEST IN THE ROOM",
+  "artist": "Travis Scott",
+  "producer": "OZ, Nik D, Mike Dean (co.)",
+  "key": "D minor",
+  "bpm": 152,
+  "chords": [
+   [
+    "Dm",
+    4
+   ],
+   [
+    "C",
+    4
+   ]
+  ],
+  "section": "Intro riff (i - VII)",
+  "chordSource": {
+   "label": "Ultimate Guitar, Highest In The Room intro tab",
+   "url": "https://pt.ultimate-guitar.com/tab/travis-scott/highest-in-the-room-tabs-2853020"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Highest in the Room by Travis Scott",
+   "url": "https://www.hooktheory.com/theorytab/view/travis-scott/highest-in-the-room"
+  },
+  "notes": "UG tab shows chord shapes Am and G with capo 5, which sound as Dm and C (concert pitch); this matches Hooktheory's D minor / 152 BPM, and the tab itself says ~152 BPM. Tab shows each shape as half of the riff, so 4 beats per chord is ASSUMED. Producers from Wikipedia credits. Hooktheory shows no progression table for this song."
+ },
+ {
+  "song": "Let Me Love You",
+  "artist": "Mario",
+  "producer": null,
+  "key": "G minor",
+  "bpm": 94,
+  "chords": [
+   [
+    "Cm7",
+    4
+   ],
+   [
+    "Gm7",
+    4
+   ],
+   [
+    "Fadd9",
+    4
+   ]
+  ],
+  "section": "Chorus (iv7 - i7 - VII(add9))",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Let Me Love You by Mario",
+   "url": "https://www.hooktheory.com/theorytab/view/mario/let-me-love-you"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Let Me Love You by Mario",
+   "url": "https://www.hooktheory.com/theorytab/view/mario/let-me-love-you"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Three-chord chorus loop as Hooktheory lists it; 3 x 4 beats = 12 beats, the real loop phrasing may differ. Key/BPM Hooktheory-only."
+ },
+ {
+  "song": "Single Ladies (Put a Ring on It)",
+  "artist": "Beyoncé",
+  "producer": null,
+  "key": "E Mixolydian",
+  "bpm": 97,
+  "chords": [
+   [
+    "E",
+    4
+   ],
+   [
+    "Bm",
+    4
+   ],
+   [
+    "C7#5",
+    4
+   ],
+   [
+    "Bm",
+    4
+   ],
+   [
+    "Am",
+    4
+   ]
+  ],
+  "section": "Chorus (I - v - bVI+7 - v - iv)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Single Ladies (Put a Ring on It) by Beyoncé",
+   "url": "https://www.hooktheory.com/theorytab/view/beyonce/single-ladies"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Single Ladies (Put a Ring on It) by Beyoncé",
+   "url": "https://www.hooktheory.com/theorytab/view/beyonce/single-ladies"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). DOUBTFUL: Hooktheory's 'bVI+7' is read as an augmented seventh on C (C7#5). Hooktheory song key is E major with the chorus marked E Mixolydian; lowercase iv is read as A minor. Bridge (E minor): iv v i = Am Bm Em. Key/BPM Hooktheory-only."
+ },
+ {
+  "song": "Water",
+  "artist": "Tyla",
+  "producer": null,
+  "key": "D# minor",
+  "bpm": 117,
+  "chords": [
+   [
+    "G#m6",
+    4
+   ],
+   [
+    "A#m7",
+    4
+   ]
+  ],
+  "section": "Chorus (iv(add6) - v7)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Water by Tyla",
+   "url": "https://www.hooktheory.com/theorytab/view/tyla/water"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Water by Tyla",
+   "url": "https://www.hooktheory.com/theorytab/view/tyla/water"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). iv(add6) written as G#m6. Key/BPM Hooktheory-only."
+ },
+ {
+  "song": "Kiss Me More",
+  "artist": "Doja Cat ft. SZA",
+  "producer": null,
+  "key": "Ab major",
+  "bpm": 111,
+  "chords": [
+   [
+    "Bbm7",
+    4
+   ],
+   [
+    "Eb7sus4",
+    4
+   ],
+   [
+    "Abmaj7",
+    4
+   ],
+   [
+    "Dbmaj7",
+    4
+   ],
+   [
+    "Cm7",
+    4
+   ]
+  ],
+  "section": "Verse / Chorus (ii7 - V7sus4 - I7 - IV7 - iii7)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Kiss Me More by Doja Cat ft. SZA",
+   "url": "https://www.hooktheory.com/theorytab/view/doja-cat-ft-sza/kiss-me-more"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Kiss Me More by Doja Cat ft. SZA",
+   "url": "https://www.hooktheory.com/theorytab/view/doja-cat-ft-sza/kiss-me-more"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Same progression in verse, chorus and chorus lead-out per Hooktheory. Key/BPM Hooktheory-only."
+ },
+ {
+  "song": "INDUSTRY BABY",
+  "artist": "Lil Nas X & Jack Harlow",
+  "producer": null,
+  "key": "D# minor",
+  "bpm": 150,
+  "chords": [
+   [
+    "D#m",
+    4
+   ],
+   [
+    "C#/F",
+    4
+   ],
+   [
+    "D#m/F#",
+    4
+   ],
+   [
+    "G#m7",
+    4
+   ],
+   [
+    "A#",
+    4
+   ]
+  ],
+  "section": "Chorus (i - VII6 - i6 - iv7 - V)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, INDUSTRY BABY by Lil Nas X & Jack Harlow",
+   "url": "https://www.hooktheory.com/theorytab/view/lil-nas-x-and-jack-harlow/industry-baby"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, INDUSTRY BABY by Lil Nas X & Jack Harlow",
+   "url": "https://www.hooktheory.com/theorytab/view/lil-nas-x-and-jack-harlow/industry-baby"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). VII6 (first inversion of C#) has E# in the bass, written enharmonically as C#/F; V is major (harmonic minor, A#). Key/BPM Hooktheory-only."
+ },
+ {
+  "song": "In Da Club",
+  "artist": "50 Cent",
+  "producer": null,
+  "key": "C# minor",
+  "bpm": 92,
+  "chords": [
+   [
+    "B",
+    4
+   ],
+   [
+    "C#m",
+    4
+   ],
+   [
+    "D#m7b5",
+    4
+   ],
+   [
+    "F#m",
+    4
+   ],
+   [
+    "C#m/E",
+    4
+   ]
+  ],
+  "section": "Verse (VII - i - iiø7 - iv - i6)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, In Da Club by 50 Cent",
+   "url": "https://www.hooktheory.com/theorytab/view/50-cent/in-da-club"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, In Da Club by 50 Cent",
+   "url": "https://www.hooktheory.com/theorytab/view/50-cent/in-da-club"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Hooktheory verse/pre-chorus variant: iv i iiø7 iv i6 (F#m C#m D#m7b5 F#m C#m/E); instrumental VI6 i ii7(#5) iv i6. Hooktheory lists 92 BPM for verse (90 for instrumental). Key/BPM Hooktheory-only."
+ },
+ {
+  "song": "Dilemma",
+  "artist": "Nelly ft. Kelly Rowland",
+  "producer": null,
+  "key": "D minor",
+  "bpm": 84,
+  "chords": [
+   [
+    "Gm7",
+    4
+   ],
+   [
+    "C",
+    4
+   ],
+   [
+    "Am7",
+    4
+   ],
+   [
+    "Dm",
+    4
+   ]
+  ],
+  "section": "Instrumental (iv7 - VII - v7 - i)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Dilemma by Nelly ft. Kelly Rowland",
+   "url": "https://www.hooktheory.com/theorytab/view/nelly/dilemma-ft-kelly-rowland"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Dilemma by Nelly ft. Kelly Rowland",
+   "url": "https://www.hooktheory.com/theorytab/view/nelly/dilemma-ft-kelly-rowland"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Key/BPM Hooktheory-only."
+ },
+ {
+  "song": "Hot in Herre",
+  "artist": "Nelly",
+  "producer": null,
+  "key": "E Dorian",
+  "bpm": 107,
+  "chords": [
+   [
+    "Em",
+    4
+   ],
+   [
+    "F/E",
+    4
+   ]
+  ],
+  "section": "Intro / Verse / Chorus (i - bII/i)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Hot in Herre by Nelly",
+   "url": "https://www.hooktheory.com/theorytab/view/nelly/hot-in-herre"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Hot in Herre by Nelly",
+   "url": "https://www.hooktheory.com/theorytab/view/nelly/hot-in-herre"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Hooktheory marks intro/verse as E Dorian and chorus as E minor, same i - bII/i figure throughout (F major over an E pedal). Key/BPM Hooktheory-only."
+ },
+ {
+  "song": "Just a Dream",
+  "artist": "Nelly",
+  "producer": null,
+  "key": "D# minor",
+  "bpm": 90,
+  "chords": [
+   [
+    "D#m",
+    4
+   ],
+   [
+    "B",
+    4
+   ],
+   [
+    "F#",
+    4
+   ],
+   [
+    "C#",
+    4
+   ]
+  ],
+  "section": "Chorus (i - VI - III - VII)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Just a Dream by Nelly",
+   "url": "https://www.hooktheory.com/theorytab/view/nelly/just-a-dream"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Just a Dream by Nelly",
+   "url": "https://www.hooktheory.com/theorytab/view/nelly/just-a-dream"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Instrumental per Hooktheory: i VIsus2 III VII (D#m Bsus2 F# C#). Key/BPM Hooktheory-only."
+ },
+ {
+  "song": "Foolish",
+  "artist": "Ashanti",
+  "producer": null,
+  "key": "C major",
+  "bpm": 90,
+  "chords": [
+   [
+    "Fmaj7",
+    4
+   ],
+   [
+    "Cmaj7",
+    4
+   ]
+  ],
+  "section": "Intro / Verse / Chorus / Bridge (IV7 - I7)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Foolish by Ashanti",
+   "url": "https://www.hooktheory.com/theorytab/view/ashanti/foolish"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Foolish by Ashanti",
+   "url": "https://www.hooktheory.com/theorytab/view/ashanti/foolish"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Same two-chord loop in every section per Hooktheory. Key/BPM Hooktheory-only."
+ },
+ {
+  "song": "Family Affair",
+  "artist": "Mary J. Blige",
+  "producer": null,
+  "key": "C# Dorian",
+  "bpm": 93,
+  "chords": [
+   [
+    "C#m",
+    4
+   ],
+   [
+    "G#m/B",
+    4
+   ],
+   [
+    "C#m",
+    4
+   ],
+   [
+    "E",
+    4
+   ],
+   [
+    "B/D#",
+    4
+   ]
+  ],
+  "section": "Chorus (i - v6 - i - III - VII6)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Family Affair by Mary J. Blige",
+   "url": "https://www.hooktheory.com/theorytab/view/mary-j-blige/family-affair"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Family Affair by Mary J. Blige",
+   "url": "https://www.hooktheory.com/theorytab/view/mary-j-blige/family-affair"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Verse/instrumental per Hooktheory: i v (C#m G#m); bridge in B major: ii vi (C#m G#m). Key/BPM Hooktheory-only."
+ },
+ {
+  "song": "Try Again",
+  "artist": "Aaliyah",
+  "producer": null,
+  "key": "C# minor",
+  "bpm": 93,
+  "chords": [
+   [
+    "C#m",
+    4
+   ],
+   [
+    "G#m",
+    4
+   ]
+  ],
+  "section": "Verse / Chorus / Bridge (i - v)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Try Again by Aaliyah",
+   "url": "https://www.hooktheory.com/theorytab/view/aaliyah/try-again"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Try Again by Aaliyah",
+   "url": "https://www.hooktheory.com/theorytab/view/aaliyah/try-again"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Same two-chord loop in every section per Hooktheory. Key/BPM Hooktheory-only."
+ },
+ {
+  "song": "Rock the Boat",
+  "artist": "Aaliyah",
+  "producer": null,
+  "key": "G minor",
+  "bpm": 93,
+  "chords": [
+   [
+    "Gm7",
+    4
+   ],
+   [
+    "Cm9",
+    4
+   ]
+  ],
+  "section": "Verse / Chorus (i7 - iv9)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Rock the Boat by Aaliyah",
+   "url": "https://www.hooktheory.com/theorytab/view/aaliyah/rock-the-boat"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Rock the Boat by Aaliyah",
+   "url": "https://www.hooktheory.com/theorytab/view/aaliyah/rock-the-boat"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Same loop in verse and chorus per Hooktheory. Key/BPM Hooktheory-only."
+ },
+ {
+  "song": "Miss You",
+  "artist": "Aaliyah",
+  "producer": null,
+  "key": "Bb major",
+  "bpm": 110,
+  "chords": [
+   [
+    "Ebmaj7",
+    4
+   ],
+   [
+    "F",
+    4
+   ],
+   [
+    "Bb",
+    4
+   ]
+  ],
+  "section": "Chorus (IV7 - V - I)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Miss You by Aaliyah",
+   "url": "https://www.hooktheory.com/theorytab/view/aaliyah/miss-you"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Miss You by Aaliyah",
+   "url": "https://www.hooktheory.com/theorytab/view/aaliyah/miss-you"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Three chords at an assumed 4 beats each (12 beats); real phrasing likely gives the I chord more time. Key/BPM Hooktheory-only."
+ },
+ {
+  "song": "Panda",
+  "artist": "Desiigner",
+  "producer": null,
+  "key": "D# minor",
+  "bpm": 144,
+  "chords": [
+   [
+    "D#m",
+    4
+   ],
+   [
+    "Fm7b5/D#",
+    4
+   ],
+   [
+    "A#7/D#",
+    4
+   ]
+  ],
+  "section": "Chorus (i - iiø42 - V7/i)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Panda by Desiigner",
+   "url": "https://www.hooktheory.com/theorytab/view/desiigner/panda"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Panda by Desiigner",
+   "url": "https://www.hooktheory.com/theorytab/view/desiigner/panda"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). DOUBTFUL spelling: iiø42 is E# half-diminished with D# in the bass, written enharmonically as Fm7b5/D#; V7/i read as A#7 over a D# pedal. Key/BPM Hooktheory-only."
+ },
+ {
+  "song": "Check On It",
+  "artist": "Beyoncé ft. Slim Thug",
+  "producer": null,
+  "key": "D major",
+  "bpm": 166,
+  "chords": [
+   [
+    "G",
+    4
+   ],
+   [
+    "D",
+    4
+   ]
+  ],
+  "section": "Chorus (IV - I)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Check On It by Beyoncé ft. Slim Thug",
+   "url": "https://www.hooktheory.com/theorytab/view/beyonce/check-on-it"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Check On It by Beyoncé ft. Slim Thug",
+   "url": "https://www.hooktheory.com/theorytab/view/beyonce/check-on-it"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Hooktheory lists 166 BPM, likely a double-time count (~83 felt). Key/BPM Hooktheory-only."
+ },
+ {
+  "song": "Déjà Vu",
+  "artist": "Beyoncé ft. Jay-Z",
+  "producer": null,
+  "key": "G harmonic minor",
+  "bpm": 105,
+  "chords": [
+   [
+    "G",
+    4
+   ],
+   [
+    "Cm7",
+    4
+   ],
+   [
+    "G7",
+    4
+   ],
+   [
+    "Cm/G",
+    4
+   ],
+   [
+    "G7",
+    4
+   ]
+  ],
+  "section": "Chorus (V/iv - iv7 - I7 - iv64 - I7)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Déjà Vu by Beyoncé ft. Jay-Z",
+   "url": "https://www.hooktheory.com/theorytab/view/beyonce/deja-vu"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Déjà Vu by Beyoncé ft. Jay-Z",
+   "url": "https://www.hooktheory.com/theorytab/view/beyonce/deja-vu"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). DOUBTFUL: V/iv read as G major (dominant of Cm) and Hooktheory's capital I7 read as G7 (dominant colour pulling to iv), not Gmaj7; iv64 = Cm/G. Key/BPM Hooktheory-only."
  }
 ]

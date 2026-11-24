@@ -8910,5 +8910,159 @@
    "label": "AudioTechnology: Nineteen85 interview",
    "url": "https://www.audiotechnology.com/?p=95568"
   }
+ },
+ {
+  "song": "Vogue",
+  "artist": "Madonna",
+  "producer": "Shep Pettibone",
+  "plugin": "Yamaha TX81Z (hardware)",
+  "preset": "LatelyBass",
+  "role": "bass",
+  "confidence": "press",
+  "source": {
+   "label": "MusicRadar: The 10 best synth presets ever used, and where to hear them",
+   "url": "https://www.musicradar.com/news/the-10-best-synth-presets-ever-used-and-where-to-hear-them"
+  },
+  "quote": "the LatelyBass patch would wind up in countless Italo disco tracks as well as a fair few pop songs ... And, of course, there's Madonna's Vogue."
+ },
+ {
+  "song": "Attention",
+  "artist": "Charlie Puth",
+  "producer": "Charlie Puth",
+  "plugin": "Spectrasonics Trilian",
+  "preset": "Retro 60's - Full Range",
+  "role": "bass guitar",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard: Spectrasonics Trilian (Charlie Puth entry)",
+   "url": "https://equipboard.com/items/spectrasonics-trilian-total-bass-module"
+  },
+  "quote": "Charlie uses Trilian for the bass guitar in \"Attention.\" Specifically, he used the 'Retro 60's - Full Range'."
+ },
+ {
+  "song": "K For Christmas",
+  "artist": "Lil Mosey",
+  "producer": "Royce David",
+  "plugin": "Luxonix Purity",
+  "preset": "FM Vibe",
+  "role": "keys",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard: Sonic Cat Purity (Royce David entry)",
+   "url": "https://equipboard.com/items/luxonix-purity"
+  },
+  "quote": "For Lil Mosey's \"K For Christmas,\" he utilizes the FM Vibe and Mellow EP presets from Purity."
+ },
+ {
+  "song": "K For Christmas",
+  "artist": "Lil Mosey",
+  "producer": "Royce David",
+  "plugin": "Luxonix Purity",
+  "preset": "Mellow EP",
+  "role": "keys",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard: Sonic Cat Purity (Royce David entry)",
+   "url": "https://equipboard.com/items/luxonix-purity"
+  },
+  "quote": "For Lil Mosey's \"K For Christmas,\" he utilizes the FM Vibe and Mellow EP presets from Purity."
+ },
+ {
+  "song": "Till It's Over",
+  "artist": "Isaacjacuzzi",
+  "producer": "Royce David",
+  "plugin": "Luxonix Purity",
+  "preset": "Breath Bell",
+  "role": "bell",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard: Sonic Cat Purity (Royce David entry)",
+   "url": "https://equipboard.com/items/luxonix-purity"
+  },
+  "quote": "in the track \"Till It's Over\" by Isaacjacuzzi, Royce employs the Breath Bell and Autumn lead synth presets."
+ },
+ {
+  "song": "Till It's Over",
+  "artist": "Isaacjacuzzi",
+  "producer": "Royce David",
+  "plugin": "Luxonix Purity",
+  "preset": "Autumn",
+  "role": "lead synth",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard: Sonic Cat Purity (Royce David entry)",
+   "url": "https://equipboard.com/items/luxonix-purity"
+  },
+  "quote": "in the track \"Till It's Over\" by Isaacjacuzzi, Royce employs the Breath Bell and Autumn lead synth presets."
+ },
+ {
+  "song": "When the Party's Over",
+  "artist": "Billie Eilish",
+  "producer": "FINNEAS",
+  "plugin": "Spectrasonics Keyscape",
+  "preset": "Dark Indie Upright",
+  "role": "piano",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard: Spectrasonics Keyscape (Billie Eilish entry, citing Spectrasonics Facebook post)",
+   "url": "https://equipboard.com/items/spectrasonics-keyscape"
+  },
+  "quote": "specifically the patch Dark Indie Upright."
+ },
+ {
+  "song": "Trench (album: Jumpsuit, Chlorine, Neon Gravestones and others)",
+  "artist": "Twenty One Pilots",
+  "producer": "Tyler Joseph & Paul Meany",
+  "plugin": "Spectrasonics Keyscape",
+  "preset": "Wing Upright - Lonely Basement",
+  "role": "piano",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard: Spectrasonics Keyscape (Tyler Joseph entry)",
+   "url": "https://equipboard.com/items/spectrasonics-keyscape"
+  },
+  "quote": "You can hear the sound \"Wing Upright - Lonely Basement\" Throughout this song"
+ },
+ {
+  "song": "Take My Breath Away",
+  "artist": "Berlin",
+  "producer": "Giorgio Moroder",
+  "plugin": "Yamaha DX7 (hardware)",
+  "preset": "Bass II",
+  "role": "bass notes",
+  "confidence": "press",
+  "source": {
+   "label": "Far Out Magazine: 10 songs with distinctive keyboard presets",
+   "url": "https://faroutmagazine.co.uk/10-songs-with-distinctive-keyboard-presets/"
+  },
+  "quote": "Moroder messing with the 'Bass II' preset on the Yamaha DX7 keyboard."
+ },
+ {
+  "song": "Danger Zone",
+  "artist": "Kenny Loggins",
+  "producer": "Giorgio Moroder",
+  "plugin": "Yamaha DX7 (hardware)",
+  "preset": "Bass II",
+  "role": "bass",
+  "confidence": "press",
+  "source": {
+   "label": "Far Out Magazine: 10 songs with distinctive keyboard presets",
+   "url": "https://faroutmagazine.co.uk/10-songs-with-distinctive-keyboard-presets/"
+  },
+  "quote": "The 'Bass II' preset was once again employed in order to give the track its distinctive low tone."
+ },
+ {
+  "song": "The Real Slim Shady",
+  "artist": "Eminem",
+  "producer": "Dr. Dre & Mel-Man",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": "B056 HarpsyKorg 8' + 4'",
+  "role": "harpsichord riff",
+  "confidence": "press",
+  "source": {
+   "label": "Sonicstate: Korg Triton - Famous Songs and Sounds",
+   "url": "https://sonicstate.com/news/2026/09/29/-korg-triton-famous-songs-and-sounds/"
+  },
+  "quote": "Eminem - The Real Slim Shady (B056 HarpsyKorg 8' + 4')"
  }
 ]
