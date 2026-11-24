@@ -69,6 +69,18 @@ describe("record_download (as the caller)", () => {
     }
   });
 
+  it("two downloads give two records and count twice; the owner's own downloads are recorded but not counted", async () => {
+    const id = await published();
+    const first = await db.as(user(fan), `select id from public.record_download($1)`, [id]);
+    const second = await db.as(user(fan), `select id from public.record_download($1)`, [id]);
+    expect(first.rows[0]!.id).not.toBe(second.rows[0]!.id);
+    await db.as(user(owner), `select public.record_download($1)`, [id]);
+    const records = await db.q(`select user_id from public.downloads where item_id = $1 order by created_at, user_id`, [id]);
+    expect(records.rows.filter((r) => r.user_id === fan)).toHaveLength(2);
+    expect(records.rows.filter((r) => r.user_id === owner)).toHaveLength(1);
+    expect((await db.q(`select downloads_count::int as n from public.items where id = $1`, [id])).rows[0]!.n).toBe(2);
+  });
+
   it("anon cannot call it; a suspended account is forbidden", async () => {
     const id = await published();
     expect(await rejection(db.as(anon, `select public.record_download($1)`, [id]))).toMatch(DENIED);

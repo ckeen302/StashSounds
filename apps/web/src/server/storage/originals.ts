@@ -29,6 +29,7 @@ export type PresignedPut = { url: string; headers: Record<string, string> };
  * with the uploader's type or inline (PR #6 security note).
  */
 export type DownloadHeaders = { contentDisposition: string; contentType: string };
+export type SignedDownload = { url: string; expiresAt: string };
 export type MultipartStart = {
   uploadId: string;
   partBytes: number;
@@ -67,8 +68,11 @@ export interface OriginalsStorage {
    * 500 MB). The copy's Content-Type is the one given here, never the uploader's.
    */
   copy(fromKey: string, toKey: string, contentType: string): Promise<void>;
-  /** A signed GET for one object, valid for limits.urls.downloadTtlSeconds, that always downloads with the given type. */
-  presignGet(key: string, headers: DownloadHeaders): Promise<string>;
+  /**
+   * A signed GET for one object, valid for limits.urls.downloadTtlSeconds, that always downloads
+   * with the given type. expiresAt is the signing date plus that same lifetime.
+   */
+  presignGet(key: string, headers: DownloadHeaders): Promise<SignedDownload>;
   remove(key: string): Promise<void>;
 }
 
@@ -161,7 +165,12 @@ export function s3Originals(opts: {
       if (!headers.contentDisposition.startsWith("attachment") || !headers.contentType) {
         throw new Error("a download URL needs an attachment disposition and a content type");
       }
-      return getSignedUrl(
+      // One clock reading and one lifetime: the URL is signed at signingDate for ttl seconds, and
+      // expiresAt is computed from the same two values before signing.
+      const ttl = opts.downloadTtlSeconds ?? limits.urls.downloadTtlSeconds;
+      const signingDate = new Date();
+      const expiresAt = new Date(signingDate.getTime() + ttl * 1000).toISOString();
+      const url = await getSignedUrl(
         client,
         new GetObjectCommand({
           Bucket: bucket,
@@ -169,8 +178,9 @@ export function s3Originals(opts: {
           ResponseContentDisposition: headers.contentDisposition,
           ResponseContentType: headers.contentType,
         }),
-        { expiresIn: opts.downloadTtlSeconds ?? limits.urls.downloadTtlSeconds },
+        { expiresIn: ttl, signingDate },
       );
+      return { url, expiresAt };
     },
 
     async remove(key) {

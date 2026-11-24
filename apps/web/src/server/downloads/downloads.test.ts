@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { limits, requestDownloadOutput } from "@stash/contracts";
+import { requestDownloadOutput } from "@stash/contracts";
 import type { ActionDeps } from "../action.ts";
 import { IDS, TEST_ENV, fakeSupabase, member, pgError, type FakeOptions } from "../testing/fake-supabase.ts";
 import { fakeStorage } from "../testing/fake-storage.ts";
@@ -30,7 +30,7 @@ const record = (extra: Record<string, unknown> = {}) => ({
   item_title: "Dark Keys",
   owner_handle: "bob",
   license: "split_on_placement",
-  license_version: "1.0",
+  license_version: "2.3",
   split_percent: 25,
   created_at: "2026-11-23T23:00:00+00:00",
   ...extra,
@@ -62,18 +62,40 @@ function setup(opts: { rpc?: Rpc; user?: FakeOptions } = {}) {
 describe("requestDownload", () => {
   it("records the license as the caller, then signs the original for downloadTtlSeconds as an attachment of the row's type", async () => {
     const { fake, store, deps } = setup();
-    const before = Date.now();
     const r = await requestDownload.run({ itemId: ITEM }, deps);
     if (!r.ok) throw new Error(r.message);
     expect(requestDownloadOutput.parse(r.data)).toEqual(r.data);
-    expect(r.data).toMatchObject({ downloadId: DOWNLOAD, fileName: "Dark Keys.wav", license: "split_on_placement", licenseVersion: "1.0" });
+    expect(r.data).toMatchObject({ downloadId: DOWNLOAD, fileName: "Dark Keys.wav", license: "split_on_placement", licenseVersion: "2.3" });
     expect(fake.rpcCalls).toEqual([{ fn: "record_download", args: { p_item_id: ITEM, p_kit_sample_id: null } }]);
     expect(store.storage.presignGet).toHaveBeenCalledWith(ORIGINAL, { contentDisposition: contentDisposition("Dark Keys.wav"), contentType: "audio/wav" });
     // The record comes first: nothing is signed before the database has said yes.
     expect(fake.rpc.mock.invocationCallOrder[0]!).toBeLessThan(store.storage.presignGet.mock.invocationCallOrder[0]!);
-    const expires = Date.parse(r.data.expiresAt);
-    expect(expires).toBeGreaterThanOrEqual(before + limits.urls.downloadTtlSeconds * 1000 - 1000);
-    expect(expires).toBeLessThanOrEqual(Date.now() + limits.urls.downloadTtlSeconds * 1000);
+    // expiresAt is the one presignGet signed for, not a second clock reading.
+    const signed = await store.storage.presignGet.mock.results[0]!.value;
+    expect(r.data.url).toBe(signed.url);
+    expect(r.data.expiresAt).toBe(signed.expiresAt);
+  });
+
+  it("the path read failing after the record: not_found (PGRST116), nothing signed, the record stays", async () => {
+    const { fake, service, store, deps } = setup();
+    service.tables.item_files = [];
+    expect(await requestDownload.run({ itemId: ITEM }, deps)).toEqual({ ok: false, code: "not_found", message: "Not found." });
+    expect(fake.rpcCalls.map((c) => c.fn)).toEqual(["record_download"]);
+    expect(store.storage.presignGet).not.toHaveBeenCalled();
+  });
+
+  it("a sample path read failing after the record: not_found, nothing signed", async () => {
+    const { service, store, deps } = setup();
+    service.tables.kit_samples = [];
+    expect(await requestDownload.run({ itemId: KIT, sampleId: SAMPLE }, deps)).toEqual({ ok: false, code: "not_found", message: "Not found." });
+    expect(store.storage.presignGet).not.toHaveBeenCalled();
+  });
+
+  it("an unexpected database error on the path read is thrown, not answered, and nothing is signed", async () => {
+    const { service, store, deps } = setup();
+    const failing = fakeSupabase({ tables: service.tables, failures: { "item_files.select": pgError("57014", "canceling statement due to statement timeout") } });
+    await expect(requestDownload.run({ itemId: ITEM }, { ...deps, service: () => failing.client })).rejects.toMatchObject({ code: "57014" });
+    expect(store.storage.presignGet).not.toHaveBeenCalled();
   });
 
   it("the original's path is looked up only for the item the database approved, in the originals bucket", async () => {
@@ -164,6 +186,27 @@ describe("file names", () => {
     expect(downloadFileName("a/b\\c", "x/original.WAV")).toBe("a b c.wav");
     expect(downloadFileName("", "x/original.wav")).toBe("download.wav");
     expect(downloadFileName("x".repeat(300), "x/original.wav")).toHaveLength(100 + 4);
+  });
+
+  it("the 100-character cap counts code points, so an astral character on the boundary is never split", () => {
+    const astral = "\u{1F525}"; // fire emoji: two UTF-16 code units
+    const title = "a".repeat(99) + astral + "tail";
+    const name = downloadFileName(title, "x/original.wav");
+    expect(name).toBe("a".repeat(99) + astral + ".wav");
+    expect(() => contentDisposition(name)).not.toThrow();
+    expect(contentDisposition(name)).toContain("%F0%9F%94%A5.wav");
+    // A kit sample name crossing the boundary.
+    const sample = downloadFileName("Kit", "x/samples/kick.aiff", "b".repeat(93) + astral + astral);
+    expect(sample).toBe("Kit - " + "b".repeat(93) + astral + ".aiff");
+    expect(Array.from(sample.replace(/\.aiff$/, ""))).toHaveLength(100);
+    expect(() => contentDisposition(sample)).not.toThrow();
+  });
+
+  it("control, format and bidi characters and line separators become spaces", () => {
+    expect(downloadFileName("evil\u202Evaw.exe", "x/original.wav")).toBe("evil vaw.exe.wav");
+    expect(downloadFileName("nul\u0000byte", "x/original.wav")).toBe("nul byte.wav");
+    expect(downloadFileName("c1\u0085zw\u200Bj\u2028k\u2029l\uFEFF", "x/original.wav")).toBe("c1 zw j k l.wav");
+    expect(downloadFileName("\u202E\u2066", "x/original.wav")).toBe("download.wav");
   });
 
   it("Content-Disposition is an attachment with an ASCII fallback and the UTF-8 name", () => {

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { err, isoDateTimeSchema, licenseKindSchema, limits, ok, requestDownloadInput, requestDownloadOutput, uuidSchema } from "@stash/contracts";
+import { err, isoDateTimeSchema, licenseKindSchema, ok, requestDownloadInput, requestDownloadOutput, uuidSchema } from "@stash/contracts";
 import { defineAction } from "../action.ts";
 import { contentDisposition, downloadFileName } from "./file-name.ts";
 
@@ -72,12 +72,11 @@ export const requestDownload = defineAction({
       fileName = downloadFileName(record.item_title, path);
     }
 
-    const ttl = limits.urls.downloadTtlSeconds;
-    const url = await ctx.storage().presignGet(path, { contentDisposition: contentDisposition(fileName), contentType });
+    const { url, expiresAt } = await ctx.storage().presignGet(path, { contentDisposition: contentDisposition(fileName), contentType });
     return ok({
       downloadId: record.id,
       url,
-      expiresAt: new Date(Date.now() + ttl * 1000).toISOString(),
+      expiresAt,
       fileName,
       license: record.license,
       licenseVersion: record.license_version,

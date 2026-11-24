@@ -28,7 +28,11 @@ export type ActionContext<M extends AuthMode> = {
   /** Acts as the signed-in user: row-level security and the database's own checks apply. */
   supabase: SupabaseClient;
   session: SessionFor<M>;
-  /** Service role. Only for the narrow service-role functions (enqueue_processing); never for reads a user could make. */
+  /**
+   * Service role. Only for the narrow service-only steps: the completion claim functions and
+   * enqueue_processing (completeUpload), mime_for_ext, and requestDownload's read of the original's
+   * path after record_download has authorized it. Never for reads a user could make as themselves.
+   */
   service: () => SupabaseClient;
   /** The private originals bucket. */
   storage: () => OriginalsStorage;

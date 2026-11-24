@@ -148,8 +148,14 @@ describe("presignGet (downloads)", () => {
   it("signs a GET for one object that always downloads, with the row's type, for downloadTtlSeconds", async () => {
     stub.objects.set(`originals/${KEY}`, Buffer.from("RIFFdata"));
     stub.contentTypes.set(`originals/${KEY}`, "text/html");
-    const url = await storage.presignGet(KEY, { contentDisposition: DISPOSITION, contentType: "audio/wav" });
+    const before = Date.now();
+    const { url, expiresAt } = await storage.presignGet(KEY, { contentDisposition: DISPOSITION, contentType: "audio/wav" });
     const u = new URL(url);
+    // The expiry is the signing date plus the one lifetime that was signed.
+    const signedAt = /^(\d{4})(\d\d)(\d\d)T(\d\d)(\d\d)(\d\d)Z$/.exec(u.searchParams.get("X-Amz-Date")!)!;
+    const signedMs = Date.UTC(+signedAt[1]!, +signedAt[2]! - 1, +signedAt[3]!, +signedAt[4]!, +signedAt[5]!, +signedAt[6]!);
+    expect(Math.floor(Date.parse(expiresAt) / 1000) * 1000).toBe(signedMs + limits.urls.downloadTtlSeconds * 1000);
+    expect(Date.parse(expiresAt)).toBeGreaterThanOrEqual(before + limits.urls.downloadTtlSeconds * 1000);
     expect(decodeURIComponent(u.pathname)).toBe(`/originals/${KEY}`);
     expect(u.searchParams.get("X-Amz-Expires")).toBe(String(limits.urls.downloadTtlSeconds));
     expect(u.searchParams.get("response-content-disposition")).toBe(DISPOSITION);
@@ -164,7 +170,7 @@ describe("presignGet (downloads)", () => {
   it("the download URL expires", async () => {
     stub.objects.set(`originals/${KEY}`, Buffer.from("x"));
     vi.useFakeTimers({ now: Date.now() - (limits.urls.downloadTtlSeconds + 5) * 1000, toFake: ["Date"] });
-    const url = await storage.presignGet(KEY, { contentDisposition: DISPOSITION, contentType: "audio/wav" });
+    const { url } = await storage.presignGet(KEY, { contentDisposition: DISPOSITION, contentType: "audio/wav" });
     vi.useRealTimers();
     expect((await fetch(url)).status).toBe(403);
   });
@@ -176,8 +182,11 @@ describe("presignGet (downloads)", () => {
 
   it("a configured lifetime is the one signed", async () => {
     const short = s3Originals({ client, bucket: "originals", downloadTtlSeconds: 30 });
-    const url = await short.presignGet(KEY, { contentDisposition: DISPOSITION, contentType: "audio/wav" });
+    const before = Date.now();
+    const { url, expiresAt } = await short.presignGet(KEY, { contentDisposition: DISPOSITION, contentType: "audio/wav" });
     expect(new URL(url).searchParams.get("X-Amz-Expires")).toBe("30");
+    expect(Date.parse(expiresAt) - before).toBeGreaterThanOrEqual(30_000);
+    expect(Date.parse(expiresAt) - Date.now()).toBeLessThanOrEqual(30_000);
   });
 });
 

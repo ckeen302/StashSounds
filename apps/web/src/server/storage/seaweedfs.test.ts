@@ -128,7 +128,7 @@ describe.skipIf(!available)("SeaweedFS (local storage)", () => {
     const { url: put } = await storage.presignPut(k, 4);
     await fetch(put, { method: "PUT", body: "RIFF", headers: { "Content-Type": "text/html" } });
     const disposition = `attachment; filename="Dark Keys.wav"; filename*=UTF-8''Dark%20Keys.wav`;
-    const url = await storage.presignGet(k, { contentDisposition: disposition, contentType: "audio/wav" });
+    const { url } = await storage.presignGet(k, { contentDisposition: disposition, contentType: "audio/wav" });
     const res = await fetch(url);
     expect(res.status).toBe(200);
     expect(await res.text()).toBe("RIFF");
@@ -144,7 +144,7 @@ describe.skipIf(!available)("SeaweedFS (local storage)", () => {
     const { url: put } = await storage.presignPut(k, 3);
     await fetch(put, { method: "PUT", body: "abc" });
     const short = s3Originals({ client: s3ClientFromEnv(), bucket: process.env.STASH_BUCKET_ORIGINALS!, downloadTtlSeconds: 1 });
-    const url = await short.presignGet(k, { contentDisposition: "attachment", contentType: "audio/wav" });
+    const { url } = await short.presignGet(k, { contentDisposition: "attachment", contentType: "audio/wav" });
     await new Promise((r) => setTimeout(r, 2100));
     expect((await fetch(url)).status).toBe(403);
   });

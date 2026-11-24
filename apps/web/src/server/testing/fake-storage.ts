@@ -1,5 +1,6 @@
 /** In-memory OriginalsStorage for action tests. Storage itself is tested in storage/*.test.ts. */
 import { vi } from "vitest";
+import { limits } from "@stash/contracts";
 import type { MultipartStart, OriginalsStorage } from "../storage/originals.ts";
 
 export function fakeStorage(objects: Record<string, number> = {}) {
@@ -42,7 +43,7 @@ export function fakeStorage(objects: Record<string, number> = {}) {
     }),
     presignGet: vi.fn(async (key: string, h: { contentDisposition: string; contentType: string }) => {
       const q = new URLSearchParams({ "response-content-disposition": h.contentDisposition, "response-content-type": h.contentType });
-      return `https://storage.test/originals/${key}?${q}`;
+      return { url: `https://storage.test/originals/${key}?${q}`, expiresAt: new Date(Date.now() + limits.urls.downloadTtlSeconds * 1000).toISOString() };
     }),
     remove: vi.fn(async (key: string) => {
       sizes.delete(key);

@@ -3,12 +3,15 @@
  * with the extension of the stored original. Never from a path or anything the request sends.
  */
 
+/** In code points, so a cap never splits a surrogate pair (encodeURIComponent throws on one). */
 const MAX_BASE = 100;
 
 function clean(text: string): string {
   return text
     .normalize("NFC")
-    .replace(/[\u0000-\u001f\u007f]/g, " ") // control characters, including CR and LF
+    // C0 and C1 controls (CR, LF, NUL), format characters (bidi overrides such as U+202E, zero
+    // widths, BOM) and the line and paragraph separators.
+    .replace(/[\p{Cc}\p{Cf}\u2028\u2029]/gu, " ")
     .replace(/[/\\";:*?<>|]/g, " ") // path separators and characters file systems or headers reject
     .replace(/\s+/g, " ")
     .replace(/^[.\s]+|[.\s]+$/g, ""); // no leading dots (hidden or relative names), no trailing dots
@@ -23,7 +26,10 @@ function extensionOf(path: string): string {
 
 export function downloadFileName(title: string, originalPath: string, sampleName?: string): string {
   const parts = [clean(title), sampleName === undefined ? "" : clean(sampleName)].filter(Boolean);
-  const base = (parts.join(" - ") || "download").slice(0, MAX_BASE).replace(/[.\s]+$/, "");
+  const base = Array.from(parts.join(" - ") || "download")
+    .slice(0, MAX_BASE)
+    .join("")
+    .replace(/[.\s]+$/, "");
   const ext = extensionOf(originalPath);
   return ext ? `${base}.${ext}` : base;
 }
