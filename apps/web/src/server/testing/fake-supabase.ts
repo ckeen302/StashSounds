@@ -18,6 +18,8 @@ export type QueryCall = {
   columns?: string;
   values?: Row;
   filters: Array<[string, unknown]>;
+  /** Filters other than eq, e.g. ["in", "item_id", [..]], plus order and limit. */
+  ops: Array<[string, string, unknown]>;
 };
 
 export type FakeOptions = {
@@ -39,15 +41,22 @@ export function fakeSupabase(opts: FakeOptions = {}) {
   const rpcCalls: Array<{ fn: string; args: Record<string, unknown> }> = [];
 
   function from(table: string) {
-    const call: QueryCall = { table, op: "select", filters: [] };
+    const call: QueryCall = { table, op: "select", filters: [], ops: [] };
+    let order: { column: string; ascending: boolean } | null = null;
+    let limit: number | null = null;
     queries.push(call);
     const run = (mode: "many" | "maybe" | "single"): Res => {
       const failure = opts.failures?.[`${table}.${call.op}`];
       if (failure) return { data: null, error: failure };
       const rows = (tables[table] ??= []);
       const hidden = call.op === "update" && opts.emptyUpdates?.includes(table);
-      const matches = hidden ? [] : rows.filter((r) => call.filters.every(([c, v]) => r[c] === v));
+      let matches = hidden ? [] : rows.filter((r) => call.filters.every(([c, v]) => r[c] === v) && call.ops.every(([op, c, v]) => test(op, r[c], v)));
       if (call.op === "update") for (const r of matches) Object.assign(r, call.values);
+      if (order) {
+        const { column, ascending } = order;
+        matches = [...matches].sort((a, b) => compare(a[column], b[column]) * (ascending ? 1 : -1));
+      }
+      if (limit !== null) matches = matches.slice(0, limit);
       const out = matches.map((r) => ({ ...r }));
       if (mode === "many") return { data: out, error: null };
       if (out.length > 1) return { data: null, error: { code: "PGRST116", message: "multiple rows" } };
@@ -66,6 +75,28 @@ export function fakeSupabase(opts: FakeOptions = {}) {
       },
       eq(column: string, value: unknown) {
         call.filters.push([column, value]);
+        return builder;
+      },
+      neq(column: string, value: unknown) {
+        call.ops.push(["neq", column, value]);
+        return builder;
+      },
+      in(column: string, values: unknown[]) {
+        call.ops.push(["in", column, values]);
+        return builder;
+      },
+      lt(column: string, value: unknown) {
+        call.ops.push(["lt", column, value]);
+        return builder;
+      },
+      order(column: string, o: { ascending?: boolean } = {}) {
+        order = { column, ascending: o.ascending ?? true };
+        call.ops.push(["order", column, order.ascending ? "asc" : "desc"]);
+        return builder;
+      },
+      limit(n: number) {
+        limit = n;
+        call.ops.push(["limit", "", n]);
         return builder;
       },
       maybeSingle: () => Promise.resolve(run("maybe")),
@@ -102,6 +133,20 @@ export function fakeSupabase(opts: FakeOptions = {}) {
 
   const client = { from, rpc, auth } as unknown as SupabaseClient;
   return { client, auth, rpc, queries, rpcCalls, tables };
+}
+
+function test(op: string, actual: unknown, expected: unknown): boolean {
+  if (op === "neq") return actual !== expected;
+  if (op === "in") return (expected as unknown[]).includes(actual);
+  if (op === "lt") return compare(actual, expected) < 0;
+  return true; // order and limit are applied after filtering
+}
+
+function compare(a: unknown, b: unknown): number {
+  if (a === b) return 0;
+  if (a === null || a === undefined) return 1;
+  if (b === null || b === undefined) return -1;
+  return (a as number | string) < (b as number | string) ? -1 : 1;
 }
 
 /** What auth-js returns from getUser when there is no session cookie. */

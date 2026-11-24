@@ -11,6 +11,9 @@ export { getSession, requireUser, type MemberSession, type Session } from "./ses
 export { claimHandle, signInWithEmail, signInWithProvider, signOut, updateProfile } from "./auth/actions.ts";
 export { authCallback } from "./auth/callback-handler.ts";
 export { completeUpload, createUploadSlot } from "./uploads/actions.ts";
+export { deleteItem, getOwnItem, publishItem, unpublishItem, updateItem } from "./items/actions.ts";
+export { itemPage } from "./items/queries.ts";
+export { loadRows } from "./items/load-rows.ts";
 export { safeNextPath } from "./auth/next-path.ts";
 export { updateSession } from "./supabase/proxy.ts";
 export { createServerSupabase } from "./supabase/server.ts";
