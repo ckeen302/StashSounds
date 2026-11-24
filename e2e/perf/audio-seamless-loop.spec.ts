@@ -145,6 +145,7 @@ interface SeekResult {
   status: string;
   joins: JoinResult[];
   fadeOut: number;
+  before: number;
   fadeIn: number;
   positionS: number;
   targetS: number;
@@ -217,10 +218,13 @@ for (const c of cases) {
   test(`${c.name}: a seek while stretched fades out and back in, with no click`, async ({ page }) => {
     const h = await harness(page);
     const r = await h.seek(c.b64, c.item, 48000, 0.8, 3);
-    console.log(`seek    ${c.name} @48000: ${r.joins.map((j, k) => `${k ? "restart" : "seek"} step ${fmt(j.report.stepAtJoin)} vs ${fmt(j.report.maxStepElsewhere)}`).join("; ")}, fade out ${fmt(r.fadeOut)}, fade in ${fmt(r.fadeIn)}, from ${fmt(r.positionS)} s for ${fmt(r.targetS)} s`);
+    console.log(`seek    ${c.name} @48000: ${r.joins.map((j, k) => `${k ? "restart" : "seek"} step ${fmt(j.report.stepAtJoin)} vs ${fmt(j.report.maxStepElsewhere)}`).join("; ")}, fade out ${fmt(r.fadeOut)} (before ${fmt(r.before)}), fade in ${fmt(r.fadeIn)}, from ${fmt(r.positionS)} s for ${fmt(r.targetS)} s`);
     expect(r.status).toBe("playing");
     expect(r.positionS, "the new position starts where the seek asked").toBeCloseTo(r.targetS, 2);
+    // Against the same render without the seek, so the loop's own level changes do not count.
+    expect(r.before, "both renders are the same up to the seek").toBeCloseTo(1, 3);
     expect(r.fadeOut, "the old position fades out instead of being cut").toBeGreaterThan(0.5);
+    expect(r.fadeOut, "the old position fades out, it does not play on at full level").toBeLessThan(1);
     expect(r.fadeIn, "the new position ramps in from silence").toBeLessThan(0.3);
     expect(r.joins[0]!.faults.click, "click at the seek").toBe(false);
     expect(r.joins[1]!.faults.click, "click at the new start").toBe(false);
