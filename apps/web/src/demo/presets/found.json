@@ -9064,5 +9064,481 @@
    "url": "https://sonicstate.com/news/2026/09/29/-korg-triton-famous-songs-and-sounds/"
   },
   "quote": "Eminem - The Real Slim Shady (B056 HarpsyKorg 8' + 4')"
+ },
+ {
+  "song": "Alright",
+  "artist": "Kendrick Lamar",
+  "producer": "Pharrell Williams",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Jazz Stacks",
+  "role": "vox",
+  "confidence": "press",
+  "source": {
+   "label": "MusicRadar: Find out which Omnisphere preset you can hear in Kendrick Lamar's Super Bowl performance",
+   "url": "https://www.musicradar.com/news/omnisphere-kendrick-lamar-super-bowl"
+  },
+  "quote": "The Jazz Stacks preset was used in the original track from To Pimp A Butterfly"
+ },
+ {
+  "song": "Presidential",
+  "artist": "Rick Ross feat. Elijah Blake",
+  "producer": "Pharrell Williams",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Jazz Stacks",
+  "role": "vox",
+  "confidence": "press",
+  "source": {
+   "label": "MusicRadar: Find out which Omnisphere preset you can hear in Kendrick Lamar's Super Bowl performance",
+   "url": "https://www.musicradar.com/news/omnisphere-kendrick-lamar-super-bowl"
+  },
+  "quote": "he used it previously in a beat for Rick Ross, on the 2012 track Presidential, from God Forgives, I Don't"
+ },
+ {
+  "song": "H*A*M",
+  "artist": "Jay-Z & Kanye West",
+  "producer": "Lex Luger",
+  "plugin": "Tone2 Gladiator",
+  "preset": "ATM Tripping Alien",
+  "role": "fx",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets Used in Popular Songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "H*A*M - Jay-Z & Kanye West : ATM Tripping Alien, under Atmos in Gladiator"
+ },
+ {
+  "song": "No Lie",
+  "artist": "2 Chainz feat. Drake",
+  "producer": "Mike WiLL Made-It",
+  "plugin": "Tone2 Gladiator",
+  "preset": "SY Ethereal",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets Used in Popular Songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "No Lie - 2 Chainz & Drake: SY Ethereal, under Synth in Gladiator"
+ },
+ {
+  "song": "Monster",
+  "artist": "Future",
+  "producer": "Metro Boomin",
+  "plugin": "reFX Nexus",
+  "preset": "Whistling Sines",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets Used in Popular Songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Monster - Future: Whistling Sines, under Arpeggios in Nexus"
+ },
+ {
+  "song": "Monster",
+  "artist": "Future",
+  "producer": "Metro Boomin",
+  "plugin": "reFX Nexus",
+  "preset": "Flute Highland",
+  "role": "flute",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets Used in Popular Songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Monster - Future: Flute Highland, under XP Dance Orchestra in Nexus"
+ },
+ {
+  "song": "Honest",
+  "artist": "Future",
+  "producer": "Metro Boomin",
+  "plugin": "reFX Nexus",
+  "preset": "LD Crying Female",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets Used in Popular Songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Honest - Future: LD Crying Female, under XP Psytrance in Nexus"
+ },
+ {
+  "song": "Roccsan",
+  "artist": "Skooly",
+  "producer": "Metro Boomin",
+  "plugin": "Image-Line Sytrus",
+  "preset": "Celestial 3",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets Used in Popular Songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Roccsan - Skooly: Celestial 3, under Short Synth in Sytrus"
+ },
+ {
+  "song": "Sneakin N Geekin",
+  "artist": "Pee Wee Longway",
+  "producer": "Metro Boomin",
+  "plugin": "reFX Nexus",
+  "preset": "LD Crying Female",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets Used in Popular Songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Sneakin N Geekin - Pee Wee Longway: LD Crying Female, under XP Psytrance in Nexus"
+ },
+ {
+  "song": "Mink On The Floor",
+  "artist": "Curren$y",
+  "producer": "Metro Boomin",
+  "plugin": "reFX Nexus",
+  "preset": "LD A Simple Saw",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets Used in Popular Songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Mink On The Floor - Curren$y: LD A Simple Saw, under Dance Leads in Nexus"
+ },
+ {
+  "song": "The Hills",
+  "artist": "The Weeknd",
+  "producer": "Illangelo",
+  "plugin": "Spectrasonics Omnisphere 2",
+  "preset": "Bad Photocopy of a Supersaw",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets Used in Popular Songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "The Weeknd - 'The Hills': Omnisphere 2 - Bad Photocopy of a Supersaw"
+ },
+ {
+  "song": "Drunk In Love",
+  "artist": "Beyoncé",
+  "producer": "Detail",
+  "plugin": "Voice Of Passion",
+  "preset": "Syria",
+  "role": "vox",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets Used in Popular Songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Drunk In Love - Beyonce: Syria in Voice Of Passionraised an octave"
+ },
+ {
+  "song": "Drunk In Love",
+  "artist": "Beyoncé",
+  "producer": "Detail",
+  "plugin": "reFX Nexus",
+  "preset": "AR String Runs",
+  "role": "strings",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets Used in Popular Songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Drunk In Love - Beyonce: AR String Runs, under Arpegiatto in Nexus"
+ },
+ {
+  "song": "Look At Me Now",
+  "artist": "Chris Brown",
+  "producer": "Diplo",
+  "plugin": "reFX Nexus",
+  "preset": "AR Roman Wing",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets Used in Popular Songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Look At Me Now - Chris Brown: AR Roman Wing, under Hands up Electro 2 in Nexus"
+ },
+ {
+  "song": "What They Want",
+  "artist": "ScHoolboy Q",
+  "producer": "Mike WiLL Made-It",
+  "plugin": "reFX Nexus",
+  "preset": "Chillin House Lounge 3",
+  "role": "keys",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets Used in Popular Songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "What They Want - ScHoolboy Q: Chillin House Lounge 3, under XP House Vol.1 in Nexus"
+ },
+ {
+  "song": "No Type",
+  "artist": "Rae Sremmurd",
+  "producer": "Mike WiLL Made-It",
+  "plugin": "Tone2 Gladiator",
+  "preset": "Autochord",
+  "role": "keys",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets Used in Popular Songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "No Type - Rae Sremmurd: Autochord, under Tutorial in Gladiator"
+ },
+ {
+  "song": "Smoke A Nigga",
+  "artist": "Juicy J",
+  "producer": "Mike WiLL Made-It",
+  "plugin": "Synapse Audio DUNE",
+  "preset": "008 Belo Horizonte PK",
+  "role": "pluck",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets Used in Popular Songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Smoke A Nigga - Juicy J: 008 Belo Horizonte PK in Dune"
+ },
+ {
+  "song": "Paradise",
+  "artist": "Big Sean",
+  "producer": "Mike WiLL Made-It",
+  "plugin": "reFX Nexus",
+  "preset": "XP Hands Up-Electro Bass 2",
+  "role": "bass",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets Used in Popular Songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Paradise - Big Sean: BA Pryda PWM Bass, XP Hands Up-Electro Bass 2 in Nexus"
+ },
+ {
+  "song": "Up Down (Do This All Day)",
+  "artist": "T-Pain feat. B.o.B",
+  "producer": "DJ Mustard",
+  "plugin": "Tone2 Gladiator",
+  "preset": "GT Fantasy MSC",
+  "role": "guitar",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets Used in Popular Songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Up Down - T-Pain: GT Fantasy MSC, under DanceTrance2 in Gladiator"
+ },
+ {
+  "song": "Up Down (Do This All Day)",
+  "artist": "T-Pain feat. B.o.B",
+  "producer": "DJ Mustard",
+  "plugin": "reFX Nexus",
+  "preset": "PL 80's BalladBell",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets Used in Popular Songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Up Down - T-Pain: PL 80's BalladBell, under Plucked in Nexus"
+ },
+ {
+  "song": "Left, Right",
+  "artist": "YG",
+  "producer": "DJ Mustard",
+  "plugin": "reFX Nexus",
+  "preset": "PL The Hit",
+  "role": "pluck",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets Used in Popular Songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Left, Right - YG: PL The Hit, under XP ROM in Nexus"
+ },
+ {
+  "song": "IDFWU",
+  "artist": "Big Sean feat. E-40",
+  "producer": "DJ Mustard",
+  "plugin": "reFX Nexus",
+  "preset": "PL VZ Bells 1",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets Used in Popular Songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "IDFWU - Big Sean: Pl VZ bells 1, under Plucked in Nexus(turn off 1st osc)"
+ },
+ {
+  "song": "Same Damn Time",
+  "artist": "Future",
+  "producer": "Sonny Digital",
+  "plugin": "reFX Nexus",
+  "preset": "DRZA PortaSynth",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets Used in Popular Songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Same Damn Time - Future: DRZA PortaSynth, under DRZA XP Vol.1 in Nexus"
+ },
+ {
+  "song": "Birthday Song",
+  "artist": "2 Chainz feat. Kanye West",
+  "producer": "Sonny Digital",
+  "plugin": "reFX Nexus",
+  "preset": "DRZA PortaSynth",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets Used in Popular Songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Birthday Song - 2 Chainz: DRZA PortaSynth, under DRZA XP Vol.1 in Nexus"
+ },
+ {
+  "song": "Tuesday",
+  "artist": "ILOVEMAKONNEN",
+  "producer": "Sonny Digital",
+  "plugin": "reFX Nexus",
+  "preset": "Chillzone 1",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets Used in Popular Songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Tuesday - ILOVEMAKONNEN: Chillzone 1, under Fantasy & Dream in Nexus"
+ },
+ {
+  "song": "56 Nights",
+  "artist": "Future",
+  "producer": "Southside",
+  "plugin": "Tone2 Electra2",
+  "preset": "Chosen Paths BN",
+  "role": "keys",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets Used in Popular Songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "56 Nights - Future: Chosen Paths BN, under Keys in Electra2"
+ },
+ {
+  "song": "Yonkers",
+  "artist": "Tyler, the Creator",
+  "producer": "Tyler, the Creator",
+  "plugin": "Reason Redrum",
+  "preset": "Fx3_Hard&Soft",
+  "role": "other",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets Used in Popular Songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Yonkers - Tyler The Creator: Fx3_Hard&Soft, under Hard & Soft Redrum-Kit in Reason"
+ },
+ {
+  "song": "Yonkers",
+  "artist": "Tyler, the Creator",
+  "producer": "Tyler, the Creator",
+  "plugin": "Reason Thor",
+  "preset": "Gangsta Lead 1",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets Used in Popular Songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Yonkers - Tyler The Creator: Gangsta Lead 1, under Synth, under Thor in Reason"
+ },
+ {
+  "song": "Smuckers",
+  "artist": "Tyler, the Creator feat. Kanye West & Lil Wayne",
+  "producer": "Tyler, the Creator",
+  "plugin": "Apple Logic Pro",
+  "preset": "Brass Ensemble Legato",
+  "role": "other",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets Used in Popular Songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Smuckers - Tyler The Creator: Brass Ensemble Legato (Logic)"
+ },
+ {
+  "song": "Analog 2",
+  "artist": "Odd Future",
+  "producer": "Unknown",
+  "plugin": "Reason Redrum",
+  "preset": "Electronic 2 Kit",
+  "role": "other",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets Used in Popular Songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "A***og 2 - Odd Future: Electronic 2 Kit, under Electronic Kits, under Redrum in Reason"
+ },
+ {
+  "song": "I Like Cheese (Loiter Squad intro)",
+  "artist": "Odd Future",
+  "producer": "Unknown",
+  "plugin": "Reason NN-XT",
+  "preset": "MgP WahLead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets Used in Popular Songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "I Like Cheese (Loiter Squad intro): MgP WahLead, under Synth Lead, under NN-XT in Reason"
+ },
+ {
+  "song": "I Don't Like",
+  "artist": "Chief Keef feat. Lil Reese",
+  "producer": "Young Chop",
+  "plugin": "reFX Nexus",
+  "preset": "Hands Up Bells 3",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets Used in Popular Songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "I Don't Like - Chief Keef: Hands Up Bells 3 under Plucked in Nexus"
+ },
+ {
+  "song": "Love Sosa",
+  "artist": "Chief Keef",
+  "producer": "Young Chop",
+  "plugin": "Tone2 Gladiator",
+  "preset": "PA 60dub JC",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets Used in Popular Songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Love Sosa - Chief Keef: PA 60dub JC under Pads in Gladiator"
+ },
+ {
+  "song": "Yosemite",
+  "artist": "Travis Scott",
+  "producer": "Unknown",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Old School Air Flute",
+  "role": "flute",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets/Sounds used by popular producers",
+   "url": "https://www.ktt2.com/presets-sounds-used-by-popular-producers-34684"
+  },
+  "quote": "yosemite is old school air flute in omnisphere under ttradiotional"
  }
 ]
