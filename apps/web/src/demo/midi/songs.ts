@@ -1,0 +1,162 @@
+import type { MidiNotesFile, MusicalKey } from "@stash/contracts";
+import { parseKey } from "@stash/contracts/format";
+import type { Producer } from "../data";
+import raw from "./song-chords.json" with { type: "json" };
+
+/**
+ * Chord progressions of popular songs, as MIDI: researched chord symbols (song-chords.json, each
+ * with the page it came from) voiced here into playable chords at the song's key and tempo.
+ * Chords only: no melodies, no note-for-note transcription of a recording.
+ */
+
+export type SongChords = {
+  song: string;
+  artist: string;
+  producer: string | null;
+  key: string;
+  bpm: number;
+  chords: [string, number][];
+  section?: string;
+  chordSource: { label: string; url: string };
+  keyBpmSource?: { label: string; url: string } | null;
+  notes?: string;
+};
+
+export const SONG_CHORDS: SongChords[] = raw as unknown as SongChords[];
+
+export const CHORDS_OWNER: Producer = { id: "00000000-0000-4000-8000-0000000000c0", handle: "stash_chords", displayName: "Stash chord charts", followers: 0 };
+
+const NOTE: Record<string, number> = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
+
+/** Intervals above the root for the chord qualities that charts use. */
+const QUALITY: [RegExp, number[]][] = [
+  [/^(m7b5|ø7?|min7b5|-7b5)$/, [0, 3, 6, 10]],
+  [/^(dim7|°7|o7)$/, [0, 3, 6, 9]],
+  [/^(dim|°|o)$/, [0, 3, 6]],
+  [/^(aug|\+)$/, [0, 4, 8]],
+  [/^(m|min|-)(maj7|M7|Δ7?)$/, [0, 3, 7, 11]],
+  [/^(maj13|M13|Δ13)$/, [0, 4, 7, 11, 14, 21]],
+  [/^(maj9|M9|Δ9)$/, [0, 4, 7, 11, 14]],
+  [/^(maj7|M7|Δ7?|maj)$/, [0, 4, 7, 11]],
+  [/^(m|min|-)13$/, [0, 3, 7, 10, 14, 21]],
+  [/^(m|min|-)11$/, [0, 3, 7, 10, 14, 17]],
+  [/^(m|min|-)9$/, [0, 3, 7, 10, 14]],
+  [/^(m|min|-)7$/, [0, 3, 7, 10]],
+  [/^(m|min|-)6$/, [0, 3, 7, 9]],
+  [/^(m|min|-)add9$/, [0, 3, 7, 14]],
+  [/^(m|min|-)$/, [0, 3, 7]],
+  [/^(6\/9|69|6add9)$/, [0, 4, 7, 9, 14]],
+  [/^(m|min|-)(6\/9|69)$/, [0, 3, 7, 9, 14]],
+  [/^13$/, [0, 4, 7, 10, 14, 21]],
+  [/^11$/, [0, 4, 7, 10, 14, 17]],
+  [/^9$/, [0, 4, 7, 10, 14]],
+  [/^9sus4?$/, [0, 5, 7, 10, 14]],
+  [/^7sus4?$/, [0, 5, 7, 10]],
+  [/^7sus2$/, [0, 2, 7, 10]],
+  [/^add11$/, [0, 4, 7, 17]],
+  [/^(m|min|-)add11$/, [0, 3, 7, 17]],
+  [/^(m|min|-)7add11$/, [0, 3, 7, 10, 17]],
+  [/^(maj7|M7)add11$|^maj7#11$/, [0, 4, 7, 11, 18]],
+  [/^7$/, [0, 4, 7, 10]],
+  [/^6$/, [0, 4, 7, 9]],
+  [/^add9$|^add2$/, [0, 4, 7, 14]],
+  [/^sus2$/, [0, 2, 7]],
+  [/^sus4?$/, [0, 5, 7]],
+  [/^5$/, [0, 7]],
+  [/^$/, [0, 4, 7]],
+];
+
+export type ParsedChord = { root: number; tones: number[]; bass: number };
+
+function pitchClass(name: string): number | null {
+  const m = /^([A-G])([#b♯♭]*)$/.exec(name);
+  if (!m) return null;
+  let pc = NOTE[m[1]!]!;
+  for (const a of m[2]!) pc += a === "#" || a === "♯" ? 1 : -1;
+  return ((pc % 12) + 12) % 12;
+}
+
+/** "C#m7", "Bbmaj7/D", "F#m7b5", "Esus4". Returns null for anything it cannot read. */
+export function parseChord(symbol: string): ParsedChord | null {
+  const s = symbol.trim().replace(/\s+/g, "");
+  const m = /^([A-G][#b♯♭]?)((?:[^/]|\/9)*)(?:\/([A-G][#b♯♭]?))?$/.exec(s);
+  if (!m) return null;
+  const root = pitchClass(m[1]!);
+  if (root === null) return null;
+  // Drop extensions in parentheses and trailing alterations the voicing does not need: "7(b9)", "m9(11)".
+  const quality = m[2]!.replace(/\(.*\)$/, "");
+  const plain = quality.replace(/(b9|#9|#11|b13|#5)$/, "");
+  const found = [quality, plain, plain.replace(/\d+$/, "")].map((q) => QUALITY.find(([re]) => re.test(q))).find(Boolean);
+  if (!found) return null;
+  const bass = m[3] ? pitchClass(m[3]) : root;
+  if (bass === null) return null;
+  return { root, tones: found[1], bass };
+}
+
+/** Voices each chord near the previous one (smallest total movement), between E3 and E5, with the bass under it. */
+export function voice(chords: ParsedChord[]): { upper: number[]; bass: number }[] {
+  let prev: number[] | null = null;
+  return chords.map((c) => {
+    const pcs = c.tones.map((i) => (c.root + i) % 12);
+    const unique = [...new Set(pcs)].slice(0, 5);
+    // Candidate voicings: every inversion, stacked upward from a start note in the middle register.
+    let best: number[] = [];
+    let bestCost = Infinity;
+    for (let inv = 0; inv < unique.length; inv++) {
+      const order = [...unique.slice(inv), ...unique.slice(0, inv)];
+      for (const startOct of [4, 5]) {
+        const out: number[] = [];
+        let last = 12 * startOct + order[0]! - 12;
+        for (const pc of order) {
+          let n = Math.floor(last / 12) * 12 + pc;
+          while (n <= last && out.length > 0) n += 12;
+          out.push(n);
+          last = n;
+        }
+        if (out[0]! < 52 || out.at(-1)! > 79) continue;
+        const centre = out.reduce((a, b) => a + b, 0) / out.length;
+        const cost = prev ? out.reduce((sum, n, i) => sum + Math.abs(n - (prev![Math.min(i, prev!.length - 1)] ?? n)), 0) : Math.abs(centre - 62) * 2;
+        if (cost < bestCost) {
+          bestCost = cost;
+          best = out;
+        }
+      }
+    }
+    if (best.length === 0) best = unique.map((pc) => 60 + pc);
+    prev = best;
+    return { upper: best, bass: 36 + ((c.bass - 36 + 120) % 12) };
+  });
+}
+
+/** The progression as a notes file: held chords with a bass note, looped to at least four bars. */
+export function songNotes(s: SongChords): MidiNotesFile | null {
+  const parsed = s.chords.map(([sym]) => parseChord(sym));
+  if (parsed.some((p) => p === null) || parsed.length === 0) return null;
+  const voiced = voice(parsed as ParsedChord[]);
+  const once = s.chords.reduce((n, [, beats]) => n + beats, 0);
+  if (once <= 0 || once % 1 !== 0) return null;
+  const repeats = Math.max(1, Math.ceil(16 / once));
+  const notes: [number, number, number, number][] = [];
+  let t = 0;
+  for (let r = 0; r < repeats; r++) {
+    s.chords.forEach(([, beats], i) => {
+      const v = voiced[i]!;
+      const len = Math.max(0.25, beats - 0.05);
+      v.upper.forEach((p, j) => notes.push([+(t + j * 0.012).toFixed(3), len, p, 76 - j * 3]));
+      notes.push([t, len, v.bass, 88]);
+      t += beats;
+    });
+  }
+  const pitches = notes.map((n) => n[2]);
+  notes.sort((a, b) => a[0] - b[0] || a[2] - b[2]);
+  return { version: 1, bpm: s.bpm, timeSignature: [4, 4], bars: Math.ceil(t / 4), pitchMin: Math.min(...pitches), pitchMax: Math.max(...pitches), drums: false, notes };
+}
+
+export function songKey(s: SongChords): MusicalKey | null {
+  // Modes read as the major or minor key they sit closest to: B Dorian files under B minor.
+  const k = s.key
+    .replace(/\b(dorian|phrygian|aeolian|locrian|harmonic minor|melodic minor)\b/i, "minor")
+    .replace(/\b(mixolydian|lydian|ionian)\b/i, "major")
+    .replace(/\s*\(.*\)$/, "");
+  return parseKey(k.replace(/\s+/g, ""));
+}

@@ -36,7 +36,7 @@ import { BrowsePage, LibraryPage, NewCrateHost, ProfilePage, useCrateEntries, ty
 import { KitsPage } from "./kits";
 import { StackPage } from "./stack/page";
 import type { MidiKind } from "@stash/contracts";
-import { FilterChip, UiLink } from "@stash/ui";
+import { FilterChip, SearchInput, UiLink } from "@stash/ui";
 
 /**
  * The browser-only demo (ticket 137): the real shell, player bar, result rows, loop page and audio
@@ -163,9 +163,16 @@ const FEATURES = [
   { href: "/library", name: "Your library", blurb: "Likes, crates of sounds for one beat, who you follow and what you posted." },
 ];
 
+const TODAY = Math.floor(Date.now() / 86_400_000);
+
 function Home() {
   const [rows, refresh] = useRows();
   const midi = useMidiItems();
+  const songs = useMemo(() => {
+    const list = midi.filter((m) => m.song);
+    // A different handful each day, so the home page does not always open on the same artist.
+    return list.map((m, i) => ({ m, k: (i * 7919 + TODAY * 104729) % 9973 })).sort((a, b) => a.k - b.k).map((x) => x.m);
+  }, [midi]);
   return (
     <Page>
       <section className="flex flex-col gap-4 rounded-panel border border-border bg-surface p-6">
@@ -206,8 +213,20 @@ function Home() {
             {`All ${midi.length} MIDI`}
           </ButtonLink>
         </div>
-        <MidiList label="MIDI" items={midi.slice(0, 6)} />
+        <MidiList label="MIDI" items={midi.filter((m) => !m.song).slice(0, 6)} />
       </section>
+      {songs.length > 0 && (
+        <section className="flex flex-col gap-3">
+          <div className="flex items-end justify-between gap-3">
+            <h2 className="text-title">Chords from the songs</h2>
+            <ButtonLink href="/midi" variant="ghost" size="sm">
+              {`All ${songs.length} songs`}
+            </ButtonLink>
+          </div>
+          <p className="max-w-prose text-body text-text-muted">The progressions behind popular records, at their key and tempo. Each one links to where the chords came from.</p>
+          <MidiList label="Song chords" items={songs.slice(0, 6)} />
+        </section>
+      )}
     </Page>
   );
 }
@@ -288,17 +307,39 @@ function NotFound() {
 const KINDS: (MidiKind | "all")[] = ["all", "chords", "melody", "bass", "drums"];
 const KIND_NAME: Record<MidiKind | "all", string> = { all: "All", chords: "Chords", melody: "Melody", bass: "Bass", drums: "Drums" };
 
+type Origin = "all" | "songs" | "posts";
+const ORIGIN_NAME: Record<Origin, string> = { all: "Everything", songs: "Chords from songs", posts: "Producers' patterns" };
+
 function AllMidi() {
-  const midi = useMidiItems();
+  const all = useMidiItems();
+  const [origin, setOrigin] = useState<Origin>("all");
   const [kind, setKind] = useState<MidiKind | "all">("all");
+  const [q, setQ] = useState("");
+  const needle = q.trim().toLowerCase();
+  const midi = all
+    .filter((m) => origin === "all" || (origin === "songs") === !!m.song)
+    .filter((m) => !needle || [m.title, m.owner.displayName, ...m.tags, m.song?.producer ?? ""].some((s) => s.toLowerCase().includes(needle)));
   const shown = kind === "all" ? midi : midi.filter((m) => m.kind === kind);
   return (
     <Page>
       <header className="flex flex-col gap-1">
         <span className="text-label text-label-caps text-text-muted">MIDI</span>
         <h1 className="text-title">Every MIDI pattern</h1>
-        <p className="max-w-prose text-body text-text-muted">Original patterns across trap, boom bap, plugg, rage, drill, phonk, R&B, lo-fi, Jersey club and West Coast. Press play to hear them in the piano roll.</p>
+        <p className="max-w-prose text-body text-text-muted">
+          Original patterns across trap, boom bap, plugg, rage, drill, phonk, R&B, lo-fi, Jersey club and West Coast, and the chord progressions of popular songs at
+          their key and tempo, each with where the chords came from. Press play to hear any of them in the piano roll.
+        </p>
       </header>
+      <div className="flex flex-col gap-3 tablet:flex-row tablet:items-center tablet:justify-between">
+        <SearchInput label="Search songs, artists, tags" shortcut="" value={q} onChange={(e) => setQ(e.target.value)} onClear={() => setQ("")} className="tablet:w-80" />
+        <div role="group" aria-label="Where it comes from" className="flex flex-wrap gap-2">
+          {(Object.keys(ORIGIN_NAME) as Origin[]).map((o) => (
+            <FilterChip key={o} selected={origin === o} onToggle={() => setOrigin(o)}>
+              {`${ORIGIN_NAME[o]} ${o === "all" ? all.length : all.filter((m) => (o === "songs") === !!m.song).length}`}
+            </FilterChip>
+          ))}
+        </div>
+      </div>
       <div role="group" aria-label="Kind" className="flex flex-wrap gap-2">
         {KINDS.map((k) => (
           <FilterChip key={k} selected={kind === k} onToggle={() => setKind(k)}>

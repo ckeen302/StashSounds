@@ -150,6 +150,45 @@ function StackButton({ itemId, title }: { itemId: string; title: string }) {
   );
 }
 
+/** A song's progression as written in the source: chord, beats, then where it came from. */
+function ChordChart({ song }: { song: NonNullable<MidiItem["song"]> }) {
+  return (
+    <section aria-labelledby="chart-title" className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-4">
+      <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <h2 id="chart-title" className="text-label text-label-caps text-text-muted">
+          Chord chart{song.section ? ` · ${song.section}` : ""}
+        </h2>
+        <span className="font-mono text-numeric tabular text-text-muted">{`${song.key} · ${song.bpm} BPM`}</span>
+      </div>
+      <ol aria-label="Chords" className="flex flex-wrap gap-2">
+        {song.chords.map(([c, beats], i) => (
+          <li key={i} className="flex flex-col rounded-control border border-border-strong bg-raised px-3 py-2">
+            <span className="font-mono text-body-strong text-text">{c}</span>
+            <span className="text-small text-text-muted">{beats === 4 ? "1 bar" : beats % 4 === 0 ? `${beats / 4} bars` : `${beats} beats`}</span>
+          </li>
+        ))}
+      </ol>
+      <ul className="flex flex-col gap-1 text-small text-text-muted">
+        <li>
+          Chords:{" "}
+          <a href={song.chordSource.url} target="_blank" rel="noreferrer" className="text-text underline underline-offset-2">
+            {song.chordSource.label}
+          </a>
+        </li>
+        {song.keyBpmSource && (
+          <li>
+            Key and tempo:{" "}
+            <a href={song.keyBpmSource.url} target="_blank" rel="noreferrer" className="text-text underline underline-offset-2">
+              {song.keyBpmSource.label}
+            </a>
+          </li>
+        )}
+        {song.notes && <li>{song.notes}</li>}
+      </ul>
+    </section>
+  );
+}
+
 /** The MIDI item page: the roll as the hero, the transport and a sound picker under it. */
 export function MidiPage({ publicId }: { publicId: string }) {
   const items = useMidiItems();
@@ -207,7 +246,8 @@ export function MidiPage({ publicId }: { publicId: string }) {
   const liveKey = transposedKey(item.key, current && !item.notes.drums ? s.transpose : 0);
   const bpb = (item.notes.timeSignature[0] * 4) / item.notes.timeSignature[1];
   const others = items.filter((m) => m.id !== item.id);
-  const more = others.filter((m) => m.owner.id === item.owner.id);
+  const sameArtist = item.song ? others.filter((m) => m.song?.artist === item.song!.artist) : [];
+  const more = sameArtist.length > 0 ? sameArtist : others.filter((m) => m.owner.id === item.owner.id);
 
   return (
     <main aria-labelledby="item-title" className="@container mx-auto flex w-full max-w-content flex-col gap-8 px-3 pt-6 pb-8 tablet:px-4 desktop:px-6 desktop:pt-8">
@@ -221,9 +261,16 @@ export function MidiPage({ publicId }: { publicId: string }) {
             <h1 id="item-title" className="text-display break-words text-text">
               {item.title}
             </h1>
-            <p className="text-small text-text-muted">
-              by <span className="text-text">{item.owner.displayName}</span> <span>@{item.owner.handle}</span>
-            </p>
+            {item.song ? (
+              <p className="text-small text-text-muted">
+                From <span className="text-text">{item.song.song}</span> by <span className="text-text">{item.song.artist}</span>
+                {item.song.producer ? ` · prod. ${item.song.producer}` : ""}
+              </p>
+            ) : (
+              <p className="text-small text-text-muted">
+                by <span className="text-text">{item.owner.displayName}</span> <span>@{item.owner.handle}</span>
+              </p>
+            )}
           </header>
 
           <section aria-label="MIDI player" className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-4">
@@ -277,6 +324,8 @@ export function MidiPage({ publicId }: { publicId: string }) {
             <p className="text-small text-text-muted">The download is the MIDI file itself, so it plays on whatever instrument you load in your DAW.</p>
           </section>
 
+          {item.song && <ChordChart song={item.song} />}
+
           <section aria-label="About" className="flex flex-col gap-4 rounded-panel border border-border bg-surface p-4">
             <p className="max-w-160 text-body text-text">{item.description}</p>
             {item.tags.length > 0 && (
@@ -309,10 +358,14 @@ export function MidiPage({ publicId }: { publicId: string }) {
               <h2 id="license-title" className="text-label text-label-caps text-text-muted">
                 License
               </h2>
-              <LicenseBadge kind={item.license} summaryTooltip={false} />
+              {!item.song && <LicenseBadge kind={item.license} summaryTooltip={false} />}
             </div>
-            <p className="text-small text-text">{LICENSES[item.license].summary}</p>
-            <div className="flex gap-2">
+            <p className="text-small text-text">
+              {item.song
+                ? `A chord chart of a published song, for learning and reference. The song belongs to its writers: chords alone are common ground, but don't pass off the song itself as yours.`
+                : LICENSES[item.license].summary}
+            </p>
+            <div className="flex flex-wrap gap-2">
               <Button
                 variant="primary"
                 icon={Download}
@@ -366,7 +419,7 @@ export function MidiPage({ publicId }: { publicId: string }) {
       {(more.length > 0 ? more : others).length > 0 && (
         <section aria-labelledby="more-title" className="flex flex-col gap-3">
           <h2 id="more-title" className="text-title text-text">
-            {more.length > 0 ? `More MIDI from ${item.owner.displayName}` : "More MIDI"}
+            {more.length > 0 ? (sameArtist.length > 0 ? `More ${item.song!.artist} chords` : `More MIDI from ${item.owner.displayName}`) : "More MIDI"}
           </h2>
           <MidiList label="More MIDI" items={(more.length > 0 ? more : others).slice(0, 4)} />
         </section>

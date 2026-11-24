@@ -1,6 +1,7 @@
 import type { LicenseKind, MidiKind, MidiNotesFile, MusicalKey, SoundId } from "@stash/contracts";
 import { producers, type Producer } from "../data";
 import * as lib from "./library";
+import { CHORDS_OWNER, SONG_CHORDS, songKey, songNotes, type SongChords } from "./songs";
 
 /**
  * The demo's MIDI items: four patterns written for the demo, plus whatever this browser's viewer
@@ -29,6 +30,8 @@ export type MidiItem = {
   fileName?: string;
   /** Posted from this browser on the upload page. */
   mine?: boolean;
+  /** A popular song's chord progression, with where the chords, key and tempo came from. */
+  song?: SongChords;
 };
 
 export const extra = {
@@ -237,9 +240,42 @@ export function subscribeMidi(l: () => void) {
 }
 export const midiVersion = () => version;
 
-/** Every MIDI item, the viewer's posts first, then newest first. */
+/** The researched song progressions as MIDI items, A to Z by artist. One that does not parse is left out. */
+const songItems: MidiItem[] = SONG_CHORDS.flatMap((s, i) => {
+  const notes = songNotes(s);
+  if (!notes) return [];
+  const publicId = `demosong${String(i + 1).padStart(3, "0")}`;
+  const title = `${s.song} chords`;
+  const slug = slugify(`${s.song} ${s.artist} chords`);
+  const item: MidiItem = {
+    id: `song-${publicId}`,
+    publicId,
+    slug,
+    title,
+    href: `/midi/${slug}-${publicId}`,
+    owner: CHORDS_OWNER,
+    kind: "chords",
+    sound: "keys",
+    key: songKey(s),
+    notes,
+    tags: ["song chords", s.artist.toLowerCase()],
+    description: `The ${s.section ? s.section.toLowerCase() : "main"} progression of ${s.song} by ${s.artist}: ${s.chords.map(([c]) => c).join(", ")}. Voiced here as held chords with the root in the bass, at the song's key and tempo. Chords only, for learning and reference.`,
+    license: "credit_required",
+    likes: 0,
+    downloads: 0,
+    publishedAt: "2026-11-24T15:00:00Z",
+    song: s,
+  };
+  return [item];
+}).sort((a, b) => a.song!.artist.localeCompare(b.song!.artist) || a.song!.song.localeCompare(b.song!.song));
+
+/** Every MIDI item: the viewer's posts first, then the originals newest first, then the song chords. */
 export function midiItems(): MidiItem[] {
-  return [...loadUploads(), ...[...built].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))];
+  return [...loadUploads(), ...[...built].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt)), ...songItems];
+}
+
+export function songChordItems(): MidiItem[] {
+  return songItems;
 }
 
 export function midiItem(publicId: string): MidiItem | null {

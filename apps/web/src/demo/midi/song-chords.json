@@ -1,0 +1,5342 @@
+[
+ {
+  "song": "God's Plan",
+  "artist": "Drake",
+  "producer": null,
+  "key": "E minor",
+  "bpm": 154,
+  "chords": [
+   [
+    "Am7",
+    4
+   ],
+   [
+    "Bm7",
+    4
+   ]
+  ],
+  "section": "Verse (iv7 - v7)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, God's Plan by Drake",
+   "url": "https://www.hooktheory.com/theorytab/view/drake/gods-plan"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, God's Plan by Drake",
+   "url": "https://www.hooktheory.com/theorytab/view/drake/gods-plan"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Pre-chorus per Hooktheory: Am Bm C Em (iv v VI i). SongBPM page for this song failed to load, so key/BPM are Hooktheory-only (no cross-check)."
+ },
+ {
+  "song": "Hotline Bling",
+  "artist": "Drake",
+  "producer": null,
+  "key": "D minor",
+  "bpm": 135,
+  "chords": [
+   [
+    "Bbmaj7/D",
+    4
+   ],
+   [
+    "Am7",
+    4
+   ]
+  ],
+  "section": "Chorus (VI65 - v7)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Hotline Bling by Drake",
+   "url": "https://www.hooktheory.com/theorytab/view/drake/hotline-bling"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Hotline Bling by Drake",
+   "url": "https://songbpm.com/@drake/hotline-bling"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Key mismatch: Hooktheory says D minor, SongBPM says D major; both say 135 BPM."
+ },
+ {
+  "song": "One Dance",
+  "artist": "Drake",
+  "producer": null,
+  "key": "Bb minor",
+  "bpm": 104,
+  "chords": [
+   [
+    "Bbm",
+    4
+   ],
+   [
+    "Ebm",
+    4
+   ]
+  ],
+  "section": "Verse / chorus (i - iv)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, One Dance by Drake",
+   "url": "https://www.hooktheory.com/theorytab/view/drake/one-dance"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, One Dance by Drake",
+   "url": "https://songbpm.com/@drake/one-dance"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). SongBPM says C#/Db major (relative major of Bb minor), 104 BPM - consistent."
+ },
+ {
+  "song": "Marvin's Room",
+  "artist": "Drake",
+  "producer": null,
+  "key": "C major",
+  "bpm": 83,
+  "chords": [
+   [
+    "F",
+    4
+   ],
+   [
+    "G",
+    4
+   ],
+   [
+    "Am",
+    4
+   ],
+   [
+    "C",
+    4
+   ]
+  ],
+  "section": "Chorus (IV - V - vi - I)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Marvin's Room by Drake",
+   "url": "https://www.hooktheory.com/theorytab/view/drake/marvins-room"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Marvin's Room by Drake",
+   "url": "https://songbpm.com/@drake/marvins-room"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). SongBPM says A minor (relative minor) and 168 BPM; Hooktheory says 83 BPM (half of ~166)."
+ },
+ {
+  "song": "Hold On, We're Going Home",
+  "artist": "Drake",
+  "producer": null,
+  "key": "A major",
+  "bpm": 100,
+  "chords": [
+   [
+    "Eadd9",
+    4
+   ],
+   [
+    "Bm",
+    4
+   ],
+   [
+    "Amaj7",
+    4
+   ],
+   [
+    "C#m7/E",
+    4
+   ],
+   [
+    "Dmaj7",
+    4
+   ]
+  ],
+  "section": "Chorus (V(add9) ii I7 iii65 IV7)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Hold On We're Going Home by Drake",
+   "url": "https://www.hooktheory.com/theorytab/view/drake/hold-on-were-going-home"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Hold On We're Going Home by Drake",
+   "url": "https://www.hooktheory.com/theorytab/view/drake/hold-on-were-going-home"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Verse per Hooktheory: Bm Amaj7 C#m7/E Dmaj7 F#m. SongBPM page failed to load; key/BPM Hooktheory-only."
+ },
+ {
+  "song": "Headlines",
+  "artist": "Drake",
+  "producer": null,
+  "key": "B Dorian",
+  "bpm": 160,
+  "chords": [
+   [
+    "D",
+    4
+   ],
+   [
+    "C#m",
+    4
+   ],
+   [
+    "Bm",
+    4
+   ],
+   [
+    "C#m",
+    4
+   ]
+  ],
+  "section": "Pre-chorus / chorus (III ii i ii)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Headlines by Drake",
+   "url": "https://www.hooktheory.com/theorytab/view/drake/headlines"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Headlines by Drake",
+   "url": "https://songbpm.com/@drake/headlines"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Mismatch: SongBPM says F#/Gb minor, 152 BPM; Hooktheory says B Dorian, 160 BPM."
+ },
+ {
+  "song": "Nice For What",
+  "artist": "Drake",
+  "producer": null,
+  "key": "Ab major",
+  "bpm": 93,
+  "chords": [
+   [
+    "Fm7",
+    4
+   ],
+   [
+    "Eb",
+    4
+   ],
+   [
+    "Fm7",
+    4
+   ],
+   [
+    "Dbmaj7",
+    4
+   ]
+  ],
+  "section": "Chorus (vi7 V vi7 IV7)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Nice For What by Drake",
+   "url": "https://www.hooktheory.com/theorytab/view/drake/nice-for-what"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Nice For What by Drake",
+   "url": "https://songbpm.com/@drake/nice-for-what"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Intro per Hooktheory: iii7 #ii7 IV7 vi7. SongBPM confirms 93 BPM but lists no key."
+ },
+ {
+  "song": "Take Care",
+  "artist": "Drake ft. Rihanna",
+  "producer": null,
+  "key": "C minor",
+  "bpm": 122,
+  "chords": [
+   [
+    "Cm",
+    4
+   ],
+   [
+    "Bb",
+    4
+   ],
+   [
+    "Ab",
+    4
+   ]
+  ],
+  "section": "Verse (i VII VI)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Take Care by Drake",
+   "url": "https://www.hooktheory.com/theorytab/view/drake/take-care"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Take Care by Drake",
+   "url": "https://songbpm.com/@drake/take-care"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). 3 chords = 3 bars as listed. Hooktheory says 124 BPM, SongBPM 122 BPM; both C minor."
+ },
+ {
+  "song": "Controlla",
+  "artist": "Drake",
+  "producer": null,
+  "key": "Bb minor",
+  "bpm": 92,
+  "chords": [
+   [
+    "Ebm7",
+    4
+   ],
+   [
+    "Fm7",
+    4
+   ],
+   [
+    "Bbm7",
+    4
+   ],
+   [
+    "Fm7",
+    4
+   ]
+  ],
+  "section": "Chorus (iv7 v7 i7 v7)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Controlla by Drake",
+   "url": "https://www.hooktheory.com/theorytab/view/drake/controlla"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Controlla by Drake",
+   "url": "https://songbpm.com/@drake/controlla"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Hooktheory lists 186 BPM (double-time); SongBPM 92 BPM. Both Bb minor."
+ },
+ {
+  "song": "Passionfruit",
+  "artist": "Drake",
+  "producer": null,
+  "key": "G# minor",
+  "bpm": 112,
+  "chords": [
+   [
+    "Emaj9",
+    4
+   ],
+   [
+    "C#m9",
+    4
+   ],
+   [
+    "D#m7/A#",
+    4
+   ],
+   [
+    "F#add9",
+    4
+   ]
+  ],
+  "section": "Intro / main loop (VI9 iv9 v43 VII(add9))",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Passionfruit by Drake",
+   "url": "https://www.hooktheory.com/theorytab/view/drake/passionfruit"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Passionfruit by Drake",
+   "url": "https://songbpm.com/@drake/passionfruit"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). SongBPM says B major (relative major), 112 BPM - consistent. Ultimate Guitar chord sheet (tabs.ultimate-guitar.com/tab/drake/passionfruit-chords-1972279) lists Amaj7, F#m7, G#m7, C#m7 in a transposed version."
+ },
+ {
+  "song": "Crew Love",
+  "artist": "Drake ft. The Weeknd",
+  "producer": null,
+  "key": "C minor",
+  "bpm": 160,
+  "chords": [
+   [
+    "Cm7",
+    4
+   ],
+   [
+    "Bb",
+    4
+   ],
+   [
+    "Cm7",
+    4
+   ],
+   [
+    "Ab",
+    4
+   ],
+   [
+    "Bb",
+    4
+   ]
+  ],
+  "section": "Chorus (i7 VII i7 VI VII)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Crew Love by Drake",
+   "url": "https://www.hooktheory.com/theorytab/view/drake/crew-love"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Crew Love by Drake",
+   "url": "https://songbpm.com/@drake/crew-love"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). SongBPM agrees: C minor, 160 BPM."
+ },
+ {
+  "song": "Furthest Thing",
+  "artist": "Drake",
+  "producer": null,
+  "key": "A minor",
+  "bpm": 69,
+  "chords": [
+   [
+    "Fmaj7",
+    4
+   ],
+   [
+    "Am7",
+    4
+   ]
+  ],
+  "section": "Verse (VI7 i7)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Furthest Thing by Drake",
+   "url": "https://www.hooktheory.com/theorytab/view/drake/furthest-thing"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Furthest Thing by Drake",
+   "url": "https://songbpm.com/@drake/furthest-thing"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). SongBPM gives 137 BPM (double of Hooktheory's 69) and no key."
+ },
+ {
+  "song": "The Hills",
+  "artist": "The Weeknd",
+  "producer": null,
+  "key": "C minor",
+  "bpm": 113,
+  "chords": [
+   [
+    "Cm",
+    4
+   ],
+   [
+    "Ab6",
+    4
+   ],
+   [
+    "F5",
+    4
+   ],
+   [
+    "Ab6",
+    4
+   ]
+  ],
+  "section": "Verse (i VI(add6) iv(no3) VI(add6))",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, The Hills by The Weeknd",
+   "url": "https://www.hooktheory.com/theorytab/view/the-weeknd/the-hills"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, The Hills by The Weeknd",
+   "url": "https://songbpm.com/@the-weeknd/the-hills"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Chorus per Hooktheory: Abmaj7 Fm7/C Cm Abmaj13 Fm7 (VI7 iv43 i VI13 iv7). SongBPM agrees C minor, 113 BPM. Musicnotes (musicnotes.com/sheetmusic/mtd.asp?ppn=MN0155263) also lists C minor, q=120."
+ },
+ {
+  "song": "Starboy",
+  "artist": "The Weeknd",
+  "producer": null,
+  "key": "A minor",
+  "bpm": 93,
+  "chords": [
+   [
+    "Am",
+    4
+   ],
+   [
+    "G",
+    4
+   ],
+   [
+    "F",
+    4
+   ],
+   [
+    "G",
+    4
+   ],
+   [
+    "Em",
+    4
+   ]
+  ],
+  "section": "Chorus (i VII VI VII v)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Starboy by The Weeknd",
+   "url": "https://www.hooktheory.com/theorytab/view/the-weeknd/starboy"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Starboy by The Weeknd",
+   "url": "https://songbpm.com/@the-weeknd/starboy"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Verse per Hooktheory: Am/E G F G (i64 VII VI VII). MISMATCH: SongBPM says G major, 186 BPM (double-time)."
+ },
+ {
+  "song": "Call Out My Name",
+  "artist": "The Weeknd",
+  "producer": null,
+  "key": "D# minor",
+  "bpm": 134,
+  "chords": [
+   [
+    "G#m",
+    4
+   ],
+   [
+    "D#m",
+    4
+   ]
+  ],
+  "section": "Verse / chorus (iv i)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Call Out My Name by The Weeknd",
+   "url": "https://www.hooktheory.com/theorytab/view/the-weeknd/call-out-my-name"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Call Out My Name by The Weeknd",
+   "url": "https://songbpm.com/@the-weeknd/call-out-my-name"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Song is in 12/8 per Hooktheory: treat each '4 beats' as one 12/8 bar (4 dotted-quarter beats). SongBPM agrees 134 BPM, no key listed."
+ },
+ {
+  "song": "Die For You",
+  "artist": "The Weeknd",
+  "producer": null,
+  "key": "C# minor",
+  "bpm": 134,
+  "chords": [
+   [
+    "Amaj7",
+    4
+   ],
+   [
+    "G#m7",
+    4
+   ],
+   [
+    "C#m7",
+    4
+   ],
+   [
+    "F#m7",
+    4
+   ]
+  ],
+  "section": "Chorus (VI7 v7 i7 iv7)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Die For You by The Weeknd",
+   "url": "https://www.hooktheory.com/theorytab/view/the-weeknd/die-for-you"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Die For You by The Weeknd",
+   "url": "https://songbpm.com/@the-weeknd/die-for-you"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). SongBPM agrees: C# minor, 134 BPM."
+ },
+ {
+  "song": "Wicked Games",
+  "artist": "The Weeknd",
+  "producer": null,
+  "key": "B minor",
+  "bpm": 114,
+  "chords": [
+   [
+    "Bm",
+    4
+   ],
+   [
+    "F#m/A",
+    4
+   ],
+   [
+    "Em/G",
+    4
+   ],
+   [
+    "A",
+    4
+   ]
+  ],
+  "section": "Verse (i v6 iv6 VII)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Wicked Games by The Weeknd",
+   "url": "https://www.hooktheory.com/theorytab/view/the-weeknd/wicked-games"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Wicked Games by The Weeknd",
+   "url": "https://songbpm.com/@the-weeknd/wicked-games"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). BPM agrees (114). Key MISMATCH: SongBPM says A major."
+ },
+ {
+  "song": "Party Monster",
+  "artist": "The Weeknd",
+  "producer": null,
+  "key": "D# minor",
+  "bpm": 78,
+  "chords": [
+   [
+    "D#m",
+    4
+   ],
+   [
+    "C#",
+    4
+   ],
+   [
+    "B",
+    4
+   ],
+   [
+    "C#",
+    4
+   ],
+   [
+    "B6",
+    4
+   ]
+  ],
+  "section": "Chorus (i VII VI VII VI6, all no5)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Party Monster by The Weeknd",
+   "url": "https://www.hooktheory.com/theorytab/view/the-weeknd/party-monster"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Party Monster by The Weeknd",
+   "url": "https://songbpm.com/@the-weeknd/party-monster"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Hooktheory marks every chord (no5) - voiced without fifths. Hooktheory tempo 156 BPM, SongBPM 78 BPM (half). Key MISMATCH: SongBPM says C#/Db major."
+ },
+ {
+  "song": "Earned It",
+  "artist": "The Weeknd",
+  "producer": null,
+  "key": "D minor",
+  "bpm": 120,
+  "chords": [
+   [
+    "Gm7",
+    4
+   ],
+   [
+    "Dm7",
+    4
+   ],
+   [
+    "D7/F#",
+    4
+   ]
+  ],
+  "section": "Verse / pre-chorus (iv7 i7 V65/iv)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Earned It by The Weeknd",
+   "url": "https://www.hooktheory.com/theorytab/view/the-weeknd/earned-it"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Earned It by The Weeknd",
+   "url": "https://www.hooktheory.com/theorytab/view/the-weeknd/earned-it"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Meter is 12/8 per Hooktheory (each 4-beat unit = one 12/8 bar). Chorus per Hooktheory: iv7 i7 I65 iv7 i7. SongBPM page failed to load; key/BPM Hooktheory-only."
+ },
+ {
+  "song": "Blinding Lights",
+  "artist": "The Weeknd",
+  "producer": null,
+  "key": "F Dorian",
+  "bpm": 171,
+  "chords": [
+   [
+    "Fm",
+    4
+   ],
+   [
+    "Cm",
+    4
+   ],
+   [
+    "Eb",
+    4
+   ],
+   [
+    "Bb",
+    4
+   ]
+  ],
+  "section": "Verse / chorus core (i v VII IV)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Blinding Lights by The Weeknd",
+   "url": "https://www.hooktheory.com/theorytab/view/the-weeknd/blinding-lights"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Blinding Lights by The Weeknd",
+   "url": "https://songbpm.com/@the-weeknd/blinding-lights"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Hooktheory chordStrings: verse i v VII IV ii7, chorus i v VII IV VII6; the 4-chord core is shown here (turnaround chord omitted). Hooktheory 171-172 BPM; SongBPM 171 BPM, no key listed."
+ },
+ {
+  "song": "Thinkin Bout You",
+  "artist": "Frank Ocean",
+  "producer": null,
+  "key": "A minor",
+  "bpm": 130,
+  "chords": [
+   [
+    "Fmaj7",
+    4
+   ],
+   [
+    "Dm7",
+    4
+   ],
+   [
+    "Em7",
+    4
+   ],
+   [
+    "Am7",
+    4
+   ]
+  ],
+  "section": "Verse (VI7 iv7 v7 i7)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Thinkin Bout You by Frank Ocean",
+   "url": "https://www.hooktheory.com/theorytab/view/frank-ocean/thinkin-bout-you"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Thinkin Bout You by Frank Ocean",
+   "url": "https://songbpm.com/@frank-ocean/thinkin-bout-you"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Chorus per Hooktheory (labelled C major): Dm C G Am (ii I V vi). SongBPM: C major (relative major), 130 BPM - consistent."
+ },
+ {
+  "song": "Nights",
+  "artist": "Frank Ocean",
+  "producer": null,
+  "key": "Eb major",
+  "bpm": 80,
+  "chords": [
+   [
+    "Bb6/9",
+    4
+   ],
+   [
+    "Cm7",
+    4
+   ],
+   [
+    "Abmaj7",
+    4
+   ],
+   [
+    "Gm",
+    4
+   ],
+   [
+    "Ab",
+    4
+   ]
+  ],
+  "section": "Verse (V(add6add9) vi7 IV7 iii IV)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Nights by Frank Ocean",
+   "url": "https://www.hooktheory.com/theorytab/view/frank-ocean/nights"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Nights by Frank Ocean",
+   "url": "https://songbpm.com/@frank-ocean/nights"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Chorus per Hooktheory (160 BPM section): Gm7/Bb Cm/Eb (iii65 vi6). MISMATCH: SongBPM says F minor, 90 BPM. Song has a beat switch; this is the first half."
+ },
+ {
+  "song": "Super Rich Kids",
+  "artist": "Frank Ocean ft. Earl Sweatshirt",
+  "producer": null,
+  "key": "Eb major",
+  "bpm": 121,
+  "chords": [
+   [
+    "Ebmaj9",
+    4
+   ],
+   [
+    "Bbm7/Ab",
+    4
+   ],
+   [
+    "Dbmaj9",
+    4
+   ],
+   [
+    "Bb11",
+    4
+   ]
+  ],
+  "section": "Verse (I9 v42 bVII9 V11)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Super Rich Kids by Frank Ocean",
+   "url": "https://www.hooktheory.com/theorytab/view/frank-ocean/super-rich-kids"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Super Rich Kids by Frank Ocean",
+   "url": "https://songbpm.com/@frank-ocean/super-rich-kids"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). bVII9 interpreted as Dbmaj9 (diatonic to Eb Mixolydian) - quality uncertain; instrumental section uses bVII7. MISMATCH: SongBPM says C#/Db major, 60 BPM."
+ },
+ {
+  "song": "Novacane",
+  "artist": "Frank Ocean",
+  "producer": null,
+  "key": "D# minor",
+  "bpm": 94,
+  "chords": [
+   [
+    "Bmaj7",
+    4
+   ],
+   [
+    "G#m7",
+    4
+   ],
+   [
+    "Bmaj7",
+    4
+   ],
+   [
+    "A#m/C#",
+    4
+   ]
+  ],
+  "section": "Chorus (VI7 iv7 VI7 v6)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Novacane by Frank Ocean",
+   "url": "https://www.hooktheory.com/theorytab/view/frank-ocean/novacane"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Novacane by Frank Ocean",
+   "url": "https://songbpm.com/@frank-ocean/novacane"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). BPM agrees (94). Mode mismatch: SongBPM says D#/Eb major."
+ },
+ {
+  "song": "Self Control",
+  "artist": "Frank Ocean",
+  "producer": null,
+  "key": "Ab major",
+  "bpm": 80,
+  "chords": [
+   [
+    "Abmaj7",
+    4
+   ],
+   [
+    "Fm7",
+    4
+   ],
+   [
+    "Bbm7",
+    4
+   ],
+   [
+    "Eb7",
+    4
+   ]
+  ],
+  "section": "Verse (I7 vi7 ii7 V7)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Self Control by Frank Ocean",
+   "url": "https://www.hooktheory.com/theorytab/view/frank-ocean/self-control"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Self Control by Frank Ocean",
+   "url": "https://songbpm.com/@frank-ocean/self-control"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Chorus per Hooktheory: Bbm7 Dbmaj7 Ab Bbm7 Ab (ii7 IV7 I ii7 I). SongBPM agrees: Ab major, 80 BPM."
+ },
+ {
+  "song": "Lost",
+  "artist": "Frank Ocean",
+  "producer": null,
+  "key": "Bb major",
+  "bpm": 123,
+  "chords": [
+   [
+    "Gm",
+    4
+   ],
+   [
+    "Bb",
+    4
+   ],
+   [
+    "Eb",
+    4
+   ],
+   [
+    "Bb",
+    4
+   ]
+  ],
+  "section": "Chorus (vi I IV I)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Lost by Frank Ocean",
+   "url": "https://www.hooktheory.com/theorytab/view/frank-ocean/lost"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Lost by Frank Ocean",
+   "url": "https://songbpm.com/@frank-ocean/lost"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). BPM agrees (123). Key MISMATCH: SongBPM says G#/Ab major."
+ },
+ {
+  "song": "Swim Good",
+  "artist": "Frank Ocean",
+  "producer": null,
+  "key": "A minor",
+  "bpm": 80,
+  "chords": [
+   [
+    "Am",
+    4
+   ],
+   [
+    "G",
+    4
+   ],
+   [
+    "Em",
+    4
+   ],
+   [
+    "F",
+    4
+   ]
+  ],
+  "section": "Chorus (i VII v VI)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Swim Good by Frank Ocean",
+   "url": "https://www.hooktheory.com/theorytab/view/frank-ocean/swim-good"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Swim Good by Frank Ocean",
+   "url": "https://songbpm.com/@frank-ocean/swim-good"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). SongBPM: C major (relative), 160 BPM (double of Hooktheory's 80)."
+ },
+ {
+  "song": "Antidote",
+  "artist": "Travis Scott",
+  "producer": null,
+  "key": "A# Phrygian",
+  "bpm": 131,
+  "chords": [
+   [
+    "A#m",
+    4
+   ],
+   [
+    "Bmaj7",
+    4
+   ]
+  ],
+  "section": "Intro / verse / chorus (i II7)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Antidote by Travis Scott",
+   "url": "https://www.hooktheory.com/theorytab/view/travis-scott/antidote"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Antidote by Travis Scott",
+   "url": "https://songbpm.com/@travis-scott/antidote"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Hooktheory lists the same i-II7 for all sections. SongBPM agrees 131 BPM, no key listed."
+ },
+ {
+  "song": "SICKO MODE",
+  "artist": "Travis Scott ft. Drake",
+  "producer": null,
+  "key": "Bb major",
+  "bpm": 138,
+  "chords": [
+   [
+    "Ebmaj7",
+    4
+   ],
+   [
+    "D",
+    4
+   ]
+  ],
+  "section": "Intro (IV7 V/vi)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Sicko Mode by Travis Scott",
+   "url": "https://www.hooktheory.com/theorytab/view/travis-scott/sicko-mode"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, SICKO MODE by Travis Scott",
+   "url": "https://songbpm.com/@travis-scott/sicko-mode"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Multi-part song: Hooktheory 'Solo 1' section is C# Phrygian, 155 BPM, II-i without thirds/fifths (D and C# single notes/roots). SongBPM: G#/Ab major, 155 BPM (matches the later section's tempo, not the 138 BPM intro)."
+ },
+ {
+  "song": "90210",
+  "artist": "Travis Scott ft. Kacy Hill",
+  "producer": null,
+  "key": "B Phrygian",
+  "bpm": 64,
+  "chords": [
+   [
+    "Bm",
+    4
+   ],
+   [
+    "Am",
+    4
+   ]
+  ],
+  "section": "Intro / verse (i vii)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, 90210 by Travis Scott",
+   "url": "https://www.hooktheory.com/theorytab/view/travis-scott/90210"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, 90210 by Travis Scott",
+   "url": "https://www.hooktheory.com/theorytab/view/travis-scott/90210"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Bridge per Hooktheory is in A Phrygian at 82 BPM: i II iv vii9(no3). SongBPM page failed to load; key/BPM Hooktheory-only."
+ },
+ {
+  "song": "STOP TRYING TO BE GOD",
+  "artist": "Travis Scott",
+  "producer": null,
+  "key": "G major",
+  "bpm": 150,
+  "chords": [
+   [
+    "Cadd9",
+    4
+   ],
+   [
+    "G6/B",
+    4
+   ]
+  ],
+  "section": "Chorus (IV(add9) I6(add6))",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Stop Trying to Be God by Travis Scott",
+   "url": "https://www.hooktheory.com/theorytab/view/travis-scott/stop-trying-to-be-god"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, STOP TRYING TO BE GOD by Travis Scott",
+   "url": "https://songbpm.com/@travis-scott/stop-trying-to-be-god"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). BPM agrees (150). Key MISMATCH: SongBPM says E minor (relative minor of G)."
+ },
+ {
+  "song": "MY EYES",
+  "artist": "Travis Scott",
+  "producer": null,
+  "key": "Bb major",
+  "bpm": 119,
+  "chords": [
+   [
+    "Bb/D",
+    4
+   ],
+   [
+    "Gm(add11)",
+    4
+   ]
+  ],
+  "section": "Intro (I6 vi(add11))",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, My Eyes by Travis Scott",
+   "url": "https://www.hooktheory.com/theorytab/view/travis-scott/my-eyes"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, My Eyes by Travis Scott",
+   "url": "https://www.hooktheory.com/theorytab/view/travis-scott/my-eyes"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Only the intro is analysed (song has a beat switch). SongBPM page failed; key/BPM Hooktheory-only."
+ },
+ {
+  "song": "FE!N",
+  "artist": "Travis Scott ft. Playboi Carti",
+  "producer": null,
+  "key": "D# minor",
+  "bpm": 148,
+  "chords": [
+   [
+    "D#m",
+    4
+   ],
+   [
+    "B",
+    4
+   ]
+  ],
+  "section": "Chorus (i VI)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, FEIN ft Playboi Carti by Travis Scott",
+   "url": "https://www.hooktheory.com/theorytab/view/travis-scott/fein-ft-playboi-carti"
+  },
+  "keyBpmSource": {
+   "label": "MusicIWant, FE!N by Travis Scott",
+   "url": "https://musiciwant.com/song/fein-travis-scott"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Intro per Hooktheory: i v6sus4. MusicIWant confirms 148 BPM (no key listed)."
+ },
+ {
+  "song": "Runaway",
+  "artist": "Kanye West ft. Pusha T",
+  "producer": null,
+  "key": "E major",
+  "bpm": 87,
+  "chords": [
+   [
+    "E",
+    4
+   ],
+   [
+    "B/D#",
+    4
+   ],
+   [
+    "C#m",
+    4
+   ],
+   [
+    "A",
+    4
+   ]
+  ],
+  "section": "Chorus (I V6 vi IV)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Runaway by Kanye West",
+   "url": "https://www.hooktheory.com/theorytab/view/kanye-west/runaway"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Runaway by Kanye West",
+   "url": "https://songbpm.com/@kanye-west/runaway"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Verse per Hooktheory adds a V at the end (I V6 vi IV V). Key MISMATCH: SongBPM says C#/Db minor (relative minor of E), 85 BPM vs Hooktheory 87."
+ },
+ {
+  "song": "Flashing Lights",
+  "artist": "Kanye West ft. Dwele",
+  "producer": null,
+  "key": "F# minor",
+  "bpm": 90,
+  "chords": [
+   [
+    "F#m9",
+    4
+   ],
+   [
+    "Dmaj7",
+    4
+   ]
+  ],
+  "section": "Intro / chorus (i9 VI7)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Flashing Lights by Kanye West",
+   "url": "https://www.hooktheory.com/theorytab/view/kanye-west/flashing-lights"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Flashing Lights by Kanye West",
+   "url": "https://songbpm.com/@kanye-west/flashing-lights"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Instrumental per Hooktheory: Bm7 Dmaj7 Bm7 C#m7 Dmaj7 (iv7 VI7 iv7 v7 VI7). Hooktheory 90-92 BPM; SongBPM 90 BPM, no key listed."
+ },
+ {
+  "song": "Heartless",
+  "artist": "Kanye West",
+  "producer": null,
+  "key": "Bb minor",
+  "bpm": 88,
+  "chords": [
+   [
+    "Bbm",
+    4
+   ],
+   [
+    "Ab",
+    4
+   ],
+   [
+    "Gbmaj7",
+    4
+   ],
+   [
+    "Fm7",
+    4
+   ]
+  ],
+  "section": "Chorus (i VII VI7 v7)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Heartless by Kanye West",
+   "url": "https://www.hooktheory.com/theorytab/view/kanye-west/heartless"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Heartless by Kanye West",
+   "url": "https://songbpm.com/@kanye-west/heartless"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). SongBPM agrees: A#/Bb minor, 88 BPM."
+ },
+ {
+  "song": "Stronger",
+  "artist": "Kanye West",
+  "producer": null,
+  "key": "D# minor",
+  "bpm": 104,
+  "chords": [
+   [
+    "D#m",
+    4
+   ],
+   [
+    "C#",
+    4
+   ],
+   [
+    "G#/B#",
+    4
+   ],
+   [
+    "B",
+    4
+   ]
+  ],
+  "section": "Verse (i VII IV6 VI)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Stronger by Kanye West",
+   "url": "https://www.hooktheory.com/theorytab/view/kanye-west/stronger"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Stronger by Kanye West",
+   "url": "https://songbpm.com/@kanye-west/stronger"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). IV6 = major IV (G#) in first inversion, bass B# (=C). Chorus per Hooktheory: i VII V6/VII VI V/i. SongBPM agrees 104 BPM, no key listed."
+ },
+ {
+  "song": "Love Lockdown",
+  "artist": "Kanye West",
+  "producer": null,
+  "key": "C# minor",
+  "bpm": 120,
+  "chords": [
+   [
+    "C#m",
+    4
+   ],
+   [
+    "E",
+    4
+   ]
+  ],
+  "section": "Pre-chorus / chorus (i III)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Love Lockdown by Kanye West",
+   "url": "https://www.hooktheory.com/theorytab/view/kanye-west/love-lockdown"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Love Lockdown by Kanye West",
+   "url": "https://songbpm.com/@kanye-west/love-lockdown"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). SongBPM agrees: C#/Db minor, 120 BPM."
+ },
+ {
+  "song": "POWER",
+  "artist": "Kanye West",
+  "producer": null,
+  "key": "C minor",
+  "bpm": 77,
+  "chords": [
+   [
+    "Fm/Ab",
+    4
+   ],
+   [
+    "G",
+    4
+   ],
+   [
+    "Cm",
+    4
+   ],
+   [
+    "Eb/G",
+    4
+   ],
+   [
+    "Fm",
+    4
+   ]
+  ],
+  "section": "Verse (iv6 V/i i III6 iv)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, POWER by Kanye West",
+   "url": "https://www.hooktheory.com/theorytab/view/kanye-west/power"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, POWER by Kanye West",
+   "url": "https://songbpm.com/@kanye-west/power"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Instrumental per Hooktheory (160 BPM): Cm Ab Fm Bb Eb (i VI iv VII III). SongBPM: C minor, 154 BPM (double-time feel vs Hooktheory's 77-79)."
+ },
+ {
+  "song": "Money Trees",
+  "artist": "Kendrick Lamar ft. Jay Rock",
+  "producer": null,
+  "key": "E Dorian",
+  "bpm": 145,
+  "chords": [
+   [
+    "Em",
+    4
+   ],
+   [
+    "F#m7",
+    4
+   ],
+   [
+    "G6",
+    4
+   ],
+   [
+    "Cmaj7",
+    4
+   ],
+   [
+    "B9sus4",
+    4
+   ]
+  ],
+  "section": "Chorus / instrumental (i ii7 III(add6) bVI7 v7sus2sus4)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Money Trees by Kendrick Lamar",
+   "url": "https://www.hooktheory.com/theorytab/view/kendrick-lamar/money-trees"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Money Trees by Kendrick Lamar",
+   "url": "https://songbpm.com/@kendrick-lamar/money-trees"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). bVI7 rendered as Cmaj7 and v7sus2sus4 as B9sus4 (B-E-F#-A-C#) - spelling is my interpretation of the numerals. SongBPM: G major (same key signature), 72 BPM (half of 145)."
+ },
+ {
+  "song": "Alright",
+  "artist": "Kendrick Lamar",
+  "producer": null,
+  "key": "Eb major",
+  "bpm": 111,
+  "chords": [
+   [
+    "Abm(add9)",
+    4
+   ],
+   [
+    "Gm(add9)",
+    4
+   ]
+  ],
+  "section": "Pre-chorus (iv(add9) iii(add9))",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Alright by Kendrick Lamar",
+   "url": "https://www.hooktheory.com/theorytab/view/kendrick-lamar/alright"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Alright by Kendrick Lamar",
+   "url": "https://songbpm.com/@kendrick-lamar/alright"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Only the pre-chorus is analysed. MISMATCH: SongBPM says G major, 110 BPM."
+ },
+ {
+  "song": "Swimming Pools (Drank)",
+  "artist": "Kendrick Lamar",
+  "producer": null,
+  "key": "B minor",
+  "bpm": 148,
+  "chords": [
+   [
+    "Gmaj7",
+    4
+   ],
+   [
+    "Em7",
+    4
+   ],
+   [
+    "Bm",
+    4
+   ],
+   [
+    "C#m7",
+    4
+   ]
+  ],
+  "section": "Chorus (VI7 iv7 i ii7)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Swimming Pools by Kendrick Lamar",
+   "url": "https://www.hooktheory.com/theorytab/view/kendrick-lamar/swimming-pools"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Swimming Pools (Drank) by Kendrick Lamar",
+   "url": "https://songbpm.com/@kendrick-lamar/swimming-pools-drank"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Intro/verse per Hooktheory ends on ii9 (C#m9) instead. MISMATCH: SongBPM says G#/Ab major, 74 BPM (half-time of 148)."
+ },
+ {
+  "song": "luther",
+  "artist": "Kendrick Lamar & SZA",
+  "producer": null,
+  "key": "D major",
+  "bpm": 139,
+  "chords": [
+   [
+    "G6",
+    4
+   ],
+   [
+    "Dmaj7",
+    4
+   ],
+   [
+    "A#dim",
+    4
+   ]
+  ],
+  "section": "Chorus (IV(add6) I7 viio/vi)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Luther by Kendrick Lamar",
+   "url": "https://www.hooktheory.com/theorytab/view/kendrick-lamar/luther"
+  },
+  "keyBpmSource": {
+   "label": "Mixgraph, Kendrick Lamar - luther",
+   "url": "https://www.mixgraph.io/tracks/kendrick-lamar-luther"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). viio/vi = leading-tone diminished of Bm = A#dim. Mixgraph: 138 BPM, 10B (D major) - agrees. SongBPM page failed to load."
+ },
+ {
+  "song": "Not Like Us",
+  "artist": "Kendrick Lamar",
+  "producer": null,
+  "key": "B minor",
+  "bpm": 101,
+  "chords": [
+   [
+    "Bm",
+    4
+   ],
+   [
+    "Em/B",
+    4
+   ]
+  ],
+  "section": "Verse (i iv64)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Not Like Us by Kendrick Lamar",
+   "url": "https://www.hooktheory.com/theorytab/view/kendrick-lamar/not-like-us"
+  },
+  "keyBpmSource": {
+   "label": "MusicIWant, Not Like Us by Kendrick Lamar",
+   "url": "https://musiciwant.com/song/not-like-us-kendrick-lamar"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Intro per Hooktheory: G Bm/F# F#7 (VI i64 V7). MusicIWant confirms 101 BPM (no key listed). SongBPM page failed to load."
+ },
+ {
+  "song": "All the Stars",
+  "artist": "Kendrick Lamar & SZA",
+  "producer": null,
+  "key": "C minor",
+  "bpm": 97,
+  "chords": [
+   [
+    "Ab",
+    4
+   ],
+   [
+    "Fm7",
+    4
+   ]
+  ],
+  "section": "Intro / chorus (VI iv7)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, All the Stars (with SZA) by Kendrick Lamar",
+   "url": "https://www.hooktheory.com/theorytab/view/kendrick-lamar/all-the-stars-(with-sza)"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, All The Stars (with SZA) by Kendrick Lamar",
+   "url": "https://songbpm.com/@kendrick-lamar/all-the-stars-with-sza"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). BPM agrees (97). Key MISMATCH: SongBPM says G#/Ab major (Ab is the VI chord here)."
+ },
+ {
+  "song": "LOVE.",
+  "artist": "Kendrick Lamar ft. Zacari",
+  "producer": null,
+  "key": "F major",
+  "bpm": 125,
+  "chords": [
+   [
+    "F6",
+    4
+   ],
+   [
+    "Bbmaj7/D",
+    4
+   ]
+  ],
+  "section": "Chorus (I(add6) IV65)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Love by Kendrick Lamar",
+   "url": "https://www.hooktheory.com/theorytab/view/kendrick-lamar/love"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, LOVE. by Kendrick Lamar",
+   "url": "https://songbpm.com/@kendrick-lamar/love"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). SongBPM: 126 BPM, no key listed."
+ },
+ {
+  "song": "Bitch, Don't Kill My Vibe",
+  "artist": "Kendrick Lamar",
+  "producer": null,
+  "key": "F minor",
+  "bpm": 134,
+  "chords": [
+   [
+    "Fm9",
+    4
+   ],
+   [
+    "Dbmaj7",
+    4
+   ]
+  ],
+  "section": "Chorus (i9 VI7)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Bitch Don't Kill My Vibe by Kendrick Lamar",
+   "url": "https://www.hooktheory.com/theorytab/view/kendrick-lamar/bitch-dont-kill-my-vibe"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Bitch Don't Kill My Vibe by Kendrick Lamar",
+   "url": "https://www.hooktheory.com/theorytab/view/kendrick-lamar/bitch-dont-kill-my-vibe"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). SongBPM page failed to load; key/BPM Hooktheory-only."
+ },
+ {
+  "song": "Kill Bill",
+  "artist": "SZA",
+  "producer": null,
+  "key": "Ab major",
+  "bpm": 89,
+  "chords": [
+   [
+    "Bbm7",
+    4
+   ],
+   [
+    "Eb7",
+    4
+   ],
+   [
+    "Ab",
+    4
+   ],
+   [
+    "F7",
+    4
+   ]
+  ],
+  "section": "Verse / chorus core (ii7 V7 I V7/ii)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Kill Bill by SZA",
+   "url": "https://www.hooktheory.com/theorytab/view/sza/kill-bill"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Kill Bill by SZA",
+   "url": "https://songbpm.com/@sza/kill-bill-dl0e3"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Hooktheory chordStrings: verse ii7 V7 I V7/ii I, chorus ii7 V7 I V7/ii ii7 (the repeating 4-chord core is shown). Intro: Bbm9 Eb7 Ab/C F7. SongBPM agrees: Ab major, 89 BPM."
+ },
+ {
+  "song": "Snooze",
+  "artist": "SZA",
+  "producer": null,
+  "key": "C major",
+  "bpm": 143,
+  "chords": [
+   [
+    "Dm7",
+    4
+   ],
+   [
+    "Em7",
+    4
+   ],
+   [
+    "Fmaj7",
+    4
+   ]
+  ],
+  "section": "Chorus (ii7 iii7 IV7)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Snooze by SZA",
+   "url": "https://www.hooktheory.com/theorytab/view/sza/snooze"
+  },
+  "keyBpmSource": {
+   "label": "Mixgraph, SZA - Snooze",
+   "url": "https://www.mixgraph.io/tracks/sza-snooze"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Verse per Hooktheory: Em7 Fmaj7 Dm7 (iii7 IV7 ii7). Hooktheory lists the chorus at 71 BPM and verse at 143 BPM; Mixgraph: 143 BPM, 8B (C major) - key agrees."
+ },
+ {
+  "song": "Good Days",
+  "artist": "SZA",
+  "producer": null,
+  "key": "E major",
+  "bpm": 121,
+  "chords": [
+   [
+    "Emaj9",
+    4
+   ],
+   [
+    "C#m9",
+    4
+   ],
+   [
+    "Amaj7",
+    4
+   ]
+  ],
+  "section": "Verse (I9 vi9 IV7 ...)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Good Days by SZA",
+   "url": "https://www.hooktheory.com/theorytab/view/sza/good-days"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Good Days by SZA",
+   "url": "https://songbpm.com/@sza/good-days"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Hooktheory chordString is I9 vi9 IV7 I9 vi9 (shown here as the 3-chord cycle). SongBPM: C#/Db minor (relative minor), 121 BPM - consistent."
+ },
+ {
+  "song": "The Weekend",
+  "artist": "SZA",
+  "producer": null,
+  "key": "B major",
+  "bpm": 102,
+  "chords": [
+   [
+    "Emaj7",
+    4
+   ],
+   [
+    "D#7",
+    4
+   ],
+   [
+    "B/D#",
+    4
+   ],
+   [
+    "Emaj7",
+    4
+   ],
+   [
+    "A#dim",
+    4
+   ]
+  ],
+  "section": "Verse (IV7 V7/vi I6 IV7 viio)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, The Weekend by SZA",
+   "url": "https://www.hooktheory.com/theorytab/view/sza/the-weekend"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, The Weekend by SZA",
+   "url": "https://songbpm.com/@sza/the-weekend"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Intro is analysed in G# minor at 120 BPM: III7 bII7 bV#7 bIV7 III7. SongBPM: G#/Ab minor (relative minor), 73 BPM."
+ },
+ {
+  "song": "Love Galore",
+  "artist": "SZA ft. Travis Scott",
+  "producer": null,
+  "key": "C major",
+  "bpm": 135,
+  "chords": [
+   [
+    "Fmaj9",
+    4
+   ],
+   [
+    "C",
+    4
+   ]
+  ],
+  "section": "Pre-chorus / chorus (IV9 I)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Love Galore by SZA",
+   "url": "https://www.hooktheory.com/theorytab/view/sza/love-galore"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Love Galore (feat. Travis Scott) by SZA",
+   "url": "https://songbpm.com/@sza/love-galore"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Intro/verse per Hooktheory: F C/E Am (IV I6 vi). SongBPM agrees: C major, 135 BPM."
+ },
+ {
+  "song": "Saturn",
+  "artist": "SZA",
+  "producer": null,
+  "key": "Db major",
+  "bpm": 89,
+  "chords": [
+   [
+    "Dbmaj7",
+    4
+   ],
+   [
+    "Ebm7",
+    4
+   ]
+  ],
+  "section": "Pre-chorus / chorus (I7 ii7)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Saturn by SZA",
+   "url": "https://www.hooktheory.com/theorytab/view/sza/saturn"
+  },
+  "keyBpmSource": {
+   "label": "MusicIWant, Saturn by SZA",
+   "url": "https://musiciwant.com/song/saturn-sza"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). BPM MISMATCH: MusicIWant says 72 BPM vs Hooktheory 89 BPM; no key on MusicIWant."
+ },
+ {
+  "song": "Broken Clocks",
+  "artist": "SZA",
+  "producer": null,
+  "key": "Bb minor",
+  "bpm": 116,
+  "chords": [
+   [
+    "Gbmaj9",
+    4
+   ],
+   [
+    "F7",
+    4
+   ],
+   [
+    "Bbm7",
+    4
+   ]
+  ],
+  "section": "Verse / chorus (VI9 V7 i7)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Broken Clocks by SZA",
+   "url": "https://www.hooktheory.com/theorytab/view/sza/broken-clocks"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Broken Clocks by SZA",
+   "url": "https://songbpm.com/@sza/broken-clocks"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). MISMATCH: SongBPM says F#/Gb major, 113 BPM."
+ },
+ {
+  "song": "Drew Barrymore",
+  "artist": "SZA",
+  "producer": null,
+  "key": "Eb major",
+  "bpm": 135,
+  "chords": [
+   [
+    "Ebmaj7",
+    4
+   ],
+   [
+    "Gm/Bb",
+    4
+   ],
+   [
+    "Csus2",
+    4
+   ]
+  ],
+  "section": "Verse / pre-chorus (I7 iii6 visus2)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Drew Barrymore by SZA",
+   "url": "https://www.hooktheory.com/theorytab/view/sza/drew-barrymore"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Drew Barrymore by SZA",
+   "url": "https://songbpm.com/@sza/drew-barrymore"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Chorus per Hooktheory: Eb Cm Bb (I vi V). BPM agrees (135). Key MISMATCH: SongBPM says C minor (relative minor)."
+ },
+ {
+  "song": "rockstar",
+  "artist": "Post Malone ft. 21 Savage",
+  "producer": null,
+  "key": "G minor",
+  "bpm": 80,
+  "chords": [
+   [
+    "Gm",
+    4
+   ],
+   [
+    "Ebmaj7",
+    4
+   ]
+  ],
+  "section": "Verse / chorus (i VI7)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Rockstar by Post Malone",
+   "url": "https://www.hooktheory.com/theorytab/view/post-malone/rockstar"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, rockstar by Post Malone",
+   "url": "https://songbpm.com/@post-malone/rockstar"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). MISMATCH: SongBPM says F minor, 160 BPM (double of Hooktheory's 80). Pitch reference differs by a whole step - verify by ear."
+ },
+ {
+  "song": "Sunflower",
+  "artist": "Post Malone & Swae Lee",
+  "producer": null,
+  "key": "D major",
+  "bpm": 90,
+  "chords": [
+   [
+    "Dmaj7",
+    4
+   ],
+   [
+    "Gmaj9",
+    4
+   ],
+   [
+    "Em7",
+    4
+   ],
+   [
+    "Gmaj9",
+    4
+   ]
+  ],
+  "section": "Verse / chorus (I7 IV9 ii7 IV9)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Sunflower (Spider-Man Into the Spider-Verse) by Post Malone",
+   "url": "https://www.hooktheory.com/theorytab/view/post-malone/sunflower-(spider-man-into-the-spider-verse)"
+  },
+  "keyBpmSource": {
+   "label": "Karaoke Version, Sunflower backing track",
+   "url": "https://www.karaoke-version.com/mp3-backingtrack/post-malone/sunflower.html"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Intro per Hooktheory: Dmaj7 Gmaj7 Em(add9) Gmaj7. Karaoke Version agrees: key D, 90 BPM."
+ },
+ {
+  "song": "White Iverson",
+  "artist": "Post Malone",
+  "producer": null,
+  "key": "G major",
+  "bpm": 130,
+  "chords": [
+   [
+    "Cmaj7",
+    4
+   ],
+   [
+    "G",
+    4
+   ]
+  ],
+  "section": "Verse / pre-chorus (IV7 I)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, White Iverson by Post Malone",
+   "url": "https://www.hooktheory.com/theorytab/view/post-malone/white-iverson"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, White Iverson by Post Malone",
+   "url": "https://songbpm.com/@post-malone/white-iverson"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Chorus per Hooktheory: IV7 V9sus4(add13) I9 iii65 IV7. SongBPM agrees: G major, 130 BPM."
+ },
+ {
+  "song": "Congratulations",
+  "artist": "Post Malone ft. Quavo",
+  "producer": null,
+  "key": "F# major",
+  "bpm": 123,
+  "chords": [
+   [
+    "Bmaj7",
+    4
+   ],
+   [
+    "F#",
+    4
+   ]
+  ],
+  "section": "All sections (IV7 I)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Congratulations by Post Malone",
+   "url": "https://www.hooktheory.com/theorytab/view/post-malone/congratulations"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Congratulations by Post Malone",
+   "url": "https://songbpm.com/@post-malone/congratulations"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Hooktheory lists the same IV7-I string for every section. SongBPM agrees 123 BPM, no key listed."
+ },
+ {
+  "song": "Circles",
+  "artist": "Post Malone",
+  "producer": null,
+  "key": "C major",
+  "bpm": 120,
+  "chords": [
+   [
+    "Cmaj7",
+    4
+   ],
+   [
+    "G/B",
+    4
+   ],
+   [
+    "Fmaj7",
+    4
+   ],
+   [
+    "G11",
+    4
+   ]
+  ],
+  "section": "Chorus (I7 V6 IV7 V11)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Circles by Post Malone",
+   "url": "https://www.hooktheory.com/theorytab/view/post-malone/circles"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Circles by Post Malone",
+   "url": "https://songbpm.com/@post-malone/circles"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Verse per Hooktheory: C G/B F Fm G11(b9) (I V6 IV iv V11(b9)). SongBPM agrees 120 BPM, no key listed."
+ },
+ {
+  "song": "Better Now",
+  "artist": "Post Malone",
+  "producer": null,
+  "key": "Bb major",
+  "bpm": 145,
+  "chords": [
+   [
+    "Cm7",
+    4
+   ],
+   [
+    "F",
+    4
+   ],
+   [
+    "Bb",
+    4
+   ],
+   [
+    "Eb",
+    4
+   ]
+  ],
+  "section": "All sections (ii7 V I IV)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Better Now by Post Malone",
+   "url": "https://www.hooktheory.com/theorytab/view/post-malone/better-now"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Better Now by Post Malone",
+   "url": "https://songbpm.com/@post-malone/better-now"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). SongBPM agrees: A#/Bb major, 145 BPM."
+ },
+ {
+  "song": "Lucid Dreams",
+  "artist": "Juice WRLD",
+  "producer": null,
+  "key": "F# minor",
+  "bpm": 84,
+  "chords": [
+   [
+    "F#m",
+    4
+   ],
+   [
+    "C#m/E",
+    4
+   ],
+   [
+    "Bm",
+    4
+   ],
+   [
+    "C#sus4",
+    2
+   ],
+   [
+    "C#",
+    2
+   ]
+  ],
+  "section": "Intro / chorus (i v6 iv vsus4 V)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Lucid Dreams by Juice WRLD",
+   "url": "https://www.hooktheory.com/theorytab/view/juice-wrld/lucid-dreams"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Lucid Dreams by Juice WRLD",
+   "url": "https://songbpm.com/@juice-wrld/lucid-dreams"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Here the sus4 and its resolution are ASSUMED to share the 4th bar (2 beats each). SongBPM agrees 84 BPM, no key listed."
+ },
+ {
+  "song": "All Girls Are The Same",
+  "artist": "Juice WRLD",
+  "producer": null,
+  "key": "E minor",
+  "bpm": 164,
+  "chords": [
+   [
+    "Em7",
+    4
+   ],
+   [
+    "Cmaj9",
+    4
+   ],
+   [
+    "G/B",
+    4
+   ]
+  ],
+  "section": "Intro (i7 VI9 III6)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, All Girls Are The Same by Juice WRLD",
+   "url": "https://www.hooktheory.com/theorytab/view/juice-wrld/all-girls-are-the-same"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, All Girls Are The Same by Juice WRLD",
+   "url": "https://songbpm.com/@juice-wrld/all-girls-are-the-same"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). SongBPM: 162 BPM (Hooktheory 164), no key listed."
+ },
+ {
+  "song": "Robbery",
+  "artist": "Juice WRLD",
+  "producer": null,
+  "key": "D major",
+  "bpm": 80,
+  "chords": [
+   [
+    "G",
+    4
+   ],
+   [
+    "D/A",
+    4
+   ],
+   [
+    "A(add9)/C#",
+    4
+   ]
+  ],
+  "section": "Intro (IV I64 V6(add9))",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Robbery by Juice WRLD",
+   "url": "https://www.hooktheory.com/theorytab/view/juice-wrld/robbery"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Robbery by Juice WRLD",
+   "url": "https://songbpm.com/@juice-wrld/robbery"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). SongBPM: D major, 160 BPM (double of Hooktheory's 80) - key agrees."
+ },
+ {
+  "song": "Wishing Well",
+  "artist": "Juice WRLD",
+  "producer": null,
+  "key": "A minor",
+  "bpm": 150,
+  "chords": [
+   [
+    "Am7",
+    4
+   ],
+   [
+    "Fadd9",
+    4
+   ],
+   [
+    "Cadd9",
+    4
+   ]
+  ],
+  "section": "Intro (i7 VI(add9) III(add9))",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Wishing Well by Juice WRLD",
+   "url": "https://www.hooktheory.com/theorytab/view/juice-wrld/wishing-well"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Wishing Well by Juice WRLD",
+   "url": "https://songbpm.com/@juice-wrld/wishing-well"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). SongBPM agrees 150 BPM, no key listed."
+ },
+ {
+  "song": "SAD!",
+  "artist": "XXXTENTACION",
+  "producer": null,
+  "key": "C minor",
+  "bpm": 150,
+  "chords": [
+   [
+    "Abmaj7",
+    4
+   ],
+   [
+    "Cm/G",
+    4
+   ],
+   [
+    "Fm7",
+    4
+   ],
+   [
+    "Gm",
+    4
+   ]
+  ],
+  "section": "Intro / verse / chorus (VI7 i64 iv7 v)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, SAD by XXXTENTACION",
+   "url": "https://www.hooktheory.com/theorytab/view/xxxtentacion/sad"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, SAD! by XXXTENTACION",
+   "url": "https://songbpm.com/@xxxtentacion/sad"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). BPM agrees (150). Key MISMATCH: SongBPM says G#/Ab major."
+ },
+ {
+  "song": "Revenge",
+  "artist": "XXXTENTACION",
+  "producer": null,
+  "key": "B minor",
+  "bpm": 142,
+  "chords": [
+   [
+    "Bm",
+    4
+   ],
+   [
+    "G",
+    4
+   ],
+   [
+    "A7",
+    4
+   ],
+   [
+    "F#7",
+    4
+   ]
+  ],
+  "section": "Intro (i VI VII7 V7)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Revenge by XXXTENTACION",
+   "url": "https://www.hooktheory.com/theorytab/view/xxxtentacion/revenge"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Revenge by XXXTENTACION",
+   "url": "https://songbpm.com/@xxxtentacion/revenge"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Key agrees (B minor). SongBPM 140 BPM vs Hooktheory 142."
+ },
+ {
+  "song": "XO Tour Llif3",
+  "artist": "Lil Uzi Vert",
+  "producer": null,
+  "key": "B minor",
+  "bpm": 156,
+  "chords": [
+   [
+    "Gmaj7",
+    4
+   ],
+   [
+    "F#m7",
+    4
+   ],
+   [
+    "Em9",
+    4
+   ],
+   [
+    "F#m7",
+    4
+   ]
+  ],
+  "section": "Chorus (VI7 v7 iv9 v7 ...)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, XO Tour Llif3 by Lil Uzi Vert",
+   "url": "https://www.hooktheory.com/theorytab/view/lil-uzi-vert/xo-tour-llif3"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, XO Tour Llif3 by Lil Uzi Vert",
+   "url": "https://songbpm.com/@lil-uzi-vert/xo-tour-llif3"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Hooktheory chordString VI7 v7 iv9 v7 VI7 (the trailing VI7 is the loop restart). Hooktheory chorus tempo listed as 78 (half-time), overall 156; SongBPM: B minor, 155 BPM - agrees."
+ },
+ {
+  "song": "The Way Life Goes",
+  "artist": "Lil Uzi Vert",
+  "producer": null,
+  "key": "F# major",
+  "bpm": 164,
+  "chords": [
+   [
+    "D#11",
+    4
+   ],
+   [
+    "B",
+    4
+   ],
+   [
+    "F#/A#",
+    4
+   ]
+  ],
+  "section": "Chorus (V11/ii IV I65)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, The Way Life Goes by Lil Uzi Vert",
+   "url": "https://www.hooktheory.com/theorytab/view/lil-uzi-vert/the-way-life-goes"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, The Way Life Goes by Lil Uzi Vert",
+   "url": "https://www.hooktheory.com/theorytab/view/lil-uzi-vert/the-way-life-goes"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). V11/ii = D#11 (secondary dominant of G#m). Chorus lead-out per Hooktheory: D#m7 C#9 B F#/A# (vi7 V9 IV I6). SongBPM page failed to load; key/BPM Hooktheory-only."
+ },
+ {
+  "song": "See You Again",
+  "artist": "Tyler, The Creator ft. Kali Uchis",
+  "producer": null,
+  "key": "C# Mixolydian",
+  "bpm": 156,
+  "chords": [
+   [
+    "F#maj9",
+    4
+   ],
+   [
+    "D#m11",
+    4
+   ],
+   [
+    "G#m7",
+    4
+   ]
+  ],
+  "section": "Intro / chorus (IV9 ii11 v7)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, See You Again by Tyler, The Creator",
+   "url": "https://www.hooktheory.com/theorytab/view/tyler-the-creator/see-you-again"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, See You Again (feat. Kali Uchis) by Tyler, The Creator",
+   "url": "https://songbpm.com/@tyler-the-creator/see-you-again"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Verse is analysed in Db major: IV7 viiø65 bIII9 bVI11. MISMATCH: SongBPM says F#/Gb major, 79 BPM (half of ~158)."
+ },
+ {
+  "song": "EARFQUAKE",
+  "artist": "Tyler, The Creator",
+  "producer": null,
+  "key": "F major",
+  "bpm": 80,
+  "chords": [
+   [
+    "Bbmaj7",
+    4
+   ],
+   [
+    "Am7",
+    4
+   ],
+   [
+    "Gm9",
+    4
+   ],
+   [
+    "Am7",
+    4
+   ]
+  ],
+  "section": "Chorus (IV7 iii7 ii9 iii7)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, EARFQUAKE by Tyler, The Creator",
+   "url": "https://www.hooktheory.com/theorytab/view/tyler-the-creator/earfquake"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, EARFQUAKE by Tyler, The Creator",
+   "url": "https://songbpm.com/@tyler-the-creator/earfquake"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Intro per Hooktheory: Bbmaj7 A7(#9) (IV7 V7(#9)/vi). BPM agrees (80). Key MISMATCH: SongBPM says A major."
+ },
+ {
+  "song": "911 / Mr. Lonely",
+  "artist": "Tyler, The Creator ft. Frank Ocean & Steve Lacy",
+  "producer": null,
+  "key": "E minor",
+  "bpm": 89,
+  "chords": [
+   [
+    "Bm7",
+    4
+   ],
+   [
+    "Em7",
+    4
+   ],
+   [
+    "Am7",
+    4
+   ],
+   [
+    "Gm/Bb",
+    4
+   ]
+  ],
+  "section": "Chorus (v7 i7 iv7 iii6)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, 911 by Tyler, The Creator",
+   "url": "https://www.hooktheory.com/theorytab/view/tyler-the-creator/911"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, 911 / Mr. Lonely by Tyler, The Creator",
+   "url": "https://songbpm.com/@tyler-the-creator/911-mr-lonely"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Hooktheory's lowercase iii6 in E minor read literally as G minor, 1st inversion (Gm/Bb) - verify by ear. MISMATCH: SongBPM says C major, 90 BPM."
+ },
+ {
+  "song": "Redbone",
+  "artist": "Childish Gambino",
+  "producer": null,
+  "key": "D minor",
+  "bpm": 80,
+  "chords": [
+   [
+    "Bb",
+    4
+   ],
+   [
+    "C",
+    4
+   ],
+   [
+    "Dm",
+    4
+   ]
+  ],
+  "section": "Intro / verse (VI VII i)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Redbone by Childish Gambino",
+   "url": "https://www.hooktheory.com/theorytab/view/childish-gambino/redbone"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Redbone by Childish Gambino",
+   "url": "https://songbpm.com/@childish-gambino/redbone"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). 3 chords as listed (3 bars). Chorus per Hooktheory: A/E Bb C Dm Bb (V64 VI VII i VI). BPM agrees (80). Key MISMATCH: SongBPM says A#/Bb minor."
+ },
+ {
+  "song": "3005",
+  "artist": "Childish Gambino",
+  "producer": null,
+  "key": "F# minor",
+  "bpm": 84,
+  "chords": [
+   [
+    "C#m7",
+    4
+   ],
+   [
+    "Dmaj7",
+    4
+   ],
+   [
+    "F#m7",
+    4
+   ],
+   [
+    "Dmaj7",
+    4
+   ]
+  ],
+  "section": "Chorus (v7 VI7 i7 VI7)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, 3005 by Childish Gambino",
+   "url": "https://www.hooktheory.com/theorytab/view/childish-gambino/3005"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, 3005 by Childish Gambino",
+   "url": "https://songbpm.com/@childish-gambino/3005"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). SongBPM: 166 BPM (double of Hooktheory's 84), no key listed."
+ },
+ {
+  "song": "Good News",
+  "artist": "Mac Miller",
+  "producer": null,
+  "key": "E major",
+  "bpm": 174,
+  "chords": [
+   [
+    "E",
+    4
+   ],
+   [
+    "G#7/D#",
+    4
+   ],
+   [
+    "C#m",
+    4
+   ],
+   [
+    "B",
+    4
+   ],
+   [
+    "A",
+    4
+   ]
+  ],
+  "section": "Intro (I V43/vi vi V IV)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Good News by Mac Miller",
+   "url": "https://www.hooktheory.com/theorytab/view/mac-miller/good-news"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Good News by Mac Miller",
+   "url": "https://songbpm.com/@mac-miller/good-news"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). SongBPM: C#/Db minor (relative minor), 174 BPM - consistent."
+ },
+ {
+  "song": "No Role Modelz",
+  "artist": "J. Cole",
+  "producer": null,
+  "key": "F minor",
+  "bpm": 100,
+  "chords": [
+   [
+    "Dbmaj7",
+    4
+   ],
+   [
+    "Bbm",
+    4
+   ],
+   [
+    "Fm",
+    4
+   ],
+   [
+    "Ab",
+    4
+   ]
+  ],
+  "section": "Intro (VI7 iv i III)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, No Role Modelz by J Cole",
+   "url": "https://www.hooktheory.com/theorytab/view/j-cole/no-role-modelz"
+  },
+  "keyBpmSource": {
+   "label": "Karaoke Version, No Role Modelz backing track",
+   "url": "https://www.karaoke-version.com/mp3-backingtrack/j-cole/no-role-modelz.html"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). BPM agrees (100). Karaoke Version lists the key as Ab (relative major of F minor) - consistent."
+ },
+ {
+  "song": "Power Trip",
+  "artist": "J. Cole ft. Miguel",
+  "producer": null,
+  "key": "Bb minor",
+  "bpm": 100,
+  "chords": [
+   [
+    "Bbm7",
+    4
+   ],
+   [
+    "Ab",
+    4
+   ],
+   [
+    "Gbmaj7",
+    4
+   ],
+   [
+    "Ab",
+    4
+   ]
+  ],
+  "section": "Pre-chorus (i7 VII VI7 VII)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Power Trip by J Cole",
+   "url": "https://www.hooktheory.com/theorytab/view/j-cole/power-trip"
+  },
+  "keyBpmSource": {
+   "label": "Karaoke Version, Power Trip custom backing track",
+   "url": "https://www.karaoke-version.com/custombackingtrack/j-cole/power-trip.html"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Karaoke Version agrees: Bbm, 100 BPM."
+ },
+ {
+  "song": "Day 'n' Nite",
+  "artist": "Kid Cudi",
+  "producer": null,
+  "key": "B minor",
+  "bpm": 138,
+  "chords": [
+   [
+    "Gmaj7",
+    4
+   ],
+   [
+    "Em7",
+    4
+   ],
+   [
+    "Bm",
+    4
+   ]
+  ],
+  "section": "Chorus (VI7 iv7 i)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Day N Nite by Kid Cudi",
+   "url": "https://www.hooktheory.com/theorytab/view/kid-cudi/day-n-nite"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Day 'n' Nite by Kid Cudi",
+   "url": "https://songbpm.com/@kid-cudi/day-n-nite"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). 3 chords = 3 bars as listed. Verse per Hooktheory: G F#m Em D Bm (VI v iv III i). SongBPM agrees: B minor, 138 BPM."
+ },
+ {
+  "song": "Pursuit of Happiness",
+  "artist": "Kid Cudi ft. MGMT & Ratatat",
+  "producer": null,
+  "key": "C major",
+  "bpm": 116,
+  "chords": [
+   [
+    "C",
+    4
+   ],
+   [
+    "Am",
+    4
+   ],
+   [
+    "Em",
+    4
+   ]
+  ],
+  "section": "Chorus (I vi iii)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Pursuit of Happiness by Kid Cudi",
+   "url": "https://www.hooktheory.com/theorytab/view/kid-cudi/pursuit-of-happiness"
+  },
+  "keyBpmSource": {
+   "label": "Karaoke Version, Pursuit of Happiness backing track",
+   "url": "https://www.karaoke-version.com/mp3-backingtrack/mgmt/pursuit-of-happiness.html"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Key agrees (C). BPM MISMATCH: Karaoke Version says 57.65 BPM (half of ~115) vs Hooktheory 116."
+ },
+ {
+  "song": "Don't",
+  "artist": "Bryson Tiller",
+  "producer": null,
+  "key": "B harmonic minor",
+  "bpm": 97,
+  "chords": [
+   [
+    "F#7",
+    4
+   ],
+   [
+    "Bm",
+    4
+   ],
+   [
+    "Em7",
+    4
+   ]
+  ],
+  "section": "Chorus (V7/i i iv7)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Don't by Bryson Tiller",
+   "url": "https://www.hooktheory.com/theorytab/view/bryson-tiller/dont"
+  },
+  "keyBpmSource": {
+   "label": "Univ. of Waterloo CHR radio track page, Bryson Tiller - Don't (MixMeister analysis)",
+   "url": "https://cs.uwaterloo.ca/~dtompkin/music/track/CHRRADIO_341/CHRRADIO_341-12.html"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). 3 chords = 3 bars as listed. BPM agrees (MixMeister 97.0). Key MISMATCH: MixMeister says E minor."
+ },
+ {
+  "song": "Exchange",
+  "artist": "Bryson Tiller",
+  "producer": null,
+  "key": "C# minor",
+  "bpm": 160,
+  "chords": [
+   [
+    "F#m",
+    4
+   ],
+   [
+    "G#m",
+    4
+   ],
+   [
+    "A",
+    4
+   ],
+   [
+    "C#m",
+    4
+   ],
+   [
+    "G#m",
+    4
+   ]
+  ],
+  "section": "Verse (iv v VI i v)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Exchange by Bryson Tiller",
+   "url": "https://www.hooktheory.com/theorytab/view/bryson-tiller/exchange"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Exchange by Bryson Tiller",
+   "url": "https://songbpm.com/@bryson-tiller/exchange"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). BPM agrees (160). Key MISMATCH: SongBPM says F#/Gb major."
+ },
+ {
+  "song": "After Party",
+  "artist": "Don Toliver",
+  "producer": null,
+  "key": "A Phrygian",
+  "bpm": 80,
+  "chords": [
+   [
+    "Am",
+    4
+   ],
+   [
+    "Bb",
+    4
+   ],
+   [
+    "G",
+    4
+   ]
+  ],
+  "section": "Chorus (i II V/III)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, After Party by Don Toliver",
+   "url": "https://www.hooktheory.com/theorytab/view/don-toliver/after-party"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, After Party by Don Toliver",
+   "url": "https://songbpm.com/@don-toliver/after-party"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). V/III = G (dominant of C). Intro per Hooktheory: Am7 C11 (i7 III11). MISMATCH: SongBPM says F major, 163 BPM (about double of 80)."
+ },
+ {
+  "song": "Belong to the City",
+  "artist": "PARTYNEXTDOOR",
+  "producer": null,
+  "key": "C minor",
+  "bpm": 88,
+  "chords": [
+   [
+    "Fm7",
+    4
+   ],
+   [
+    "Cm7/Eb",
+    4
+   ],
+   [
+    "Bbm7/Ab",
+    4
+   ],
+   [
+    "Cm7/G",
+    4
+   ]
+  ],
+  "section": "Chorus (iv7 i65 vii42 i43)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Belong To The City by PARTYNEXTDOOR",
+   "url": "https://www.hooktheory.com/theorytab/view/partynextdoor/belong-to-the-city"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Belong to the City by PARTYNEXTDOOR",
+   "url": "https://songbpm.com/@partynextdoor/belong-to-the-city"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Lowercase vii42 read as Bb minor 7 in third inversion (Bbm7/Ab) - verify by ear. MISMATCH: SongBPM says F minor, 176 BPM (double of 88)."
+ },
+ {
+  "song": "Rehab (Winter In Paris)",
+  "artist": "Brent Faiyaz",
+  "producer": null,
+  "key": "A minor",
+  "bpm": 144,
+  "chords": [
+   [
+    "Am7(no3)",
+    4
+   ],
+   [
+    "Em",
+    4
+   ]
+  ],
+  "section": "Verse / chorus (i7(no3) v)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Rehab (Winter In Paris) by Brent Faiyaz",
+   "url": "https://www.hooktheory.com/theorytab/view/brent-faiyaz/rehab-(winter-in-paris)"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Rehab (Winter In Paris) by Brent Faiyaz",
+   "url": "https://songbpm.com/@brent-faiyaz/rehab-winter-in-paris"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). i7(no3) = A-E-G without the third. BPM agrees (144). Key MISMATCH: SongBPM says F major."
+ },
+ {
+  "song": "Creepin'",
+  "artist": "Metro Boomin, The Weeknd & 21 Savage",
+  "producer": null,
+  "key": "C# minor",
+  "bpm": 98,
+  "chords": [
+   [
+    "C#m",
+    4
+   ],
+   [
+    "G#m/B",
+    4
+   ],
+   [
+    "A",
+    4
+   ],
+   [
+    "E/B",
+    4
+   ],
+   [
+    "G#/B#",
+    4
+   ]
+  ],
+  "section": "Chorus (i v6 VI III64 V6)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Creepin' by Metro Boomin, The Weeknd and 21 Savage",
+   "url": "https://www.hooktheory.com/theorytab/view/metro-boomin-the-weeknd-and-21-savage/creepin"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Creepin' by Metro Boomin, The Weeknd and 21 Savage",
+   "url": "https://www.hooktheory.com/theorytab/view/metro-boomin-the-weeknd-and-21-savage/creepin"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). No independent key/BPM check: SongBPM page failed to load and the WebFetch budget ran out; key/BPM Hooktheory-only."
+ },
+ {
+  "song": "Sundress",
+  "artist": "A$AP Rocky",
+  "producer": null,
+  "key": "D# minor",
+  "bpm": 120,
+  "chords": [
+   [
+    "B",
+    4
+   ],
+   [
+    "C#",
+    4
+   ],
+   [
+    "A#m",
+    4
+   ]
+  ],
+  "section": "Chorus (VI VII v)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Sundress by A$AP Rocky",
+   "url": "https://www.hooktheory.com/theorytab/view/asap-rocky/sundress"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Sundress by A$AP Rocky",
+   "url": "https://www.hooktheory.com/theorytab/view/asap-rocky/sundress"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). 3 chords = 3 bars as listed. No independent key/BPM check: SongBPM page failed to load and the WebFetch budget ran out; key/BPM Hooktheory-only."
+ },
+ {
+  "song": "I Smoked Away My Brain (I'm God x Demons Mashup)",
+  "artist": "A$AP Rocky ft. Imogen Heap",
+  "producer": null,
+  "key": "B minor",
+  "bpm": 142,
+  "chords": [
+   [
+    "Gmaj7",
+    4
+   ],
+   [
+    "Bm7",
+    4
+   ],
+   [
+    "C#m7b5",
+    4
+   ],
+   [
+    "Dmaj7",
+    4
+   ]
+  ],
+  "section": "Instrumental (VI7 i7 iiø7 III7 ...)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, I Smoked Away My Brain ft Imogen Heap by A$AP Rocky",
+   "url": "https://www.hooktheory.com/theorytab/view/asap-rocky/i-smoked-away-my-brain-ft-imogen-heap"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, I Smoked Away My Brain ft Imogen Heap by A$AP Rocky",
+   "url": "https://www.hooktheory.com/theorytab/view/asap-rocky/i-smoked-away-my-brain-ft-imogen-heap"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Hooktheory chordString ends with VI7 again (loop restart). No independent key/BPM check: SongBPM page failed to load and the WebFetch budget ran out; key/BPM Hooktheory-only."
+ },
+ {
+  "song": "Bound 2",
+  "artist": "Kanye West",
+  "producer": null,
+  "key": "Eb major",
+  "bpm": 79,
+  "chords": [
+   [
+    "Ab",
+    4
+   ],
+   [
+    "Bb",
+    4
+   ],
+   [
+    "Eb",
+    4
+   ],
+   [
+    "Ab",
+    4
+   ],
+   [
+    "Eb/G",
+    4
+   ]
+  ],
+  "section": "Intro (IV V I IV I6)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Bound 2 by Kanye West",
+   "url": "https://www.hooktheory.com/theorytab/view/kanye-west/bound-2"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Bound 2 by Kanye West",
+   "url": "https://songbpm.com/@kanye-west/bound-2"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Instrumental section is analysed in F# major at 76 BPM: I9 IV7/IV V vi7 bVII(add9). MISMATCH: SongBPM says C#/Db major, 149 BPM (about double)."
+ },
+ {
+  "song": "Save Your Tears",
+  "artist": "The Weeknd",
+  "producer": null,
+  "key": "C major",
+  "bpm": 118,
+  "chords": [
+   [
+    "C",
+    4
+   ],
+   [
+    "Am7",
+    4
+   ],
+   [
+    "Em7",
+    4
+   ],
+   [
+    "G",
+    4
+   ]
+  ],
+  "section": "Verse / chorus (I vi7 iii7 V)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Save Your Tears by The Weeknd",
+   "url": "https://www.hooktheory.com/theorytab/view/the-weeknd/save-your-tears"
+  },
+  "keyBpmSource": {
+   "label": "SongBPM, Save Your Tears by The Weeknd",
+   "url": "https://songbpm.com/@the-weeknd/save-your-tears"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Pre-chorus per Hooktheory: Dm Am7 F Gsus4 (ii vi7 IV Vsus4). SongBPM agrees: C major, 118 BPM."
+ },
+ {
+  "song": "Slime You Out",
+  "artist": "Drake ft. SZA",
+  "producer": null,
+  "key": "Ab major",
+  "bpm": 119,
+  "chords": [
+   [
+    "Bbm",
+    4
+   ],
+   [
+    "Fm7",
+    4
+   ],
+   [
+    "Eb",
+    4
+   ],
+   [
+    "Db",
+    4
+   ]
+  ],
+  "section": "Verse (ii vi7 V IV)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Slime You Out ft SZA by Drake",
+   "url": "https://www.hooktheory.com/theorytab/view/drake/slime-you-out-ft-sza"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Slime You Out ft SZA by Drake",
+   "url": "https://www.hooktheory.com/theorytab/view/drake/slime-you-out-ft-sza"
+  },
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). No independent key/BPM check: SongBPM page failed to load and the WebFetch budget ran out; key/BPM Hooktheory-only."
+ },
+ {
+  "song": "Lose Yourself",
+  "artist": "Eminem",
+  "producer": "Eminem, Jeff Bass, Luis Resto",
+  "key": "D minor",
+  "bpm": 86,
+  "chords": [
+   [
+    "Dm",
+    4
+   ],
+   [
+    "Bb/D",
+    4
+   ]
+  ],
+  "section": "Intro and verse loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Lose Yourself by Eminem",
+   "url": "https://www.hooktheory.com/theorytab/view/eminem/lose-yourself"
+  },
+  "keyBpmSource": {
+   "label": "songbpm, Eminem - Lose Yourself",
+   "url": "https://songbpm.com/@eminem/lose-yourself"
+  },
+  "notes": "Hooktheory: verse i VI6 in D minor at 86 BPM; chorus i VI VII9 (Dm Bb C9). songbpm says D major / 171 BPM (double-time; mode disagrees with chords, which are clearly D minor). Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "'Till I Collapse",
+  "artist": "Eminem",
+  "producer": "Eminem, Jeff Bass",
+  "key": "C# minor",
+  "bpm": 86,
+  "chords": [
+   [
+    "C#m",
+    4
+   ],
+   [
+    "A",
+    4
+   ]
+  ],
+  "section": "Intro and verse loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, 'Till I Collapse by Eminem",
+   "url": "https://www.hooktheory.com/theorytab/view/eminem/till-i-collapse"
+  },
+  "keyBpmSource": {
+   "label": "songbpm, Eminem - Till I Collapse",
+   "url": "https://songbpm.com/@eminem/till-i-collapse"
+  },
+  "notes": "Hooktheory: Intro/Verse i VI, Chorus i III iio III VI (C#m E D#dim E A), C# minor 86 BPM. songbpm: C#/Db 'major', 171 BPM (half-time 86). Mode label disagrees; chords are C# minor. Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "Stan",
+  "artist": "Eminem",
+  "producer": "The 45 King, Eminem",
+  "key": "G# minor",
+  "bpm": 80,
+  "chords": [
+   [
+    "G#m",
+    4
+   ],
+   [
+    "Emaj7",
+    4
+   ],
+   [
+    "F#",
+    4
+   ],
+   [
+    "Bsus2",
+    4
+   ]
+  ],
+  "section": "Chorus",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Stan by Eminem",
+   "url": "https://www.hooktheory.com/theorytab/view/eminem/stan"
+  },
+  "keyBpmSource": {
+   "label": "songbpm, Eminem - Stan",
+   "url": "https://songbpm.com/@eminem/stan"
+  },
+  "notes": "Hooktheory chorus pattern: i VI7 VII III7sus2 VII6 (G#m Emaj7 F# Bmaj7sus2 F#/A#); simplified here to 4 chords, dropping the passing F#/A# and the maj7 on B. songbpm: G#/Ab, 80 BPM (labels mode as major). Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "Mockingbird",
+  "artist": "Eminem",
+  "producer": "Eminem, Luis Resto",
+  "key": "E minor",
+  "bpm": 85,
+  "chords": [
+   [
+    "Em",
+    4
+   ],
+   [
+    "C",
+    4
+   ],
+   [
+    "D",
+    4
+   ],
+   [
+    "Em",
+    4
+   ]
+  ],
+  "section": "Intro loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Mockingbird by Eminem",
+   "url": "https://www.hooktheory.com/theorytab/view/eminem/mockingbird"
+  },
+  "keyBpmSource": {
+   "label": "sfrbeats BPM & Key Finder, Mockingbird",
+   "url": "https://sfrbeats.com/tools/bpm/eminem/mockingbird"
+  },
+  "notes": "Hooktheory intro pattern i VI VII (Em C D), returning to i; chorus i v65 i VI VII (Em Bm7/D Em C D). Hooktheory 85 BPM; sfrbeats Em, 83 BPM. Final Em bar added to complete the 4-bar cycle (assumption). Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "Love the Way You Lie",
+  "artist": "Eminem feat. Rihanna",
+  "producer": "Alex da Kid",
+  "key": "G minor",
+  "bpm": 87,
+  "chords": [
+   [
+    "Gm",
+    4
+   ],
+   [
+    "Eb",
+    4
+   ],
+   [
+    "Bb",
+    4
+   ],
+   [
+    "F/A",
+    4
+   ]
+  ],
+  "section": "Chorus",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Love The Way You Lie by Eminem ft Rihanna",
+   "url": "https://www.hooktheory.com/theorytab/view/eminem/love-the-way-you-lie-ft-rihanna"
+  },
+  "keyBpmSource": {
+   "label": "songbpm, Eminem - Love The Way You Lie",
+   "url": "https://songbpm.com/@eminem/love-the-way-you-lie"
+  },
+  "notes": "Hooktheory chorus i VI III VII6; verse i VI III. songbpm: A#/Bb major (relative major of G minor), 87 BPM. Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "Not Afraid",
+  "artist": "Eminem",
+  "producer": "Boi-1da, Eminem, Matthew Burnett, Jordan Evans",
+  "key": "C minor",
+  "bpm": 86,
+  "chords": [
+   [
+    "Cm",
+    4
+   ],
+   [
+    "Abmaj7",
+    4
+   ],
+   [
+    "Eb",
+    4
+   ],
+   [
+    "Bb",
+    4
+   ]
+  ],
+  "section": "Chorus / instrumental",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Not Afraid by Eminem",
+   "url": "https://www.hooktheory.com/theorytab/view/eminem/not-afraid"
+  },
+  "keyBpmSource": {
+   "label": "sfrbeats BPM & Key Finder, Not Afraid",
+   "url": "https://sfrbeats.com/tools/bpm/eminem/not-afraid"
+  },
+  "notes": "Hooktheory: chorus/instrumental i VI7 III VII in C minor, 86 BPM. sfrbeats: Cm, 112 BPM (BPM disagrees with Hooktheory's 86; used 86). Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "Mask Off",
+  "artist": "Future",
+  "producer": "Metro Boomin",
+  "key": "D minor",
+  "bpm": 76,
+  "chords": [
+   [
+    "Dm",
+    4
+   ],
+   [
+    "Gm",
+    4
+   ],
+   [
+    "C",
+    4
+   ],
+   [
+    "Dm",
+    4
+   ]
+  ],
+  "section": "Intro / chorus loop",
+  "chordSource": {
+   "label": "Ultimate Guitar, Mask Off Chords by Future",
+   "url": "https://tabs.ultimate-guitar.com/tab/future/mask-off-chords-1984805"
+  },
+  "keyBpmSource": {
+   "label": "sfrbeats BPM & Key Finder, Future - Mask Off",
+   "url": "https://sfrbeats.com/tools/bpm/future/mask-off"
+  },
+  "notes": "UG intro: Dm Gm C Dm repeated. Hooktheory (https://hooktheory.com/theorytab/view/future/mask-off) gives D minor at 150 BPM with pattern i iv v (Dm Gm Am) — the v vs VII (Am vs C) differs between sources. sfrbeats Dm 76 BPM (Hooktheory 150 = double-time). Chord lengths not shown; one bar each assumed."
+ },
+ {
+  "song": "Still D.R.E.",
+  "artist": "Dr. Dre feat. Snoop Dogg",
+  "producer": "Dr. Dre, Scott Storch, Mel-Man",
+  "key": "A minor",
+  "bpm": 93,
+  "chords": [
+   [
+    "Am/C",
+    4
+   ],
+   [
+    "Esus4/B",
+    2
+   ],
+   [
+    "Em/B",
+    2
+   ]
+  ],
+  "section": "Main piano riff (2-bar loop)",
+  "chordSource": {
+   "label": "Skoove blog, How to play Still D.R.E. on piano",
+   "url": "https://www.skoove.com/blog/how-to-play-still-dre-on-piano"
+  },
+  "keyBpmSource": {
+   "label": "Melodics blog, The theory behind hip hop history's Still D.R.E.",
+   "url": "https://melodics.com/blog/the-theory-behind-hip-hop-historys-still-d-r-e"
+  },
+  "notes": "Skoove: bar 1 = A minor 1st inversion (C-E-A); bar 2 = Esus4 2nd inversion (B-E-A) on '1 & 2 &', then E minor 2nd inversion (B-E-G) from the '&' of 2 to the end of the bar — so the Em actually enters half a beat earlier than written here (2/2 is a rounding). Melodics: same three shapes, A minor, ~93 BPM. Skoove calls the key E minor. Hooktheory (https://www.hooktheory.com/theorytab/view/dr-dre/still-dre) reads it as i ii-half-dim11 vsus4 in A minor at 94 BPM."
+ },
+ {
+  "song": "The Next Episode",
+  "artist": "Dr. Dre feat. Snoop Dogg, Kurupt, Nate Dogg",
+  "producer": "Dr. Dre, Mel-Man",
+  "key": "Eb minor",
+  "bpm": 95,
+  "chords": [
+   [
+    "Ebm",
+    4
+   ],
+   [
+    "Bbm",
+    4
+   ]
+  ],
+  "section": "Intro / main loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, The Next Episode by Dr Dre",
+   "url": "https://www.hooktheory.com/theorytab/view/dr-dre/the-next-episode"
+  },
+  "keyBpmSource": {
+   "label": "audiokeychain, Dr. Dre - The Next Episode",
+   "url": "https://www.audiokeychain.com/track/eX/dr-dre-the-next-episode"
+  },
+  "notes": "Hooktheory intro: i v in D# minor (spelled here as Eb minor), 94 BPM. audiokeychain: Eb minor, 95 BPM; songs.klang.io (https://songs.klang.io/en/s/Dr.%20Dre/The%20Next%20Episode/QZXc39hT8t4) also says Ebm, 95 BPM. Key agrees across all three. Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "Forgot About Dre",
+  "artist": "Dr. Dre feat. Eminem",
+  "producer": "Dr. Dre, Mel-Man",
+  "key": "G minor",
+  "bpm": 134,
+  "chords": [
+   [
+    "Gm",
+    4
+   ],
+   [
+    "Eb",
+    4
+   ],
+   [
+    "Dm",
+    4
+   ],
+   [
+    "Gm",
+    4
+   ]
+  ],
+  "section": "Verse loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Forgot About Dre by Dr Dre ft Eminem",
+   "url": "https://www.hooktheory.com/theorytab/view/dr-dre/forgot-about-dre---ft-eminem"
+  },
+  "keyBpmSource": {
+   "label": "songbpm, Dr. Dre artist page (Forgot About Dre - Album Version (Edited))",
+   "url": "https://songbpm.com/@dr-dre"
+  },
+  "notes": "Hooktheory verse pattern i VI v in G minor at 135 BPM. songbpm lists G#/Ab at 134 BPM — a semitone off Hooktheory's key; unresolved (Hooktheory may be transcribed a semitone low, or songbpm misdetected). Closing Gm bar added to complete 4 bars (assumption). Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "Nuthin' but a 'G' Thang",
+  "artist": "Dr. Dre feat. Snoop Dogg",
+  "producer": "Dr. Dre",
+  "key": "B minor",
+  "bpm": 95,
+  "chords": [
+   [
+    "Bm",
+    4
+   ],
+   [
+    "F#m",
+    4
+   ]
+  ],
+  "section": "Whole song (intro/verse/chorus loop)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Nuthin' but a 'G' Thang by Dr Dre ft Snoop Dogg",
+   "url": "https://www.hooktheory.com/theorytab/view/dr-dre/nuthin-but-a-g-thang-ft-snoop-dogg"
+  },
+  "keyBpmSource": {
+   "label": "songbpm, Dr. Dre artist page (Nuthin' but a G Thang)",
+   "url": "https://songbpm.com/@dr-dre"
+  },
+  "notes": "Hooktheory: i v in B minor for every section, 90 BPM. songbpm: key B, 95 BPM. Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "I Need a Doctor",
+  "artist": "Dr. Dre feat. Eminem, Skylar Grey",
+  "producer": "Dr. Dre, Eminem, Alex da Kid",
+  "key": "G minor",
+  "bpm": 78,
+  "chords": [
+   [
+    "Gm",
+    4
+   ],
+   [
+    "Eb/G",
+    4
+   ],
+   [
+    "Gm",
+    4
+   ],
+   [
+    "Fsus4",
+    2
+   ],
+   [
+    "Cm/Eb",
+    2
+   ]
+  ],
+  "section": "Intro",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, I Need A Doctor by Dr Dre",
+   "url": "https://www.hooktheory.com/theorytab/view/dr-dre/i-need-a-doctor"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, I Need A Doctor by Dr Dre",
+   "url": "https://www.hooktheory.com/theorytab/view/dr-dre/i-need-a-doctor"
+  },
+  "notes": "Hooktheory intro: i VI6 i VIIsus4 iv6, G minor, 78 BPM. Durations not shown; split of the last bar into Fsus4/Cm/Eb is an assumption. No independent key/BPM source fetched."
+ },
+ {
+  "song": "What's the Difference",
+  "artist": "Dr. Dre feat. Eminem, Xzibit",
+  "producer": "Dr. Dre, Mel-Man",
+  "key": "B minor",
+  "bpm": 92,
+  "chords": [
+   [
+    "Bm",
+    4
+   ],
+   [
+    "Em",
+    4
+   ],
+   [
+    "D",
+    4
+   ],
+   [
+    "F#/C#",
+    4
+   ]
+  ],
+  "section": "Instrumental loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, What's The Difference by Dr Dre",
+   "url": "https://www.hooktheory.com/theorytab/view/dr-dre/whats-the-difference"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, What's The Difference by Dr Dre",
+   "url": "https://www.hooktheory.com/theorytab/view/dr-dre/whats-the-difference"
+  },
+  "notes": "Hooktheory: i iv III V64 in B minor, 92 BPM. No independent key/BPM source fetched. Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "Many Men (Wish Death)",
+  "artist": "50 Cent",
+  "producer": "Digga, Eminem, Luis Resto",
+  "key": "B minor",
+  "bpm": 81,
+  "chords": [
+   [
+    "Bm7",
+    4
+   ],
+   [
+    "Em7",
+    4
+   ]
+  ],
+  "section": "Chorus loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Many Men (Wish Death) by 50 Cent",
+   "url": "https://www.hooktheory.com/theorytab/view/50-cent/many-men-(wish-death)"
+  },
+  "keyBpmSource": {
+   "label": "audiokeychain, 50 Cent - Many Men (Wish Death)",
+   "url": "https://www.audiokeychain.com/track/Qtv/50-cent-many-men-wish-death"
+  },
+  "notes": "Hooktheory: i7 iv7 in B minor at 162 BPM (double-time; audiokeychain gives 81 BPM, which agrees). KEY MISMATCH: audiokeychain says Gb minor (F# minor), which is the v of B minor; unresolved, chords follow Hooktheory. Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "Candy Shop",
+  "artist": "50 Cent feat. Olivia",
+  "producer": "Scott Storch",
+  "key": "F# Phrygian (F# minor)",
+  "bpm": 100,
+  "chords": [
+   [
+    "F#m",
+    4
+   ],
+   [
+    "G",
+    4
+   ]
+  ],
+  "section": "Instrumental loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Candy Shop by 50 Cent",
+   "url": "https://www.hooktheory.com/theorytab/view/50-cent/candy-shop"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Candy Shop by 50 Cent",
+   "url": "https://www.hooktheory.com/theorytab/view/50-cent/candy-shop"
+  },
+  "notes": "Hooktheory: i II in F# Phrygian, 100 BPM (page also shows 'i II vii' near the key description). Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "P.I.M.P.",
+  "artist": "50 Cent",
+  "producer": "Mr. Porter",
+  "key": "D# harmonic minor",
+  "bpm": 85,
+  "chords": [
+   [
+    "D#m",
+    4
+   ],
+   [
+    "A#7",
+    4
+   ]
+  ],
+  "section": "Chorus loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, PIMP by 50 Cent",
+   "url": "https://www.hooktheory.com/theorytab/view/50-cent/pimp"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, PIMP by 50 Cent",
+   "url": "https://www.hooktheory.com/theorytab/view/50-cent/pimp"
+  },
+  "notes": "Hooktheory chorus: i V7/i (written as V7 over the tonic), D# harmonic minor, 85 BPM — could be voiced A#7/D#. Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "Patiently Waiting",
+  "artist": "50 Cent feat. Eminem",
+  "producer": "Eminem, Luis Resto",
+  "key": "B minor",
+  "bpm": 79,
+  "chords": [
+   [
+    "Bm",
+    4
+   ],
+   [
+    "F#m",
+    4
+   ],
+   [
+    "Em",
+    4
+   ],
+   [
+    "F#m",
+    4
+   ]
+  ],
+  "section": "Chorus",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Patiently Waiting by 50 Cent",
+   "url": "https://www.hooktheory.com/theorytab/view/50-cent/patiently-waiting"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Patiently Waiting by 50 Cent",
+   "url": "https://www.hooktheory.com/theorytab/view/50-cent/patiently-waiting"
+  },
+  "notes": "Hooktheory chorus pattern: i v iv v i (returns to Bm), B minor, 79 BPM. Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "Changes",
+  "artist": "2Pac feat. Talent",
+  "producer": "Def Jef",
+  "key": "G major",
+  "bpm": 111,
+  "chords": [
+   [
+    "Am7",
+    4
+   ],
+   [
+    "Em7",
+    4
+   ],
+   [
+    "D",
+    4
+   ],
+   [
+    "Cadd9",
+    2
+   ],
+   [
+    "Gadd9",
+    2
+   ]
+  ],
+  "section": "Verse loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Changes by 2Pac",
+   "url": "https://www.hooktheory.com/theorytab/view/2pac/changes"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Changes by 2Pac",
+   "url": "https://www.hooktheory.com/theorytab/view/2pac/changes"
+  },
+  "notes": "Hooktheory verse: ii7 vi7 V IV(add9) I(add9) in G major, 111 BPM; chorus I bVII7 IV(add9) (G F7 Cadd9) in G Mixolydian. Durations not shown; the 2+2 split of the last bar is an assumption."
+ },
+ {
+  "song": "Dear Mama",
+  "artist": "2Pac",
+  "producer": "Tony Pizarro",
+  "key": "F# major",
+  "bpm": 84,
+  "chords": [
+   [
+    "F#maj7/A#",
+    4
+   ],
+   [
+    "Badd9",
+    4
+   ],
+   [
+    "G#m13",
+    8
+   ]
+  ],
+  "section": "Chorus",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Dear Mama by 2Pac",
+   "url": "https://www.hooktheory.com/theorytab/view/2pac/dear-mama"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Dear Mama by 2Pac",
+   "url": "https://www.hooktheory.com/theorytab/view/2pac/dear-mama"
+  },
+  "notes": "Hooktheory chorus: I65 IV(add9) ii13 in F# major, 84 BPM. I65 rendered as F#maj7/A# (first-inversion 7th). Durations not shown; 1-1-2 bar split is an assumption."
+ },
+ {
+  "song": "Gin and Juice",
+  "artist": "Snoop Dogg",
+  "producer": "Dr. Dre",
+  "key": "F Phrygian (F minor)",
+  "bpm": 95,
+  "chords": [
+   [
+    "Fm",
+    4
+   ],
+   [
+    "Ebm/Gb",
+    2
+   ],
+   [
+    "Cm7b5",
+    2
+   ]
+  ],
+  "section": "Intro and verse loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Gin And Juice by Snoop Dogg",
+   "url": "https://www.hooktheory.com/theorytab/view/snoop-dogg/gin-and-juice"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Gin And Juice by Snoop Dogg",
+   "url": "https://www.hooktheory.com/theorytab/view/snoop-dogg/gin-and-juice"
+  },
+  "notes": "Hooktheory intro/verse: i vii6 v-half-dim7 in F Phrygian at 95 BPM; chorus i vii6 (Fm Ebm/Gb). Durations not shown; split is an assumption."
+ },
+ {
+  "song": "Drop It Like It's Hot",
+  "artist": "Snoop Dogg feat. Pharrell Williams",
+  "producer": "The Neptunes",
+  "key": "C# minor",
+  "bpm": 94,
+  "chords": [
+   [
+    "F#m7",
+    4
+   ],
+   [
+    "Emaj7",
+    4
+   ],
+   [
+    "Amaj7",
+    4
+   ],
+   [
+    "G#sus4",
+    2
+   ],
+   [
+    "G#",
+    2
+   ]
+  ],
+  "section": "Instrumental (keyboard)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Drop It Like It's Hot by Snoop Dogg ft Pharrell Williams",
+   "url": "https://www.hooktheory.com/theorytab/view/snoop-dogg/drop-it-like-its-hot-ft-pharrell-williams"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Drop It Like It's Hot by Snoop Dogg ft Pharrell Williams",
+   "url": "https://www.hooktheory.com/theorytab/view/snoop-dogg/drop-it-like-its-hot-ft-pharrell-williams"
+  },
+  "notes": "Hooktheory instrumental: iv7 III7 VI7 vsus4 V in C# minor, 94 BPM. The beat is mostly percussion; this is the keyboard harmony. Durations not shown; split is an assumption."
+ },
+ {
+  "song": "Lollipop",
+  "artist": "Lil Wayne feat. Static Major",
+  "producer": "Jim Jonsin, Deezle",
+  "key": "D minor",
+  "bpm": 74,
+  "chords": [
+   [
+    "Dm",
+    4
+   ],
+   [
+    "F",
+    4
+   ],
+   [
+    "C",
+    4
+   ],
+   [
+    "Am",
+    4
+   ]
+  ],
+  "section": "Instrumental / chorus loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Lollipop by Lil Wayne",
+   "url": "https://www.hooktheory.com/theorytab/view/lil-wayne/lollipop"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Lollipop by Lil Wayne",
+   "url": "https://www.hooktheory.com/theorytab/view/lil-wayne/lollipop"
+  },
+  "notes": "Hooktheory instrumental: i III VII v in D minor, 74 BPM (chorus starts on v: Am Dm F C). Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "How to Love",
+  "artist": "Lil Wayne",
+  "producer": "Detail, Drumma Boy",
+  "key": "B major",
+  "bpm": 77,
+  "chords": [
+   [
+    "B",
+    4
+   ],
+   [
+    "Emaj7",
+    4
+   ],
+   [
+    "Em",
+    8
+   ]
+  ],
+  "section": "Chorus",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, How to Love by Lil Wayne",
+   "url": "https://www.hooktheory.com/theorytab/view/lil-wayne/how-to-love"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, How to Love by Lil Wayne",
+   "url": "https://www.hooktheory.com/theorytab/view/lil-wayne/how-to-love"
+  },
+  "notes": "Hooktheory chorus: I IV7 iv (borrowed minor iv) in B major, 77 BPM. Durations not shown; 1-1-2 bar split is an assumption."
+ },
+ {
+  "song": "Mirror",
+  "artist": "Lil Wayne feat. Bruno Mars",
+  "producer": "Ramon 'REO' Owen, Bruno Mars, Philip Lawrence",
+  "key": "F minor",
+  "bpm": 72,
+  "chords": [
+   [
+    "Fm7",
+    4
+   ],
+   [
+    "Eb",
+    4
+   ],
+   [
+    "Cm",
+    4
+   ],
+   [
+    "Dbadd9",
+    4
+   ]
+  ],
+  "section": "Chorus",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Mirror ft Bruno Mars by Lil Wayne",
+   "url": "https://www.hooktheory.com/theorytab/view/lil-wayne/mirror-ft-bruno-mars"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Mirror ft Bruno Mars by Lil Wayne",
+   "url": "https://www.hooktheory.com/theorytab/view/lil-wayne/mirror-ft-bruno-mars"
+  },
+  "notes": "Hooktheory chorus: i7 VII v VI(add9), F minor, 72 BPM. Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "The Box",
+  "artist": "Roddy Ricch",
+  "producer": "30 Roc, Datboisqueeze",
+  "key": "Bb minor",
+  "bpm": 117,
+  "chords": [
+   [
+    "Bbm",
+    4
+   ],
+   [
+    "Ebm",
+    4
+   ],
+   [
+    "Abadd9",
+    8
+   ]
+  ],
+  "section": "Chorus loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, The Box by Roddy Ricch",
+   "url": "https://www.hooktheory.com/theorytab/view/roddy-ricch/the-box"
+  },
+  "keyBpmSource": {
+   "label": "sfrbeats BPM & Key Finder, Roddy Ricch - The Box",
+   "url": "https://sfrbeats.com/tools/bpm/roddy-ricch/the-box"
+  },
+  "notes": "Hooktheory chorus: i iv VII(add9), Bb minor, 117 BPM; sfrbeats agrees (Bbm, 117). Durations not shown; 1-1-2 bar split is an assumption."
+ },
+ {
+  "song": "RAPSTAR",
+  "artist": "Polo G",
+  "producer": "Einer Bankz, Synco",
+  "key": "Bb minor",
+  "bpm": 81,
+  "chords": [
+   [
+    "Bbm",
+    4
+   ],
+   [
+    "Gbmaj7",
+    4
+   ],
+   [
+    "Eb7sus2",
+    4
+   ],
+   [
+    "Gbmaj7",
+    4
+   ]
+  ],
+  "section": "Pre-chorus / chorus",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, RAPSTAR by Polo G",
+   "url": "https://www.hooktheory.com/theorytab/view/polo-g/rapstar"
+  },
+  "keyBpmSource": {
+   "label": "songbpm, Polo G - RAPSTAR",
+   "url": "https://songbpm.com/@polo-g/rapstar-4NI777i1GB"
+  },
+  "notes": "Hooktheory: i VI7 iv7sus2 VI7 i(no3no5) in Bb minor at 162 BPM (double-time; songbpm gives 81). songbpm labels the key F#/Gb major — Gb is the VI chord here, so the tonal centre is disputed; chords follow Hooktheory. Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "What You Know Bout Love",
+  "artist": "Pop Smoke",
+  "producer": null,
+  "key": "G minor",
+  "bpm": 84,
+  "chords": [
+   [
+    "Eb",
+    4
+   ],
+   [
+    "Dm",
+    4
+   ],
+   [
+    "Cm",
+    4
+   ],
+   [
+    "Eb",
+    2
+   ],
+   [
+    "F/C",
+    2
+   ]
+  ],
+  "section": "Chorus",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, What You Know Bout Love by Pop Smoke",
+   "url": "https://www.hooktheory.com/theorytab/view/pop-smoke/what-you-know-bout-love"
+  },
+  "keyBpmSource": {
+   "label": "sfrbeats BPM & Key Finder, Pop Smoke - What You Know Bout Love",
+   "url": "https://sfrbeats.com/tools/bpm/pop-smoke/what-you-know-bout-love"
+  },
+  "notes": "Hooktheory chorus: VI v iv VI VII64 in G minor, 84 BPM. KEY MISMATCH: sfrbeats detects Ebm (84 BPM agrees). Chords follow Hooktheory. Durations not shown; split of the last bar is an assumption."
+ },
+ {
+  "song": "Mood Swings",
+  "artist": "Pop Smoke feat. Lil Tjay",
+  "producer": null,
+  "key": "Bb minor",
+  "bpm": 90,
+  "chords": [
+   [
+    "Bbm",
+    4
+   ],
+   [
+    "Ab",
+    4
+   ],
+   [
+    "Fm",
+    4
+   ],
+   [
+    "Gb",
+    4
+   ]
+  ],
+  "section": "Chorus",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Mood Swings by Pop Smoke",
+   "url": "https://www.hooktheory.com/theorytab/view/pop-smoke/mood-swings"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Mood Swings by Pop Smoke",
+   "url": "https://www.hooktheory.com/theorytab/view/pop-smoke/mood-swings"
+  },
+  "notes": "Hooktheory chorus: i VII v VI, Bb minor, 90 BPM. No independent key/BPM source fetched. Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "Old Town Road",
+  "artist": "Lil Nas X",
+  "producer": "YoungKio",
+  "key": "G# minor",
+  "bpm": 136,
+  "chords": [
+   [
+    "G#m",
+    4
+   ],
+   [
+    "Bsus2",
+    4
+   ],
+   [
+    "F#",
+    4
+   ],
+   [
+    "C#m7/E",
+    4
+   ]
+  ],
+  "section": "Verse loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Old Town Road by Lil Nas X",
+   "url": "https://www.hooktheory.com/theorytab/view/lil-nas-x/old-town-road"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Old Town Road by Lil Nas X",
+   "url": "https://www.hooktheory.com/theorytab/view/lil-nas-x/old-town-road"
+  },
+  "notes": "Hooktheory verse: i IIIsus2 VII iv65 in G# minor, 136 BPM (chorus uses major I: G# Bsus2 F# C#m7/E). Many sources treat the tempo as ~68 half-time. No independent key/BPM source could be fetched (sfrbeats page failed). Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "MONTERO (Call Me by Your Name)",
+  "artist": "Lil Nas X",
+  "producer": "Take a Daytrip, Omer Fedi, Roy Lenzo",
+  "key": "G# minor (harmonic)",
+  "bpm": 179,
+  "chords": [
+   [
+    "D#",
+    4
+   ],
+   [
+    "E",
+    4
+   ]
+  ],
+  "section": "Verse / chorus loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Montero (Call Me By Your Name) by Lil Nas X",
+   "url": "https://www.hooktheory.com/theorytab/view/lil-nas-x/montero-(call-me-by-your-name)"
+  },
+  "keyBpmSource": {
+   "label": "sfrbeats BPM & Key Finder, Lil Nas X - Montero",
+   "url": "https://sfrbeats.com/tools/bpm/lil-nas-x/montero-call-me-by-your-name"
+  },
+  "notes": "Hooktheory: V VI in G# harmonic minor (verse) and I II in D# Phrygian dominant (chorus), both D# to E, 180 BPM. sfrbeats: G#m, 89 BPM (half of ~179). Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "Drip Too Hard",
+  "artist": "Lil Baby & Gunna",
+  "producer": null,
+  "key": "A major (F# minor)",
+  "bpm": 113,
+  "chords": [
+   [
+    "F#m",
+    4
+   ],
+   [
+    "Dmaj7",
+    4
+   ],
+   [
+    "C#m",
+    4
+   ],
+   [
+    "A",
+    4
+   ]
+  ],
+  "section": "Intro / verse / chorus loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Drip Too Hard by Lil Baby",
+   "url": "https://www.hooktheory.com/theorytab/view/lil-baby/drip-too-hard"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Drip Too Hard by Lil Baby",
+   "url": "https://www.hooktheory.com/theorytab/view/lil-baby/drip-too-hard"
+  },
+  "notes": "Hooktheory: vi IV7 iii I in A major for all sections, 112-113 BPM (the loop centres on F#m, so F# minor is equally valid). The page's per-section charts are images; the chord pattern comes from the progression-search link. No independent key/BPM source fetched. Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "Hot",
+  "artist": "Young Thug feat. Gunna",
+  "producer": "Wheezy",
+  "key": "C minor",
+  "bpm": 112,
+  "chords": [
+   [
+    "Cm",
+    4
+   ],
+   [
+    "Gm/D",
+    4
+   ]
+  ],
+  "section": "Chorus loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Hot by Young Thug",
+   "url": "https://www.hooktheory.com/theorytab/view/young-thug/hot"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Hot by Young Thug",
+   "url": "https://www.hooktheory.com/theorytab/view/young-thug/hot"
+  },
+  "notes": "Hooktheory chorus: i v64, C minor, 112 BPM. No independent key/BPM source fetched. Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "Say So",
+  "artist": "Doja Cat",
+  "producer": "Tyson Trax",
+  "key": "D major",
+  "bpm": 111,
+  "chords": [
+   [
+    "Em7",
+    4
+   ],
+   [
+    "A11",
+    4
+   ],
+   [
+    "Dmaj7",
+    8
+   ]
+  ],
+  "section": "Verse / chorus loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Say So by Doja Cat",
+   "url": "https://www.hooktheory.com/theorytab/view/doja-cat/say-so"
+  },
+  "keyBpmSource": {
+   "label": "sfrbeats BPM & Key Finder, Doja Cat - Say So",
+   "url": "https://sfrbeats.com/tools/bpm/doja-cat/say-so"
+  },
+  "notes": "Hooktheory: ii7 V11 I7 in D major, 111 BPM. sfrbeats: 111 BPM but key 'E' — disagrees with Hooktheory (E is the ii root here). Durations not shown; 1-1-2 bar split is an assumption."
+ },
+ {
+  "song": "Paint The Town Red",
+  "artist": "Doja Cat",
+  "producer": "Earl on the Beat, Kurtis McKenzie, Jon Mills",
+  "key": "G Dorian (G minor)",
+  "bpm": 100,
+  "chords": [
+   [
+    "Gm7",
+    4
+   ],
+   [
+    "Am7",
+    4
+   ]
+  ],
+  "section": "Verse / chorus loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Paint The Town Red by Doja Cat",
+   "url": "https://www.hooktheory.com/theorytab/view/doja-cat/paint-the-town-red"
+  },
+  "keyBpmSource": {
+   "label": "sfrbeats BPM & Key Finder, Doja Cat - Paint The Town Red",
+   "url": "https://sfrbeats.com/tools/bpm/doja-cat/paint-the-town-red"
+  },
+  "notes": "Hooktheory: i7 ii7 in G Dorian for verse/chorus (intro i64 ii6), 100 BPM. sfrbeats: 100 BPM, key 'F' (F major shares G Dorian's notes). Sample of Dionne Warwick 'Walk On By'. Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "Woman",
+  "artist": "Doja Cat",
+  "producer": null,
+  "key": "C harmonic minor",
+  "bpm": 108,
+  "chords": [
+   [
+    "Fm",
+    4
+   ],
+   [
+    "G",
+    4
+   ]
+  ],
+  "section": "Verse / pre-chorus loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Woman by Doja Cat",
+   "url": "https://www.hooktheory.com/theorytab/view/doja-cat/woman"
+  },
+  "keyBpmSource": {
+   "label": "sfrbeats BPM & Key Finder, Doja Cat - Woman",
+   "url": "https://sfrbeats.com/tools/bpm/doja-cat/woman"
+  },
+  "notes": "Hooktheory: iv V in C harmonic minor, 108 BPM (chorus: Fm(add9) G). KEY MISMATCH: sfrbeats detects F#m at 108 BPM — a semitone off; unresolved. Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "Streets",
+  "artist": "Doja Cat",
+  "producer": "Blaq Tuxedo",
+  "key": "E minor",
+  "bpm": 90,
+  "chords": [
+   [
+    "Cadd11",
+    4
+   ],
+   [
+    "Bm/F#",
+    4
+   ],
+   [
+    "Em(add9)",
+    4
+   ],
+   [
+    "B/E",
+    4
+   ]
+  ],
+  "section": "Intro / chorus loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Streets by Doja Cat",
+   "url": "https://www.hooktheory.com/theorytab/view/doja-cat/streets"
+  },
+  "keyBpmSource": {
+   "label": "sfrbeats BPM & Key Finder, Doja Cat - Streets",
+   "url": "https://sfrbeats.com/tools/bpm/doja-cat/streets"
+  },
+  "notes": "Hooktheory: VI(add11) v64 i(add9) V64/i in E minor, 90 BPM. sfrbeats: 90 BPM, key Bm (disagrees). Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "Agora Hills",
+  "artist": "Doja Cat",
+  "producer": null,
+  "key": "G# minor",
+  "bpm": 123,
+  "chords": [
+   [
+    "C#sus4",
+    4
+   ],
+   [
+    "Eadd9",
+    4
+   ],
+   [
+    "F#add9",
+    4
+   ],
+   [
+    "G#m9",
+    4
+   ]
+  ],
+  "section": "Chorus",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Agora Hills by Doja Cat",
+   "url": "https://www.hooktheory.com/theorytab/view/doja-cat/agora-hills"
+  },
+  "keyBpmSource": {
+   "label": "sfrbeats BPM & Key Finder, Doja Cat - Agora Hills",
+   "url": "https://sfrbeats.com/tools/bpm/doja-cat/agora-hills"
+  },
+  "notes": "Hooktheory chorus: ivsus4 VI(add9) VII(add9) i9 in G# minor, 123 BPM. sfrbeats: 123 BPM, key Bm (disagrees; B major is the relative major of G# minor, so possibly a mode/spelling error). Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "Super Bass",
+  "artist": "Nicki Minaj",
+  "producer": "Kane Beatz, JMIKE",
+  "key": "D major",
+  "bpm": 125,
+  "chords": [
+   [
+    "D",
+    4
+   ],
+   [
+    "A",
+    4
+   ],
+   [
+    "G",
+    4
+   ],
+   [
+    "Bm",
+    2
+   ],
+   [
+    "F#m",
+    2
+   ]
+  ],
+  "section": "Pre-chorus / chorus",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Super Bass by Nicki Minaj",
+   "url": "https://www.hooktheory.com/theorytab/view/nicki-minaj/super-bass"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Super Bass by Nicki Minaj",
+   "url": "https://www.hooktheory.com/theorytab/view/nicki-minaj/super-bass"
+  },
+  "notes": "Hooktheory: I V IV vi iii in D major, 125 BPM. No independent key/BPM source fetched (sfrbeats page failed). Durations not shown; split of the last bar is an assumption."
+ },
+ {
+  "song": "Starships",
+  "artist": "Nicki Minaj",
+  "producer": "RedOne, Carl Falk, Rami Yacoub",
+  "key": "G# minor",
+  "bpm": 128,
+  "chords": [
+   [
+    "E",
+    4
+   ],
+   [
+    "F#",
+    4
+   ],
+   [
+    "G#m",
+    8
+   ]
+  ],
+  "section": "Chorus",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Starships by Nicki Minaj",
+   "url": "https://www.hooktheory.com/theorytab/view/nicki-minaj/starships"
+  },
+  "keyBpmSource": {
+   "label": "sfrbeats BPM & Key Finder, Nicki Minaj - Starships",
+   "url": "https://sfrbeats.com/tools/bpm/nicki-minaj/starships"
+  },
+  "notes": "Hooktheory chorus: VI VII i in G# minor, 128 BPM. KEY/BPM MISMATCH: sfrbeats says D, 123 BPM — likely a wrong match or misdetection; chords follow Hooktheory. Durations not shown; 1-1-2 bar split is an assumption."
+ },
+ {
+  "song": "Anaconda",
+  "artist": "Nicki Minaj",
+  "producer": "Polow da Don, Anonymous, Da Internz",
+  "key": "C# Phrygian (C# minor)",
+  "bpm": 130,
+  "chords": [
+   [
+    "C#m",
+    4
+   ],
+   [
+    "D",
+    4
+   ]
+  ],
+  "section": "Pre-chorus / chorus loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Anaconda by Nicki Minaj",
+   "url": "https://www.hooktheory.com/theorytab/view/nicki-minaj/anaconda"
+  },
+  "keyBpmSource": {
+   "label": "sfrbeats BPM & Key Finder, Nicki Minaj - Anaconda",
+   "url": "https://sfrbeats.com/tools/bpm/nicki-minaj/anaconda"
+  },
+  "notes": "Hooktheory: i II in C# Phrygian, 130 BPM (intro written in Db major with power chords). sfrbeats: 129 BPM, key A (disagrees). Samples Sir Mix-a-Lot 'Baby Got Back'. Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "Ms. Jackson",
+  "artist": "OutKast",
+  "producer": "Earthtone III (OutKast, Mr. DJ)",
+  "key": "A minor",
+  "bpm": 96,
+  "chords": [
+   [
+    "Dm7/F",
+    4
+   ],
+   [
+    "G",
+    4
+   ],
+   [
+    "Am",
+    4
+   ],
+   [
+    "Em7/G",
+    4
+   ]
+  ],
+  "section": "Chorus",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Ms Jackson by Outkast",
+   "url": "https://www.hooktheory.com/theorytab/view/outkast/ms-jackson"
+  },
+  "keyBpmSource": {
+   "label": "sfrbeats BPM & Key Finder, OutKast - Ms. Jackson",
+   "url": "https://sfrbeats.com/tools/bpm/outkast/ms-jackson"
+  },
+  "notes": "Hooktheory chorus: iv65 VII i v65 in A minor, 96 BPM; bridge VI VII i VII (F G Am G). sfrbeats agrees: Am, 96 BPM. Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "Roses",
+  "artist": "OutKast",
+  "producer": "Earthtone III",
+  "key": "G major (E minor)",
+  "bpm": 110,
+  "chords": [
+   [
+    "Em",
+    4
+   ],
+   [
+    "D",
+    4
+   ],
+   [
+    "Cmaj7",
+    4
+   ],
+   [
+    "Bm7",
+    2
+   ],
+   [
+    "Am7",
+    2
+   ]
+  ],
+  "section": "Verse / chorus",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Roses by Outkast",
+   "url": "https://www.hooktheory.com/theorytab/view/outkast/roses"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Roses by Outkast",
+   "url": "https://www.hooktheory.com/theorytab/view/outkast/roses"
+  },
+  "notes": "Hooktheory verse/chorus: vi V IV7 iii7 ii7 in G major, 110 BPM (intro marked E minor at 218 BPM). No independent key/BPM source fetched. Durations not shown; split of the last bar is an assumption."
+ },
+ {
+  "song": "So Fresh, So Clean",
+  "artist": "OutKast",
+  "producer": "Organized Noize",
+  "key": "C minor",
+  "bpm": 82,
+  "chords": [
+   [
+    "Cm",
+    4
+   ],
+   [
+    "Fm",
+    4
+   ]
+  ],
+  "section": "Chorus loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, So Fresh So Clean by Outkast",
+   "url": "https://www.hooktheory.com/theorytab/view/outkast/so-fresh-so-clean"
+  },
+  "keyBpmSource": {
+   "label": "sfrbeats BPM & Key Finder, OutKast - So Fresh So Clean",
+   "url": "https://sfrbeats.com/tools/bpm/outkast/so-fresh-so-clean"
+  },
+  "notes": "Hooktheory chorus: i iv in C minor, 164 BPM (double-time; 82 half-time). sfrbeats: Fm, 83 BPM — Fm is the iv chord, so the tonal centre is disputed. Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "ATLiens",
+  "artist": "OutKast",
+  "producer": "OutKast",
+  "key": "F# minor",
+  "bpm": 97,
+  "chords": [
+   [
+    "F#m",
+    4
+   ],
+   [
+    "E",
+    4
+   ],
+   [
+    "D",
+    4
+   ],
+   [
+    "E",
+    4
+   ]
+  ],
+  "section": "Instrumental loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, ATLiens by Outkast",
+   "url": "https://www.hooktheory.com/theorytab/view/outkast/atliens"
+  },
+  "keyBpmSource": {
+   "label": "sfrbeats BPM & Key Finder, OutKast - ATLiens",
+   "url": "https://sfrbeats.com/tools/bpm/outkast/atliens"
+  },
+  "notes": "Hooktheory: i VII VI VII i in F# minor, 97 BPM. sfrbeats: 97 BPM but key Bm (disagrees). Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "SpottieOttieDopaliscious",
+  "artist": "OutKast",
+  "producer": "Organized Noize, OutKast",
+  "key": "C# minor",
+  "bpm": 126,
+  "chords": [
+   [
+    "C#m",
+    4
+   ],
+   [
+    "G#m7",
+    4
+   ],
+   [
+    "Amaj9",
+    8
+   ]
+  ],
+  "section": "Instrumental (horn loop)",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, SpottieOttieDopaliscious by Outkast",
+   "url": "https://www.hooktheory.com/theorytab/view/outkast/spottieottiedopaliscious"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, SpottieOttieDopaliscious by Outkast",
+   "url": "https://www.hooktheory.com/theorytab/view/outkast/spottieottiedopaliscious"
+  },
+  "notes": "Hooktheory instrumental: i v7 VI9 in C# minor, 126 BPM (possibly double-time). No independent key/BPM source fetched. Durations not shown; 1-1-2 bar split is an assumption."
+ },
+ {
+  "song": "Hit 'Em Up",
+  "artist": "2Pac feat. Outlawz",
+  "producer": "Johnny 'J'",
+  "key": "A minor",
+  "bpm": 95,
+  "chords": [
+   [
+    "Am",
+    4
+   ],
+   [
+    "Dm",
+    2
+   ],
+   [
+    "E",
+    2
+   ]
+  ],
+  "section": "Intro loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Hit 'Em Up by 2Pac",
+   "url": "https://www.hooktheory.com/theorytab/view/2pac/hit-em-up"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Hit 'Em Up by 2Pac",
+   "url": "https://www.hooktheory.com/theorytab/view/2pac/hit-em-up"
+  },
+  "notes": "Hooktheory intro: i iv V in A minor at 190 BPM (double-time; ~95 half-time). No independent key/BPM source fetched. Durations not shown; split is an assumption."
+ },
+ {
+  "song": "Do For Love",
+  "artist": "2Pac feat. Eric Williams",
+  "producer": "Soulshock & Karlin",
+  "key": "G minor",
+  "bpm": 96,
+  "chords": [
+   [
+    "Ebmaj7",
+    4
+   ],
+   [
+    "D",
+    4
+   ],
+   [
+    "Gm7",
+    4
+   ],
+   [
+    "C",
+    4
+   ]
+  ],
+  "section": "Intro / chorus",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Do For Love by 2Pac",
+   "url": "https://www.hooktheory.com/theorytab/view/2pac/do-for-love"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Do For Love by 2Pac",
+   "url": "https://www.hooktheory.com/theorytab/view/2pac/do-for-love"
+  },
+  "notes": "Hooktheory: VI7 V/i i7 V/VII in G minor, 96 BPM (V/VII = C, the secondary dominant of F). No independent key/BPM source fetched. Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "Tunnel Vision",
+  "artist": "Kodak Black",
+  "producer": "Metro Boomin, Southside, Fuse",
+  "key": "E Dorian (E minor)",
+  "bpm": 86,
+  "chords": [
+   [
+    "Em",
+    4
+   ],
+   [
+    "Bm",
+    4
+   ]
+  ],
+  "section": "Instrumental loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Tunnel Vision by Kodak Black",
+   "url": "https://www.hooktheory.com/theorytab/view/kodak-black/tunnel-vision"
+  },
+  "keyBpmSource": {
+   "label": "sfrbeats BPM & Key Finder, Kodak Black - Tunnel Vision",
+   "url": "https://sfrbeats.com/tools/bpm/kodak-black/tunnel-vision"
+  },
+  "notes": "Hooktheory: instrumental i v (Em Bm) at 85 BPM; chorus i6 VII6 (Em/G D/F#) at 86 BPM; key E Dorian. sfrbeats: 86 BPM, key Bm (disagrees; Bm is the v chord). Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "ZEZE",
+  "artist": "Kodak Black feat. Travis Scott, Offset",
+  "producer": "D.A. Got That Dope",
+  "key": "D# minor",
+  "bpm": 98,
+  "chords": [
+   [
+    "G#m",
+    4
+   ],
+   [
+    "D#m",
+    4
+   ]
+  ],
+  "section": "Intro / chorus lead-out loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, ZEZE by Kodak Black",
+   "url": "https://www.hooktheory.com/theorytab/view/kodak-black/zeze"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, ZEZE by Kodak Black",
+   "url": "https://www.hooktheory.com/theorytab/view/kodak-black/zeze"
+  },
+  "notes": "Hooktheory: iv i in D# minor, 98 BPM. No independent key/BPM source fetched. Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "Codeine Crazy",
+  "artist": "Future",
+  "producer": null,
+  "key": "A major",
+  "bpm": 126,
+  "chords": [
+   [
+    "A",
+    4
+   ],
+   [
+    "F#m",
+    4
+   ],
+   [
+    "Esus4",
+    4
+   ],
+   [
+    "D",
+    4
+   ]
+  ],
+  "section": "Chorus",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Codeine Crazy by Future",
+   "url": "https://www.hooktheory.com/theorytab/view/future/codeine-crazy"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Codeine Crazy by Future",
+   "url": "https://www.hooktheory.com/theorytab/view/future/codeine-crazy"
+  },
+  "notes": "Hooktheory chorus: I vi Vsus4 IV in A major, 126 BPM. No independent key/BPM source fetched. Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "I Like It",
+  "artist": "Cardi B feat. Bad Bunny, J Balvin",
+  "producer": "J. White Did It, Craig Kallman, Tainy",
+  "key": "F harmonic minor",
+  "bpm": 136,
+  "chords": [
+   [
+    "Fm",
+    4
+   ],
+   [
+    "Bbm6/F",
+    4
+   ],
+   [
+    "C",
+    4
+   ],
+   [
+    "Bbm",
+    4
+   ]
+  ],
+  "section": "Chorus",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, I Like It ft Bad Bunny and J Balvin by Cardi B",
+   "url": "https://www.hooktheory.com/theorytab/view/cardi-b/i-like-it-ft-bad-bunny-and-j-balvin"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, I Like It ft Bad Bunny and J Balvin by Cardi B",
+   "url": "https://www.hooktheory.com/theorytab/view/cardi-b/i-like-it-ft-bad-bunny-and-j-balvin"
+  },
+  "notes": "Hooktheory chorus: i iv64(add6) V iv in F (harmonic) minor, 136 BPM. Samples Pete Rodriguez 'I Like It Like That'. No independent key/BPM source fetched (sfrbeats failed). Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "Be Careful",
+  "artist": "Cardi B",
+  "producer": null,
+  "key": "F# minor",
+  "bpm": 76,
+  "chords": [
+   [
+    "D",
+    4
+   ],
+   [
+    "C#",
+    4
+   ],
+   [
+    "F#m",
+    8
+   ]
+  ],
+  "section": "Chorus",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Be Careful by Cardi B",
+   "url": "https://www.hooktheory.com/theorytab/view/cardi-b/be-careful"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Be Careful by Cardi B",
+   "url": "https://www.hooktheory.com/theorytab/view/cardi-b/be-careful"
+  },
+  "notes": "Hooktheory chorus: VI V i in F# minor at 152 BPM (double-time; 76 half-time). No independent key/BPM source fetched. Durations not shown; 1-1-2 bar split is an assumption."
+ },
+ {
+  "song": "Savage",
+  "artist": "Megan Thee Stallion",
+  "producer": "J. White Did It",
+  "key": "D# Phrygian (D# minor)",
+  "bpm": 85,
+  "chords": [
+   [
+    "D#m9",
+    4
+   ],
+   [
+    "Emaj9",
+    4
+   ]
+  ],
+  "section": "Instrumental loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Savage by Megan Thee Stallion",
+   "url": "https://www.hooktheory.com/theorytab/view/megan-thee-stallion/savage"
+  },
+  "keyBpmSource": {
+   "label": "sfrbeats BPM & Key Finder, Megan Thee Stallion - Savage",
+   "url": "https://sfrbeats.com/tools/bpm/megan-thee-stallion/savage"
+  },
+  "notes": "Hooktheory: i9 ii9 in D# Phrygian, 85 BPM. sfrbeats: 85 BPM, key B (disagrees; B major shares D# Phrygian's notes). Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "Ransom",
+  "artist": "Lil Tecca",
+  "producer": "Taz Taylor, Nick Mira",
+  "key": "G minor",
+  "bpm": 90,
+  "chords": [
+   [
+    "Gm",
+    4
+   ],
+   [
+    "Eb",
+    4
+   ],
+   [
+    "Dm/F",
+    4
+   ],
+   [
+    "F#dim",
+    4
+   ]
+  ],
+  "section": "Intro / verse / chorus loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Ransom by Lil Tecca",
+   "url": "https://www.hooktheory.com/theorytab/view/lil-tecca/ransom"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Ransom by Lil Tecca",
+   "url": "https://www.hooktheory.com/theorytab/view/lil-tecca/ransom"
+  },
+  "notes": "Hooktheory: i VI v6 viio (G harmonic minor; F#dim), 90 BPM. No independent key/BPM source fetched (sfrbeats failed). Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "First Class",
+  "artist": "Jack Harlow",
+  "producer": null,
+  "key": "G minor",
+  "bpm": 107,
+  "chords": [
+   [
+    "Ebmaj7",
+    4
+   ],
+   [
+    "Gm7",
+    4
+   ]
+  ],
+  "section": "Chorus loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, First Class by Jack Harlow",
+   "url": "https://www.hooktheory.com/theorytab/view/jack-harlow/first-class"
+  },
+  "keyBpmSource": {
+   "label": "sfrbeats BPM & Key Finder, Jack Harlow - First Class",
+   "url": "https://sfrbeats.com/tools/bpm/jack-harlow/first-class"
+  },
+  "notes": "Hooktheory chorus: VI7 i7 in G minor, 108 BPM. sfrbeats: 107 BPM, key F#m (a semitone off; unresolved). Samples Fergie 'Glamorous'. Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "Lovin On Me",
+  "artist": "Jack Harlow",
+  "producer": null,
+  "key": "Ab major",
+  "bpm": 105,
+  "chords": [
+   [
+    "Bbm",
+    4
+   ],
+   [
+    "Cm",
+    4
+   ],
+   [
+    "Db",
+    8
+   ]
+  ],
+  "section": "Chorus",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Lovin on Me by Jack Harlow",
+   "url": "https://www.hooktheory.com/theorytab/view/jack-harlow/lovin-on-me"
+  },
+  "keyBpmSource": {
+   "label": "sfrbeats BPM & Key Finder, Jack Harlow - Lovin On Me",
+   "url": "https://sfrbeats.com/tools/bpm/jack-harlow/lovin-on-me"
+  },
+  "notes": "Hooktheory chorus: ii iii IV in Ab major, 105 BPM. sfrbeats: 105 BPM, key D (disagrees). Durations not shown; 1-1-2 bar split is an assumption."
+ },
+ {
+  "song": "Tyler Herro",
+  "artist": "Jack Harlow",
+  "producer": null,
+  "key": "F minor",
+  "bpm": 123,
+  "chords": [
+   [
+    "Fm",
+    4
+   ],
+   [
+    "Eb",
+    4
+   ],
+   [
+    "Bbm7",
+    4
+   ],
+   [
+    "Cm7",
+    4
+   ]
+  ],
+  "section": "Instrumental loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Tyler Herro by Jack Harlow",
+   "url": "https://www.hooktheory.com/theorytab/view/jack-harlow/tyler-herro"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Tyler Herro by Jack Harlow",
+   "url": "https://www.hooktheory.com/theorytab/view/jack-harlow/tyler-herro"
+  },
+  "notes": "Hooktheory: i VII iv7 v7 in F minor, 123 BPM. No independent key/BPM source fetched. Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "Great Gatsby",
+  "artist": "Rod Wave",
+  "producer": null,
+  "key": "C# minor",
+  "bpm": 78,
+  "chords": [
+   [
+    "C#m",
+    4
+   ],
+   [
+    "A",
+    4
+   ],
+   [
+    "Bsus4",
+    4
+   ],
+   [
+    "C#m7",
+    4
+   ],
+   [
+    "Asus2",
+    4
+   ]
+  ],
+  "section": "Intro",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Great Gatsby by Rod Wave",
+   "url": "https://www.hooktheory.com/theorytab/view/rod-wave/great-gatsby"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Great Gatsby by Rod Wave",
+   "url": "https://www.hooktheory.com/theorytab/view/rod-wave/great-gatsby"
+  },
+  "notes": "Hooktheory intro: i VI VIIsus4 i7 VIsus2 in C# minor, 78 BPM. No independent key/BPM source fetched. Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "Alone",
+  "artist": "Rod Wave",
+  "producer": null,
+  "key": "B major",
+  "bpm": 82,
+  "chords": [
+   [
+    "Emaj9",
+    4
+   ],
+   [
+    "B",
+    4
+   ],
+   [
+    "G#m",
+    8
+   ]
+  ],
+  "section": "Verse",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Alone by Rod Wave",
+   "url": "https://www.hooktheory.com/theorytab/view/rod-wave/alone"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Alone by Rod Wave",
+   "url": "https://www.hooktheory.com/theorytab/view/rod-wave/alone"
+  },
+  "notes": "Hooktheory verse: IV9 I vi in B major, 82 BPM. No independent key/BPM source fetched. Durations not shown; 1-1-2 bar split is an assumption."
+ },
+ {
+  "song": "Never Get Over Me",
+  "artist": "Rod Wave",
+  "producer": null,
+  "key": "C# minor",
+  "bpm": 79,
+  "chords": [
+   [
+    "C#m7/G#",
+    4
+   ],
+   [
+    "Badd11/F#",
+    4
+   ],
+   [
+    "Eadd9",
+    4
+   ],
+   [
+    "Amaj9",
+    4
+   ]
+  ],
+  "section": "Verse",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Never Get Over Me by Rod Wave",
+   "url": "https://www.hooktheory.com/theorytab/view/rod-wave/never-get-over-me"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Never Get Over Me by Rod Wave",
+   "url": "https://www.hooktheory.com/theorytab/view/rod-wave/never-get-over-me"
+  },
+  "notes": "Hooktheory verse: i43 VII64(add11) III(add9) VI9 in C# minor, 79 BPM. No independent key/BPM source fetched. Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "Let Go",
+  "artist": "Central Cee",
+  "producer": null,
+  "key": "D minor",
+  "bpm": 74,
+  "chords": [
+   [
+    "Bb",
+    4
+   ],
+   [
+    "C",
+    4
+   ],
+   [
+    "Dm",
+    4
+   ],
+   [
+    "C",
+    4
+   ]
+  ],
+  "section": "Chorus",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Let Go by Central Cee",
+   "url": "https://www.hooktheory.com/theorytab/view/central-cee/let-go"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Let Go by Central Cee",
+   "url": "https://www.hooktheory.com/theorytab/view/central-cee/let-go"
+  },
+  "notes": "Hooktheory chorus: VI VII i VII in D minor, 74 BPM (Central Cee's drill tempo would be ~148 double-time). Samples Passenger 'Let Her Go'. No independent key/BPM source fetched. Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "Juicy",
+  "artist": "The Notorious B.I.G.",
+  "producer": "Poke (Trackmasters), Sean 'Puffy' Combs",
+  "key": "E major",
+  "bpm": 96,
+  "chords": [
+   [
+    "Amaj7",
+    4
+   ],
+   [
+    "B7",
+    4
+   ],
+   [
+    "E",
+    4
+   ],
+   [
+    "A",
+    2
+   ],
+   [
+    "E",
+    2
+   ]
+  ],
+  "section": "Instrumental loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Juicy by Notorious BIG",
+   "url": "https://www.hooktheory.com/theorytab/view/notorious-big/juicy"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Juicy by Notorious BIG",
+   "url": "https://www.hooktheory.com/theorytab/view/notorious-big/juicy"
+  },
+  "notes": "Hooktheory: IV7 V7 I IV I in E major, 96 BPM (Mtume 'Juicy Fruit' sample). No independent key/BPM source fetched. Durations not shown; split of the last bar is an assumption."
+ },
+ {
+  "song": "Sky's the Limit",
+  "artist": "The Notorious B.I.G. feat. 112",
+  "producer": "Clark Kent",
+  "key": "E minor",
+  "bpm": 91,
+  "chords": [
+   [
+    "Cmaj9",
+    4
+   ],
+   [
+    "Em9",
+    4
+   ]
+  ],
+  "section": "Instrumental loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Sky's The Limit by Notorious BIG",
+   "url": "https://hooktheory.com/theorytab/view/notorious-big/skys-the-limit"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Sky's The Limit by Notorious BIG",
+   "url": "https://hooktheory.com/theorytab/view/notorious-big/skys-the-limit"
+  },
+  "notes": "Hooktheory instrumental: VI9 i9 in E minor, 91 BPM. No independent key/BPM source fetched. Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "Glock in My Lap",
+  "artist": "21 Savage & Metro Boomin",
+  "producer": "Metro Boomin",
+  "key": "Bb minor",
+  "bpm": 65,
+  "chords": [
+   [
+    "Bbm",
+    4
+   ],
+   [
+    "Cm7b5",
+    4
+   ]
+  ],
+  "section": "Intro loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Glock In My Lap by 21 Savage",
+   "url": "https://www.hooktheory.com/theorytab/view/21-savage/glock-in-my-lap"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Glock In My Lap by 21 Savage",
+   "url": "https://www.hooktheory.com/theorytab/view/21-savage/glock-in-my-lap"
+  },
+  "notes": "Hooktheory intro: i ii-half-dim7 in Bb (harmonic) minor, listed at 65 BPM (half-time transcription; a trap beat at this tempo is usually programmed at ~130 double-time). Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "Bad and Boujee",
+  "artist": "Migos feat. Lil Uzi Vert",
+  "producer": "Metro Boomin",
+  "key": "D# minor",
+  "bpm": 127,
+  "chords": [
+   [
+    "D#m(add9)",
+    4
+   ],
+   [
+    "Emaj7",
+    4
+   ]
+  ],
+  "section": "Intro / instrumental loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Bad and Boujee by Migos ft Lil Uzi Vert",
+   "url": "https://www.hooktheory.com/theorytab/view/migos-ft-lil-uzi-vert/bad-and-boujee"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Bad and Boujee by Migos ft Lil Uzi Vert",
+   "url": "https://www.hooktheory.com/theorytab/view/migos-ft-lil-uzi-vert/bad-and-boujee"
+  },
+  "notes": "Hooktheory: i(add9) bII7 in D# minor, 127 BPM. bII7 rendered as Emaj7 (Hooktheory's bII7 is a major chord on the flat 2nd; the 7th quality is my reading — could be E7). No independent key/BPM source fetched. Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "No Smoke",
+  "artist": "NBA YoungBoy",
+  "producer": null,
+  "key": "A minor",
+  "bpm": 72,
+  "chords": [
+   [
+    "Am",
+    4
+   ],
+   [
+    "G",
+    4
+   ],
+   [
+    "F",
+    8
+   ]
+  ],
+  "section": "Chorus",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, No Smoke by NBA Young Boy",
+   "url": "https://www.hooktheory.com/theorytab/view/nba-young-boy/no-smoke"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, No Smoke by NBA Young Boy",
+   "url": "https://www.hooktheory.com/theorytab/view/nba-young-boy/no-smoke"
+  },
+  "notes": "Hooktheory chorus: i VII VI in A minor, 72 BPM. No independent key/BPM source fetched. Durations not shown; 1-1-2 bar split is an assumption."
+ },
+ {
+  "song": "ROCKSTAR",
+  "artist": "DaBaby feat. Roddy Ricch",
+  "producer": "SethInTheKitchen",
+  "key": "G# minor",
+  "bpm": 90,
+  "chords": [
+   [
+    "G#m",
+    4
+   ],
+   [
+    "B",
+    4
+   ],
+   [
+    "F#",
+    4
+   ],
+   [
+    "E",
+    4
+   ]
+  ],
+  "section": "Chorus loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Rockstar feat Roddy Ricch by DaBaby",
+   "url": "https://www.hooktheory.com/theorytab/view/dababy/rockstar-feat-roddy-ricch"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Rockstar feat Roddy Ricch by DaBaby",
+   "url": "https://www.hooktheory.com/theorytab/view/dababy/rockstar-feat-roddy-ricch"
+  },
+  "notes": "Hooktheory chorus: i III VII VI in G# minor, 90 BPM. No independent key/BPM source fetched. Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "Freestyle",
+  "artist": "Lil Baby",
+  "producer": null,
+  "key": "D minor",
+  "bpm": 60,
+  "chords": [
+   [
+    "Dm",
+    4
+   ],
+   [
+    "F",
+    4
+   ],
+   [
+    "Bb",
+    4
+   ],
+   [
+    "Am",
+    4
+   ]
+  ],
+  "section": "Intro loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Freestyle by Lil Baby",
+   "url": "https://www.hooktheory.com/theorytab/view/lil-baby/freestyle"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Freestyle by Lil Baby",
+   "url": "https://www.hooktheory.com/theorytab/view/lil-baby/freestyle"
+  },
+  "notes": "Hooktheory intro: i III VI v in D minor, 60 BPM (half-time transcription; the beat would also work at 120). No independent key/BPM source fetched. Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "All My Life",
+  "artist": "Lil Durk feat. J. Cole",
+  "producer": null,
+  "key": "C minor",
+  "bpm": 143,
+  "chords": [
+   [
+    "Cm",
+    4
+   ],
+   [
+    "Bb/D",
+    4
+   ],
+   [
+    "Eb",
+    4
+   ],
+   [
+    "Fm7",
+    2
+   ],
+   [
+    "Eb",
+    2
+   ]
+  ],
+  "section": "Verse",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, All My Life by Lil Durk feat J Cole",
+   "url": "https://www.hooktheory.com/theorytab/view/lil-durk-feat-j-cole/all-my-life"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, All My Life by Lil Durk feat J Cole",
+   "url": "https://www.hooktheory.com/theorytab/view/lil-durk-feat-j-cole/all-my-life"
+  },
+  "notes": "Hooktheory verse: i VII6 III iv7 III in C minor, 143 BPM. No independent key/BPM source fetched. Durations not shown; split of the last bar is an assumption."
+ },
+ {
+  "song": "Location",
+  "artist": "Playboi Carti",
+  "producer": null,
+  "key": "F# Mixolydian",
+  "bpm": 126,
+  "chords": [
+   [
+    "F#6/9",
+    4
+   ],
+   [
+    "Emaj9",
+    4
+   ],
+   [
+    "D#m7(add11)",
+    8
+   ]
+  ],
+  "section": "Verse",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Location by Playboi Carti",
+   "url": "https://www.hooktheory.com/theorytab/view/playboi-carti/location"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Location by Playboi Carti",
+   "url": "https://www.hooktheory.com/theorytab/view/playboi-carti/location"
+  },
+  "notes": "Hooktheory verse: I(add6add9) VII9 vi7(add11) in F# Mixolydian, 126 BPM; bridge I(add6add9) VII9 noted in F Mixolydian (pitch drift in the sample). VII9 rendered as Emaj9 (diatonic to F# Mixolydian). No independent key/BPM source fetched. Durations not shown; 1-1-2 bar split is an assumption."
+ },
+ {
+  "song": "Fell In Luv",
+  "artist": "Playboi Carti feat. Bryson Tiller",
+  "producer": "Pi'erre Bourne",
+  "key": "G minor",
+  "bpm": 163,
+  "chords": [
+   [
+    "F/C",
+    4
+   ],
+   [
+    "Bb/D",
+    4
+   ],
+   [
+    "Eb/G",
+    4
+   ],
+   [
+    "Bb/D",
+    2
+   ],
+   [
+    "Adim/C",
+    2
+   ]
+  ],
+  "section": "Instrumental loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Fell In Luv by Playboi Carti",
+   "url": "https://hooktheory.com/theorytab/view/playboi-carti/fell-in-luv"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Fell In Luv by Playboi Carti",
+   "url": "https://hooktheory.com/theorytab/view/playboi-carti/fell-in-luv"
+  },
+  "notes": "Hooktheory: VII64 III6 VI6 III6 iio6 in G minor, 163 BPM (likely double-time; ~82 half-time). No independent key/BPM source fetched. Durations not shown; split of the last bar is an assumption."
+ },
+ {
+  "song": "Long Time (Intro)",
+  "artist": "Playboi Carti",
+  "producer": "Pi'erre Bourne",
+  "key": "A minor",
+  "bpm": 142,
+  "chords": [
+   [
+    "Fmaj7",
+    4
+   ],
+   [
+    "Em7",
+    4
+   ],
+   [
+    "Am7",
+    4
+   ],
+   [
+    "C#m7b5",
+    2
+   ],
+   [
+    "F#m7b5",
+    2
+   ]
+  ],
+  "section": "Chorus",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Long Time (Intro) by Playboi Carti",
+   "url": "https://www.hooktheory.com/theorytab/view/playboi-carti/long-time-%28intro%29"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Long Time (Intro) by Playboi Carti",
+   "url": "https://www.hooktheory.com/theorytab/view/playboi-carti/long-time-%28intro%29"
+  },
+  "notes": "Hooktheory chorus: VI7 v7 i7 #iii-half-dim7 #vi-half-dim7 in A minor, 142 BPM. No independent key/BPM source fetched. Durations not shown; split of the last bar is an assumption."
+ },
+ {
+  "song": "Kid Cudi",
+  "artist": "Playboi Carti",
+  "producer": "Pi'erre Bourne",
+  "key": "G minor",
+  "bpm": 163,
+  "chords": [
+   [
+    "Ebmaj7",
+    4
+   ],
+   [
+    "Gm9",
+    4
+   ]
+  ],
+  "section": "Intro loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Kid Cudi by Playboi Carti",
+   "url": "https://www.hooktheory.com/theorytab/view/playboi-carti/kid-cudi"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Kid Cudi by Playboi Carti",
+   "url": "https://www.hooktheory.com/theorytab/view/playboi-carti/kid-cudi"
+  },
+  "notes": "Hooktheory intro: VI7 i9 in G minor, 163 BPM (likely double-time). No independent key/BPM source fetched. Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ },
+ {
+  "song": "Lil One",
+  "artist": "Future",
+  "producer": null,
+  "key": "C# Phrygian (C# minor)",
+  "bpm": 139,
+  "chords": [
+   [
+    "C#m",
+    4
+   ],
+   [
+    "D",
+    4
+   ]
+  ],
+  "section": "Chorus loop",
+  "chordSource": {
+   "label": "Hooktheory TheoryTab, Lil One by Future",
+   "url": "https://www.hooktheory.com/theorytab/view/future/lil-one"
+  },
+  "keyBpmSource": {
+   "label": "Hooktheory TheoryTab, Lil One by Future",
+   "url": "https://www.hooktheory.com/theorytab/view/future/lil-one"
+  },
+  "notes": "Hooktheory chorus: progression link i II in C# Phrygian (key summary also lists i II vii), 139 BPM. No independent key/BPM source fetched. Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+ }
+]

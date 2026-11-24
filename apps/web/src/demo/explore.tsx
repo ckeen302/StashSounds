@@ -29,6 +29,7 @@ import { producers, type Catalog, type Producer } from "./data";
 import { createCrate, deleteCrate, toggleInCrate, useCrates } from "./crates";
 import { extra, VIEWER, type MidiItem } from "./midi/catalog";
 import { MidiList, useMidiItems } from "./midi/pages";
+import { CHORDS_OWNER } from "./midi/songs";
 import { has, set } from "./store";
 
 /**
@@ -39,7 +40,7 @@ import { has, set } from "./store";
 
 export type RenderLoops = (label: string, rows: ItemRow[]) => ReactNode;
 
-const ALL_PRODUCERS: Producer[] = [...Object.values(producers), ...Object.values(extra)];
+const ALL_PRODUCERS: Producer[] = [...Object.values(producers), ...Object.values(extra), CHORDS_OWNER];
 export function producerByHandle(handle: string): Producer | null {
   if (handle === VIEWER.handle) return VIEWER;
   return ALL_PRODUCERS.find((p) => p.handle === handle) ?? null;
