@@ -57,7 +57,7 @@ export function Transport({ title, tempo, keyShift, loop, volume, hints = false,
       aria-label={`Transport for ${title}`}
       className={cx("grid grid-cols-2 gap-x-6 gap-y-4 rounded-panel border border-border bg-surface p-4 tablet:grid-cols-12", className)}
     >
-      <Section name="tempo" label="Tempo" hint="- =" disabled={!tempo} className="col-span-2 tablet:col-span-4">
+      <Section name="tempo" label="Tempo" hint={hints ? "- =" : undefined} disabled={!tempo} className="col-span-2 tablet:col-span-4">
         <span className="flex w-20 shrink-0 items-baseline gap-1">
           <span data-tempo-readout className={cx(readout, tempo ? "text-text" : "text-border-strong")}>
             {bpm ?? "—"}
@@ -77,7 +77,7 @@ export function Transport({ title, tempo, keyShift, loop, volume, hints = false,
         />
       </Section>
 
-      <Section name="key" label="Key" hint="[ ]" disabled={!keyShift} className="col-span-2 tablet:col-span-4">
+      <Section name="key" label="Key" hint={hints ? "[ ]" : undefined} disabled={!keyShift} className="col-span-2 tablet:col-span-4">
         <span data-key-readout className={cx(readout, "w-8 shrink-0", keyShift ? "text-text" : "text-border-strong")}>
           {keyShift ? (keyName ?? semitoneText(semis)) : "—"}
         </span>

@@ -165,20 +165,26 @@ describe("loop off", () => {
 describe("local actions (fixtures and the demo)", () => {
   it("download hands back the file with the item's license and version", async () => {
     const page = fixture();
-    const a = localActions(page, { downloadUrl: "https://media.stash.local/downloads/x.wav", now: () => new Date("2026-11-24T10:00:00Z") });
-    const r = await a.download();
+    const a = localActions(page, { downloadUrl: () => "https://media.stash.local/downloads/x.wav", now: () => new Date("2026-11-24T10:00:00Z") });
+    const r = await a.download(page.item.id);
     expect(r.ok).toBe(true);
     if (!r.ok) return;
     expect(r.data).toMatchObject({ url: "https://media.stash.local/downloads/x.wav", fileName: "Dusty soul chops.wav", license: page.item.license, licenseVersion: LICENSES[page.item.license].version });
     expect(r.data.expiresAt).toBe("2026-11-24T10:05:00.000Z");
+    // A row from more-from-owner downloads under its own license; an unknown id is not found.
+    const other = page.moreFromOwner.find((x) => x.license !== page.item.license)!;
+    const o = await a.download(other.id);
+    expect(o.ok && o.data.license).toBe(other.license);
+    expect((await a.download("00000000-0000-4000-8000-00000000ffff")).ok).toBe(false);
   });
 
   it("like and follow toggle and count in memory", async () => {
     const page = fixture();
     const a = localActions(page);
-    const liked = await a.like!(true);
+    const liked = await a.like!(page.item.id, true);
     expect(liked).toEqual({ ok: true, data: { liked: true, likesCount: page.item.likesCount + 1 } });
-    expect(await a.like!(false)).toEqual({ ok: true, data: { liked: false, likesCount: page.item.likesCount } });
-    expect(await a.follow!(true)).toEqual({ ok: true, data: { following: true, followersCount: page.owner.followersCount + 1 } });
+    expect(await a.like!(page.item.id, false)).toEqual({ ok: true, data: { liked: false, likesCount: page.item.likesCount } });
+    expect(await a.follow!(page.owner.id, true)).toEqual({ ok: true, data: { following: true, followersCount: page.owner.followersCount + 1 } });
+    expect((await a.follow!("00000000-0000-4000-8000-00000000ffff", true)).ok).toBe(false);
   });
 });

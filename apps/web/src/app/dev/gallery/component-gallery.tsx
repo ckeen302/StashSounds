@@ -57,6 +57,9 @@ import {
   type MenuEntry,
   type PlayerStatus,
   type PlayState,
+  Stepper,
+  Transport,
+  semitoneText,
 } from "@stash/ui";
 import { ITEM_TYPES, type ItemRow } from "@stash/contracts";
 import { useState, type ReactNode } from "react";
@@ -744,6 +747,75 @@ export function ComponentGallery() {
           </Specimen>
         </div>
       </Section>
+
+      <Section id="c-stepper" title="Stepper" note="Key shift in semitones, one octave either way. Arrows step while it has focus; the readout is announced.">
+        <Grid cols="desktop:grid-cols-5">
+          <Specimen label="key shift">
+            <Stepper label="Key shift" value={2} min={-12} max={12} format={semitoneText} onChange={noop} />
+          </Specimen>
+          <Specimen label="at limit">
+            <Stepper label="Key shift" value={12} min={-12} max={12} format={semitoneText} onChange={noop} />
+          </Specimen>
+          <Specimen label="focus">
+            <Stepper label="Key shift" value={-3} min={-12} max={12} format={semitoneText} onChange={noop} data-focus />
+          </Specimen>
+          <Specimen label="disabled">
+            <Stepper label="Key shift" value={0} min={-12} max={12} format={semitoneText} />
+          </Specimen>
+          <Specimen label="live">
+            <LiveStepper />
+          </Specimen>
+        </Grid>
+      </Section>
+
+      <Section id="c-transport" title="Transport" note="Tempo, key, loop and volume under engraved labels. Tempo runs half to double speed; a section a type lacks is disabled. The loop page binds it to the engine.">
+        <div className="flex flex-col gap-3">
+          <Specimen label="loop, original tempo and key" wide>
+            <Transport title="Dusty soul chops" hints tempo={{ bpm: 90, baseBpm: 90, onChange: noop }} keyShift={{ semitones: 0, baseKey: { root: 2, mode: "minor" }, onChange: noop }} loop={{ on: true, onChange: noop }} volume={{ value: 0.8, muted: false, onChange: noop, onMuteChange: noop }} className="w-full" />
+          </Specimen>
+          <Specimen label="changed: faster, up two, loop off, muted" wide>
+            <Transport title="Dusty soul chops" hints tempo={{ bpm: 104, baseBpm: 90, onChange: noop }} keyShift={{ semitones: 2, baseKey: { root: 2, mode: "minor" }, onChange: noop }} loop={{ on: false, onChange: noop }} volume={{ value: 0, muted: true, onChange: noop, onMuteChange: noop }} className="w-full" />
+          </Specimen>
+          <Specimen label="disabled for types that lack a control (a kit: volume only)" wide>
+            <Transport title="Boom bap kit" volume={{ value: 0.8, muted: false, onChange: noop, onMuteChange: noop }} className="w-full" />
+          </Specimen>
+          <Specimen label="live" wide>
+            <LiveTransport />
+          </Specimen>
+        </div>
+      </Section>
     </div>
+  );
+}
+
+function LiveStepper() {
+  const [v, setV] = useState(0);
+  return <Stepper label="Key shift" value={v} min={-12} max={12} format={semitoneText} onChange={setV} />;
+}
+
+function LiveTransport() {
+  const [bpm, setBpm] = useState(140);
+  const [semis, setSemis] = useState(0);
+  const [loop, setLoop] = useState(true);
+  const [volume, setVolume] = useState(0.8);
+  const [restore, setRestore] = useState(0.8);
+  return (
+    <Transport
+      title="Midnight keys"
+      hints
+      tempo={{ bpm, baseBpm: 140, onChange: setBpm }}
+      keyShift={{ semitones: semis, baseKey: { root: 9, mode: "minor" }, onChange: setSemis }}
+      loop={{ on: loop, onChange: setLoop }}
+      volume={{
+        value: volume,
+        muted: volume === 0,
+        onChange: setVolume,
+        onMuteChange: (m) => {
+          if (m) setRestore(volume);
+          setVolume(m ? 0 : restore || 0.8);
+        },
+      }}
+      className="w-full"
+    />
   );
 }
