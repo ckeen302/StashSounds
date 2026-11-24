@@ -139,7 +139,7 @@ jobs:
       - name: Build and start the web app once for all three gates
         run: |
           pnpm --filter @stash/web build
-          (pnpm --filter @stash/web exec next start --port 3100 &)
+          (STASH_DEV_PAGES=1 pnpm --filter @stash/web exec next start --port 3100 &)
           npx --yes wait-on@8 http://localhost:3100/api/health
       - name: pnpm e2e (includes the accessibility scan)
         env: { STASH_BASE_URL: "http://localhost:3100" }
