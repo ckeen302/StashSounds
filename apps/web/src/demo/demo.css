@@ -402,3 +402,8 @@ html[data-look="stash"] main h2.text-title { font-size: 20px; line-height: 26px;
   .st-rows ul > li > div:last-child { display: flex; width: auto; }
   .st-rows ul > li > div:last-child :is(button[aria-pressed], button[aria-label^="More for"]) { display: none; }
 }
+
+/* The SFX tab (sfx/page.tsx): waveform bars, lit as the sound plays. */
+.sfx-wave rect { fill: var(--color-border-strong); }
+.sfx-row[data-selected] .sfx-wave rect { fill: var(--color-text-muted); }
+.sfx-wave rect[data-lit] { fill: var(--color-accent); }

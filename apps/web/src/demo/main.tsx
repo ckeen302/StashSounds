@@ -40,6 +40,8 @@ import { PresetsPage } from "./presets/page";
 import { PresetSongPage } from "./presets/song-page";
 import { SoundDesign } from "./sound-design";
 import { OneShotsPage } from "./oneshots/page";
+import { SfxPage } from "./sfx/page";
+import { SFX } from "./sfx/library";
 import { UploadHub } from "./upload/page";
 import {
   BrowsePage,
@@ -309,6 +311,7 @@ function Home() {
     { href: "/kits", t: "kit", name: "Drum kits", blurb: "Kicks, 808s, snares and hats", count: kits().length },
     { href: "/midi", t: "midi", name: "MIDI", blurb: "Real progressions from the songs", count: midi.length },
     { href: "/presets", t: "preset", name: "Presets", blurb: "The synth patch on the record", count: PRESETS.length },
+    { href: "/sfx", t: "oneshot", name: "SFX", blurb: "Roars, revs, sirens and voicemail", count: SFX.length },
   ];
   const search = (text: string) => {
     setSearchQuery(text);
@@ -360,7 +363,7 @@ function Home() {
       </section>
 
       <Page>
-        <ul aria-label="Sound types" className="grid grid-cols-2 gap-3 tablet:grid-cols-3 desktop:grid-cols-5">
+        <ul aria-label="Sound types" className="grid grid-cols-2 gap-3 tablet:grid-cols-3 desktop:grid-cols-6">
           {types.map((t) => (
             <li key={t.href} className={t.t === "loop" ? "col-span-2 tablet:col-span-1" : undefined}>
               <UiLink
@@ -918,6 +921,7 @@ const TABS = [
   { href: "/midi", name: "MIDI" },
   { href: "/kits", name: "Drum kits" },
   { href: "/one-shots", name: "One-shots" },
+  { href: "/sfx", name: "SFX" },
   { href: "/presets", name: "Presets" },
   { href: "/library", name: "Library" },
   { href: "/upload", name: "Upload" },
@@ -975,6 +979,7 @@ function Route() {
   if (path === "/upload") return <UploadHub />;
   if (path === "/midi") return <AllMidi />;
   if (path === "/one-shots") return <OneShotsPage />;
+  if (path === "/sfx") return <SfxPage />;
   if (path === "/sound-design") return <SoundDesign />;
   if (path === "/presets") return <PresetsPage />;
   if (path.startsWith("/presets/"))
