@@ -28,13 +28,16 @@ const IN_PROGRESS = "This file is already being completed. Try again in a moment
  *    call. A file already confirmed, or one another call is completing right now, is never copied
  *    onto: a confirmed file returns the item's current state, a live claim is a conflict.
  * 3. A multipart upload is completed (on the staging key) with the caller's part ETags.
- * 4. The staged object is copied, server side, to the row's own path with the row's MIME type
- *    (never the uploader's Content-Type), the row records meta.copiedAt, and the staged object is
- *    deleted. Presigned URLs only ever name the staging key, so a PUT after this point cannot
+ * 4. Just before copying, file_claim_held checks this call still holds the claim (a call that
+ *    stalled past the claim's lifetime may have been overtaken). The staged object is copied,
+ *    server side, to the row's own path with the row's MIME type (never the uploader's
+ *    Content-Type), mark_file_copied records meta.copiedAt under the claim, and the staged object
+ *    is deleted. Presigned URLs only ever name the staging key, so a PUT after this point cannot
  *    change what the worker checks. With no staged object, the final object is used only if this
  *    row recorded its own copy (an earlier call that stopped before the queue).
- * 5. The copy is HEADed, and its measured size goes to enqueue_processing (service role only),
- *    which confirms the file and clears the claim. On a refused size or a suspended account the
+ * 5. The copy is HEADed, and its measured size goes to enqueue_processing with the claim's token
+ *    (service role only), which confirms the file and clears the claim only while that token
+ *    holds it (decision 0016, claims are fenced). On a refused size or a suspended account the
  *    objects are deleted, so nothing stays in storage that the worker will not process (rule 10).
  *    Any exit before the file is confirmed releases the claim, so the owner can retry at once.
  * A preset needs both its original and its demo; until both are confirmed it waits in draft.
@@ -74,9 +77,9 @@ export const completeUpload = defineAction({
 
     const { path, mime } = file;
     const staged = stagingKey(uid, input.itemId, input.fileId);
-    const storage = ctx.storage();
     let confirmed = false;
     try {
+      const storage = ctx.storage();
       const uploadId = typeof file.meta?.uploadId === "string" ? file.meta.uploadId : null;
       if (uploadId) {
         if (!input.parts?.length) return err("invalid", "List the uploaded parts.", { parts: "List the uploaded parts." });
@@ -86,8 +89,10 @@ export const completeUpload = defineAction({
       }
 
       if (await storage.head(staged)) {
+        // A conflict here or below deletes nothing: another call holds the file now.
+        if (!(await claimHeld(service, input.fileId, token))) return err("conflict", IN_PROGRESS);
         await storage.copy(staged, path, mime);
-        await markCopied(service, input.fileId);
+        if (!(await markCopied(service, input.fileId, token))) return err("conflict", IN_PROGRESS);
         await quietly(() => storage.remove(staged), "staged upload");
       } else if (typeof file.meta?.copiedAt !== "string") {
         // Nothing staged and no copy of our own: whatever is at the final key is not this upload.
@@ -101,11 +106,13 @@ export const completeUpload = defineAction({
         p_item_id: input.itemId,
         p_file_id: input.fileId,
         p_measured_bytes: stored.bytes,
+        p_token: token,
       });
       if (error) {
         // Refused for good (wrong size, suspended account): the worker will never process this
-        // object, and the claim proves it is this call's own copy, so it must not stay in storage.
-        // A conflict (the item left draft) deletes nothing: the worker may be reading it.
+        // object, and the claim (still held, or the answer would be conflict) proves it is this
+        // call's own copy, so it must not stay in storage. A conflict (the item left draft, or the
+        // claim was taken over) deletes nothing: the worker or another call may be using it.
         const code = mapError(error)?.code;
         if (code === "invalid" || code === "forbidden") await removeAll(storage, [path, staged]);
         throw error;
@@ -136,15 +143,18 @@ async function readFile(supabase: SupabaseClient, itemId: string, fileId: string
   return data;
 }
 
-/** Records on the row that this server copied its staged upload (service role: users cannot write item_files). */
-async function markCopied(service: SupabaseClient, fileId: string) {
-  const { data, error } = await service.from("item_files").select("meta").eq("id", fileId).single<{ meta: Record<string, unknown> | null }>();
+/** True while this call's token still holds the claim on the unconfirmed file. */
+async function claimHeld(service: SupabaseClient, fileId: string, token: string): Promise<boolean> {
+  const { data, error } = await service.rpc("file_claim_held", { p_file_id: fileId, p_token: token });
   if (error) throw error;
-  const { error: updateError } = await service
-    .from("item_files")
-    .update({ meta: { ...(data.meta ?? {}), copiedAt: new Date().toISOString() } })
-    .eq("id", fileId);
-  if (updateError) throw updateError;
+  return data === true;
+}
+
+/** Records meta.copiedAt in one statement under the claim; false if the claim is gone. */
+async function markCopied(service: SupabaseClient, fileId: string, token: string): Promise<boolean> {
+  const { data, error } = await service.rpc("mark_file_copied", { p_file_id: fileId, p_token: token });
+  if (error) throw error;
+  return data === true;
 }
 
 /** Cleanup after a refusal: a storage failure is logged, so the database's answer is what the caller gets. */

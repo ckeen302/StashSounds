@@ -3,6 +3,7 @@
  * upload-function tests in policies.test.ts: add_demo_file's rules, the reads completeUpload makes
  * as the caller, the upload id it stores with the service role, and preset ordering.
  */
+import { randomUUID } from "node:crypto";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { TestDb, rejection, service, user } from "./db.ts";
 
@@ -28,8 +29,16 @@ async function draft(owner: string, type = "loop", ext = "wav", bytes = 100) {
 }
 
 const storageBytes = async (id: string) => Number((await db.q(`select storage_bytes from public.accounts where id = $1`, [id])).rows[0]!.storage_bytes);
-const enqueue = (owner: string, item: string, file: string, bytes: number) =>
-  db.as(service, `select public.enqueue_processing($1, $2, $3, $4) as id`, [owner, item, file, bytes]);
+/**
+ * completeUpload's last step: enqueue_processing under the caller's claim (decision 0016, claims
+ * are fenced). Without a token, a fresh claim is taken first; a claim refusal is left for
+ * enqueue_processing to answer, since that answer is what the tests check.
+ */
+async function enqueue(owner: string, item: string, file: string, bytes: number, token?: string) {
+  const t = token ?? randomUUID();
+  if (!token) await db.as(service, `select public.claim_file_completion($1, $2, $3, $4)`, [owner, item, file, t]).catch(() => {});
+  return db.as(service, `select public.enqueue_processing($1, $2, $3, $4, $5) as id`, [owner, item, file, bytes, t]);
+}
 
 describe("add_demo_file", () => {
   it("attaches a demo to the caller's own preset draft, under the owner's folder, typed by extension", async () => {
@@ -101,7 +110,7 @@ describe("the multipart upload id on the file row", () => {
 describe("enqueue_processing", () => {
   it("is not callable by a signed-in user, even for their own item", async () => {
     const d = await draft(ana);
-    expect(await rejection(db.as(user(ana), `select public.enqueue_processing($1, $2, $3, 100)`, [ana, d.item_id, d.file_id]))).toMatch(DENIED);
+    expect(await rejection(db.as(user(ana), `select public.enqueue_processing($1, $2, $3, 100, gen_random_uuid())`, [ana, d.item_id, d.file_id]))).toMatch(DENIED);
   });
 
   it("a file from another item is not_found, and nothing is queued", async () => {
@@ -132,22 +141,30 @@ describe("enqueue_processing", () => {
     expect(jobs.rows).toEqual([{ kind: "process_preset" }]);
   });
 
-  it("completeUpload's sequence with the service role: claim, record the copy, confirm; a wrong token releases nothing", async () => {
+  it("completeUpload's sequence with the service role: claim, check, record the copy, confirm; a wrong token does nothing", async () => {
     const d = await draft(ana);
     const claim = (token: string) => db.as(service, `select public.claim_file_completion($1, $2, $3, $4) as ok`, [ana, d.item_id, d.file_id, token]);
     const token = "11111111-2222-4333-8444-555555555555";
     expect((await claim(token)).rows[0]!.ok).toBe(true);
     await db.as(service, `select public.release_file_completion($1, $2)`, [d.file_id, "99999999-2222-4333-8444-555555555555"]);
     expect((await claim("22222222-2222-4333-8444-555555555555")).rows[0]!.ok).toBe(false);
-    // markCopied: read the meta, write it back with copiedAt (the claim stays).
-    const meta = (await db.as(service, `select meta from public.item_files where id = $1`, [d.file_id])).rows[0]!.meta;
-    await db.as(service, `update public.item_files set meta = $2 where id = $1`, [d.file_id, { ...meta, copiedAt: "2026-11-23T23:00:00Z" }]);
+    const other = "99999999-2222-4333-8444-555555555555";
+    const held = (t: string) => db.as(service, `select public.file_claim_held($1, $2) as ok`, [d.file_id, t]);
+    const marked = (t: string) => db.as(service, `select public.mark_file_copied($1, $2) as ok`, [d.file_id, t]);
+    expect((await held(token)).rows[0]!.ok).toBe(true);
+    expect((await held(other)).rows[0]!.ok).toBe(false);
+    expect((await marked(other)).rows[0]!.ok).toBe(false);
+    expect((await marked(token)).rows[0]!.ok).toBe(true);
     expect((await db.q(`select meta ->> 'completing' as t from public.item_files where id = $1`, [d.file_id])).rows[0]!.t).toBe(token);
-    await enqueue(ana, d.item_id, d.file_id, 100);
+    // Only the holder confirms; another token is a conflict, which makes completeUpload delete nothing.
+    expect(await rejection(enqueue(ana, d.item_id, d.file_id, 100, other))).toMatch(/^conflict:/);
+    await enqueue(ana, d.item_id, d.file_id, 100, token);
     const after = (await db.q(`select meta, uploaded_at from public.item_files where id = $1`, [d.file_id])).rows[0]!;
-    expect(after.meta).toMatchObject({ copiedAt: "2026-11-23T23:00:00Z" });
+    expect(after.meta).toMatchObject({ copiedAt: expect.any(String) });
     expect(after.meta).not.toHaveProperty("completing");
     expect(after.uploaded_at).not.toBeNull();
+    // Confirmed: the old token no longer holds anything.
+    expect((await held(token)).rows[0]!.ok).toBe(false);
   });
 
   it("each type queues its own job kind", async () => {

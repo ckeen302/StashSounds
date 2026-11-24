@@ -50,6 +50,14 @@ function serviceFake(user: ReturnType<typeof fakeSupabase>, serviceRpc?: Rpc, op
         if (claims.get(fileId) === args.p_token) claims.delete(fileId);
         return { data: null, error: null };
       }
+      const held = claims.get(fileId) === args.p_token && !userFiles().find((f) => f.id === fileId)?.uploaded_at;
+      if (fn === "file_claim_held") return { data: held, error: null };
+      if (fn === "mark_file_copied") {
+        const row = (service.tables.item_files ?? []).find((f) => f.id === fileId);
+        if (held && row) row.meta = { ...((row.meta as object) ?? {}), copiedAt: "2026-11-23T23:58:00Z" };
+        return { data: held, error: null };
+      }
+      if (fn === "enqueue_processing" && !held) return { data: null, error: pgError("P0001", "conflict: This file is being completed by another request.") };
       const r = serviceRpc ? await serviceRpc(fn, args) : { data: null, error: pgError("42883", fn) };
       if (fn === "enqueue_processing" && !r.error) {
         claims.delete(fileId);
@@ -276,7 +284,14 @@ describe("completeUpload", () => {
     expect(store.sizes.get(PATH)).toBe(1000);
     // The measured size is the final object's, read after the copy.
     expect(store.storage.head).toHaveBeenLastCalledWith(PATH);
-    expect(enqueues(service)).toEqual([{ fn: "enqueue_processing", args: { p_user_id: IDS.alice, p_item_id: ITEM, p_file_id: FILE, p_measured_bytes: 1000 } }]);
+    expect(enqueues(service)).toEqual([
+      { fn: "enqueue_processing", args: { p_user_id: IDS.alice, p_item_id: ITEM, p_file_id: FILE, p_measured_bytes: 1000, p_token: service.rpcCalls[0]!.args.p_token } },
+    ]);
+    // The claim is checked immediately before the copy, and the copy recorded under it.
+    const fns = service.rpcCalls.map((c) => c.fn);
+    expect(fns).toEqual(["claim_file_completion", "file_claim_held", "mark_file_copied", "enqueue_processing"]);
+    expect(service.rpc.mock.invocationCallOrder[1]!).toBeLessThan(store.storage.copy.mock.invocationCallOrder[0]!);
+    expect(store.storage.copy.mock.invocationCallOrder[0]!).toBeLessThan(service.rpc.mock.invocationCallOrder[2]!);
     // The file was claimed before any storage call, and the copy is recorded on the row.
     expect(service.rpcCalls[0]).toMatchObject({ fn: "claim_file_completion", args: { p_user_id: IDS.alice, p_item_id: ITEM, p_file_id: FILE, p_token: expect.any(String) } });
     expect(service.rpc.mock.invocationCallOrder[0]!).toBeLessThan(store.storage.head.mock.invocationCallOrder[0]!);
@@ -451,11 +466,61 @@ describe("completeUpload", () => {
     expect(service.rpcCalls).toEqual([]);
   });
 
+  it("a stale call whose claim was taken over (and the file confirmed) by a second call neither copies nor deletes", async () => {
+    const base = member();
+    const fake = fakeSupabase({ ...base, tables: { ...base.tables, items: [itemRow()], item_files: [fileRow()] } });
+    const { service, claims } = serviceFake(fake, enqueueOk);
+    const store = fakeStorage({ [STAGE]: 1000, [PATH]: 1000 });
+    // The stale call claimed, then stalled; meanwhile its claim lapsed and another call confirmed.
+    store.storage.head.mockImplementationOnce(async (key: string) => {
+      claims.set(FILE, "the-second-call");
+      (fake.tables.item_files![0] as Record<string, unknown>).uploaded_at = "2026-11-23T23:59:30Z";
+      return { bytes: 1000, contentType: null, key } as never;
+    });
+    const deps: ActionDeps = { supabase: async () => fake.client, service: () => service.client, storage: () => store.storage };
+    expect(await completeUpload.run({ itemId: ITEM, fileId: FILE }, deps)).toMatchObject({ ok: false, code: "conflict" });
+    expect(store.storage.copy).not.toHaveBeenCalled();
+    expect(store.storage.remove).not.toHaveBeenCalled();
+    expect(enqueues(service)).toEqual([]);
+    // Its release does not touch the second call's claim.
+    expect(claims.get(FILE)).toBe("the-second-call");
+  });
+
+  it("a claim taken over between the copy and the confirmation: conflict from enqueue_processing, nothing deleted", async () => {
+    const { store, claims, service, deps } = setup({ tables: { items: [itemRow()], item_files: [fileRow()] }, objects: { [STAGE]: 1000 }, serviceRpc: enqueueOk });
+    store.storage.copy.mockImplementationOnce(async (from: string, to: string) => {
+      store.sizes.set(to, store.sizes.get(from)!);
+      claims.set(FILE, "the-second-call");
+    });
+    expect(await completeUpload.run({ itemId: ITEM, fileId: FILE }, deps)).toMatchObject({ ok: false, code: "conflict" });
+    expect(store.storage.remove).not.toHaveBeenCalledWith(PATH);
+    expect(store.sizes.has(PATH)).toBe(true);
+    expect(enqueues(service)).toEqual([]);
+  });
+
+  it("storage setup failing after the claim still releases it", async () => {
+    const { fake, service, claims } = (() => {
+      const base = member();
+      const f = fakeSupabase({ ...base, tables: { ...base.tables, items: [itemRow()], item_files: [fileRow()] } });
+      return { fake: f, ...serviceFake(f, enqueueOk) };
+    })();
+    const deps: ActionDeps = {
+      supabase: async () => fake.client,
+      service: () => service.client,
+      storage: () => {
+        throw new Error("Missing or invalid environment variables: STASH_S3_ENDPOINT");
+      },
+    };
+    await expect(completeUpload.run({ itemId: ITEM, fileId: FILE }, deps)).rejects.toThrow(/STASH_S3_ENDPOINT/);
+    expect(service.rpcCalls.map((c) => c.fn)).toEqual(["claim_file_completion", "release_file_completion"]);
+    expect(claims.size).toBe(0);
+  });
+
   it("an error after the claim releases it, so the owner can retry at once", async () => {
     const { store, claims, service, deps } = setup({ tables: { items: [itemRow()], item_files: [fileRow()] }, objects: { [STAGE]: 1000 }, serviceRpc: enqueueOk });
     store.storage.copy.mockRejectedValueOnce(new Error("storage down"));
     await expect(completeUpload.run({ itemId: ITEM, fileId: FILE }, deps)).rejects.toThrow(/storage down/);
-    expect(service.rpcCalls.map((c) => c.fn)).toEqual(["claim_file_completion", "release_file_completion"]);
+    expect(service.rpcCalls.map((c) => c.fn)).toEqual(["claim_file_completion", "file_claim_held", "release_file_completion"]);
     expect(claims.size).toBe(0);
     // The retry goes through.
     expect(await completeUpload.run({ itemId: ITEM, fileId: FILE }, deps)).toMatchObject({ ok: true, data: { status: "processing" } });
