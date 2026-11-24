@@ -57,16 +57,33 @@ def max_bytes_for(item_type: str, role: str) -> int:
     return int(lim[item_type]["maxBytes"])
 
 
-def stage_inputs(storage: Storage, job_input: dict[str, Any], in_dir: Path) -> None:
+def stage_inputs(storage: Storage, job_input: dict[str, Any], in_dir: Path) -> dict[str, str]:
+    """Downloads each input to in_dir/<file id> and returns {file id: SHA-256}. The hashes are taken
+    here, before any child runs: the child owns in_dir afterwards and could replace or relink a file
+    (PR #16 review), so nothing reads in_dir again in the parent."""
     in_dir.mkdir(parents=True, exist_ok=True)
     for f in job_input["files"]:
         limit = max_bytes_for(job_input["type"], f["role"])
         if f["bytes"] > limit:
             raise InputRejected("too_large", f"{f['role']} is {f['bytes']} bytes, the limit is {limit}")
+    digests: dict[str, str] = {}
     for f in job_input["files"]:
         got = storage.download(f["bucket"], f["path"], in_dir / f["id"], max_bytes=f["bytes"])
         if got != f["bytes"]:
             raise StorageError(f"{f['path']} is {got} bytes, the database says {f['bytes']}")
+        digests[f["id"]] = hash_staged(in_dir, f["id"])
+    return digests
+
+
+def hash_staged(in_dir: Path, name: str) -> str:
+    """SHA-256 of in_dir/name, opened without following a link and only if it is a regular file (a FIFO
+    or device is refused before a read could block). Raises UnsafePath."""
+    fd = open_beneath(in_dir, [name])
+    h = hashlib.sha256()
+    with os.fdopen(fd, "rb") as f:
+        while chunk := f.read(1 << 20):
+            h.update(chunk)
+    return h.hexdigest()
 
 
 # -- what each item type may publish ---------------------------------------------------------------------

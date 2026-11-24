@@ -67,6 +67,8 @@ class FakeQueue:
         self.input_override: dict[str, Any] | None = None
         self.claimed: dict[str, dict[str, Any]] = {}
         self.last_input: dict[str, Any] | None = None
+        self.candidates: list[dict[str, Any]] = []
+        self.candidates_error: Exception | None = None
 
     def claim(self) -> dict[str, Any] | None:
         self.calls.append(("claim",))
@@ -98,6 +100,12 @@ class FakeQueue:
     def requeue_stale(self, older_than_s: float) -> int:
         self.calls.append(("requeue_stale", older_than_s))
         return 0
+
+    def duplicate_candidates(self, job_id, attempt, file_id, sha256, min_ms, max_ms) -> list[dict[str, Any]]:
+        self.calls.append(("duplicate_candidates", job_id, attempt, file_id, sha256, min_ms, max_ms))
+        if self.candidates_error:
+            raise self.candidates_error
+        return self.candidates
 
     def outcomes(self) -> list[tuple[Any, ...]]:
         return [c for c in self.calls if c[0] in ("complete", "fail")]
@@ -465,3 +473,75 @@ def test_the_loop_processor_is_registered():
     from stash_worker.jobs import HANDLERS
 
     assert HANDLERS["process_loop"] == "stash_worker.audio.loop:process_loop"
+
+
+# -- duplicate screening (ticket 114) -------------------------------------------------------------
+
+
+def test_the_runner_screens_the_staged_original_before_publishing(tmp_path: Path):
+    import hashlib
+
+    j = job()
+    q = FakeQueue([j])
+    runner(q, tmp_path, "writes_preview").run_once()
+    [lookup] = [c for c in q.calls if c[0] == "duplicate_candidates"]
+    f = q.last_input["files"][0]
+    assert lookup[1:5] == (str(j["id"]), 1, f["id"], hashlib.sha256(ORIGINAL).hexdigest())
+    assert [c[0] for c in q.calls].index("duplicate_candidates") < [c[0] for c in q.calls].index("complete")
+    [(_, _, _, result)] = q.outcomes()
+    assert result["flag"] is None
+
+
+def test_a_match_completes_the_job_flagged(tmp_path: Path):
+    j = job()
+    q = FakeQueue([j])
+    q.candidates = [
+        {
+            "match": "exact",
+            "item_id": str(uuid.uuid4()),
+            "owner_id": str(uuid.uuid4()),
+            "duration_ms": None,
+            "chromaprint": None,
+        }
+    ]
+    runner(q, tmp_path, "writes_preview").run_once()
+    [(call, _, _, result)] = q.outcomes()
+    assert call == "complete"
+    assert result["flag"]["reason"] == "duplicate_exact"
+    assert q.storage.uploads != []  # a flagged item still gets its preview, for the owner and admins
+
+
+def test_a_conflict_on_the_lookup_leaves_the_job_alone(tmp_path: Path):
+    j = job()
+    q = FakeQueue([j])
+    q.candidates_error = QueueRejected("conflict", "This job is not running for this attempt.")
+    runner(q, tmp_path, "writes_preview").run_once()
+    assert q.outcomes() == []
+    assert q.storage.uploads == []
+
+
+@pytest.mark.parametrize("error", [QueueUnavailable("connection reset"), QueueRejected("42883", "no function")])
+def test_a_failed_lookup_is_retried_and_nothing_is_published(tmp_path: Path, error: Exception):
+    j = job()
+    q = FakeQueue([j])
+    q.candidates_error = error
+    runner(q, tmp_path, "writes_preview").run_once()
+    assert q.outcomes() == [fail(j, "internal", True)]
+    assert q.storage.uploads == []
+
+
+@pytest.mark.parametrize("handler", ["replace_original", "link_original_to_fifo"])
+def test_the_hash_is_taken_before_the_child_runs_so_the_child_cannot_change_it(tmp_path: Path, handler: str):
+    import hashlib
+    import threading
+
+    j = job()
+    q = FakeQueue([j])
+    r = runner(q, tmp_path, handler)
+    t = threading.Thread(target=r.run_once, daemon=True)
+    t.start()
+    t.join(timeout=30)
+    assert not t.is_alive(), "the parent blocked on the child's file"
+    [lookup] = [c for c in q.calls if c[0] == "duplicate_candidates"]
+    assert lookup[4] == hashlib.sha256(ORIGINAL).hexdigest()
+    assert [c[0] for c in q.outcomes()] == ["complete"]

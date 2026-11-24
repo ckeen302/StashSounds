@@ -134,14 +134,18 @@ def test_every_loop_fixture_gives_the_expected_length_and_rate(tmp_path: Path, f
     # Loudness of the original, as measured before normalizing.
     assert details["loudnessLufs"] is not None and -40 < details["loudnessLufs"] < 0
     assert details["truePeakDb"] is not None and details["truePeakDb"] <= 0.5
-    # BPM and key (ticket 113) from the manifest; fingerprints are ticket 114.
+    # BPM and key (ticket 113) from the manifest.
     expect = fixture["expect"]
     assert (result["bpm"], result["key"], details["bars"]) == (expect["bpm"], expect["key"], expect["bars"])
     d = details["detection"]
     assert (d["bpmSource"], d["bpmAgreed"], d["keySource"]) == ("filename", True, expect["keySource"])
     assert d["bpmCandidates"][0] == expect["bpm"]
     assert (d["keyConfidence"] is None) == (expect["keySource"] == "filename")
-    assert (result["fingerprints"], result["flag"]) == ([], None)
+    # One fingerprint of the original (ticket 114); the parent, not the child, decides the flag.
+    [fp] = result["fingerprints"]
+    assert fp["filePath"] == ctx.input["files"][0]["path"]
+    assert fp["durationMs"] == result["durationMs"] and len(fp["chromaprint"]) >= 4
+    assert result["flag"] is None
 
 
 def test_the_file_name_comes_from_the_original_files_row(tmp_path: Path):

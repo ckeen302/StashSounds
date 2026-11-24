@@ -7,6 +7,7 @@ import base64
 import threading
 import uuid
 from pathlib import Path
+from typing import Any
 
 import pytest
 
@@ -255,3 +256,144 @@ def test_a_hostile_loop_fixture_returns_the_item_to_draft_with_its_reason(db, tm
     item = db.item(it["item_id"])
     assert (item["status"], item["flagged_reason"]) == ("draft", "unsupported_format")
     assert db.storage.uploads == []
+
+
+# -- duplicate screening (ticket 114) ---------------------------------------------------------------
+
+LOOP = "stash_worker.audio.loop:process_loop"
+
+
+def process(db, tmp_path: Path, relative: str, owner: str | None = None) -> dict[str, Any]:
+    from stash_worker.contracts import REPO_ROOT
+
+    fixture = REPO_ROOT / "fixtures" / relative
+    it = db.queued_item(
+        ext=fixture.suffix.lstrip("."), file_name=fixture.name, content=fixture.read_bytes(), owner=owner
+    )
+    r = make_runner(db, tmp_path, LOOP)
+    r.timeouts.clear()
+    assert r.run_once() is True
+    assert db.job(it["job_id"])["status"] == "done", db.job(it["job_id"])
+    return {**it, **db.item(it["item_id"])}
+
+
+def _manifest_duplicates() -> list[dict[str, Any]]:
+    import json
+
+    from stash_worker.contracts import REPO_ROOT
+
+    manifest = json.loads((REPO_ROOT / "fixtures" / "manifest.json").read_text())["fixtures"]
+    return [f for f in manifest if f["path"].startswith("generated/duplicates/")]
+
+
+def test_a_processed_original_keeps_its_sha256_and_fingerprint(db, tmp_path: Path):
+    import hashlib
+
+    from stash_worker.contracts import REPO_ROOT
+
+    original = "generated/loops/midnight_keys_140bpm_Am.wav"
+    it = process(db, tmp_path, original)
+    assert it["status"] == "ready"
+    [f] = db.q(
+        "select id, sha256, meta from public.item_files where item_id = :i and role = 'original'",
+        i=uuid.UUID(it["item_id"]),
+    )
+    assert f["sha256"] == hashlib.sha256((REPO_ROOT / "fixtures" / original).read_bytes()).hexdigest()
+    assert f["meta"]["fileName"] == "midnight_keys_140bpm_Am.wav"  # the original's meta is untouched
+    [fp] = db.q(
+        "select item_file_id, duration_ms, cardinality(chromaprint) as n from public.fingerprints where item_id = :i",
+        i=uuid.UUID(it["item_id"]),
+    )
+    assert (fp["item_file_id"], fp["duration_ms"]) == (f["id"], 6857)
+    assert fp["n"] >= 30
+
+
+@pytest.mark.parametrize("dup", _manifest_duplicates(), ids=lambda f: Path(f["path"]).name)
+def test_each_duplicate_fixture_is_flagged_after_its_original(db, tmp_path: Path, dup: dict[str, Any]):
+    assert process(db, tmp_path, dup["expect"]["duplicateOf"])["status"] == "ready"
+    it = process(db, tmp_path, dup["path"])
+    assert (it["status"], it["flagged_reason"]) == (dup["expect"]["status"], dup["expect"]["reason"])
+    assert it["details"]["loopSamples"] > 0  # still processed, for the owner and admins to review
+    [n] = db.q(
+        "select count(*) as n from public.notifications where item_id = :i and kind = 'flag'",
+        i=uuid.UUID(it["item_id"]),
+    )
+    assert n["n"] == 1
+
+
+def test_the_same_user_re_uploading_their_own_loop_is_flagged_too(db, tmp_path: Path):
+    first = process(db, tmp_path, "generated/loops/midnight_keys_140bpm_Am.wav")
+    again = process(db, tmp_path, "generated/duplicates/midnight_keys_copy.wav", owner=first["owner"])
+    assert (again["status"], again["flagged_reason"]) == ("flagged", "duplicate_exact")
+    trimmed = process(db, tmp_path, "generated/duplicates/midnight_keys_trimmed.wav", owner=first["owner"])
+    assert (trimmed["status"], trimmed["flagged_reason"]) == ("flagged", "duplicate_fingerprint")
+
+
+def test_different_loops_are_not_duplicates_of_each_other(db, tmp_path: Path):
+    for loop in (
+        "midnight_keys_140bpm_Am.wav",
+        "dusty_soul_90_Dmin.wav",
+        "rnb_pad_72bpm_Ebmaj.aiff",
+        "trap_bells_150_F#m.mp3",
+    ):
+        it = process(db, tmp_path, f"generated/loops/{loop}")
+        assert (it["status"], it["flagged_reason"]) == ("ready", None), loop
+
+
+def test_a_draft_is_not_screened_against(db, tmp_path: Path):
+    # A hostile upload that failed back to draft does not make the next upload a duplicate; neither does
+    # an original of an item that never finished.
+    original = "generated/loops/midnight_keys_140bpm_Am.wav"
+    first = process(db, tmp_path, original)
+    db.q("update public.items set status = 'draft' where id = :i", i=uuid.UUID(first["item_id"]))
+    assert process(db, tmp_path, original)["status"] == "ready"
+
+
+def test_the_lookup_is_fenced_to_the_claimed_attempt_and_its_own_original(db):
+    from stash_worker.db import PgJobQueue
+
+    it = db.queued_item()
+    q = PgJobQueue(db.url)
+    job = q.claim()
+    sha = "0" * 64
+    with pytest.raises(QueueRejected) as e:
+        q.duplicate_candidates(it["job_id"], job["attempts"] + 1, it["file_id"], sha, None, None)
+    assert e.value.code == "conflict"
+    other = db.queued_item()
+    with pytest.raises(QueueRejected) as e:
+        q.duplicate_candidates(it["job_id"], job["attempts"], other["file_id"], sha, None, None)
+    assert e.value.code == "invalid"
+    assert q.duplicate_candidates(it["job_id"], job["attempts"], it["file_id"], sha, None, None) == []
+    q.close()
+
+
+def test_a_loop_too_short_to_fingerprint_is_still_caught_by_its_hash(db, tmp_path: Path):
+    # Below about 2.6 s fpcalc gives no fingerprint; an exact copy is still flagged (PR #16 review).
+    import subprocess
+
+    from stash_worker.contracts import REPO_ROOT
+
+    short = tmp_path / "short_loop.wav"
+    subprocess.run(  # noqa: S603
+        [  # noqa: S607
+            "ffmpeg", "-nostdin", "-v", "error", "-y", "-i",
+            str(REPO_ROOT / "fixtures/generated/loops/midnight_keys_140bpm_Am.wav"),
+            "-t", "1.714", "-c:a", "pcm_s16le", "-map_metadata", "-1", "-fflags", "+bitexact", str(short),
+        ],
+        check=True,
+    )  # fmt: skip
+    content = short.read_bytes()
+    results = []
+    for _ in range(2):
+        it = db.queued_item(file_name="short_loop_140bpm.wav", content=content)
+        r = make_runner(db, tmp_path, LOOP)
+        r.timeouts.clear()
+        assert r.run_once() is True
+        results.append({**it, **db.item(it["item_id"])})
+    first, copy = results
+    assert first["status"] == "ready"
+    assert (
+        db.q("select count(*) as n from public.fingerprints where item_id = :i", i=uuid.UUID(first["item_id"]))[0]["n"]
+        == 0
+    )
+    assert (copy["status"], copy["flagged_reason"]) == ("flagged", "duplicate_exact")

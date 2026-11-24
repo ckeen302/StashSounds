@@ -1,5 +1,5 @@
 """The loop processor (build spec: Worker jobs, Loop; tickets 112 and 113): decode, exact loop length,
-loudness-matched MP3 preview, 800 waveform peaks, BPM and key. Fingerprints are ticket 114.
+loudness-matched MP3 preview, 800 waveform peaks, BPM and key, and the Chromaprint fingerprint (ticket 114).
 
 Runs in the job's child process. Reads the original from `ctx.input_path`, writes derived files to
 `ctx.output_path`, and returns a worker result (contracts: workerResultSchema, details.loop).
@@ -15,6 +15,7 @@ from typing import Any
 import numpy as np
 
 from stash_worker.audio.ffmpeg import SAMPLE_RATE, SILENCE_PEAK, decode, encode_preview, measure, mono_peaks, sniff
+from stash_worker.audio.fingerprint import fingerprint
 from stash_worker.audio.key import detect_key
 from stash_worker.audio.tempo import detect_bpm
 from stash_worker.contracts import limits
@@ -82,6 +83,8 @@ def process_loop(ctx: JobContext) -> dict[str, Any]:
     tempo = detect_bpm(mono, SAMPLE_RATE, file_name)
     key, key_source, key_confidence = detect_key(mono, SAMPLE_RATE, file_name)
     del mono
+    # The fingerprint comes from the child's own decode, never from the uploaded file (ticket 114).
+    chromaprint = fingerprint(decoded.path)
     decoded.path.unlink()
 
     preview = _publish(
@@ -107,7 +110,11 @@ def process_loop(ctx: JobContext) -> dict[str, Any]:
         "key": key,
         "durationMs": duration_ms,
         "files": [preview, peaks_file],
-        "fingerprints": [],
+        "fingerprints": (
+            []
+            if chromaprint is None
+            else [{"filePath": original["path"], "durationMs": duration_ms, "chromaprint": chromaprint}]
+        ),
         "flag": None,
         "details": {
             "sampleRate": SAMPLE_RATE,

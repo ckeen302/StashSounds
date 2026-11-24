@@ -1,7 +1,8 @@
 """The worker's only way into the database: the service role's worker functions.
 
 Each call runs in its own transaction as `service_role` (data-model.md and decision 0012: claim_job,
-worker_job_input, worker_complete, worker_fail, requeue_stale_jobs) and does nothing else: no table
+worker_job_input, worker_complete, worker_fail, requeue_stale_jobs, and worker_duplicate_candidates from
+request 114-duplicate-lookup) and does nothing else: no table
 reads, no table writes. Every call after the claim names the claimed attempt, and the database answers
 `conflict` once that run is no longer this worker's.
 """
@@ -53,6 +54,9 @@ class JobQueue(Protocol):
     def complete(self, job_id: str, attempt: int, result: dict[str, Any]) -> None: ...
     def fail(self, job_id: str, attempt: int, reason: str, retryable: bool) -> None: ...
     def requeue_stale(self, older_than_s: float) -> int: ...
+    def duplicate_candidates(
+        self, job_id: str, attempt: int, file_id: str, sha256: str, min_ms: int | None, max_ms: int | None
+    ) -> list[dict[str, Any]]: ...
 
 
 def _rejection(e: DatabaseError) -> QueueRejected:
@@ -146,3 +150,23 @@ class PgJobQueue:
     def requeue_stale(self, older_than_s: float) -> int:
         rows = self._run("select public.requeue_stale_jobs(make_interval(secs => :s)) as n", s=float(older_than_s))
         return int(rows[0]["n"])
+
+    def duplicate_candidates(
+        self, job_id: str, attempt: int, file_id: str, sha256: str, min_ms: int | None, max_ms: int | None
+    ) -> list[dict[str, Any]]:
+        """Records the original's SHA-256 and returns the other items it may duplicate (ticket 114):
+        rows of match ('exact' or 'fingerprint'), item_id, owner_id, duration_ms and chromaprint."""
+        rows = self._run(
+            "select * from public.worker_duplicate_candidates(cast(:j as uuid), cast(:a as int),"
+            " cast(:f as uuid), :s, cast(:lo as int), cast(:hi as int))",
+            j=job_id,
+            a=attempt,
+            f=file_id,
+            s=sha256,
+            lo=min_ms,
+            hi=max_ms,
+        )
+        for r in rows:
+            if r.get("match") not in ("exact", "fingerprint"):
+                raise QueueContractError(f"worker_duplicate_candidates gave match {r.get('match')!r}")
+        return rows
