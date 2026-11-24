@@ -121,11 +121,11 @@ test("space plays and pauses; tempo and key drive the engine while it plays", as
   await expect(heroPlay(page)).toHaveAttribute("aria-label", "Play Dusty soul chops");
 });
 
-// Known broken in the built app: the stretch's worklet fails after minification and never loads, so
-// the loop keeps its original speed (docs/requests/135-stretch-in-production-build.md). Marked as an
-// expected failure so it turns red the moment the Audio lane's fix lands; remove the marker then.
-test("at double tempo the loop really plays twice as fast", async ({ page }) => {
-  test.fail(true, "docs/requests/135-stretch-in-production-build.md");
+// Today's measured state, asserted outright: in the built app the stretch's worklet fails after
+// minification and never loads, so at 180 BPM the loop still plays at its own speed (rate about 1).
+// docs/requests/135-stretch-in-production-build.md. The Audio lane is fixing it; when that lands,
+// this flips to `toBeGreaterThan(1.5)` and its name to "really plays twice as fast".
+test("at double tempo the loop plays at its own speed until the stretch works in the built app", async ({ page }) => {
   await serveAudio(page);
   await page.goto(PATH);
   await page.keyboard.press("Space");
@@ -141,7 +141,9 @@ test("at double tempo the loop really plays twice as fast", async ({ page }) => 
   const t1 = await page.evaluate(() => performance.now());
   const p1 = await positionMs(page);
   const moved = (p1 - p0 + 5333) % 5333;
-  expect(moved / (t1 - t0)).toBeGreaterThan(1.5);
+  const rate = moved / (t1 - t0);
+  expect(rate, "playback rate at 180 BPM (request 135-stretch-in-production-build)").toBeGreaterThan(0.7);
+  expect(rate, "playback rate at 180 BPM (request 135-stretch-in-production-build)").toBeLessThan(1.3);
 });
 
 test("tempo and key set before play are applied when it starts", async ({ page }) => {
@@ -289,6 +291,46 @@ test("on a phone, download is pinned above the mini player", async ({ page }) =>
   expect(box!.height).toBeGreaterThanOrEqual(40);
   // Nothing spills sideways.
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(380);
+});
+
+for (const [width, height] of [[1440, 900], [1024, 768], [800, 1000], [380, 800]] as const) {
+  test(`at ${width} px, download is on screen without scrolling, and only once`, async ({ page }) => {
+    await page.setViewportSize({ width, height });
+    await serveAudio(page);
+    await page.goto(PATH);
+    const shown = page.getByRole("button", { name: "Download", exact: true }).filter({ visible: true });
+    await expect(shown).toHaveCount(1);
+    await expect(shown).toBeInViewport({ ratio: 1 });
+    // Wherever it is, the license is named beside it.
+    const holder = width >= 1440 ? page.getByRole("region", { name: "License", exact: true }) : page.locator("[data-download-bar]");
+    await expect(holder).toContainText(/Royalty-free/i);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
+  });
+}
+
+test("on a phone, the facts beside the play pad follow the tempo and the key shift", async ({ page }) => {
+  await page.setViewportSize({ width: 380, height: 800 });
+  await serveAudio(page);
+  await page.goto(PATH);
+  const facts = hero(page).locator("[data-hero-facts]");
+  await expect(facts).toHaveText("90 BPM · Dm");
+  await page.keyboard.press("]");
+  await page.keyboard.press("]");
+  await page.keyboard.press("=");
+  await expect(facts).toHaveText("91 BPM · Em");
+});
+
+test("the loop switch says ON or OFF in words as well as its pressed state", async ({ page }) => {
+  await serveAudio(page);
+  await page.goto(PATH);
+  const loop = transport(page).getByRole("button", { name: "Loop" });
+  const word = transport(page).locator("[data-loop-readout]");
+  await expect(word).toHaveText("ON");
+  const onBorder = await loop.evaluate((el) => getComputedStyle(el).borderTopColor);
+  await loop.click();
+  await expect(word).toHaveText("OFF");
+  await page.locator("h1").click(); // move the pointer off, so hover does not paint it
+  expect(await loop.evaluate((el) => getComputedStyle(el).borderTopColor)).not.toBe(onBorder);
 });
 
 test("the loop page passes the accessibility scan, idle and playing", async ({ page }) => {
