@@ -1,13 +1,13 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getEngine, usePlayerState } from "@stash/audio";
-import { formatKey, LICENSES, type ItemPage, type ItemRow } from "@stash/contracts";
+import type { ItemPage, ItemRow } from "@stash/contracts";
+import { formatKey, LICENSE_LABELS as LICENSES } from "@stash/contracts/format";
 import {
   Button,
   CircleCheck,
-  Dialog,
   Download,
   formatTime,
   Heart,
@@ -34,13 +34,16 @@ import { nowPlaying } from "../_shell/now-playing";
 import type { DownloadResult, ItemActions } from "./actions";
 import { itemKeyAction, keyInputFrom } from "./keys";
 import type { ItemView as ItemViewData } from "./load-core";
-import { localActions } from "./local-actions";
+import { lazyLocalActions } from "./lazy-local-actions";
 import { serverActions } from "./server-actions";
+import type { SignInIntent } from "./sign-in-dialog";
 import { useItemPlayer } from "./use-item-player";
+
+const SignInDialog = lazy(() => import("./sign-in-dialog"));
 
 /** After sign-in the visitor comes back with this, and the action they asked for completes. */
 const INTENT = "then";
-type Intent = "download" | "like" | "follow";
+type Intent = SignInIntent;
 
 const dateText = (iso: string) => new Intl.DateTimeFormat("en-US", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(new Date(iso));
 
@@ -96,7 +99,7 @@ export function ItemView({ view }: { view: ItemViewData }) {
   const router = useRouter();
   const toast = useToast();
   const engine = getEngine();
-  const actions = useMemo<ItemActions>(() => (source === "local" ? localActions(page) : serverActions), [source, page]);
+  const actions = useMemo<ItemActions>(() => (source === "local" ? lazyLocalActions(page) : serverActions), [source, page]);
 
   // Likes and follows the visitor changed on this page (the server's answer, or the local one).
   const [liked, setLiked] = useState<Record<string, boolean>>({});
@@ -401,19 +404,11 @@ export function ItemView({ view }: { view: ItemViewData }) {
         {likeButton}
       </div>
 
-      <Dialog
-        open={signIn !== null}
-        onOpenChange={(o) => !o && setSignIn(null)}
-        title={signIn === "download" ? "Sign in to download" : signIn === "follow" ? `Sign in to follow ${ownerName}` : "Sign in to like"}
-        description={
-          signIn === "download"
-            ? `Downloads come with a license record, kept in your library. You will come back here and the download starts.`
-            : "It takes one email link. You will come back here and it is done."
-        }
-        confirmLabel="Sign in"
-        cancelLabel="Not now"
-        onConfirm={() => signIn && router.push(signInNext(signIn))}
-      />
+      {signIn && (
+        <Suspense fallback={null}>
+          <SignInDialog intent={signIn} ownerName={ownerName} onClose={() => setSignIn(null)} onSignIn={() => router.push(signInNext(signIn))} />
+        </Suspense>
+      )}
     </main>
   );
 }

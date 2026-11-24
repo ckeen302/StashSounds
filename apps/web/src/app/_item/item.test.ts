@@ -3,6 +3,7 @@ import { itemPageSchema, LICENSES, type ItemPage } from "@stash/contracts";
 import { fixtureItemPage, FIXTURE_VIEWER_COOKIE } from "./fixtures";
 import { itemKeyAction, type KeyInput } from "./keys";
 import { loadItemViewWith } from "./load-core";
+import { lazyLocalActions } from "./lazy-local-actions";
 import { localActions } from "./local-actions";
 import { createWrapWatch } from "./loop-watch";
 import { itemDescription, itemMetadata } from "./meta";
@@ -186,5 +187,18 @@ describe("local actions (fixtures and the demo)", () => {
     expect(await a.like!(page.item.id, false)).toEqual({ ok: true, data: { liked: false, likesCount: page.item.likesCount } });
     expect(await a.follow!(page.owner.id, true)).toEqual({ ok: true, data: { following: true, followersCount: page.owner.followersCount + 1 } });
     expect((await a.follow!("00000000-0000-4000-8000-00000000ffff", true)).ok).toBe(false);
+  });
+
+  it("load on first use, answer the same as the eager ones and keep their counts between calls", async () => {
+    const page = fixture();
+    const load = vi.fn(() => import("./local-actions"));
+    const a = lazyLocalActions(page, load);
+    expect(load).not.toHaveBeenCalled();
+    expect(a.save).toBe("blob");
+    expect(await a.like!(page.item.id, true)).toEqual({ ok: true, data: { liked: true, likesCount: page.item.likesCount + 1 } });
+    expect(await a.follow!(page.owner.id, true)).toEqual({ ok: true, data: { following: true, followersCount: page.owner.followersCount + 1 } });
+    const r = await a.download(page.item.id);
+    expect(r.ok && r.data.fileName).toBe("Dusty soul chops.ogg");
+    expect(load).toHaveBeenCalledTimes(1);
   });
 });

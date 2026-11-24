@@ -1,13 +1,14 @@
 "use client";
 
-import { formatKey, type ItemRow } from "@stash/contracts";
-import { useState, type ReactNode } from "react";
+import type { ItemRow } from "@stash/contracts";
+import { formatKey } from "@stash/contracts/format";
+import { lazy, Suspense, useState, type ReactNode } from "react";
 import { TagChip, TYPE_LABEL } from "./chip.tsx";
 import { cx, transition, type PreviewState } from "./cx.ts";
 import { Download, Ellipsis, Heart } from "./icon.tsx";
 import { IconButton } from "./icon-button.tsx";
 import { UiLink } from "./link.tsx";
-import { ContextMenu, Menu, type MenuEntry } from "./menu.tsx";
+import type { MenuEntry } from "./menu.tsx";
 import { PlayButton, type PlayState } from "./play-button.tsx";
 import { SkeletonBlock } from "./skeleton.tsx";
 import { Tooltip } from "./tooltip.tsx";
@@ -218,15 +219,29 @@ export function ResultRow({
         <Tooltip content="Download" shortcut="D">
           <IconButton icon={Download} label={`Download ${row.title}`} onClick={onDownload} />
         </Tooltip>
-        <Menu
-          entries={menu}
-          trigger={<IconButton icon={Ellipsis} label={`More for ${row.title}`} disabled={menu.length === 0} />}
-        />
+        {menu.length > 0 ? (
+          <Suspense fallback={<IconButton icon={Ellipsis} label={`More for ${row.title}`} />}>
+            <Menu entries={menu} trigger={<IconButton icon={Ellipsis} label={`More for ${row.title}`} />} />
+          </Suspense>
+        ) : (
+          <IconButton icon={Ellipsis} label={`More for ${row.title}`} disabled />
+        )}
       </div>
     </li>
   );
-  return menu.length > 0 ? <ContextMenu entries={menu}>{content}</ContextMenu> : content;
+  return menu.length > 0 ? (
+    <Suspense fallback={content}>
+      <ContextMenu entries={menu}>{content}</ContextMenu>
+    </Suspense>
+  ) : (
+    content
+  );
 }
+
+// The menus (Radix Menu and ContextMenu, about 17 KB gzip) load only for rows that have entries, so a
+// list without a menu stays inside the page script budget (ticket 135, the loop page).
+const Menu = lazy(() => import("./menu.tsx").then((m) => ({ default: m.Menu })));
+const ContextMenu = lazy(() => import("./menu.tsx").then((m) => ({ default: m.ContextMenu })));
 
 /** A row's exact footprint while the list loads. */
 export function ResultRowSkeleton() {
