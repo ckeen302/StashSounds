@@ -5,7 +5,7 @@ import { getEngine, usePlayerState } from "@stash/audio";
 import { limits, type ItemRow } from "@stash/contracts";
 import { TRANSPOSE_LIMIT, useFrameLoop, type PlayState } from "@stash/ui";
 import { nowPlaying } from "../_shell/now-playing";
-import { browserStorage, writeVolume } from "../_shell/volume";
+import { browserStorage, readUnmuteVolume, rememberVolume } from "../_shell/volume";
 import { createWrapWatch } from "./loop-watch";
 
 /**
@@ -101,19 +101,21 @@ export function useItemPlayer(row: ItemRow, queue: ItemRow[]) {
     [current, engine],
   );
 
+  // Remembered the same way as the player bar's (the shell's volume.ts), so the two never disagree.
   const setVolume = useCallback(
     (v: number) => {
+      const previous = engine.getState().volume;
       engine.setVolume(v);
-      writeVolume(browserStorage(), v);
+      rememberVolume(browserStorage(), previous, v);
     },
     [engine],
   );
   const setMuted = useCallback(
     (muted: boolean) => {
       if (muted) {
-        restoreVolume.current = volume > 0 ? volume : restoreVolume.current;
+        if (volume > 0) restoreVolume.current = volume;
         setVolume(0);
-      } else setVolume(restoreVolume.current > 0 ? restoreVolume.current : 0.8);
+      } else setVolume(readUnmuteVolume(browserStorage()) ?? (restoreVolume.current > 0 ? restoreVolume.current : 0.8));
     },
     [setVolume, volume],
   );

@@ -149,6 +149,15 @@ describe("PlayerBar", () => {
     expect(bar({})).toContain('aria-label="Loop, 2 bars, 90 BPM, Dm"');
   });
 
+  it("draws the progress line below desktop, where the bar has no waveform (PR #12 review)", () => {
+    expect(bar({})).toMatch(/<span(?=[^>]*data-player-progress="")(?=[^>]*class="[^"]*desktop:hidden)/);
+  });
+
+  it("restores the level from before mute it is given, as after a reload", () => {
+    // Muted at first render: without the remembered level the toggle could only fall back to 0.8.
+    expect(bar({ volume: 0, unmuteVolume: 0.6 })).toMatch(/<button(?=[^>]*aria-label="Mute")(?=[^>]*aria-pressed="true")/);
+  });
+
   it("never reads position into the markup beyond the first frame", () => {
     // The time text starts at 0:00 on the server; the animation frame writes it on the client.
     expect(bar({ getPositionMs: () => 4000 })).toMatch(/data-player-elapsed=""[^>]*>0:00</);
@@ -166,6 +175,9 @@ describe("Slider", () => {
     expect(html(h(Slider, { label: "Volume", value: 0.4, "data-focus": true }))).toContain("data-focus");
     expect(html(h(Slider, { label: "Volume", value: 0.4, "data-dragging": true }))).toContain("data-dragging");
     expect(html(h(Slider, { label: "Volume", value: 0.4, disabled: true }))).toContain("data-disabled");
+  });
+  it("draws the unfilled track in border-strong, which clears 3 to 1 (PR #12 review)", () => {
+    expect(out).toMatch(/<span(?=[^>]*data-orientation="horizontal")(?=[^>]*class="[^"]*\bbg-border-strong\b)[^>]*>/);
   });
   it("rounds the volume text", () => {
     expect(volumeText(0)).toBe("0 percent");
@@ -192,6 +204,10 @@ describe("PlayerSheetPreview", () => {
     expect(out).toContain('aria-label="Pause Dusty soul chops"');
     expect(out).toContain('aria-label="Close player"');
     expect(out).toContain('aria-label="Volume"');
+  });
+  it("lets a long title take two lines, and the handle is a 40 px target", () => {
+    expect(out).toMatch(/<p class="[^"]*line-clamp-2[^"]*">Dusty soul chops</);
+    expect(out).toMatch(/<a(?=[^>]*href="\/u\/kilo_beats")(?=[^>]*class="[^"]*\bh-10\b)/);
   });
 });
 

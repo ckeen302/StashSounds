@@ -30,6 +30,16 @@
 }
 
 /*
+ * A result list's own width, not the viewport's: the tags column shows only from 880 px of list
+ * (PR #12 review). ResultList and ResultListSkeleton are the result-list containers.
+ */
+@custom-variant list-wide {
+  @container result-list (width >= 880px) {
+    @slot;
+  }
+}
+
+/*
  * Container widths, for layouts that follow their own column rather than the window (the rail
  * collapses, so the same window can leave very different room). Put `@container` on the parent.
  */

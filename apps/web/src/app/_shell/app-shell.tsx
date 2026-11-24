@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { useSyncExternalStore, type ReactNode } from "react";
-import { Bell, ButtonLink, Icon, IconButton, IconLink, PanelLeftClose, PanelLeftOpen, Search, SearchInput, ToastViewport, UiLink } from "@stash/ui";
+import { Bell, ButtonLink, Icon, IconButton, IconLink, PanelLeftClose, PanelLeftOpen, Search, SearchInput, ToastViewport, Tooltip, UiLink } from "@stash/ui";
 import { LogoMark } from "../logo-mark";
 import { isCurrent, navItems } from "./nav";
 import { PlayerDock } from "./player-dock";
@@ -43,10 +43,32 @@ function useCollapsed(): boolean {
   );
 }
 
+/** Desktop width, where the rail shows its labels unless collapsed. */
+const DESKTOP = "(min-width: 1024px)";
+
+/** Whether the rail is icons only: always on tablet, and on desktop when collapsed. */
+function useIconOnly(collapsed: boolean): boolean {
+  const desktop = useSyncExternalStore(
+    (l) => {
+      const mq = window.matchMedia(DESKTOP);
+      mq.addEventListener("change", l);
+      return () => mq.removeEventListener("change", l);
+    },
+    () => window.matchMedia(DESKTOP).matches,
+    () => true,
+  );
+  return collapsed || !desktop;
+}
+
+/**
+ * The current destination is marked three ways, never by color alone: the raised fill, a 2 px bar on
+ * the rail's inner edge and, with labels shown, a heavier label (PR #12 review).
+ */
 const railLink = [
-  "flex h-10 items-center justify-center gap-3 rounded-control px-2 text-body-strong text-text-muted transition-colors duration-control",
+  "relative flex h-10 items-center justify-center gap-3 rounded-control px-2 text-body-strong text-text-muted transition-colors duration-control",
   "desktop:justify-start desktop:group-data-collapsed:justify-center",
-  "ui-hover:bg-raised ui-hover:text-text data-current:bg-raised data-current:text-text",
+  "ui-hover:bg-raised ui-hover:text-text data-current:bg-raised data-current:font-semibold data-current:text-text",
+  "before:absolute before:inset-y-2 before:-left-3 before:w-0.5 before:rounded-full before:bg-transparent data-current:before:bg-text",
 ].join(" ");
 
 function Wordmark() {
@@ -56,6 +78,7 @@ function Wordmark() {
 /** Tablet and desktop: the left rail. 232 px with labels on desktop, collapsible to 64; icons only on tablet. */
 function Rail({ pathname }: { pathname: string }) {
   const collapsed = useCollapsed();
+  const iconOnly = useIconOnly(collapsed);
   const toggle = () => writeCollapsed(!collapsed);
   return (
     <nav
@@ -74,17 +97,22 @@ function Rail({ pathname }: { pathname: string }) {
       <ul className="flex flex-1 flex-col gap-1 px-3 py-2">
         {navItems.map((item) => {
           const current = isCurrent(pathname, item);
+          const link = (
+            <UiLink href={item.href} aria-current={current ? "page" : undefined} data-current={current || undefined} className={railLink}>
+              <Icon icon={item.icon} size={20} />
+              <span className="sr-only desktop:not-sr-only desktop:group-data-collapsed:sr-only">{item.label}</span>
+            </UiLink>
+          );
+          // Icons only: the tooltip names the destination for sighted pointer users too.
           return (
             <li key={item.href}>
-              <UiLink
-                href={item.href}
-                aria-current={current ? "page" : undefined}
-                data-current={current || undefined}
-                className={railLink}
-              >
-                <Icon icon={item.icon} size={20} />
-                <span className="sr-only desktop:not-sr-only desktop:group-data-collapsed:sr-only">{item.label}</span>
-              </UiLink>
+              {iconOnly ? (
+                <Tooltip content={item.label} side="right">
+                  {link}
+                </Tooltip>
+              ) : (
+                link
+              )}
             </li>
           );
         })}
@@ -114,7 +142,12 @@ function TabBar({ pathname }: { pathname: string }) {
                 href={item.href}
                 aria-current={current ? "page" : undefined}
                 data-current={current || undefined}
-                className="flex flex-1 flex-col items-center justify-center gap-1 rounded-control text-small text-text-muted data-current:text-text"
+                className={[
+                  "relative flex flex-1 flex-col items-center justify-center gap-1 rounded-control text-small text-text-muted",
+                  // The current tab: brighter, heavier, and a 2 px bar along the top, not color alone.
+                  "data-current:font-semibold data-current:text-text",
+                  "before:absolute before:inset-x-4 before:top-0 before:h-0.5 before:rounded-full before:bg-transparent data-current:before:bg-text",
+                ].join(" ")}
               >
                 <Icon icon={item.icon} size={20} />
                 <span>{item.label}</span>
@@ -166,7 +199,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           e.preventDefault();
           document.getElementById("content")?.focus();
         }}
-        className="sr-only rounded-control border border-border-strong bg-raised px-4 py-2 text-body-strong text-text focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50"
+        className="sr-only rounded-control border border-border-strong bg-raised text-body-strong text-text focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2"
       >
         Skip to content
       </a>
@@ -175,7 +208,8 @@ export function AppShell({ children }: { children: ReactNode }) {
         <div className="flex min-w-0 flex-1 flex-col">
           <TopBar />
           <div className="relative min-h-0 flex-1">
-            <div id="content" tabIndex={-1} className="h-full overflow-y-auto outline-none">
+            {/* After the skip link the content area shows the focus ring, drawn inside so nothing clips it. */}
+            <div id="content" tabIndex={-1} className="h-full overflow-y-auto focus-visible:-outline-offset-2">
               {children}
             </div>
             <ToastViewport />

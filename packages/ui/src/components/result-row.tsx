@@ -15,19 +15,21 @@ import { Waveform } from "./waveform.tsx";
 
 /**
  * Column widths, shared by the header and every row so the numbers line up down the list.
- * Design spec: The result row. Waveform drops out on phone; tags and length drop out below desktop.
- * At 1024 with the 232 px rail the list is only about 744 wide: the title keeps at least 96 px and
- * the tags give way first, showing only the chips that fit whole (they wrap into a clipped line).
+ * Design spec: The result row. Waveform drops out on phone; length drops out below desktop. Tags show
+ * only when the list itself is at least 880 px wide (the list-wide container variant, PR #12 review):
+ * at 1024 with the 232 px rail the list is about 744 wide and the title gets that room instead. Where
+ * tags do show, only the chips that fit whole are drawn (they wrap into a clipped line).
+ * On touch the three actions are 40 px each, so their cell grows to 120 and stays clear of the BPM.
  */
 const col = {
   play: "w-10 shrink-0",
   wave: "hidden w-50 shrink-0 tablet:block",
   title: "min-w-24 flex-1",
-  tags: "hidden h-6 w-44 min-w-0 flex-wrap items-center overflow-hidden desktop:flex",
+  tags: "hidden h-6 w-44 min-w-0 flex-wrap items-center overflow-hidden list-wide:flex",
   key: "hidden w-14 shrink-0 tablet:block",
   bpm: "w-14 shrink-0 text-right",
   len: "hidden w-14 shrink-0 text-right desktop:block",
-  actions: "hidden w-24 shrink-0 justify-end tablet:flex",
+  actions: "hidden w-24 shrink-0 justify-end tablet:flex pointer-coarse:w-30",
 };
 // 12 px between columns: at 1024 with the 232 px rail the spec's columns plus a 96 px title just fit.
 const rowGrid = "flex items-center gap-3 px-3";
@@ -72,7 +74,7 @@ export function ResultList({
   className?: string;
 }) {
   return (
-    <div className={cx("overflow-hidden rounded-panel border border-border bg-surface", className)}>
+    <div className={cx("@container/result-list overflow-hidden rounded-panel border border-border bg-surface", className)}>
       <ResultHeader lengthLabel={lengthLabel} />
       <ul aria-label={label}>{children}</ul>
     </div>
@@ -262,7 +264,7 @@ export function ResultRowSkeleton() {
 /** A list's loading state: header and skeleton rows, announced once. */
 export function ResultListSkeleton({ rows = 4, label = "Loading sounds" }: { rows?: number; label?: string }) {
   return (
-    <div role="status" aria-label={label} className="overflow-hidden rounded-panel border border-border bg-surface">
+    <div role="status" aria-label={label} className="@container/result-list overflow-hidden rounded-panel border border-border bg-surface">
       <ResultHeader />
       <ul>
         {Array.from({ length: rows }, (_, i) => (

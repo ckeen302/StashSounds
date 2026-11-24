@@ -39,6 +39,50 @@ async function expectAdvancing(page: Page, after: number) {
   await expect.poll(async () => secondsOf((await elapsed(page).textContent()) ?? "0:00"), { timeout: 5000 }).toBeGreaterThan(after);
 }
 
+/** Waits until the elapsed time reads something other than `from`. The loop wraps, so "later" is not a safe test. */
+async function expectChanging(page: Page, from: string) {
+  await expect.poll(async () => elapsed(page).textContent(), { timeout: 5000 }).not.toBe(from);
+}
+
+/** Polls until two reads 300 ms apart agree, then returns that reading. */
+async function stableElapsed(page: Page): Promise<string> {
+  let last = await elapsed(page).textContent();
+  await expect
+    .poll(async () => {
+      await page.waitForTimeout(300);
+      const now = await elapsed(page).textContent();
+      const same = now === last;
+      last = now;
+      return same;
+    })
+    .toBe(true);
+  return last ?? "";
+}
+
+/**
+ * Counts React commits through the hook React DevTools uses, which the production build also calls.
+ * Position is read per frame, never set as state, so steady playback should commit almost nothing.
+ */
+async function countCommits(page: Page) {
+  await page.addInitScript(() => {
+    const w = window as unknown as { __commits: number; __REACT_DEVTOOLS_GLOBAL_HOOK__?: unknown };
+    w.__commits = 0;
+    w.__REACT_DEVTOOLS_GLOBAL_HOOK__ = {
+      renderers: new Map(),
+      supportsFiber: true,
+      inject: () => 1,
+      onScheduleFiberRoot: () => {},
+      onCommitFiberRoot: () => {
+        w.__commits++;
+      },
+      onCommitFiberUnmount: () => {},
+      onPostCommitFiberRoot: () => {},
+      checkDCE: () => {},
+    };
+  });
+}
+const commits = (page: Page) => page.evaluate(() => (window as unknown as { __commits: number }).__commits);
+
 test("playback survives client navigation by the rail", async ({ page }) => {
   await serveAudio(page);
   await page.goto("/dev/player");
@@ -47,8 +91,11 @@ test("playback survives client navigation by the rail", async ({ page }) => {
   await expect(player(page).getByRole("link", { name: "Midnight keys" })).toBeVisible();
   await expectAdvancing(page, 0);
 
-  // A marker on window survives only a client-side navigation.
+  // A marker on window survives only a client-side navigation; one on the bar and the rail survives
+  // only if they were not remounted.
   await page.evaluate(() => ((window as unknown as { __stay: number }).__stay = 1));
+  await player(page).evaluate((el) => ((el as unknown as { __kept: number }).__kept = 1));
+  await page.getByRole("navigation", { name: "Main" }).evaluate((el) => ((el as unknown as { __kept: number }).__kept = 1));
   const nav = page.getByRole("navigation", { name: "Main" });
   await nav.getByRole("link", { name: "Home" }).click();
   await expect(page).toHaveURL("/");
@@ -61,18 +108,39 @@ test("playback survives client navigation by the rail", async ({ page }) => {
   await expect(page).toHaveURL("/dev/player");
   await expect(page.getByRole("heading", { name: "Player" })).toBeVisible();
   expect(await page.evaluate(() => (window as unknown as { __stay?: number }).__stay)).toBe(1);
+  expect(await player(page).evaluate((el) => (el as unknown as { __kept?: number }).__kept)).toBe(1);
+  expect(await page.getByRole("navigation", { name: "Main" }).evaluate((el) => (el as unknown as { __kept?: number }).__kept)).toBe(1);
 
   await expect(player(page).getByRole("button", { name: "Pause Midnight keys" })).toBeVisible();
-  const before = secondsOf((await elapsed(page).textContent()) ?? "0:00");
-  await expectAdvancing(page, before);
-  expect(await page.evaluate(() => (window as unknown as { __contexts: number }).__contexts)).toBe(1);
+  await expectChanging(page, (await elapsed(page).textContent()) ?? "");
 
   // The bar controls the engine: pause holds the time.
   await player(page).getByRole("button", { name: "Pause Midnight keys" }).click();
   await expect(player(page).getByRole("button", { name: "Play Midnight keys" })).toBeVisible();
-  const held = await elapsed(page).textContent();
+  const held = await stableElapsed(page);
   await page.waitForTimeout(1200);
   expect(await elapsed(page).textContent()).toBe(held);
+
+  // Resume, then Next: still the one audio context the engine made for the session.
+  await player(page).getByRole("button", { name: "Play Midnight keys" }).click();
+  await expectChanging(page, held);
+  await player(page).getByRole("button", { name: "Next" }).click();
+  await expect(player(page).getByRole("button", { name: "Pause Trap bells in F sharp" })).toBeVisible();
+  expect(await page.evaluate(() => (window as unknown as { __contexts: number }).__contexts)).toBe(1);
+});
+
+test("steady playback does not re-render the app", async ({ page }) => {
+  await serveAudio(page);
+  await countCommits(page);
+  await page.goto("/dev/player");
+  await page.getByRole("list", { name: "Fixture loops" }).getByRole("button", { name: "Play Midnight keys" }).click();
+  await expect(player(page).getByRole("button", { name: "Pause Midnight keys" })).toBeVisible();
+  await expectAdvancing(page, 0);
+  const start = await commits(page);
+  expect(start).toBeGreaterThan(0); // the hook is live
+  await page.waitForTimeout(1000);
+  // About 60 frames went by. A handful of commits (a status or duration change) is fine; one per frame is not.
+  expect((await commits(page)) - start).toBeLessThanOrEqual(3);
 });
 
 test("next and previous move through the list that started playback", async ({ page }) => {
@@ -100,9 +168,18 @@ test("on a phone the tab bar navigates and the mini player opens the full sheet"
   await expect(tabs.getByRole("link", { name: "Home" })).toHaveAttribute("aria-current", "page");
   await expect(player(page).getByRole("button", { name: "Pause Midnight keys" })).toBeVisible();
 
-  await player(page).getByRole("button", { name: "Open player" }).click();
+  // The current tab carries a 2 px marker, not color alone.
+  const marker = (name: string) => tabs.getByRole("link", { name }).evaluate((el) => getComputedStyle(el, "::before").height);
+  expect(await marker("Home")).toBe("2px");
+  expect(await tabs.getByRole("link", { name: "Browse" }).evaluate((el) => getComputedStyle(el, "::before").backgroundColor)).toBe("rgba(0, 0, 0, 0)");
+
+  const open = player(page).getByRole("button", { name: "Open player" });
+  expect((await open.boundingBox())?.height).toBeGreaterThanOrEqual(40);
+  await open.click();
   const sheet = page.getByRole("dialog", { name: "Midnight keys" });
   await expect(sheet).toBeVisible();
+  expect((await sheet.getByRole("link", { name: "@nova" }).boundingBox())?.height).toBeGreaterThanOrEqual(40);
+  await expect(sheet.getByRole("heading", { name: "Midnight keys" })).toHaveCSS("-webkit-line-clamp", "2");
   await expect(sheet.getByRole("slider", { name: /^Seek/ })).toBeVisible();
   await expect(sheet.getByRole("button", { name: "Pause Midnight keys" })).toBeVisible();
   await page.keyboard.press("Escape");
@@ -124,6 +201,18 @@ test("the volume is remembered across visits", async ({ page }) => {
   await expect(player(page).getByRole("slider", { name: "Volume" })).toHaveAttribute("aria-valuetext", "0 percent");
   await player(page).getByRole("button", { name: "Mute" }).click();
   await expect(player(page).getByRole("slider", { name: "Volume" })).toHaveAttribute("aria-valuetext", "60 percent");
+  // And across a reload while muted: unmute returns to 60, not the default.
+  await player(page).getByRole("button", { name: "Mute" }).click();
+  await page.reload();
+  await expect(player(page).getByRole("slider", { name: "Volume" })).toHaveAttribute("aria-valuetext", "0 percent");
+  await player(page).getByRole("button", { name: "Mute" }).click();
+  await expect(player(page).getByRole("slider", { name: "Volume" })).toHaveAttribute("aria-valuetext", "60 percent");
+});
+
+test("a blank stored volume is no value, not silence", async ({ page }) => {
+  await page.addInitScript(() => window.localStorage.setItem("stash.volume", ""));
+  await page.goto("/dev/player");
+  await expect(player(page).getByRole("slider", { name: "Volume" })).toHaveAttribute("aria-valuetext", "80 percent");
 });
 
 test("the frame has its landmarks, a skip link, and passes the accessibility scan", async ({ page }) => {
@@ -139,8 +228,12 @@ test("the frame has its landmarks, a skip link, and passes the accessibility sca
   const skip = page.getByRole("link", { name: "Skip to content" });
   await expect(skip).toBeFocused();
   await expect(skip).toBeVisible();
+  await expect(skip).toHaveCSS("padding", "8px 16px");
   await page.keyboard.press("Enter");
-  await expect(page.locator("#content")).toBeFocused();
+  const content = page.locator("#content");
+  await expect(content).toBeFocused();
+  await expect(content).toHaveCSS("outline-style", "solid");
+  await expect(content).toHaveCSS("outline-width", "2px");
 
   const axe = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze();
   expect(axe.violations.map((v) => `${v.id}: ${v.help}`)).toEqual([]);
@@ -182,7 +275,10 @@ test("at 1024 with the 232 px rail, long titles truncate and nothing overflows",
   for (const width of await titles.evaluateAll((els) => els.map((el) => el.clientWidth))) expect(width).toBeGreaterThanOrEqual(96);
   const title = list.getByRole("link", { name: /^Late night R&B pad/ });
   expect(await title.evaluate((el) => el.scrollWidth > el.clientWidth && getComputedStyle(el).textOverflow === "ellipsis")).toBe(true);
-  // Tags give way first: no chip is cut, each shown one sits wholly inside its column.
+  // Below an 880 px list the tags column is not shown at all, so the title gets the room.
+  expect(await list.evaluate((el) => el.getBoundingClientRect().width)).toBeLessThan(880);
+  await expect(list.locator("li").first().locator(":scope > div:nth-child(4)")).toBeHidden();
+  // Had it shown, no chip would be cut: each shown one sits wholly inside its column.
   const cut = await list.locator("li").evaluateAll((rows) =>
     rows.flatMap((row) => {
       const cell = row.querySelector(":scope > div:nth-child(4)") as HTMLElement | null;
@@ -205,8 +301,40 @@ test("at 1024 with the 232 px rail, long titles truncate and nothing overflows",
   await list.getByRole("button", { name: /^Play Late night R&B pad/ }).click();
   const barTitle = player(page).getByRole("link", { name: /^Late night R&B pad/ });
   await expect(barTitle).toBeVisible();
-  expect(await barTitle.evaluate((el) => el.scrollWidth > el.clientWidth && getComputedStyle(el).textOverflow === "ellipsis")).toBe(true);
+  // The link is the tap target; the text inside it is what truncates.
+  expect(await barTitle.locator("span").evaluate((el) => el.scrollWidth > el.clientWidth && getComputedStyle(el).textOverflow === "ellipsis")).toBe(true);
   expect(await player(page).evaluate((el) => el.scrollWidth <= el.clientWidth)).toBe(true);
+});
+
+test("on a wide list the tags column shows", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/dev/player");
+  const list = page.getByRole("list", { name: "Fixture loops" });
+  expect(await list.evaluate((el) => el.getBoundingClientRect().width)).toBeGreaterThanOrEqual(880);
+  await expect(list.locator("li").first().locator(":scope > div:nth-child(4)")).toBeVisible();
+  await expect(list.locator("li").first().getByText("soul", { exact: true })).toBeVisible();
+});
+
+test.describe("on a touch tablet", () => {
+  test.use({ viewport: { width: 800, height: 900 }, hasTouch: true });
+
+  test("the row actions sit clear of the BPM and are 40 px targets", async ({ page }) => {
+    await page.goto("/dev/player");
+    expect(await page.evaluate(() => matchMedia("(pointer: coarse)").matches)).toBe(true);
+    const rows = page.getByRole("list", { name: "Fixture loops" }).locator("li");
+    const overlaps = await rows.evaluateAll((els) =>
+      els.flatMap((row) => {
+        const cells = [...row.children] as HTMLElement[];
+        const bpm = cells[5]!.getBoundingClientRect();
+        const actions = cells[7]!;
+        return [...actions.querySelectorAll("button")]
+          .map((b) => b.getBoundingClientRect())
+          .filter((b) => b.width < 40 || b.left < bpm.right || b.right > row.getBoundingClientRect().right + 0.5)
+          .map((b) => `${row.textContent?.slice(0, 20)}: ${b.left}..${b.right} vs BPM to ${bpm.right}`);
+      }),
+    );
+    expect(overlaps).toEqual([]);
+  });
 });
 
 test("on a tablet the rail is icons only and the bar fits without the waveform", async ({ page }) => {
@@ -221,6 +349,16 @@ test("on a tablet the rail is icons only and the bar fits without the waveform",
   expect((await player(page).boundingBox())?.height).toBe(64);
   expect(await player(page).evaluate((el) => el.scrollWidth <= el.clientWidth)).toBe(true);
   await expect(player(page).getByRole("slider", { name: "Volume" })).toBeVisible();
+  // No waveform here, so the progress line along the top shows where the loop is.
+  await expect(player(page).locator("[data-player-progress]")).toBeVisible();
+  // The title and the handle are each a 40 px tap target.
+  for (const name of [/^Late night R&B pad/, "@deja_on_keys"]) {
+    expect((await player(page).getByRole("link", { name }).boundingBox())?.height).toBeGreaterThanOrEqual(40);
+  }
+
+  // The icon-only rail names each destination in a tooltip.
+  await rail.getByRole("link", { name: "Library" }).hover();
+  await expect(page.getByRole("tooltip", { name: "Library" })).toBeVisible();
 });
 
 test("the bar is 72 px on desktop and the mini player 56 on a phone", async ({ page }) => {
@@ -230,6 +368,20 @@ test("the bar is 72 px on desktop and the mini player 56 on a phone", async ({ p
   await expect.poll(async () => (await player(page).boundingBox())?.height).toBe(56);
   expect((await page.getByRole("navigation", { name: "Tabs" }).boundingBox())?.height).toBe(56);
   expect((await page.getByRole("banner").boundingBox())?.height).toBe(48);
+});
+
+test("on desktop toasts sit 400 px wide, 24 px from the right edge and above the player", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/dev/player");
+  await page.getByRole("button", { name: "Show a toast" }).click();
+  const toast = page.getByRole("region", { name: /Notifications/ }).getByRole("listitem").first();
+  await expect(toast).toBeVisible();
+  await page.waitForTimeout(400);
+  const box = (await toast.boundingBox())!;
+  const bar = (await player(page).boundingBox())!;
+  expect(box.width).toBe(400);
+  expect(1440 - (box.x + box.width)).toBe(24);
+  expect(bar.y - (box.y + box.height)).toBe(24);
 });
 
 test("on a phone toasts sit full width, 12 px from the edges, above the mini player", async ({ page }) => {

@@ -69,7 +69,8 @@ export function Slider({
       // Width comes from the caller (w-24 in the player); a full-width default would override it.
       className={cx("group relative flex h-8 touch-none select-none items-center pointer-coarse:h-10", disabled ? "cursor-not-allowed" : "cursor-pointer", className ?? "w-full")}
     >
-      <S.Track className="relative h-1 grow overflow-hidden rounded-full bg-border">
+      {/* The unfilled track is border-strong: it marks the control's extent, so it must clear 3 to 1. */}
+      <S.Track className="relative h-1 grow overflow-hidden rounded-full bg-border-strong group-data-disabled:bg-border">
         <S.Range className="absolute h-full rounded-full bg-text-muted group-data-disabled:bg-border-strong group-hover:bg-text group-data-hover:bg-text group-data-dragging:bg-text" />
       </S.Track>
       <S.Thumb

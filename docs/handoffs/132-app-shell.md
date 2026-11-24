@@ -277,3 +277,80 @@ $ STASH_DEV_PAGES=1 pnpm e2e
 $ STASH_DEV_PAGES=1 pnpm visual
   85 passed (29.9s)
 ```
+
+## Review round (PR #12)
+Tests first (`f3a7fab`), then the fixes (`abfb22f`), then a merge of `origin/phase-0/foundations`
+(75f06c8; docs only).
+
+### Design
+| # | Finding | Done |
+|---|---|---|
+| 1 (blocking) | Touch tablet: actions cover BPM | The actions cell is `w-24 pointer-coarse:w-30`: three 40 px targets in 120 px. New e2e at 800 px with `hasTouch` checks `(pointer: coarse)` matches, and that each action is at least 40 px wide, starts right of the BPM cell and stays inside the row. |
+| 2 | Tags only from an 880 px list | `ResultList` and `ResultListSkeleton` are `@container/result-list`. A `list-wide` custom variant in `components.css` (`@container result-list (width >= 880px)`) shows the tags cell. The 1024 truncation test now asserts the list is under 880 px and the tags cell is hidden. A new 1440 test asserts it shows. |
+| 3 | Skip link padding, content ring | `focus:px-4 focus:py-2` (plain `px-4 py-2` lost to `not-sr-only`'s `padding: 0`). `#content` drops `outline-none` and takes the theme's `:focus-visible` ring, drawn inset (`-outline-offset-2`) so the overflow does not clip it. A mouse click inside content shows no ring. |
+| 4 | Tablet progress | The 2 px progress line now shows below desktop (it was phone only). e2e checks `[data-player-progress]` is visible at 800. |
+| 5 | Open player 40 px | `h-10`, centered. e2e checks the height. |
+| 6 | 40 px handle and title | Sheet: the handle link is `inline-flex h-10`. Tablet bar: two stacked 40 px links do not fit a 64 px bar, so on tablet the title and the handle share one line, each `h-10`. The handle is capped at 160 px and both truncate. Desktop keeps the stacked pair. e2e checks both heights at 800. |
+| 7 | Sheet title | `line-clamp-2` in the sheet and its gallery preview. |
+| 8 | Slider track | `bg-border-strong`; disabled goes back to `bg-border`. |
+| 9 | Current tab, rail tooltips | Tab bar and rail: the current destination gets a 2 px `text`-colored bar (top of the tab, inner edge of the rail) and `font-semibold`. I used text, not the accent, because the accent means "live". When the rail is icons only (tablet, or collapsed on desktop, read through `matchMedia`), each link is wrapped in a right-side `Tooltip`. e2e checks the marker and the Library tooltip. |
+| 10 | 800 px visual | The projects are in `playwright.config.ts`, which the lead owns: docs/requests/132-visual-tablet-project.md. Meanwhile `e2e/visual/screens.spec.ts` has a "tablet frame" block at an 800 px viewport, run once in `visual-laptop`. |
+| nit | Placeholder repeats h1 | The empty state now reads "This screen is on the way". |
+
+### Tests
+- **A1:** a marker property goes on the player `<section>` and the rail `<nav>` DOM nodes before Home → back. The test asserts both are still there, so a remount fails.
+- **A2:** "steady playback does not re-render the app". A stub `__REACT_DEVTOOLS_GLOBAL_HOOK__` counts commits, and the production build calls it too. Over 1 s of playback (about 60 frames) the test allows at most 3 commits. It also asserts the count was above 0 before, so the hook is known to be live.
+- **A3:** "advancing" became "changed from what it read", because the loop wraps. `held` is read only after two reads 300 ms apart agree.
+- **A4:** the single-AudioContext assertion moved to the end, after pause, resume and Next.
+- **A5:** desktop toast e2e at 1440: the toast is 400 px wide, 24 px from the right edge and 24 px above the bar.
+
+### Security
+- **S1:** `readVolume` treats a blank or whitespace-only value as no value (`Number("")` is 0). This has a unit test and an e2e test, which expects 80 percent.
+- **S2:** `rememberVolume(storage, previous, next)` stores `stash.volume.unmute` when an audible level goes to 0. `PlayerDock` reads it on its first client render and passes `unmuteVolume` to `PlayerBar` and `PlayerSheet`; the level the caller remembers beats the bar's own state. The e2e mutes, reloads and unmutes, and gets 60 percent back.
+- **S3:** `apps/web/src/app/dev/player/page.test.ts` covers three things: a 404 digest without `STASH_DEV_PAGES=1`, a render with the flag, and `dynamic = "force-dynamic"`.
+
+### Not run here
+`pnpm visual` needs Docker, which is not available in this container; CI runs it. Expect baseline
+diffs. The slider track is lighter. The tab bar and rail show the current marker. The tablet
+player-bar layout changed. Any gallery result list under 880 px loses its tags column. The new
+`shell-tablet-*` shots have no baseline yet. They need `pnpm visual:update` where Docker is
+available.
+
+### Command output
+```
+$ pnpm check
+apps/web typecheck: Done
+packages/contracts typecheck: Done
+packages/audio typecheck: Done
+packages/ui typecheck: Done
+(eslint . --max-warnings 0: clean, exit 0)
+
+$ pnpm test
+ Test Files  14 passed (14)
+      Tests  286 passed (286)
+
+$ STASH_E2E_PORT=3132 pnpm e2e
+  ✓ playback survives client navigation by the rail
+  ✓ steady playback does not re-render the app
+  ✓ next and previous move through the list that started playback
+  ✓ on a phone the tab bar navigates and the mini player opens the full sheet
+  ✓ the volume is remembered across visits
+  ✓ a blank stored volume is no value, not silence
+  ✓ the frame has its landmarks, a skip link, and passes the accessibility scan
+  ✓ only the content area scrolls
+  ✓ the rail collapses to 64 and remembers it
+  ✓ at 1024 with the 232 px rail, long titles truncate and nothing overflows
+  ✓ on a wide list the tags column shows
+  ✓ on a touch tablet › the row actions sit clear of the BPM and are 40 px targets
+  ✓ on a tablet the rail is icons only and the bar fits without the waveform
+  ✓ the bar is 72 px on desktop and the mini player 56 on a phone
+  ✓ on desktop toasts sit 400 px wide, 24 px from the right edge and above the player
+  ✓ on a phone toasts sit full width, 12 px from the edges, above the mini player
+  51 passed (34.6s)
+
+$ STASH_E2E_PORT=3132 pnpm e2e --repeat-each=3 --grep shell   (flake check)
+  48 passed (41.4s)
+```
+
+### Requests filed
+- docs/requests/132-visual-tablet-project.md

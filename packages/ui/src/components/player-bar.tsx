@@ -33,6 +33,8 @@ export type PlayerBarProps = {
   onNext?: () => void;
   volume: number;
   onVolumeChange: (volume: number) => void;
+  /** The level unmute returns to when the caller remembers one (across a reload, say). */
+  unmuteVolume?: number;
   /** The region's name; the gallery tells its specimens apart with it. */
   label?: string;
   /** Phone: tapping the mini player opens the full sheet. */
@@ -82,7 +84,7 @@ function Elapsed({ getPositionMs, durationMs, running }: { getPositionMs: () => 
   );
 }
 
-/** The mini player's 2 px progress line along its top edge (phone). */
+/** The 2 px progress line along the bar's top edge, on phone and tablet where there is no waveform. */
 function ProgressLine({ getPositionMs, durationMs, running, lit }: { getPositionMs: () => number; durationMs: number; running: boolean; lit: boolean }) {
   const ref = useRef<HTMLSpanElement>(null);
   const frame = useCallback(() => {
@@ -90,7 +92,7 @@ function ProgressLine({ getPositionMs, durationMs, running, lit }: { getPosition
   }, [getPositionMs, durationMs]);
   useFrameLoop(frame, running);
   return (
-    <span aria-hidden="true" className="absolute inset-x-0 top-0 h-0.5 bg-border tablet:hidden">
+    <span aria-hidden="true" data-player-progress="" className="absolute inset-x-0 top-0 h-0.5 bg-border desktop:hidden">
       <span ref={ref} className={cx("block h-full w-progress", lit ? "bg-accent" : "bg-text-muted")} />
     </span>
   );
@@ -105,9 +107,10 @@ function Readout({ label, value }: { label: string; value: string }) {
   );
 }
 
-function Volume({ volume, onVolumeChange, className }: Pick<PlayerBarProps, "volume" | "onVolumeChange"> & { className?: string }) {
-  // Mute remembers the level to come back to.
-  const [restore, setRestore] = useState(volume > 0 ? volume : 0.8);
+function Volume({ volume, onVolumeChange, unmuteVolume, className }: Pick<PlayerBarProps, "volume" | "onVolumeChange" | "unmuteVolume"> & { className?: string }) {
+  // Mute remembers the level to come back to; a level the caller remembers wins.
+  const [own, setRestore] = useState(volume > 0 ? volume : 0.8);
+  const restore = unmuteVolume ?? own;
   const muted = volume === 0;
   return (
     // The caller sets the display (hidden on phone in the bar), so it is not set here to fight it.
@@ -134,7 +137,7 @@ function Volume({ volume, onVolumeChange, className }: Pick<PlayerBarProps, "vol
  * accent. The position is read from the engine in an animation frame, never from React state.
  */
 export function PlayerBar(props: PlayerBarProps) {
-  const { item, status, getPositionMs, onPlayPause, onSeek, onPrevious, onNext, volume, onVolumeChange, onOpenSheet, label = "Player", className } = props;
+  const { item, status, getPositionMs, onPlayPause, onSeek, onPrevious, onNext, volume, onVolumeChange, unmuteVolume, onOpenSheet, label = "Player", className } = props;
   const durationMs = durationOf(props);
   const running = status === "playing";
   const idle = !item || status === "idle";
@@ -172,18 +175,37 @@ export function PlayerBar(props: PlayerBarProps) {
         <>
           {/* Phone: the whole text area opens the sheet. */}
           {onOpenSheet && (
-            <button type="button" aria-label="Open player" onClick={onOpenSheet} className="flex min-w-0 flex-1 flex-col items-start rounded-control text-left tablet:hidden">
+            <button
+              type="button"
+              aria-label="Open player"
+              onClick={onOpenSheet}
+              className="flex h-10 min-w-0 flex-1 flex-col items-start justify-center rounded-control text-left tablet:hidden"
+            >
               <span className="w-full truncate text-body-strong text-text">{title}</span>
               <span className="w-full truncate text-small text-text-muted">@{item.owner.handle}</span>
             </button>
           )}
-          {/* The title never shrinks below 128 px; at 1024 with everything shown it keeps about 160. */}
-          <div className={cx("min-w-32 flex-1 flex-col", onOpenSheet ? "hidden tablet:flex" : "flex")}>
-            <UiLink href={item.href} className="block truncate rounded-control text-body-strong text-text ui-hover:underline">
-              {title}
+          {/*
+            The title never shrinks below 128 px; at 1024 with everything shown it keeps about 160.
+            Tablet: title and handle share one line so each is a 40 px tap target inside the 64 px bar.
+          */}
+          <div
+            className={cx(
+              "min-w-32 flex-1 items-center gap-2 desktop:flex-col desktop:items-start desktop:gap-0",
+              onOpenSheet ? "hidden tablet:flex" : "flex",
+            )}
+          >
+            <UiLink
+              href={item.href}
+              className="flex h-10 min-w-0 items-center rounded-control text-body-strong text-text ui-hover:underline desktop:block desktop:h-auto desktop:max-w-full"
+            >
+              <span className="block min-w-0 truncate">{title}</span>
             </UiLink>
-            <UiLink href={`/u/${item.owner.handle}`} className="block truncate rounded-control text-small text-text-muted ui-hover:text-text">
-              @{item.owner.handle}
+            <UiLink
+              href={`/u/${item.owner.handle}`}
+              className="flex h-10 max-w-40 shrink-0 items-center rounded-control text-small text-text-muted ui-hover:text-text desktop:block desktop:h-auto desktop:max-w-full"
+            >
+              <span className="block min-w-0 truncate">@{item.owner.handle}</span>
             </UiLink>
           </div>
 
@@ -209,7 +231,7 @@ export function PlayerBar(props: PlayerBarProps) {
         </>
       )}
 
-      <Volume volume={volume} onVolumeChange={onVolumeChange} className="hidden shrink-0 tablet:flex" />
+      <Volume volume={volume} onVolumeChange={onVolumeChange} unmuteVolume={unmuteVolume} className="hidden shrink-0 tablet:flex" />
     </section>
   );
 }
@@ -245,7 +267,7 @@ export function PlayerSheet(props: PlayerSheetProps) {
         >
           <SheetBody
             {...controls}
-            title={<D.Title className="truncate text-title text-text">{controls.item.title}</D.Title>}
+            title={<D.Title className="line-clamp-2 text-title text-text">{controls.item.title}</D.Title>}
             close={
               <D.Close asChild>
                 <IconButton icon={ChevronDown} label="Close player" size="md" />
@@ -264,7 +286,7 @@ export function PlayerSheetPreview(props: Omit<PlayerSheetProps, "open" | "onOpe
     <div inert className="w-full max-w-95 rounded-panel border border-border bg-bg">
       <SheetBody
         {...props}
-        title={<p className="truncate text-title text-text">{props.item.title}</p>}
+        title={<p className="line-clamp-2 text-title text-text">{props.item.title}</p>}
         close={<IconButton icon={ChevronDown} label="Close player" size="md" />}
       />
     </div>
@@ -272,7 +294,7 @@ export function PlayerSheetPreview(props: Omit<PlayerSheetProps, "open" | "onOpe
 }
 
 function SheetBody(props: Omit<PlayerSheetProps, "open" | "onOpenChange"> & { title: ReactNode; close: ReactNode }) {
-  const { item, status, getPositionMs, onPlayPause, onSeek, onPrevious, onNext, volume, onVolumeChange, title, close } = props;
+  const { item, status, getPositionMs, onPlayPause, onSeek, onPrevious, onNext, volume, onVolumeChange, unmuteVolume, title, close } = props;
   const durationMs = durationOf(props);
   const running = status === "playing";
   const getProgress = useCallback(() => playerFraction(getPositionMs(), durationMs), [getPositionMs, durationMs]);
@@ -284,7 +306,7 @@ function SheetBody(props: Omit<PlayerSheetProps, "open" | "onOpenChange"> & { ti
       </div>
       <div className="flex min-w-0 flex-col gap-1">
         {title}
-        <UiLink href={`/u/${item.owner.handle}`} className="self-start rounded-control text-small text-text-muted">
+        <UiLink href={`/u/${item.owner.handle}`} className="inline-flex h-10 items-center self-start rounded-control text-small text-text-muted">
           @{item.owner.handle}
         </UiLink>
       </div>
@@ -310,7 +332,7 @@ function SheetBody(props: Omit<PlayerSheetProps, "open" | "onOpenChange"> & { ti
       <div className="flex justify-between gap-4">
         <Readout label="BPM" value={item.bpm ? String(Math.round(item.bpm)) : "—"} />
         <Readout label="KEY" value={item.key ? formatKey(item.key) : "—"} />
-        <Volume volume={volume} onVolumeChange={onVolumeChange} className="flex flex-1 justify-end" />
+        <Volume volume={volume} onVolumeChange={onVolumeChange} unmuteVolume={unmuteVolume} className="flex flex-1 justify-end" />
       </div>
     </div>
   );
