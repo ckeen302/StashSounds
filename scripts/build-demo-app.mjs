@@ -15,7 +15,7 @@
 //
 // Usage: node scripts/build-demo-app.mjs   (runs scripts/build-demo.mjs first if the media are missing)
 import { spawnSync } from "node:child_process";
-import { copyFileSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { basename, dirname, join } from "node:path";
 import { pathToFileURL } from "node:url";
@@ -161,6 +161,9 @@ writeFileSync(
   join(out, "demo/midi/samples.json"),
   JSON.stringify(Object.fromEntries(midiFiles.map((f) => [basename(f), readFileSync(f).toString("base64")]))),
 );
+// The SFX tab's sprites (scripts/build-demo-sfx.py makes them; they are committed).
+mkdirSync(join(out, "demo/sfx"), { recursive: true });
+for (const f of readdirSync(join(demoSrc, "sfx/media"))) if (f.endsWith(".mp3")) copyFileSync(join(demoSrc, "sfx/media", f), join(out, "demo/sfx", f));
 const worklet = await import(pathToFileURL(webRequire.resolve("@stash/audio/stretch-worklet-file")).href);
 mkdirSync(join(out, "worklets"), { recursive: true });
 copyFileSync(worklet.stretchWorkletFile, join(out, worklet.STRETCH_WORKLET_PATH.replace(/^\//, "")));

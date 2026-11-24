@@ -1,0 +1,1257 @@
+{
+ "_note": "Public-domain and CC0 recordings from Wikimedia Commons. Each entry keeps its source page, author and license; scripts/build-demo-sfx.py fetches and trims them.",
+ "recordings": [
+  {
+   "file": "File:Lion raring-sound1TamilNadu178.ogg",
+   "cat": "animals",
+   "sub": "big-cats",
+   "name": "Lion roar, male",
+   "tags": [
+    "lion",
+    "roar",
+    "tag",
+    "pierre"
+   ],
+   "length": 12,
+   "license": "PD-self",
+   "author": "த*உழவன்",
+   "page": "https://commons.wikimedia.org/wiki/File%3ALion_raring-sound1TamilNadu178.ogg"
+  },
+  {
+   "file": "File:439280 schots angry-tiger.wav",
+   "cat": "animals",
+   "sub": "big-cats",
+   "name": "Tiger growling and snarling",
+   "tags": [
+    "tiger",
+    "growl",
+    "roar",
+    "dark"
+   ],
+   "length": 10,
+   "license": "cc-zero",
+   "author": "schots",
+   "page": "https://commons.wikimedia.org/wiki/File%3A439280_schots_angry-tiger.wav"
+  },
+  {
+   "file": "File:Wolf howls.ogg",
+   "cat": "animals",
+   "sub": "dogs-wolves",
+   "name": "Wolf howls",
+   "tags": [
+    "wolf",
+    "howl",
+    "night",
+    "dark"
+   ],
+   "length": 12,
+   "license": "PD-USGov-FWS",
+   "author": "U.S. Fish and Wildlife Service",
+   "page": "https://commons.wikimedia.org/wiki/File%3AWolf_howls.ogg"
+  },
+  {
+   "file": "File:Cynomys ludovicianus barking-audio.ogg",
+   "cat": "animals",
+   "sub": "wild",
+   "name": "Prairie dog barking",
+   "tags": [
+    "prairie dog",
+    "bark"
+   ],
+   "length": 8,
+   "license": "PD-user",
+   "author": "W0lfie",
+   "page": "https://commons.wikimedia.org/wiki/File%3ACynomys_ludovicianus_barking-audio.ogg"
+  },
+  {
+   "file": "File:Meow of a pleading cat.oga",
+   "cat": "animals",
+   "sub": "pets",
+   "name": "Cat meowing to go out",
+   "tags": [
+    "cat",
+    "meow"
+   ],
+   "length": 8,
+   "license": "PD-self",
+   "author": "Heismark",
+   "page": "https://commons.wikimedia.org/wiki/File%3AMeow_of_a_pleading_cat.oga"
+  },
+  {
+   "file": "File:Meow of a Siamese cat - freemaster2.wav",
+   "cat": "animals",
+   "sub": "pets",
+   "name": "Siamese cat meow",
+   "tags": [
+    "cat",
+    "meow"
+   ],
+   "length": 8,
+   "license": "Cc-zero",
+   "author": "freemaster2",
+   "page": "https://commons.wikimedia.org/wiki/File%3AMeow_of_a_Siamese_cat_-_freemaster2.wav"
+  },
+  {
+   "file": "File:Socks Clinton meow.wav",
+   "cat": "animals",
+   "sub": "pets",
+   "name": "Socks the cat meows (White House recording)",
+   "tags": [
+    "cat",
+    "meow"
+   ],
+   "length": 8,
+   "license": "PD-USGov",
+   "author": "William J. Clinton Presidential Library",
+   "page": "https://commons.wikimedia.org/wiki/File%3ASocks_Clinton_meow.wav"
+  },
+  {
+   "file": "File:GettingOutImpatient.ogg",
+   "cat": "animals",
+   "sub": "pets",
+   "name": "Impatient cat",
+   "tags": [
+    "cat",
+    "meow"
+   ],
+   "length": 8,
+   "license": "PD-self",
+   "author": "Heismark",
+   "page": "https://commons.wikimedia.org/wiki/File%3AGettingOutImpatient.ogg"
+  },
+  {
+   "file": "File:Small rooster crowing.ogg",
+   "cat": "animals",
+   "sub": "farm",
+   "name": "Small rooster crowing",
+   "tags": [
+    "rooster",
+    "morning",
+    "farm"
+   ],
+   "length": 8,
+   "license": "PD-author",
+   "author": "alys",
+   "page": "https://commons.wikimedia.org/wiki/File%3ASmall_rooster_crowing.ogg"
+  },
+  {
+   "file": "File:Medium rooster crowing.ogg",
+   "cat": "animals",
+   "sub": "farm",
+   "name": "Rooster crowing",
+   "tags": [
+    "rooster",
+    "morning",
+    "farm"
+   ],
+   "length": 8,
+   "license": "PD-author",
+   "author": "alys",
+   "page": "https://commons.wikimedia.org/wiki/File%3AMedium_rooster_crowing.ogg"
+  },
+  {
+   "file": "File:Chickens demanding food.ogg",
+   "cat": "animals",
+   "sub": "farm",
+   "name": "Chickens clucking",
+   "tags": [
+    "chicken",
+    "farm"
+   ],
+   "length": 8,
+   "license": "PD-author",
+   "author": "alys",
+   "page": "https://commons.wikimedia.org/wiki/File%3AChickens_demanding_food.ogg"
+  },
+  {
+   "file": "File:Herd of goats bleating.ogg",
+   "cat": "animals",
+   "sub": "farm",
+   "name": "Herd of goats bleating",
+   "tags": [
+    "goat",
+    "farm"
+   ],
+   "length": 10,
+   "license": "PD-author",
+   "author": "stephan",
+   "page": "https://commons.wikimedia.org/wiki/File%3AHerd_of_goats_bleating.ogg"
+  },
+  {
+   "file": "File:Sheep bleating.ogg",
+   "cat": "animals",
+   "sub": "farm",
+   "name": "Sheep bleating",
+   "tags": [
+    "sheep",
+    "baa",
+    "farm"
+   ],
+   "length": 8,
+   "license": "PD-author",
+   "author": "earthcalling",
+   "page": "https://commons.wikimedia.org/wiki/File%3ASheep_bleating.ogg"
+  },
+  {
+   "file": "File:Wiehern.ogg",
+   "cat": "animals",
+   "sub": "farm",
+   "name": "Horse neighing",
+   "tags": [
+    "horse",
+    "neigh"
+   ],
+   "length": 8,
+   "license": "PD-self",
+   "author": "Hü.",
+   "page": "https://commons.wikimedia.org/wiki/File%3AWiehern.ogg"
+  },
+  {
+   "file": "File:Yellowstone sound library - Bald Eagle - 001.mp3",
+   "cat": "animals",
+   "sub": "birds",
+   "name": "Bald eagle call",
+   "tags": [
+    "eagle",
+    "bird"
+   ],
+   "length": 8,
+   "license": "PD-USGov",
+   "author": "NPS & MSU Acoustic Atlast",
+   "page": "https://commons.wikimedia.org/wiki/File%3AYellowstone_sound_library_-_Bald_Eagle_-_001.mp3"
+  },
+  {
+   "file": "File:Yellowstone sound library - Bald Eagle - 002.mp3",
+   "cat": "animals",
+   "sub": "birds",
+   "name": "Bald eagle calls, close",
+   "tags": [
+    "eagle",
+    "bird"
+   ],
+   "length": 8,
+   "license": "PD-USGov",
+   "author": "NPS & MSU Acoustic Atlast",
+   "page": "https://commons.wikimedia.org/wiki/File%3AYellowstone_sound_library_-_Bald_Eagle_-_002.mp3"
+  },
+  {
+   "file": "File:Bald Eagle Yellowstone National Park.ogg",
+   "cat": "animals",
+   "sub": "birds",
+   "name": "Bald eagle in Yellowstone",
+   "tags": [
+    "eagle",
+    "bird"
+   ],
+   "length": 10,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://commons.wikimedia.org/wiki/File%3ABald_Eagle_Yellowstone_National_Park.ogg"
+  },
+  {
+   "file": "File:Western Gull Golden Gate National Recreation Area.ogg",
+   "cat": "animals",
+   "sub": "birds",
+   "name": "Western gull",
+   "tags": [
+    "gull",
+    "seagull",
+    "beach"
+   ],
+   "length": 8,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://commons.wikimedia.org/wiki/File%3AWestern_Gull_Golden_Gate_National_Recreation_Area.ogg"
+  },
+  {
+   "file": "File:Gulls above the street at dawn.ogg",
+   "cat": "animals",
+   "sub": "birds",
+   "name": "Gulls over a street at dawn",
+   "tags": [
+    "gull",
+    "city",
+    "morning"
+   ],
+   "length": 12,
+   "license": "PD-author",
+   "author": "earthcalling",
+   "page": "https://commons.wikimedia.org/wiki/File%3AGulls_above_the_street_at_dawn.ogg"
+  },
+  {
+   "file": "File:Yellowstone sound library - Canada Geese - 001.mp3",
+   "cat": "animals",
+   "sub": "birds",
+   "name": "Canada geese honking",
+   "tags": [
+    "geese",
+    "bird"
+   ],
+   "length": 10,
+   "license": "PD-USGov",
+   "author": "NPS & MSU Acoustic Atlas",
+   "page": "https://commons.wikimedia.org/wiki/File%3AYellowstone_sound_library_-_Canada_Geese_-_001.mp3"
+  },
+  {
+   "file": "File:Yellowstone sound library - American Robin - 001.mp3",
+   "cat": "animals",
+   "sub": "birds",
+   "name": "American robin singing",
+   "tags": [
+    "robin",
+    "birdsong",
+    "morning"
+   ],
+   "length": 10,
+   "license": "PD-USGov",
+   "author": "NPS & MSU Acoustic Atlast",
+   "page": "https://commons.wikimedia.org/wiki/File%3AYellowstone_sound_library_-_American_Robin_-_001.mp3"
+  },
+  {
+   "file": "File:Yellowstone sound library - Pica hudsonia - 001.mp3",
+   "cat": "animals",
+   "sub": "birds",
+   "name": "Magpie chatter",
+   "tags": [
+    "magpie",
+    "bird"
+   ],
+   "length": 8,
+   "license": "PD-USGov",
+   "author": "NPS & MSU Acoustic Atlas",
+   "page": "https://commons.wikimedia.org/wiki/File%3AYellowstone_sound_library_-_Pica_hudsonia_-_001.mp3"
+  },
+  {
+   "file": "File:Yellow-tailed Black Cockatoos.ogg",
+   "cat": "animals",
+   "sub": "birds",
+   "name": "Black cockatoos, eerie calls",
+   "tags": [
+    "cockatoo",
+    "bird",
+    "eerie"
+   ],
+   "length": 10,
+   "license": "PD-self",
+   "author": "Wardie44",
+   "page": "https://commons.wikimedia.org/wiki/File%3AYellow-tailed_Black_Cockatoos.ogg"
+  },
+  {
+   "file": "File:Parrots perroquets.ogg",
+   "cat": "animals",
+   "sub": "birds",
+   "name": "Parrots squawking",
+   "tags": [
+    "parrot",
+    "bird"
+   ],
+   "length": 10,
+   "license": "PD-author",
+   "author": "aldor",
+   "page": "https://commons.wikimedia.org/wiki/File%3AParrots_perroquets.ogg"
+  },
+  {
+   "file": "File:Crested Serpent Eagle from Dhoni.ogg",
+   "cat": "animals",
+   "sub": "birds",
+   "name": "Crested serpent eagle",
+   "tags": [
+    "eagle",
+    "bird"
+   ],
+   "length": 8,
+   "license": "PD-self",
+   "author": "Raghu.kuttan",
+   "page": "https://commons.wikimedia.org/wiki/File%3ACrested_Serpent_Eagle_from_Dhoni.ogg"
+  },
+  {
+   "file": "File:Yellowstone sound library - Grizzly Bear vocalizations - 001.mp3",
+   "cat": "animals",
+   "sub": "wild",
+   "name": "Grizzly bear growls",
+   "tags": [
+    "bear",
+    "growl",
+    "grizzly",
+    "dark"
+   ],
+   "length": 10,
+   "license": "PD-USGov",
+   "author": "NPS & MSU Acoustic Atlas",
+   "page": "https://commons.wikimedia.org/wiki/File%3AYellowstone_sound_library_-_Grizzly_Bear_vocalizations_-_001.mp3"
+  },
+  {
+   "file": "File:Yellowstone sound library - Grizzly Bears Roar - 001.mp3",
+   "cat": "animals",
+   "sub": "wild",
+   "name": "Grizzly bears roaring",
+   "tags": [
+    "bear",
+    "roar",
+    "grizzly",
+    "dark"
+   ],
+   "length": 10,
+   "license": "PD-USGov",
+   "author": "NPS & MSU Acoustic Atlas",
+   "page": "https://commons.wikimedia.org/wiki/File%3AYellowstone_sound_library_-_Grizzly_Bears_Roar_-_001.mp3"
+  },
+  {
+   "file": "File:Yellowstone sound library - Grizzly Bear Eating - 001.mp3",
+   "cat": "animals",
+   "sub": "wild",
+   "name": "Grizzly bear eating",
+   "tags": [
+    "bear",
+    "grizzly"
+   ],
+   "length": 10,
+   "license": "PD-USGov",
+   "author": "NPS & MSU Acoustic Atlas",
+   "page": "https://commons.wikimedia.org/wiki/File%3AYellowstone_sound_library_-_Grizzly_Bear_Eating_-_001.mp3"
+  },
+  {
+   "file": "File:Rattlesnake.ogg",
+   "cat": "animals",
+   "sub": "wild",
+   "name": "Rattlesnake rattle",
+   "tags": [
+    "snake",
+    "rattle"
+   ],
+   "length": 8,
+   "license": "PD-USGov-FWS",
+   "author": "U.S. Fish and Wildlife Service",
+   "page": "https://commons.wikimedia.org/wiki/File%3ARattlesnake.ogg"
+  },
+  {
+   "file": "File:Humpback whale moo.ogg",
+   "cat": "animals",
+   "sub": "wild",
+   "name": "Humpback whale call",
+   "tags": [
+    "whale",
+    "ocean"
+   ],
+   "length": 12,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://commons.wikimedia.org/wiki/File%3AHumpback_whale_moo.ogg"
+  },
+  {
+   "file": "File:Grasshoppers.ogg",
+   "cat": "animals",
+   "sub": "insects",
+   "name": "Grasshoppers in a field",
+   "tags": [
+    "grasshopper",
+    "insect",
+    "summer"
+   ],
+   "length": 12,
+   "license": "PD-self",
+   "author": "Mysid",
+   "page": "https://commons.wikimedia.org/wiki/File%3AGrasshoppers.ogg"
+  },
+  {
+   "file": "File:Train passing by in the Wirikuta Desert (Mexico, SLP).wav",
+   "cat": "vehicles",
+   "sub": "trains",
+   "name": "Train passing in the desert",
+   "tags": [
+    "train",
+    "pass-by",
+    "horn"
+   ],
+   "length": 16,
+   "license": "cc-zero",
+   "author": "felix.blume (via Freesound)",
+   "page": "https://commons.wikimedia.org/wiki/File%3ATrain_passing_by_in_the_Wirikuta_Desert_%28Mexico%2C_SLP%29.wav"
+  },
+  {
+   "file": "File:AirChime K5LA.ogg",
+   "cat": "vehicles",
+   "sub": "trains",
+   "name": "Locomotive horn, AirChime K5LA",
+   "tags": [
+    "train",
+    "horn",
+    "locomotive"
+   ],
+   "length": 8,
+   "license": "cc-zero",
+   "author": "HarveyHenkelmann",
+   "page": "https://commons.wikimedia.org/wiki/File%3AAirChime_K5LA.ogg"
+  },
+  {
+   "file": "File:Nathan M5.ogg",
+   "cat": "vehicles",
+   "sub": "trains",
+   "name": "Locomotive horn, Nathan M5",
+   "tags": [
+    "train",
+    "horn"
+   ],
+   "length": 8,
+   "license": "cc-zero",
+   "author": "HarveyHenkelmann",
+   "page": "https://commons.wikimedia.org/wiki/File%3ANathan_M5.ogg"
+  },
+  {
+   "file": "File:Leslie S-5T.ogg",
+   "cat": "vehicles",
+   "sub": "trains",
+   "name": "Locomotive horn, Leslie S-5T",
+   "tags": [
+    "train",
+    "horn"
+   ],
+   "length": 8,
+   "license": "cc-zero",
+   "author": "HarveyHenkelmann",
+   "page": "https://commons.wikimedia.org/wiki/File%3ALeslie_S-5T.ogg"
+  },
+  {
+   "file": "File:Nathan P5.ogg",
+   "cat": "vehicles",
+   "sub": "trains",
+   "name": "Locomotive horn, Nathan P5",
+   "tags": [
+    "train",
+    "horn"
+   ],
+   "length": 8,
+   "license": "cc-zero",
+   "author": "HarveyHenkelmann",
+   "page": "https://commons.wikimedia.org/wiki/File%3ANathan_P5.ogg"
+  },
+  {
+   "file": "File:Leslie A200-156.ogg",
+   "cat": "vehicles",
+   "sub": "trains",
+   "name": "Locomotive horn, single tone",
+   "tags": [
+    "train",
+    "horn"
+   ],
+   "length": 8,
+   "license": "cc-zero",
+   "author": "HarveyHenkelmann",
+   "page": "https://commons.wikimedia.org/wiki/File%3ALeslie_A200-156.ogg"
+  },
+  {
+   "file": "File:Train doors closing.ogg",
+   "cat": "vehicles",
+   "sub": "trains",
+   "name": "Train doors closing",
+   "tags": [
+    "train",
+    "doors",
+    "subway"
+   ],
+   "length": 8,
+   "license": "PD-author",
+   "author": "ezwa",
+   "page": "https://commons.wikimedia.org/wiki/File%3ATrain_doors_closing.ogg"
+  },
+  {
+   "file": "File:Tram doors open and close hiss and beeping.ogg",
+   "cat": "vehicles",
+   "sub": "trains",
+   "name": "Tram doors with beeps",
+   "tags": [
+    "tram",
+    "doors",
+    "beep"
+   ],
+   "length": 10,
+   "license": "PD-author",
+   "author": "stephan",
+   "page": "https://commons.wikimedia.org/wiki/File%3ATram_doors_open_and_close_hiss_and_beeping.ogg"
+  },
+  {
+   "file": "File:Sound of AN-24 airplane.ogg",
+   "cat": "vehicles",
+   "sub": "aircraft",
+   "name": "Propeller plane flying over",
+   "tags": [
+    "plane",
+    "propeller",
+    "flyover"
+   ],
+   "length": 14,
+   "license": "PD-user-w",
+   "author": "Grachev.",
+   "page": "https://commons.wikimedia.org/wiki/File%3ASound_of_AN-24_airplane.ogg"
+  },
+  {
+   "file": "File:Airplane Chime Sound Effect.opus",
+   "cat": "vehicles",
+   "sub": "aircraft",
+   "name": "Airplane cabin chime",
+   "tags": [
+    "airplane",
+    "chime",
+    "ding"
+   ],
+   "length": 4,
+   "license": "PD-ineligible",
+   "author": "Wikimedia Commons contributor",
+   "page": "https://commons.wikimedia.org/wiki/File%3AAirplane_Chime_Sound_Effect.opus"
+  },
+  {
+   "file": "File:Helicopter over a lake.ogg",
+   "cat": "vehicles",
+   "sub": "aircraft",
+   "name": "Helicopter over a lake",
+   "tags": [
+    "helicopter"
+   ],
+   "length": 14,
+   "license": "PD-author",
+   "author": "ezwa",
+   "page": "https://commons.wikimedia.org/wiki/File%3AHelicopter_over_a_lake.ogg"
+  },
+  {
+   "file": "File:Helicopter over quiet neighbourhood.ogg",
+   "cat": "vehicles",
+   "sub": "aircraft",
+   "name": "Helicopter over a neighborhood",
+   "tags": [
+    "helicopter",
+    "police"
+   ],
+   "length": 14,
+   "license": "PD-author",
+   "author": "ezwa",
+   "page": "https://commons.wikimedia.org/wiki/File%3AHelicopter_over_quiet_neighbourhood.ogg"
+  },
+  {
+   "file": "File:Sounds-of-Mars -Helicopter Flying on Mars.ogg",
+   "cat": "vehicles",
+   "sub": "aircraft",
+   "name": "Helicopter flying on Mars (NASA)",
+   "tags": [
+    "mars",
+    "nasa",
+    "helicopter",
+    "space"
+   ],
+   "length": 10,
+   "license": "PD-USGov-NASA",
+   "author": "NASA/JPL-Caltech/LANL/CNES/CNRS/ISAE-Supaéro",
+   "page": "https://commons.wikimedia.org/wiki/File%3ASounds-of-Mars_-Helicopter_Flying_on_Mars.ogg"
+  },
+  {
+   "file": "File:Car Horn.wav",
+   "cat": "vehicles",
+   "sub": "horns",
+   "name": "Car horn, real",
+   "tags": [
+    "horn",
+    "honk"
+   ],
+   "length": 6,
+   "license": "cc-zero",
+   "author": "15HPanska_Ruttner_Jan",
+   "page": "https://commons.wikimedia.org/wiki/File%3ACar_Horn.wav"
+  },
+  {
+   "file": "File:Bell-ring.flac",
+   "cat": "vehicles",
+   "sub": "horns",
+   "name": "Bike bell, real",
+   "tags": [
+    "bike",
+    "bell"
+   ],
+   "length": 4,
+   "license": "Cc-zero",
+   "author": "qubodup",
+   "page": "https://commons.wikimedia.org/wiki/File%3ABell-ring.flac"
+  },
+  {
+   "file": "File:USS Gerald R. Ford CVN horn.oga",
+   "cat": "vehicles",
+   "sub": "boats",
+   "name": "Aircraft carrier horn",
+   "tags": [
+    "ship",
+    "horn",
+    "navy",
+    "deep"
+   ],
+   "length": 12,
+   "license": "PD-USGov-Military-Navy",
+   "author": "USN",
+   "page": "https://commons.wikimedia.org/wiki/File%3AUSS_Gerald_R._Ford_CVN_horn.oga"
+  },
+  {
+   "file": "File:USSR bicycle 2T engine D-4.wav",
+   "cat": "vehicles",
+   "sub": "motorcycles",
+   "name": "Two-stroke moped engine",
+   "tags": [
+    "moped",
+    "two stroke",
+    "engine"
+   ],
+   "length": 10,
+   "license": "PD-self",
+   "author": "Віктор Ходєєв /Viktor Khodyeyev",
+   "page": "https://commons.wikimedia.org/wiki/File%3AUSSR_bicycle_2T_engine_D-4.wav"
+  },
+  {
+   "file": "File:American police siren i.ogg",
+   "cat": "sirens",
+   "sub": "police",
+   "name": "American police siren, real",
+   "tags": [
+    "police",
+    "siren",
+    "usa"
+   ],
+   "length": 12,
+   "license": "PD-author",
+   "author": "lezer",
+   "page": "https://commons.wikimedia.org/wiki/File%3AAmerican_police_siren_i.ogg"
+  },
+  {
+   "file": "File:Siren.ogg",
+   "cat": "sirens",
+   "sub": "police",
+   "name": "Siren on the street",
+   "tags": [
+    "siren",
+    "street"
+   ],
+   "length": 12,
+   "license": "PD-author",
+   "author": "mastermesh",
+   "page": "https://commons.wikimedia.org/wiki/File%3ASiren.ogg"
+  },
+  {
+   "file": "File:Doppler effect fast vehicle siren exaggerated.ogg",
+   "cat": "sirens",
+   "sub": "police",
+   "name": "Siren passing, big doppler",
+   "tags": [
+    "siren",
+    "doppler",
+    "pass-by"
+   ],
+   "length": 10,
+   "license": "PD-author",
+   "author": "CeeKay",
+   "page": "https://commons.wikimedia.org/wiki/File%3ADoppler_effect_fast_vehicle_siren_exaggerated.ogg"
+  },
+  {
+   "file": "File:Civil-defense-siren-waver.ogg",
+   "cat": "sirens",
+   "sub": "air-raid",
+   "name": "Civil defense siren, wavering",
+   "tags": [
+    "civil defense",
+    "siren",
+    "warning"
+   ],
+   "length": 16,
+   "license": "PD-self",
+   "author": "Techtonic",
+   "page": "https://commons.wikimedia.org/wiki/File%3ACivil-defense-siren-waver.ogg"
+  },
+  {
+   "file": "File:Civil-defense-siren-constant.ogg",
+   "cat": "sirens",
+   "sub": "air-raid",
+   "name": "Civil defense siren, steady",
+   "tags": [
+    "civil defense",
+    "siren"
+   ],
+   "length": 16,
+   "license": "PD-self",
+   "author": "Techtonic",
+   "page": "https://commons.wikimedia.org/wiki/File%3ACivil-defense-siren-constant.ogg"
+  },
+  {
+   "file": "File:Motorsirene - Feuerwehralarm.ogg",
+   "cat": "sirens",
+   "sub": "air-raid",
+   "name": "Village fire siren, Germany",
+   "tags": [
+    "siren",
+    "fire",
+    "germany"
+   ],
+   "length": 16,
+   "license": "PD-self",
+   "author": "Nallchen",
+   "page": "https://commons.wikimedia.org/wiki/File%3AMotorsirene_-_Feuerwehralarm.ogg"
+  },
+  {
+   "file": "File:Pneumatische Sirene - Alarm.ogg",
+   "cat": "sirens",
+   "sub": "air-raid",
+   "name": "Pneumatic siren alarm",
+   "tags": [
+    "siren",
+    "alarm"
+   ],
+   "length": 16,
+   "license": "PD-self",
+   "author": "Nallchen",
+   "page": "https://commons.wikimedia.org/wiki/File%3APneumatische_Sirene_-_Alarm.ogg"
+  },
+  {
+   "file": "File:BABS - Allgemeiner Alarm.ogg",
+   "cat": "sirens",
+   "sub": "air-raid",
+   "name": "Swiss general alarm siren",
+   "tags": [
+    "siren",
+    "alarm",
+    "switzerland"
+   ],
+   "length": 16,
+   "license": "PD-Switzerland-official",
+   "author": "Swiss Federal Office for Civil Protection (FOCP)",
+   "page": "https://commons.wikimedia.org/wiki/File%3ABABS_-_Allgemeiner_Alarm.ogg"
+  },
+  {
+   "file": "File:NFPA Fire Alarm.ogg",
+   "cat": "sirens",
+   "sub": "ambulance-fire",
+   "name": "Fire alarm, North American standard",
+   "tags": [
+    "fire alarm"
+   ],
+   "length": 8,
+   "license": "PD ineligible",
+   "author": "Awesome Aasim",
+   "page": "https://commons.wikimedia.org/wiki/File%3ANFPA_Fire_Alarm.ogg"
+  },
+  {
+   "file": "File:Toy siren alarm.ogg",
+   "cat": "sirens",
+   "sub": "buzzers",
+   "name": "Toy siren",
+   "tags": [
+    "toy",
+    "siren"
+   ],
+   "length": 8,
+   "license": "PD-author",
+   "author": "stephan",
+   "page": "https://commons.wikimedia.org/wiki/File%3AToy_siren_alarm.ogg"
+  },
+  {
+   "file": "File:Old school bell 1.ogg",
+   "cat": "sirens",
+   "sub": "alarm-clocks",
+   "name": "Old school bell",
+   "tags": [
+    "school",
+    "bell"
+   ],
+   "length": 8,
+   "license": "PD-author",
+   "author": "ezwa",
+   "page": "https://commons.wikimedia.org/wiki/File%3AOld_school_bell_1.ogg"
+  },
+  {
+   "file": "File:Church bells - Leverkusen, 2007.oga",
+   "cat": "sirens",
+   "sub": "alarm-clocks",
+   "name": "Church bells ringing",
+   "tags": [
+    "church",
+    "bells"
+   ],
+   "length": 14,
+   "license": "PD-author",
+   "author": "natalie",
+   "page": "https://commons.wikimedia.org/wiki/File%3AChurch_bells_-_Leverkusen%2C_2007.oga"
+  },
+  {
+   "file": "File:Telephone.ogg",
+   "cat": "phones",
+   "sub": "dialing",
+   "name": "Touch-tone phone dialed and answered (binaural)",
+   "tags": [
+    "phone",
+    "dialing",
+    "real"
+   ],
+   "length": 12,
+   "license": "PD-self",
+   "author": "Dsw4.",
+   "page": "https://commons.wikimedia.org/wiki/File%3ATelephone.ogg"
+  },
+  {
+   "file": "File:Tone dialling phone germany.ogg",
+   "cat": "phones",
+   "sub": "dialing",
+   "name": "Dialing a phone in Germany",
+   "tags": [
+    "phone",
+    "dialing"
+   ],
+   "length": 10,
+   "license": "PD-author",
+   "author": "stephan",
+   "page": "https://commons.wikimedia.org/wiki/File%3ATone_dialling_phone_germany.ogg"
+  },
+  {
+   "file": "File:Dial up modem noises.ogg",
+   "cat": "phones",
+   "sub": "line-tones",
+   "name": "Dial-up modem connecting, real",
+   "tags": [
+    "modem",
+    "internet",
+    "90s"
+   ],
+   "length": 16,
+   "license": "PD-self",
+   "author": "William Termini",
+   "page": "https://commons.wikimedia.org/wiki/File%3ADial_up_modem_noises.ogg"
+  },
+  {
+   "file": "File:Nick121087 - Demonic Woman Scream (cc0) (freesound).mp3",
+   "cat": "human",
+   "sub": "yells",
+   "name": "Demonic woman scream",
+   "tags": [
+    "scream",
+    "horror",
+    "dark"
+   ],
+   "length": 6,
+   "license": "Cc-zero",
+   "author": "nick121087",
+   "page": "https://commons.wikimedia.org/wiki/File%3ANick121087_-_Demonic_Woman_Scream_%28cc0%29_%28freesound%29.mp3"
+  },
+  {
+   "file": "File:Street parade carnival people yelling kamelle kamelle.ogg",
+   "cat": "human",
+   "sub": "crowd",
+   "name": "Carnival crowd yelling",
+   "tags": [
+    "crowd",
+    "yelling",
+    "parade"
+   ],
+   "length": 12,
+   "license": "PD-author",
+   "author": "stephan",
+   "page": "https://commons.wikimedia.org/wiki/File%3AStreet_parade_carnival_people_yelling_kamelle_kamelle.ogg"
+  },
+  {
+   "file": "File:Laughter(s).ogg",
+   "cat": "human",
+   "sub": "reactions",
+   "name": "Laughs, chuckles and giggles",
+   "tags": [
+    "laugh",
+    "laughter"
+   ],
+   "length": 10,
+   "license": "cc-zero",
+   "author": "sagetyrtle",
+   "page": "https://commons.wikimedia.org/wiki/File%3ALaughter%28s%29.ogg"
+  },
+  {
+   "file": "File:Applause i.ogg",
+   "cat": "human",
+   "sub": "reactions",
+   "name": "Applause",
+   "tags": [
+    "applause",
+    "clapping"
+   ],
+   "length": 10,
+   "license": "PD-author",
+   "author": "thore",
+   "page": "https://commons.wikimedia.org/wiki/File%3AApplause_i.ogg"
+  },
+  {
+   "file": "File:277021 sandermotions applause-2.wav",
+   "cat": "human",
+   "sub": "reactions",
+   "name": "Concert hall applause",
+   "tags": [
+    "applause",
+    "concert"
+   ],
+   "length": 12,
+   "license": "cc-zero",
+   "author": "Sandermotions",
+   "page": "https://commons.wikimedia.org/wiki/File%3A277021_sandermotions_applause-2.wav"
+  },
+  {
+   "file": "File:Slow starting applause.ogg",
+   "cat": "human",
+   "sub": "reactions",
+   "name": "Slow-building applause",
+   "tags": [
+    "applause"
+   ],
+   "length": 12,
+   "license": "PD-author",
+   "author": "stephan",
+   "page": "https://commons.wikimedia.org/wiki/File%3ASlow_starting_applause.ogg"
+  },
+  {
+   "file": "File:Crying newborn baby.ogg",
+   "cat": "human",
+   "sub": "reactions",
+   "name": "Newborn baby crying",
+   "tags": [
+    "baby",
+    "crying"
+   ],
+   "length": 8,
+   "license": "cc-zero",
+   "author": "the_yura",
+   "page": "https://commons.wikimedia.org/wiki/File%3ACrying_newborn_baby.ogg"
+  },
+  {
+   "file": "File:Baby long wanting cry.ogg",
+   "cat": "human",
+   "sub": "reactions",
+   "name": "Baby crying",
+   "tags": [
+    "baby",
+    "crying"
+   ],
+   "length": 8,
+   "license": "PD-author",
+   "author": "natalie",
+   "page": "https://commons.wikimedia.org/wiki/File%3ABaby_long_wanting_cry.ogg"
+  },
+  {
+   "file": "File:Man coughing.ogg",
+   "cat": "human",
+   "sub": "body",
+   "name": "Man coughing",
+   "tags": [
+    "cough"
+   ],
+   "length": 6,
+   "license": "PD-author",
+   "author": "stilgar",
+   "page": "https://commons.wikimedia.org/wiki/File%3AMan_coughing.ogg"
+  },
+  {
+   "file": "File:Woman coughing three times.wav",
+   "cat": "human",
+   "sub": "body",
+   "name": "Woman coughing three times",
+   "tags": [
+    "cough"
+   ],
+   "length": 6,
+   "license": "cc-zero",
+   "author": "Ashe Kirk",
+   "page": "https://commons.wikimedia.org/wiki/File%3AWoman_coughing_three_times.wav"
+  },
+  {
+   "file": "File:Man howls like wolf.ogg",
+   "cat": "human",
+   "sub": "reactions",
+   "name": "Man howling like a wolf",
+   "tags": [
+    "howl",
+    "funny",
+    "owoo"
+   ],
+   "length": 8,
+   "license": "PD-author",
+   "author": "stilgar",
+   "page": "https://commons.wikimedia.org/wiki/File%3AMan_howls_like_wolf.ogg"
+  },
+  {
+   "file": "File:Man bleats like goat or.ogg",
+   "cat": "human",
+   "sub": "reactions",
+   "name": "Man bleating like a goat",
+   "tags": [
+    "goat",
+    "funny"
+   ],
+   "length": 6,
+   "license": "PD-author",
+   "author": "stilgar",
+   "page": "https://commons.wikimedia.org/wiki/File%3AMan_bleats_like_goat_or.ogg"
+  },
+  {
+   "file": "File:Explosion-LS100155.ogg",
+   "cat": "weapons",
+   "sub": "explosions",
+   "name": "Explosion, real",
+   "tags": [
+    "explosion",
+    "blast"
+   ],
+   "length": 8,
+   "license": "PD-self",
+   "author": "Fg2",
+   "page": "https://commons.wikimedia.org/wiki/File%3AExplosion-LS100155.ogg"
+  },
+  {
+   "file": "File:Explosions-LS100150.ogg",
+   "cat": "weapons",
+   "sub": "explosions",
+   "name": "Explosions, several",
+   "tags": [
+    "explosion"
+   ],
+   "length": 12,
+   "license": "PD-self",
+   "author": "Fg2",
+   "page": "https://commons.wikimedia.org/wiki/File%3AExplosions-LS100150.ogg"
+  },
+  {
+   "file": "File:Explosion 10.ogg",
+   "cat": "weapons",
+   "sub": "explosions",
+   "name": "Explosion, layered",
+   "tags": [
+    "explosion"
+   ],
+   "length": 8,
+   "license": "PD-self",
+   "author": "tcpp",
+   "page": "https://commons.wikimedia.org/wiki/File%3AExplosion_10.ogg"
+  },
+  {
+   "file": "File:Rain and thunder.ogg",
+   "cat": "ambience",
+   "sub": "weather",
+   "name": "Rain and thunder, real",
+   "tags": [
+    "rain",
+    "thunder",
+    "storm"
+   ],
+   "length": 16,
+   "license": "PD-self",
+   "author": "Caesar",
+   "page": "https://commons.wikimedia.org/wiki/File%3ARain_and_thunder.ogg"
+  },
+  {
+   "file": "File:Thunder and rain on a v.ogg",
+   "cat": "ambience",
+   "sub": "weather",
+   "name": "Thunder and rain on a car",
+   "tags": [
+    "thunder",
+    "rain"
+   ],
+   "length": 16,
+   "license": "PD-author",
+   "author": "ezwa",
+   "page": "https://commons.wikimedia.org/wiki/File%3AThunder_and_rain_on_a_v.ogg"
+  },
+  {
+   "file": "File:Corner of a sheep field in summer.ogg",
+   "cat": "ambience",
+   "sub": "nature",
+   "name": "Summer field with sheep",
+   "tags": [
+    "field",
+    "summer",
+    "nature"
+   ],
+   "length": 16,
+   "license": "PD-author",
+   "author": "earthcalling",
+   "page": "https://commons.wikimedia.org/wiki/File%3ACorner_of_a_sheep_field_in_summer.ogg"
+  },
+  {
+   "file": "File:Bones breaking wood fire ice crackling.ogg",
+   "cat": "ambience",
+   "sub": "nature",
+   "name": "Wood fire crackling",
+   "tags": [
+    "fire",
+    "crackle"
+   ],
+   "length": 14,
+   "license": "PD-author",
+   "author": "stephan",
+   "page": "https://commons.wikimedia.org/wiki/File%3ABones_breaking_wood_fire_ice_crackling.ogg"
+  },
+  {
+   "file": "File:Door handle creaking.ogg",
+   "cat": "foley",
+   "sub": "doors",
+   "name": "Door handle creaking",
+   "tags": [
+    "door",
+    "creak"
+   ],
+   "length": 6,
+   "license": "PD-author",
+   "author": "stephan",
+   "page": "https://commons.wikimedia.org/wiki/File%3ADoor_handle_creaking.ogg"
+  },
+  {
+   "file": "File:Rusty metal door clasp.ogg",
+   "cat": "foley",
+   "sub": "doors",
+   "name": "Rusty metal clasp",
+   "tags": [
+    "metal",
+    "door",
+    "rusty"
+   ],
+   "length": 6,
+   "license": "PD-author",
+   "author": "stephan",
+   "page": "https://commons.wikimedia.org/wiki/File%3ARusty_metal_door_clasp.ogg"
+  },
+  {
+   "file": "File:Metal cabinet door jarring.ogg",
+   "cat": "foley",
+   "sub": "doors",
+   "name": "Metal cabinet door",
+   "tags": [
+    "metal",
+    "door"
+   ],
+   "length": 6,
+   "license": "PD-author",
+   "author": "stephan",
+   "page": "https://commons.wikimedia.org/wiki/File%3AMetal_cabinet_door_jarring.ogg"
+  },
+  {
+   "file": "File:Doorbell-old-tring.ogg",
+   "cat": "foley",
+   "sub": "doors",
+   "name": "Old doorbell",
+   "tags": [
+    "doorbell"
+   ],
+   "length": 5,
+   "license": "PD-self",
+   "author": "Wikimedia Commons contributor",
+   "page": "https://commons.wikimedia.org/wiki/File%3ADoorbell-old-tring.ogg"
+  },
+  {
+   "file": "File:Doorbell-classic-dingdong.ogg",
+   "cat": "foley",
+   "sub": "doors",
+   "name": "Ding-dong doorbell",
+   "tags": [
+    "doorbell",
+    "ding dong"
+   ],
+   "length": 5,
+   "license": "PD-self",
+   "author": "Wikimedia Commons contributor",
+   "page": "https://commons.wikimedia.org/wiki/File%3ADoorbell-classic-dingdong.ogg"
+  }
+ ]
+}
