@@ -26,6 +26,8 @@ const VOLUME_S = 0.01;
 const LEAD_S = 0.02;
 /** Minimum loop audio laid either side of the loop in the stretch's buffer (also at least 2x its latency). */
 const PAD_S = 1;
+/** How long the stretch may take to load, and then to answer latency(), before the loop plays on without it. */
+const STRETCH_TIMEOUT_MS = 3000;
 
 export interface EngineDeps {
   /** Called once, on the first gesture. Defaults to the browser's AudioContext. */
@@ -35,6 +37,8 @@ export interface EngineDeps {
   loadStretch?: (ctx: AudioContextLike) => Promise<StretchNodeLike>;
   /** Waits about this many seconds of audio clock. Defaults to a timer. */
   sleep?: (seconds: number) => Promise<void>;
+  /** Wall-clock deadline for loading the stretch and for its latency() answer. Defaults to 3 s. */
+  stretchTimeoutMs?: number;
 }
 
 /** A buffer source at the original tempo and key: sample-exact, no added latency. */
@@ -83,6 +87,7 @@ export class WebAudioEngine implements Engine {
   private readonly createContext: () => AudioContextLike;
   private readonly loadStretch: (ctx: AudioContextLike) => Promise<StretchNodeLike>;
   private readonly sleep: (seconds: number) => Promise<void>;
+  private readonly stretchTimeoutMs: number;
   private readonly loader: BufferLoader;
 
   private ctx: AudioContextLike | null = null;
@@ -123,6 +128,7 @@ export class WebAudioEngine implements Engine {
     this.createContext = deps.createContext ?? createBrowserContext;
     this.loadStretch = deps.loadStretch ?? createBrowserStretch;
     this.sleep = deps.sleep ?? ((s) => new Promise((resolve) => setTimeout(resolve, s * 1000)));
+    this.stretchTimeoutMs = deps.stretchTimeoutMs ?? STRETCH_TIMEOUT_MS;
     this.loader = new BufferLoader(deps.fetch ?? ((url, init) => globalThis.fetch(url, init)));
   }
 
@@ -418,10 +424,11 @@ export class WebAudioEngine implements Engine {
     if (!ctx || !master || !buffer || item?.kind !== "loop") return false;
     try {
       this.stretchLoad ??= (async () => {
-        const node = await this.loadStretch(ctx);
+        // A worklet that throws before it says it is ready leaves both of these waiting forever.
+        const node = await this.deadline(this.loadStretch(ctx), "the time stretch did not load", (late) => late.disconnect());
         let latency: number;
         try {
-          latency = await node.latency();
+          latency = await this.deadline(node.latency(), "the time stretch did not answer");
         } catch (err) {
           node.disconnect(); // not kept, so the retry makes a new one: let this one go
           throw err;
@@ -462,6 +469,31 @@ export class WebAudioEngine implements Engine {
       console.warn("[audio] time stretch unavailable; playing at the original tempo and key", err);
       return false;
     }
+  }
+
+  /**
+   * Rejects with `what` if `p` has not settled within the stretch timeout. A value that lands after
+   * that goes to `late`, so a node made too late can be let go.
+   */
+  private deadline<T>(p: Promise<T>, what: string, late?: (value: T) => void): Promise<T> {
+    return new Promise<T>((resolve, reject) => {
+      let expired = false;
+      const timer = setTimeout(() => {
+        expired = true;
+        reject(new Error(`${what} within ${this.stretchTimeoutMs} ms`));
+      }, this.stretchTimeoutMs);
+      p.then(
+        (value) => {
+          clearTimeout(timer);
+          if (expired) late?.(value);
+          else resolve(value);
+        },
+        (err: unknown) => {
+          clearTimeout(timer);
+          reject(err);
+        },
+      );
+    });
   }
 
   private resetTempoAndKey() {

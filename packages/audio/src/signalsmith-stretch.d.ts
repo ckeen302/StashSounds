@@ -27,5 +27,11 @@ declare module "signalsmith-stretch" {
     configure(config: { blockMs?: number; intervalMs?: number; splitComputation?: boolean; preset?: "default" | "cheaper" }): Promise<unknown>;
     setUpdateInterval(seconds: number, callback?: (inputTime: number) => void): Promise<unknown>;
   }
-  export default function SignalsmithStretch(context: BaseAudioContext, options?: AudioWorkletNodeOptions): Promise<SignalsmithStretchNode>;
+  interface SignalsmithStretchFactory {
+    (context: BaseAudioContext, options?: AudioWorkletNodeOptions): Promise<SignalsmithStretchNode>;
+    /** Read before the library falls back to stringifying its own functions into a Blob URL for addModule. */
+    moduleUrl?: string;
+  }
+  const SignalsmithStretch: SignalsmithStretchFactory;
+  export default SignalsmithStretch;
 }

@@ -82,12 +82,30 @@ export interface FetchInit {
 }
 export type FetchLike = (url: string, init?: FetchInit) => Promise<{ ok: boolean; status: number; arrayBuffer(): Promise<ArrayBuffer> }>;
 
+/** The signalsmith-stretch version this engine is built and tested against (package.json pins it). */
+export const STRETCH_VERSION = "1.3.2";
+
+/**
+ * Where the app serves the library's own SignalsmithStretch.mjs, unminified, for the worklet to load
+ * (request 135-stretch-in-production-build). The version in the path keeps a cached copy from ever
+ * serving another library version to this page. `@stash/audio/stretch-worklet-file` names the file to
+ * copy there at build time; a unit test holds the two paths equal.
+ */
+export const STRETCH_WORKLET_PATH = `/worklets/signalsmith-stretch-${STRETCH_VERSION}.mjs`;
+
 /**
  * Loads Signalsmith Stretch and makes its node. A dynamic import, so the library (WASM inlined, about
  * 110 KB) is fetched the first time a loop needs a tempo or key change, never with the page.
+ *
+ * Left alone, the library builds its worklet by stringifying its own functions. In the production
+ * bundle those functions refer to names from the module around them (Turbopack's process polyfill,
+ * minified to one letter), so the worklet threw "g is not defined" and never said it was ready. With
+ * `moduleUrl` set, the worklet loads the unminified file instead, and only the main-thread half runs
+ * from the bundle.
  */
-export async function createBrowserStretch(ctx: AudioContextLike): Promise<StretchNodeLike> {
+export async function createBrowserStretch(ctx: AudioContextLike, moduleUrl: string = STRETCH_WORKLET_PATH): Promise<StretchNodeLike> {
   const { default: SignalsmithStretch } = await import("signalsmith-stretch");
+  SignalsmithStretch.moduleUrl = moduleUrl;
   // The library's defaults (one input, one stereo output). Its processor reads `inputs.length` while
   // inactive, so a node with zero inputs throws in the worklet and goes silent.
   return SignalsmithStretch(ctx as unknown as BaseAudioContext);

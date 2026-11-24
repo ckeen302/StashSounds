@@ -17,6 +17,7 @@ import { dirname, join, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import ts from "typescript";
 import { playableSchema } from "@stash/contracts";
+import { STRETCH_WORKLET_PATH, stretchWorkletFile } from "../stretch-worklet-file.mjs";
 
 const pkg = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const fixtures = resolve(pkg, "../../fixtures");
@@ -69,6 +70,11 @@ const server = createServer(async (req, res) => {
     if (path === "/vendor/signalsmith-stretch.mjs") {
       res.writeHead(200, { "content-type": "text/javascript; charset=utf-8" });
       return res.end(await readFile(stretchFile));
+    }
+    // The worklet's own copy, at the versioned path the engine gives the library (as the web app serves it).
+    if (path === STRETCH_WORKLET_PATH) {
+      res.writeHead(200, { "content-type": "text/javascript; charset=utf-8" });
+      return res.end(await readFile(stretchWorkletFile));
     }
     if (path === "/vendor/limits.json") {
       res.writeHead(200, { "content-type": "application/json" });
