@@ -46,7 +46,7 @@ if (!baseUrl) {
     const b = spawnSync("pnpm", ["--filter", "@stash/web", "build"], { cwd: root, stdio: "inherit" });
     if (b.status !== 0) process.exit(b.status ?? 1);
   }
-  server = spawn("pnpm", ["--filter", "@stash/web", "exec", "next", "start", "--port", "3100"], { cwd: root, stdio: "ignore", detached: true });
+  server = spawn("pnpm", ["--filter", "@stash/web", "exec", "next", "start", "--port", port], { cwd: root, stdio: "ignore", detached: true });
   await waitFor(`${baseUrl}/api/health`, 60_000);
 }
 
