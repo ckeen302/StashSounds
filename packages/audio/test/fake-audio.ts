@@ -250,6 +250,8 @@ export class FakeStretch implements StretchNodeLike {
   latencySeconds = 0.12;
   /** latency() rejects while set, as a worklet that failed to start would. */
   failLatency = false;
+  /** latency() never settles while set, as a worklet that threw before saying it was ready. */
+  hangLatency = false;
   disconnects = 0;
   connect(d: AudioNodeLike) {
     this.connected.push(d);
@@ -272,6 +274,7 @@ export class FakeStretch implements StretchNodeLike {
     return change;
   }
   async latency() {
+    if (this.hangLatency) await new Promise<never>(() => undefined);
     if (this.failLatency) throw new Error("the worklet did not answer");
     return this.latencySeconds;
   }
