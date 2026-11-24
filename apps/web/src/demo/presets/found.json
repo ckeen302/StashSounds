@@ -6754,7 +6754,7 @@
  {
   "song": "4U",
   "artist": "Pi'erre Bourne",
-  "producer": "Pi'erre Bourne",
+  "producer": "Unknown",
   "plugin": "u-he TyrellN6",
   "preset": "HS Norgan",
   "role": "Not stated",
@@ -6769,7 +6769,7 @@
  {
   "song": "4U",
   "artist": "Pi'erre Bourne",
-  "producer": "Pi'erre Bourne",
+  "producer": "Unknown",
   "plugin": "Native Instruments FM8",
   "preset": "Dazzle Synth",
   "role": "Not stated",
@@ -7091,5 +7091,382 @@
   },
   "quote": "A preset taken from the Vanguard VST ... Original songs this Vanguard VST preset was used on: ... http://bit.ly/P-Diddy_Diddy-Rock",
   "quoteBy": "JC Biffro"
+ },
+ {
+  "song": "Blood on the Money",
+  "artist": "Future",
+  "producer": "Metro Boomin",
+  "plugin": "reFX Nexus",
+  "preset": null,
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Metro Boomin' Beats | Nexus Preset | [I Found those VST Presets #6]",
+   "url": "https://www.youtube.com/watch?v=paENWwKiEO4"
+  },
+  "quote": "A VST preset used by Metro Boomin on a crap load of songs! A preset taken from the Nexus VST ... http://bit.ly/Future-Blood_on_the_Money",
+  "quoteBy": "JC Biffro"
+ },
+ {
+  "song": "Scholar",
+  "artist": "Gucci Mane",
+  "producer": "Metro Boomin",
+  "plugin": "reFX Nexus",
+  "preset": null,
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Metro Boomin' Beats | Nexus Preset | [I Found those VST Presets #6]",
+   "url": "https://www.youtube.com/watch?v=paENWwKiEO4"
+  },
+  "quote": "A VST preset used by Metro Boomin on a crap load of songs! A preset taken from the Nexus VST ... http://bit.ly/Gucci_Mane-Scholar",
+  "quoteBy": "JC Biffro"
+ },
+ {
+  "song": "Rich Nigga Shit",
+  "artist": "Young Thug",
+  "producer": "Metro Boomin",
+  "plugin": "reFX Nexus",
+  "preset": null,
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Metro Boomin x Young Thug | Nexus Preset | [I Found those VST Presets #32]",
+   "url": "https://www.youtube.com/watch?v=XDM2VYAKFdM"
+  },
+  "quote": "A VST preset used by Metro Boomin in the song ... by Young Thug. A preset taken from the Nexus VST",
+  "quoteBy": "JC Biffro"
+ },
+ {
+  "song": "Alright",
+  "artist": "Kendrick Lamar",
+  "producer": "Pharrell Williams",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": null,
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Kendrick Lamar x Pharrell - Alright | Omnisphere Preset | [I Found those VST Presets #22]",
+   "url": "https://www.youtube.com/watch?v=5wFkntWCHHM"
+  },
+  "quote": "A preset taken from the Omnisphere VST -- Original song(s) this Omnisphere preset was used on: -- http://bit.ly/Kendrick-Lamar_Alright",
+  "quoteBy": "JC Biffro"
+ },
+ {
+  "song": "Money Longer",
+  "artist": "Lil Uzi Vert",
+  "producer": "Unknown",
+  "plugin": "reFX Nexus",
+  "preset": null,
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #310: \"Money Longer\" by Lil Uzi Vert",
+   "url": "https://www.youtube.com/watch?v=z2pgkSXWsvM"
+  },
+  "quote": "FAMOUS PRESETS #310: \"Money Longer\" by Lil Uzi Vert ... #nexuspresets #refxnexus #liluzivertpresets",
+  "quoteBy": "BLUE STEEL"
+ },
+ {
+  "song": "Lollipop",
+  "artist": "Lil Wayne",
+  "producer": "Unknown",
+  "plugin": "Native Instruments Massive",
+  "preset": null,
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #317: \"Lollipop\" by Lil Wayne",
+   "url": "https://www.youtube.com/watch?v=uGvTbnpt7_A"
+  },
+  "quote": "FAMOUS PRESETS #317: \"Lollipop\" by Lil Wayne ... #lilwayne #nativeinstruments #massivepresets",
+  "quoteBy": "BLUE STEEL"
+ },
+ {
+  "song": "After Party",
+  "artist": "Don Toliver",
+  "producer": "Unknown",
+  "plugin": "Arturia Analog Lab (Matrix tagged)",
+  "preset": null,
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #344: \"After Party\" by Don Toliver",
+   "url": "https://www.youtube.com/watch?v=_ZaLUuhBrEs"
+  },
+  "quote": "FAMOUS PRESETS #344: \"After Party\" by Don Toliver ... #dontoliver #arturiapresets #arturia #analoglab #arturiamatrix",
+  "quoteBy": "BLUE STEEL"
+ },
+ {
+  "song": "Mileage",
+  "artist": "Playboi Carti",
+  "producer": "Unknown",
+  "plugin": "u-he ACE",
+  "preset": null,
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #343: \"Mileage\" by Playboi Carti",
+   "url": "https://www.youtube.com/watch?v=DTKWXiKI9XE"
+  },
+  "quote": "FAMOUS PRESETS #343: \"Mileage\" by Playboi Carti ... #playboicarti #uhe #uheace #uhepresets ... #pierrebourne",
+  "quoteBy": "BLUE STEEL"
+ },
+ {
+  "song": "She",
+  "artist": "Tyler, the Creator feat. Frank Ocean",
+  "producer": "Unknown",
+  "plugin": "Reason (Reason Rack Plugin)",
+  "preset": null,
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #360: \"She\" by Tyler, The Creator",
+   "url": "https://www.youtube.com/watch?v=TtqaCkdczls"
+  },
+  "quote": "FAMOUS PRESETS #360: \"She\" by Tyler, The Creator ... #tylerthecreator #reasonrack #reasonrackplugin",
+  "quoteBy": "BLUE STEEL"
+ },
+ {
+  "song": "Hell Shell",
+  "artist": "Young Nudy",
+  "producer": "Unknown",
+  "plugin": "Image-Line Purity",
+  "preset": null,
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #338: \"Hell Shell\" by Young Nudy",
+   "url": "https://www.youtube.com/watch?v=QZm4HZK8jJg"
+  },
+  "quote": "FAMOUS PRESETS #338: \"Hell Shell\" by Young Nudy ... #youngnudy #puritypresets",
+  "quoteBy": "BLUE STEEL"
+ },
+ {
+  "song": "No Sl33p",
+  "artist": "Playboi Carti",
+  "producer": "Unknown",
+  "plugin": "Synapse Audio DUNE",
+  "preset": null,
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #352: \"No Sl33p\" by Playboi Carti",
+   "url": "https://www.youtube.com/watch?v=MNqUwjjpt_Q"
+  },
+  "quote": "FAMOUS PRESETS #352: \"No Sl33p\" by Playboi Carti ... #playboicarti #dunepresets",
+  "quoteBy": "BLUE STEEL"
+ },
+ {
+  "song": "HUMBLE.",
+  "artist": "Kendrick Lamar",
+  "producer": "Mike WiLL Made-It",
+  "plugin": "Korg M1",
+  "preset": "Piano 16'",
+  "role": "Piano (preset inferred from the #piano16 hashtag)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #306: \"HUMBLE.\" by Kendrick Lamar",
+   "url": "https://www.youtube.com/watch?v=SPrICQr1AN0"
+  },
+  "quote": "FAMOUS PRESETS #306: \"HUMBLE.\" by Kendrick Lamar ... #korgm1 #korgm1presets #synthpresets #mikewillmadeit #famouspresets #piano16",
+  "quoteBy": "BLUE STEEL"
+ },
+ {
+  "song": "Yale",
+  "artist": "Ken Carson",
+  "producer": "Unknown",
+  "plugin": "reFX Nexus",
+  "preset": null,
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #298: \"Yale\" by Ken Carson",
+   "url": "https://www.youtube.com/watch?v=qQLjm9e8_Mo"
+  },
+  "quote": "FAMOUS PRESETS #298: \"Yale\" by Ken Carson ... #nexuspresets #refxnexus #kencarson #kencarsonpresets",
+  "quoteBy": "BLUE STEEL"
+ },
+ {
+  "song": "Dropped Out",
+  "artist": "Playboi Carti",
+  "producer": "Pi'erre Bourne",
+  "plugin": "FabFilter Twin 2",
+  "preset": null,
+  "role": "Main synth (remake video says it uses the original preset, which is not named)",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard, FabFilter Twin 2 (Pierre Bourne artist usage, citing Seventh's YouTube video 'Playboi Carti - Dropped Out prod. Pi'erre Bourne | Tutorial + Presets')",
+   "url": "https://equipboard.com/items/fabfilter-twin-2-synthesizer-plugin"
+  },
+  "quote": "The video demonstrates a remake of \"Dropped Out\" with the original preset he employed."
+ },
+ {
+  "song": "Mileage",
+  "artist": "Playboi Carti",
+  "producer": "Pi'erre Bourne",
+  "plugin": "u-he ACE",
+  "preset": null,
+  "role": "Synth (Seventh video claims to show the original presets)",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard, u-he ACE (Pierre Bourne artist usage, citing Seventh on YouTube)",
+   "url": "https://equipboard.com/items/u-he-ace-software-synthesizer"
+  },
+  "quote": "Pi'erre Bourne uses the u-he ACE Software Synthesizer in the production of Playboi Carti's track \"Mileage.\""
+ },
+ {
+  "song": "Plans",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "u-he Zebra2",
+  "preset": null,
+  "role": "Synth (from Seventh's preset video)",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard, u-he Zebra2 (Pierre Bourne artist usage, citing Seventh on YouTube)",
+   "url": "https://equipboard.com/items/u-he-zebra2"
+  },
+  "quote": "Pi'erre Bourne uses the u-he Zebra2 synth plugin in his track \"Plans,\""
+ },
+ {
+  "song": "Santa",
+  "artist": "Duwap Kaine",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Dmitry Sches Diversion",
+  "preset": null,
+  "role": "Synth; source says he made his own presets",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard, Pierre Bourne's Software Plugins and VSTs (citing Seventh on YouTube)",
+   "url": "https://equipboard.com/pros/pierre-bourne?gear=software-plugins-and-vsts"
+  },
+  "quote": "to create original presets for the track \"Santa\" by Duwap Kaine."
+ },
+ {
+  "song": "Call That Bitch Homicide",
+  "artist": "Young Nudy",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Xfer Records Serum",
+  "preset": null,
+  "role": "Synth (breakdown 'with presets used'; Equipboard files it under Serum 2)",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard, Pierre Bourne's Gear (Serum 2 entry)",
+   "url": "https://equipboard.com/pierre-bourne"
+  },
+  "quote": "Here is a breakdown with presets used of how Young Nudy - Call That Bitch Homicide produced by Pi'erre Bourne"
+ },
+ {
+  "song": "Karma",
+  "artist": "Jelly",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Native Instruments Massive",
+  "preset": null,
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard, Pierre Bourne's Gear (Massive entry, citing a YouTube video by CameraRicoo)",
+   "url": "https://equipboard.com/pierre-bourne"
+  },
+  "quote": "The song Jelly - Karma, prod Pi'erre Bourne was made using massive by native instruments,"
+ },
+ {
+  "song": "Vlone Jacket",
+  "artist": "Playboi Carti",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Native Instruments Massive",
+  "preset": null,
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard, Pierre Bourne's Gear (Massive entry)",
+   "url": "https://equipboard.com/pierre-bourne"
+  },
+  "quote": "as well as other songs like Vlone Jacket by Playboi Carti."
+ },
+ {
+  "song": "LR Wrist",
+  "artist": "Chavo",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Native Instruments Absynth (5)",
+  "preset": null,
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard, Pierre Bourne's Gear (Absynth entry)",
+   "url": "https://equipboard.com/pierre-bourne"
+  },
+  "quote": "This synth plugin is used in tracks like \"Chavo - LR Wrist,\" \"Chavo - Aggy,\""
+ },
+ {
+  "song": "Aggy",
+  "artist": "Chavo",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Native Instruments Absynth (5)",
+  "preset": null,
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard, Pierre Bourne's Gear (Absynth entry)",
+   "url": "https://equipboard.com/pierre-bourne"
+  },
+  "quote": "This synth plugin is used in tracks like \"Chavo - LR Wrist,\" \"Chavo - Aggy,\""
+ },
+ {
+  "song": "Tic Tac",
+  "artist": "Smokepurpp",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Native Instruments Absynth (5)",
+  "preset": null,
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard, Pierre Bourne's Gear (Absynth entry)",
+   "url": "https://equipboard.com/pierre-bourne"
+  },
+  "quote": "\"Smokepurpp - Tic Tac,\" and \"Pi'erre Bourne - Sossgirl.\""
+ },
+ {
+  "song": "Sossgirl",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Native Instruments Absynth (5)",
+  "preset": null,
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard, Pierre Bourne's Gear (Absynth entry)",
+   "url": "https://equipboard.com/pierre-bourne"
+  },
+  "quote": "\"Smokepurpp - Tic Tac,\" and \"Pi'erre Bourne - Sossgirl.\""
+ },
+ {
+  "song": "DMD",
+  "artist": "Famous Dex",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Lennar Digital Sylenth1",
+  "preset": null,
+  "role": "Synth (Seventh video 'showcasing presets used'; names not given)",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard, Pierre Bourne's Software Plugins and VSTs (Sylenth1 entry)",
+   "url": "https://equipboard.com/pros/pierre-bourne?gear=software-plugins-and-vsts"
+  },
+  "quote": "This is demonstrated in a YouTube video by Seventh, showcasing presets used in Famous Dex's track \"DMD\""
+ },
+ {
+  "song": "Missing",
+  "artist": "Frazier Trill",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Lennar Digital Sylenth1",
+  "preset": null,
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard, Lennar Digital Sylenth1 (album usage)",
+   "url": "https://equipboard.com/items/lennar-digital-sylenth1-software-synthesizer"
+  },
+  "quote": "Lennar Digital Sylenth1 Software Synthesizer as heard on Missing by Pierre Bourne (2021)"
  }
 ]
