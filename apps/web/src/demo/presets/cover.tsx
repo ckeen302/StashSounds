@@ -32,9 +32,9 @@ function tint(key: string) {
   return TINTS[h % TINTS.length]!;
 }
 
-export function Cover({ song, artist, size = "md" }: { song: string; artist: string; size?: "sm" | "md" }) {
+export function Cover({ song, artist, size = "md" }: { song: string; artist: string; size?: "sm" | "md" | "lg" | "fill" }) {
   const row = coverFor(song, artist);
-  const box = size === "sm" ? "size-12" : "size-20 tablet:size-24";
+  const box = size === "fill" ? "aspect-square w-full" : size === "sm" ? "size-12" : size === "lg" ? "size-40 tablet:size-56" : "size-20 tablet:size-24";
   if (row) {
     // A background image, not <img>: the demo is a static page with no Next image loader behind it.
     return (

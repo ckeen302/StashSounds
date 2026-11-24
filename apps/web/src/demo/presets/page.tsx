@@ -1,7 +1,8 @@
-import { Button, Check, ChevronDown, FilterChip, Menu, SearchInput, type MenuEntry } from "@stash/ui";
+import { Button, Check, ChevronDown, FilterChip, Menu, SearchInput, UiLink, type MenuEntry } from "@stash/ui";
 import { useMemo, useState } from "react";
 import { Cover, coverFor } from "./cover";
 import { CONFIDENCE, PRESETS, type Confidence, type PresetEntry } from "./data";
+import { groupSongs, LEVEL, madeBy, songHref, TOP_PRODUCERS, type Song } from "./songs";
 
 /**
  * The presets tab: the synth and preset behind famous songs. Each song is one card; each sound in it
@@ -10,7 +11,6 @@ import { CONFIDENCE, PRESETS, type Confidence, type PresetEntry } from "./data";
  * points at the source.
  */
 
-const LEVEL: Record<Confidence, number> = { producer: 4, engineer: 3, press: 2, community: 1 };
 const TONE: Record<Confidence, string> = {
   producer: "bg-accent",
   engineer: "bg-type-preset",
@@ -50,7 +50,7 @@ const FAMILIES: [string, RegExp][] = [
   ["Roland", /roland|juno|jupiter|srx|fantom|tr-808|tr808|jv-|xv-|d-50|jx-|m-dc1/i],
   ["Hardware", /hardware|v-station|nord|moog|prophet|yamaha|minimoog|rhodes|wurlitzer|omnichord|fairlight|ob-8|planet phatt/i],
 ];
-function familyOf(plugin: string): string {
+export function familyOf(plugin: string): string {
   return FAMILIES.find(([, re]) => re.test(plugin))?.[0] ?? "Other";
 }
 
@@ -70,7 +70,6 @@ function soundsOf(role: string): string[] {
   return SOUNDS.filter(([, re]) => re.test(role)).map(([n]) => n);
 }
 
-type Song = { key: string; song: string; artist: string; producer: string; entries: PresetEntry[]; best: number; named: number };
 const SORTS = {
   sure: { label: "Best sourced first", by: (a: Song, b: Song) => b.best - a.best || b.named - a.named || a.artist.localeCompare(b.artist) },
   artist: { label: "Artist A to Z", by: (a: Song, b: Song) => a.artist.localeCompare(b.artist) || a.song.localeCompare(b.song) },
@@ -88,6 +87,7 @@ export function PresetsPage() {
   const [named, setNamed] = useState(false);
   const [sort, setSort] = useState<SortId>("sure");
   const [q, setQ] = useState("");
+  const [who, setWho] = useState("All");
   const [limit, setLimit] = useState(PAGE);
 
   const indexed = useMemo(() => PRESETS.map((p) => ({ p, family: familyOf(p.plugin), sounds: soundsOf(p.role) })), []);
@@ -117,25 +117,15 @@ export function PresetsPage() {
         (!needle || [x.p.song, x.p.artist, x.p.producer, x.p.plugin, x.p.preset ?? "", x.p.role, x.p.path ?? ""].some((s) => s.toLowerCase().includes(needle))),
     )
     .map((x) => x.p);
-  const by = new Map<string, Song>();
-  for (const e of matching) {
-    const key = `${e.song.toLowerCase()}|${e.artist.toLowerCase()}`;
-    const s = by.get(key) ?? { key, song: e.song, artist: e.artist, producer: e.producer, entries: [], best: 0, named: 0 };
-    s.entries.push(e);
-    s.best = Math.max(s.best, LEVEL[e.confidence]);
-    if (e.preset) s.named++;
-    if (s.producer === "Unknown" && e.producer !== "Unknown") s.producer = e.producer;
-    by.set(key, s);
-  }
-  for (const s of by.values()) s.entries.sort((a, b) => LEVEL[b.confidence] - LEVEL[a.confidence] || Number(!!b.preset) - Number(!!a.preset));
-  const songs = [...by.values()].sort(SORTS[sort].by);
+  const songs = groupSongs(matching).filter((x) => who === "All" || madeBy(x, who)).sort(SORTS[sort].by);
+  const shownSounds = songs.reduce((n, x) => n + x.entries.length, 0);
 
   const reset = (f: () => void) => {
     f();
     setLimit(PAGE);
   };
   const counts = (c: Confidence) => PRESETS.filter((p) => p.confidence === c).length;
-  const touched = conf !== "all" || family !== "All" || sound !== "All" || named || needle !== "";
+  const touched = conf !== "all" || family !== "All" || sound !== "All" || named || needle !== "" || who !== "All";
 
   return (
     <main className="mx-auto flex w-full max-w-content flex-col gap-5 px-3 py-8 tablet:px-4 desktop:px-6">
@@ -196,6 +186,23 @@ export function PresetsPage() {
         </ul>
       </section>
 
+      {/* The producer shelf: the beatmakers with the most songs here; tap one to see only theirs. */}
+      <section aria-label="Producers" className="flex flex-col gap-2">
+        <span className="text-label text-label-caps text-text-muted">By producer</span>
+        <ul className="-mx-3 flex gap-2 overflow-x-auto px-3 pb-1 tablet:mx-0 tablet:px-0">
+          {TOP_PRODUCERS.map(([name, n]) => {
+            const on = who === name;
+            return (
+              <li key={name} className="shrink-0">
+                <FilterChip selected={on} onToggle={() => reset(() => setWho(on ? "All" : name))}>
+                  {`${name} · ${n}`}
+                </FilterChip>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+
       <section aria-label="Filters" className="flex flex-wrap items-center gap-2">
         <Dropdown
           name="How sure"
@@ -226,6 +233,7 @@ export function PresetsPage() {
                 setSound("All");
                 setNamed(false);
                 setQ("");
+                setWho("All");
               })
             }
           >
@@ -233,7 +241,7 @@ export function PresetsPage() {
           </Button>
         )}
         <span aria-live="polite" className="ml-auto font-mono text-numeric tabular text-text-muted">
-          {`${songs.length} ${songs.length === 1 ? "song" : "songs"} · ${matching.length} ${matching.length === 1 ? "sound" : "sounds"}`}
+          {`${songs.length} ${songs.length === 1 ? "song" : "songs"} · ${shownSounds} ${shownSounds === 1 ? "sound" : "sounds"}`}
         </span>
       </section>
 
@@ -274,9 +282,13 @@ function SongCard({ s }: { s: Song }) {
   return (
     <li className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-4">
       <div className="flex items-center gap-4">
-        <Cover song={s.song} artist={s.artist} />
+        <UiLink href={songHref(s.song, s.artist)} aria-label={`${s.song} page`} className="shrink-0">
+          <Cover song={s.song} artist={s.artist} />
+        </UiLink>
         <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-          <span className="text-title break-words text-text">{s.song}</span>
+          <UiLink href={songHref(s.song, s.artist)} className="text-title break-words text-text ui-hover:underline">
+            {s.song}
+          </UiLink>
           <span className="text-small text-text">{s.artist}</span>
           <span className="text-small text-text-muted">
             {[coverFor(s.song, s.artist)?.album, s.producer && s.producer !== "Unknown" ? `prod. ${s.producer}` : null].filter(Boolean).join(" · ")}
@@ -293,7 +305,7 @@ function SongCard({ s }: { s: Song }) {
   );
 }
 
-function Meter({ c }: { c: Confidence }) {
+export function Meter({ c }: { c: Confidence }) {
   return (
     <span aria-hidden="true" className="flex shrink-0 gap-0.5">
       {[1, 2, 3, 4].map((n) => (
@@ -304,7 +316,7 @@ function Meter({ c }: { c: Confidence }) {
 }
 
 /** One sound, shown the way a synth's preset display shows it: plugin and bank above, the name big. */
-function PatchStrip({ e }: { e: PresetEntry }) {
+export function PatchStrip({ e }: { e: PresetEntry }) {
   return (
     <li className="flex flex-col gap-2">
       <span className="text-label text-label-caps text-text-muted">{/^not stated/i.test(e.role) ? "Sound not stated" : e.role}</span>
@@ -347,7 +359,9 @@ function FromTheProducer() {
             <div className="flex items-center gap-3">
               <Cover song={e.song} artist={e.artist} size="sm" />
               <div className="flex min-w-0 flex-col">
-                <span className="truncate text-body-strong text-text">{e.song}</span>
+                <UiLink href={songHref(e.song, e.artist)} className="truncate text-body-strong text-text ui-hover:underline">
+                  {e.song}
+                </UiLink>
                 <span className="truncate text-small text-text-muted">{`${e.artist} · ${e.role}`}</span>
               </div>
             </div>
@@ -366,7 +380,7 @@ function FromTheProducer() {
 }
 
 /** What the meter means, once, at the foot of the list. */
-function ConfidenceKey() {
+export function ConfidenceKey() {
   return (
     <section aria-label="How sure" className="flex flex-col gap-2 border-t border-border pt-4">
       <span className="text-label text-label-caps text-text-muted">How sure is it</span>

@@ -31,6 +31,7 @@ import { LookPicker, startLooks, useLook } from "./looks";
 import { midiItem } from "./midi/catalog";
 import { MidiList, MidiPage, UploadPage, useMidiItems } from "./midi/pages";
 import { PresetsPage } from "./presets/page";
+import { PresetSongPage } from "./presets/song-page";
 import { SoundDesign } from "./sound-design";
 import { BrowsePage, LibraryPage, NewCrateHost, ProfilePage, useCrateEntries, type RenderLoops } from "./explore";
 import { FlipPanel } from "./flip";
@@ -503,7 +504,7 @@ const TABS = [
 /** The demo's own tabs across the top of every page, for the screens the app's rail does not list yet. */
 function DemoTabs() {
   const path = usePath();
-  const current = (href: string) => (href === "/" ? path === "/" : path === href || (href === "/midi" && path.startsWith("/midi")) || (href === "/kits" && (path.startsWith("/kit/") || path === "/kit-upload")));
+  const current = (href: string) => (href === "/" ? path === "/" : path === href || (href === "/midi" && path.startsWith("/midi")) || (href === "/presets" && path.startsWith("/presets/")) || (href === "/kits" && (path.startsWith("/kit/") || path === "/kit-upload")));
   return (
     <nav aria-label="Demo sections" className="border-b border-border bg-bg">
       <ul className="mx-auto flex max-w-content gap-1 overflow-x-auto px-3 tablet:px-4 desktop:px-6">
@@ -542,6 +543,7 @@ function Route() {
   if (path === "/midi") return <AllMidi />;
   if (path === "/sound-design") return <SoundDesign />;
   if (path === "/presets") return <PresetsPage />;
+  if (path.startsWith("/presets/")) return <PresetSongPage key={path} slug={path.slice(9)} />;
   if (path === "/library") return <LibraryRoute />;
   if (path === "/kits") return <KitsPage />;
   const kitPage = /^\/kit\/([a-z0-9]+)$/.exec(path);
