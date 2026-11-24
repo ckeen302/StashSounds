@@ -107,6 +107,15 @@ describe("Transport", () => {
     expect(out).not.toMatch(/data-section="volume"[^>]*data-disabled/);
   });
 
+  it("tells loop on from loop off by an edge and an engraved ON or OFF, not by color alone", () => {
+    const on = html(h(Transport, full));
+    expect(on).toMatch(/data-loop-readout[^>]*>ON</);
+    expect(on).toContain("aria-pressed:border-border-strong");
+    const off = html(h(Transport, { ...full, loop: { ...full.loop, on: false } }));
+    expect(off).toMatch(/data-loop-readout[^>]*>OFF</);
+    expect(off).toMatch(/aria-pressed="false"[^>]*aria-label="Loop"|aria-label="Loop"[^>]*aria-pressed="false"/);
+  });
+
   it("names an unknown key plainly", () => {
     const out = html(h(Transport, { ...full, keyShift: { ...full.keyShift, baseKey: null, semitones: 1 } }));
     expect(out).toMatch(/data-key-readout[^>]*>\+1</);

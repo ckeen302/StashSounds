@@ -180,7 +180,8 @@ export function ResultRow({
         <Waveform peaks={row.peaks} type={row.type} progress={progress} onScrub={onScrub} label={describeRow(row)} durationMs={row.durationMs} />
       </div>
       <div className={cx(col.title, "flex flex-col")}>
-        <UiLink href={row.href} className="truncate rounded-control text-body-strong text-text ui-hover:underline">
+        {/* -my-3 py-3: a 44 px touch target that does not change the row's height. */}
+        <UiLink href={row.href} className="-my-3 truncate rounded-control py-3 text-body-strong text-text ui-hover:underline">
           {row.title}
         </UiLink>
         <span className="truncate text-small text-text-muted">@{row.owner.handle}</span>

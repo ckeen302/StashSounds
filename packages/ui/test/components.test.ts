@@ -135,6 +135,10 @@ describe("License badge", () => {
     expect(out).toContain("Split on placement");
     expect(out).toContain("50%");
   });
+  it("drops its summary tooltip where the summary is already on screen", () => {
+    expect(html(h(LicenseBadge, { kind: "royalty_free" }))).toContain('data-state="closed"');
+    expect(html(h(LicenseBadge, { kind: "royalty_free", summaryTooltip: false }))).not.toContain("data-state");
+  });
 });
 
 describe("Avatar", () => {
