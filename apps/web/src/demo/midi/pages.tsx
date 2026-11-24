@@ -144,6 +144,23 @@ function ChordChart({ song }: { song: NonNullable<MidiItem["song"]> }) {
         ))}
       </ol>
       <ul className="flex flex-col gap-1 text-small text-text-muted">
+        <li className="text-text">
+          {song.rhythm === "verified"
+            ? "Rhythm: each chord's length is from the song's chart."
+            : "Rhythm not verified: the source gives the chords but not how long each lasts, so each plays for one bar. The chords are right; the timing may not match the record."}
+        </li>
+        <li>
+          {song.instrument ? (
+            <>
+              {`On the record: ${song.instrument.name}. `}
+              <a href={song.instrument.source.url} target="_blank" rel="noreferrer" className="text-text underline underline-offset-2">
+                {song.instrument.source.label}
+              </a>
+            </>
+          ) : (
+            "The instrument on the record isn't sourced yet, so it plays on keys. Switch the sound above."
+          )}
+        </li>
         <li>
           Chords:{" "}
           <a href={song.chordSource.url} target="_blank" rel="noreferrer" className="text-text underline underline-offset-2">

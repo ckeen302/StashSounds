@@ -20,6 +20,10 @@ export type SongChords = {
   chordSource: { label: string; url: string };
   keyBpmSource?: { label: string; url: string } | null;
   notes?: string;
+  /** "verified" when each chord's length was read from a chart with timing; otherwise one bar per chord is assumed. */
+  rhythm?: "verified";
+  /** What plays the chords on the record, with where that is said. */
+  instrument?: { name: string; quote: string; source: { label: string; url: string } };
 };
 
 export const SONG_CHORDS: SongChords[] = raw as unknown as SongChords[];

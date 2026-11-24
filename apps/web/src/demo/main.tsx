@@ -41,6 +41,7 @@ import { SmartSearch, useQuery } from "./search-ui";
 import { loopProfile, midiProfile } from "./search-index";
 import { match, moreLike } from "./smart-search";
 import { writeMidi } from "./midi/write";
+import { SONG_CHORDS } from "./midi/songs";
 import { KitPage, KitsPage, KitUploadPage } from "./kits/pages";
 import type { MidiKind } from "@stash/contracts";
 import { Button, Download, FilterChip, UiLink } from "@stash/ui";
@@ -169,7 +170,7 @@ function Page({ children }: { children: ReactNode }) {
 const FEATURES = [
   { href: "/browse", name: "Browse by key and tempo", blurb: "Genre, a BPM range, a key and the keys that mix with it. Sort by trending or downloads." },
   { href: "/kits", name: "Drum kits", blurb: "Kicks, 808s, snares and hats from producers, sorted by type. Upload your own kit by dropping in your one-shots." },
-  { href: "/midi", name: "Chords from the songs", blurb: "The chord progressions of 164 popular songs as MIDI, at their key and tempo, with sources." },
+  { href: "/midi", name: "Chords from the songs", blurb: `The chord progressions of ${SONG_CHORDS.length} popular songs as MIDI, at their key and tempo, with sources.` },
   { href: "/sound-design", name: "Sound design", blurb: "Shape a synth patch with knobs and a scope, play it from your keyboard, save it." },
   { href: "/presets", name: "Presets behind the songs", blurb: "Which synth and preset are on famous rap records, each with a source and how sure it is." },
   { href: "/library", name: "Your library", blurb: "Likes, crates of sounds for one beat, who you follow and what you posted." },

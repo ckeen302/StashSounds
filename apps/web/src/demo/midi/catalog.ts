@@ -237,6 +237,16 @@ export function subscribeMidi(l: () => void) {
 }
 export const midiVersion = () => version;
 
+/** The closest of the demo's sounds to the instrument on the record; keys when the record's is not known. */
+export function soundForInstrument(name: string | undefined): SoundId {
+  const n = (name ?? "").toLowerCase();
+  if (/bell|glock|music box|celesta|chime|vibraphone|marimba|kalimba/.test(n)) return "bell";
+  if (/string|violin|cello|orchestra|harp/.test(n)) return "strings";
+  if (/guitar|pluck|arp|banjo|koto|sitar/.test(n)) return "pluck";
+  if (/pad|choir|vocal|synth|organ|ambient/.test(n)) return "pad";
+  return "keys";
+}
+
 /** The researched song progressions as MIDI items, A to Z by artist. One that does not parse is left out. */
 const songItems: MidiItem[] = SONG_CHORDS.flatMap((s, i) => {
   const notes = songNotes(s);
@@ -252,7 +262,7 @@ const songItems: MidiItem[] = SONG_CHORDS.flatMap((s, i) => {
     href: `/midi/${slug}-${publicId}`,
     owner: CHORDS_OWNER,
     kind: "chords",
-    sound: "keys",
+    sound: soundForInstrument(s.instrument?.name),
     key: songKey(s),
     notes,
     tags: ["song chords", s.artist.toLowerCase()],
