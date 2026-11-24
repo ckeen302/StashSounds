@@ -41,7 +41,8 @@ if (inContainer) {
 let server;
 let baseUrl = process.env.STASH_BASE_URL;
 if (!baseUrl) {
-  baseUrl = "http://localhost:3100";
+  const port = process.env.STASH_E2E_PORT ?? "3100";
+  baseUrl = `http://localhost:${port}`;
   if (!existsSync(join(root, "apps/web/.next/BUILD_ID")) || process.env.STASH_REBUILD !== "0") {
     const b = spawnSync("pnpm", ["--filter", "@stash/web", "build"], { cwd: root, stdio: "inherit" });
     if (b.status !== 0) process.exit(b.status ?? 1);
