@@ -31,7 +31,7 @@ export type MidiItem = {
   mine?: boolean;
 };
 
-const extra = {
+export const extra = {
   juno: { id: "00000000-0000-4000-8000-0000000000a4", handle: "junovega", displayName: "Juno Vega", followers: 15400 },
   dre: { id: "00000000-0000-4000-8000-0000000000a5", handle: "drestatic", displayName: "Dre Static", followers: 4210 },
 } satisfies Record<string, Producer>;

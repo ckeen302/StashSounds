@@ -19,7 +19,10 @@ export function nameFor(path: string): string {
   if (midi) return `midi-${midi[1]}`;
   const first = clean.split("/").filter(Boolean)[0];
   if (!first) return "home";
-  if (first === "u") return "profile";
+  if (first === "u") {
+    const handle = clean.split("/")[2];
+    return handle && /^[a-z0-9_]+$/i.test(handle) ? `u-${handle.toLowerCase().replace(/_/g, "--")}` : "profile";
+  }
   return /^[a-z0-9-]+$/.test(first) ? first : "home";
 }
 
@@ -30,6 +33,7 @@ export function pathFor(name: string, loopHref: (publicId: string) => string | n
   if (name.startsWith("midi-")) return midiHref(name.slice(5)) ?? "/not-found";
   if (name === "browse") return "/browse/loops";
   if (name === "profile") return "/login";
+  if (name.startsWith("u-")) return `/u/${name.slice(2).replace(/--/g, "_")}`;
   return `/${name}`;
 }
 

@@ -210,6 +210,21 @@ export class MidiPlayer {
   }
 
   /** Play one note now, for the keyboard strip and the upload preview. */
+  /**
+   * One drum hit now, for the pads: a GM drum pitch, tuned (1 = as written, 2 = an octave up) and
+   * stretched (decay times this).
+   */
+  hit(pitch: number, velocity = 110, tune = 1, stretch = 1, at?: number) {
+    const ctx = this.ensure();
+    if (ctx.state === "suspended") void ctx.resume();
+    this.drum(pitch, (velocity / 127) * this.state.volume, Math.max(at ?? 0, ctx.currentTime + 0.005), tune, stretch);
+  }
+
+  /** The audio clock, for anything that schedules hits ahead (the step sequencer). */
+  now(): number {
+    return this.ensure().currentTime;
+  }
+
   audition(pitch: number, velocity = 100) {
     const ctx = this.ensure();
     void ctx.resume();
@@ -561,7 +576,7 @@ export class MidiPlayer {
   }
 
   /** General MIDI drums from a sine, a noise buffer and filters. */
-  private drum(pitch: number, amp: number, at: number) {
+  private drum(pitch: number, amp: number, at: number, tune = 1, stretch = 1) {
     const ctx = this.ctx!;
     const g = ctx.createGain();
     g.connect(this.out);
@@ -571,8 +586,9 @@ export class MidiPlayer {
       src.buffer = this.noise;
       const fl = ctx.createBiquadFilter();
       fl.type = type;
-      fl.frequency.value = freq;
+      fl.frequency.value = freq * tune;
       fl.Q.value = q;
+      decay *= stretch;
       const ng = ctx.createGain();
       ng.gain.setValueAtTime(level, at);
       ng.gain.exponentialRampToValueAtTime(0.0008, at + decay);
@@ -582,8 +598,9 @@ export class MidiPlayer {
     };
     const tone = (from: number, to: number, drop: number, decay: number, level: number) => {
       const o = ctx.createOscillator();
-      o.frequency.setValueAtTime(from, at);
-      o.frequency.exponentialRampToValueAtTime(to, at + drop);
+      o.frequency.setValueAtTime(from * tune, at);
+      o.frequency.exponentialRampToValueAtTime(to * tune, at + drop);
+      decay *= stretch;
       const og = ctx.createGain();
       og.gain.setValueAtTime(level, at);
       og.gain.exponentialRampToValueAtTime(0.0008, at + decay);

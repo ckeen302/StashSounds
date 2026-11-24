@@ -6,7 +6,6 @@ import {
   Bell,
   ButtonLink,
   EmptyState,
-  Library,
   LinkProvider,
   ResultList,
   ResultRow,
@@ -18,6 +17,7 @@ import {
   useToast,
   type IconComponent,
   type PlayState,
+  type ResultRowProps,
 } from "@stash/ui";
 import { AppShell } from "../app/_shell/app-shell";
 import { nowPlaying } from "../app/_shell/now-playing";
@@ -32,6 +32,9 @@ import { midiItem } from "./midi/catalog";
 import { MidiList, MidiPage, UploadPage, useMidiItems } from "./midi/pages";
 import { PresetsPage } from "./presets/page";
 import { SoundDesign } from "./sound-design";
+import { BrowsePage, LibraryPage, NewCrateHost, ProfilePage, useCrateEntries, type RenderLoops } from "./explore";
+import { KitsPage } from "./kits";
+import { StackPage } from "./stack/page";
 import type { MidiKind } from "@stash/contracts";
 import { FilterChip, UiLink } from "@stash/ui";
 
@@ -109,7 +112,7 @@ function LoopList({ label, rows, onChange }: { label: string; rows: ItemRow[]; o
     >
       <ResultList label={label}>
         {rows.map((r, i) => (
-          <ResultRow
+          <LoopRow
             key={r.id}
             row={r}
             selected={i === selected}
@@ -131,9 +134,34 @@ function LoopList({ label, rows, onChange }: { label: string; rows: ItemRow[]; o
   );
 }
 
+/** A loop row with the crate menu: its entries are a hook, so each row is its own component. */
+function LoopRow(props: Omit<ResultRowProps, "menu">) {
+  const entries = useCrateEntries(props.row.id, props.row.title);
+  return <ResultRow {...props} menu={entries} />;
+}
+
+/** Loop lists for the discovery pages, each one its own play queue. */
+function LoopsFor({ label, rows }: { label: string; rows: ItemRow[] }) {
+  // Re-read each row as this viewer sees it, so a like made here shows here, in the order given.
+  const [fresh, refresh] = useRows();
+  const byId = new Map(fresh.map((r) => [r.id, r]));
+  const shown = rows.map((r) => byId.get(r.id) ?? r);
+  return <LoopList label={label} rows={shown} onChange={refresh} />;
+}
+const renderLoops: RenderLoops = (label, rows) => <LoopsFor label={label} rows={rows} />;
+
 function Page({ children }: { children: ReactNode }) {
   return <main className="mx-auto flex max-w-content flex-col gap-8 px-3 py-8 tablet:px-4 desktop:px-6">{children}</main>;
 }
+
+const FEATURES = [
+  { href: "/browse", name: "Browse by key and tempo", blurb: "Genre, a BPM range, a key and the keys that mix with it. Sort by trending or downloads." },
+  { href: "/stack", name: "Stack sounds", blurb: "Layer up to four MIDI parts. They lock to one tempo and move into one key while they play." },
+  { href: "/kits", name: "Drum kits", blurb: "Sixteen pads on your keyboard and a step sequencer. Post the bar as MIDI." },
+  { href: "/sound-design", name: "Sound design", blurb: "Shape a synth patch with knobs and a scope, play it from your keyboard, save it." },
+  { href: "/presets", name: "Presets behind the songs", blurb: "Which synth and preset are on famous rap records, each with a source and how sure it is." },
+  { href: "/library", name: "Your library", blurb: "Likes, crates of sounds for one beat, who you follow and what you posted." },
+];
 
 function Home() {
   const [rows, refresh] = useRows();
@@ -159,6 +187,14 @@ function Home() {
           </ButtonLink>
         </div>
       </section>
+      <section aria-label="What you can do" className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-3">
+        {FEATURES.map((f) => (
+          <UiLink key={f.href} href={f.href} className="flex flex-col gap-1 rounded-panel border border-border bg-surface p-4 ui-hover:border-border-strong">
+            <span className="text-body-strong text-text">{f.name}</span>
+            <span className="text-small text-text-muted">{f.blurb}</span>
+          </UiLink>
+        ))}
+      </section>
       <section className="flex flex-col gap-3">
         <h2 className="text-title">Fresh loops</h2>
         <LoopList label="Fresh loops" rows={rows} onChange={refresh} />
@@ -176,18 +212,19 @@ function Home() {
   );
 }
 
-function Browse() {
-  const [rows, refresh] = useRows();
-  const byTempo = useMemo(() => [...rows].sort((a, b) => (a.bpm ?? 0) - (b.bpm ?? 0)), [rows]);
-  return (
-    <Page>
-      <header className="flex flex-col gap-1">
-        <span className="text-label text-label-caps text-text-muted">Browse</span>
-        <h1 className="text-title">Loops, slowest to fastest</h1>
-      </header>
-      <LoopList label="Loops" rows={byTempo} onChange={refresh} />
-    </Page>
-  );
+function BrowseRoute() {
+  const [rows] = useRows();
+  return <BrowsePage catalog={catalog} rows={rows} renderLoops={renderLoops} />;
+}
+
+function ProfileRoute({ handle }: { handle: string }) {
+  const [rows] = useRows();
+  return <ProfilePage key={handle} handle={handle} catalog={catalog} rows={rows} renderLoops={renderLoops} />;
+}
+
+function LibraryRoute() {
+  const [rows] = useRows();
+  return <LibraryPage catalog={catalog} rows={rows} renderLoops={renderLoops} />;
 }
 
 function SearchResults() {
@@ -275,10 +312,14 @@ function AllMidi() {
 }
 
 const TABS = [
-  { href: "/", name: "Sounds" },
+  { href: "/", name: "Home" },
+  { href: "/browse", name: "Browse" },
   { href: "/midi", name: "MIDI" },
+  { href: "/stack", name: "Stack" },
+  { href: "/kits", name: "Drum kits" },
   { href: "/sound-design", name: "Sound design" },
   { href: "/presets", name: "Presets" },
+  { href: "/library", name: "Library" },
   { href: "/upload", name: "Upload" },
 ];
 
@@ -318,17 +359,20 @@ function Route() {
   const midi = /^\/midi\/(?:.*-)?([a-z0-9]+)$/.exec(path);
   if (midi) return <MidiPage key={midi[1]} publicId={midi[1]!} />;
   if (path === "/") return <Home />;
-  if (path.startsWith("/browse")) return <Browse />;
+  if (path.startsWith("/browse")) return <BrowseRoute />;
   if (path === "/search") return <SearchResults />;
   if (path === "/upload") return <UploadPage />;
   if (path === "/midi") return <AllMidi />;
   if (path === "/sound-design") return <SoundDesign />;
   if (path === "/presets") return <PresetsPage />;
-  if (path === "/library")
-    return <NotInDemo title="Library" icon={Library}>Your library lives with your account. In the demo, the loops you like stay liked on this device.</NotInDemo>;
+  if (path === "/library") return <LibraryRoute />;
+  if (path === "/kits") return <KitsPage />;
+  if (path === "/stack") return <StackPage />;
   if (path === "/notifications")
     return <NotInDemo title="Notifications" icon={Bell}>Notifications arrive when producers you follow post. The demo has no account to send them to.</NotInDemo>;
-  if (path === "/login" || path.startsWith("/u/"))
+  const profile = /^\/u\/([a-z0-9_]+)$/.exec(path);
+  if (profile) return <ProfileRoute handle={profile[1]!} />;
+  if (path === "/login")
     return <NotInDemo title="Profile" icon={User}>Sign-in and profiles need an account. In the demo you are already treated as signed in.</NotInDemo>;
   return <NotFound />;
 }
@@ -343,6 +387,7 @@ function App() {
           <AppShell>
             <DemoTabs />
             <Route key={look} />
+            <NewCrateHost />
           </AppShell>
         </ToastProvider>
       </TooltipProvider>
