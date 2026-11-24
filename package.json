@@ -16,7 +16,7 @@
     "worker:test": "cd apps/worker && uv run --frozen pytest -q",
     "e2e": "playwright test --project=e2e",
     "visual": "node scripts/visual.mjs",
-    "visual:update": "node scripts/visual.mjs --update-snapshots=all",
+    "visual:update": "node scripts/visual.mjs --update-snapshots=changed",
     "perf": "playwright test --project=perf",
     "licenses": "node scripts/licenses.mjs"
   },
