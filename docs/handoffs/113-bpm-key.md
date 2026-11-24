@@ -200,7 +200,7 @@ old log1p(100|X|) the off-beat hats were as loud as the on-beat ones in the enve
   beat ≥ 60% of the best). It steps down at most one octave:
   - when the slower level is stronger by 0.05;
   - by 0.10 when the faster level is already inside 70 to 160, because a backbeat at 140 is "stronger
-    at 70" in the same way accented hats at 70 are;
+    at 70" in the same way accented hats at 70 are (replaced in the re-review, below);
   - on a near-tie, when only the slower level is inside 70 to 160. This is the mild prior.
 
   A loop with no low-end onsets (under 1.5% of onset energy below 200 Hz, so hats alone) uses 0.05
@@ -253,3 +253,69 @@ SKIPPED [1] tests/test_sandbox.py:167: measured on the job uid as root
 ```
 As uid 65534: `371 passed, 18 skipped in 37.15s`. Ruff: `All checks passed!` and `32 files already formatted`.
 Every loop fixture still gets its manifest BPM, bars and key, with and without its name.
+
+## PR #13 re-review (at 20064aa)
+**Must fix: fast drums were halved.** With a kick on 1 and 3, the half-note level is always "stronger".
+The 0.10 in-range step (STEP_CLEAR) let the test's own drums read 64 at 128 BPM (4 and 8 bars) and 75 at
+150 BPM (2 bars), all three agreed. The new rule in `choose_octave`:
+- A level already inside 70 to 160 steps down only when the loop has no low-end onsets (hats alone),
+  and then only to a tempo still inside 70 to 160. STEP_CLEAR is gone.
+- No step can land below `limits.bpm.min`.
+- The module docstring now says what agreement means. Agreement needs the onsets: a name or a duration
+  fit with no onset tempo to check it (silence, noise) is never agreed, so the loop gets "check this".
+  This follows the lead's decision on file name plus silence.
+
+**Tests added:**
+- `test_fast_drums_with_a_kick_on_1_and_3_are_not_halved` asserts `t.bpm == bpm`, duration, agreed and
+  bars. It covers drums from 110 to 160 BPM in steps of 5, at 2, 4 and 8 bars, with and without off-beat
+  hats: 66 cases.
+- `choose_octave` unit tests:
+  - the near-tie branch: ±0.03 steps into the prior, -0.07 stays, and both levels outside need a clear
+    gain;
+  - the in-range rule: a backbeat stays, hats alone step, and 64 is refused;
+  - the bpm minimum;
+  - the fastest level with an onset on every beat: just below PERIODIC_SHARE it is skipped, and just
+    above it counts.
+- The advisories:
+  - drums with one NaN, inf or -inf sample give `(90, True)`;
+  - white noise gives `(120, "duration", False, 2)`;
+  - a name on a silent loop gives `(120, "filename", False, 2)`.
+
+**Mutation check.** Each change below, made alone, fails at least one test:
+- `gain > -STEP_DOWN` to `> STEP_DOWN`;
+- removing `nan_to_num`;
+- removing MIN_PERIODIC;
+- ignoring PERIODIC_SHARE;
+- restoring the old in-range rule;
+- removing the bpm-minimum guard.
+
+**Sweep.** The review's `over.py`, unchanged:
+```
+== over (quarter-note clicks, hat=False)
+clicks 174bpm 2bars -> 87.0 duration agreed=True cand=[87.0, 174.0]
+clicks 174bpm 4bars -> 87.0 duration agreed=True cand=[87.0, 174.0, 43.5]
+clicks 174bpm 8bars -> 87.0 duration agreed=True cand=[87.0, 43.5, 174.0]
+clicks ok 37 bad 3
+beatless pad 120 1bars -> 162.0 onset agreed=False
+beatless pad 90 2bars -> 112.0 onset agreed=False
+beatless pad 140 4bars -> 112.0 onset agreed=False
+beatless pad 72 2bars -> 112.0 onset agreed=False
+== over with hat=True (eighth-note hats)
+clicks 70bpm 1bars -> 140.0 duration agreed=True cand=[140.0, 70.0, 280.0]
+clicks ok 39 bad 1
+```
+The 174 to 87 result is accepted in decision 0018. The drums from `test_detection.drums()`, from 70 to
+160 BPM in steps of 5, at 1, 2, 4 and 8 bars, with no name:
+```
+drums ok 76 bad 0 []
+hats ok 75 bad 1 [(70, 1, 140.0, 'duration', True)]
+kick_snare ok 76 bad 0 []
+```
+
+Checks. As root, `STASH_REQUIRE_DB=1 STASH_REQUIRE_ISOLATION=1 pnpm worker:test`:
+```
+SKIPPED [1] tests/test_contracts.py:74: got empty parameter set for (path)
+SKIPPED [1] tests/test_sandbox.py:167: measured on the job uid as root
+458 passed, 2 skipped in 46.01s
+```
+As uid 65534: `442 passed, 18 skipped in 37.53s`. Ruff: `All checks passed!` and `32 files already formatted`.

@@ -495,8 +495,11 @@ def test_silence_orders_the_candidates_by_the_prior_and_is_not_agreed():
 
 
 def test_white_noise_has_no_onset_tempo_and_is_not_agreed():
+    # Below MIN_PERIODIC the onsets have no tempo, so the 120 BPM prior orders the whole-bar candidates
+    # (4 s is 2 bars at 120). With the floor removed, noise would report some onset tempo instead.
     x = (np.random.default_rng(0).standard_normal(SR * 4) * 0.1).astype(np.float32)
-    assert detect_bpm(x, SR, "untitled.wav").agreed is False
+    t = detect_bpm(x, SR, "untitled.wav")
+    assert (t.bpm, t.source, t.agreed, t.bars) == (120, "duration", False, 2)
 
 
 @pytest.mark.parametrize("bad", [np.nan, np.inf, -np.inf])
@@ -504,6 +507,7 @@ def test_nan_or_inf_samples_never_give_non_finite_numbers_or_agreement_from_them
     x = drums(90, 2)
     x[1000] = bad
     t = detect_bpm(x, SR, "untitled.wav")
+    assert (t.bpm, t.agreed) == (90, True)  # one bad sample is zeroed, not allowed to blank the onsets
     assert all(np.isfinite(v) for v in [t.bpm, *t.candidates])
     t = detect_bpm(np.full(SR * 4, bad, dtype=np.float32), SR, "untitled.wav")
     assert t.agreed is False
@@ -527,3 +531,60 @@ def test_hats_alone_have_no_low_end_onsets_and_drums_with_a_kick_do():
     hats_only = tempo._flux(drums(80, 2, kick=False, snare=False), SR)[1]
     with_kick = tempo._flux(drums(80, 2), SR)[1]
     assert hats_only < tempo.NO_LOW_END < with_kick
+
+
+# -- PR #13 re-review ----------------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize("bpm", range(110, 161, 5))
+@pytest.mark.parametrize("bars", [2, 4, 8])
+@pytest.mark.parametrize("hat_offbeat", [0.3, 0.0])
+def test_fast_drums_with_a_kick_on_1_and_3_are_not_halved(bpm: int, bars: int, hat_offbeat: float):
+    # Before the re-review fix, 128 BPM read 64 (below the prior) and 150 read 75, both agreed.
+    t = detect_bpm(drums(bpm, bars, hat_offbeat=hat_offbeat), SR, "untitled.wav")
+    assert (t.bpm, t.source, t.agreed, t.bars) == (bpm, "duration", True, bars)
+
+
+def octave(tempos, score, beats=None, high_only=False):
+    return tempo.choose_octave(tempos, score, beats or dict.fromkeys(tempos, 0.9), high_only=high_only)
+
+
+def test_choose_octave_on_a_near_tie_steps_into_the_prior_and_only_then():
+    # 174 is outside 70-160 and 87 inside: within STEP_DOWN either way, the prior takes 87.
+    assert octave([174.0, 87.0], {174.0: 0.80, 87.0: 0.80 + 0.03}) == 87.0
+    assert octave([174.0, 87.0], {174.0: 0.80, 87.0: 0.80 - 0.03}) == 87.0
+    assert octave([174.0, 87.0], {174.0: 0.80, 87.0: 0.80 - 0.07}) == 174.0  # clearly weaker: stays
+    # Both outside the prior: a near-tie is not enough, a clear gain is.
+    assert octave([400.0, 200.0], {400.0: 0.80, 200.0: 0.83}) == 400.0
+    assert octave([400.0, 200.0], {400.0: 0.80, 200.0: 0.86}) == 200.0
+
+
+def test_choose_octave_inside_the_prior_steps_down_only_for_hats_alone_and_only_into_the_prior():
+    scores = {140.0: 0.80, 70.0: 0.90}
+    assert octave([140.0, 70.0], scores) == 140.0  # a kick: a backbeat is not halved
+    assert octave([140.0, 70.0], scores, high_only=True) == 70.0
+    assert octave([140.0, 70.0], {140.0: 0.80, 70.0: 0.83}, high_only=True) == 140.0  # not a clear gain
+    assert octave([128.0, 64.0], {128.0: 0.80, 64.0: 0.95}, high_only=True) == 128.0  # 64 is outside
+
+
+def test_choose_octave_never_lands_below_the_bpm_minimum():
+    low = limits()["bpm"]["min"]
+    level, below = float(low + 20), float(low + 20) / 2
+    assert below < low
+    assert octave([level, below], {level: 0.5, below: 0.95}) == level
+
+
+def test_choose_octave_starts_at_the_fastest_level_with_an_onset_on_every_beat():
+    # 150 has the best mean but no onset on most of its beats (PERIODIC_SHARE of the best pulse), so the
+    # beat is 75; at 0.55 of the best pulse 150 counts, and inside the prior it stays.
+    best = 0.9
+    share = tempo.PERIODIC_SHARE
+    scores = {150.0: 0.9, 75.0: 0.7}
+    assert octave([150.0, 75.0], scores, {150.0: (share - 0.05) * best, 75.0: best}) == 75.0
+    assert octave([150.0, 75.0], scores, {150.0: (share + 0.01) * best, 75.0: best}) == 150.0
+
+
+def test_a_name_on_a_silent_loop_is_kept_but_not_agreed():
+    # No onsets heard: nothing checks the name, so the loop is marked "check this".
+    t = detect_bpm(np.zeros(round(2 * 4 * 60 / 120 * SR), dtype=np.float32), SR, "loop_120bpm.wav")
+    assert (t.bpm, t.source, t.agreed, t.bars) == (120, "filename", False, 2)
