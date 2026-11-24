@@ -185,9 +185,9 @@ is touched only because the loop page's "More from" rows had to come under the b
 | --- | --- |
 | Server-rendered with correct metadata and preview card | e2e "the page is server-rendered with its metadata and preview card" reads the raw HTML: h1, title, description, canonical, og:*, twitter:card, owner, license, more-from rows. Redirect and 404 e2e. Unit tests for `itemMetadata`. |
 | Hero waveform drawn from peaks before audio arrives | e2e holds the preview request open, then reads the canvas pixels: more than 100 drawn bar columns with the loop's shape (not uniform loading bars), the preview requested once, still not played. |
-| Tempo, key, loop and volume controls bound to the engine | e2e: Space plays; `]` `]` reads back Em with +2; `=` reads 91; End on the tempo slider reads 180, still playing; reset returns to 90 and Dm. Tempo and key set before play are applied on start. Loop off stops at the end of the pass. Volume mute and unmute reach the player bar's slider. **Audible tempo and key change is blocked by an engine bug in the production build**: see Surprises and request 135-stretch-in-production-build. |
+| Tempo, key, loop and volume controls bound to the engine | e2e: Space plays; `]` `]` reads back Em with +2; `=` reads 91; End on the tempo slider reads 180, still playing; reset returns to 90 and Dm. Tempo and key set before play are applied on start. Loop off (now `engine.setLoop`) stops at the end of the pass. Volume mute and unmute reach the player bar's slider. Audible: at 180 BPM the playhead moves at 2.00x wall time in the built app ("at double tempo the loop really plays twice as fast", asserts more than 1.5). |
 | Download calls requestDownload and shows the license | `server-actions.ts` calls `requestDownload({ itemId })`. e2e with the local adapter: the file saves, the record "Downloaded under Royalty-free 1.0" with the file name, the toast. Signed out asks to sign in and comes back to finish. Unit tests for the local adapter's record. |
-| First sound under 300 ms, LCP under 2.0 s, CLS under 0.05 | `e2e/perf/budgets.spec.ts` in `pnpm perf`: loop page LCP 652 to 840 ms, CLS 0, 199 KB of compressed script before audio (budget 200 KiB, measured race-free), on CPU 4x and 4G; first sound after Space 133 to 216 ms (budget 300). |
+| First sound under 300 ms, LCP under 2.0 s, CLS under 0.05 | `e2e/perf/budgets.spec.ts` in `pnpm perf`: loop page LCP 552 to 612 ms, CLS 0, 204,566 bytes of compressed script before audio (budget 204,800), on CPU 4x and 4G; first sound after Space 142 to 173 ms (budget 300). |
 
 ### How the e2e stubs data
 - The test server runs with `STASH_DEV_PAGES=1` (playwright.config.ts already sets it). The real
@@ -201,71 +201,117 @@ is touched only because the loop page's "More from" rows had to come under the b
 - A production build never takes the fixture branch: unit test "reads the real query in
   production, even for a fixture id".
 
+## Review round 1 (PR #15, reviewed at 947bb97)
+Merged first: foundations a6fce8f (e2e env defaults, 800 px project, visual:update changed-only;
+one add/add conflict on `home-visual-tablet.png`, foundations' copy kept), then lane/audio-123 473aa6e
+(stretch from a served worklet, `setLoop`) and foundations 8dc75a3. PR #15's base is
+lane/interface-132, so the audio-123 commits show in its diff until #10 merges.
+
+**Blocking**
+- **D1** Download on screen at every width. The in-panel Download / Like / Copy row shows only from
+  `cq-xl` (the panel beside the player); below that, the pinned bar (`data-download-bar`) stays
+  until `cq-xl`, with the license named in it ("ROYALTY-FREE"). e2e "at {1440,1024,800,380} px,
+  download is on screen without scrolling, and only once" (`toBeInViewport({ ratio: 1 })`, exactly
+  one visible Download, license named beside it, no sideways scroll).
+- **D2** The phone facts beside the play pad read the player's live tempo and `transposedKey`, the
+  values the transport shows. e2e: `90 BPM · Dm`, then `]` `]` `=` gives `91 BPM · Em`.
+- **D3** Loop on has a `border-border-strong` edge with `text-text`, and an engraved `ON` / `OFF`
+  (`font-mono text-numeric`, `aria-hidden`: aria-pressed already says it) beside the button. Unit
+  test on the markup; e2e checks the word and that the edge color changes.
+- **T1** `actionsFor(source, page)` (`_item/actions-source.ts`) picks the actions; the page calls it.
+  `actions-source.test.ts` mocks `@/server/downloads/actions` and asserts `serverActions.download(id)`
+  calls `requestDownload({ itemId: id })` with save "navigate", and that "server" selects
+  serverActions and "local" the blob-saving local ones.
+- **T2** `?then=` only names the action. Pressing Sign in in the dialog stores
+  `{ intent, itemId, at }` in sessionStorage (`_item/intent.ts`, every access in try/catch). On the
+  way back the page acts only if that marker matches this item and intent and is under 30 minutes
+  old; any marker is cleared once read, and `?then=` is always removed from the address. Unit tests
+  (match once, other item, other intent, stale, corrupt, storage that throws). e2e: a bare
+  `goto(...?then=download)` signed in saves nothing and shows no record (also with a marker for
+  another item), and the real flow (press D, Sign in, cookie, follow `next`) still downloads. Note:
+  sign-in by email link opened in a new tab has no marker there, so the visitor presses Download
+  again: a safe failure.
+
+**Advisory**
+- Hero pad centred on the waveform (`tablet:items-center`).
+- Download tooltip on the bottom in the panel (top in the pinned bar). The license badge takes
+  `summaryTooltip={false}` where the summary is on screen.
+- The audio error is inside the hero card, under the waveform.
+- 40 px touch targets: byline and "Read the full license" get an `::after` reaching 12 px above and
+  below; the badge 8 px; row titles `-my-3 py-3` (`truncate` would clip an `::after`). A
+  getBoundingClientRect audit still reports the visible box; the hit area is the larger one.
+- Transport: two by two (tempo | key, loop | volume) from `cq-md`; one row from `cq-lg`, now a flex
+  row with tempo at twice the volume's share, key and loop at their natural width.
+- `error.tsx` for the item route (an `ErrorState` with Retry; its view loads lazily). **No
+  `loading.tsx`**: I built it (hero-matching skeleton) and it broke the route's status codes. A
+  loading boundary makes Next stream the page, so `notFound()` answers 200 instead of 404 and the
+  old-slug redirect stops being a server redirect; the 404 and redirect journey failed, and early
+  key presses landed before the streamed page hydrated. Correct statuses matter more for crawlers
+  than a skeleton on a page that renders in about 0.6 s. The skeleton is kept out of the branch; say if
+  you want it with that trade.
+- The double-tempo journey: first an explicit rate-about-1 assertion replacing `test.fail()`, then,
+  with the audio-123 fix merged, a real assertion: rate above 1.5 (measured 2.00).
+- The fixture loader refuses when `VERCEL_ENV === "production"`, even with STASH_DEV_PAGES=1 (unit
+  test).
+- Loop switch: `loop-watch.ts` is gone; the page reads `EngineState.loop` and calls
+  `engine.setLoop`. `loop: true` added to the EngineState literal in now-playing.test.ts.
+
+**Script budget.** These changes added bytes, so more moved behind first use: the license record
+and the file-saving code (`_item/download-record.tsx`), the intent marker code (loaded only on the
+way back from sign-in), and the error view. The loop page is **204,566 bytes** of 204,800 (234 bytes
+of headroom; the audio-123 merge grew the engine). `/` is 184 KB.
+
 ## Proof
-Lane check with STASH_E2E_PORT=3135 and the three placeholder public variables (request
-135-e2e-supabase-env), at the branch head after the merges:
+At the branch head, STASH_E2E_PORT=3237 (foundations now supplies the e2e environment defaults):
 ```
-$ export STASH_E2E_PORT=3135 NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54321 \
-    NEXT_PUBLIC_SUPABASE_ANON_KEY=e2e-placeholder NEXT_PUBLIC_PREVIEWS_BASE_URL=https://media.stash.local
 $ pnpm check && pnpm e2e
 packages/contracts typecheck: Done
-packages/ui typecheck: Done
 packages/audio typecheck: Done
+packages/ui typecheck: Done
 apps/web typecheck: Done
 (eslint . --max-warnings 0: no output)
-Running 68 tests using 2 workers
-  ✓  34 [e2e] › e2e/journeys/loop-page.spec.ts:39:1 › the page is server-rendered with its metadata and preview card (227ms)
-  ✓  35 [e2e] › e2e/journeys/loop-page.spec.ts:55:1 › an old slug redirects to the canonical address, and an unknown item is not found (867ms)
-  ✓  36 [e2e] › e2e/journeys/loop-page.spec.ts:62:1 › the hero waveform is drawn from the stored peaks before any audio arrives (623ms)
-  ✓  37 [e2e] › e2e/journeys/loop-page.spec.ts:93:1 › space plays and pauses; tempo and key drive the engine while it plays (1.6s)
-  ✓  39 [e2e] › e2e/journeys/loop-page.spec.ts:147:1 › tempo and key set before play are applied when it starts (945ms)
-  ✘  38 [e2e] › e2e/journeys/loop-page.spec.ts:127:1 › at double tempo the loop really plays twice as fast (3.0s)
-  ✓  40 [e2e] › e2e/journeys/loop-page.spec.ts:160:1 › loop off stops at the end of the pass; volume is shared with the player bar (1.2s)
-  ✓  41 [e2e] › e2e/journeys/loop-page.spec.ts:182:1 › signed out, download asks to sign in and comes back to finish (1.3s)
-  ✓  42 [e2e] › e2e/journeys/loop-page.spec.ts:192:1 › signed in, download saves the file and shows the license record (870ms)
-  ✓  43 [e2e] › e2e/journeys/loop-page.spec.ts:206:1 › coming back from sign-in finishes the download that was asked for (810ms)
-  ✓  44 [e2e] › e2e/journeys/loop-page.spec.ts:214:1 › signed in, like and follow toggle with their counts (1.1s)
-  ✓  45 [e2e] › e2e/journeys/loop-page.spec.ts:229:1 › signed out, like and follow ask to sign in (1.1s)
-  ✓  46 [e2e] › e2e/journeys/loop-page.spec.ts:239:1 › more from the uploader plays in place and becomes the queue (1.1s)
-  ✓  47 [e2e] › e2e/journeys/loop-page.spec.ts:252:1 › on a phone, download is pinned above the mini player (685ms)
-  ✓  48 [e2e] › e2e/journeys/loop-page.spec.ts:267:1 › the loop page passes the accessibility scan, idle and playing (2.3s)
+Running 75 tests using 2 workers
+  ✓  34 [e2e] › e2e/journeys/loop-page.spec.ts:39:1 › the page is server-rendered with its metadata and preview card (199ms)
+  ✓  35 [e2e] › e2e/journeys/loop-page.spec.ts:55:1 › an old slug redirects to the canonical address, and an unknown item is not found (531ms)
+  ✓  36 [e2e] › e2e/journeys/loop-page.spec.ts:62:1 › the hero waveform is drawn from the stored peaks before any audio arrives (555ms)
+  ✓  37 [e2e] › e2e/journeys/loop-page.spec.ts:93:1 › space plays and pauses; tempo and key drive the engine while it plays (953ms)
+  ✓  39 [e2e] › e2e/journeys/loop-page.spec.ts:147:1 › tempo and key set before play are applied when it starts (662ms)
+  ✓  40 [e2e] › e2e/journeys/loop-page.spec.ts:160:1 › loop off stops at the end of the pass; volume is shared with the player bar (1.4s)
+  ✓  38 [e2e] › e2e/journeys/loop-page.spec.ts:125:1 › at double tempo the loop really plays twice as fast (2.8s)
+  ✓  42 [e2e] › e2e/journeys/loop-page.spec.ts:192:1 › signed in, download saves the file and shows the license record (651ms)
+  ✓  41 [e2e] › e2e/journeys/loop-page.spec.ts:182:1 › signed out, download asks to sign in and comes back to finish (1.0s)
+  ✓  43 [e2e] › e2e/journeys/loop-page.spec.ts:206:1 › coming back from sign-in finishes the download that was asked for (1.3s)
+  ✓  45 [e2e] › e2e/journeys/loop-page.spec.ts:241:1 › signed in, like and follow toggle with their counts (627ms)
+  ✓  46 [e2e] › e2e/journeys/loop-page.spec.ts:256:1 › signed out, like and follow ask to sign in (725ms)
+  ✓  44 [e2e] › e2e/journeys/loop-page.spec.ts:221:1 › a bare link with ?then=download does nothing, even signed in (2.7s)
+  ✓  48 [e2e] › e2e/journeys/loop-page.spec.ts:279:1 › on a phone, download is pinned above the mini player (386ms)
+  ✓  47 [e2e] › e2e/journeys/loop-page.spec.ts:266:1 › more from the uploader plays in place and becomes the queue (627ms)
+  ✓  49 [e2e] › e2e/journeys/loop-page.spec.ts:295:3 › at 1440 px, download is on screen without scrolling, and only once (334ms)
+  ✓  50 [e2e] › e2e/journeys/loop-page.spec.ts:295:3 › at 1024 px, download is on screen without scrolling, and only once (372ms)
+  ✓  51 [e2e] › e2e/journeys/loop-page.spec.ts:295:3 › at 800 px, download is on screen without scrolling, and only once (385ms)
+  ✓  52 [e2e] › e2e/journeys/loop-page.spec.ts:295:3 › at 380 px, download is on screen without scrolling, and only once (327ms)
+  ✓  53 [e2e] › e2e/journeys/loop-page.spec.ts:309:1 › on a phone, the facts beside the play pad follow the tempo and the key shift (379ms)
+  ✓  54 [e2e] › e2e/journeys/loop-page.spec.ts:321:1 › the loop switch says ON or OFF in words as well as its pressed state (481ms)
+  ✓  55 [e2e] › e2e/journeys/loop-page.spec.ts:334:1 › the loop page passes the accessibility scan, idle and playing (1.8s)
+loop page playback rate at 180 BPM: 2.00
   (the other 53, gallery, shell and smoke, all ✓)
-  68 passed (50.4s)
-```
-The ✘ is the expected failure marked `test.fail()` (see Surprises): Playwright counts it as passed,
-and it will turn red the day the stretch works.
-
-```
-$ pnpm test
- Test Files  32 passed | 1 skipped (33)
-      Tests  611 passed | 9 skipped (620)
+  75 passed (48.8s)
 
 $ pnpm perf
-/: LCP 468 ms, CLS 0.0000, script 184 KB
-  ✓  34 [perf] › e2e/perf/budgets.spec.ts:31:3 › / stays inside the page budgets (2.1s)
-loop page first sound after space: 133 ms
-  ✓  36 [perf] › e2e/perf/budgets.spec.ts:78:1 › the loop page sounds within the first-sound budget after space (454ms)
-/loop/dusty-soul-chops-k3j9x0a2b1: LCP 652 ms, CLS 0.0000, script 199 KB
-  ✓  35 [perf] › e2e/perf/budgets.spec.ts:31:3 › /loop/dusty-soul-chops-k3j9x0a2b1 stays inside the page budgets (3.1s)
-  ✘  11 [perf] › e2e/perf/audio-seamless-loop.spec.ts:217:3 › dusty_soul_90_Dmin.wav: a seek while stretched fades out and back in, with no click (559ms)
-    Error: the old position fades out instead of being cut
-    Expected: > 0.5
-    Received:   0.2375020207395425
-  1 failed
-  35 passed (41.2s)
-```
-The one perf failure is the Audio lane's spec on its own test page (audio-123 code, merged here for
-the engine API; this branch does not change packages/audio or e2e/perf/audio-*). It failed the same
-way in an earlier run (0.2375). I have not fixed it: it is not my lane, and it is for the Audio lane
-to say whether it fails on lane/audio-123 too. Every audio first-sound check passes.
+  ✓ every audio-first-sound, audio-seamless-loop and audio-test-page check (36), including
+    "dusty_soul_90_Dmin.wav: a seek while stretched fades out and back in, with no click"
+/: LCP 252 ms, CLS 0.0000, script 184 KB
+/loop/dusty-soul-chops-k3j9x0a2b1: LCP 612 ms, CLS 0.0000, script 200 KB   (204,566 bytes)
+loop page first sound after space: 153 ms
+  42 passed (55.9s)
 
-```
+$ pnpm test
+ Test Files  36 passed | 1 skipped (37)
+      Tests  640 passed | 9 skipped (649)
+
 $ pnpm run licenses
 All dependency licenses are on the allowed list.
 ```
-New unit tests: `packages/ui/test/transport.test.ts` (11), two Avatar tests in
-`packages/ui/test/components.test.ts`, and `apps/web/src/app/_item/item.test.ts` (18: fixtures,
-loader branches, metadata, key map, loop-off wrap, local actions eager and lazy).
 
 **`pnpm visual` was not run**: Docker is not available on this machine. CI runs it. The new loop page test
 (`loop-page.png` at three widths) and the gallery sections `c-stepper` and `c-transport` have no
@@ -281,27 +327,20 @@ baselines yet. The `visual-update/*` workflow cannot make them either until requ
 ## Not done
 - Similar items (204), the share image route `/og/[id]` (the card is `summary` until it exists), the
   global keyboard map and the `?` dialog (225), and like and follow on the server (301).
-- The player bar's BPM and KEY readouts still show the item's own values, not the shifted ones. That
-  is player-bar.tsx (132's file), so it waits for a follow-up.
+- The player bar's BPM and KEY readouts still show the item's own values, not the shifted ones: the
+  lead moved it to 136 polish.
+- `loading.tsx` (see the review round: it would turn 404s and redirects into 200s).
 
 ## Surprises and decisions
-- **The time stretch never loads in the built app (blocking the audible half of criterion 3).**
-  `signalsmith-stretch` builds its AudioWorklet by stringifying its own functions. After the Next
-  build minifies them, the worklet throws `ReferenceError: g is not defined` (`processorerror`), the
-  library waits forever for `ready`, and `loadStretch` never settles. Engine state still says
-  `tempoRatio: 2`, so the readouts show a change you cannot hear. The audio test page serves the
-  library unminified, so `pnpm perf` there passes. This is in packages/audio, or in next.config, not
-  mine: request 135-stretch-in-production-build has the trace and three fixes. The e2e test "at double
-  tempo the loop really plays twice as fast" is marked `test.fail()` naming the request. It asserts
-  today's broken state and fails the moment the fix lands, so it cannot be forgotten. It is a new
-  test, not a loosened one, but the lead should confirm the marker is acceptable.
+- **The time stretch did not load in the built app** (minified worklet, request
+  135-stretch-in-production-build). Fixed in lane/audio-123 473aa6e plus the lead's served worklet;
+  the double-tempo journey now asserts the real rate.
 - **Every page answers 500 without Supabase settings.** Since 101's `src/proxy.ts` runs on every route
   with no public Supabase variables, `/`, `/dev/gallery` and `/dev/player` all fail in
   playwright.config's server, in CI's browser job and in visual-update.yml, not only the loop page.
   Request 135-e2e-supabase-env asks for placeholder variables, or for the proxy to pass through.
-- **Loop off on the page.** The engine has no loop switch. While loop is off, the frame loop that
-  draws the playhead pauses at the wrap and returns to the start, so up to one frame (about 16 ms) of
-  the next pass may sound. Request 135-engine-loop-switch asks for `setLoop`.
+  (Landed: foundations a6fce8f sets the defaults.)
+- **Loop off** is the engine's `setLoop` now (request 135-engine-loop-switch, landed in audio-123).
 - **The local download is the preview.** The fixture and demo source saves the preview file (`.ogg`
   address), named from the title like requestDownload does. The server source saves the original.
 - **The route segment is `[item]`**, because Next cannot split `[slug]-[id]`; `itemPage` parses it.
