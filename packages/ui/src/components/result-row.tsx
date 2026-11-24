@@ -2,13 +2,13 @@
 
 import type { ItemRow } from "@stash/contracts";
 import { formatKey } from "@stash/contracts/format";
-import { useState, type ReactNode } from "react";
+import { lazy, Suspense, useState, type ReactNode } from "react";
 import { TagChip, TYPE_LABEL } from "./chip.tsx";
 import { cx, transition, type PreviewState } from "./cx.ts";
 import { Download, Ellipsis, Heart } from "./icon.tsx";
 import { IconButton } from "./icon-button.tsx";
 import { UiLink } from "./link.tsx";
-import { ContextMenu, Menu, type MenuEntry } from "./menu.tsx";
+import type { MenuEntry } from "./menu.tsx";
 import { PlayButton, type PlayState } from "./play-button.tsx";
 import { SkeletonBlock } from "./skeleton.tsx";
 import { Tooltip } from "./tooltip.tsx";
@@ -180,7 +180,8 @@ export function ResultRow({
         <Waveform peaks={row.peaks} type={row.type} progress={progress} onScrub={onScrub} label={describeRow(row)} durationMs={row.durationMs} />
       </div>
       <div className={cx(col.title, "flex flex-col")}>
-        <UiLink href={row.href} className="truncate rounded-control text-body-strong text-text ui-hover:underline">
+        {/* -my-3 py-3: a 44 px touch target that does not change the row's height. */}
+        <UiLink href={row.href} className="-my-3 truncate rounded-control py-3 text-body-strong text-text ui-hover:underline">
           {row.title}
         </UiLink>
         <span className="truncate text-small text-text-muted">@{row.owner.handle}</span>
@@ -219,15 +220,29 @@ export function ResultRow({
         <Tooltip content="Download" shortcut="D">
           <IconButton icon={Download} label={`Download ${row.title}`} onClick={onDownload} />
         </Tooltip>
-        <Menu
-          entries={menu}
-          trigger={<IconButton icon={Ellipsis} label={`More for ${row.title}`} disabled={menu.length === 0} />}
-        />
+        {menu.length > 0 ? (
+          <Suspense fallback={<IconButton icon={Ellipsis} label={`More for ${row.title}`} />}>
+            <Menu entries={menu} trigger={<IconButton icon={Ellipsis} label={`More for ${row.title}`} />} />
+          </Suspense>
+        ) : (
+          <IconButton icon={Ellipsis} label={`More for ${row.title}`} disabled />
+        )}
       </div>
     </li>
   );
-  return menu.length > 0 ? <ContextMenu entries={menu}>{content}</ContextMenu> : content;
+  return menu.length > 0 ? (
+    <Suspense fallback={content}>
+      <ContextMenu entries={menu}>{content}</ContextMenu>
+    </Suspense>
+  ) : (
+    content
+  );
 }
+
+// The menus (Radix Menu and ContextMenu, about 17 KB gzip) load only for rows that have entries, so a
+// list without a menu stays inside the page script budget (ticket 135, the loop page).
+const Menu = lazy(() => import("./menu.tsx").then((m) => ({ default: m.Menu })));
+const ContextMenu = lazy(() => import("./menu.tsx").then((m) => ({ default: m.ContextMenu })));
 
 /** A row's exact footprint while the list loads. */
 export function ResultRowSkeleton() {

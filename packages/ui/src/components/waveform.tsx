@@ -97,6 +97,7 @@ export function Waveform({
   const hero = variant === "hero";
   const progress = clamp01(getProgress ? 0 : rawProgress);
   const sliderRef = useRef<HTMLDivElement>(null);
+  const clockLabelRef = useRef<HTMLSpanElement>(null);
   const pointer = pointerPreview === undefined ? hoverAt : clamp01(pointerPreview);
 
   const decoded = useMemo(() => {
@@ -166,6 +167,18 @@ export function Waveform({
     if (!getProgress) return paint(progress);
     const p = clamp01(getProgress());
     paint(p);
+    // The hero's time above the playhead follows the clock too, written straight to the element.
+    const label = clockLabelRef.current;
+    if (label) {
+      const shown = (playing || p > 0) && ms > 0;
+      label.hidden = !shown;
+      if (shown) {
+        label.style.setProperty("--playhead", String(p));
+        label.textContent = formatTime(p * ms);
+        label.classList.toggle("-translate-x-1/2", p >= 0.08 && p <= 0.92);
+        label.classList.toggle("-translate-x-full", p > 0.92);
+      }
+    }
     // The slider's value follows the clock too, written straight to the element.
     const el = sliderRef.current;
     if (el?.getAttribute("role") === "slider") {
@@ -175,7 +188,7 @@ export function Waveform({
         if (ms > 0) el.setAttribute("aria-valuetext", `${formatTime(p * ms)} of ${formatTime(ms)}`);
       }
     }
-  }, [getProgress, paint, progress, ms]);
+  }, [getProgress, paint, progress, ms, playing]);
   useFrameLoop(frame, Boolean(getProgress) && playing);
 
   const fromEvent = useCallback((e: PointerEvent<HTMLElement>) => fractionAt(e.clientX - e.currentTarget.getBoundingClientRect().left, e.currentTarget.clientWidth), []);
@@ -196,8 +209,9 @@ export function Waveform({
 
   const timeAt = (f: number) => formatTime(f * ms);
   const edge = (f: number) => (f < 0.08 ? "translate-x-0" : f > 0.92 ? "-translate-x-full" : "-translate-x-1/2");
-  // With a clock reader the time is shown by the player, not as a floating label.
   const showPlayhead = hero && !getProgress && (playing || progress > 0) && !error && ms > 0;
+  // With a clock reader the label is written per frame (see frame above), never through React state.
+  const clockLabel = hero && Boolean(getProgress) && !error && ms > 0;
 
   return (
     <div className={cx("relative flex min-w-0 flex-col", hero ? "gap-1" : "", className)}>
@@ -207,6 +221,9 @@ export function Waveform({
             <span style={{ "--playhead": progress }} className={cx("absolute top-0 left-playhead font-mono text-numeric tabular text-accent", edge(progress))}>
               {timeAt(progress)}
             </span>
+          )}
+          {clockLabel && (
+            <span ref={clockLabelRef} hidden data-playhead-time className="absolute top-0 left-playhead font-mono text-numeric tabular text-accent" />
           )}
           {pointer !== null && !error && ms > 0 && (
             <span style={{ "--pointer": pointer }} className={cx("absolute top-0 left-pointer rounded-control bg-raised px-1 font-mono text-numeric tabular text-text-muted", edge(pointer))}>

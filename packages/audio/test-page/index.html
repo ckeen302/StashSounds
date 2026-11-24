@@ -4,6 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Audio engine test page</title>
+    <!-- The engine imports these (the stretch lazily); in the app the bundler resolves them, here the server serves them. -->
+    <script type="importmap">
+      { "imports": { "signalsmith-stretch": "/vendor/signalsmith-stretch.mjs", "@stash/contracts/limits.json": "/vendor/limits.json" } }
+    </script>
   </head>
   <body>
     <!-- Bare test page for packages/audio (ticket 121). Not product UI: no tokens, no components. -->
@@ -19,6 +23,10 @@
     <p>
       <label>Position <input id="seek" type="range" min="0" max="1000" value="0" /></label>
       <output id="position">0 ms</output>
+    </p>
+    <p>
+      <label>Tempo (BPM) <input id="tempo" type="number" min="40" max="300" step="1" /></label>
+      <label>Transpose (semitones) <input id="transpose" type="number" min="-12" max="12" step="1" value="0" /></label>
     </p>
     <p>
       <label>Volume <input id="volume" type="range" min="0" max="100" value="80" /></label>

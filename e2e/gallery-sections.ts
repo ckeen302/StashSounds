@@ -28,6 +28,8 @@ export const componentSections: { id: string; name: string; states: string[] }[]
   { id: "c-row", name: "Result row, loop", states: ["default", "hover", "selected", "playing", "loading", "error", "skeleton", "live"] },
   { id: "c-wave", name: "Waveform", states: ["mini", "hero", "loading", "playing", "scrubbing", "error", "idle"] },
   { id: "c-player", name: "Player bar", states: ["idle", "loading", "playing", "paused", "error", "phone sheet"] },
+  { id: "c-stepper", name: "Stepper", states: ["key shift", "at limit", "focus", "disabled", "live"] },
+  { id: "c-transport", name: "Transport", states: ["loop", "changed", "muted", "disabled for types that lack a control", "live"] },
 ];
 
 export const sectionSelector = (id: string) => `section[aria-labelledby="${id}"]`;

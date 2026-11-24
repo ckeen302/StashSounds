@@ -135,6 +135,10 @@ describe("License badge", () => {
     expect(out).toContain("Split on placement");
     expect(out).toContain("50%");
   });
+  it("drops its summary tooltip where the summary is already on screen", () => {
+    expect(html(h(LicenseBadge, { kind: "royalty_free" }))).toContain('data-state="closed"');
+    expect(html(h(LicenseBadge, { kind: "royalty_free", summaryTooltip: false }))).not.toContain("data-state");
+  });
 });
 
 describe("Avatar", () => {
@@ -147,6 +151,17 @@ describe("Avatar", () => {
   it("is decorative next to a name, labelled when it stands alone", () => {
     expect(html(h(Avatar, { name: "Kilo Beats" }))).toContain('aria-hidden="true"');
     expect(html(h(Avatar, { name: "Kilo Beats", labelled: true }))).toContain('aria-label="Kilo Beats"');
+  });
+  it("server-renders the picture over the initials, so the page paints it without script", () => {
+    const out = html(h(Avatar, { name: "Kilo Beats", src: "https://media.stash.local/a.jpg" }));
+    expect(out).toContain('src="https://media.stash.local/a.jpg"');
+    expect(out).toContain("KB");
+  });
+  it("shows a blank disc while the profile loads", () => {
+    const out = html(h(Avatar, { name: "Kilo Beats", src: "https://media.stash.local/a.jpg", loading: true }));
+    expect(out).toContain('aria-busy="true"');
+    expect(out).not.toContain("<img");
+    expect(out).not.toContain("KB");
   });
 });
 

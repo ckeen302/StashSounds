@@ -1,6 +1,6 @@
 "use client";
 
-import { Avatar as A } from "radix-ui";
+import { useState } from "react";
 import { cx } from "./cx.ts";
 
 export type AvatarSize = 24 | 32 | 64 | 96;
@@ -42,20 +42,20 @@ export function Avatar({
   className?: string;
 }) {
   const a11y = labelled ? { role: "img", "aria-label": name } : { "aria-hidden": true as const };
+  // The src that failed to load, so a new src gets its own try. No Radix here: its image waits for
+  // script before it shows, and this is on every page that names a producer (script budget, 135).
+  const [failed, setFailed] = useState<string | null>(null);
+  const showImage = !loading && src && failed !== src;
   return (
-    <A.Root
+    <span
       {...a11y}
       aria-busy={loading || undefined}
-      className={cx("inline-flex shrink-0 select-none items-center justify-center overflow-hidden rounded-full border border-border bg-raised", sizes[size], className)}
+      className={cx("relative inline-flex shrink-0 select-none items-center justify-center overflow-hidden rounded-full border border-border bg-raised", sizes[size], className)}
     >
-      {!loading && src && <A.Image src={src} alt="" className="size-full object-cover" />}
-      {/* Radix shows its fallback only after mount; with no picture the initials render on the server. */}
-      {!loading && src && (
-        <A.Fallback className="font-semibold text-text-muted" delayMs={200}>
-          {initials(name)}
-        </A.Fallback>
-      )}
-      {!loading && !src && <span className="font-semibold text-text-muted">{initials(name)}</span>}
-    </A.Root>
+      {/* The initials sit under the picture: they show while it loads, and stay if it fails. */}
+      {!loading && <span className="font-semibold text-text-muted">{initials(name)}</span>}
+      {/* eslint-disable-next-line @next/next/no-img-element -- packages/ui does not depend on Next; Radix rendered the same plain img. */}
+      {showImage && <img src={src} alt="" onError={() => setFailed(src)} className="absolute inset-0 size-full object-cover" />}
+    </span>
   );
 }

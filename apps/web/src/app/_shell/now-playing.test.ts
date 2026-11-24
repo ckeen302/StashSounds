@@ -12,7 +12,7 @@ const row = (n: number): ItemRow =>
   }) as ItemRow;
 
 function fakeEngine(state: Partial<EngineState> = {}) {
-  const s: EngineState = { status: "idle", current: null, durationMs: 0, tempoRatio: 1, transpose: 0, volume: 0.8, queue: [], queueIndex: 0, ...state };
+  const s: EngineState = { status: "idle", current: null, durationMs: 0, tempoRatio: 1, transpose: 0, volume: 0.8, loop: true, queue: [], queueIndex: 0, ...state };
   const engine: PlayerEngine & { s: EngineState } = {
     s,
     play: vi.fn(async (item?: Playable) => {
