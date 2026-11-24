@@ -89,6 +89,30 @@ foundations merged in, then foundations (c775765) and the 132 design review roun
 skip link, tablet progress, tap targets, slider track) are untouched here; the only overlap was
 `components.css`, where both sides added `@custom-variant`s and both are kept.
 
+**Script budget round (lead heads-up after the first push).** Foundations 5a05d1e (the zod-free
+`@stash/contracts/format`) and 132's 021e25e (player details on first play) are merged, then
+foundations e93d584 and 132's 49070d2 again before this push. One conflict: `result-row.tsx`
+imports, where this branch's lazy menus are kept over 132's eager import. That file is 132's, and it
+is touched only because the loop page's "More from" rows had to come under the budget.
+- Every client module on the loop page imports `@stash/contracts/format` (formatKey, decodePeaks,
+  LICENSE_LABELS) and `limits.json`, never `@stash/contracts` for values; schema parsing stays on the
+  server (`fixtures.ts`, `load-core.ts`, `meta.ts`). No zod in any chunk the page loads (checked).
+- `ResultRow` loads Radix Menu and ContextMenu (about 17 KB gzip) only for rows that have entries;
+  a row without entries shows a disabled plain button, as before.
+- The sign-in dialog (`_item/sign-in-dialog.tsx`) and the local actions
+  (`_item/lazy-local-actions.ts`) load on first use. Nothing needs them before a click.
+- `Avatar` no longer uses Radix: a plain `img` over the initials, server-rendered, initials kept if
+  the picture fails. One `eslint-disable-next-line @next/next/no-img-element` with its reason:
+  packages/ui does not depend on Next, and Radix rendered the same plain `img`.
+- `e2e/perf/budgets.spec.ts` summed script sizes inside the `requestfinished` handler, which raced
+  the assertion and under-counted (the 160 KB in the first handoff was wrong). It now awaits every
+  size before the sum. Measured honestly the loop page was 250 KB, 213 KB after the format switch,
+  205 KB after the lazy menus and dialog, and is **199 KB** now (budget 200 KiB = 204,800 bytes).
+- Where the bytes are: `/` alone is 184 KB (the shell: React, Next, Radix tooltip, slider and toast,
+  the engine). The loop page adds about 15.5 KB of its own (ItemView 5.9 KB, transport, stepper,
+  waveform, rows and uploader card 9.2 KB). Headroom is about 1 KB, so any growth in the shell will
+  push item pages over; that is the lead's and 132's call, not something this page can absorb.
+
 **Route and data**
 - `apps/web/src/app/[type]/[item]/page.tsx`: the item page, server-rendered and dynamic per
   request (like, follow and download depend on the viewer). `generateMetadata` and the page share
@@ -163,7 +187,7 @@ skip link, tablet progress, tap targets, slider track) are untouched here; the o
 | Hero waveform drawn from peaks before audio arrives | e2e holds the preview request open, then reads the canvas pixels: more than 100 drawn bar columns with the loop's shape (not uniform loading bars), the preview requested once, still not played. |
 | Tempo, key, loop and volume controls bound to the engine | e2e: Space plays; `]` `]` reads back Em with +2; `=` reads 91; End on the tempo slider reads 180, still playing; reset returns to 90 and Dm. Tempo and key set before play are applied on start. Loop off stops at the end of the pass. Volume mute and unmute reach the player bar's slider. **Audible tempo and key change is blocked by an engine bug in the production build**: see Surprises and request 135-stretch-in-production-build. |
 | Download calls requestDownload and shows the license | `server-actions.ts` calls `requestDownload({ itemId })`. e2e with the local adapter: the file saves, the record "Downloaded under Royalty-free 1.0" with the file name, the toast. Signed out asks to sign in and comes back to finish. Unit tests for the local adapter's record. |
-| First sound under 300 ms, LCP under 2.0 s, CLS under 0.05 | `e2e/perf/budgets.spec.ts`: loop page LCP 704 to 712 ms, CLS 0, 160 to 190 KB of script before audio (budget 200), on CPU 4x and 4G; first sound after Space 155 to 172 ms (budget 300). |
+| First sound under 300 ms, LCP under 2.0 s, CLS under 0.05 | `e2e/perf/budgets.spec.ts` in `pnpm perf`: loop page LCP 652 to 840 ms, CLS 0, 199 KB of compressed script before audio (budget 200 KiB, measured race-free), on CPU 4x and 4G; first sound after Space 133 to 216 ms (budget 300). |
 
 ### How the e2e stubs data
 - The test server runs with `STASH_DEV_PAGES=1` (playwright.config.ts already sets it). The real
@@ -179,7 +203,7 @@ skip link, tablet progress, tap targets, slider track) are untouched here; the o
 
 ## Proof
 Lane check with STASH_E2E_PORT=3135 and the three placeholder public variables (request
-135-e2e-supabase-env), after both merges:
+135-e2e-supabase-env), at the branch head after the merges:
 ```
 $ export STASH_E2E_PORT=3135 NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54321 \
     NEXT_PUBLIC_SUPABASE_ANON_KEY=e2e-placeholder NEXT_PUBLIC_PREVIEWS_BASE_URL=https://media.stash.local
@@ -190,47 +214,58 @@ packages/audio typecheck: Done
 apps/web typecheck: Done
 (eslint . --max-warnings 0: no output)
 Running 68 tests using 2 workers
-  ✓  34 [e2e] › e2e/journeys/loop-page.spec.ts:39:1 › the page is server-rendered with its metadata and preview card (420ms)
-  ✓  35 [e2e] › e2e/journeys/loop-page.spec.ts:55:1 › an old slug redirects to the canonical address, and an unknown item is not found (1.1s)
-  ✓  36 [e2e] › e2e/journeys/loop-page.spec.ts:62:1 › the hero waveform is drawn from the stored peaks before any audio arrives (1.1s)
-  ✓  37 [e2e] › e2e/journeys/loop-page.spec.ts:93:1 › space plays and pauses; tempo and key change the sound live (1.3s)
-  ✓  39 [e2e] › e2e/journeys/loop-page.spec.ts:147:1 › tempo and key set before play are applied when it starts (1.1s)
-  ✘  38 [e2e] › e2e/journeys/loop-page.spec.ts:127:1 › at double tempo the loop really plays twice as fast (3.2s)
-  ✓  40 [e2e] › e2e/journeys/loop-page.spec.ts:160:1 › loop off stops at the end of the pass; volume is shared with the player bar (1.5s)
-  ✓  41 [e2e] › e2e/journeys/loop-page.spec.ts:182:1 › signed out, download asks to sign in and comes back to finish (1.1s)
-  ✓  42 [e2e] › e2e/journeys/loop-page.spec.ts:192:1 › signed in, download saves the file and shows the license record (1.2s)
-  ✓  43 [e2e] › e2e/journeys/loop-page.spec.ts:206:1 › coming back from sign-in finishes the download that was asked for (1.0s)
+  ✓  34 [e2e] › e2e/journeys/loop-page.spec.ts:39:1 › the page is server-rendered with its metadata and preview card (227ms)
+  ✓  35 [e2e] › e2e/journeys/loop-page.spec.ts:55:1 › an old slug redirects to the canonical address, and an unknown item is not found (867ms)
+  ✓  36 [e2e] › e2e/journeys/loop-page.spec.ts:62:1 › the hero waveform is drawn from the stored peaks before any audio arrives (623ms)
+  ✓  37 [e2e] › e2e/journeys/loop-page.spec.ts:93:1 › space plays and pauses; tempo and key drive the engine while it plays (1.6s)
+  ✓  39 [e2e] › e2e/journeys/loop-page.spec.ts:147:1 › tempo and key set before play are applied when it starts (945ms)
+  ✘  38 [e2e] › e2e/journeys/loop-page.spec.ts:127:1 › at double tempo the loop really plays twice as fast (3.0s)
+  ✓  40 [e2e] › e2e/journeys/loop-page.spec.ts:160:1 › loop off stops at the end of the pass; volume is shared with the player bar (1.2s)
+  ✓  41 [e2e] › e2e/journeys/loop-page.spec.ts:182:1 › signed out, download asks to sign in and comes back to finish (1.3s)
+  ✓  42 [e2e] › e2e/journeys/loop-page.spec.ts:192:1 › signed in, download saves the file and shows the license record (870ms)
+  ✓  43 [e2e] › e2e/journeys/loop-page.spec.ts:206:1 › coming back from sign-in finishes the download that was asked for (810ms)
   ✓  44 [e2e] › e2e/journeys/loop-page.spec.ts:214:1 › signed in, like and follow toggle with their counts (1.1s)
   ✓  45 [e2e] › e2e/journeys/loop-page.spec.ts:229:1 › signed out, like and follow ask to sign in (1.1s)
   ✓  46 [e2e] › e2e/journeys/loop-page.spec.ts:239:1 › more from the uploader plays in place and becomes the queue (1.1s)
-  ✓  47 [e2e] › e2e/journeys/loop-page.spec.ts:252:1 › on a phone, download is pinned above the mini player (875ms)
-  ✓  48 [e2e] › e2e/journeys/loop-page.spec.ts:267:1 › the loop page passes the accessibility scan, idle and playing (2.6s)
+  ✓  47 [e2e] › e2e/journeys/loop-page.spec.ts:252:1 › on a phone, download is pinned above the mini player (685ms)
+  ✓  48 [e2e] › e2e/journeys/loop-page.spec.ts:267:1 › the loop page passes the accessibility scan, idle and playing (2.3s)
   (the other 53, gallery, shell and smoke, all ✓)
-  68 passed (1.0m)
+  68 passed (50.4s)
 ```
 The ✘ is the expected failure marked `test.fail()` (see Surprises): Playwright counts it as passed,
-and it will turn red the day the stretch works. The test at line 93 has since been renamed "space
-plays and pauses; tempo and key drive the engine while it plays", which is what it proves.
+and it will turn red the day the stretch works.
 
 ```
 $ pnpm test
- Test Files  31 passed | 1 skipped (32)
-      Tests  605 passed | 9 skipped (614)
+ Test Files  32 passed | 1 skipped (33)
+      Tests  611 passed | 9 skipped (620)
 
-$ pnpm exec playwright test --project=perf e2e/perf/budgets.spec.ts
-/: LCP 244 ms, CLS 0.0000, script 110 KB
-  ✓  1 [perf] › e2e/perf/budgets.spec.ts:31:3 › / stays inside the page budgets (1.6s)
-loop page first sound after space: 172 ms
-  ✓  3 [perf] › e2e/perf/budgets.spec.ts:77:1 › the loop page sounds within the first-sound budget after space (584ms)
-/loop/dusty-soul-chops-k3j9x0a2b1: LCP 712 ms, CLS 0.0000, script 160 KB
-  ✓  2 [perf] › e2e/perf/budgets.spec.ts:31:3 › /loop/dusty-soul-chops-k3j9x0a2b1 stays inside the page budgets (3.4s)
-  3 passed (14.2s)
+$ pnpm perf
+/: LCP 468 ms, CLS 0.0000, script 184 KB
+  ✓  34 [perf] › e2e/perf/budgets.spec.ts:31:3 › / stays inside the page budgets (2.1s)
+loop page first sound after space: 133 ms
+  ✓  36 [perf] › e2e/perf/budgets.spec.ts:78:1 › the loop page sounds within the first-sound budget after space (454ms)
+/loop/dusty-soul-chops-k3j9x0a2b1: LCP 652 ms, CLS 0.0000, script 199 KB
+  ✓  35 [perf] › e2e/perf/budgets.spec.ts:31:3 › /loop/dusty-soul-chops-k3j9x0a2b1 stays inside the page budgets (3.1s)
+  ✘  11 [perf] › e2e/perf/audio-seamless-loop.spec.ts:217:3 › dusty_soul_90_Dmin.wav: a seek while stretched fades out and back in, with no click (559ms)
+    Error: the old position fades out instead of being cut
+    Expected: > 0.5
+    Received:   0.2375020207395425
+  1 failed
+  35 passed (41.2s)
+```
+The one perf failure is the Audio lane's spec on its own test page (audio-123 code, merged here for
+the engine API; this branch does not change packages/audio or e2e/perf/audio-*). It failed the same
+way in an earlier run (0.2375). I have not fixed it: it is not my lane, and it is for the Audio lane
+to say whether it fails on lane/audio-123 too. Every audio first-sound check passes.
 
+```
 $ pnpm run licenses
 All dependency licenses are on the allowed list.
 ```
-New unit tests: `packages/ui/test/transport.test.ts` (11) and `apps/web/src/app/_item/item.test.ts`
-(17: fixtures, loader branches, metadata, key map, loop-off wrap, local actions).
+New unit tests: `packages/ui/test/transport.test.ts` (11), two Avatar tests in
+`packages/ui/test/components.test.ts`, and `apps/web/src/app/_item/item.test.ts` (18: fixtures,
+loader branches, metadata, key map, loop-off wrap, local actions eager and lazy).
 
 **`pnpm visual` was not run**: Docker is not available on this machine. CI runs it. The new loop page test
 (`loop-page.png` at three widths) and the gallery sections `c-stepper` and `c-transport` have no
