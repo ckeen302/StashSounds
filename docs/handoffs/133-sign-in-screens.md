@@ -124,3 +124,21 @@ $ STASH_E2E_PORT=3132 pnpm e2e
 
 ## Requests filed
 - docs/requests/133-e2e-supabase.md
+
+## Update: script budget and lane/interface-132 merged in
+I merged lane/interface-132 at a44f74c: the lazy player details, `@stash/contracts/format` and
+foundations 5a05d1e. The sign-in work added about 17 KB to `/`, which left only about 4 KB under
+the budget. Two parts now load on first use:
+- The sign-in dialog and panel (`_auth/sign-in-dialog-view.tsx`, through `React.lazy`) load when
+  a signed-out action asks.
+- The member account menu (`_shell/account-menu.tsx`) loads only for members. A 40 px
+  placeholder holds its place while it loads.
+
+`/` now loads 185,795 gz bytes of script before audio, against a budget of 204,800.
+
+```
+$ pnpm check                       exit 0
+$ pnpm test                        Tests  528 passed | 9 skipped (537)
+$ STASH_E2E_PORT=3132 pnpm e2e     63 passed, 5 skipped (the stack-backed sign-in block) (40.9s)
+$ STASH_E2E_PORT=3132 pnpm perf    2 passed (11.7s)
+```
