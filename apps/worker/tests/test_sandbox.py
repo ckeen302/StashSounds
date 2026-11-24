@@ -115,7 +115,18 @@ def test_the_child_sees_only_an_allowlisted_environment(tmp_path: Path, monkeypa
     env = json.loads((tmp_path / "work" / "probe.json").read_text())["env"]
     assert "secret" not in json.dumps(env)
     # LC_CTYPE may be added by the child interpreter itself (PEP 538 locale coercion), not passed in.
-    assert set(env) <= {"PATH", "PYTHONPATH", "LANG", "LC_ALL", "LC_CTYPE", "TMPDIR", "HOME"}
+    assert set(env) <= {
+        "PATH",
+        "PYTHONPATH",
+        "LANG",
+        "LC_ALL",
+        "LC_CTYPE",
+        "TMPDIR",
+        "HOME",
+        "OPENBLAS_NUM_THREADS",
+        "OMP_NUM_THREADS",
+    }
+    assert (env["OPENBLAS_NUM_THREADS"], env["OMP_NUM_THREADS"]) == ("1", "1")
     assert Path(env["HOME"]).is_relative_to(tmp_path) and Path(env["TMPDIR"]).is_relative_to(tmp_path)
 
 

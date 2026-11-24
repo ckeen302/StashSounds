@@ -227,6 +227,10 @@ def test_a_loop_fixture_goes_from_queued_to_ready_with_its_preview_and_peaks(db,
     assert item["status"] == "ready"
     assert (item["details"]["loopSamples"], item["details"]["sampleRate"]) == (302400, 44100)
     assert item["duration_ms"] == 6857
+    # Ticket 113: BPM and key reach the row; the detection record stays in details.
+    assert (float(item["bpm"]), item["key_root"], item["key_mode"]) == (140.0, 9, "minor")
+    detection = item["details"]["detection"]
+    assert (detection["bpmSource"], detection["bpmAgreed"], detection["keySource"]) == ("filename", True, "filename")
     files = db.q(
         "select role, bucket, path, bytes, sha256, meta from public.item_files where item_id = :i order by role",
         i=uuid.UUID(it["item_id"]),

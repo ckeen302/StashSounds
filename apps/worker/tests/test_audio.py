@@ -134,8 +134,25 @@ def test_every_loop_fixture_gives_the_expected_length_and_rate(tmp_path: Path, f
     # Loudness of the original, as measured before normalizing.
     assert details["loudnessLufs"] is not None and -40 < details["loudnessLufs"] < 0
     assert details["truePeakDb"] is not None and details["truePeakDb"] <= 0.5
-    # BPM, key and fingerprints are tickets 113 and 114.
-    assert (result["bpm"], result["key"], result["fingerprints"], result["flag"]) == (None, None, [], None)
+    # BPM and key (ticket 113) from the manifest; fingerprints are ticket 114.
+    expect = fixture["expect"]
+    assert (result["bpm"], result["key"], details["bars"]) == (expect["bpm"], expect["key"], expect["bars"])
+    d = details["detection"]
+    assert (d["bpmSource"], d["bpmAgreed"], d["keySource"]) == ("filename", True, expect["keySource"])
+    assert d["bpmCandidates"][0] == expect["bpm"]
+    assert (d["keyConfidence"] is None) == (expect["keySource"] == "filename")
+    assert (result["fingerprints"], result["flag"]) == ([], None)
+
+
+def test_the_file_name_comes_from_the_original_files_row(tmp_path: Path):
+    # The stored path is "<owner>/<item>/original.wav"; the producer's name is on the row (fileName).
+    ctx = make_ctx(tmp_path, "generated/loops/drill_lead_142.flac")
+    ctx.input["files"][0]["fileName"] = "untitled.flac"
+    result = process_loop(ctx)
+    assert (result["bpm"], result["details"]["detection"]["bpmSource"]) == (142, "duration")
+    ctx = make_ctx(tmp_path / "b", "generated/loops/drill_lead_142.flac")
+    ctx.input["files"][0]["fileName"] = None
+    assert process_loop(ctx)["details"]["detection"]["bpmSource"] == "duration"
 
 
 @pytest.mark.parametrize("fixture", LOOPS, ids=lambda f: Path(f["path"]).name)
