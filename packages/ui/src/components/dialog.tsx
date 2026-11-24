@@ -1,7 +1,7 @@
 "use client";
 
 import { Dialog as D } from "radix-ui";
-import type { FormEvent, ReactElement, ReactNode } from "react";
+import { useRef, type FormEvent, type ReactElement, type ReactNode } from "react";
 import { Button } from "./button.tsx";
 import { cx } from "./cx.ts";
 import { CircleExclamationPoint, Icon, X } from "./icon.tsx";
@@ -12,16 +12,24 @@ type SurfaceProps = {
   title: ReactNode;
   description?: ReactNode;
   children?: ReactNode;
-  footer: ReactNode;
+  /** The actions row. A panel dialog whose body holds its own buttons leaves it out. */
+  footer?: ReactNode;
   error?: string;
   close?: ReactNode;
+  /**
+   * Close first in the DOM (still drawn top right), so it comes before the form in the reading and
+   * tab order. For panel dialogs; a confirm dialog keeps it last so focus lands on its actions.
+   */
+  closeFirst?: boolean;
   className?: string;
 };
 
 /** The dialog face: a raised panel, title, one line of description, body, error, actions. */
-export function DialogSurface({ title, description, children, footer, error, close, className }: SurfaceProps) {
+export function DialogSurface({ title, description, children, footer, error, close, closeFirst = false, className }: SurfaceProps) {
+  const closeSlot = close && <div className="absolute top-4 right-4">{close}</div>;
   return (
     <div className={cx("relative flex w-full max-w-110 flex-col gap-4 rounded-panel border border-border bg-raised p-6", className)}>
+      {closeFirst && closeSlot}
       <div className="flex flex-col gap-1 pr-8">
         {title}
         {description}
@@ -33,8 +41,8 @@ export function DialogSurface({ title, description, children, footer, error, clo
           {error}
         </p>
       )}
-      <div className="flex flex-wrap justify-end gap-2">{footer}</div>
-      {close && <div className="absolute top-4 right-4">{close}</div>}
+      {footer && <div className="flex flex-wrap justify-end gap-2">{footer}</div>}
+      {!closeFirst && closeSlot}
     </div>
   );
 }
@@ -147,5 +155,68 @@ export function DialogPreview({ variant = "confirm", title, description, childre
     >
       {children}
     </DialogSurface>
+  );
+}
+
+/**
+ * A modal whose body carries its own actions, such as the sign-in dialog's email form and provider
+ * buttons: the same face, focus trap, Escape and focus return as Dialog, without the confirm row.
+ */
+export function PanelDialog({
+  open,
+  onOpenChange,
+  title,
+  description,
+  children,
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  title: string;
+  description?: string;
+  children: ReactNode;
+}) {
+  const returnTo = useRef<HTMLElement | null>(null);
+  const content = useRef<HTMLDivElement>(null);
+  return (
+    <D.Root open={open} onOpenChange={onOpenChange}>
+      <D.Portal>
+        <D.Overlay className="fixed inset-0 z-40 grid animate-scrim place-items-center overflow-y-auto bg-bg/80 p-4">
+          <D.Content
+            className="flex w-full animate-overlay justify-center"
+            {...(description ? {} : { "aria-describedby": undefined })}
+            // Opened by code, not a Radix trigger: remember what had focus and go back to it on close.
+            ref={content}
+            onOpenAutoFocus={(e) => {
+              returnTo.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+              // Close comes first in the DOM; start in the form's first field instead, when there is one.
+              const field = content.current?.querySelector<HTMLElement>("input, select, textarea");
+              if (field) {
+                e.preventDefault();
+                field.focus();
+              }
+            }}
+            onCloseAutoFocus={(e) => {
+              e.preventDefault();
+              returnTo.current?.focus();
+            }}
+          >
+            <DialogSurface
+              closeFirst
+              title={<D.Title className={titleClass}>{title}</D.Title>}
+              description={description ? <D.Description className={descriptionClass}>{description}</D.Description> : undefined}
+              close={
+                <D.Close asChild>
+                  <button type="button" aria-label="Close" className="inline-flex size-8 items-center justify-center rounded-control text-text-muted transition-colors duration-control ui-hover:bg-surface ui-hover:text-text pointer-coarse:size-10">
+                    <Icon icon={X} />
+                  </button>
+                </D.Close>
+              }
+            >
+              {children}
+            </DialogSurface>
+          </D.Content>
+        </D.Overlay>
+      </D.Portal>
+    </D.Root>
   );
 }

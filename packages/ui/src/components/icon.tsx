@@ -35,6 +35,7 @@ export function Icon({
 
 /** The icons the interface uses, re-exported so every screen draws from the same set. */
 export {
+  AtSign,
   AudioWaveform,
   Bell,
   ChevronDown,
@@ -52,6 +53,9 @@ export {
   Info,
   Library,
   Link,
+  LogOut,
+  Mail,
+  MailCheck,
   PanelLeftClose,
   PanelLeftOpen,
   Pause,

@@ -19,7 +19,7 @@ export { Avatar, initials, type AvatarSize } from "./avatar.tsx";
 export { UploaderCard, type UploaderCardProps } from "./uploader-card.tsx";
 export { Stat, formatCount } from "./stat.tsx";
 export { Tab, TabList, TabPanel, Tabs } from "./tabs.tsx";
-export { Dialog, DialogPreview, DialogSurface, type DialogProps, type DialogVariant } from "./dialog.tsx";
+export { Dialog, DialogPreview, DialogSurface, PanelDialog, type DialogProps, type DialogVariant } from "./dialog.tsx";
 export { ContextMenu, Menu, MenuPreview, type MenuEntry } from "./menu.tsx";
 export { Tooltip, TooltipProvider, TooltipSurface } from "./tooltip.tsx";
 export { ToastPreview, ToastProvider, ToastSurface, ToastViewport, useToast, type ToastOptions, type ToastTone } from "./toast.tsx";

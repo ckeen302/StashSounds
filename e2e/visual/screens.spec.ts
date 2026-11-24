@@ -49,6 +49,28 @@ test.describe("shell", () => {
   });
 });
 
+/** Ticket 133: the sign-in panel on /login and in the dialog a signed-out follow opens. */
+test.describe("sign-in", () => {
+  test("/login matches its baseline", async ({ page }) => {
+    await page.goto("/login");
+    await page.evaluate(() => document.fonts.ready);
+    await expect(page.getByRole("main")).toHaveScreenshot("login.png", exact);
+  });
+
+  test("the sign-in dialog matches its baseline", async ({ page }) => {
+    await page.goto("/dev/player");
+    await page.evaluate(() => document.fonts.ready);
+    // Follow is on screen at every width (row actions are hidden on phone).
+    await page.getByRole("button", { name: "Follow @nova" }).click();
+    const dialog = page.getByRole("dialog", { name: "Sign in to follow" });
+    await expect(dialog).toBeVisible();
+    // Blur the field so the caret and the focus ring do not enter the image.
+    await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur());
+    // The panel only: the dimmed page behind it is not part of this baseline.
+    await expect(dialog.locator(":scope > div").first()).toHaveScreenshot("sign-in-dialog.png", exact);
+  });
+});
+
 test.describe("gallery", () => {
   for (const id of [...tokenSections, ...componentSections.map((s) => s.id)]) {
     test(`${id} matches its baseline`, async ({ page }) => {
