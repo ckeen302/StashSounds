@@ -41,3 +41,7 @@ built in-process (classic BPF through prctl, no new dependency; libseccomp is LG
   start when a job user is set).
 The worker refuses to start with a job user when the filter cannot be installed. The isolation
 tests prove `unshare(CLONE_NEWUSER)` fails in the child. no_new_privs no longer depends on compose.
+
+Addendum (PR #8 third security review): the deny list also covers the new mount API (open_tree,
+move_mount, fsopen, fsconfig, fsmount, fspick, mount_setattr) and io_uring_setup, io_uring_enter
+and io_uring_register.
