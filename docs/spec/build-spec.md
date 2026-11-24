@@ -196,6 +196,7 @@ export interface EngineState {
   tempoRatio: number;   // 1 = original speed
   transpose: number;    // semitones
   volume: number;       // 0 to 1
+  loop: boolean;        // default true; false: a loop plays its current pass to the end, then pauses at 0
   queue: Playable[];
   queueIndex: number;
 }
@@ -209,6 +210,7 @@ export interface Engine {
   setTempo(bpm: number): void;               // loops and MIDI
   setTranspose(semitones: number): void;     // loops, MIDI, one-shots
   setVolume(volume: number): void;
+  setLoop(on: boolean): void;                // loops; the end is placed on the audio clock
   setSound(sound: SoundId): void;            // MIDI
   triggerPad(index: number, velocity?: number): void;   // kits
   noteOn(pitch: number, velocity?: number): void;       // one-shots and Vital presets
@@ -232,6 +234,8 @@ export function usePlayerState<T>(select: (state: EngineState) => T): T;    // R
 - Heavy parts load late. The stretch processor and the MIDI synth are fetched the first time something needs them, not with the page.
 - Everything is scheduled on the audio clock, never with timers, so MIDI and the kit demo pattern stay in time under load.
 - Loops are seamless by test. A unit test renders two passes of every fixture loop offline and fails if there is a gap or a click at the join. If MP3 previews cannot pass it, loop previews move to a format that can.
+- Loop off plays the current pass to its end, fades out over 5 ms and pauses at 0. A seek, a resume or a tempo change moves the end. Switching loop back on before the end carries on with no gap. One-shots and demos end by themselves.
+- The stretch processor loads from a static, versioned file the web app serves (`/worklets/signalsmith-stretch-<version>.mjs`, copied at build time), never from bundled code. If it fails to load within 3 s, the loop plays on at tempo 1 and key 0.
 - Kits behave like a drum machine. A closed hat cuts off an open hat. A limiter on the output keeps stacked pads from clipping.
 - The preset sampler plays the nearest rendered note, repitched by at most one semitone in either direction.
 - Failures are quiet and recoverable. A preview that fails to load sets status to error with a retry; it never throws into the UI.

@@ -7,7 +7,8 @@ import { randomUUID } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { profileLinkKindSchema, slugify } from "@stash/contracts";
-import { TestDb, anon, rejection, service, superuser, user } from "./db.ts";
+import pg from "pg";
+import { TestDb, anon, dbUrl, rejection, service, superuser, user } from "./db.ts";
 
 /** Claims a file the way completeUpload does and returns the token for enqueue_processing. */
 async function claimFile(db: TestDb, owner: string, itemId: string, fileId: string): Promise<string> {
@@ -634,6 +635,84 @@ describe("worker functions", () => {
     expect(await rejection(db.as(user(bob), `select public.publish_item($1, true)`, [it1.item_id]))).toMatch(/^conflict:/);
     await db.as(user(bob), `select public.unpublish_item($1)`, [it1.item_id]);
     expect((await db.q(`select status from public.items where id = $1`, [it1.item_id])).rows[0]!.status).toBe("ready");
+  });
+
+  it("worker_duplicate_candidates records the hash and returns other items' originals and fingerprints", async () => {
+    await db.as(service, `delete from public.processing_jobs`);
+    const first = await queuedItem("Dup original");
+    const job1 = (await db.as(service, `select * from public.claim_job()`)).rows[0]!;
+    const sha = "d".repeat(64);
+    // 31 s is a duration no other test uses, so the window holds only this pair.
+    const f1 = (await db.q(`select id from public.item_files where item_id = $1 and role = 'original'`, [first.item_id])).rows[0]!.id;
+    const call = (job: { id?: unknown; attempts?: unknown }, file: string, hash: string, min: number | null, max: number | null) =>
+      db.as(service, `select * from public.worker_duplicate_candidates($1, $2, $3, $4, $5, $6)`, [job.id, job.attempts, file, hash, min, max]);
+    expect((await call(job1, f1, sha, 30000, 33000)).rows).toEqual([]);
+    expect((await db.q(`select sha256 from public.item_files where id = $1`, [f1])).rows[0]!.sha256).toBe(sha);
+    await db.as(service, `select public.worker_complete($1, $3, $2)`, [job1.id,
+      JSON.stringify(loopResult(first.item_id, { fingerprints: [{ filePath: first.path, durationMs: 31337, chromaprint: [7, 8] }] })), job1.attempts]);
+
+    const second = await queuedItem("Dup copy");
+    const job2 = (await db.as(service, `select * from public.claim_job()`)).rows[0]!;
+    const f2 = (await db.q(`select id from public.item_files where item_id = $1 and role = 'original'`, [second.item_id])).rows[0]!.id;
+    const rows = (await call(job2, f2, sha, 30000, 33000)).rows.map((r) => [r.match, r.item_id, r.duration_ms, r.chromaprint]);
+    expect(rows).toEqual(expect.arrayContaining([["exact", first.item_id, null, null], ["fingerprint", first.item_id, 31337, [7, 8]]]));
+    expect(rows).toHaveLength(2);
+    // Outside the duration window, and with no window, only the exact match comes back.
+    expect((await call(job2, f2, sha, 40000, 42000)).rows.map((r) => r.match)).toEqual(["exact"]);
+    expect((await call(job2, f2, sha, null, null)).rows.map((r) => r.match)).toEqual(["exact"]);
+    // Another item's file, a bad hash and a stale attempt are refused.
+    expect(await rejection(call(job2, f1, sha, null, null))).toMatch(/^invalid:/);
+    expect(await rejection(call(job2, f2, "nothex", null, null))).toMatch(/^invalid:/);
+    expect(await rejection(call({ id: job2.id, attempts: job2.attempts + 1 }, f2, sha, null, null))).toMatch(/^conflict:/);
+    // Users cannot call it.
+    expect(await rejection(db.as(user(bob), `select * from public.worker_duplicate_candidates($1, 1, $2, $3, null, null)`, [job2.id, f2, sha]))).toMatch(/permission denied/);
+  });
+
+  it("worker_duplicate_candidates skips the item's own fingerprints, and overlapping lookups of one hash see each other", async () => {
+    await db.as(service, `delete from public.processing_jobs`);
+    const a = await queuedItem("Race a");
+    const b = await queuedItem("Race b");
+    const [ja, jb] = [(await db.as(service, `select * from public.claim_job()`)).rows[0]!, (await db.as(service, `select * from public.claim_job()`)).rows[0]!];
+    const jobFor = (itemId: string) => [ja, jb].find((j) => j.item_id === itemId)!;
+    const original = async (itemId: string) =>
+      (await db.q(`select id from public.item_files where item_id = $1 and role = 'original'`, [itemId])).rows[0]!.id as string;
+    const fa = await original(a.item_id);
+    const fb = await original(b.item_id);
+    // A stored fingerprint of the item being processed (from an earlier run) is not a candidate.
+    await db.q(`insert into public.fingerprints (item_file_id, item_id, duration_ms, chromaprint) values ($1, $2, 52000, '{1}')`, [fa, a.item_id]);
+    const call = (job: { id?: unknown; attempts?: unknown }, file: string, hash: string) =>
+      db.as(service, `select * from public.worker_duplicate_candidates($1, $2, $3, $4, 50000, 54000)`, [job.id, job.attempts, file, hash]);
+    const sha = "e".repeat(64);
+    expect((await call(jobFor(a.item_id), fa, sha)).rows.filter((r) => r.match === "fingerprint")).toEqual([]);
+
+    // Two lookups of one hash overlap: a's transaction is still open when b's starts. b must wait for
+    // a to commit, then find a. Two raw sessions hold the transactions open deterministically.
+    await db.q(`update public.item_files set sha256 = null where id = $1`, [fa]);
+    const session = async () => {
+      const c = new pg.Client({ connectionString: dbUrl(db.name) });
+      await c.connect();
+      await c.query("begin");
+      await c.query(`set local role service_role`);
+      return c;
+    };
+    const lookup = `select match, item_id from public.worker_duplicate_candidates($1, $2, $3, $4, null, null)`;
+    const [ca, cb] = [await session(), await session()];
+    try {
+      const ja2 = jobFor(a.item_id);
+      const jb2 = jobFor(b.item_id);
+      expect((await ca.query(lookup, [ja2.id, ja2.attempts, fa, sha])).rows).toEqual([]);
+      let bDone = false;
+      const pendingB = cb.query(lookup, [jb2.id, jb2.attempts, fb, sha]).then((r) => { bDone = true; return r; });
+      await new Promise((r) => setTimeout(r, 300));
+      expect(bDone).toBe(false); // b is waiting on a's lock
+      await ca.query("commit");
+      const rb = await pendingB;
+      await cb.query("commit");
+      expect(rb.rows).toEqual([{ match: "exact", item_id: a.item_id }]);
+    } finally {
+      await ca.end();
+      await cb.end();
+    }
   });
 
   it("worker_complete refuses a job that is not running, a result of another type and paths outside the item", async () => {
