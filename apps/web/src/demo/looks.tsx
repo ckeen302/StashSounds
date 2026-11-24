@@ -6,6 +6,7 @@ import { useSyncExternalStore } from "react";
  * the design spec's own; the others are directions to react to. The pick is kept in this browser.
  */
 export const LOOKS = [
+  { id: "wax", name: "Wax", blurb: "Crate digger: bone on black, one hot label orange, tracklist caps." },
   { id: "studio", name: "Studio", blurb: "The spec: ink black, one lime light." },
   { id: "tape", name: "Tape", blurb: "70s cassette: warm brown, orange, italic serif." },
   { id: "arcade", name: "Arcade", blurb: "90s CRT: pixel type, magenta glow, scanlines." },
@@ -13,9 +14,9 @@ export const LOOKS = [
 ] as const;
 export type LookId = (typeof LOOKS)[number]["id"];
 
-const KEY = "stash.demo.look";
+const KEY = "stash.demo.look.v2";
 const listeners = new Set<() => void>();
-let current: LookId = "studio";
+let current: LookId = "wax";
 
 function apply(id: LookId) {
   current = id;
@@ -31,10 +32,10 @@ export function startLooks() {
   try {
     saved = window.localStorage.getItem(KEY);
   } catch {
-    // Storage blocked: start on Studio.
+    // Storage blocked: start on Wax.
   }
   const found = LOOKS.find((l) => l.id === saved);
-  apply(found ? found.id : "studio");
+  apply(found ? found.id : "wax");
 }
 
 export function setLook(id: LookId) {
@@ -53,11 +54,11 @@ export function useLook(): LookId {
       return () => listeners.delete(l);
     },
     () => current,
-    () => "studio",
+    () => "wax",
   );
 }
 
-/** Four chips, one per look, with a line on the one picked. */
+/** One chip per look, one per look, with a line on the one picked. */
 export function LookPicker() {
   const look = useLook();
   const picked = LOOKS.find((l) => l.id === look)!;
