@@ -25,3 +25,33 @@ notification items all use it.
 ## Not yet (PR #9 A5)
 Kit pads (16) and more-from-owner (10) stay as contract `.max()` values for now; the lane may read
 them from the schemas. They move to limits.json if a second place needs them.
+
+## Previews bucket CORS (PR #10 review)
+Playback fetches previews with `fetch()` and decodes them, so the previews bucket needs a GET rule
+for the site origin: docs/deploy/r2-previews-cors.json. The originals rule (PUT only) is renamed
+docs/deploy/r2-originals-cors.json. The embed build (321) will add its own origins here.
+
+## Client cache sizes stay in the audio package (PR #10 A5)
+The loader's 96 MB decoded budget and 32 raw downloads are client tuning, not product limits, and
+stay as constructor defaults in packages/audio.
+
+## Downloads (ticket 104 questions)
+- An owner's own download is recorded (it is still a license record) but does not raise
+  `downloads_count`.
+- A record written before signing fails stays. The license record is the grant, and the person can
+  press download again; a retry inside the rate window counts against downloadsPerDay, which is
+  acceptable at 1 per press.
+
+## Claims are fenced (PR #6 second re-review, A1 and A3)
+A claim lapses after `limits.urls.uploadTtlSeconds` so a crashed call cannot lock the owner out, but
+a call that only stalled must not act after another call took the claim over. So:
+- `enqueue_processing(p_user_id, p_item_id, p_file_id, p_measured_bytes, p_token)` confirms the
+  file only while `p_token` still holds the claim and `uploaded_at` is null; otherwise conflict,
+  and a conflict makes completeUpload delete nothing.
+- `file_claim_held(p_file_id, p_token)` is checked immediately before the copy; false means copy
+  nothing and return conflict.
+- `mark_file_copied(p_file_id, p_token)` sets `meta.copiedAt` in one statement under the claim
+  (replaces the read-then-write in completeUpload).
+- The copy itself cannot be fenced, so the web host's maximum request duration must stay well
+  under `uploadTtlSeconds` (900 s). Vercel functions stop at 300 s by default; do not raise it
+  past 600 s. Recorded in docs/deploy/README.md.
