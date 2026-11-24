@@ -1473,7 +1473,15 @@
    "label": "SongBPM, Money Trees by Kendrick Lamar",
    "url": "https://songbpm.com/@kendrick-lamar/money-trees"
   },
-  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). bVI7 rendered as Cmaj7 and v7sus2sus4 as B9sus4 (B-E-F#-A-C#) - spelling is my interpretation of the numerals. SongBPM: G major (same key signature), 72 BPM (half of 145)."
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). bVI7 rendered as Cmaj7 and v7sus2sus4 as B9sus4 (B-E-F#-A-C#) - spelling is my interpretation of the numerals. SongBPM: G major (same key signature), 72 BPM (half of 145).",
+  "instrument": {
+   "name": "electric guitar",
+   "quote": "slow down the guitar intro to Beach House's \"Silver Soul,\"",
+   "source": {
+    "label": "NPR, DJ Dahi Unpacks His Spiritual Samples for Pusha T and Kendrick Lamar",
+    "url": "https://www.npr.org/2020/04/17/837268674/dj-dahi-jeff-weiss-sampling-pusha-t-kendrick-lamar"
+   }
+  }
  },
  {
   "song": "Alright",
@@ -2025,7 +2033,15 @@
    "label": "SongBPM, rockstar by Post Malone",
    "url": "https://songbpm.com/@post-malone/rockstar"
   },
-  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). MISMATCH: SongBPM says F minor, 160 BPM (double of Hooktheory's 80). Pitch reference differs by a whole step - verify by ear."
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). MISMATCH: SongBPM says F minor, 160 BPM (double of Hooktheory's 80). Pitch reference differs by a whole step - verify by ear.",
+  "instrument": {
+   "name": "synth",
+   "quote": "the brassy synth sound heard throughout",
+   "source": {
+    "label": "Splice blog, 3 core production elements in Post Malone's rockstar | Hits Decoded",
+    "url": "https://splice.com/blog/hits-decoded-post-malone-rockstar/"
+   }
+  }
  },
  {
   "song": "Sunflower",
@@ -2566,7 +2582,15 @@
    "label": "SongBPM, EARFQUAKE by Tyler, The Creator",
    "url": "https://songbpm.com/@tyler-the-creator/earfquake"
   },
-  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Intro per Hooktheory: Bbmaj7 A7(#9) (IV7 V7(#9)/vi). BPM agrees (80). Key MISMATCH: SongBPM says A major."
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals (chordString) in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Intro per Hooktheory: Bbmaj7 A7(#9) (IV7 V7(#9)/vi). BPM agrees (80). Key MISMATCH: SongBPM says A major.",
+  "instrument": {
+   "name": "piano",
+   "quote": "Tyler's sparkling piano riff",
+   "source": {
+    "label": "Okayplayer, The 15 Best Songs Produced By Tyler, The Creator",
+    "url": "https://www.okayplayer.com/the-15-best-songs-produced-by-tyler-the-creator/615597"
+   }
+  }
  },
  {
   "song": "911 / Mr. Lonely",
@@ -3344,7 +3368,15 @@
    "label": "songbpm, Eminem - Stan",
    "url": "https://songbpm.com/@eminem/stan"
   },
-  "notes": "Hooktheory chorus pattern: i VI7 VII III7sus2 VII6 (G#m Emaj7 F# Bmaj7sus2 F#/A#); simplified here to 4 chords, dropping the passing F#/A# and the maj7 on B. songbpm: G#/Ab, 80 BPM (labels mode as major). Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+  "notes": "Hooktheory chorus pattern: i VI7 VII III7sus2 VII6 (G#m Emaj7 F# Bmaj7sus2 F#/A#); simplified here to 4 chords, dropping the passing F#/A# and the maj7 on B. songbpm: G#/Ab, 80 BPM (labels mode as major). Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed.",
+  "instrument": {
+   "name": "acoustic guitar",
+   "quote": "acoustic guitar chords and a bittersweet bassline",
+   "source": {
+    "label": "HotNewHipHop, Eminem's Top 25 Best Beats Of All Time",
+    "url": "https://www.hotnewhiphop.com/239780-eminems-top-25-best-beats-of-all-time-news"
+   }
+  }
  },
  {
   "song": "Mockingbird",
@@ -3379,7 +3411,15 @@
    "label": "sfrbeats BPM & Key Finder, Mockingbird",
    "url": "https://sfrbeats.com/tools/bpm/eminem/mockingbird"
   },
-  "notes": "Hooktheory intro pattern i VI VII (Em C D), returning to i; chorus i v65 i VI VII (Em Bm7/D Em C D). Hooktheory 85 BPM; sfrbeats Em, 83 BPM. Final Em bar added to complete the 4-bar cycle (assumption). Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+  "notes": "Hooktheory intro pattern i VI VII (Em C D), returning to i; chorus i v65 i VI VII (Em Bm7/D Em C D). Hooktheory 85 BPM; sfrbeats Em, 83 BPM. Final Em bar added to complete the 4-bar cycle (assumption). Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed.",
+  "instrument": {
+   "name": "piano",
+   "quote": "a lovely piano line and the occasional string section",
+   "source": {
+    "label": "HotNewHipHop, Eminem's Top 25 Best Beats Of All Time",
+    "url": "https://www.hotnewhiphop.com/239780-eminems-top-25-best-beats-of-all-time-news"
+   }
+  }
  },
  {
   "song": "Love the Way You Lie",
@@ -3609,7 +3649,15 @@
    "label": "songbpm, Dr. Dre artist page (Forgot About Dre - Album Version (Edited))",
    "url": "https://songbpm.com/@dr-dre"
   },
-  "notes": "Hooktheory verse pattern i VI v in G minor at 135 BPM. songbpm lists G#/Ab at 134 BPM — a semitone off Hooktheory's key; unresolved (Hooktheory may be transcribed a semitone low, or songbpm misdetected). Closing Gm bar added to complete 4 bars (assumption). Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+  "notes": "Hooktheory verse pattern i VI v in G minor at 135 BPM. songbpm lists G#/Ab at 134 BPM — a semitone off Hooktheory's key; unresolved (Hooktheory may be transcribed a semitone low, or songbpm misdetected). Closing Gm bar added to complete 4 bars (assumption). Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed.",
+  "instrument": {
+   "name": "strings",
+   "quote": "Between its squiggly melodic ticks and faux-elegiac strings",
+   "source": {
+    "label": "Complex, The 25 Best Dr. Dre Beats",
+    "url": "https://www.complex.com/music/a/sam-sweet/the-25-best-dr-dre-beats"
+   }
+  }
  },
  {
   "song": "Nuthin' but a 'G' Thang",
@@ -4698,7 +4746,15 @@
    "label": "sfrbeats BPM & Key Finder, OutKast - Ms. Jackson",
    "url": "https://sfrbeats.com/tools/bpm/outkast/ms-jackson"
   },
-  "notes": "Hooktheory chorus: iv65 VII i v65 in A minor, 96 BPM; bridge VI VII i VII (F G Am G). sfrbeats agrees: Am, 96 BPM. Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed."
+  "notes": "Hooktheory chorus: iv65 VII i v65 in A minor, 96 BPM; bridge VI VII i VII (F G Am G). sfrbeats agrees: Am, 96 BPM. Durations not shown by source (Hooktheory lists the progression pattern only); one bar per chord assumed.",
+  "instrument": {
+   "name": "piano",
+   "quote": "a looping piano riff built on rich chords",
+   "source": {
+    "label": "Rock & Roll Hall of Fame, Sorry Ms. Jackson: A Hip-Hop Symphony",
+    "url": "https://rockhall.com/sonic-connections/sorry-ms-jackson-a-hip-hop-symphony/"
+   }
+  }
  },
  {
   "song": "Roses",
@@ -6205,7 +6261,15 @@
    "label": "Hooktheory TheoryTab, Over My Dead Body by Drake",
    "url": "https://www.hooktheory.com/theorytab/view/drake/over-my-dead-body"
   },
-  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Key/BPM from Hooktheory only (no cross-check) unless stated. Simplified to supported symbols: IV9 and I9 are diatonic major-9ths (Gbmaj9, Dbmaj9) written here as maj7; iii65 = Fm7 in first inversion (Fm7/Ab); ii7sus4 written as Ebsus4 (7th Db dropped)."
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Key/BPM from Hooktheory only (no cross-check) unless stated. Simplified to supported symbols: IV9 and I9 are diatonic major-9ths (Gbmaj9, Dbmaj9) written here as maj7; iii65 = Fm7 in first inversion (Fm7/Ab); ii7sus4 written as Ebsus4 (7th Db dropped).",
+  "instrument": {
+   "name": "piano",
+   "quote": "Every piano chord is a shimmering pool, glassy on the surface, deep enough to get lost in.",
+   "source": {
+    "label": "Stereogum, Take Care Turns 10 (The Anniversary)",
+    "url": "https://stereogum.com/2167205/drake-take-care-turns-10/reviews/the-anniversary"
+   }
+  }
  },
  {
   "song": "TSU",
@@ -6625,7 +6689,15 @@
    "label": "Hooktheory TheoryTab, Lean Wit Me by Juice WRLD",
    "url": "https://www.hooktheory.com/theorytab/view/juice-wrld/lean-wit-me"
   },
-  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Key/BPM from Hooktheory only (no cross-check) unless stated."
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Key/BPM from Hooktheory only (no cross-check) unless stated.",
+  "instrument": {
+   "name": "guitar",
+   "quote": "I played all the guitar myself and recorded the drums.",
+   "source": {
+    "label": "HotNewHipHop, Nick Mira denies that Juice WRLD's Lean Wit Me beat was stolen",
+    "url": "https://www.hotnewhiphop.com/183991-nick-mira-denies-that-juice-wrlds-lean-with-me-beat-was-stolen-news"
+   }
+  }
  },
  {
   "song": "Bandit",
@@ -6827,7 +6899,15 @@
    "label": "Hooktheory TheoryTab, PRIDE. by Kendrick Lamar",
    "url": "https://www.hooktheory.com/theorytab/view/kendrick-lamar/pride"
   },
-  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Key/BPM from Hooktheory only (no cross-check) unless stated. v43 = Bm7 in second inversion (F# in the bass). Instrumental per Hooktheory: VI iv9 VII(add6) v43 VI."
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Key/BPM from Hooktheory only (no cross-check) unless stated. v43 = Bm7 in second inversion (F# in the bass). Instrumental per Hooktheory: VI iv9 VII(add6) v43 VI.",
+  "instrument": {
+   "name": "acoustic guitar",
+   "quote": "she recorded this whole idea over these acoustic guitar chords I came up with",
+   "source": {
+    "label": "The FADER, Steve Lacy on Kendrick Lamar's DAMN. 'PRIDE.'",
+    "url": "https://www.thefader.com/2017/04/14/steve-lacy-kendrick-lamars-damn-pride"
+   }
+  }
  },
  {
   "song": "tv off",
@@ -7667,7 +7747,15 @@
    "label": "Hooktheory TheoryTab, 2009 by Mac Miller",
    "url": "https://www.hooktheory.com/theorytab/view/mac-miller/2009"
   },
-  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Key/BPM from Hooktheory only (no cross-check) unless stated. Hooktheory's 153 BPM is a fast count; the song is often felt at about half that."
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Key/BPM from Hooktheory only (no cross-check) unless stated. Hooktheory's 153 BPM is a fast count; the song is often felt at about half that.",
+  "instrument": {
+   "name": "strings",
+   "quote": "The production is composed of strings, sparse piano keys, finger snaps, and an 'occasional downbeat clatter of snares'.",
+   "source": {
+    "label": "Wikipedia, 2009 (song)",
+    "url": "https://en.wikipedia.org/wiki/2009_(song)"
+   }
+  }
  },
  {
   "song": "Best Day Ever",
@@ -7729,7 +7817,15 @@
    "label": "Hooktheory TheoryTab, Blue World by Mac Miller",
    "url": "https://www.hooktheory.com/theorytab/view/mac-miller/blue-world"
   },
-  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Key/BPM from Hooktheory only (no cross-check) unless stated. iii43 = Gm7 in second inversion (D bass). viio7/V is a fully diminished A dim7 leading to Bb; written as Adim because dim7 is not a supported symbol."
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Key/BPM from Hooktheory only (no cross-check) unless stated. iii43 = Gm7 in second inversion (D bass). viio7/V is a fully diminished A dim7 leading to Bb; written as Adim because dim7 is not a supported symbol.",
+  "instrument": {
+   "name": "choir",
+   "quote": "The track contains a sample of \"It's a Blue World\" by American vocal quartet The Four Freshmen",
+   "source": {
+    "label": "Wikipedia, Blue World (Mac Miller song)",
+    "url": "https://en.wikipedia.org/wiki/Blue_World_(Mac_Miller_song)"
+   }
+  }
  },
  {
   "song": "Hand Me Downs",
@@ -9486,7 +9582,15 @@
    "label": "Hooktheory TheoryTab, Blind by SZA",
    "url": "https://www.hooktheory.com/theorytab/view/sza/blind"
   },
-  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Key/BPM from Hooktheory only (no cross-check) unless stated. Both chords are second inversions (slash bass). Pre-Chorus per Hooktheory uses iv64sus2."
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Key/BPM from Hooktheory only (no cross-check) unless stated. Both chords are second inversions (slash bass). Pre-Chorus per Hooktheory uses iv64sus2.",
+  "instrument": {
+   "name": "acoustic guitar",
+   "quote": "It is a beatless song, backed only by an acoustic guitar and a viola;",
+   "source": {
+    "label": "Wikipedia, Blind (SZA song)",
+    "url": "https://en.wikipedia.org/wiki/Blind_(SZA_song)"
+   }
+  }
  },
  {
   "song": "Nobody Gets Me",
@@ -9552,7 +9656,15 @@
    "label": "Hooktheory TheoryTab, Supermodel by SZA",
    "url": "https://www.hooktheory.com/theorytab/view/sza/supermodel"
   },
-  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Key/BPM from Hooktheory only (no cross-check) unless stated. Hooktheory analyses one Verse in F# major (I7 IV7/ii)."
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Key/BPM from Hooktheory only (no cross-check) unless stated. Hooktheory analyses one Verse in F# major (I7 IV7/ii).",
+  "instrument": {
+   "name": "electric guitar",
+   "quote": "The album opens with \"Supermodel\", which is built over an electric guitar riff",
+   "source": {
+    "label": "Wikipedia, Ctrl (SZA album)",
+    "url": "https://en.wikipedia.org/wiki/Ctrl_(SZA_album)"
+   }
+  }
  },
  {
   "song": "Prom",
@@ -9579,7 +9691,15 @@
    "label": "Hooktheory TheoryTab, Prom by SZA",
    "url": "https://www.hooktheory.com/theorytab/view/sza/prom"
   },
-  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Key/BPM from Hooktheory only (no cross-check) unless stated."
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Key/BPM from Hooktheory only (no cross-check) unless stated.",
+  "instrument": {
+   "name": "electric guitar",
+   "quote": "\"Prom\" is a pop song, that was noted for being built over muted guitars which were compared to those of the Police",
+   "source": {
+    "label": "Wikipedia, Ctrl (SZA album)",
+    "url": "https://en.wikipedia.org/wiki/Ctrl_(SZA_album)"
+   }
+  }
  },
  {
   "song": "Normal Girl",
@@ -10591,7 +10711,15 @@
    "label": "Hooktheory TheoryTab, Numb by XXXTENTACION",
    "url": "https://www.hooktheory.com/theorytab/view/xxxtentacion/numb"
   },
-  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Key/BPM from Hooktheory only (no cross-check) unless stated. Verse per Hooktheory is the same loop without thirds or fifths."
+  "notes": "Chords converted by hand from Hooktheory TheoryTab roman numerals in the key Hooktheory gives; Hooktheory's page text does not show chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory 7th numerals are diatonic (I7 = maj7 in major). Key/BPM from Hooktheory only (no cross-check) unless stated. Verse per Hooktheory is the same loop without thirds or fifths.",
+  "instrument": {
+   "name": "electric guitar",
+   "quote": "XXL described the song as a guitar-fueled, emotional ballad",
+   "source": {
+    "label": "Wikipedia, Numb (XXXTentacion song)",
+    "url": "https://en.wikipedia.org/wiki/Numb_(XXXTentacion_song)"
+   }
+  }
  },
  {
   "song": "Bitch Better Have My Money",
@@ -11856,7 +11984,15 @@
    "label": "Hooktheory TheoryTab, To Zion by Lauryn Hill ft. Carlos Santana",
    "url": "https://www.hooktheory.com/theorytab/view/lauryn-hill/to-zion"
   },
-  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED. Five-chord pattern fitted to 4 bars by splitting the last bar 2+2 (assumption)."
+  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED. Five-chord pattern fitted to 4 bars by splitting the last bar 2+2 (assumption).",
+  "instrument": {
+   "name": "acoustic guitar",
+   "quote": "driven by acoustic Spanish guitar licks, as laid by Carlos Santana",
+   "source": {
+    "label": "Wikipedia, To Zion",
+    "url": "https://en.wikipedia.org/wiki/To_Zion"
+   }
+  }
  },
  {
   "song": "Halo",
@@ -11918,7 +12054,15 @@
    "label": "Hooktheory TheoryTab, Crazy In Love ft Jay Z by Beyoncé ft. Jay-Z",
    "url": "https://www.hooktheory.com/theorytab/view/beyonce/crazy-in-love-ft-jay-z"
   },
-  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory writes the second chord IVb7 (G with a flat seventh = G7, the Dorian IV)."
+  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory writes the second chord IVb7 (G with a flat seventh = G7, the Dorian IV).",
+  "instrument": {
+   "name": "horns",
+   "quote": "irresistible combination of triumphant horns and a wicked hip-hop beat",
+   "source": {
+    "label": "Wikipedia, Crazy in Love",
+    "url": "https://en.wikipedia.org/wiki/Crazy_in_Love"
+   }
+  }
  },
  {
   "song": "Drunk in Love",
@@ -11988,7 +12132,15 @@
    "label": "Hooktheory TheoryTab, Irreplaceable by Beyoncé",
    "url": "https://www.hooktheory.com/theorytab/view/beyonce/irreplaceable"
   },
-  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory chordString: I V ii(add11) IV(add6add9) I; the trailing I is the loop returning to the first chord and is dropped."
+  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory chordString: I V ii(add11) IV(add6add9) I; the trailing I is the loop returning to the first chord and is dropped.",
+  "instrument": {
+   "name": "acoustic guitar",
+   "quote": "Hermansen and Eriksen combined the classic chord progression on an acoustic guitar",
+   "source": {
+    "label": "Wikipedia, Irreplaceable",
+    "url": "https://en.wikipedia.org/wiki/Irreplaceable"
+   }
+  }
  },
  {
   "song": "Love on Top",
@@ -12299,7 +12451,15 @@
    "label": "Hooktheory TheoryTab, Sweet Dreams by Beyoncé",
    "url": "https://www.hooktheory.com/theorytab/view/beyonce/sweet-dreams"
   },
-  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED. Last bar split 2+2 (assumption)."
+  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED. Last bar split 2+2 (assumption).",
+  "instrument": {
+   "name": "synth",
+   "quote": "It is mainly driven by a keyboard and also has guitar, piano, synthesizer, snare drum and bass instrumentation.",
+   "source": {
+    "label": "Wikipedia, Sweet Dreams (Beyoncé song)",
+    "url": "https://en.wikipedia.org/wiki/Sweet_Dreams_(Beyonc%C3%A9_song)"
+   }
+  }
  },
  {
   "song": "Best Thing I Never Had",
@@ -12334,7 +12494,15 @@
    "label": "Hooktheory TheoryTab, Best Thing I Never Had by Beyoncé",
    "url": "https://www.hooktheory.com/theorytab/view/beyonce/best-thing-i-never-had"
   },
-  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED."
+  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED.",
+  "instrument": {
+   "name": "piano",
+   "quote": "which this time features soaring strings and an uplifting aggressive piano accompaniment.",
+   "source": {
+    "label": "Wikipedia, Best Thing I Never Had",
+    "url": "https://en.wikipedia.org/wiki/Best_Thing_I_Never_Had"
+   }
+  }
  },
  {
   "song": "Me, Myself and I",
@@ -12396,7 +12564,15 @@
    "label": "Hooktheory TheoryTab, Gorgeous by Kanye West ft. Kid Cudi & Raekwon",
    "url": "https://www.hooktheory.com/theorytab/view/kanye-west/gorgeous"
   },
-  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED. iv held 2 bars to complete a 4-bar phrase (assumption)."
+  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED. iv held 2 bars to complete a 4-bar phrase (assumption).",
+  "instrument": {
+   "name": "electric guitar",
+   "quote": "The song opens with a melodic electric guitar chord, erupting into the hook provided by Kid Cudi.",
+   "source": {
+    "label": "Wikipedia, Gorgeous (Kanye West song)",
+    "url": "https://en.wikipedia.org/wiki/Gorgeous_(Kanye_West_song)"
+   }
+  }
  },
  {
   "song": "Father Stretch My Hands Pt. 1",
@@ -12466,7 +12642,15 @@
    "label": "Hooktheory TheoryTab, I Wonder by Kanye West",
    "url": "https://www.hooktheory.com/theorytab/view/kanye-west/i-wonder"
   },
-  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED. Five-chord pattern fitted to 4 bars by splitting the last bar 2+2 (assumption)."
+  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED. Five-chord pattern fitted to 4 bars by splitting the last bar 2+2 (assumption).",
+  "instrument": {
+   "name": "piano",
+   "quote": "The song contains a soulful, piano-led sample from \"My Song\" by Siffre.",
+   "source": {
+    "label": "Wikipedia, I Wonder (Kanye West song)",
+    "url": "https://en.wikipedia.org/wiki/I_Wonder_(Kanye_West_song)"
+   }
+  }
  },
  {
   "song": "Champion",
@@ -12505,7 +12689,15 @@
    "label": "Hooktheory TheoryTab, Champion by Kanye West",
    "url": "https://www.hooktheory.com/theorytab/view/kanye-west/champion"
   },
-  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED. Five-chord pattern fitted to 4 bars by splitting the last bar 2+2 (assumption)."
+  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED. Five-chord pattern fitted to 4 bars by splitting the last bar 2+2 (assumption).",
+  "instrument": {
+   "name": "synth",
+   "quote": "West explained that the chords of the synthesizer on \"Champion\" were added to resemble Graduation single \"Stronger\".",
+   "source": {
+    "label": "Wikipedia, Champion (Kanye West song)",
+    "url": "https://en.wikipedia.org/wiki/Champion_(Kanye_West_song)"
+   }
+  }
  },
  {
   "song": "Touch the Sky",
@@ -12540,7 +12732,15 @@
    "label": "Hooktheory TheoryTab, Touch The Sky by Kanye West ft. Lupe Fiasco",
    "url": "https://www.hooktheory.com/theorytab/view/kanye-west/touch-the-sky"
   },
-  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED. v6sus4 = F#sus4 in first inversion, i.e. with the suspended 4th (B) in the bass."
+  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED. v6sus4 = F#sus4 in first inversion, i.e. with the suspended 4th (B) in the bass.",
+  "instrument": {
+   "name": "horns",
+   "quote": "A slowed sample is included of Mayfield's 1971 recording \"Move On Up\" within the song, as written by him, alongside Latin horns.",
+   "source": {
+    "label": "Wikipedia, Touch the Sky (Kanye West song)",
+    "url": "https://en.wikipedia.org/wiki/Touch_the_Sky_(Kanye_West_song)"
+   }
+  }
  },
  {
   "song": "Violent Crimes",
@@ -12754,7 +12954,15 @@
    "label": "Hooktheory TheoryTab, Street Lights by Kanye West",
    "url": "https://www.hooktheory.com/theorytab/view/kanye-west/street-lights"
   },
-  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED. Five-chord pattern fitted to 4 bars by splitting the last bar 2+2 (assumption)."
+  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED. Five-chord pattern fitted to 4 bars by splitting the last bar 2+2 (assumption).",
+  "instrument": {
+   "name": "synth",
+   "quote": "The song prominently contains shoegaze synths, while a guitar appears in the background.",
+   "source": {
+    "label": "Wikipedia, Street Lights (Kanye West song)",
+    "url": "https://en.wikipedia.org/wiki/Street_Lights_(Kanye_West_song)"
+   }
+  }
  },
  {
   "song": "Diamonds from Sierra Leone",
@@ -12944,7 +13152,15 @@
    "label": "Hooktheory TheoryTab, Only One feat Paul McCartney by Kanye West ft. Paul McCartney",
    "url": "https://www.hooktheory.com/theorytab/view/kanye-west/only-one-feat-paul-mccartney"
   },
-  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory chordString: I V7/vi vi7 Ib7 I; the trailing I is the loop returning to the first chord and is dropped. Ib7 = G with a flat seventh (G7)."
+  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory chordString: I V7/vi vi7 Ib7 I; the trailing I is the loop returning to the first chord and is dropped. Ib7 = G with a flat seventh (G7).",
+  "instrument": {
+   "name": "electric piano",
+   "quote": "McCartney is featured as a musician, playing electric piano throughout the track.",
+   "source": {
+    "label": "Wikipedia, Only One (Kanye West song)",
+    "url": "https://en.wikipedia.org/wiki/Only_One_(Kanye_West_song)"
+   }
+  }
  },
  {
   "song": "Shirt",
@@ -13491,7 +13707,15 @@
    "label": "Hooktheory TheoryTab, Yeah by Usher ft. Lil Jon & Ludacris",
    "url": "https://www.hooktheory.com/theorytab/view/usher/yeah"
   },
-  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED. i(no3) = G power chord (G5); VI6(no5) = Eb in first inversion without its fifth, written Eb/G."
+  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED. i(no3) = G power chord (G5); VI6(no5) = Eb in first inversion without its fifth, written Eb/G.",
+  "instrument": {
+   "name": "synth",
+   "quote": "instantly addictive eight-note keyboard vamp",
+   "source": {
+    "label": "Wikipedia, Yeah! (Usher song)",
+    "url": "https://en.wikipedia.org/wiki/Yeah!_(Usher_song)"
+   }
+  }
  },
  {
   "song": "OMG",
@@ -13600,7 +13824,15 @@
    "label": "Hooktheory TheoryTab, Love In This Club by Usher ft. Young Jeezy",
    "url": "https://www.hooktheory.com/theorytab/view/usher/love-in-this-club"
   },
-  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED."
+  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED.",
+  "instrument": {
+   "name": "synth",
+   "quote": "The song's beat consists mainly of synth loops from a Jam Pack from Apple's musical software GarageBand (Euro Hero Synth).",
+   "source": {
+    "label": "Wikipedia, Love in This Club",
+    "url": "https://en.wikipedia.org/wiki/Love_in_This_Club"
+   }
+  }
  },
  {
   "song": "You Make Me Wanna...",
@@ -13635,7 +13867,15 @@
    "label": "Hooktheory TheoryTab, You Make Me Wanna by Usher",
    "url": "https://www.hooktheory.com/theorytab/view/usher/you-make-me-wanna"
   },
-  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED. V/i = G major (the dominant of C minor). 164 BPM is Hooktheory's double-time reading."
+  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED. V/i = G major (the dominant of C minor). 164 BPM is Hooktheory's double-time reading.",
+  "instrument": {
+   "name": "acoustic guitar",
+   "quote": "and heavily utilizes the acoustic guitar, while also incorporating hi-hat and bell instrumentation.",
+   "source": {
+    "label": "Wikipedia, You Make Me Wanna...",
+    "url": "https://en.wikipedia.org/wiki/You_Make_Me_Wanna..."
+   }
+  }
  },
  {
   "song": "Caught Up",
@@ -13876,7 +14116,15 @@
    "label": "Hooktheory TheoryTab, No One by Alicia Keys",
    "url": "https://www.hooktheory.com/theorytab/view/alicia-keys/no-one"
   },
-  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED. V(add6) = B with an added G# (B6)."
+  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED. V(add6) = B with an added G# (B6).",
+  "instrument": {
+   "name": "piano",
+   "quote": "simplistic yet beautiful, fluttering, piano-tinkling ballad",
+   "source": {
+    "label": "Wikipedia, No One (Alicia Keys song)",
+    "url": "https://en.wikipedia.org/wiki/No_One_(Alicia_Keys_song)"
+   }
+  }
  },
  {
   "song": "Fallin'",
@@ -13903,7 +14151,15 @@
    "label": "Hooktheory TheoryTab, Fallin by Alicia Keys",
    "url": "https://www.hooktheory.com/theorytab/view/alicia-keys/fallin"
   },
-  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory lists 192 BPM (double time of the ~96 BPM feel); halved here."
+  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED. Hooktheory lists 192 BPM (double time of the ~96 BPM feel); halved here.",
+  "instrument": {
+   "name": "piano",
+   "quote": "The underlying piano motif in \"Fallin'\" strongly resembles the repeating piano riff in James Brown's 1966 single",
+   "source": {
+    "label": "Wikipedia, Fallin' (Alicia Keys song)",
+    "url": "https://en.wikipedia.org/wiki/Fallin%27_(Alicia_Keys_song)"
+   }
+  }
  },
  {
   "song": "If I Ain't Got You",
@@ -13942,7 +14198,15 @@
    "label": "Hooktheory TheoryTab, If I Ain't Got You by Alicia Keys",
    "url": "https://www.hooktheory.com/theorytab/view/alicia-keys/if-i-aint-got-you"
   },
-  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED. Five-chord pattern fitted to 4 bars by splitting the last bar 2+2 (assumption). Intro listed at 124 BPM."
+  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED. Five-chord pattern fitted to 4 bars by splitting the last bar 2+2 (assumption). Intro listed at 124 BPM.",
+  "instrument": {
+   "name": "piano",
+   "quote": "She subsequently decided to incorporate drums, as played by Steve Jordan, and guitar, by Hugh McCracken, against her piano.",
+   "source": {
+    "label": "Wikipedia, If I Ain't Got You",
+    "url": "https://en.wikipedia.org/wiki/If_I_Ain%27t_Got_You"
+   }
+  }
  },
  {
   "song": "Girl on Fire",
@@ -13977,7 +14241,15 @@
    "label": "Hooktheory TheoryTab, Girl on Fire by Alicia Keys",
    "url": "https://www.hooktheory.com/theorytab/view/alicia-keys/girl-on-fire"
   },
-  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED."
+  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED.",
+  "instrument": {
+   "name": "piano",
+   "quote": "over her trademark piano punches and a trash-can-lid beat",
+   "source": {
+    "label": "Wikipedia, Girl on Fire (song)",
+    "url": "https://en.wikipedia.org/wiki/Girl_on_Fire_(song)"
+   }
+  }
  },
  {
   "song": "You Don't Know My Name",
@@ -14016,7 +14288,15 @@
    "label": "Hooktheory TheoryTab, You Don't Know My Name by Alicia Keys",
    "url": "https://www.hooktheory.com/theorytab/view/alicia-keys/you-dont-know-my-name"
   },
-  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED. Five-chord pattern fitted to 4 bars by splitting the last bar 2+2 (assumption). 167 BPM is Hooktheory's double-time count (felt at ~84)."
+  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED. Five-chord pattern fitted to 4 bars by splitting the last bar 2+2 (assumption). 167 BPM is Hooktheory's double-time count (felt at ~84).",
+  "instrument": {
+   "name": "piano",
+   "quote": "With creamy harmonizing on background vocals and cascading piano riffs",
+   "source": {
+    "label": "Wikipedia, You Don't Know My Name",
+    "url": "https://en.wikipedia.org/wiki/You_Don%27t_Know_My_Name"
+   }
+  }
  },
  {
   "song": "Unthinkable (I'm Ready)",
@@ -14319,7 +14599,15 @@
    "label": "Hooktheory TheoryTab, Shameless by The Weeknd",
    "url": "https://www.hooktheory.com/theorytab/view/the-weeknd/shameless"
   },
-  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED."
+  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED.",
+  "instrument": {
+   "name": "electric guitar",
+   "quote": "a guitar ballad unredeemable even by its deranged guitar solo",
+   "source": {
+    "label": "Wikipedia, Beauty Behind the Madness (redirect from Shameless (The Weeknd song))",
+    "url": "https://en.wikipedia.org/wiki/Shameless_(The_Weeknd_song)"
+   }
+  }
  },
  {
   "song": "Less Than Zero",
@@ -15014,7 +15302,15 @@
    "label": "Hooktheory TheoryTab, Beautiful Monster by Ne-Yo",
    "url": "https://www.hooktheory.com/theorytab/view/ne-yo/beautiful-monster"
   },
-  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED."
+  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED.",
+  "instrument": {
+   "name": "synth",
+   "quote": "out-of-tranc-y keyboard lines",
+   "source": {
+    "label": "Wikipedia, Beautiful Monster",
+    "url": "https://en.wikipedia.org/wiki/Beautiful_Monster"
+   }
+  }
  },
  {
   "song": "Lonely",
@@ -15049,7 +15345,15 @@
    "label": "Hooktheory TheoryTab, Lonely by Akon",
    "url": "https://www.hooktheory.com/theorytab/view/akon/lonely"
   },
-  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED. The track speeds up its Bobby Vinton sample; Hooktheory lists C major at 90 BPM."
+  "notes": "Chord symbols converted from Hooktheory TheoryTab roman numerals (the section's chordString) in the key Hooktheory lists for that section; Hooktheory 7th numerals read as diatonic (I7 = maj7 in major, i7 = m7 in minor). The page text shows no chord durations, so 1 bar (4 beats) per chord is ASSUMED. The track speeds up its Bobby Vinton sample; Hooktheory lists C major at 90 BPM.",
+  "instrument": {
+   "name": "vocal sample",
+   "quote": "Featuring a prominent, high-pitched sample of the 1962 song \"Mr. Lonely\" by Bobby Vinton",
+   "source": {
+    "label": "Wikipedia, Lonely (Akon song)",
+    "url": "https://en.wikipedia.org/wiki/Lonely_(Akon_song)"
+   }
+  }
  },
  {
   "song": "Right Now (Na Na Na)",

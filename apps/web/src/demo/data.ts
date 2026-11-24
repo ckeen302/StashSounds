@@ -1,6 +1,7 @@
 import { itemPageSchema, itemRowSchema, LICENSES, type ItemPage, type ItemRow, type LicenseKind } from "@stash/contracts";
 import generated from "./generated/loops.json" with { type: "json" };
 import more from "./generated/more-loops.json" with { type: "json" };
+import creator from "./creator/loops.json" with { type: "json" };
 
 /**
  * The demo's catalog: the five generated loop fixtures (scripts/build-demo.mjs made their previews
@@ -20,6 +21,9 @@ export const HOUSE: Producer = { id: "00000000-0000-4000-8000-0000000000a1", han
 
 export const producers = { kilo: HOUSE, nova: HOUSE, marcus: HOUSE } satisfies Record<string, Producer>;
 export const extra = { juno: HOUSE, dre: HOUSE } satisfies Record<string, Producer>;
+
+/** Producers who posted their own loops to the demo (creator/loops.json, from scripts/add-creator-loop.py). */
+export const CREATORS: Producer[] = [...new Map(creator.loops.map((l, i) => [l.copy.owner.handle, { id: `00000000-0000-4000-8000-0000000001${String(i).padStart(2, "0")}`, handle: l.copy.owner.handle, displayName: l.copy.owner.displayName, followers: 0 }])).values()];
 
 const ALL = { ...producers, ...extra };
 
@@ -81,6 +85,15 @@ const moreCopy: Record<string, Copy> = Object.fromEntries(
   }),
 );
 
+/** Their loops, numbered after the generated ones. */
+const creatorCopy: Record<string, Copy> = Object.fromEntries(
+  creator.loops.map((l, i) => {
+    const c = l.copy;
+    const owner = CREATORS.find((p) => p.handle === c.owner.handle)!;
+    return [l.slug, { ...c, n: 6 + more.loops.length + i, owner, license: c.license as LicenseKind, slug: l.slug, reference: c.genre.toLowerCase(), likes: 0, downloads: 0 }];
+  }),
+);
+
 function rowFor(e: Entry, c: Copy, base: string): ItemRow {
   const publicId = `demoloop${String(c.n).padStart(2, "0")}`;
   const id = `00000000-0000-4000-8000-${String(c.n).padStart(12, "0")}`;
@@ -122,9 +135,9 @@ export type Catalog = {
 
 /** Builds the catalog with preview URLs relative to the page (`base`, normally document.baseURI). */
 export function buildCatalog(base: string): Catalog {
-  const all: Entry[] = [...generated.loops, ...more.loops];
+  const all: Entry[] = [...generated.loops, ...more.loops, ...creator.loops];
   const entries = all.map((e) => {
-    const c = copy[e.slug] ?? moreCopy[e.slug];
+    const c = copy[e.slug] ?? moreCopy[e.slug] ?? creatorCopy[e.slug];
     if (!c) throw new Error(`no demo copy for ${e.slug}`);
     return { e, c, row: rowFor(e, c, base) };
   });
