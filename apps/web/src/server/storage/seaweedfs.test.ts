@@ -123,6 +123,32 @@ describe.skipIf(!available)("SeaweedFS (local storage)", () => {
     expect(await storage.head(k)).toMatchObject({ bytes: total });
   });
 
+  it("a signed download GET returns the object as an attachment with the given type, only for its key", async () => {
+    const k = key();
+    const { url: put } = await storage.presignPut(k, 4);
+    await fetch(put, { method: "PUT", body: "RIFF", headers: { "Content-Type": "text/html" } });
+    const disposition = `attachment; filename="Dark Keys.wav"; filename*=UTF-8''Dark%20Keys.wav`;
+    const { url } = await storage.presignGet(k, { contentDisposition: disposition, contentType: "audio/wav" });
+    const res = await fetch(url);
+    expect(res.status).toBe(200);
+    expect(await res.text()).toBe("RIFF");
+    expect(res.headers.get("content-disposition")).toBe(disposition);
+    expect(res.headers.get("content-type")).toBe("audio/wav");
+    const other = new URL(url);
+    other.pathname = other.pathname.replace(/original\.wav$/, "other.wav");
+    expect((await fetch(other)).status).toBe(403);
+  });
+
+  it("an expired download URL is refused", async () => {
+    const k = key();
+    const { url: put } = await storage.presignPut(k, 3);
+    await fetch(put, { method: "PUT", body: "abc" });
+    const short = s3Originals({ client: s3ClientFromEnv(), bucket: process.env.STASH_BUCKET_ORIGINALS!, downloadTtlSeconds: 1 });
+    const { url } = await short.presignGet(k, { contentDisposition: "attachment", contentType: "audio/wav" });
+    await new Promise((r) => setTimeout(r, 2100));
+    expect((await fetch(url)).status).toBe(403);
+  });
+
   it("originals are not readable without a signature", async () => {
     const k = key();
     const { url } = await storage.presignPut(k, 3);

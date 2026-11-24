@@ -5,6 +5,7 @@ import {
   CopyObjectCommand,
   CreateMultipartUploadCommand,
   DeleteObjectCommand,
+  GetObjectCommand,
   HeadObjectCommand,
   PutObjectCommand,
   S3Client,
@@ -23,6 +24,12 @@ import { storageEnv } from "./env.ts";
  * URL names one object and signs its Content-Length.
  */
 export type PresignedPut = { url: string; headers: Record<string, string> };
+/**
+ * Response headers a download URL forces. Both are required: storage must never serve an original
+ * with the uploader's type or inline (PR #6 security note).
+ */
+export type DownloadHeaders = { contentDisposition: string; contentType: string };
+export type SignedDownload = { url: string; expiresAt: string };
 export type MultipartStart = {
   uploadId: string;
   partBytes: number;
@@ -61,10 +68,22 @@ export interface OriginalsStorage {
    * 500 MB). The copy's Content-Type is the one given here, never the uploader's.
    */
   copy(fromKey: string, toKey: string, contentType: string): Promise<void>;
+  /**
+   * A signed GET for one object, valid for limits.urls.downloadTtlSeconds, that always downloads
+   * with the given type. expiresAt is the signing date plus that same lifetime.
+   */
+  presignGet(key: string, headers: DownloadHeaders): Promise<SignedDownload>;
   remove(key: string): Promise<void>;
 }
 
-export function s3Originals(opts: { client: S3Client; bucket: string; ttlSeconds?: number; partBytes?: number }): OriginalsStorage {
+export function s3Originals(opts: {
+  client: S3Client;
+  bucket: string;
+  ttlSeconds?: number;
+  partBytes?: number;
+  /** Download URL lifetime; limits.urls.downloadTtlSeconds when not set. */
+  downloadTtlSeconds?: number;
+}): OriginalsStorage {
   const { client, bucket } = opts;
   const expiresIn = opts.ttlSeconds ?? limits.urls.uploadTtlSeconds;
   const defaultPartBytes = opts.partBytes ?? limits.multipart.partBytes;
@@ -140,6 +159,29 @@ export function s3Originals(opts: { client: S3Client; bucket: string; ttlSeconds
           ContentType: contentType,
         }),
       );
+    },
+
+    async presignGet(key, headers) {
+      if (!headers.contentDisposition.startsWith("attachment") || !headers.contentType) {
+        throw new Error("a download URL needs an attachment disposition and a content type");
+      }
+      // One clock reading and one lifetime: the URL is signed at signingDate for ttl seconds, and
+      // expiresAt is computed from the same two values before signing.
+      const ttl = opts.downloadTtlSeconds ?? limits.urls.downloadTtlSeconds;
+      // Whole seconds: X-Amz-Date has no milliseconds, so expiresAt matches the signature exactly.
+      const signingDate = new Date(Math.floor(Date.now() / 1000) * 1000);
+      const expiresAt = new Date(signingDate.getTime() + ttl * 1000).toISOString();
+      const url = await getSignedUrl(
+        client,
+        new GetObjectCommand({
+          Bucket: bucket,
+          Key: key,
+          ResponseContentDisposition: headers.contentDisposition,
+          ResponseContentType: headers.contentType,
+        }),
+        { expiresIn: ttl, signingDate },
+      );
+      return { url, expiresAt };
     },
 
     async remove(key) {

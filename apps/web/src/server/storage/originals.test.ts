@@ -142,6 +142,69 @@ describe("copy", () => {
   });
 });
 
+describe("presignGet (downloads)", () => {
+  const DISPOSITION = `attachment; filename="Dark Keys.wav"; filename*=UTF-8''Dark%20Keys.wav`;
+
+  it("signs a GET for one object that always downloads, with the row's type, for downloadTtlSeconds", async () => {
+    stub.objects.set(`originals/${KEY}`, Buffer.from("RIFFdata"));
+    stub.contentTypes.set(`originals/${KEY}`, "text/html");
+    const before = Date.now();
+    const { url, expiresAt } = await storage.presignGet(KEY, { contentDisposition: DISPOSITION, contentType: "audio/wav" });
+    const u = new URL(url);
+    // The expiry is the signing date plus the one lifetime that was signed.
+    const signedAt = /^(\d{4})(\d\d)(\d\d)T(\d\d)(\d\d)(\d\d)Z$/.exec(u.searchParams.get("X-Amz-Date")!)!;
+    const signedMs = Date.UTC(+signedAt[1]!, +signedAt[2]! - 1, +signedAt[3]!, +signedAt[4]!, +signedAt[5]!, +signedAt[6]!);
+    expect(Date.parse(expiresAt)).toBe(signedMs + limits.urls.downloadTtlSeconds * 1000);
+    expect(Date.parse(expiresAt)).toBeGreaterThan(before + limits.urls.downloadTtlSeconds * 1000 - 1000);
+    expect(decodeURIComponent(u.pathname)).toBe(`/originals/${KEY}`);
+    expect(u.searchParams.get("X-Amz-Expires")).toBe(String(limits.urls.downloadTtlSeconds));
+    expect(u.searchParams.get("response-content-disposition")).toBe(DISPOSITION);
+    expect(u.searchParams.get("response-content-type")).toBe("audio/wav");
+    const res = await fetch(url);
+    expect(res.status).toBe(200);
+    expect(await res.text()).toBe("RIFFdata");
+    expect(res.headers.get("content-disposition")).toBe(DISPOSITION);
+    expect(res.headers.get("content-type")).toBe("audio/wav");
+  });
+
+  it("the download URL expires", async () => {
+    stub.objects.set(`originals/${KEY}`, Buffer.from("x"));
+    vi.useFakeTimers({ now: Date.now() - (limits.urls.downloadTtlSeconds + 5) * 1000, toFake: ["Date"] });
+    const { url } = await storage.presignGet(KEY, { contentDisposition: DISPOSITION, contentType: "audio/wav" });
+    vi.useRealTimers();
+    expect((await fetch(url)).status).toBe(403);
+  });
+
+  it("refuses to sign without an attachment disposition and a type", async () => {
+    await expect(storage.presignGet(KEY, { contentDisposition: "inline", contentType: "audio/wav" })).rejects.toThrow(/attachment/);
+    await expect(storage.presignGet(KEY, { contentDisposition: DISPOSITION, contentType: "" })).rejects.toThrow(/content type/);
+  });
+
+  it("a configured lifetime is the one signed", async () => {
+    const short = s3Originals({ client, bucket: "originals", downloadTtlSeconds: 30 });
+    const before = Date.now();
+    const { url, expiresAt } = await short.presignGet(KEY, { contentDisposition: DISPOSITION, contentType: "audio/wav" });
+    expect(new URL(url).searchParams.get("X-Amz-Expires")).toBe("30");
+    expect(Date.parse(expiresAt) - before).toBeGreaterThan(29_000);
+    expect(Date.parse(expiresAt) - Date.now()).toBeLessThanOrEqual(30_000);
+  });
+});
+
+describe("presignGet expiry", () => {
+  it("the signing date is rounded down to whole seconds, so expiresAt is exactly X-Amz-Date plus X-Amz-Expires", async () => {
+    const now = Date.UTC(2026, 10, 24, 10, 0, 0, 750);
+    vi.useFakeTimers({ now, toFake: ["Date"] });
+    try {
+      const { url, expiresAt } = await storage.presignGet(KEY, { contentDisposition: "attachment", contentType: "audio/wav" });
+      expect(new URL(url).searchParams.get("X-Amz-Date")).toBe("20261124T100000Z");
+      expect(expiresAt).toBe(new Date(Date.UTC(2026, 10, 24, 10, 0, 0) + limits.urls.downloadTtlSeconds * 1000).toISOString());
+      expect(expiresAt.endsWith(".000Z")).toBe(true);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+});
+
 describe("head and remove", () => {
   it("head is null for a missing object; remove deletes", async () => {
     expect(await storage.head(KEY)).toBeNull();
