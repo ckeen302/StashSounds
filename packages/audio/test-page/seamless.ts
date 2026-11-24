@@ -331,3 +331,57 @@ async function seekRender(b64: string, item: Loop, rate: number, ratio: number, 
     targetS,
   };
 }
+
+export interface LoopOffResult {
+  /** Status and position once the render is over and the engine has caught up. */
+  status: string;
+  positionMs: number;
+  /** Where the engine's last pass ends, in seconds of render. */
+  endS: number;
+  /** rms from the start of the sound to 50 ms before the end: the loop is heard. */
+  before: number;
+  /** rms from 40 ms after the end to the end of the render: silence. */
+  after: number;
+  /** Plain path only: largest |rendered - expected| before the end (sample-exact single pass). */
+  maxDiff: number;
+}
+
+/**
+ * Loop switch off (request 135-engine-loop-switch): the loop plays one pass and then nothing, ending
+ * on the audio clock. Plain path at the original tempo and key, or through the stretch with a key change.
+ */
+export async function renderLoopOff(b64: string, item: Loop, rate: number, semitones: number): Promise<LoopOffResult> {
+  const bytes = bytesOf(b64);
+  const decoded = await decode(bytes, rate);
+  const L = loopFrames(item, decoded);
+  const Ls = L / rate;
+  const frames = Math.ceil((Ls + 1) * rate);
+  const { ctx } = offline(frames, rate);
+  const schedules: StretchChange[] = [];
+  const e = engineFor(ctx, bytes, schedules);
+  e.setLoop(false);
+  e.setTranspose(semitones);
+  await e.play(item);
+  if (semitones) {
+    await until(() => schedules.some((s) => s.active), "the stretch start");
+    await delivered();
+  }
+  const start = schedules.find((s) => s.active)?.output ?? 0;
+  const endS = start + Ls;
+  const out = (await ctx.startRendering()).getChannelData(0);
+  await until(() => e.getState().status === "paused", "the pause at the end");
+  const at = (s: number) => Math.round(s * rate);
+  let maxDiff = 0;
+  if (!semitones) {
+    const want = decoded.getChannelData(0);
+    for (let i = 0; i < at(endS) - at(0.001); i++) maxDiff = Math.max(maxDiff, Math.abs(out[i]! - VOLUME * want[i]!));
+  }
+  return {
+    status: e.getState().status,
+    positionMs: e.getPositionMs(),
+    endS,
+    before: rms(out, at(start + (semitones ? 0.1 : 0)), at(endS - 0.05)),
+    after: rms(out, at(endS + 0.04), out.length),
+    maxDiff,
+  };
+}
