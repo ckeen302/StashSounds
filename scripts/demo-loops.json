@@ -1,0 +1,591 @@
+[
+ {
+  "slug": "dark-trap-piano-loop",
+  "title": "Dark trap piano",
+  "owner": "juno",
+  "bpm": 140,
+  "bars": 4,
+  "key": {
+   "root": 0,
+   "mode": "minor"
+  },
+  "tags": [
+   "piano",
+   "dark",
+   "trap"
+  ],
+  "genre": "Trap",
+  "reference": "metro boomin",
+  "layers": [
+   {
+    "id": "demomidi05"
+   }
+  ],
+  "description": "A falling C minor piano line over octave roots. No drums, so it sits under any bounce.",
+  "license": "royalty_free",
+  "likes": 1320,
+  "downloads": 5210,
+  "publishedAt": "2026-11-24T10:30:00Z"
+ },
+ {
+  "slug": "dark-trap-piano-with-drums",
+  "title": "Dark trap piano with drums",
+  "owner": "juno",
+  "bpm": 140,
+  "bars": 4,
+  "key": {
+   "root": 0,
+   "mode": "minor"
+  },
+  "tags": [
+   "piano",
+   "drums",
+   "trap"
+  ],
+  "genre": "Trap",
+  "reference": "southside",
+  "layers": [
+   {
+    "id": "demomidi05"
+   },
+   {
+    "id": "demomidi10",
+    "gain": 0.9
+   }
+  ],
+  "description": "The C minor piano with half-time trap drums and hat rolls underneath.",
+  "license": "royalty_free",
+  "likes": 980,
+  "downloads": 3870,
+  "publishedAt": "2026-11-24T11:00:00Z"
+ },
+ {
+  "slug": "plugg-chords-loop",
+  "title": "Plugg chords",
+  "owner": "nova",
+  "bpm": 150,
+  "bars": 8,
+  "key": {
+   "root": 10,
+   "mode": "major"
+  },
+  "tags": [
+   "plugg",
+   "pad",
+   "chords"
+  ],
+  "genre": "Plugg",
+  "reference": "pi'erre bourne",
+  "layers": [
+   {
+    "id": "demomidi07"
+   }
+  ],
+  "description": "Ebmaj7, Dm7, Cm7, Fsus on a soft pad with a small answer at the top of every bar.",
+  "license": "royalty_free",
+  "likes": 760,
+  "downloads": 2950,
+  "publishedAt": "2026-11-23T20:10:00Z"
+ },
+ {
+  "slug": "pluggnb-bells-loop",
+  "title": "Pluggnb bells",
+  "owner": "nova",
+  "bpm": 150,
+  "bars": 4,
+  "key": {
+   "root": 6,
+   "mode": "minor"
+  },
+  "tags": [
+   "bells",
+   "pluggnb",
+   "melody"
+  ],
+  "genre": "Plugg",
+  "reference": "summrs",
+  "layers": [
+   {
+    "id": "demomidi02"
+   }
+  ],
+  "description": "F sharp minor bell call and answer, with the answer an octave down.",
+  "license": "credit_required",
+  "likes": 1105,
+  "downloads": 4020,
+  "publishedAt": "2026-11-23T14:45:00Z"
+ },
+ {
+  "slug": "rage-stabs-loop",
+  "title": "Rage stabs",
+  "owner": "dre",
+  "bpm": 160,
+  "bars": 4,
+  "key": {
+   "root": 5,
+   "mode": "minor"
+  },
+  "tags": [
+   "rage",
+   "lead",
+   "stabs"
+  ],
+  "genre": "Rage",
+  "reference": "playboi carti",
+  "layers": [
+   {
+    "id": "demomidi08"
+   }
+  ],
+  "description": "Sixteenth-note stabs in F minor with an octave-up answer. Distort it.",
+  "license": "royalty_free",
+  "likes": 1430,
+  "downloads": 6120,
+  "publishedAt": "2026-11-24T08:00:00Z"
+ },
+ {
+  "slug": "melodic-trap-arp-loop",
+  "title": "Melodic trap arp",
+  "owner": "nova",
+  "bpm": 150,
+  "bars": 4,
+  "key": {
+   "root": 4,
+   "mode": "minor"
+  },
+  "tags": [
+   "arp",
+   "guitar",
+   "melodic trap"
+  ],
+  "genre": "Trap",
+  "reference": "nick mira",
+  "layers": [
+   {
+    "id": "demomidi18"
+   }
+  ],
+  "description": "Em, C, G, D broken into eighths like a guitar loop.",
+  "license": "royalty_free",
+  "likes": 1890,
+  "downloads": 7400,
+  "publishedAt": "2026-11-22T16:20:00Z"
+ },
+ {
+  "slug": "neo-soul-keys-loop",
+  "title": "Neo soul keys",
+  "owner": "kilo",
+  "bpm": 84,
+  "bars": 8,
+  "key": {
+   "root": 3,
+   "mode": "major"
+  },
+  "tags": [
+   "neo soul",
+   "keys",
+   "rnb"
+  ],
+  "genre": "R&B",
+  "reference": "dilla",
+  "layers": [
+   {
+    "id": "demomidi01"
+   }
+  ],
+  "description": "Ebmaj9, Cm9, Abmaj9, Bb13sus on electric piano, voiced close.",
+  "license": "royalty_free",
+  "likes": 840,
+  "downloads": 3300,
+  "publishedAt": "2026-11-21T19:00:00Z"
+ },
+ {
+  "slug": "late-night-rnb-pad-loop",
+  "title": "Late night R&B chords",
+  "owner": "juno",
+  "bpm": 68,
+  "bars": 8,
+  "key": {
+   "root": 6,
+   "mode": "major"
+  },
+  "tags": [
+   "rnb",
+   "pad",
+   "slow"
+  ],
+  "genre": "R&B",
+  "reference": "brent faiyaz",
+  "layers": [
+   {
+    "id": "demomidi15"
+   }
+  ],
+  "description": "Gbmaj9, Fm7, Ebm9 and Abadd9 on a warm pad, with a top line in the second half.",
+  "license": "royalty_free",
+  "likes": 610,
+  "downloads": 2140,
+  "publishedAt": "2026-11-20T23:30:00Z"
+ },
+ {
+  "slug": "boom-bap-rhodes-loop",
+  "title": "Boom bap Rhodes",
+  "owner": "kilo",
+  "bpm": 90,
+  "bars": 4,
+  "key": {
+   "root": 2,
+   "mode": "minor"
+  },
+  "tags": [
+   "rhodes",
+   "jazzy",
+   "boom bap"
+  ],
+  "genre": "Boom bap",
+  "reference": "pete rock",
+  "layers": [
+   {
+    "id": "demomidi06"
+   }
+  ],
+  "description": "Dm9, G13, Cmaj9, A7#9, swung. Made to be chopped.",
+  "license": "royalty_free",
+  "likes": 1210,
+  "downloads": 4880,
+  "publishedAt": "2026-11-22T12:40:00Z"
+ },
+ {
+  "slug": "boom-bap-rhodes-with-drums",
+  "title": "Boom bap Rhodes with drums",
+  "owner": "kilo",
+  "bpm": 90,
+  "bars": 4,
+  "key": {
+   "root": 2,
+   "mode": "minor"
+  },
+  "tags": [
+   "rhodes",
+   "drums",
+   "boom bap"
+  ],
+  "genre": "Boom bap",
+  "reference": "9th wonder",
+  "layers": [
+   {
+    "id": "demomidi06"
+   },
+   {
+    "id": "demomidi09"
+   }
+  ],
+  "description": "The Rhodes with swung kick, snare and ghost notes under it.",
+  "license": "royalty_free",
+  "likes": 1530,
+  "downloads": 6630,
+  "publishedAt": "2026-11-23T09:30:00Z"
+ },
+ {
+  "slug": "lofi-nines-loop",
+  "title": "Lo-fi nines",
+  "owner": "kilo",
+  "bpm": 80,
+  "bars": 4,
+  "key": {
+   "root": 9,
+   "mode": "minor"
+  },
+  "tags": [
+   "lo-fi",
+   "jazzy",
+   "keys"
+  ],
+  "genre": "Lo-fi",
+  "reference": "nujabes",
+  "layers": [
+   {
+    "id": "demomidi16"
+   }
+  ],
+  "description": "Am9, Dm9, Gmaj7, Cmaj7, lazy and swung.",
+  "license": "royalty_free",
+  "likes": 2010,
+  "downloads": 9050,
+  "publishedAt": "2026-11-21T08:15:00Z"
+ },
+ {
+  "slug": "drill-strings-loop",
+  "title": "Drill strings",
+  "owner": "marcus",
+  "bpm": 142,
+  "bars": 4,
+  "key": {
+   "root": 1,
+   "mode": "minor"
+  },
+  "tags": [
+   "strings",
+   "dark",
+   "drill"
+  ],
+  "genre": "Drill",
+  "reference": "ax",
+  "layers": [
+   {
+    "id": "demomidi14"
+   }
+  ],
+  "description": "Half-step answers over open fifths in C sharp minor.",
+  "license": "royalty_free",
+  "likes": 530,
+  "downloads": 1990,
+  "publishedAt": "2026-11-23T17:00:00Z"
+ },
+ {
+  "slug": "drill-strings-with-drums",
+  "title": "Drill strings with drums",
+  "owner": "marcus",
+  "bpm": 142,
+  "bars": 4,
+  "key": {
+   "root": 1,
+   "mode": "minor"
+  },
+  "tags": [
+   "strings",
+   "drums",
+   "drill"
+  ],
+  "genre": "Drill",
+  "reference": "ghosty",
+  "layers": [
+   {
+    "id": "demomidi14"
+   },
+   {
+    "id": "demomidi03"
+   }
+  ],
+  "description": "The strings with sliding drill drums and triplet hat rolls.",
+  "license": "royalty_free",
+  "likes": 720,
+  "downloads": 2600,
+  "publishedAt": "2026-11-24T07:20:00Z"
+ },
+ {
+  "slug": "phonk-cowbell-loop",
+  "title": "Phonk cowbell",
+  "owner": "dre",
+  "bpm": 130,
+  "bars": 4,
+  "key": {
+   "root": 10,
+   "mode": "minor"
+  },
+  "tags": [
+   "phonk",
+   "cowbell",
+   "memphis"
+  ],
+  "genre": "Phonk",
+  "reference": "dj paul",
+  "layers": [
+   {
+    "id": "demomidi12"
+   }
+  ],
+  "description": "A B flat minor cowbell melody, Memphis style.",
+  "license": "royalty_free",
+  "likes": 1650,
+  "downloads": 7020,
+  "publishedAt": "2026-11-22T22:00:00Z"
+ },
+ {
+  "slug": "phonk-cowbell-and-808",
+  "title": "Phonk cowbell and 808",
+  "owner": "dre",
+  "bpm": 130,
+  "bars": 4,
+  "key": {
+   "root": 10,
+   "mode": "minor"
+  },
+  "tags": [
+   "phonk",
+   "808",
+   "cowbell"
+  ],
+  "genre": "Phonk",
+  "reference": "kordhell",
+  "layers": [
+   {
+    "id": "demomidi12"
+   },
+   {
+    "id": "demomidi13"
+   }
+  ],
+  "description": "The cowbell line locked with its 808. Same key, same tempo.",
+  "license": "royalty_free",
+  "likes": 2240,
+  "downloads": 9810,
+  "publishedAt": "2026-11-24T09:45:00Z"
+ },
+ {
+  "slug": "gliding-808-loop",
+  "title": "Gliding 808 in A minor",
+  "owner": "marcus",
+  "bpm": 140,
+  "bars": 4,
+  "key": {
+   "root": 9,
+   "mode": "minor"
+  },
+  "tags": [
+   "808",
+   "bass",
+   "trap"
+  ],
+  "genre": "Trap",
+  "reference": "808 mafia",
+  "layers": [
+   {
+    "id": "demomidi04"
+   }
+  ],
+  "description": "A long 808 line with octave jumps. Low end only.",
+  "license": "royalty_free",
+  "likes": 470,
+  "downloads": 2310,
+  "publishedAt": "2026-11-20T13:00:00Z"
+ },
+ {
+  "slug": "west-coast-whistle-loop",
+  "title": "West Coast whistle",
+  "owner": "marcus",
+  "bpm": 96,
+  "bars": 4,
+  "key": {
+   "root": 7,
+   "mode": "minor"
+  },
+  "tags": [
+   "west coast",
+   "g funk",
+   "lead"
+  ],
+  "genre": "West Coast",
+  "reference": "dj quik",
+  "layers": [
+   {
+    "id": "demomidi17"
+   }
+  ],
+  "description": "A long high lead over a bouncing G minor bass.",
+  "license": "royalty_free",
+  "likes": 390,
+  "downloads": 1500,
+  "publishedAt": "2026-11-19T18:30:00Z"
+ },
+ {
+  "slug": "trap-drums-loop",
+  "title": "Trap drums with hat rolls",
+  "owner": "dre",
+  "bpm": 140,
+  "bars": 4,
+  "key": null,
+  "tags": [
+   "drums",
+   "hat rolls",
+   "trap"
+  ],
+  "genre": "Trap",
+  "reference": "tay keith",
+  "layers": [
+   {
+    "id": "demomidi10"
+   }
+  ],
+  "description": "Half-time clap and snare, bouncing kicks and a triplet roll.",
+  "license": "royalty_free",
+  "likes": 2560,
+  "downloads": 11200,
+  "publishedAt": "2026-11-23T23:10:00Z"
+ },
+ {
+  "slug": "boom-bap-drums-loop",
+  "title": "Swung boom bap drums",
+  "owner": "kilo",
+  "bpm": 90,
+  "bars": 4,
+  "key": null,
+  "tags": [
+   "drums",
+   "swing",
+   "boom bap"
+  ],
+  "genre": "Boom bap",
+  "reference": "premier",
+  "layers": [
+   {
+    "id": "demomidi09"
+   }
+  ],
+  "description": "Kick and snare with ghost notes, hats swung around 62 percent.",
+  "license": "royalty_free",
+  "likes": 1780,
+  "downloads": 8030,
+  "publishedAt": "2026-11-21T15:50:00Z"
+ },
+ {
+  "slug": "drill-drums-loop",
+  "title": "Drill drums with rolls",
+  "owner": "marcus",
+  "bpm": 142,
+  "bars": 4,
+  "key": null,
+  "tags": [
+   "drums",
+   "drill",
+   "hat rolls"
+  ],
+  "genre": "Drill",
+  "reference": "808melo",
+  "layers": [
+   {
+    "id": "demomidi03"
+   }
+  ],
+  "description": "Half-time snare on three, sliding kicks, triplet rolls.",
+  "license": "royalty_free",
+  "likes": 940,
+  "downloads": 4100,
+  "publishedAt": "2026-11-22T10:05:00Z"
+ },
+ {
+  "slug": "jersey-club-bounce-loop",
+  "title": "Jersey club bounce",
+  "owner": "juno",
+  "bpm": 140,
+  "bars": 4,
+  "key": null,
+  "tags": [
+   "drums",
+   "jersey club",
+   "bounce"
+  ],
+  "genre": "Jersey club",
+  "reference": "dj sliink",
+  "layers": [
+   {
+    "id": "demomidi11"
+   }
+  ],
+  "description": "The five-kick bounce with claps on the ands.",
+  "license": "royalty_free",
+  "likes": 1150,
+  "downloads": 4750,
+  "publishedAt": "2026-11-24T06:30:00Z"
+ }
+]

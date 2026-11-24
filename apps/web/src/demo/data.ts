@@ -1,5 +1,6 @@
 import { itemPageSchema, itemRowSchema, LICENSES, type ItemPage, type ItemRow, type LicenseKind } from "@stash/contracts";
 import generated from "./generated/loops.json" with { type: "json" };
+import more from "./generated/more-loops.json" with { type: "json" };
 
 /**
  * The demo's catalog: the five generated loop fixtures (scripts/build-demo.mjs made their previews
@@ -15,6 +16,13 @@ export const producers = {
   nova: { id: "00000000-0000-4000-8000-0000000000a2", handle: "nova", displayName: "Nova", followers: 8730 },
   marcus: { id: "00000000-0000-4000-8000-0000000000a3", handle: "mvrcus", displayName: "Marcus Vale", followers: 96 },
 } satisfies Record<string, Producer>;
+
+export const extra = {
+  juno: { id: "00000000-0000-4000-8000-0000000000a4", handle: "junovega", displayName: "Juno Vega", followers: 15400 },
+  dre: { id: "00000000-0000-4000-8000-0000000000a5", handle: "drestatic", displayName: "Dre Static", followers: 4210 },
+} satisfies Record<string, Producer>;
+
+const ALL = { ...producers, ...extra };
 
 type Copy = {
   n: number;
@@ -64,11 +72,19 @@ const copy: Record<string, Copy> = {
   },
 };
 
-type Entry = (typeof generated.loops)[number];
+type Entry = Omit<(typeof generated.loops)[number], "fixture" | "key"> & { key: { root: number; mode: string } | null };
+
+/** The loops rendered from the demo's own MIDI patterns (scripts/gen-demo-loops.py), numbered after the five fixtures. */
+const moreCopy: Record<string, Copy> = Object.fromEntries(
+  more.loops.map((l, i) => {
+    const c = l.copy;
+    return [l.slug, { ...c, n: 6 + i, owner: ALL[c.owner as keyof typeof ALL], license: c.license as LicenseKind, slug: l.slug }];
+  }),
+);
 
 function rowFor(e: Entry, c: Copy, base: string): ItemRow {
-  const publicId = `demoloop0${c.n}`;
-  const id = `00000000-0000-4000-8000-00000000000${c.n}`;
+  const publicId = `demoloop${String(c.n).padStart(2, "0")}`;
+  const id = `00000000-0000-4000-8000-${String(c.n).padStart(12, "0")}`;
   return itemRowSchema.parse({
     id,
     publicId,
@@ -107,8 +123,9 @@ export type Catalog = {
 
 /** Builds the catalog with preview URLs relative to the page (`base`, normally document.baseURI). */
 export function buildCatalog(base: string): Catalog {
-  const entries = generated.loops.map((e) => {
-    const c = copy[e.slug];
+  const all: Entry[] = [...generated.loops, ...more.loops];
+  const entries = all.map((e) => {
+    const c = copy[e.slug] ?? moreCopy[e.slug];
     if (!c) throw new Error(`no demo copy for ${e.slug}`);
     return { e, c, row: rowFor(e, c, base) };
   });
@@ -118,7 +135,11 @@ export function buildCatalog(base: string): Catalog {
   const pages = new Map<string, ItemPage>();
   for (const { c, row } of entries) {
     const mine = entries.filter((x) => x.c.owner.id === c.owner.id && x.row.id !== row.id).map((x) => x.row);
-    const others = entries.filter((x) => x.c.owner.id !== c.owner.id).map((x) => x.row);
+    // Same genre first, then the rest; a page holds at most 10 of each list.
+    const others = entries
+      .filter((x) => x.c.owner.id !== c.owner.id)
+      .sort((a, b) => Number(b.c.genre === c.genre) - Number(a.c.genre === c.genre))
+      .map((x) => x.row);
     pages.set(
       row.publicId,
       itemPageSchema.parse({
@@ -131,8 +152,8 @@ export function buildCatalog(base: string): Catalog {
           allTags: [...row.tags.map((name) => ({ name, kind: "tag" as const })), { name: c.reference, kind: "reference" as const }],
         },
         owner: { id: c.owner.id, handle: c.owner.handle, displayName: c.owner.displayName, avatarUrl: null, followersCount: c.owner.followers, viewerFollows: false },
-        moreFromOwner: mine.length > 0 ? mine : others.slice(0, 3),
-        similar: others,
+        moreFromOwner: mine.length > 0 ? mine.slice(0, 10) : others.slice(0, 3),
+        similar: others.slice(0, 10),
       }),
     );
   }

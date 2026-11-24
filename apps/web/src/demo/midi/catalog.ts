@@ -1,5 +1,5 @@
 import type { LicenseKind, MidiKind, MidiNotesFile, MusicalKey, SoundId } from "@stash/contracts";
-import { producers, type Producer } from "../data";
+import { extra, producers, type Producer } from "../data";
 import * as lib from "./library";
 import { CHORDS_OWNER, SONG_CHORDS, songKey, songNotes, type SongChords } from "./songs";
 
@@ -34,10 +34,7 @@ export type MidiItem = {
   song?: SongChords;
 };
 
-export const extra = {
-  juno: { id: "00000000-0000-4000-8000-0000000000a4", handle: "junovega", displayName: "Juno Vega", followers: 15400 },
-  dre: { id: "00000000-0000-4000-8000-0000000000a5", handle: "drestatic", displayName: "Dre Static", followers: 4210 },
-} satisfies Record<string, Producer>;
+export { extra };
 
 export const VIEWER: Producer = { id: "00000000-0000-4000-8000-0000000000f0", handle: "you", displayName: "You", followers: 0 };
 

@@ -36,6 +36,13 @@ if (loops.some((l) => !existsSync(join(web, "public", l.preview.path)))) {
   const r = spawnSync(process.execPath, [join(root, "scripts/build-demo.mjs")], { stdio: "inherit" });
   if (r.status !== 0) process.exit(r.status ?? 1);
 }
+// The loops rendered from the demo's MIDI patterns (scripts/build-demo-loops.mjs makes them).
+const moreLoops = JSON.parse(readFileSync(join(demoSrc, "generated/more-loops.json"), "utf8")).loops;
+if (moreLoops.some((l) => !existsSync(join(web, "public", l.preview.path)))) {
+  const r = spawnSync(process.execPath, [join(root, "scripts/build-demo-loops.mjs")], { stdio: "inherit" });
+  if (r.status !== 0) process.exit(r.status ?? 1);
+}
+loops.push(...moreLoops);
 
 rmSync(out, { recursive: true, force: true });
 mkdirSync(out, { recursive: true });
