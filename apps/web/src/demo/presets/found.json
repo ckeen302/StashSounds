@@ -9540,5 +9540,61 @@
    "url": "https://www.ktt2.com/presets-sounds-used-by-popular-producers-34684"
   },
   "quote": "yosemite is old school air flute in omnisphere under ttradiotional"
+ },
+ {
+  "song": "None of Us Are Free",
+  "artist": "Ray Charles",
+  "producer": "Unknown",
+  "plugin": "Korg M1 (hardware)",
+  "preset": "Pan Mallet",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "Synthmania: Famous Sounds",
+   "url": "https://synthmania.com/Famous-Sounds/"
+  },
+  "quote": "Adding a marimba attack produces the ubiquitous M1 Pan Mallet preset"
+ },
+ {
+  "song": "To Die For",
+  "artist": "Sam Smith",
+  "producer": "Stargate",
+  "plugin": "Native Instruments Una Corda (Kontakt)",
+  "preset": "Felt Piano",
+  "role": "keys",
+  "confidence": "producer",
+  "source": {
+   "label": "Native Instruments Blog: Stargate's Mikkel Eriksen reveals the production secrets of pop's biggest hits",
+   "url": "https://blog.native-instruments.com/stargate/"
+  },
+  "quote": "It’s a preset from UNA CORDA, the Felt Piano."
+ },
+ {
+  "song": "Boyfriend",
+  "artist": "Justin Bieber",
+  "producer": "Mike Posner & Mason Levy",
+  "plugin": "Native Instruments Massive",
+  "preset": "Butterfly Stance",
+  "role": "keys",
+  "confidence": "press",
+  "source": {
+   "label": "Native Instruments Blog: 25 for 25",
+   "url": "https://blog.native-instruments.com/25-for-25/"
+  },
+  "quote": "'Butterfly Stance' was a preset for NI's MASSIVE: a crisp, atmospheric keys sound"
+ },
+ {
+  "song": "Video Games",
+  "artist": "Lana Del Rey",
+  "producer": "Robopop (Daniel Omelio & Brandon Lowry)",
+  "plugin": "Synthogy Ivory",
+  "preset": "Ambient Concert D",
+  "role": "keys",
+  "confidence": "producer",
+  "source": {
+   "label": "Sound On Sound: Robopop: Producing Lana Del Rey's 'Video Games'",
+   "url": "https://www.soundonsound.com/techniques/robopop-producing-lana-del-reys-videogames"
+  },
+  "quote": "I was using the 'Ambient Concert D' patch in Synthogy's Ivory plug-in."
  }
 ]
