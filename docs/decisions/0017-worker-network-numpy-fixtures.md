@@ -45,3 +45,11 @@ tests prove `unshare(CLONE_NEWUSER)` fails in the child. no_new_privs no longer 
 Addendum (PR #8 third security review): the deny list also covers the new mount API (open_tree,
 move_mount, fsopen, fsconfig, fsmount, fspick, mount_setattr) and io_uring_setup, io_uring_enter
 and io_uring_register.
+
+## A zod-free contracts entry for the browser (PR #12 script budget)
+`@stash/contracts/format` exports the pure helpers (formatKey, parseKey, compatibleKeys,
+encodePeaks, decodePeaks, itemHref, parseItemParam, slugify, LICENSE_LABELS) with no zod in their
+import graph, proven by packages/contracts/test/format-entry.test.ts. Client components that only
+format data import from it, so zod (about 55 KB gzip) stays off pages before first sound. The main
+entry re-exports the same functions, and `LICENSES` is the same object as `LICENSE_LABELS`.
+The package is marked `sideEffects: false`.

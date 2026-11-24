@@ -51,7 +51,13 @@ if (!baseUrl) {
     cwd: root,
     stdio: "ignore",
     detached: true,
-    env: { ...process.env, STASH_DEV_PAGES: "1" },
+    env: {
+      NEXT_PUBLIC_SUPABASE_URL: "http://127.0.0.1:54321",
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: "e2e-placeholder",
+      NEXT_PUBLIC_PREVIEWS_BASE_URL: "https://media.stash.local",
+      ...process.env,
+      STASH_DEV_PAGES: "1",
+    },
   });
   await waitFor(`${baseUrl}/api/health`, 60_000);
 }

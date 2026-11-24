@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { limits } from "./limits.ts";
-import { keyModeSchema, type KeyMode } from "./enums.ts";
+import { keyModeSchema } from "./enums.ts";
 
 export const uuidSchema = z.uuid();
 export const isoDateTimeSchema = z.iso.datetime({ offset: true });
@@ -44,43 +44,7 @@ export const musicalKeySchema = z.object({
 });
 export type MusicalKey = z.infer<typeof musicalKeySchema>;
 
-const SHARP_NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"] as const;
-const NOTE_INDEX: Record<string, number> = {
-  c: 0, "c#": 1, db: 1, d: 2, "d#": 3, eb: 3, e: 4, fb: 4, "e#": 5, f: 5, "f#": 6, gb: 6,
-  g: 7, "g#": 8, ab: 8, a: 9, "a#": 10, bb: 10, b: 11, cb: 11, "b#": 0,
-};
-
-/** "F#m" for F sharp minor, "Eb" for E flat major. Sharps are canonical. */
-export function formatKey(key: MusicalKey): string {
-  return `${SHARP_NAMES[key.root]}${key.mode === "minor" ? "m" : ""}`;
-}
-
-/**
- * Parses the ways producers write keys: "F#m", "F# minor", "Fsharpmin", "Ebmaj", "a min", "Am".
- * Returns null for anything it does not recognize. Mirrored by apps/worker key parsing.
- */
-export function parseKey(input: string): MusicalKey | null {
-  const s = input.trim().toLowerCase().replace(/\s+/g, "").replace("sharp", "#").replace("flat", "b").replace("♯", "#").replace("♭", "b");
-  const m = /^([a-g])([#b]?)(maj(?:or)?|min(?:or)?|m)?$/.exec(s);
-  if (!m) return null;
-  const root = NOTE_INDEX[`${m[1]}${m[2]}`];
-  if (root === undefined) return null;
-  const modeToken = m[3];
-  const mode: KeyMode = modeToken && modeToken.startsWith("m") && !modeToken.startsWith("maj") ? "minor" : "major";
-  return { root, mode };
-}
-
-/** Keys that mix well: same key, relative major/minor, and neighbours on the circle of fifths. */
-export function compatibleKeys(key: MusicalKey): MusicalKey[] {
-  const relative: MusicalKey =
-    key.mode === "minor" ? { root: (key.root + 3) % 12, mode: "major" } : { root: (key.root + 9) % 12, mode: "minor" };
-  return [
-    key,
-    relative,
-    { root: (key.root + 7) % 12, mode: key.mode },
-    { root: (key.root + 5) % 12, mode: key.mode },
-  ];
-}
+export { formatKey, parseKey, compatibleKeys } from "./format.ts";
 
 // ---------------------------------------------------------------------------
 // Waveform peaks: 800 unsigned bytes (0 to 255), base64 in JSON so a row needs no second request.
@@ -96,20 +60,7 @@ export const peaksSchema = z
     message: `peaks are ${limits.waveform.peakPoints} bytes`,
   });
 
-export function encodePeaks(values: ArrayLike<number>): string {
-  const bytes = new Uint8Array(values.length);
-  for (let i = 0; i < values.length; i++) bytes[i] = Math.max(0, Math.min(255, Math.round(values[i] ?? 0)));
-  let bin = "";
-  for (const b of bytes) bin += String.fromCharCode(b);
-  return btoa(bin);
-}
-
-export function decodePeaks(encoded: string): Uint8Array {
-  const bin = atob(encoded);
-  const out = new Uint8Array(bin.length);
-  for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
-  return out;
-}
+export { encodePeaks, decodePeaks } from "./format.ts";
 
 /** A path on this site: starts with one slash, never "//" or "/\" (which browsers treat as another host). */
 export const sameSitePathSchema = z.string().regex(/^\/(?![/\\])/, "Must be a same-site path");
