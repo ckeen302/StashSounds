@@ -1,7 +1,7 @@
 # Handoff 137 Browser-only demo build
 
 ## Plan (waiting for the lead's go-ahead)
-Branch `lane/interface-137` from `lane/interface-135` (c8060e5). The demo is the real shell, player
+Branch `lane/interface-137` from `lane/interface-135` (1f68c1b). The demo is the real shell, player
 bar, engine, result rows and loop page, fed by `apps/web/src/demo/generated/loops.json` (from the
 lead's `scripts/build-demo.mjs`) instead of the database. There is no fork of any component.
 
