@@ -184,25 +184,28 @@ export function ItemView({ view }: { view: ItemViewData }) {
     keys.current = handlers();
   });
 
-  // Back from sign-in with an intent: finish what the visitor asked for, once.
+  // Back from sign-in: `?then=` names the action, and it runs only if this tab's marker, set by
+  // pressing Sign in in the dialog, matches this item. A bare link with `?then=` does nothing.
   const resumed = useRef(false);
   useEffect(() => {
     if (resumed.current || !viewer.signedIn) return;
     const url = new URL(window.location.href);
-    const intent = url.searchParams.get(INTENT) as Intent | null;
-    if (!intent) return;
+    const asked = url.searchParams.get(INTENT);
+    if (!asked) return;
     resumed.current = true;
     url.searchParams.delete(INTENT);
     window.history.replaceState(window.history.state, "", url.pathname + url.search + url.hash);
-    // After this render, through the same handlers the buttons use.
-    const t = setTimeout(() => {
+    // The marker code loads only on the way back from sign-in (script budget).
+    void import("./intent").then(({ takeIntent, sessionStore }) => {
+      const intent = takeIntent(sessionStore(), asked, item.id);
+      if (!intent) return;
+      // Through the same handlers the buttons use.
       const k = keys.current;
       if (intent === "download") void k.download();
       else if (intent === "like") void k.likeOnce();
       else if (intent === "follow") void k.followOnce();
-    }, 0);
-    return () => clearTimeout(t);
-  }, [viewer.signedIn]);
+    });
+  }, [viewer.signedIn, item.id]);
 
   // The page's keys: space, arrows, [ ], - =, L, D.
   useEffect(() => {
@@ -405,7 +408,7 @@ export function ItemView({ view }: { view: ItemViewData }) {
 
       {signIn && (
         <Suspense fallback={null}>
-          <SignInDialog intent={signIn} ownerName={ownerName} onClose={() => setSignIn(null)} onSignIn={() => router.push(signInNext(signIn))} />
+          <SignInDialog intent={signIn} itemId={item.id} ownerName={ownerName} onClose={() => setSignIn(null)} onSignIn={() => router.push(signInNext(signIn))} />
         </Suspense>
       )}
     </main>

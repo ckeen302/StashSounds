@@ -1,6 +1,7 @@
 "use client";
 
 import { Dialog } from "@stash/ui";
+import { rememberIntent, sessionStore } from "./intent";
 
 export type SignInIntent = "download" | "like" | "follow";
 
@@ -8,7 +9,19 @@ export type SignInIntent = "download" | "like" | "follow";
  * "Sign in to download" and friends. Its own module so the dialog (Radix Dialog) loads only when a
  * signed-out visitor asks for something, keeping the loop page inside the script budget.
  */
-export default function SignInDialog({ intent, ownerName, onClose, onSignIn }: { intent: SignInIntent; ownerName: string; onClose: () => void; onSignIn: () => void }) {
+export default function SignInDialog({
+  intent,
+  itemId,
+  ownerName,
+  onClose,
+  onSignIn,
+}: {
+  intent: SignInIntent;
+  itemId: string;
+  ownerName: string;
+  onClose: () => void;
+  onSignIn: () => void;
+}) {
   return (
     <Dialog
       open
@@ -21,7 +34,11 @@ export default function SignInDialog({ intent, ownerName, onClose, onSignIn }: {
       }
       confirmLabel="Sign in"
       cancelLabel="Not now"
-      onConfirm={onSignIn}
+      onConfirm={() => {
+        // The marker the page checks on the way back: only this press can finish the action.
+        rememberIntent(sessionStore(), { intent, itemId });
+        onSignIn();
+      }}
     />
   );
 }

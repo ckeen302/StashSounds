@@ -205,10 +205,37 @@ test("signed in, download saves the file and shows the license record", async ({
 
 test("coming back from sign-in finishes the download that was asked for", async ({ page }) => {
   await serveAudio(page);
+  await page.goto(PATH);
+  await page.keyboard.press("d");
+  await page.getByRole("dialog", { name: "Sign in to download" }).getByRole("button", { name: "Sign in" }).click();
+  await expect(page).toHaveURL(/\/login\?next=/);
+  // Signing in is Platform's page: stand in for it with the fixture cookie, then follow `next`.
+  const next = new URL(page.url()).searchParams.get("next")!;
   await signIn(page);
-  const [file] = await Promise.all([page.waitForEvent("download"), page.goto(`${PATH}?then=download`)]);
+  const [file] = await Promise.all([page.waitForEvent("download"), page.goto(next)]);
   expect(file.suggestedFilename()).toBe("Dusty soul chops.ogg");
   await expect(page).toHaveURL(PATH);
+  await expect(page.getByRole("region", { name: "License", exact: true }).getByRole("status")).toContainText("Downloaded under Royalty-free 1.0");
+});
+
+test("a bare link with ?then=download does nothing, even signed in", async ({ page }) => {
+  await serveAudio(page);
+  await signIn(page);
+  let downloads = 0;
+  page.on("download", () => downloads++);
+  await page.goto(`${PATH}?then=download`);
+  // The address is tidied either way; nothing is saved and no record appears.
+  await expect(page).toHaveURL(PATH);
+  await page.waitForTimeout(1000);
+  expect(downloads).toBe(0);
+  await expect(page.getByRole("region", { name: "License", exact: true }).getByRole("status")).toHaveCount(0);
+  // A marker for another item does not count either.
+  await page.evaluate(() => sessionStorage.setItem("stash:item-intent", JSON.stringify({ intent: "download", itemId: "00000000-0000-4000-8000-00000000ffff", at: Date.now() })));
+  await page.goto(`${PATH}?then=download`);
+  await expect(page).toHaveURL(PATH);
+  await page.waitForTimeout(1000);
+  expect(downloads).toBe(0);
+  expect(await page.evaluate(() => sessionStorage.getItem("stash:item-intent"))).toBeNull();
 });
 
 test("signed in, like and follow toggle with their counts", async ({ page }) => {
