@@ -60,7 +60,8 @@
     "loopBitrateKbpsShort": 192,
     "loopShortMaxMs": 20000,
     "loopBitrateKbpsLong": 128,
-    "oneshotBitrateKbps": 192
+    "oneshotBitrateKbps": 192,
+    "loopMaxBytes": 1024384
   },
   "loudness": {
     "targetLufs": -14,
