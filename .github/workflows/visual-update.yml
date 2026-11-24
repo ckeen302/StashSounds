@@ -1,0 +1,50 @@
+# Regenerates screenshot baselines in the pinned Playwright container, for lanes without Docker.
+# Push the branch whose baselines need updating to `visual-update/<anything>`; this job runs
+# `pnpm visual:update` there and uploads the changed baselines as the `visual-baselines` artifact.
+# The builder downloads it (`gh run download <run> -n visual-baselines`), reviews the images and
+# commits them on the real branch. It never pushes, so every baseline change is a reviewed commit.
+name: Visual baselines
+on:
+  push:
+    branches: ["visual-update/**"]
+permissions:
+  contents: read
+jobs:
+  update:
+    runs-on: ubuntu-24.04
+    container:
+      image: mcr.microsoft.com/playwright:v1.63.0-noble
+      options: --ipc=host
+    env:
+      STASH_PLAYWRIGHT_CONTAINER: "1"
+      NEXT_PUBLIC_SITE_URL: http://localhost:3100
+      HOME: /root
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Build and start the web app
+        run: |
+          pnpm --filter @stash/web build
+          (STASH_DEV_PAGES=1 pnpm --filter @stash/web exec next start --port 3100 &)
+          npx --yes wait-on@8 http://localhost:3100/api/health
+      - name: pnpm visual:update
+        env: { STASH_BASE_URL: "http://localhost:3100" }
+        run: pnpm visual:update
+      - name: Collect changed baselines
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git status --porcelain -- '*.png' | awk '{print $2}' > changed.txt
+          cat changed.txt
+          tar -cf baselines.tar -T changed.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: visual-baselines
+          path: |
+            baselines.tar
+            changed.txt
+          retention-days: 7
