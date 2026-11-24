@@ -23,6 +23,7 @@ import {
   TagChip,
   Tooltip,
   Transport,
+  transposedKey,
   TypeChip,
   UiLink,
   UploaderCard,
@@ -43,6 +44,9 @@ const SignInDialog = lazy(() => import("./sign-in-dialog"));
 /** After sign-in the visitor comes back with this, and the action they asked for completes. */
 const INTENT = "then";
 type Intent = SignInIntent;
+
+/** An underlined link in running text, with a 40 px touch target (the ::after reaches 12 px above and below). */
+const inlineLink = "relative rounded-control text-text underline decoration-border-strong underline-offset-4 ui-hover:decoration-text after:absolute after:inset-x-0 after:-inset-y-3";
 
 const dateText = (iso: string) => new Intl.DateTimeFormat("en-US", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(new Date(iso));
 
@@ -235,14 +239,17 @@ export function ItemView({ view }: { view: ItemViewData }) {
   const rowState = (r: ItemRow): PlayState => (r.playable.id !== currentId || status === "idle" ? "paused" : status === "loading" ? "loading" : status === "error" ? "error" : status === "playing" ? "playing" : "paused");
 
   const bars = item.length?.unit === "bars" ? item.length.value : null;
+  // What the transport shows: the tempo and the shifted key the visitor hears.
+  const liveBpm = player.tempo ? Math.round(player.tempo.bpm) : null;
+  const liveKey = transposedKey(item.key, player.keyShift.semitones);
   const label = describeSound(item);
   const { summary } = LICENSES[item.license];
   const references = item.allTags.filter((t) => t.kind === "reference");
   const tags = item.allTags.filter((t) => t.kind !== "reference");
   const signInNext = (intent: Intent) => `/login?next=${encodeURIComponent(`${item.href}?${INTENT}=${intent}`)}`;
 
-  const downloadButton = (
-    <Tooltip content={viewer.signedIn ? "Download with the license" : "Sign in to download"} shortcut="D">
+  const downloadButton = (side: "top" | "bottom") => (
+    <Tooltip content={viewer.signedIn ? "Download with the license" : "Sign in to download"} shortcut="D" side={side}>
       <Button variant="primary" icon={Download} loading={downloading} onClick={() => void download()} className="flex-1">
         Download
       </Button>
@@ -270,42 +277,45 @@ export function ItemView({ view }: { view: ItemViewData }) {
             </h1>
             <p className="text-small text-text-muted">
               by{" "}
-              <UiLink href={profileHref} className="rounded-control text-text underline decoration-border-strong underline-offset-4 ui-hover:decoration-text">
+              <UiLink href={profileHref} className={inlineLink}>
                 {ownerName}
               </UiLink>{" "}
               <span>@{owner.handle}</span>
             </p>
           </header>
 
-          <section aria-label="Loop player" className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-4 tablet:flex-row tablet:items-end tablet:gap-4">
-            <div className="flex items-center gap-3 tablet:flex-col tablet:items-start">
-              <PlayButton size="hero" title={item.title} state={player.playState} onClick={player.toggle} />
-              {/* Phone: the facts beside the play pad, since the waveform sits on its own row. */}
-              <span className="flex flex-col tablet:hidden">
-                <span className="font-mono text-numeric tabular text-text">
-                  {[item.bpm ? `${item.bpm} BPM` : null, item.key ? formatKey(item.key) : null].filter(Boolean).join(" \u00b7 ")}
+          <section aria-label="Loop player" className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-4">
+            <div className="flex flex-col gap-3 tablet:flex-row tablet:items-center tablet:gap-4">
+              <div className="flex items-center gap-3">
+                <PlayButton size="hero" title={item.title} state={player.playState} onClick={player.toggle} />
+                {/* Phone: the facts beside the play pad, live with the tempo and key shift. */}
+                <span className="flex flex-col tablet:hidden">
+                  <span data-hero-facts className="font-mono text-numeric tabular text-text">
+                    {[liveBpm ? `${liveBpm} BPM` : null, liveKey].filter(Boolean).join(" \u00b7 ")}
+                  </span>
+                  <span className="font-mono text-numeric tabular text-text-muted">{[bars ? `${bars} bars` : null, formatTime(player.durationMs)].filter(Boolean).join(" \u00b7 ")}</span>
                 </span>
-                <span className="font-mono text-numeric tabular text-text-muted">{[bars ? `${bars} bars` : null, formatTime(player.durationMs)].filter(Boolean).join(" \u00b7 ")}</span>
-              </span>
+              </div>
+              <Waveform
+                variant="hero"
+                type={item.type}
+                peaks={item.peaks}
+                durationMs={player.durationMs}
+                bars={bars}
+                playing={player.playing}
+                getProgress={player.getProgress}
+                onScrub={player.seek}
+                label={label}
+                className="min-w-0 flex-1"
+              />
             </div>
-            <Waveform
-              variant="hero"
-              type={item.type}
-              peaks={item.peaks}
-              durationMs={player.durationMs}
-              bars={bars}
-              playing={player.playing}
-              getProgress={player.getProgress}
-              onScrub={player.seek}
-              label={label}
-              className="min-w-0 flex-1"
-            />
+            {/* Inside the card, so the page below does not move when it appears. */}
+            {player.status === "error" && (
+              <p role="alert" className="text-small text-type-kit">
+                The preview did not load. Press play to try again.
+              </p>
+            )}
           </section>
-          {player.status === "error" && (
-            <p role="alert" className="-mt-3 text-small text-type-kit">
-              The preview did not load. Press play to try again.
-            </p>
-          )}
 
           <Transport title={item.title} hints tempo={player.tempo} keyShift={player.keyShift} loop={player.loop} volume={player.volume} />
 
@@ -346,7 +356,7 @@ export function ItemView({ view }: { view: ItemViewData }) {
               <h2 id="license-title" className="text-label text-label-caps text-text-muted">
                 License
               </h2>
-              <LicenseBadge kind={item.license} splitPercent={item.splitPercent} />
+              <LicenseBadge kind={item.license} splitPercent={item.splitPercent} summaryTooltip={false} />
             </div>
             <p className="text-small text-text">
               {summary}
@@ -354,13 +364,14 @@ export function ItemView({ view }: { view: ItemViewData }) {
             </p>
             <p className="text-small text-text-muted">
               Version {item.licenseVersion}.{" "}
-              <UiLink href="/licenses" className="rounded-control text-text underline decoration-border-strong underline-offset-4 ui-hover:decoration-text">
+              <UiLink href="/licenses" className={inlineLink}>
                 Read the full license
               </UiLink>
             </p>
             {record && <LicenseRecord record={record} />}
-            <div className="hidden gap-2 tablet:flex">
-              {downloadButton}
+            {/* In the panel only where the panel is beside the player (the wide layout); narrower, the bar below. */}
+            <div className="hidden gap-2 cq-xl:flex">
+              {downloadButton("bottom")}
               {likeButton}
               <Tooltip content="Copy link">
                 <IconButton icon={LinkIcon} label="Copy link" size="md" variant="pad" onClick={() => void copyLink()} />
@@ -400,10 +411,20 @@ export function ItemView({ view }: { view: ItemViewData }) {
         </section>
       )}
 
-      {/* Phone: download pinned above the mini player. Sticky at the end of the scrolling content. */}
-      <div className="sticky bottom-0 -mx-3 flex gap-2 border-t border-border bg-bg px-3 py-2 tablet:hidden">
-        {downloadButton}
-        {likeButton}
+      {/* Until the wide layout, download is pinned to the bottom of the view (above the mini player on a
+          phone), so it is on screen without scrolling at every width. Sticky at the end of the content. */}
+      <div
+        data-download-bar
+        className="sticky bottom-0 -mx-3 flex items-center gap-2 border-t border-border bg-bg px-3 py-2 tablet:-mx-4 tablet:px-4 desktop:-mx-6 desktop:px-6 cq-xl:hidden"
+      >
+        <span className="flex min-w-0 shrink flex-col">
+          <span className="sr-only">License: </span>
+          <span className="truncate text-label text-label-caps text-text">{LICENSES[item.license].label}</span>
+        </span>
+        <span className="flex flex-1 justify-end gap-2 cq-md:flex-none">
+          {downloadButton("top")}
+          {likeButton}
+        </span>
       </div>
 
       {signIn && (
