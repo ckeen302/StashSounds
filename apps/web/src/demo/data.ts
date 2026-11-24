@@ -5,22 +5,21 @@ import more from "./generated/more-loops.json" with { type: "json" };
 /**
  * The demo's catalog: the five generated loop fixtures (scripts/build-demo.mjs made their previews
  * and peaks), with demo copy, as the rows and item pages the real API returns. Parsed with the
- * contract schemas at start-up, so the demo cannot drift from the real shapes. Everything here is
- * demo data: the producers and their numbers are made up.
+ * contract schemas at start-up, so the demo cannot drift from the real shapes. Everything here was made
+ * for the demo and is posted by one account, with no invented numbers.
  */
 
 export type Producer = { id: string; handle: string; displayName: string; followers: number };
 
-export const producers = {
-  kilo: { id: "00000000-0000-4000-8000-0000000000a1", handle: "kilo_beats", displayName: "Kilo Beats", followers: 1204 },
-  nova: { id: "00000000-0000-4000-8000-0000000000a2", handle: "nova", displayName: "Nova", followers: 8730 },
-  marcus: { id: "00000000-0000-4000-8000-0000000000a3", handle: "mvrcus", displayName: "Marcus Vale", followers: 96 },
-} satisfies Record<string, Producer>;
+/**
+ * Every demo sound is posted by one honest account: the loops, patterns and kits were made for this
+ * demo, so no invented producers and no invented counts. Likes and downloads start at zero and count
+ * what this browser does.
+ */
+export const HOUSE: Producer = { id: "00000000-0000-4000-8000-0000000000a1", handle: "stash", displayName: "Stash", followers: 0 };
 
-export const extra = {
-  juno: { id: "00000000-0000-4000-8000-0000000000a4", handle: "junovega", displayName: "Juno Vega", followers: 15400 },
-  dre: { id: "00000000-0000-4000-8000-0000000000a5", handle: "drestatic", displayName: "Dre Static", followers: 4210 },
-} satisfies Record<string, Producer>;
+export const producers = { kilo: HOUSE, nova: HOUSE, marcus: HOUSE } satisfies Record<string, Producer>;
+export const extra = { juno: HOUSE, dre: HOUSE } satisfies Record<string, Producer>;
 
 const ALL = { ...producers, ...extra };
 
@@ -108,8 +107,8 @@ function rowFor(e: Entry, c: Copy, base: string): ItemRow {
       sampleRate: e.sampleRate,
       bpm: e.bpm,
     },
-    likesCount: c.likes,
-    downloadsCount: c.downloads,
+    likesCount: 0,
+    downloadsCount: 0,
     publishedAt: c.publishedAt,
     viewer: { liked: false },
   });
@@ -145,7 +144,7 @@ export function buildCatalog(base: string): Catalog {
       itemPageSchema.parse({
         item: {
           ...row,
-          description: `${c.description} Demo data: this producer and these numbers are made up.`,
+          description: c.description,
           genre: c.genre,
           splitPercent: null,
           licenseVersion: LICENSES[row.license].version,

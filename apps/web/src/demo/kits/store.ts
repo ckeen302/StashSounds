@@ -62,7 +62,7 @@ export type Kit = {
 
 type Def = [name: string, category: Category, pitch: number, tune?: number, stretch?: number];
 
-function demoKit(n: number, name: string, owner: Producer, genre: string, description: string, likes: number, downloads: number, publishedAt: string, defs: Def[]): Kit {
+function demoKit(n: number, name: string, owner: Producer, genre: string, description: string, publishedAt: string, defs: Def[]): Kit {
   const id = `demokit${String(n).padStart(2, "0")}`;
   return {
     id,
@@ -70,8 +70,9 @@ function demoKit(n: number, name: string, owner: Producer, genre: string, descri
     owner,
     genre,
     description,
-    likes,
-    downloads,
+    // Made for the demo: no invented counts.
+    likes: 0,
+    downloads: 0,
     publishedAt,
     sounds: defs.map(([sname, category, pitch, tune = 1, stretch = 1], i) => ({
       id: `${id}-${i}`,
@@ -84,7 +85,7 @@ function demoKit(n: number, name: string, owner: Producer, genre: string, descri
 }
 
 const DEMO_KITS: Kit[] = [
-  demoKit(1, "Night Shift trap kit", producers.nova, "Trap", "Long 808s, crisp claps and tight hats made for rolls. Everything tuned to sit together at 140.", 2140, 9820, "2026-11-22T18:00:00Z", [
+  demoKit(1, "Night Shift trap kit", producers.nova, "Trap", "Long 808s, crisp claps and tight hats made for rolls. Everything tuned to sit together at 140.", "2026-11-22T18:00:00Z", [
     ["Night 808 long", "808", 36, 0.8, 4], ["Night 808 short", "808", 36, 0.85, 1.6], ["Night 808 punch", "808", 36, 0.92, 2.4],
     ["Night kick hard", "kick", 36, 1.15, 0.8], ["Night kick soft", "kick", 35, 1.05, 0.9],
     ["Night snare", "snare", 38, 1.05], ["Night snare tight", "snare", 40, 1.2, 0.7], ["Night rim", "snare", 37],
@@ -92,32 +93,32 @@ const DEMO_KITS: Kit[] = [
     ["Night hat", "hat", 42, 1.1], ["Night hat tight", "hat", 42, 1.4, 0.5], ["Night hat dark", "hat", 42, 0.85],
     ["Night open hat", "open hat", 46, 1, 0.8], ["Night perc high", "perc", 50, 1.5, 0.5], ["Night crash", "cymbal", 49],
   ]),
-  demoKit(2, "Dusty Crates boom bap kit", producers.kilo, "Boom bap", "Fat kicks, cracking snares and swung-feel hats, tuned low and a little dirty.", 1310, 6040, "2026-11-20T15:30:00Z", [
+  demoKit(2, "Dusty Crates boom bap kit", producers.kilo, "Boom bap", "Fat kicks, cracking snares and swung-feel hats, tuned low and a little dirty.", "2026-11-20T15:30:00Z", [
     ["Crates kick", "kick", 36, 0.9, 1.1], ["Crates kick deep", "kick", 35, 0.8, 1.3], ["Crates kick short", "kick", 36, 1, 0.7],
     ["Crates snare", "snare", 38, 0.9, 1.3], ["Crates snare ghost", "snare", 38, 1.1, 0.5], ["Crates snare crack", "snare", 40, 0.95, 1.1],
     ["Crates clap", "clap", 39, 0.85, 1.2], ["Crates rim", "snare", 37, 0.9],
     ["Crates hat", "hat", 42, 0.9, 1.2], ["Crates shaker", "hat", 42, 0.8, 1.4], ["Crates pedal hat", "hat", 44, 0.85],
     ["Crates open hat", "open hat", 46, 0.85, 1.1], ["Crates conga", "perc", 50, 1.2, 0.8], ["Crates tom", "perc", 45, 0.9], ["Crates ride", "cymbal", 51, 0.85],
   ]),
-  demoKit(3, "Southside of the river drill kit", producers.marcus, "Drill", "Sliding 808s, late snares and skippy hats for UK and NY drill.", 640, 2210, "2026-11-23T09:00:00Z", [
+  demoKit(3, "Southside of the river drill kit", producers.marcus, "Drill", "Sliding 808s, late snares and skippy hats for UK and NY drill.", "2026-11-23T09:00:00Z", [
     ["River 808 slide", "808", 36, 0.72, 4.5], ["River 808 punch", "808", 36, 0.9, 2], ["River kick", "kick", 36, 1.2, 0.7],
     ["River snare", "snare", 38, 1.15, 0.9], ["River snare 2", "snare", 40, 1.25, 0.7], ["River clap", "clap", 39, 1.1, 0.8], ["River rim", "snare", 37, 1.2],
     ["River hat", "hat", 42, 1.2, 0.8], ["River hat skip", "hat", 42, 1.5, 0.4], ["River open hat", "open hat", 46, 1.1, 0.6],
     ["River perc", "perc", 50, 1.7, 0.4], ["River perc low", "perc", 45, 1.4, 0.5], ["River splash", "cymbal", 55, 1.2, 0.6],
   ]),
-  demoKit(4, "Memphis Ghost phonk kit", extra.dre, "Phonk", "Cowbells, hard 808s and Memphis hats. Push it through distortion.", 1875, 7300, "2026-11-21T22:10:00Z", [
+  demoKit(4, "Memphis Ghost phonk kit", extra.dre, "Phonk", "Cowbells, hard 808s and Memphis hats. Push it through distortion.", "2026-11-21T22:10:00Z", [
     ["Ghost 808", "808", 36, 0.78, 3], ["Ghost 808 dist", "808", 36, 0.82, 2.2], ["Ghost kick", "kick", 36, 1.05], ["Ghost kick 2", "kick", 35, 0.95],
     ["Ghost snare", "snare", 38, 1.2, 0.8], ["Ghost clap", "clap", 39, 1.15, 1.1], ["Ghost snap", "clap", 39, 1.8, 0.4],
     ["Ghost cowbell", "perc", 50, 2.6, 0.9], ["Ghost cowbell low", "perc", 48, 2.4, 0.9], ["Ghost rim", "snare", 37, 1.1],
     ["Ghost hat", "hat", 42, 1.05], ["Ghost shaker", "hat", 44, 1.3, 0.8], ["Ghost open hat", "open hat", 46, 1.1, 0.7], ["Ghost crash", "cymbal", 49, 0.9],
   ]),
-  demoKit(5, "Bounce House jersey club kit", extra.juno, "Jersey club", "The kicks and claps for the bounce, plus the squeak.", 980, 3650, "2026-11-19T12:00:00Z", [
+  demoKit(5, "Bounce House jersey club kit", extra.juno, "Jersey club", "The kicks and claps for the bounce, plus the squeak.", "2026-11-19T12:00:00Z", [
     ["Bounce kick", "kick", 36, 1.05, 0.9], ["Bounce kick 2", "kick", 35], ["Bounce 808", "808", 36, 0.8, 2.4],
     ["Bounce clap", "clap", 39, 1.05], ["Bounce snap", "clap", 39, 1.5, 0.5], ["Bounce snare", "snare", 38, 1.1],
     ["Bed squeak", "fx", 50, 2.2, 0.35], ["Bounce hat", "hat", 42, 1.1], ["Bounce open hat", "open hat", 46],
     ["Bounce tom low", "perc", 41, 1.1], ["Bounce tom high", "perc", 48, 1.1], ["Bounce crash", "cymbal", 49],
   ]),
-  demoKit(6, "Velvet R&B kit", producers.kilo, "R&B", "Soft kicks, brushed snares and quiet hats for slow songs.", 720, 2980, "2026-11-17T20:00:00Z", [
+  demoKit(6, "Velvet R&B kit", producers.kilo, "R&B", "Soft kicks, brushed snares and quiet hats for slow songs.", "2026-11-17T20:00:00Z", [
     ["Velvet kick", "kick", 36, 0.95, 0.9], ["Velvet kick sub", "808", 36, 0.75, 2.8], ["Velvet snare soft", "snare", 38, 0.85, 1.4],
     ["Velvet snap", "clap", 39, 1.4, 0.6], ["Velvet rim", "snare", 37, 0.8], ["Velvet hat", "hat", 42, 0.75, 1.1],
     ["Velvet shaker", "hat", 44, 0.7, 1.5], ["Velvet ride", "cymbal", 51, 0.8], ["Velvet perc", "perc", 47, 1.3, 0.6],

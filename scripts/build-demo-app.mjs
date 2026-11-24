@@ -94,6 +94,29 @@ if (typeof document !== "undefined") {
 `,
       loader: "ts",
     }));
+    // The published page's files are private to the people it is shared with, so they are served
+    // only with the viewer's cookies. The engine fetches previews without credentials (they live on
+    // a public media host in Stash), which the artifact host refuses: send them on the demo.
+    build.onLoad({ filter: /packages[\\/]audio[\\/]src[\\/]loader\.ts$/ }, (args) => {
+      const src = readFileSync(args.path, "utf8");
+      const from = 'this.fetch(url, { credentials: "omit", signal: controller.signal })';
+      if (!src.includes(from)) throw new Error("loader.ts: the preview fetch moved; update the demo build");
+      return { contents: src.replace(from, 'this.fetch(url, { credentials: "same-origin", signal: controller.signal })'), loader: "ts" };
+    });
+    // The published page cannot start a browser download: the item page's Download goes through the
+    // demo's save (the page's downloads capability, as a zip) instead.
+    build.onLoad({ filter: /app[\\/]_item[\\/]download-record\.tsx$/ }, (args) => {
+      const src = readFileSync(args.path, "utf8");
+      const from = "export async function saveFile(";
+      if (!src.includes(from)) throw new Error("download-record.tsx: saveFile moved; update the demo build");
+      const demoSave = JSON.stringify(join(demoSrc, "save.ts"));
+      return {
+        contents:
+          src.replace(from, "async function originalSaveFile(") +
+          `\nimport { saveFetched as __demoSave } from ${demoSave};\nexport async function saveFile(_how: unknown, url: string, fileName: string): Promise<void> {\n  if ((await __demoSave(url, fileName)) === "failed") throw new Error("save failed");\n}\nvoid originalSaveFile;\n`,
+        loader: "tsx",
+      };
+    });
     build.onLoad({ filter: /packages[\\/]audio[\\/]src[\\/]web-audio\.ts$/ }, (args) => {
       const src = readFileSync(args.path, "utf8");
       const from = "export const STRETCH_WORKLET_PATH = `/worklets/signalsmith-stretch-${STRETCH_VERSION}.mjs`;";

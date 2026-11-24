@@ -1,5 +1,6 @@
 import { getEngine } from "@stash/audio";
 import type { ItemRow } from "@stash/contracts";
+import { saveFiles } from "./save";
 import { Button, Download, FilterChip, Pause, Play, RotateCcw, Slider, Stepper, useToast } from "@stash/ui";
 import { useEffect, useRef, useState } from "react";
 import { audioContext } from "./kits/store";
@@ -256,15 +257,11 @@ export function FlipPanel({ row }: { row: ItemRow }) {
       f.connect(off.destination);
       schedule(off, b, s, loopSeconds, f, 0);
       const out = await off.startRendering();
-      const url = URL.createObjectURL(wav(out));
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `${row.slug}-flip${s.semis ? `-${s.semis > 0 ? "up" : "down"}${Math.abs(s.semis)}` : ""}${s.reverse ? "-rev" : ""}.wav`;
-      document.body.append(a);
-      a.click();
-      a.remove();
-      window.setTimeout(() => URL.revokeObjectURL(url), 10_000);
-      toast({ tone: "success", title: "Your flip is downloading", description: `${a.download}, ${Math.round(Number(row.bpm ?? 0) * rate)} BPM. Credit the original as its license asks.` });
+      const name = `${row.slug}-flip${s.semis ? `-${s.semis > 0 ? "up" : "down"}${Math.abs(s.semis)}` : ""}${s.reverse ? "-rev" : ""}.wav`;
+      const outcome = await saveFiles(name.replace(/\.wav$/, ""), [{ name, data: wav(out) }]);
+      if (outcome === "declined") return;
+      if (outcome === "failed") throw new Error("save failed");
+      toast({ tone: "success", title: "Your flip is saved", description: `${name}, ${Math.round(Number(row.bpm ?? 0) * rate)} BPM. Credit the original as its license asks.` });
     } catch {
       toast({ tone: "error", title: "Couldn't make the file", description: "Your browser refused to render it. Try again, or try another browser." });
     } finally {

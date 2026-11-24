@@ -131,25 +131,25 @@ const built: MidiItem[] = [
     n: 1, title: "Neo soul nines", slug: "neo-soul-nines", owner: producers.kilo, kind: "chords" as const, sound: "keys" as const,
     key: { root: 3, mode: "major" as const }, notes: neoSoul(), tags: ["neo soul", "chords", "rnb"],
     description: "Ebmaj9, Cm9, Abmaj9 and a Bb13sus, voiced close with the bass under. Eight bars with a little push on the second chord.",
-    license: "royalty_free" as const, likes: 642, downloads: 2310, publishedAt: "2026-11-23T18:20:00Z",
+    license: "royalty_free" as const, likes: 0, downloads: 0, publishedAt: "2026-11-23T18:20:00Z",
   },
   {
     n: 2, title: "Pluggnb bell melody", slug: "pluggnb-bell-melody", owner: producers.nova, kind: "melody" as const, sound: "bell" as const,
     key: { root: 6, mode: "minor" as const }, notes: bells(), tags: ["pluggnb", "melody", "bells"],
     description: "F sharp minor pentatonic call and answer. The answer bars double an octave down. Try it on pluck.",
-    license: "credit_required" as const, likes: 905, downloads: 3120, publishedAt: "2026-11-22T21:40:00Z",
+    license: "credit_required" as const, likes: 0, downloads: 0, publishedAt: "2026-11-22T21:40:00Z",
   },
   {
     n: 3, title: "Drill drums with rolls", slug: "drill-drums-with-rolls", owner: producers.marcus, kind: "drums" as const, sound: "drums" as const,
     key: null, notes: drill(), tags: ["drill", "drums", "hat rolls"],
     description: "Half-time snare on three, sliding kick placements, triplet hat rolls on bars two and four. General MIDI drum map.",
-    license: "royalty_free" as const, likes: 133, downloads: 488, publishedAt: "2026-11-23T09:15:00Z",
+    license: "royalty_free" as const, likes: 0, downloads: 0, publishedAt: "2026-11-23T09:15:00Z",
   },
   {
     n: 4, title: "Gliding 808 in A minor", slug: "gliding-808-in-a-minor", owner: producers.marcus, kind: "bass" as const, sound: "808" as const,
     key: { root: 9, mode: "minor" as const }, notes: glide808(), tags: ["808", "bass", "trap"],
     description: "A, C, F and G roots with octave jumps. Long notes so the 808 rings; layer it with any of the trap loops.",
-    license: "royalty_free" as const, likes: 377, downloads: 1295, publishedAt: "2026-11-21T14:05:00Z",
+    license: "royalty_free" as const, likes: 0, downloads: 0, publishedAt: "2026-11-21T14:05:00Z",
   },
   ...([
     [5, "Dark trap piano", "dark-trap-piano", "juno", "melody", "keys", [0, "minor"], lib.darkTrapPiano(), ["trap", "piano", "dark"], "A falling C minor line over octave roots and a quiet triad bed. Leaves the low end for your 808.", "royalty_free", 1488, 5120, "2026-11-23T22:10:00Z"],
@@ -166,8 +166,8 @@ const built: MidiItem[] = [
     [16, "Lo-fi nines", "lo-fi-nines", "kilo", "chords", "keys", [9, "minor"], lib.lofiChords(), ["lo-fi", "chords", "jazzy"], "Am9, Dm9, Gmaj7, Cmaj7, lazy and swung. Lowpass it and add vinyl.", "royalty_free", 1980, 7260, "2026-11-19T09:00:00Z"],
     [17, "West Coast whistle", "west-coast-whistle", "marcus", "melody", "strings", [7, "minor"], lib.westCoastLead(), ["west coast", "g funk", "lead"], "A long, high lead over a bouncing G minor bass line. Play it on a sine lead with glide.", "royalty_free", 690, 2050, "2026-11-20T21:20:00Z"],
     [18, "Melodic trap arp", "melodic-trap-arp", "nova", "melody", "pluck", [4, "minor"], lib.trapArp(), ["melodic trap", "arp", "guitar"], "Em, C, G, D broken into eighths, the way a guitar loop would sit. Try it on pluck.", "royalty_free", 2875, 10400, "2026-11-23T16:00:00Z"],
-  ] as const).map(([n, title, slug, who, kind, sound, key, notes, tags, description, license, likes, downloads, publishedAt]) => ({
-    n, title, slug, owner: { ...producers, ...extra }[who], kind, sound, key: key ? { root: key[0], mode: key[1] } : null, notes, tags: [...tags], description, license, likes, downloads, publishedAt,
+  ] as const).map(([n, title, slug, who, kind, sound, key, notes, tags, description, license, , , publishedAt]) => ({
+    n, title, slug, owner: { ...producers, ...extra }[who], kind, sound, key: key ? { root: key[0], mode: key[1] } : null, notes, tags: [...tags], description, license, likes: 0, downloads: 0, publishedAt,
   })),
 ].map(({ n, ...c }) => {
   const publicId = `demomidi${String(n).padStart(2, "0")}`;

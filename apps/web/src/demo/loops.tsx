@@ -25,6 +25,7 @@ import { nowPlaying } from "../app/_shell/now-playing";
 import type { Catalog } from "./data";
 import { GENRES, useCrateEntries } from "./explore";
 import { Dropdown } from "./presets/page";
+import { saveFetched } from "./save";
 import { set } from "./store";
 
 /**
@@ -519,25 +520,17 @@ function LoopEntry({
     if (!("previewUrl" in row.playable)) return;
     setSaving(true);
     try {
-      const res = await fetch(row.playable.previewUrl);
-      if (!res.ok) throw new Error(String(res.status));
-      const url = URL.createObjectURL(await res.blob());
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `${row.title}${row.bpm ? ` ${row.bpm}bpm` : ""}${row.key ? ` ${formatKey(row.key)}` : ""}.mp3`;
-      a.click();
-      setTimeout(() => URL.revokeObjectURL(url), 10_000);
-      toast({
-        tone: "success",
-        title: "Downloaded",
-        description: `${row.title}. Open it to chop, reverse or pitch it first.`,
-      });
+      const name = `${row.title}${row.bpm ? ` ${row.bpm}bpm` : ""}${row.key ? ` ${formatKey(row.key)}` : ""}.mp3`;
+      const outcome = await saveFetched(row.playable.previewUrl, name);
+      if (outcome === "saved") {
+        set("downloads", row.id, true);
+        onChange();
+        toast({ tone: "success", title: "Downloaded", description: name });
+      } else if (outcome === "failed") {
+        toast({ tone: "error", title: "The download did not start", description: "Try again in a moment." });
+      }
     } catch {
-      toast({
-        tone: "error",
-        title: "The download did not start",
-        description: "Try again in a moment.",
-      });
+      toast({ tone: "error", title: "The download did not start", description: "Try again in a moment." });
     } finally {
       setSaving(false);
     }

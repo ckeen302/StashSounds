@@ -49,7 +49,8 @@ const catalog: Catalog = buildCatalog(document.baseURI);
 /** A row as this browser's viewer sees it: their like, counted once. */
 function withViewer(row: ItemRow): ItemRow {
   const liked = has("likes", row.id);
-  return { ...row, likesCount: row.likesCount + (liked ? 1 : 0), viewer: { liked } };
+  const downloaded = has("downloads", row.id);
+  return { ...row, likesCount: row.likesCount + (liked ? 1 : 0), downloadsCount: row.downloadsCount + (downloaded ? 1 : 0), viewer: { liked } };
 }
 
 function pageForViewer(page: ItemPage): ItemPage {
@@ -186,7 +187,7 @@ function Home() {
         <p className="max-w-prose text-body text-text-muted">
           Press play on any loop. Open one to change its tempo and key while it plays, scrub the waveform and grab it with its license. MIDI plays
           live in a piano roll, and you can post your own .mid file. Space plays and pauses; the arrow keys move through the list. Everything here
-          runs in your browser: the producers are made up, and what you like, follow and post stays on this device.
+          runs in your browser: every sound here was made for it, and what you like, follow and post stays on this device.
         </p>
         <div className="flex flex-col gap-4 tablet:flex-row tablet:items-end tablet:justify-between">
           <LookPicker />
@@ -451,6 +452,13 @@ function App() {
 }
 
 startLooks();
+// iPhones mute Web Audio with the ring switch unless the page says it plays media (Safari 17+).
+try {
+  const session = (navigator as { audioSession?: { type: string } }).audioSession;
+  if (session) session.type = "playback";
+} catch {
+  // Older Safari: nothing to set.
+}
 startRouter(catalog.hrefOf, (id) => midiItem(id)?.href ?? null);
 
 // Any app link that is not a packages/ui link (plain anchors) stays in the page.

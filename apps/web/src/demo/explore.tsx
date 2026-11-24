@@ -40,7 +40,7 @@ import { has, set } from "./store";
 
 export type RenderLoops = (label: string, rows: ItemRow[]) => ReactNode;
 
-const ALL_PRODUCERS: Producer[] = [...Object.values(producers), ...Object.values(extra), CHORDS_OWNER];
+const ALL_PRODUCERS: Producer[] = [...new Set([...Object.values(producers), ...Object.values(extra), CHORDS_OWNER])];
 export function producerByHandle(handle: string): Producer | null {
   if (handle === VIEWER.handle) return VIEWER;
   return ALL_PRODUCERS.find((p) => p.handle === handle) ?? null;
@@ -364,7 +364,7 @@ export function ProfilePage({ handle, catalog, rows, renderLoops }: { handle: st
             {[genres.length > 0 ? `Makes ${genres.join(", ")}` : "", bpms.length > 0 ? `${Math.min(...bpms)} to ${Math.max(...bpms)} BPM` : ""].filter(Boolean).join(" · ")}
           </p>
         )}
-        <p className="text-small text-text-muted">{own ? "This is you in the demo. What you post stays in this browser." : "Demo producer: the name and the numbers are made up."}</p>
+        <p className="text-small text-text-muted">{own ? "This is you in the demo. What you post stays in this browser." : "Stash's own account: the loops, patterns and kits made for this demo. Counts start at zero."}</p>
       </section>
 
       {loops.length > 0 && (
