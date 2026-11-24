@@ -275,7 +275,7 @@ def listener() -> Iterator[int]:
 
 def test_the_child_has_no_network(job_user: JobUser, job_root: Path, listener: int):
     if not sandbox.network_isolation_available():
-        pytest.fail("no CAP_SYS_ADMIN for a network namespace (see docs/requests/112-child-network.md)")
+        pytest.fail("no CAP_SYS_ADMIN for a network namespace (decision 0017)")
     status, probe = run_as(job_user, job_root, "network_probe", {"port": listener})
     assert status == "ok", probe
     assert probe["connect"] != "connected"

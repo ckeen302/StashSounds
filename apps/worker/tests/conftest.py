@@ -107,14 +107,27 @@ class TestDb:
         src.unlink()
         self.storage.uploads.clear()
         item_id, file_id = str(row["item_id"]), str(row["file_id"])
-        self.as_role("service_role", "update public.item_files set uploaded_at = now() where item_id = :i", i=item_id)
+        # As completeUpload does: claim the file's completion with a token, then enqueue with it.
+        token = str(uuid.uuid4())
+        claimed = self.as_role(
+            "service_role",
+            "select public.claim_file_completion(cast(:o as uuid), cast(:i as uuid), cast(:f as uuid),"
+            " cast(:t as uuid)) as ok",
+            o=owner,
+            i=item_id,
+            f=file_id,
+            t=token,
+        )[0]["ok"]
+        assert claimed is True
         job = self.as_role(
             "service_role",
-            "select public.enqueue_processing(cast(:o as uuid), cast(:i as uuid), cast(:f as uuid), :n) as id",
+            "select public.enqueue_processing(cast(:o as uuid), cast(:i as uuid), cast(:f as uuid), :n,"
+            " cast(:t as uuid)) as id",
             o=owner,
             i=item_id,
             f=file_id,
             n=len(content),
+            t=token,
         )[0]["id"]
         return {"owner": owner, "item_id": item_id, "job_id": str(job), "file_id": file_id, "path": str(row["path"])}
 

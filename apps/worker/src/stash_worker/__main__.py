@@ -41,7 +41,8 @@ def main() -> int:
     if settings.isolate_network and not network_isolation_available():
         raise SystemExit(
             "stash-worker: job children need their own network namespace, which needs CAP_SYS_ADMIN "
-            "(docs/requests/112-child-network.md); set STASH_CHILD_NETWORK=shared to run without it."
+            "(decision 0017: compose adds SYS_ADMIN). STASH_CHILD_NETWORK=shared runs without it; "
+            "never set it in compose or CI."
         )
     if settings.job_user is not None and not settings.isolate_network:
         log.warning("job children share the worker's network (STASH_CHILD_NETWORK=shared)")

@@ -15,7 +15,14 @@ from botocore.response import StreamingBody
 from botocore.stub import Stubber
 
 from stash_worker.contracts import limits
-from stash_worker.files import InputRejected, PublishError, loop_preview_max_bytes, publish_outputs, stage_inputs
+from stash_worker.files import (
+    InputRejected,
+    PublishError,
+    loop_preview_max_bytes,
+    loop_preview_needed_bytes,
+    publish_outputs,
+    stage_inputs,
+)
 from stash_worker.storage import IMMUTABLE, LocalStorage, S3Storage, StorageError
 
 
@@ -250,10 +257,13 @@ def test_a_loops_preview_and_peaks_are_uploaded_immutable_with_the_parents_types
     ]
 
 
-def test_the_preview_cap_follows_the_longest_loop_at_its_bitrate():
+def test_the_preview_cap_comes_from_limits_and_fits_the_longest_loop():
     lim = limits()
+    assert loop_preview_max_bytes() == lim["preview"]["loopMaxBytes"]
+    # The limit must hold the longest loop's preview (60 s at 128 kbps, with margin), or a valid
+    # preview would be refused.
     longest = lim["loop"]["maxDurationMs"] / 1000 * lim["preview"]["loopBitrateKbpsLong"] * 1000 / 8
-    assert longest < loop_preview_max_bytes() < longest * 1.1 + 16 * 1024
+    assert longest < loop_preview_needed_bytes() <= loop_preview_max_bytes()
 
 
 @pytest.mark.parametrize(
