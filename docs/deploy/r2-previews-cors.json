@@ -1,0 +1,9 @@
+[
+  {
+    "AllowedOrigins": ["https://REPLACE_WITH_NEXT_PUBLIC_SITE_URL"],
+    "AllowedMethods": ["GET", "HEAD"],
+    "AllowedHeaders": ["range"],
+    "ExposeHeaders": ["Content-Length", "Content-Range", "ETag"],
+    "MaxAgeSeconds": 86400
+  }
+]

@@ -355,3 +355,29 @@ Merged origin/phase-0/foundations at 94849c9: into lane/platform-101 first (95fd
       Tests  112 passed (112)
 ```
 The 7 skipped tests are the SeaweedFS suite, which needs storage that is not available here.
+
+## Second security re-review (PR #6, fenced claims)
+
+Merged phase-0/foundations 76b8476 (through 101). `enqueue_processing` now takes the claim token as a fifth argument, and `file_claim_held` / `mark_file_copied` are new service-only functions (decision 0016, "Claims are fenced").
+
+- **A1.** completeUpload passes its token to `enqueue_processing`. Just before CopyObject it calls `file_claim_held`; if that is false (the call stalled past the claim's lifetime and another call took over), it copies nothing and returns conflict. A conflict from `enqueue_processing` deletes nothing, because another call or the worker may be using the file. New tests:
+  - a stale call whose claim was taken over, with the file confirmed by the second call, neither copies nor deletes, and the second claim stays intact;
+  - a takeover between the copy and the confirmation gives conflict, and the copy stays.
+  The DB tests now call `enqueue_processing` with five arguments under a real claim. They also check that a wrong token gives conflict and that the token holds nothing once the file is confirmed.
+- **A2.** `ctx.storage()` (and the multipart and copy work) now sits inside the `try`, so `finally` always releases the claim. New test: storage setup throws an env error, and the claim is released.
+- **A3.** The read-then-write `markCopied` is now the single-statement `mark_file_copied(p_file_id, p_token)` RPC, which writes only under the claim.
+
+### Proof
+
+```
+$ pnpm check && pnpm test && pnpm db:test
+packages/ui typecheck: Done
+packages/contracts typecheck: Done
+packages/audio typecheck: Done
+apps/web typecheck: Done
+ Test Files  12 passed | 1 skipped (13)
+      Tests  247 passed | 7 skipped (254)
+ Test Files  3 passed (3)
+      Tests  114 passed (114)
+```
+The 7 skipped tests are the SeaweedFS suite, which needs storage that is not available here.
