@@ -12,8 +12,13 @@ Tickets 113 and 114, request 114-duplicate-lookup.
   It excludes this item and drafts. Execute is revoked from public, anon and authenticated, and
   granted to service_role only. The access audit proves this.
 - Reason: the worker's database surface stays the set of worker functions. The hash is recorded at
-  lookup time because `worker_complete`'s upsert replaces an original's meta (decision 0016). It also
-  means two copies processed at once see each other.
+  lookup time because `worker_complete`'s upsert replaces an original's meta (decision 0016).
+  Migration 20261124020000 takes a transaction-scoped advisory lock on the hash. Two lookups of
+  the same hash that overlap then run one after the other, so the second finds the first.
+- Trust: the parent hashes the staged original before the job child starts, opening it without
+  following links. The exact check therefore holds even if the child is taken over. The duration and
+  Chromaprint come from the child. A taken-over child can dodge a fingerprint match, but not the
+  exact one.
 - Consequence: there is no cap on candidates. Phase 1 catalog sizes don't need one. A large catalog
   will need a cap ordered by duration distance, or a coarse index. `flag.detail` (what an item
   matched) is still dropped by `worker_complete`. Storing it waits for the admin queue ticket.
