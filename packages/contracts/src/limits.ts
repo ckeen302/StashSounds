@@ -69,7 +69,14 @@ export const limitsSchema = z.object({
     itemPageCls: z.number().nonnegative(),
     scriptBeforeAudioBytes: positiveInt,
   }),
-  bpm: z.object({ min: positiveInt, max: positiveInt, fileNameMin: positiveInt, fileNameMax: positiveInt }),
+  bpm: z.object({
+    min: positiveInt,
+    max: positiveInt,
+    fileNameMin: positiveInt,
+    fileNameMax: positiveInt,
+    /** Below this chroma key confidence the key is marked "check this" (request 103-check-fields). */
+    keyConfidenceMin: z.number().min(0).max(1),
+  }),
   licenses: z.object({
     royalty_free: z.object({ version: z.string() }),
     credit_required: z.object({ version: z.string() }),
