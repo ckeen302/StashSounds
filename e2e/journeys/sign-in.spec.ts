@@ -137,6 +137,9 @@ async function reachable(url: string): Promise<boolean> {
   }
 }
 
+/** A toast in the notifications stack (Radix also copies its text into an announcer, so scope to the list). */
+const toastWith = (page: Page, text: string) => page.getByRole("region", { name: /Notifications/ }).getByRole("listitem").filter({ hasText: text });
+
 const unique = () => `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
 
 /** The newest sign-in link Mailpit holds for this address. */
@@ -233,11 +236,13 @@ test.describe("with the local Supabase stack", () => {
     await signUpByEmail(page, dialog, `liker-${id}@example.com`);
     await claim(page, `liker_${id}`);
     await expect(page).toHaveURL("/dev/player");
-    await expect(page.getByText("Liked Dusty soul chops")).toBeVisible();
+    await expect(toastWith(page, "Liked Dusty soul chops")).toBeVisible();
     await expect(page.getByRole("button", { name: "Like Dusty soul chops" })).toHaveAttribute("aria-pressed", "true");
     // It ran once: a reload does not like it again.
     await page.reload();
-    await expect(page.getByText("Liked Dusty soul chops")).toBeHidden();
+    await expect(page.getByRole("list", { name: "Fixture loops" })).toBeVisible();
+    await page.waitForTimeout(1000); // Long enough for a stray replay to raise its toast.
+    await expect(toastWith(page, "Liked Dusty soul chops")).toHaveCount(0);
   });
 
   test("follow and download complete after an existing member signs in", async ({ page, context }) => {
@@ -257,7 +262,7 @@ test.describe("with the local Supabase stack", () => {
       await press();
       await signUpByEmail(page, page.getByRole("dialog", { name: title }), email);
       await expect(page).toHaveURL("/dev/player");
-      await expect(page.getByText(toast)).toBeVisible();
+      await expect(toastWith(page, toast)).toBeVisible();
       await context.clearCookies();
     }
   });
