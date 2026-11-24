@@ -2936,5 +2936,1846 @@
   },
   "quote": "FAMOUS PRESETS #361: \"Moonlight\" by XXXTentacion ... #omnisphere #omnispherepresets",
   "quoteBy": "bluesteel.wav_"
+ },
+ {
+  "song": "Pyramids",
+  "artist": "Frank Ocean",
+  "producer": "Malay, Frank Ocean",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": null,
+  "role": "Lead synth",
+  "confidence": "producer",
+  "source": {
+   "label": "Reverb Machine, How Frank Ocean Made Pyramids",
+   "url": "https://reverbmachine.com/blog/frank-ocean-pyramids-breakdown/"
+  },
+  "quote": "On that particular song the lead synth was actually from Omnisphere",
+  "quoteBy": "Malay (via Gearspace, quoted by Reverb Machine)"
+ },
+ {
+  "song": "Pyramids",
+  "artist": "Frank Ocean",
+  "producer": "Malay, Frank Ocean",
+  "plugin": "Roland Juno-106 (hardware)",
+  "preset": null,
+  "role": "Main chop (analog bell-type sound)",
+  "confidence": "producer",
+  "source": {
+   "label": "Reverb Machine, How Frank Ocean Made Pyramids",
+   "url": "https://reverbmachine.com/blog/frank-ocean-pyramids-breakdown/"
+  },
+  "quote": "I created the main chop with some analog bell type sound off an original Juno-106 and some choir sounds from the Mtron.",
+  "quoteBy": "Malay (via Gearspace, quoted by Reverb Machine)"
+ },
+ {
+  "song": "Pyramids",
+  "artist": "Frank Ocean",
+  "producer": "Malay, Frank Ocean",
+  "plugin": "Oberheim OB-8 (hardware)",
+  "preset": null,
+  "role": "Pad on side 2",
+  "confidence": "producer",
+  "source": {
+   "label": "Reverb Machine, How Frank Ocean Made Pyramids",
+   "url": "https://reverbmachine.com/blog/frank-ocean-pyramids-breakdown/"
+  },
+  "quote": "The pad on side 2 is an Oberheim OB-8",
+  "quoteBy": "Malay (via Gearspace, quoted by Reverb Machine)"
+ },
+ {
+  "song": "Pyramids",
+  "artist": "Frank Ocean",
+  "producer": "Malay, Frank Ocean",
+  "plugin": "Arturia CS-80 V",
+  "preset": null,
+  "role": "Arpeggio",
+  "confidence": "producer",
+  "source": {
+   "label": "Reverb Machine, How Frank Ocean Made Pyramids",
+   "url": "https://reverbmachine.com/blog/frank-ocean-pyramids-breakdown/"
+  },
+  "quote": "the arpeggiator thing is done on the Arturia CS-80",
+  "quoteBy": "Malay (via Gearspace, quoted by Reverb Machine)"
+ },
+ {
+  "song": "Vivid Dreams",
+  "artist": "Kaytranada feat. River Tiber",
+  "producer": "Kaytranada",
+  "plugin": "Korg M1",
+  "preset": "Organ 2",
+  "role": "Opening jazzy offbeat chords",
+  "confidence": "press",
+  "source": {
+   "label": "Reverb Machine, Kaytranada 99.9% Synth Sounds",
+   "url": "https://reverbmachine.com/blog/kaytranada-99-synth-sounds/"
+  },
+  "quote": "Vivid Dreams opens up with jazzy, offbeat chords which come from the Korg M1 Organ 2 preset."
+ },
+ {
+  "song": "Glowed Up",
+  "artist": "Kaytranada feat. Anderson .Paak",
+  "producer": "Kaytranada",
+  "plugin": "Korg M1",
+  "preset": "Vibes",
+  "role": "Outro melody",
+  "confidence": "press",
+  "source": {
+   "label": "Reverb Machine, How Kaytranada Produced Glowed Up",
+   "url": "https://reverbmachine.com/blog/how-kaytranada-produced-glowed-up/"
+  },
+  "quote": "the outro melody of Glowed Up is the M1 Vibes preset."
+ },
+ {
+  "song": "Love Galore",
+  "artist": "SZA feat. Travis Scott",
+  "producer": "Carter Lang (co-producer)",
+  "plugin": "Roland JX-8P (hardware)",
+  "preset": "Moonbaby (Carter Lang's own programmed patch)",
+  "role": "Main synth",
+  "confidence": "producer",
+  "source": {
+   "label": "Reverb Machine, Recreating SZA's Ctrl Synth Sounds",
+   "url": "https://reverbmachine.com/blog/recreating-sza-ctrl-synth-sounds/"
+  },
+  "quote": "I programmed a sound into the JX-8P that I called Moonbaby, and I used that sound for the 'Love Galore' track",
+  "quoteBy": "Carter Lang (quoted by Reverb Machine)"
+ },
+ {
+  "song": "Love Galore",
+  "artist": "SZA feat. Travis Scott",
+  "producer": "Carter Lang (co-producer)",
+  "plugin": "Moog Voyager (hardware)",
+  "preset": null,
+  "role": "Synth layer",
+  "confidence": "producer",
+  "source": {
+   "label": "Reverb Machine, Recreating SZA's Ctrl Synth Sounds",
+   "url": "https://reverbmachine.com/blog/recreating-sza-ctrl-synth-sounds/"
+  },
+  "quote": "I also used a Moog Voyager on that, because they're so tight.",
+  "quoteBy": "Carter Lang (quoted by Reverb Machine)"
+ },
+ {
+  "song": "Yes Indeed",
+  "artist": "Lil Baby & Drake",
+  "producer": "Wheezy",
+  "plugin": "Image-Line / Sonic Cat Purity",
+  "preset": null,
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard, Wheezy's Gear",
+   "url": "https://equipboard.com/pros/wheezy"
+  },
+  "quote": "Wheezy shows that he used Purity to make the pad sound in \"Yes Indeed\" by Lil Baby and Drake"
+ },
+ {
+  "song": "2000 Shots",
+  "artist": "Lil Keed",
+  "producer": "Wheezy",
+  "plugin": "Yamaha MODX8 (hardware)",
+  "preset": null,
+  "role": "Synth (unspecified part)",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard, Wheezy's Gear",
+   "url": "https://equipboard.com/pros/wheezy"
+  },
+  "quote": "Producer Wheezy used the Yamaha MODX 8 Synthesizer in the track \"2000 Shots\" by Lil Keed."
+ },
+ {
+  "song": "Kill Bill",
+  "artist": "SZA",
+  "producer": "Rob Bisel",
+  "plugin": "Sequential Prophet-6 (hardware)",
+  "preset": null,
+  "role": "Flute-like chords (the song's starting idea)",
+  "confidence": "producer",
+  "source": {
+   "label": "Sound On Sound, Inside Track: SZA 'Kill Bill'",
+   "url": "https://www.soundonsound.com/techniques/inside-track-sza-kill-bill"
+  },
+  "quote": "The idea for ‘Kill Bill’ began with me messing on my [Sequential] Prophet 6.",
+  "quoteBy": "Rob Bisel"
+ },
+ {
+  "song": "Planet Rock",
+  "artist": "Afrika Bambaataa & the Soulsonic Force",
+  "producer": "Arthur Baker",
+  "plugin": "Fairlight CMI (factory sample library)",
+  "preset": "ORCH2 (also ORCH5)",
+  "role": "Orchestra hit stabs",
+  "confidence": "press",
+  "source": {
+   "label": "Gearnews (Rob Puricelli), 5 Synth Presets That Changed Pop Music",
+   "url": "https://www.gearnews.com/5-synth-presets-that-changed-pop-music-synths/"
+  },
+  "quote": "it soon caught the ear of Arthur Baker and Afrika Bambaataa, who used it to great effect on Planet Rock."
+ },
+ {
+  "song": "P.T. 2001",
+  "artist": "Tonéx",
+  "producer": "Unknown",
+  "plugin": "E-mu Planet Phatt (hardware module)",
+  "preset": "Bakatit",
+  "role": "Not specified",
+  "confidence": "community",
+  "source": {
+   "label": "MusicPlayer forums, Pick the synth preset in a hit song",
+   "url": "https://forums.musicplayer.com/topic/65912-pick-the-synth-preset-in-a-hit-song/"
+  },
+  "quote": "Tonex also used Planet Phatt's \"Bakatit\" preset on \"P.T. 2001\" on his \"Pronounced Toe-nay\" CD.",
+  "quoteBy": "HolyTerra (forum user)"
+ },
+ {
+  "song": "The Only Way",
+  "artist": "Celly Cel",
+  "producer": "Unknown",
+  "plugin": "Roland M-DC1 sound module (hardware)",
+  "preset": "Aaaah! (169)",
+  "role": "Vocal 'Aaaah' accent",
+  "confidence": "press",
+  "source": {
+   "label": "Roland Articles, Retracing the Roland Sound in Hip-Hop",
+   "url": "https://articles.roland.com/?p=3147"
+  },
+  "quote": "It initially popped up in rap music on Celly Cel's 1997 Dangerous Ground OST contribution \"The Only Way.\"",
+  "quoteBy": "Gino Sorcinelli"
+ },
+ {
+  "song": "Cheers 2 U",
+  "artist": "Playa",
+  "producer": "Timbaland, Static Major",
+  "plugin": "Roland M-DC1 sound module (hardware)",
+  "preset": "Aaaah! (169)",
+  "role": "Vocal 'Aaaah' accent",
+  "confidence": "press",
+  "source": {
+   "label": "Roland Articles, Retracing the Roland Sound in Hip-Hop",
+   "url": "https://articles.roland.com/?p=3147"
+  },
+  "quote": "Timbaland and the late Static Major on Playa's used it on the Billboard-charting 1998 single \"Cheers 2 U.\"",
+  "quoteBy": "Gino Sorcinelli"
+ },
+ {
+  "song": "Light Your Ass On Fire",
+  "artist": "Busta Rhymes feat. Pharrell",
+  "producer": "The Neptunes",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": "B447 Jungle Drum Kit",
+  "role": "Drum kit",
+  "confidence": "press",
+  "source": {
+   "label": "Ali Jamieson, 8 important synths in the development of hip-hop",
+   "url": "https://alijamieson.co.uk/2021/12/01/8-important-synths-development-hip-hop/"
+  },
+  "quote": "Busta Rhymes – Light Your Ass On Fire (B447 Jungle Drum Kit)",
+  "quoteBy": "List credited to research by Mathew Garland"
+ },
+ {
+  "song": "Good Girl",
+  "artist": "Vanessa Marquez",
+  "producer": "The Neptunes",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": "B002 StaccatoPizzHit",
+  "role": "Not specified",
+  "confidence": "press",
+  "source": {
+   "label": "Ali Jamieson, 8 important synths in the development of hip-hop",
+   "url": "https://alijamieson.co.uk/2021/12/01/8-important-synths-development-hip-hop/"
+  },
+  "quote": "Vanessa Marquez – Good Girl (B002 StaccatoPizzHit)",
+  "quoteBy": "List credited to research by Mathew Garland"
+ },
+ {
+  "song": "I Still Love You",
+  "artist": "702",
+  "producer": "The Neptunes",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": "A051 PizzEnsamble",
+  "role": "Pizzicato strings",
+  "confidence": "press",
+  "source": {
+   "label": "Ali Jamieson, 8 important synths in the development of hip-hop",
+   "url": "https://alijamieson.co.uk/2021/12/01/8-important-synths-development-hip-hop/"
+  },
+  "quote": "702 – I Still Love You (A051 PizzEnsamble)",
+  "quoteBy": "List credited to research by Mathew Garland"
+ },
+ {
+  "song": "Charcoal Baby",
+  "artist": "Blood Orange",
+  "producer": "Dev Hynes",
+  "plugin": "Roland Juno-106 (hardware)",
+  "preset": null,
+  "role": "Gliding portamento synth chords",
+  "confidence": "press",
+  "source": {
+   "label": "Reverb Machine, Blood Orange Synth Sounds",
+   "url": "https://reverbmachine.com/blog/blood-orange-synth-sounds/"
+  },
+  "quote": "Charcoal Baby uses the Juno-106's portamento abilities to create gliding synth chords that flow smoothly into each other."
+ },
+ {
+  "song": "Day 'n' Nite",
+  "artist": "Kid Cudi",
+  "producer": "Dot da Genius",
+  "plugin": "Yamaha Motif (hardware workstation)",
+  "preset": null,
+  "role": "Main keyboard sounds",
+  "confidence": "producer",
+  "source": {
+   "label": "Sound On Sound, Secrets of the Mix Engineers: Dot da Genius",
+   "url": "https://www.soundonsound.com/techniques/secrets-mix-engineers-dot-da-genius"
+  },
+  "quote": "The Motif was the main keyboard I used on the session because it was the most recent sound module I owned.",
+  "quoteBy": "Dot da Genius"
+ },
+ {
+  "song": "Day 'n' Nite",
+  "artist": "Kid Cudi",
+  "producer": "Dot da Genius",
+  "plugin": "Novation (X-Station) keyboard",
+  "preset": null,
+  "role": "Moog-style bass",
+  "confidence": "producer",
+  "source": {
+   "label": "Sound On Sound, Secrets of the Mix Engineers: Dot da Genius",
+   "url": "https://www.soundonsound.com/techniques/secrets-mix-engineers-dot-da-genius"
+  },
+  "quote": "The bass was a Moog sound from the Novation.",
+  "quoteBy": "Dot da Genius"
+ },
+ {
+  "song": "Day 'n' Nite",
+  "artist": "Kid Cudi",
+  "producer": "Dot da Genius",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": null,
+  "role": "Extra synth layer ('Synth 4' track)",
+  "confidence": "producer",
+  "source": {
+   "label": "Sound On Sound, Secrets of the Mix Engineers: Dot da Genius",
+   "url": "https://www.soundonsound.com/techniques/secrets-mix-engineers-dot-da-genius"
+  },
+  "quote": "So I time‑stretched the beats to slow things down, and added some more synths from the Triton on top, which is 'Synth 4'.",
+  "quoteBy": "Dot da Genius"
+ },
+ {
+  "song": "Clint Eastwood",
+  "artist": "Gorillaz feat. Del the Funky Homosapien",
+  "producer": "Unknown",
+  "plugin": "Suzuki Omnichord (hardware)",
+  "preset": "Rock 1",
+  "role": "Beat/rhythm loop",
+  "confidence": "press",
+  "source": {
+   "label": "MusicRadar, Damon Albarn reveals the Clint Eastwood beat was an Omnichord loop preset",
+   "url": "https://www.musicradar.com/news/damon-albarn-gorillaz-clint-eastwood-omnichord-preset"
+  },
+  "quote": "It’s the Rock 1 preset",
+  "quoteBy": "Damon Albarn"
+ },
+ {
+  "song": "Kinda Like a Big Deal",
+  "artist": "Clipse feat. Kanye West",
+  "producer": "Unknown",
+  "plugin": "Native Instruments Guitar Rig (effect)",
+  "preset": null,
+  "role": "Distortion on the guitar riffs",
+  "confidence": "press",
+  "source": {
+   "label": "Reverb.com, The Studio Rigs of 9 Great Hip-Hop Producers",
+   "url": "https://reverb.com/news/the-studio-rigs-of-9-great-hip-hop-producers-no-i-d-j-dilla-and-more"
+  },
+  "quote": "Native Instruments' Guitar Rig plugin until they sound like someone screaming in certain parts of the song.",
+  "quoteBy": "Gino Sorcinelli"
+ },
+ {
+  "song": "Superwoman",
+  "artist": "Lil' Mo",
+  "producer": "Unknown",
+  "plugin": "Roland JV-2080 (hardware module)",
+  "preset": null,
+  "role": "Entire bridge breakdown",
+  "confidence": "producer",
+  "source": {
+   "label": "Roland Articles, A Few Minutes with Duro",
+   "url": "https://articles.roland.com/?p=96857"
+  },
+  "quote": "For Lil Mo's 'Superwoman,' the entire bridge breakdown was sounds from the Roland JV-2080.",
+  "quoteBy": "Ken 'Duro' Ifill"
+ },
+ {
+  "song": "So Into You",
+  "artist": "Fabolous feat. Tamia",
+  "producer": "Unknown",
+  "plugin": "Roland JV-1080 (hardware module)",
+  "preset": null,
+  "role": "Wind-chime/string sound placed throughout the song",
+  "confidence": "producer",
+  "source": {
+   "label": "Roland Articles, A Few Minutes with Duro",
+   "url": "https://articles.roland.com/?p=96857"
+  },
+  "quote": "I would go inside the Roland JV-1080 to lower the strings and raise the chimes.",
+  "quoteBy": "Ken 'Duro' Ifill"
+ },
+ {
+  "song": "Thank God I Found You (Make It Last Remix)",
+  "artist": "Mariah Carey",
+  "producer": "Unknown",
+  "plugin": "Roland Juno-106, JV-1080 and JV-2080 (hardware)",
+  "preset": null,
+  "role": "All non-live sounds in the recreated sample",
+  "confidence": "producer",
+  "source": {
+   "label": "Roland Articles, A Few Minutes with Duro",
+   "url": "https://articles.roland.com/?p=96857"
+  },
+  "quote": "So, when we were recreating the sample, outside of the live instruments, all of the sounds came from the Roland JUNO-106,",
+  "quoteBy": "Ken 'Duro' Ifill"
+ },
+ {
+  "song": "Frisky",
+  "artist": "Tinie Tempah feat. Labrinth",
+  "producer": "Labrinth",
+  "plugin": "Roland JX-3P (hardware)",
+  "preset": null,
+  "role": "Melody and bass",
+  "confidence": "press",
+  "source": {
+   "label": "Roland Articles, Listening Guide: Sounds of the JX-3P",
+   "url": "https://articles.roland.com/?p=83981"
+  },
+  "quote": "that featured the JX-3P handling not only the melody but—crucially and unusually— the bass."
+ },
+ {
+  "song": "IN MY LIFE",
+  "artist": "Reuben Vincent",
+  "producer": "9th Wonder, Give Em Soul",
+  "plugin": "Roland Fantom",
+  "preset": null,
+  "role": "Replayed sample (Gap Band interpolation)",
+  "confidence": "press",
+  "source": {
+   "label": "Roland Articles, Listening Guide: 9th Wonder",
+   "url": "https://articles.roland.com/listening-guide-9th-wonder/"
+  },
+  "quote": "We replayed the entire sample with a Roland FANTOM.",
+  "quoteBy": "Unattributed in article (9th Wonder / Give Em Soul team)"
+ },
+ {
+  "song": "Eskimo",
+  "artist": "Wiley",
+  "producer": "Wiley",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": "Gliding Square",
+  "role": "Main synth of the beat",
+  "confidence": "press",
+  "source": {
+   "label": "HipHopHero, The Neptunes, Wiley and the Korg Triton",
+   "url": "https://hiphophero.com/?p=15813"
+  },
+  "quote": "Produced using a sound in the Triton called 'Gliding Square'"
+ },
+ {
+  "song": "Gucci Gang",
+  "artist": "Lil Pump",
+  "producer": "Bighead",
+  "plugin": "Image-Line Sytrus",
+  "preset": null,
+  "role": "Shown in the song's session (part not specified)",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard, Bighead's Gear",
+   "url": "https://equipboard.com/pros/bighead"
+  },
+  "quote": "Sytrus can be seen at the 1:50 timestamp in the Genius interview"
+ },
+ {
+  "song": "Gucci Gang",
+  "artist": "Lil Pump",
+  "producer": "Bighead",
+  "plugin": "Synapse Audio DUNE 2",
+  "preset": null,
+  "role": "Shown in the song's session (part not specified)",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard, Bighead's Gear",
+   "url": "https://equipboard.com/pros/bighead"
+  },
+  "quote": "Dune 2 can be seen at the 2:30 timestamp in the Genius interview"
+ },
+ {
+  "song": "Look Alive",
+  "artist": "BlocBoy JB feat. Drake",
+  "producer": "Tay Keith",
+  "plugin": "reFX Nexus 2",
+  "preset": null,
+  "role": "Not specified (seen in the making-of video)",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard, Tay Keith's Gear",
+   "url": "https://equipboard.com/pros/tay-keith"
+  },
+  "quote": "Tay Keith uses Nexus 2 to produced Drake's \"Look Alive\" as you can see in (the making of) \"Deconstructed\"."
+ },
+ {
+  "song": "MotorSport",
+  "artist": "Migos, Nicki Minaj & Cardi B",
+  "producer": "Murda Beatz",
+  "plugin": "Image-Line Gross Beat (effect)",
+  "preset": null,
+  "role": "Half-time effect on the intro melody",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard, Murda Beatz's Gear",
+   "url": "https://equipboard.com/pros/murda-beatz"
+  },
+  "quote": "Murda used this plugin on the intro of Migos' \"Motorsport\" with Cardi B and Nicki Minaj to halftime the melody."
+ },
+ {
+  "song": "Sneakin'",
+  "artist": "Drake feat. 21 Savage",
+  "producer": "London on da Track",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": null,
+  "role": "Spacey organ sound",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard, London On Da Track's Gear",
+   "url": "https://equipboard.com/pros/london-on-da-track"
+  },
+  "quote": "it reveals he used Omnisphere for the \"spacey organ sound.\""
+ },
+ {
+  "song": "Sneakin'",
+  "artist": "Drake feat. 21 Savage",
+  "producer": "London on da Track",
+  "plugin": "reFX Nexus",
+  "preset": null,
+  "role": "Not specified (seen in the making-of session)",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard, London On Da Track's Gear",
+   "url": "https://equipboard.com/pros/london-on-da-track"
+  },
+  "quote": "London On Da Track can be seen using Nexus in his Ableton Live session as he shows the making of Drake's \"Sneakin'\""
+ },
+ {
+  "song": "Sneakin'",
+  "artist": "Drake feat. 21 Savage",
+  "producer": "London on da Track",
+  "plugin": "LennarDigital Sylenth1",
+  "preset": null,
+  "role": "Not specified",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard, London On Da Track's Gear",
+   "url": "https://equipboard.com/pros/london-on-da-track"
+  },
+  "quote": "its dope, london used this to make sneakin with drake and savage"
+ },
+ {
+  "song": "Panini",
+  "artist": "Lil Nas X",
+  "producer": "Take a Daytrip",
+  "plugin": "Nord Electro 3 (hardware)",
+  "preset": null,
+  "role": "High-frequency piano melody",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard, Take a Daytrip's Gear",
+   "url": "https://equipboard.com/pros/take-a-daytrip"
+  },
+  "quote": "David shows how this keyboard was used to make the high-frequency piano melody in Lil Nas X's \"Panini\"."
+ },
+ {
+  "song": "Still D.R.E.",
+  "artist": "Dr. Dre feat. Snoop Dogg",
+  "producer": "Unknown",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": "Harp",
+  "role": "Not stated (Harp program)",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: Let's play Name That Preset! (page 13)",
+   "url": "https://www.futureproducers.com/forums/threads/lets-play-name-that-preset.308269/page-13"
+  },
+  "path": "Program Bank B",
+  "quote": "Still D.R.E. - Dre & Snoop (Korg Triton -> Program Bank B -> Harp)",
+  "quoteBy": "Future Producers forum member (username not shown)"
+ },
+ {
+  "song": "Milkshake",
+  "artist": "Kelis",
+  "producer": "Unknown",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": "Indian Ocean",
+  "role": "Most of the beat",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: Let's play Name That Preset! (page 13)",
+   "url": "https://www.futureproducers.com/forums/threads/lets-play-name-that-preset.308269/page-13"
+  },
+  "path": "Combi Bank A",
+  "quote": "Milkshake - Kelis (Korg Triton -> Combi Bank A -> Indian Ocean) Its pretty much the WHOLE DAMN SONG",
+  "quoteBy": "Future Producers forum member (username not shown)"
+ },
+ {
+  "song": "March Madness",
+  "artist": "Future",
+  "producer": "Unknown",
+  "plugin": "Image-Line Purity",
+  "preset": "Sky Walker 3",
+  "role": "Main synth (with Gross Beat slow triplet)",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: Let's play Name That Preset! (page 13)",
+   "url": "https://www.futureproducers.com/forums/threads/lets-play-name-that-preset.308269/page-13"
+  },
+  "path": "Phrase",
+  "quote": "THe name of the synth is skywalker 3. you just have to apply a slow tripplet on it",
+  "quoteBy": "Future Producers forum member (username not shown)"
+ },
+ {
+  "song": "Bands Up",
+  "artist": "Playboi Carti & Pi'erre Bourne",
+  "producer": "Unknown",
+  "plugin": "u-he Zebra2",
+  "preset": "HS Perfect Pearls",
+  "role": "Arp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Bands Up' by Playboi Carti & Pi'erre Bourne was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=SDPyGbmDnk8"
+  },
+  "path": "6 Lupins",
+  "quote": "Arp - Zebra2: 6 Lupins - HS Perfect Pearls",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Bands Up",
+  "artist": "Playboi Carti & Pi'erre Bourne",
+  "producer": "Unknown",
+  "plugin": "u-he Zebra2",
+  "preset": "HS Mysteronic",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Bands Up' by Playboi Carti & Pi'erre Bourne was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=SDPyGbmDnk8"
+  },
+  "path": "2 Leaders",
+  "quote": "Lead - Zebra2: 2 Leaders - HS Mysteronic",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Goosebumps",
+  "artist": "Travis Scott feat. Kendrick Lamar",
+  "producer": "Unknown",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": null,
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube Short: TRAVIS SCOTT USED THIS OMNISPHERE PRESET IN GOOSEBUMPS",
+   "url": "https://www.youtube.com/watch?v=4lsKn2jXnfQ"
+  },
+  "quote": "TRAVIS SCOTT USED THIS OMNISPHERE PRESET IN GOOSEBUMPS #shorts",
+  "quoteBy": "Beats by Nova"
+ },
+ {
+  "song": "Fell In Luv",
+  "artist": "Playboi Carti feat. Bryson Tiller",
+  "producer": "Unknown",
+  "plugin": "Native Instruments FM8",
+  "preset": "Classic Flute",
+  "role": "Flute",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Fell In Luv' by Playboi Carti & Bryson Tiller was made (w/ Presets)",
+   "url": "https://www.youtube.com/watch?v=ID2l_VQ0vxs"
+  },
+  "quote": "Flute - FM8: Classic Flute",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Old Money",
+  "artist": "Playboi Carti",
+  "producer": "Unknown",
+  "plugin": "Xfer Serum",
+  "preset": "PD Quasar [LT]",
+  "role": "Pad (also Lead with Osc A off)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Old Money' by Playboi Carti was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=0agmYABgG4I"
+  },
+  "path": "Pads",
+  "quote": "Pad : Serum - Pads, PD Quasar [LT]",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Old Money",
+  "artist": "Playboi Carti",
+  "producer": "Unknown",
+  "plugin": "Xfer Serum",
+  "preset": "BA Downsampler [FN]",
+  "role": "Bass",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Old Money' by Playboi Carti was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=0agmYABgG4I"
+  },
+  "path": "Bass (Hard)",
+  "quote": "Bass : Serum - Bass (Hard), BA Downsampler [FN] (lower sustain, longer decay, add reverb)",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Choppa Sing",
+  "artist": "Playboi Carti",
+  "producer": "Unknown",
+  "plugin": "FabFilter Twin 2",
+  "preset": "BOC Keys RD",
+  "role": "Pluck",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Choppa Sing' by Playboi Carti was made (w/ Presets)",
+   "url": "https://www.youtube.com/watch?v=WE18gbd5YGw"
+  },
+  "path": "Keys, Vintage",
+  "quote": "Pluck: FabFilter Twin2: Keys, Vintage - BOC Keys RD",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Choppa Sing",
+  "artist": "Playboi Carti",
+  "producer": "Unknown",
+  "plugin": "Image-Line Sytrus",
+  "preset": "Angelic Whistle",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Choppa Sing' by Playboi Carti was made (w/ Presets)",
+   "url": "https://www.youtube.com/watch?v=WE18gbd5YGw"
+  },
+  "path": "Synth String",
+  "quote": "Lead: Sytrus: Synth String - Angelic Whistle",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Pissed Off",
+  "artist": "Ken Carson",
+  "producer": "Unknown",
+  "plugin": "reFX Nexus 2",
+  "preset": "BA Hard Bass",
+  "role": "Bass",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How Pissed Off by Ken Carson was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=RckIWnGW2Po"
+  },
+  "path": "Bass",
+  "quote": "Nexus 2: Bass - BA Hard Bass",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Pissed Off",
+  "artist": "Ken Carson",
+  "producer": "Unknown",
+  "plugin": "Image-Line Purity",
+  "preset": "Slow Synth Filteron",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How Pissed Off by Ken Carson was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=RckIWnGW2Po"
+  },
+  "quote": "Purity: Slow Synth Filteron",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Pissed Off",
+  "artist": "Ken Carson",
+  "producer": "Unknown",
+  "plugin": "Image-Line Purity",
+  "preset": "Digi Tubular",
+  "role": "Bell",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How Pissed Off by Ken Carson was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=RckIWnGW2Po"
+  },
+  "path": "Bell & Perc",
+  "quote": "Purity: Bell & Perc - Digi Tubular",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Foreign",
+  "artist": "Playboi Carti",
+  "producer": "Unknown",
+  "plugin": "Image-Line FL Keys",
+  "preset": "Default",
+  "role": "Piano",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Foreign' by Playboi Carti was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=J6l-CUAxorQ"
+  },
+  "quote": "Piano : FL Keys (default preset)",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Foreign",
+  "artist": "Playboi Carti",
+  "producer": "Unknown",
+  "plugin": "Image-Line Purity",
+  "preset": "Steel Drums",
+  "role": "Steel drum",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Foreign' by Playboi Carti was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=J6l-CUAxorQ"
+  },
+  "path": "Bell & Perc",
+  "quote": "Steel drum : Purity - Bell & Perc, Steel Drums",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Foreign",
+  "artist": "Playboi Carti",
+  "producer": "Unknown",
+  "plugin": "u-he Diva",
+  "preset": "MK Symphonic Thunder",
+  "role": "Guitar",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Foreign' by Playboi Carti was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=J6l-CUAxorQ"
+  },
+  "path": "3 POLY SYNTH",
+  "quote": "Guitar : Diva - 3 POLY SYNTH, MK Symphonic Thunder",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Foreign",
+  "artist": "Playboi Carti",
+  "producer": "Unknown",
+  "plugin": "FabFilter Twin 2",
+  "preset": "Classic Flute DJM",
+  "role": "Flute",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Foreign' by Playboi Carti was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=J6l-CUAxorQ"
+  },
+  "path": "Orchestral, Wood",
+  "quote": "Flute : FabFilter Twin2 - Orchestral, Wood, Classic Flute DJM",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Simon Says",
+  "artist": "Pi'erre Bourne",
+  "producer": "Unknown",
+  "plugin": "u-he TyrellN6",
+  "preset": "PV - El Harpo",
+  "role": "Harp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Simon Says' by Pi'erre Bourne was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=3QoAz6Aq360"
+  },
+  "path": "PocVecem",
+  "quote": "Harp - TyrellN6: PocVecem, PV - El Harpo",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Simon Says",
+  "artist": "Pi'erre Bourne",
+  "producer": "Unknown",
+  "plugin": "u-he TyrellN6",
+  "preset": "Juno Strgs 1",
+  "role": "Strings",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Simon Says' by Pi'erre Bourne was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=3QoAz6Aq360"
+  },
+  "path": "DocM",
+  "quote": "Strings - TyrellN6: DocM, Juno Strgs 1",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Simon Says",
+  "artist": "Pi'erre Bourne",
+  "producer": "Unknown",
+  "plugin": "u-he TyrellN6",
+  "preset": "TUC - 8bit Game Hero",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Simon Says' by Pi'erre Bourne was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=3QoAz6Aq360"
+  },
+  "path": "The Unshushable Coktor",
+  "quote": "Lead - TyrellN6: The Unshushable Coktor, TUC - 8bit Game Hero",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Did It Again",
+  "artist": "Playboi Carti",
+  "producer": "Unknown",
+  "plugin": "FabFilter Twin 2",
+  "preset": "Rounded One -O",
+  "role": "Pluck",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Did It Again' by Playboi Carti was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=O0F7Z6OgXd8"
+  },
+  "path": "Keys, Other",
+  "quote": "Pluck - FabFilter Twin2: Keys, Other - Rounded One -O",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Did It Again",
+  "artist": "Playboi Carti",
+  "producer": "Unknown",
+  "plugin": "FabFilter Twin 2",
+  "preset": "OxgynLike FN",
+  "role": "Brass",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Did It Again' by Playboi Carti was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=O0F7Z6OgXd8"
+  },
+  "path": "Lead, Soft",
+  "quote": "Brass - FabFilter Twin2: Lead, Soft - OxgynLike FN (also found in Best Of section)",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Right Now",
+  "artist": "Playboi Carti feat. Pi'erre Bourne",
+  "producer": "Unknown",
+  "plugin": "Arturia ARP 2600 V",
+  "preset": "Pad Sound",
+  "role": "Not stated (one of three presets listed)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Playboi Carti - Right Now Presets | Preset Finds",
+   "url": "https://www.youtube.com/watch?v=CrvKWJ4v7Bk"
+  },
+  "quote": "VST: ARP 2600 V by Arturia Presets: Pad Sound, Square Pad and Turbulence",
+  "quoteBy": "omar16riyaz"
+ },
+ {
+  "song": "Right Now",
+  "artist": "Playboi Carti feat. Pi'erre Bourne",
+  "producer": "Unknown",
+  "plugin": "Arturia ARP 2600 V",
+  "preset": "Square Pad",
+  "role": "Not stated (one of three presets listed)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Playboi Carti - Right Now Presets | Preset Finds",
+   "url": "https://www.youtube.com/watch?v=CrvKWJ4v7Bk"
+  },
+  "quote": "VST: ARP 2600 V by Arturia Presets: Pad Sound, Square Pad and Turbulence",
+  "quoteBy": "omar16riyaz"
+ },
+ {
+  "song": "Right Now",
+  "artist": "Playboi Carti feat. Pi'erre Bourne",
+  "producer": "Unknown",
+  "plugin": "Arturia ARP 2600 V",
+  "preset": "Turbulence",
+  "role": "Not stated (one of three presets listed)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Playboi Carti - Right Now Presets | Preset Finds",
+   "url": "https://www.youtube.com/watch?v=CrvKWJ4v7Bk"
+  },
+  "quote": "VST: ARP 2600 V by Arturia Presets: Pad Sound, Square Pad and Turbulence",
+  "quoteBy": "omar16riyaz"
+ },
+ {
+  "song": "Rockstar Made",
+  "artist": "Playboi Carti",
+  "producer": "Unknown",
+  "plugin": "Synapse Audio DUNE",
+  "preset": "Eddies Car Denim ARK",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Playboi Carti - Rockstar Made Presets | Preset Finds",
+   "url": "https://www.youtube.com/watch?v=Fx4ZoZAQz4o"
+  },
+  "quote": "VST: Dune by Synapse Audio Presets: Eddies Car Denim ARK",
+  "quoteBy": "omar16riyaz"
+ },
+ {
+  "song": "Meh",
+  "artist": "Playboi Carti",
+  "producer": "Unknown",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Intimate Glass Celeste",
+  "role": "Not stated (one of two presets listed)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Playboi Carti - Meh Presets | Preset Finds",
+   "url": "https://www.youtube.com/watch?v=zLKrlpr78u8"
+  },
+  "quote": "VST: Omnisphere by Spectrasonics Presets: Intimate Glass Celeste and Gritt Lead",
+  "quoteBy": "omar16riyaz"
+ },
+ {
+  "song": "Meh",
+  "artist": "Playboi Carti",
+  "producer": "Unknown",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Gritt Lead",
+  "role": "Lead (per preset name; not stated)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Playboi Carti - Meh Presets | Preset Finds",
+   "url": "https://www.youtube.com/watch?v=zLKrlpr78u8"
+  },
+  "quote": "VST: Omnisphere by Spectrasonics Presets: Intimate Glass Celeste and Gritt Lead",
+  "quoteBy": "omar16riyaz"
+ },
+ {
+  "song": "IG",
+  "artist": "Pi'erre Bourne",
+  "producer": "Unknown",
+  "plugin": "Arturia ARP 2600 V",
+  "preset": "KLA Vi ZER",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Pierre Bourne - IG Presets | Preset Finds",
+   "url": "https://www.youtube.com/watch?v=1t7e4Dmg1A0"
+  },
+  "quote": "VST: ARP 2600 V by Arturia Presets: KLA Vi ZER",
+  "quoteBy": "omar16riyaz"
+ },
+ {
+  "song": "Turban",
+  "artist": "Yeat",
+  "producer": "Unknown",
+  "plugin": "Xfer Serum",
+  "preset": "LD Brutality [FN]",
+  "role": "Lead (heavily tweaked)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Turban' by Yeat was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=uXxjsdj00vo"
+  },
+  "path": "Leads",
+  "quote": "Serum - Leads: LD Brutality [FN] (a lot of things tweaked and effects applies from mixer)",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "XO Tour Llif3",
+  "artist": "Lil Uzi Vert",
+  "producer": "Unknown",
+  "plugin": "reFX Nexus",
+  "preset": "Origin 1",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Lil Uzi Vert - XO TOUR Llif3 Presets | Preset Finds",
+   "url": "https://www.youtube.com/watch?v=lU6ocGSZj9Y"
+  },
+  "quote": "VST: Nexus by reFX Presets: Origin 1",
+  "quoteBy": "omar16riyaz"
+ },
+ {
+  "song": "Have Mercy",
+  "artist": "Ace Hood",
+  "producer": "Cardiak",
+  "plugin": "Native Instruments Massive",
+  "preset": null,
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Ace Hood x Cardiak - Have Mercy | Massive Preset | [I Found those VST Presets #9]",
+   "url": "https://www.youtube.com/watch?v=RrL7uaUV2sI"
+  },
+  "quote": "A VST preset used by Cardiak in the song 'Have Mercy'' by Ace Hood off the album 'Trials and Tribulations'",
+  "quoteBy": "JC Biffro"
+ },
+ {
+  "song": "Higher",
+  "artist": "G.O.O.D. Music",
+  "producer": "Hit-Boy",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": null,
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: G.O.O.D Music - Higher | Omnisphere Preset | [I Found those VST Presets #17]",
+   "url": "https://www.youtube.com/watch?v=jCFxB4kCKeQ"
+  },
+  "quote": "A preset used by Hit-Boy in the song by G.O.O.D. Music called \"Higher\", off the album \"Cruel Summer\"",
+  "quoteBy": "JC Biffro"
+ },
+ {
+  "song": "Truth",
+  "artist": "Gucci Mane",
+  "producer": "Unknown",
+  "plugin": "Rob Papen Predator",
+  "preset": null,
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Gucci Mane - Truth | Predator Preset | [I Found those VST Presets #26]",
+   "url": "https://www.youtube.com/watch?v=DRjOiRjTK00"
+  },
+  "quote": "Gucci Mane - Truth | Predator Preset | [I Found those VST Presets #26]",
+  "quoteBy": "JC Biffro"
+ },
+ {
+  "song": "Playing Our Part",
+  "artist": "Joe Budden",
+  "producer": "Unknown",
+  "plugin": "reFX Nexus",
+  "preset": null,
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Joe Budden - Playing our Part | Nexus Preset | [I Found those VST Presets #29]",
+   "url": "https://www.youtube.com/watch?v=iwmfJGIigmg"
+  },
+  "quote": "Joe Budden - Playing our Part | Nexus Preset | [I Found those VST Presets #29]",
+  "quoteBy": "JC Biffro"
+ },
+ {
+  "song": "Superpower",
+  "artist": "Beyoncé feat. Frank Ocean",
+  "producer": "Unknown",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": null,
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Beyonce x Pharrell - Superpower | Omnisphere Preset | [I Found those VST Presets #18]",
+   "url": "https://www.youtube.com/watch?v=JeW9VloNJ_0"
+  },
+  "quote": "Beyonce x Pharrell - Superpower | Omnisphere Preset | [I Found those VST Presets #18]",
+  "quoteBy": "JC Biffro"
+ },
+ {
+  "song": "Black Mane",
+  "artist": "A$AP Mob",
+  "producer": "Unknown",
+  "plugin": "Image-Line Sytrus",
+  "preset": null,
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: A$AP Mob - Black Mane | Sytrus Preset | [I Found those VST Presets #4]",
+   "url": "https://www.youtube.com/watch?v=v5zqcMqCvdw"
+  },
+  "quote": "A$AP Mob - Black Mane | Sytrus Preset | [I Found those VST Presets #4]",
+  "quoteBy": "JC Biffro"
+ },
+ {
+  "song": "Basement Freestyle",
+  "artist": "Travis Scott",
+  "producer": "Unknown",
+  "plugin": "Native Instruments Massive",
+  "preset": null,
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Travis Scott - Basement Freestyle | Massive Preset | [I Found those VST Presets #25]",
+   "url": "https://www.youtube.com/watch?v=-egXXPNXisM"
+  },
+  "quote": "Travis Scott -  Basement Freestyle | Massive Preset | [I Found those VST Presets #25]",
+  "quoteBy": "JC Biffro"
+ },
+ {
+  "song": "Posted",
+  "artist": "Pac Div",
+  "producer": "Unknown",
+  "plugin": "EastWest (library)",
+  "preset": null,
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Pac Div - Posted | East West Preset | [I Found those VST Presets #14]",
+   "url": "https://www.youtube.com/watch?v=WaxQ1pSJnwQ"
+  },
+  "quote": "Pac Div - Posted | East West Preset | [I Found those VST Presets #14]",
+  "quoteBy": "JC Biffro"
+ },
+ {
+  "song": "What They Want",
+  "artist": "Russ",
+  "producer": "Russ",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": null,
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube Short: RUSS USED THIS OMNISPHERE PRESET ON WHAT THEY WANT",
+   "url": "https://www.youtube.com/watch?v=QfxR6bUzgrY"
+  },
+  "quote": "Did you know that rapper-producer #russ used this Omnisphere preset on his sleeper hit #whattheywant",
+  "quoteBy": "Beats by Nova"
+ },
+ {
+  "song": "God's Plan",
+  "artist": "Drake",
+  "producer": "Unknown",
+  "plugin": "Tone2 ElectraX",
+  "preset": null,
+  "role": "Not stated (remake chapter)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: ElectraX Presets Used In Famous Songs (Gods Plan, Codeine Crazy...)",
+   "url": "https://www.youtube.com/watch?v=YZIl83ZozPA"
+  },
+  "quote": "ElectraX Presets Used In Famous Songs (Gods Plan, Codeine Crazy...) — chapter: \"0:18 Gods Plan\"",
+  "quoteBy": "FinnaFinesse"
+ },
+ {
+  "song": "Codeine Crazy",
+  "artist": "Future",
+  "producer": "Unknown",
+  "plugin": "Tone2 ElectraX",
+  "preset": null,
+  "role": "Not stated (remake chapter)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: ElectraX Presets Used In Famous Songs (Gods Plan, Codeine Crazy...)",
+   "url": "https://www.youtube.com/watch?v=YZIl83ZozPA"
+  },
+  "quote": "ElectraX Presets Used In Famous Songs (Gods Plan, Codeine Crazy...) — chapter: \"1:47 Codeine Crazy\"",
+  "quoteBy": "FinnaFinesse"
+ },
+ {
+  "song": "Beibs in the Trap",
+  "artist": "Travis Scott feat. NAV",
+  "producer": "Unknown",
+  "plugin": "Tone2 ElectraX",
+  "preset": null,
+  "role": "Not stated (remake chapter)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: ElectraX Presets Used In Famous Songs (Gods Plan, Codeine Crazy...)",
+   "url": "https://www.youtube.com/watch?v=YZIl83ZozPA"
+  },
+  "quote": "ElectraX Presets Used In Famous Songs (Gods Plan, Codeine Crazy...) — chapter: \"2:44 Beibs In The Trap\"",
+  "quoteBy": "FinnaFinesse"
+ },
+ {
+  "song": "Never Recover",
+  "artist": "Lil Baby & Gunna feat. Drake",
+  "producer": "Unknown",
+  "plugin": "Tone2 ElectraX",
+  "preset": null,
+  "role": "Not stated (remake chapter)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: ElectraX Presets Used In Famous Songs (Gods Plan, Codeine Crazy...)",
+   "url": "https://www.youtube.com/watch?v=YZIl83ZozPA"
+  },
+  "quote": "ElectraX Presets Used In Famous Songs (Gods Plan, Codeine Crazy...) — chapter: \"3:21 Never Recover\"",
+  "quoteBy": "FinnaFinesse"
+ },
+ {
+  "song": "Trap Paris",
+  "artist": "Machine Gun Kelly feat. Quavo & Ty Dolla $ign",
+  "producer": "Unknown",
+  "plugin": "Tone2 ElectraX",
+  "preset": null,
+  "role": "Not stated (remake chapter)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: ElectraX Presets Used In Famous Songs (Gods Plan, Codeine Crazy...)",
+   "url": "https://www.youtube.com/watch?v=YZIl83ZozPA"
+  },
+  "quote": "ElectraX Presets Used In Famous Songs (Gods Plan, Codeine Crazy...) — chapter: \"3:43 Trap Paris\"",
+  "quoteBy": "FinnaFinesse"
+ },
+ {
+  "song": "Pink Toes",
+  "artist": "Childish Gambino feat. Jaden Smith",
+  "producer": "Unknown",
+  "plugin": "Tone2 ElectraX",
+  "preset": null,
+  "role": "Not stated (remake chapter)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: ElectraX Presets Used In Famous Songs (Gods Plan, Codeine Crazy...)",
+   "url": "https://www.youtube.com/watch?v=YZIl83ZozPA"
+  },
+  "quote": "ElectraX Presets Used In Famous Songs (Gods Plan, Codeine Crazy...) — chapter: \"4:09 Pink Toes\"",
+  "quoteBy": "FinnaFinesse"
+ },
+ {
+  "song": "Shoota",
+  "artist": "Playboi Carti feat. Lil Uzi Vert",
+  "producer": "Unknown",
+  "plugin": "Tone2 ElectraX",
+  "preset": null,
+  "role": "Not stated (remake chapter)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: ElectraX Presets Used In Famous Songs (Gods Plan, Codeine Crazy...)",
+   "url": "https://www.youtube.com/watch?v=YZIl83ZozPA"
+  },
+  "quote": "ElectraX Presets Used In Famous Songs (Gods Plan, Codeine Crazy...) — chapter: \"5:13 Shoota\"",
+  "quoteBy": "FinnaFinesse"
+ },
+ {
+  "song": "Money Spread",
+  "artist": "Lil Uzi Vert",
+  "producer": "Unknown",
+  "plugin": "Synapse Audio DUNE 3",
+  "preset": "Sweet Arp RL",
+  "role": "Arp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Money Spread' by Lil Uzi Vert was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=ddSTzk4Zm5k"
+  },
+  "path": "105",
+  "quote": "ARP - Dune 3: 105: Sweet Arp RL",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Money Spread",
+  "artist": "Lil Uzi Vert",
+  "producer": "Unknown",
+  "plugin": "Image-Line Purity",
+  "preset": "Lovely Japanese Girl",
+  "role": "Pluck",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Money Spread' by Lil Uzi Vert was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=ddSTzk4Zm5k"
+  },
+  "path": "Fast Synth",
+  "quote": "PLUCK - Purity: Fast Synth, Lovely Japanese Girl",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Money Spread",
+  "artist": "Lil Uzi Vert",
+  "producer": "Unknown",
+  "plugin": "Image-Line Purity",
+  "preset": "Sine Lead",
+  "role": "Sine",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Money Spread' by Lil Uzi Vert was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=ddSTzk4Zm5k"
+  },
+  "path": "Lead Synth",
+  "quote": "SINE - Purity: Lead Synth, Sine Lead",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Money Spread",
+  "artist": "Lil Uzi Vert",
+  "producer": "Unknown",
+  "plugin": "Image-Line Purity",
+  "preset": "Celesta",
+  "role": "Bell",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Money Spread' by Lil Uzi Vert was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=ddSTzk4Zm5k"
+  },
+  "path": "Bell & Perc",
+  "quote": "BELL - Purity: Bell & Perc, Celesta",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "No Lie (The Watch)",
+  "artist": "Playboi Carti",
+  "producer": "Unknown",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Fat Air JD Pad",
+  "role": "Strings & Low Strings",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'No Lie (The Watch)' by Playboi Carti was made (w/ Presets)",
+   "url": "https://www.youtube.com/watch?v=d92nPKwKFsY"
+  },
+  "quote": "Strings & Low Strings : Omnisphere - Fat Air JD Pad",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "No Lie (The Watch)",
+  "artist": "Playboi Carti",
+  "producer": "Unknown",
+  "plugin": "Tone2 ElectraX",
+  "preset": "ChordChip",
+  "role": "Brass (synth 1 disabled)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'No Lie (The Watch)' by Playboi Carti was made (w/ Presets)",
+   "url": "https://www.youtube.com/watch?v=d92nPKwKFsY"
+  },
+  "path": "ArpMultilayer",
+  "quote": "Brass : ElectraX - ArpMultilayer, ChordChip (disable synt1)",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "R.I.P.",
+  "artist": "Playboi Carti",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Image-Line Purity",
+  "preset": "Digi Tine",
+  "role": "EP (electric piano)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'R.I.P.' by Playboi Carti was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=s9-wrhAFKIA"
+  },
+  "path": "Piano",
+  "quote": "Purity: Piano - Digi Tine",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Drunk and Nasty",
+  "artist": "Pi'erre Bourne",
+  "producer": "Unknown",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Backwards Masking",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Drunk And Nasty' by Pi'erre Bourne was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=_GkBXFDz2_0"
+  },
+  "quote": "Omnisphere : Backwards Masking",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Drunk and Nasty",
+  "artist": "Pi'erre Bourne",
+  "producer": "Unknown",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Bowed Balaphones",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Drunk And Nasty' by Pi'erre Bourne was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=_GkBXFDz2_0"
+  },
+  "quote": "Omnisphere : Bowed Balaphones",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Drunk and Nasty",
+  "artist": "Pi'erre Bourne",
+  "producer": "Unknown",
+  "plugin": "Image-Line Purity",
+  "preset": "Trace sqr",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Drunk And Nasty' by Pi'erre Bourne was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=_GkBXFDz2_0"
+  },
+  "path": "Lead synth",
+  "quote": "Purity : Lead synth - Trace sqr",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Leg Room",
+  "artist": "Playboi Carti",
+  "producer": "Unknown",
+  "plugin": "FabFilter Twin 2",
+  "preset": "ModSweep SM",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Leg Room' by Playboi Carti was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=hCxQQNH1EGA"
+  },
+  "path": "Pad, Slow",
+  "quote": "Pad - FabFilter Twin2: Pad, Slow - ModSweep SM",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Leg Room",
+  "artist": "Playboi Carti",
+  "producer": "Unknown",
+  "plugin": "FabFilter Twin 2",
+  "preset": "Only with FabFilter! BM",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Leg Room' by Playboi Carti was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=hCxQQNH1EGA"
+  },
+  "path": "Lead, Soft",
+  "quote": "Lead - FabFilter Twin2: Lead, Soft - Only with FabFilter! BM",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Yah Mean",
+  "artist": "Playboi Carti",
+  "producer": "Unknown",
+  "plugin": "Native Instruments FM8",
+  "preset": "Wheelrocker",
+  "role": "Organ",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Yah Mean' by Playboi Carti was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=ssgldjH4jP8"
+  },
+  "path": "Organ, Other Organ",
+  "quote": "FM8: Organ, Other Organ - Wheelrocker",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Yah Mean",
+  "artist": "Playboi Carti",
+  "producer": "Unknown",
+  "plugin": "Native Instruments FM8",
+  "preset": "Floating Intro",
+  "role": "Melodic sequence",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Yah Mean' by Playboi Carti was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=ssgldjH4jP8"
+  },
+  "path": "Synth Misc, Melodic Sequences",
+  "quote": "FM8: Synth Misc, Melodic Sequences - Floating Intro",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Domo23",
+  "artist": "Tyler, the Creator",
+  "producer": "Unknown",
+  "plugin": "Apple Logic Pro Ultrabeat",
+  "preset": "Asian Kit",
+  "role": "Not stated (Drums by preset type)",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: Let's play Name That Preset! (page 13)",
+   "url": "https://www.futureproducers.com/forums/threads/lets-play-name-that-preset.308269/page-13"
+  },
+  "quote": "Domo23 - Tyler the Creator (Ultrabeat - Asian Kit, EXS24 - Vocal Shouts, EXS24 - Full Brass Staccato, ES2 - Sync Start)",
+  "quoteBy": "Future Producers forum member (username not shown)"
+ },
+ {
+  "song": "Domo23",
+  "artist": "Tyler, the Creator",
+  "producer": "Unknown",
+  "plugin": "Apple Logic Pro EXS24",
+  "preset": "Vocal Shouts",
+  "role": "Not stated (Vocal shouts by preset type)",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: Let's play Name That Preset! (page 13)",
+   "url": "https://www.futureproducers.com/forums/threads/lets-play-name-that-preset.308269/page-13"
+  },
+  "quote": "Domo23 - Tyler the Creator (Ultrabeat - Asian Kit, EXS24 - Vocal Shouts, EXS24 - Full Brass Staccato, ES2 - Sync Start)",
+  "quoteBy": "Future Producers forum member (username not shown)"
+ },
+ {
+  "song": "Domo23",
+  "artist": "Tyler, the Creator",
+  "producer": "Unknown",
+  "plugin": "Apple Logic Pro EXS24",
+  "preset": "Full Brass Staccato",
+  "role": "Not stated (Brass by preset type)",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: Let's play Name That Preset! (page 13)",
+   "url": "https://www.futureproducers.com/forums/threads/lets-play-name-that-preset.308269/page-13"
+  },
+  "quote": "Domo23 - Tyler the Creator (Ultrabeat - Asian Kit, EXS24 - Vocal Shouts, EXS24 - Full Brass Staccato, ES2 - Sync Start)",
+  "quoteBy": "Future Producers forum member (username not shown)"
+ },
+ {
+  "song": "Domo23",
+  "artist": "Tyler, the Creator",
+  "producer": "Unknown",
+  "plugin": "Apple Logic Pro ES2",
+  "preset": "Sync Start",
+  "role": "Not stated (Synth by preset type)",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: Let's play Name That Preset! (page 13)",
+   "url": "https://www.futureproducers.com/forums/threads/lets-play-name-that-preset.308269/page-13"
+  },
+  "quote": "Domo23 - Tyler the Creator (Ultrabeat - Asian Kit, EXS24 - Vocal Shouts, EXS24 - Full Brass Staccato, ES2 - Sync Start)",
+  "quoteBy": "Future Producers forum member (username not shown)"
+ },
+ {
+  "song": "My Wrist",
+  "artist": "Yeat feat. Young Thug",
+  "producer": "Unknown",
+  "plugin": "GForce Oddity",
+  "preset": "Academic Lead",
+  "role": "Lead (per preset name; not stated)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Yeat & Young Thug - My Wrist Presets | Preset Finds",
+   "url": "https://www.youtube.com/watch?v=oWEypGIyqNQ"
+  },
+  "quote": "VST: Oddity by GForce Presets: Academic Lead",
+  "quoteBy": "omar16riyaz"
+ },
+ {
+  "song": "Pull Up",
+  "artist": "Playboi Carti",
+  "producer": "Unknown",
+  "plugin": "FabFilter Twin 2",
+  "preset": "Steiner DJM",
+  "role": "All pads",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Pull Up' by Playboi Carti was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=RqeDfV4vFyQ"
+  },
+  "path": "Pads, Other",
+  "quote": "All pads : FabFilter Twin2 - Pads, Other, Steiner DJM",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Woah",
+  "artist": "Playboi Carti",
+  "producer": "Unknown",
+  "plugin": "Siegfried Kullmann SQ8L",
+  "preset": "A012 Spacelab",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: (FLP) How 'Woah' by Playboi Carti was made in 4 minutes (w/ Presets)",
+   "url": "https://www.youtube.com/watch?v=aGfaJ_le0Ak"
+  },
+  "quote": "Lead - SQ8L - A012 Spacelab",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Rockstar",
+  "artist": "DaBaby feat. Roddy Ricch",
+  "producer": "Unknown",
+  "plugin": "Spectrasonics Omnisphere 2",
+  "preset": null,
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube Short: Secret Behind the Beat: DaBaby Rockstar Synthsizer Preset.",
+   "url": "https://www.youtube.com/watch?v=Q-vIk48FE6g"
+  },
+  "quote": "in this case it was Omnisphere 2 VST by Spectrasonics",
+  "quoteBy": "YECKXO"
+ },
+ {
+  "song": "Retroville",
+  "artist": "Pi'erre Bourne",
+  "producer": "Unknown",
+  "plugin": "u-he ACE",
+  "preset": "HS High Five",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How Retroville by Pi'erre Bourne was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=1_Jv5OfWAI8"
+  },
+  "quote": "Pad: ACE - HS High Five",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Retroville",
+  "artist": "Pi'erre Bourne",
+  "producer": "Unknown",
+  "plugin": "u-he ACE",
+  "preset": "HS Cepheids",
+  "role": "Bell",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How Retroville by Pi'erre Bourne was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=1_Jv5OfWAI8"
+  },
+  "quote": "Bell: ACE - HS Cepheids",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "farm life",
+  "artist": "OsamaSon",
+  "producer": "Unknown",
+  "plugin": "Image-Line Purity",
+  "preset": "Legato Strings 1",
+  "role": "Strings",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'farm life' by Osamason was made (w/ Presets)",
+   "url": "https://www.youtube.com/watch?v=7-uKTJBRPAs"
+  },
+  "path": "Strings",
+  "quote": "Strings - Purity: Strings - Legato Strings 1",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "farm life",
+  "artist": "OsamaSon",
+  "producer": "Unknown",
+  "plugin": "Image-Line Purity",
+  "preset": "AC.Nylon Guitar",
+  "role": "Guitar & Plucked",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'farm life' by Osamason was made (w/ Presets)",
+   "url": "https://www.youtube.com/watch?v=7-uKTJBRPAs"
+  },
+  "path": "Strings",
+  "quote": "Guitar & Plucked - Purity: Strings - AC.Nylon Guitar",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "farm life",
+  "artist": "OsamaSon",
+  "producer": "Unknown",
+  "plugin": "Image-Line Purity",
+  "preset": "Clean Flg",
+  "role": "Guitar & Plucked",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'farm life' by Osamason was made (w/ Presets)",
+   "url": "https://www.youtube.com/watch?v=7-uKTJBRPAs"
+  },
+  "path": "Strings",
+  "quote": "Guitar & Plucked - Purity: Strings - Clean Flg",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "farm life",
+  "artist": "OsamaSon",
+  "producer": "Unknown",
+  "plugin": "Image-Line Purity",
+  "preset": "Acoustic Piano",
+  "role": "Piano",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'farm life' by Osamason was made (w/ Presets)",
+   "url": "https://www.youtube.com/watch?v=7-uKTJBRPAs"
+  },
+  "path": "Piano",
+  "quote": "Piano - Purity: Piano - Acoustic Piano",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "farm life",
+  "artist": "OsamaSon",
+  "producer": "Unknown",
+  "plugin": "Image-Line Purity",
+  "preset": "Cheep Lead",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'farm life' by Osamason was made (w/ Presets)",
+   "url": "https://www.youtube.com/watch?v=7-uKTJBRPAs"
+  },
+  "path": "Lead Synth",
+  "quote": "Lead - Purity: Lead Synth - Cheep Lead",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Pop",
+  "artist": "OsamaSon",
+  "producer": "Unknown",
+  "plugin": "Tone2 ElectraX",
+  "preset": "Bass Aieie",
+  "role": "'Yeayeayea' synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Pop' by Osamason was made (w/ Presets)",
+   "url": "https://www.youtube.com/watch?v=cs8RiiWAXL4"
+  },
+  "path": "New Sounds v2.5",
+  "quote": "Yeayeayea - ElectraX: New Sounds v2.5 - Bass Aieie",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "IG",
+  "artist": "Pi'erre Bourne",
+  "producer": "Unknown",
+  "plugin": "Rob Papen Albino 3",
+  "preset": "Grazzza's Carpet",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'IG' by Pi'erre Bourne was made (w/ Presets)",
+   "url": "https://www.youtube.com/watch?v=ZWbJKsRfNN4"
+  },
+  "path": "DemoSounds2",
+  "quote": "Pad - Albino3: DemoSounds2 - Grazzza's Carpet",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "IG",
+  "artist": "Pi'erre Bourne",
+  "producer": "Unknown",
+  "plugin": "Siegfried Kullmann SQ8L",
+  "preset": "A007 WAH EP 2",
+  "role": "Keys",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'IG' by Pi'erre Bourne was made (w/ Presets)",
+   "url": "https://www.youtube.com/watch?v=ZWbJKsRfNN4"
+  },
+  "quote": "Key - SQ8L: A007 WAH EP 2",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Place",
+  "artist": "Playboi Carti",
+  "producer": "Unknown",
+  "plugin": "FabFilter Twin 2",
+  "preset": "5th Synths O",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Place' by Playboi Carti was made (w/ Presets)",
+   "url": "https://www.youtube.com/watch?v=Aq0l6SH88qE"
+  },
+  "path": "Lead, Dance A-M",
+  "quote": "Pad - FabFilter Twin2: Lead, Dance A-M - 5th Synths O",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Place",
+  "artist": "Playboi Carti",
+  "producer": "Unknown",
+  "plugin": "FabFilter Twin 2",
+  "preset": "Ubiquitous O",
+  "role": "Pluck",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Place' by Playboi Carti was made (w/ Presets)",
+   "url": "https://www.youtube.com/watch?v=Aq0l6SH88qE"
+  },
+  "path": "Lead, Soft",
+  "quote": "Pluck - FabFilter Twin2: Lead, Soft - Ubiquitous O",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Place",
+  "artist": "Playboi Carti",
+  "producer": "Unknown",
+  "plugin": "FabFilter Twin 2",
+  "preset": "Classic Flute DJM",
+  "role": "Flute",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Place' by Playboi Carti was made (w/ Presets)",
+   "url": "https://www.youtube.com/watch?v=Aq0l6SH88qE"
+  },
+  "path": "Orchestra, Wood",
+  "quote": "Flute - FabFilter Twin2: Orchestra, Wood - Classic Flute DJM",
+  "quoteBy": "eza333"
  }
 ]

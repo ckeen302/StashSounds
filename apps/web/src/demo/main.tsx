@@ -34,6 +34,7 @@ import { PresetsPage } from "./presets/page";
 import { SoundDesign } from "./sound-design";
 import { BrowsePage, LibraryPage, NewCrateHost, ProfilePage, useCrateEntries, type RenderLoops } from "./explore";
 import { FlipPanel } from "./flip";
+import { LoopsPage } from "./loops";
 import { KitPage, KitsPage, KitUploadPage } from "./kits/pages";
 import type { MidiKind } from "@stash/contracts";
 import { FilterChip, SearchInput, UiLink } from "@stash/ui";
@@ -237,8 +238,8 @@ function BrowseRoute() {
 }
 
 function LoopsRoute() {
-  const [rows] = useRows();
-  return <BrowsePage catalog={catalog} rows={rows} renderLoops={renderLoops} only="loop" />;
+  const [rows, refresh] = useRows();
+  return <LoopsPage catalog={catalog} rows={rows} onChange={refresh} />;
 }
 
 function ProfileRoute({ handle }: { handle: string }) {

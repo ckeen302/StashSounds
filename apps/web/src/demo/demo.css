@@ -123,3 +123,8 @@ nav[aria-label="Tabs"] {
 header > a[aria-label="Stash"] {
   display: flex !important;
 }
+
+/* Loops tab: the row waveform spans the row, like a loop library's player strip. */
+[data-loop-wave] .w-50 {
+  width: 100%;
+}

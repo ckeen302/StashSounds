@@ -146,14 +146,14 @@ export function PresetsPage() {
 }
 
 /** A filter as one compact button that opens its options. */
-function Dropdown({ name, value, options, selected, onPick }: { name: string; value: string; options: [string, string][]; selected: string; onPick: (v: string) => void }) {
+export function Dropdown({ name, value, options, selected, onPick, active = value !== "Any" }: { name: string; value: string; options: [string, string][]; selected: string; onPick: (v: string) => void; active?: boolean }) {
   const entries: MenuEntry[] = options.map(([v, label]) => ({ label, icon: v === selected ? Check : undefined, onSelect: () => onPick(v) }));
   return (
     <Menu
       align="start"
       entries={entries}
       trigger={
-        <Button size="sm" variant={value === "Any" ? "secondary" : "primary"} icon={ChevronDown} aria-label={`${name}: ${value}`}>
+        <Button size="sm" variant={active ? "primary" : "secondary"} icon={ChevronDown} aria-label={`${name}: ${value}`}>
           {`${name}: ${value}`}
         </Button>
       }
