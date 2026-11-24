@@ -1,13 +1,13 @@
-import { getEngine, usePlayerState, type Playable } from "@stash/audio";
+import { getEngine, usePlayerState } from "@stash/audio";
 import type { ItemRow } from "@stash/contracts";
 import { formatKey } from "@stash/contracts/format";
 import { Button, Download, FilterChip, PlayButton, TextInput, useToast } from "@stash/ui";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { audioContext } from "./kits/store";
 import { Dropdown } from "./presets/page";
 import { saveFiles, wav } from "./save";
-import { renderAsHeard, reversedBuffer } from "./stretch-offline";
+import { renderAsHeard } from "./stretch-offline";
 
 /**
  * Fit it to your track: hear the loop at your project's tempo and key, half-time or double-time,
@@ -33,7 +33,8 @@ export function LoopTools({ row }: { row: ItemRow }) {
   const tempoRatio = usePlayerState((s) => s.tempoRatio);
   const transpose = usePlayerState((s) => s.transpose);
   const [buf, setBuf] = useState<AudioBuffer | null>(null);
-  const [revUrl, setRevUrl] = useState<string | null>(null);
+  const rev = useRef<{ src: AudioBufferSourceNode; gain: GainNode; ctx: AudioContext } | null>(null);
+  const [revPlaying, setRevPlaying] = useState(false);
   const [reverse, setReverse] = useState(false);
   const [bpmText, setBpmText] = useState("");
   const [key, setKey] = useState("");
@@ -71,9 +72,9 @@ export function LoopTools({ row }: { row: ItemRow }) {
   const fwdId = p.id;
   const revId = `${p.id}~rev`;
   const ours = current === fwdId || current === revId;
-  const ratio = ours ? tempoRatio : want.ratio;
-  const semis = ours ? transpose : want.semis;
-  const playing = ours && status === "playing";
+  const ratio = ours && !reverse ? tempoRatio : want.ratio;
+  const semis = ours && !reverse ? transpose : want.semis;
+  const playing = revPlaying || (ours && status === "playing");
 
   useEffect(() => {
     if (p.kind !== "loop") return;
@@ -87,44 +88,78 @@ export function LoopTools({ row }: { row: ItemRow }) {
       alive = false;
     };
   }, [p]);
-  useEffect(() => () => void (revUrl && URL.revokeObjectURL(revUrl)), [revUrl]);
+  // Reversed sound stops when the page's player starts anything, and on leaving the page.
+  useEffect(() => {
+    if (status === "playing" && rev.current) {
+      rev.current.src.stop();
+      rev.current = null;
+      setRevPlaying(false);
+    }
+  }, [status, current]);
+  useEffect(() => () => rev.current?.src.stop(), []);
 
   if (p.kind !== "loop" || !base) return null;
 
   const loopS = p.loopSamples / p.sampleRate;
 
-  const reversedPlayable = (): Playable | null => {
-    if (!buf) return null;
-    let url = revUrl;
-    if (!url) {
-      const cut = new AudioBuffer({ length: Math.min(buf.length, Math.round(loopS * buf.sampleRate)), numberOfChannels: buf.numberOfChannels, sampleRate: buf.sampleRate });
-      for (let c = 0; c < buf.numberOfChannels; c++) cut.copyToChannel(buf.getChannelData(c).slice(0, cut.length), c);
-      url = URL.createObjectURL(wav(reversedBuffer(cut)));
-      setRevUrl(url);
+  /**
+   * Reversed playback runs on its own looping buffer, not the page's player: the player loads
+   * previews by URL, and the published page refuses a made-up (blob:) one. Tempo and key are baked
+   * into the buffer, so a change while it plays renders it again.
+   */
+  const stopRev = () => {
+    const r = rev.current;
+    rev.current = null;
+    if (r) {
+      r.gain.gain.setTargetAtTime(0, r.ctx.currentTime, 0.01);
+      r.src.stop(r.ctx.currentTime + 0.05);
     }
-    return { ...p, id: revId, previewUrl: url, loopSamples: Math.round(loopS * buf.sampleRate), sampleRate: buf.sampleRate };
+    setRevPlaying(false);
+  };
+  const playRev = async (r = want.ratio, s = want.semis) => {
+    if (!buf) return;
+    engine.pause();
+    const ctx = audioContext();
+    if (ctx.state !== "running") await ctx.resume();
+    const out = renderAsHeard(buf, { tempoRatio: r, semitones: s, reverse: true, seconds: loopS });
+    const old = rev.current;
+    const src = ctx.createBufferSource();
+    src.buffer = out;
+    src.loop = true;
+    const gain = ctx.createGain();
+    gain.gain.value = engine.getState().volume;
+    src.connect(gain).connect(ctx.destination);
+    src.start();
+    if (old) {
+      old.gain.gain.setTargetAtTime(0, ctx.currentTime, 0.01);
+      old.src.stop(ctx.currentTime + 0.05);
+    }
+    rev.current = { src, gain, ctx };
+    setRevPlaying(true);
   };
 
-  /** Plays forward or reversed with the tempo and key carried over. */
-  const start = async (rev: boolean, r = ratio, s = semis) => {
-    const item = rev ? reversedPlayable() : p;
-    if (!item) return;
-    engine.setQueue?.([item], 0);
-    await engine.play(item);
+  /** Plays forward on the page's player, with the tempo and key carried over. */
+  const start = async (r = ratio, s = semis) => {
+    stopRev();
+    engine.setQueue?.([p], 0);
+    await engine.play(p);
     engine.setTempo(base * r);
     engine.setTranspose(s);
   };
 
   const setRatio = (r: number) => {
     const bpm = Math.max(40, Math.min(300, base * r));
-    setWant((w) => ({ ...w, ratio: bpm / base }));
-    if (ours) engine.setTempo(bpm);
-    else void start(reverse, bpm / base, semis);
+    const nr = bpm / base;
+    setWant((w) => ({ ...w, ratio: nr }));
+    if (reverse) void playRev(nr, semis);
+    else if (ours) engine.setTempo(bpm);
+    else void start(nr, semis);
   };
   const setSemis = (n: number) => {
     setWant((w) => ({ ...w, semis: n }));
-    if (ours) engine.setTranspose(n);
-    else void start(reverse, ratio, n);
+    if (reverse) void playRev(ratio, n);
+    else if (ours) engine.setTranspose(n);
+    else void start(ratio, n);
   };
 
   const liveBpm = Math.round(base * ratio);
@@ -153,7 +188,7 @@ export function LoopTools({ row }: { row: ItemRow }) {
     <section aria-labelledby="fit-title" className={slot ? "flex flex-col" : "mx-auto flex w-full max-w-content flex-col gap-4 px-3 pb-8 tablet:px-4 desktop:px-6"}>
       <div className="flex flex-col gap-4 rounded-panel border border-border bg-surface p-4 tablet:p-5">
         <div className="flex flex-wrap items-center gap-3">
-          <PlayButton title={`${row.title}, as set here`} state={playing ? "playing" : "paused"} onClick={() => (playing ? engine.pause() : void start(reverse))} />
+          <PlayButton title={`${row.title}, as set here`} state={playing ? "playing" : "paused"} onClick={() => (revPlaying ? stopRev() : playing ? engine.pause() : reverse ? void playRev() : void start())} />
           <div className="flex min-w-0 flex-1 flex-col">
             <h2 id="fit-title" className="text-title">Fit it to your track</h2>
             <span className="font-mono text-numeric tabular text-text-muted">
@@ -221,7 +256,9 @@ export function LoopTools({ row }: { row: ItemRow }) {
                 onToggle={() => {
                   const next = !reverse;
                   setReverse(next);
-                  if (ours && status === "playing") void start(next);
+                  // Hear it at once: reversed on, or back to the page's player going forwards.
+                  if (next) void playRev(ratio, semis);
+                  else if (revPlaying) void start(want.ratio, want.semis);
                 }}
               >
                 Reverse
