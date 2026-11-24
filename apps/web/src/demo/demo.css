@@ -113,3 +113,13 @@ html[data-look="sampler"] .text-title {
 }
 /* Hardware panels: a hard lower edge, like a pad on an old sampler. */
 html[data-look="sampler"] .rounded-panel.border { box-shadow: 0 3px 0 0 #c6bba5; }
+
+/* The demo navigates by its own tabs across the top: the app's side rail and phone tab bar are
+   hidden, and the logo in the top bar shows at every width. */
+nav[aria-label="Main"],
+nav[aria-label="Tabs"] {
+  display: none !important;
+}
+header > a[aria-label="Stash"] {
+  display: flex !important;
+}
