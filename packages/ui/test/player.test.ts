@@ -1,6 +1,7 @@
-import { describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 import { createElement as h, type ReactElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
+import { prerender } from "react-dom/static";
 import { encodePeaks, type ItemRow } from "@stash/contracts";
 import {
   Bell,
@@ -44,6 +45,17 @@ const row: ItemRow = {
 };
 
 const noop = () => {};
+
+// The loaded bar's details and the sheet load lazily (player-details.tsx), so the first paint of an
+// idle bar stays inside the script budget. prerender waits for them once; after that every render
+// below draws them synchronously, as the client does after the first play.
+beforeAll(async () => {
+  await prerender(
+    h(TooltipProvider, {
+      children: h(PlayerBar, { item: row, status: "playing", durationMs: 5333, getPositionMs: () => 0, onPlayPause: noop, volume: 0.8, onVolumeChange: noop }),
+    }),
+  );
+});
 const bar = (p: Partial<PlayerBarProps>) =>
   html(
     h(PlayerBar, {

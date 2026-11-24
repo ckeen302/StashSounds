@@ -354,3 +354,52 @@ $ STASH_E2E_PORT=3132 pnpm e2e --repeat-each=3 --grep shell   (flake check)
 
 ### Requests filed
 - docs/requests/132-visual-tablet-project.md
+
+## Follow-up: script budget before audio (PR #12 CI, `e2e/perf/budgets.spec.ts`)
+On `/` the compressed script before audio was 243,671 bytes against the 204,800 budget. It is now
+183,046 bytes, 21,754 (10.6 percent) under. Measured from the same production build with a
+Playwright listener that sums `responseBodySize` per script, as the budget test does. No new
+dependency.
+
+| Chunk | Before (gz bytes) | After | What it is |
+|---|---|---|---|
+| shared app chunk | 97,971 | 26,014 + 13,537 + 11,668 | shell, packages/ui, Radix, **and zod** |
+| 40_ia2zm8wgb- | 71,811 | 71,811 | react-dom |
+| 0oj7pbey5ashs | 47,513 | 47,513 | Next runtime |
+| 021jsf3768c1t / 0iuf9di4e3-34 / others | 26,376 | 12,503 | engine core (AudioContext, about 10 KB), turbopack runtime |
+| **total** | **243,671** | **183,046** | |
+
+**Cause.** `PlayerBar` imported `formatKey`, plus `decodePeaks` through `Waveform` and
+`describeRow`, from `@stash/contracts`. Those helpers sit in modules that build zod schemas at the
+top level, so all of zod (about 55 KB gz) shipped on every page. Marking contracts
+`"sideEffects": false` saved only 3.5 KB in a trial, because `common.ts` itself is used and its
+schemas run when it loads.
+
+**Fix, within the Interface paths:**
+- `packages/ui/src/components/player-details.tsx` now holds what a loaded bar draws (title and
+  handle, the desktop waveform with its times, the readouts) and the phone sheet.
+- `PlayerBar` and `PlayerSheet` load it with `React.lazy` the first time an item is set. An idle
+  bar renders exactly as before, and its markup and baselines are unchanged.
+- zod is now a 55 KB lazy chunk that arrives on the first play.
+- `packages/ui/package.json` declares `"sideEffects": ["**/*.css"]`, so unused components drop
+  out of the barrel.
+- The unit tests `prerender` the lazy part once in `beforeAll`.
+
+The audio engine core is about 10 KB gz, and no stretch or worklet code is in the initial
+scripts. Placeholder and /dev pages share nothing into `/`.
+
+**For the lead:** any page that draws a row or a waveform before the first sound, such as the item
+page (135) and home with trending (332), brings the 55 KB of zod back. A zod-free subpath in
+contracts would fix that for every page, for example `@stash/contracts/format` with `formatKey`,
+`decodePeaks` and `LICENSES`, the last reading its versions from limits.json directly. That change
+is lead-only. I tried it as a measurement and was stopped, correctly, from editing contracts.
+
+```
+$ pnpm check                       exit 0
+$ pnpm test                        Tests  286 passed (286)
+$ STASH_E2E_PORT=3132 pnpm e2e     51 passed (47.4s)
+$ STASH_E2E_PORT=3132 pnpm perf
+  ✓ [perf] › e2e/perf/audio-test-page.spec.ts › the audio test page plays a WAV fixture loop
+  ✓ [perf] › e2e/perf/budgets.spec.ts › / stays inside the page budgets
+  2 passed (11.6s)
+```
