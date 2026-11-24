@@ -427,24 +427,42 @@ export class WebAudioEngine implements Engine {
   }
 
   /**
-   * Loop switched back on with an end placed: the pass carries on into the next one with no gap. A
-   * plain voice cannot be unstopped, so a second one takes over from sample 0 exactly at the loop end.
-   * The stretch is still looping in the worklet: only its fade is taken back.
+   * Loop switched back on with an end placed: the pass carries on into the next one with no gap.
+   * Before the end, a plain voice cannot be unstopped, so a second one takes over from sample 0
+   * exactly at the loop end; the stretch is still looping in the worklet, so only its fade is taken
+   * back. During the final fade, the next pass ramps in from where the fade has got to. Once silent,
+   * endOfItem starts the item over.
    */
   private cancelEnd() {
     const end = this.endAt;
     const v = this.voice;
     const ctx = this.ctx;
     if (end === null || !v || !ctx) return;
-    if (end <= ctx.currentTime) return; // already fading: endOfItem starts it over, as loop is on now
+    const now = ctx.currentTime;
+    if (now >= end + STOP_AFTER_S) return;
     this.endAt = null;
     if (v.kind === "plain") {
-      v.gain.gain.cancelScheduledValues(end);
-      v.gain.gain.setValueAtTime(0, end);
-      this.voice = this.plainVoice(end, 0, false);
+      if (end > now) {
+        v.gain.gain.cancelScheduledValues(end);
+        v.gain.gain.setValueAtTime(0, end);
+        this.voice = this.plainVoice(end, 0, false);
+        return;
+      }
+      // The fading source plays on into the next pass under its fade; a new one takes over there.
+      const pos = this.positionAt(now);
+      this.voice = this.plainVoice(now, pos, true);
+      this.timeline = [{ at: now, pos, rate: 1 }];
       return;
     }
-    this.stretchGain!.gain.cancelScheduledValues(end);
+    const gain = this.stretchGain!.gain;
+    if (end > now) gain.cancelScheduledValues(end);
+    // A cancel would make the fade under way jump back to full level: a later target carries on from it.
+    else gain.setTargetAtTime(1, now, FADE_S);
+  }
+
+  /** True when loop is off and the pass ends within a lead: a change now could not be heard in it. */
+  private ending(): boolean {
+    return this.endAt !== null && this.endAt <= this.ctx!.currentTime + this.lead();
   }
 
   /** Starts the loop on the stretch once it is loaded; until then the position holds at `offset`. */
@@ -597,6 +615,8 @@ export class WebAudioEngine implements Engine {
     const v = this.voice;
     const ctx = this.ctx;
     if (!v || !ctx || this.state.current?.kind !== "loop") return;
+    // The pass is ending: let it end and pause at 0. State keeps the change for the next play.
+    if (this.ending()) return;
     if (v.kind === "plain") {
       if (this.needsStretch()) void this.handoff(v);
       return;
@@ -635,6 +655,7 @@ export class WebAudioEngine implements Engine {
       return;
     }
     if (!this.needsStretch()) return; // back to the original tempo and key meanwhile
+    if (this.ending()) return; // the pass ends before the stretch could take over: it ends as it is
     const ctx = this.ctx!;
     const now = ctx.currentTime;
     const T = now + this.lead();

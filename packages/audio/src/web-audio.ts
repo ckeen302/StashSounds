@@ -106,10 +106,24 @@ export const STRETCH_WORKLET_PATH = `/worklets/signalsmith-stretch-${STRETCH_VER
 export async function createBrowserStretch(ctx: AudioContextLike, moduleUrl: string = STRETCH_WORKLET_PATH): Promise<StretchNodeLike> {
   const { default: SignalsmithStretch } = await import("signalsmith-stretch");
   SignalsmithStretch.moduleUrl = moduleUrl;
-  // The library's defaults (one input, one stereo output). Its processor reads `inputs.length` while
-  // inactive, so a node with zero inputs throws in the worklet and goes silent.
-  return SignalsmithStretch(ctx as unknown as BaseAudioContext);
+  const context = ctx as unknown as BaseAudioContext;
+  const failed = failedLoads.get(ctx) ?? 0;
+  try {
+    // The library keeps a refused addModule on the context and refuses every later node with it. So
+    // after one failure, add the module once more under another URL; with it in, the library's own
+    // first attempt at the node succeeds and the cached refusal is never read.
+    if (failed === 1) await context.audioWorklet.addModule(`${moduleUrl}?r=1`);
+    // The library's defaults (one input, one stereo output). Its processor reads `inputs.length` while
+    // inactive, so a node with zero inputs throws in the worklet and goes silent.
+    return await SignalsmithStretch(context);
+  } catch (err) {
+    failedLoads.set(ctx, failed + 1);
+    throw err;
+  }
 }
+
+/** Failed stretch loads per context: the first gets one retry, later ones fail fast. */
+const failedLoads = new WeakMap<AudioContextLike, number>();
 
 /** The browser's context, created with the interactive latency hint. Throws where Web Audio is missing. */
 export function createBrowserContext(): AudioContextLike {
