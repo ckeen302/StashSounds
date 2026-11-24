@@ -153,6 +153,8 @@ for (const l of loops) {
 // Producers' own loops keep their committed previews beside their entries (scripts/add-creator-loop.py).
 const creator = JSON.parse(readFileSync(join(web, "src/demo/creator/loops.json"), "utf8"));
 for (const l of creator.loops) copyFileSync(join(web, "src/demo/creator/media", `${l.slug}.mp3`), join(out, l.preview.path));
+// The file the producer uploaded, as they uploaded it: that is what Download gives.
+for (const l of creator.loops) if (l.original) copyFileSync(join(web, "src/demo/creator/media", `${l.slug}.${l.original.path.split(".").pop()}`), join(out, l.original.path));
 // The upload page's sample files: the MIDI fixtures, good and broken.
 mkdirSync(join(out, "demo/midi"), { recursive: true });
 const midiFiles = [

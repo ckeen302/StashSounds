@@ -1,9 +1,11 @@
 import type { ItemRow } from "@stash/contracts";
 import { formatKey } from "@stash/contracts/format";
+import { ORIGINALS } from "./data";
 /**
  * Saving a file from the demo. On the published page the browser's own download is blocked, so the
- * file goes through the page's `downloads` capability, which takes zip but not mp3 or wav: audio is
- * wrapped in a zip there. Anywhere else (a local build) it is a plain browser download.
+ * file goes through the page's `downloads` capability, whose allowlist has zip but no audio type
+ * (no wav, mp3, aiff or flac): audio is wrapped in a zip there, untouched inside. Anywhere else (a
+ * local build, the real app) it is the plain file.
  */
 
 type Downloads = { save: (r: { filename: string; data: Blob }) => Promise<{ status: string }> };
@@ -158,8 +160,10 @@ export function wav(buf: AudioBuffer): Blob {
   return new Blob([view], { type: "audio/wav" });
 }
 
-/** A loop row's preview, saved as "<title> <bpm>bpm <key>.mp3". */
+/** A loop row's file: the producer's own upload when there is one, else the preview as "<title> <bpm>bpm <key>.mp3". */
 export async function saveLoopRow(row: ItemRow): Promise<{ outcome: SaveOutcome | "none"; name: string }> {
+  const own = ORIGINALS.get(row.id);
+  if (own) return { outcome: await saveFetched(own.url, own.name), name: own.name };
   const name = `${row.title}${row.bpm ? ` ${row.bpm}bpm` : ""}${row.key ? ` ${formatKey(row.key)}` : ""}.mp3`;
   if (!("previewUrl" in row.playable)) return { outcome: "none", name };
   return { outcome: await saveFetched(row.playable.previewUrl, name), name };

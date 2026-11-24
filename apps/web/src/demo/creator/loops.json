@@ -1,40 +1,45 @@
 {
-  "$comment": "Written by scripts/add-creator-loop.py. Producers' own loops.",
-  "loops": [
-    {
-      "slug": "monclair-154",
-      "bpm": 154,
-      "bars": 16,
-      "key": {
-        "root": 10,
-        "mode": "minor"
-      },
-      "loopSamples": 1099636,
-      "sampleRate": 44100,
-      "durationMs": 24935,
-      "preview": {
-        "path": "demo/media/monclair-154.mp3",
-        "bytes": 399195,
-        "sha256": "765a8aa61c3488116b673b4a4e0877d426863ba7aca21e86dcdef37ab35db13e",
-        "kbps": 128
-      },
-      "peaks": "YXpycW1rb25xbWdmaXZyiXqFnZB2dmt+dG51fnpvcm15dmd2d39udXt0d4yCdX9vb1WYk4ZzcoR3ZHJvdHN4dW1kZllZZWxfZ3drUiwxMC8xYGJsfoB0W25reHSPg1gwMjMxLn9+enZ6cm1ubnBzdnKsqqx5kIyTYWZeWWhtaGVZX3VwZl57gmuIg3uPmJaMfXJuanh4eXV2cGt0Z2lkamdnamxXYFpdXVxgd1tibWg7LS0tLWR8gW9wf2V8fnl6gWCAPjs6PDlpbGtxaWJfYWRiZF9eaHZngHJ3nId6gH6Denx/g3tyf4GAfoF/eIxfbnFuaF1tYWZaW4l8am58gnBzc3ZoYGOLdm5+Z2RwcXRvf2hnSjk4Nzo3dHl0b3F0aXdwXnV2b0Q8Ozs5RVxhXmdtdX9+gnp9fYB4p6KZoat1dW5na252am5obmxzaGlgZIqacmpugXliWmp2amJvZU5NTFxkZmNYUXdtkG5pZHNoa1tkWm9pcE8tLS0yL2lsbmx0aHlyZXmFjY9TKCYpKSaZop+vlXCBjIWDiGp8vbSkvoeglol1fnCEgpOcu3qWep1zgpmde5WIkYySg52biYeAf3BGUl1kZ2lqWVJcaWxyeYSObXF8e4NqmHVxQEA/Pz1ucm50ioN8b4yNiYuNYzc2Njc1jrKjjJZ4apKGhIV2ecOco4h+g3J9fGlXWWeJgYiHnoSGhJeTno55gIN0jId+h36CiKmBcWtuhX6BeYF5c3BobHJpbF9nYmlramRoUTk1NjY4fH13cX5/eH94cXdfeXk3MTEvL4Sln6nKjXygq6KQhm2J4KrMiIKHi3FwdWpki49/gIdve3WSg3R8d3GHenxyZ4KRj4qKaGp0eYp+bXZzg3Vmf6RtcnBhYWZdeG5rXW5ANzk2NzdyYnBzWl5bZVhUWVZVLygsJyc6np2flJ2GkKOWi3VpqNSfoYmXiVhdZVxeXZuHe4+Ten+NpIawqq6WhHdsf4ySl4GPhGWvY2dlZ3h4f4p/ZG2NdV54bntwbneCZmZpZzw7Ozk4W2htaHVtZWdedXt2gkUzNTY=",
-      "copy": {
-        "title": "Monclair",
-        "owner": {
-          "handle": "caden",
-          "displayName": "Caden"
-        },
-        "tags": [
-          "dark",
-          "trap",
-          "melody"
-        ],
-        "genre": "Trap",
-        "description": "A dark 16-bar melody at 154. From the founder's own folder.",
-        "license": "royalty_free",
-        "publishedAt": "2026-11-24T23:00:00Z"
-      }
-    }
-  ]
+ "$comment": "Written by scripts/add-creator-loop.py. Producers' own loops.",
+ "loops": [
+  {
+   "slug": "monclair-154",
+   "bpm": 154,
+   "bars": 16,
+   "key": {
+    "root": 10,
+    "mode": "minor"
+   },
+   "loopSamples": 1099636,
+   "sampleRate": 44100,
+   "durationMs": 24935,
+   "preview": {
+    "path": "demo/media/monclair-154.mp3",
+    "bytes": 399195,
+    "sha256": "765a8aa61c3488116b673b4a4e0877d426863ba7aca21e86dcdef37ab35db13e",
+    "kbps": 128
+   },
+   "peaks": "YXpycW1rb25xbWdmaXZyiXqFnZB2dmt+dG51fnpvcm15dmd2d39udXt0d4yCdX9vb1WYk4ZzcoR3ZHJvdHN4dW1kZllZZWxfZ3drUiwxMC8xYGJsfoB0W25reHSPg1gwMjMxLn9+enZ6cm1ubnBzdnKsqqx5kIyTYWZeWWhtaGVZX3VwZl57gmuIg3uPmJaMfXJuanh4eXV2cGt0Z2lkamdnamxXYFpdXVxgd1tibWg7LS0tLWR8gW9wf2V8fnl6gWCAPjs6PDlpbGtxaWJfYWRiZF9eaHZngHJ3nId6gH6Denx/g3tyf4GAfoF/eIxfbnFuaF1tYWZaW4l8am58gnBzc3ZoYGOLdm5+Z2RwcXRvf2hnSjk4Nzo3dHl0b3F0aXdwXnV2b0Q8Ozs5RVxhXmdtdX9+gnp9fYB4p6KZoat1dW5na252am5obmxzaGlgZIqacmpugXliWmp2amJvZU5NTFxkZmNYUXdtkG5pZHNoa1tkWm9pcE8tLS0yL2lsbmx0aHlyZXmFjY9TKCYpKSaZop+vlXCBjIWDiGp8vbSkvoeglol1fnCEgpOcu3qWep1zgpmde5WIkYySg52biYeAf3BGUl1kZ2lqWVJcaWxyeYSObXF8e4NqmHVxQEA/Pz1ucm50ioN8b4yNiYuNYzc2Njc1jrKjjJZ4apKGhIV2ecOco4h+g3J9fGlXWWeJgYiHnoSGhJeTno55gIN0jId+h36CiKmBcWtuhX6BeYF5c3BobHJpbF9nYmlramRoUTk1NjY4fH13cX5/eH94cXdfeXk3MTEvL4Sln6nKjXygq6KQhm2J4KrMiIKHi3FwdWpki49/gIdve3WSg3R8d3GHenxyZ4KRj4qKaGp0eYp+bXZzg3Vmf6RtcnBhYWZdeG5rXW5ANzk2NzdyYnBzWl5bZVhUWVZVLygsJyc6np2flJ2GkKOWi3VpqNSfoYmXiVhdZVxeXZuHe4+Ten+NpIawqq6WhHdsf4ySl4GPhGWvY2dlZ3h4f4p/ZG2NdV54bntwbneCZmZpZzw7Ozk4W2htaHVtZWdedXt2gkUzNTY=",
+   "copy": {
+    "title": "Monclair",
+    "owner": {
+     "handle": "caden",
+     "displayName": "Caden"
+    },
+    "tags": [
+     "dark",
+     "trap",
+     "melody"
+    ],
+    "genre": "Trap",
+    "description": "A dark 16-bar melody at 154. From the founder's own folder.",
+    "license": "royalty_free",
+    "publishedAt": "2026-11-24T23:00:00Z"
+   },
+   "original": {
+    "path": "demo/media/monclair-154.wav",
+    "name": "Monclair - 154bpm.wav",
+    "bytes": 9575248
+   }
+  }
+ ]
 }
