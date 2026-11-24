@@ -118,7 +118,8 @@ def pitch_chroma(mono: np.ndarray, sample_rate: int) -> np.ndarray:
     window = np.hanning(CHROMA_WINDOW).astype(np.float32)
     total = np.zeros(12)
     count = 0
-    frames = _frames(np.asarray(mono, dtype=np.float32), CHROMA_WINDOW, CHROMA_HOP)
+    signal = np.nan_to_num(np.asarray(mono, dtype=np.float32), nan=0.0, posinf=0.0, neginf=0.0)
+    frames = _frames(signal, CHROMA_WINDOW, CHROMA_HOP)
     for start in range(0, len(frames), 64):  # in blocks, so a 60 s loop stays a few MB
         mag = np.abs(np.fft.rfft(frames[start : start + 64] * window, axis=1))[:, band]
         chroma = mag @ fold
@@ -131,12 +132,14 @@ def pitch_chroma(mono: np.ndarray, sample_rate: int) -> np.ndarray:
 
 def key_from_chroma(chroma: np.ndarray) -> tuple[MusicalKey, float] | None:
     """Best of the 24 profiles by correlation, with its margin over the runner-up (0 to 1)."""
-    if not np.any(chroma > 0) or np.allclose(chroma, chroma[0]):
+    if not np.all(np.isfinite(chroma)) or not np.any(chroma > 0) or np.allclose(chroma, chroma[0]):
         return None
     scores: list[tuple[float, MusicalKey]] = []
     for mode, profile in (("major", MAJOR_PROFILE), ("minor", MINOR_PROFILE)):
         for root in range(12):
             r = float(np.corrcoef(chroma, np.roll(profile, root))[0, 1])
+            if not np.isfinite(r):
+                return None
             scores.append((r, {"root": root, "mode": mode}))
     scores.sort(key=lambda s: s[0], reverse=True)
     (best, key), (second, _) = scores[0], scores[1]
