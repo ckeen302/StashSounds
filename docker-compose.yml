@@ -1,0 +1,64 @@
+# Local S3-compatible storage standing in for Cloudflare R2. Started by `pnpm dev`.
+# Supabase (database, auth, realtime) runs through the Supabase CLI, not this file.
+services:
+  # SeaweedFS (Apache-2.0) speaks the S3 API with presigned URLs and multipart uploads.
+  # MinIO stopped publishing images in 2025, so it is no longer an option (decision 0011).
+  storage:
+    image: chrislusf/seaweedfs:4.53
+    # Browsers PUT straight to signed URLs from the app's origin (request 102-storage-cors). SeaweedFS
+    # answers allowed origins with every method and header allowed and exposed, ETag included.
+    command: server -s3 -s3.port=8333 -s3.config=/etc/seaweedfs/s3.json -s3.allowedOrigins=http://localhost:3000,http://localhost:3100
+    ports:
+      - "9000:8333"
+    volumes:
+      - storage-data:/data
+      - ./docker/seaweedfs-s3.json:/etc/seaweedfs/s3.json:ro
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8333/healthz"]
+      interval: 2s
+      timeout: 2s
+      retries: 60
+
+  # Creates the two buckets. originals is private; previews is readable without credentials
+  # (the anonymous identity in docker/seaweedfs-s3.json).
+  storage-init:
+    image: chrislusf/seaweedfs:4.53
+    depends_on:
+      storage:
+        condition: service_healthy
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        printf 's3.bucket.create -name originals\ns3.bucket.create -name previews\n' \
+          | /usr/bin/weed shell -master=storage:9333 && echo buckets ready
+
+  # The worker image for production-like runs: `docker compose --profile worker up`.
+  # `pnpm dev` runs the worker straight from apps/worker with uv instead, for fast reloads.
+  worker:
+    profiles: ["worker"]
+    build:
+      context: .
+      dockerfile: apps/worker/Dockerfile
+    env_file: .env.local
+    environment:
+      STASH_S3_ENDPOINT: http://storage:8333
+    # The parent runs as root only to start each job as the unprivileged stash-job user
+    # (request 112-worker-isolation-ci): setuid/setgid for the child, chown/fowner to hand it its
+    # folders, dac_override to read its outcome and remove the folder, kill for timeouts.
+    cap_drop: [ALL]
+    # SYS_ADMIN lets the root parent give each job child its own empty network namespace
+    # (decision 0017); children drop every capability before running a handler.
+    cap_add: [SETUID, SETGID, CHOWN, FOWNER, DAC_OVERRIDE, KILL, SYS_ADMIN]
+    security_opt: ["no-new-privileges:true"]
+    # Bound what a hostile file can do to the host (PR #8 security review).
+    read_only: true
+    tmpfs:
+      - /tmp:size=4g,mode=1777
+    pids_limit: 512
+    mem_limit: 4g
+    depends_on:
+      storage-init:
+        condition: service_completed_successfully
+
+volumes:
+  storage-data:

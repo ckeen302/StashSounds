@@ -1,0 +1,19 @@
+{
+  "name": "@stash/contracts",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./format": "./src/format.ts",
+    "./limits.json": "./limits.json"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "gen": "node scripts/gen-json-schema.ts"
+  },
+  "dependencies": {
+    "zod": "4.6.7"
+  },
+  "sideEffects": false
+}

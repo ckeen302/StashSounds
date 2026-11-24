@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "kind": {
+      "type": "string",
+      "enum": [
+        "chords",
+        "melody",
+        "drums",
+        "bass"
+      ]
+    },
+    "bars": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991
+    },
+    "noteCount": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991
+    },
+    "pitchMin": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 127
+    },
+    "pitchMax": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 127
+    },
+    "timeSignature": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991
+        }
+      ],
+      "items": false,
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "tempoAssumed": {
+      "type": "boolean"
+    },
+    "detection": {
+      "type": "object",
+      "properties": {
+        "bpmSource": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "filename",
+                "duration",
+                "onset",
+                "midi_file",
+                "assumed",
+                "uploader"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "bpmAgreed": {
+          "type": "boolean"
+        },
+        "bpmCandidates": {
+          "maxItems": 8,
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "keySource": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "filename",
+                "chroma",
+                "midi_notes",
+                "uploader"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "keyConfidence": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "bpmSource",
+        "bpmAgreed",
+        "bpmCandidates",
+        "keySource",
+        "keyConfidence"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "kind",
+    "bars",
+    "noteCount",
+    "pitchMin",
+    "pitchMax",
+    "timeSignature",
+    "tempoAssumed",
+    "detection"
+  ],
+  "additionalProperties": false
+}

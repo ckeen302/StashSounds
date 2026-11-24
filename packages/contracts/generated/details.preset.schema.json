@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "synth": {
+      "type": "string",
+      "enum": [
+        "vital",
+        "serum",
+        "other"
+      ]
+    },
+    "synthName": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 40
+    },
+    "synthVersion": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 40
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "bass",
+        "lead",
+        "pad",
+        "pluck",
+        "keys",
+        "fx",
+        "other"
+      ]
+    },
+    "rendered": {
+      "type": "boolean"
+    },
+    "sampledNoteCount": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "demoDurationMs": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991
+    }
+  },
+  "required": [
+    "synth",
+    "synthName",
+    "synthVersion",
+    "category",
+    "rendered",
+    "sampledNoteCount",
+    "demoDurationMs"
+  ],
+  "additionalProperties": false
+}

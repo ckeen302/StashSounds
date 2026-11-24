@@ -1,0 +1,20 @@
+# 0008 Schema hardening after the phase 0 review
+- Context: The security, contract and test reviewers on the foundations pull request found ways a signed-in user could skip a check by calling the database directly, and places where the schema and the contracts disagreed.
+- Options: Leave the fixes to the Platform lane in phase 1; fix them in the first migration before any lane builds on it.
+- Choice: Fixed in the first migration, since nothing has shipped:
+  - `enqueue_processing(user_id, item_id, file_id, measured_bytes)` is service role only. The server HEADs the stored object and passes the measured size; a size other than the declared one is refused, so the quota counted at createUploadSlot is the real size.
+  - `hit_rate_limit` is service role only (per-address limits such as search). Signed-in limits come from `rate_limit_user(action)`, which picks the bucket from `auth.uid()` and the number from `app_limits().rateLimits`. BEFORE INSERT triggers apply it to likes, follows and reports, and `record_download` applies it to downloads, so a client writing rows directly is still limited. Writes with no `auth.uid()` (service role, seed) are not limited.
+  - Reports are unique per reporter and item, and the review queue counts distinct reporters against `moderation.openReportsToQueue`.
+  - `worker_complete` requires the job to be running, the item to be processing and the result's type to match the item. Every path the worker reports must sit under `<owner>/<item>/` (originals) or `<item>/` (previews), with no empty, dot or dot-dot segments, and originals may only be roles original or demo.
+  - Original file rows (private paths and hashes) are readable only by the owner and admins; previews by anyone who can read the item. `kit_samples.original_path` has no SELECT grant for anon or authenticated, so queries must name columns.
+  - Likes and follows accept inserts of their key columns only (no back-dated `created_at`).
+  - Profile links must be an array of at most 8 `{kind, url}` objects with https URLs; `avatar_path` must sit under the owner's id.
+  - `items.details` is null until processed (it was `{}`), matching `itemSchema`.
+  - The wavetable confirmation moved out of preset details (the worker cannot know it) into `publish_item(item, rights, wavetables)`, stored as `items.wavetables_confirmed_at`, required for presets.
+  - The stored MIME type of an upload comes from its extension (`mime_for_ext`), never from the browser.
+  - `slugify` uses `unaccent` and the TypeScript version spells out the few letters NFKD leaves whole (ß, æ, ø, ł and so on); a database test checks both give the same slug for a corpus of titles.
+  - Tag counts and lengths in `set_item_tags` come from `app_limits().tags`.
+  - Admins can read fingerprints (for the review screen).
+  - `supabase/tests` now audits that every public table has row-level security on and that anon and authenticated hold exactly the table, column and function privileges listed in the test.
+- Reason: Each was a way around a rule the spec states, or a contract the database could not satisfy. Fixing them before phase 1 means no lane builds on the loose version.
+- Consequence: data-model.md still shows the spec's original text in a few places (details default, function list); the migration and this note are the source of truth. Platform queries on kit_samples must list columns.
