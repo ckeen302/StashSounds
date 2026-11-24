@@ -12,12 +12,13 @@ create function public.worker_duplicate_candidates(
   p_min_duration_ms int, p_max_duration_ms int)
 returns table (match text, item_id uuid, owner_id uuid, duration_ms int, chromaprint int[])
 language plpgsql set search_path = '' as $$
+#variable_conflict use_column
 declare v_job public.processing_jobs;
 begin
   v_job := public.worker_run(p_job_id, p_attempt);
   if p_sha256 !~ '^[0-9a-f]{64}$' then perform public.fail('invalid', 'Not a SHA-256.'); end if;
-  update public.item_files set sha256 = p_sha256
-   where id = p_file_id and item_id = v_job.item_id and role = 'original';
+  update public.item_files f set sha256 = p_sha256
+   where f.id = p_file_id and f.item_id = v_job.item_id and f.role = 'original';
   if not found then perform public.fail('invalid', 'Not this job''s original.'); end if;
   return query
     select 'exact', i.id, i.owner_id, null::int, null::int[]
@@ -48,8 +49,11 @@ grant execute on function public.worker_duplicate_candidates(uuid, int, uuid, te
 
 2. **A decision record for the threshold.** Ticket 114 asks for the tuned threshold to be recorded in a
    decision file, and docs/decisions is the lead's. Proposed: keep `limits.worker.fingerprintThreshold`
-   at 0.90. Handoff 114 has the measurements. The duplicates score 0.994 to 1.000, the degraded copies
-   made in the tests score at least 0.98, and the closest two different loops score 0.76.
+   at 0.90. Handoff 114 has the measurements. The three duplicate fixtures score 0.995 to 1.000. The
+   copies the tests make (64 kbps MP3, -6 dB, trimmed at either end) score 0.992 to 1.000. The closest
+   two different loops score 0.781, and the closest pair inside the duration window scores 0.749. Copies
+   pitched up a semitone (0.635) or sped up 5% (0.878) are not caught. The overview expects Chromaprint
+   to be weak there.
 
 3. **Optional: keep `flag.detail`.** `worker_complete` drops `flag.detail`, so an admin cannot see what
    an item matched, and the uploader cannot see that it matched their own upload. If you want that, a
@@ -63,6 +67,6 @@ do.
 
 ## Workaround in the meantime
 `apps/worker/tests/conftest.py` installs the function above from `tests/sql/` after the migrations, and
-only if `to_regprocedure` does not find it. Delete that file and the four lines that apply it once the
+only if `to_regprocedure` does not find it. Delete that file and the lines that apply it once the
 migration merges. In production, before the migration, the lookup fails with an undefined function
 error. The job is then retried as `internal` and finally fails. No upload goes unscreened to `ready`.

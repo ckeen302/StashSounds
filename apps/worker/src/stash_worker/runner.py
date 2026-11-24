@@ -12,6 +12,9 @@ Failure handling; ticket 111).
 - Storage error staging inputs or publishing outputs, or outputs that do not match the result:
   worker_fail('internal', true). Nothing is completed until every output is uploaded.
 - Any call answered with conflict: nothing. The run is no longer this worker's (decision 0012).
+- Duplicate screening (ticket 114) runs after the result is validated and before anything is published:
+  a match sets result.flag, and the item completes as flagged. A lookup error, or a fingerprint for a
+  file that is not the original: worker_fail('internal', true).
 
 Every call after the claim names the claimed attempt. worker_fail applies the backoff and returns the
 item to draft on the final failure.
@@ -35,6 +38,7 @@ from stash_worker.db import JobQueue, QueueContractError, QueueError, QueueRejec
 from stash_worker.files import InputRejected, PublishError, publish_outputs, stage_inputs
 from stash_worker.jobs import HANDLERS, ITEM_TYPE_FOR_KIND, TIMEOUT_KEYS, timeout_for
 from stash_worker.sandbox import JobUser, Outcome, run_isolated
+from stash_worker.screen import screen
 from stash_worker.storage import Storage, StorageError
 
 log = logging.getLogger(__name__)
@@ -204,12 +208,13 @@ class Runner:
                 time.monotonic() - started,
                 outcome.reason or outcome.detail,
             )
-            self._record(job_id, attempt, outcome, job_dir, payload["itemId"], job_input["type"])
+            self._record(job_id, attempt, outcome, job_dir, job_input)
         finally:
             shutil.rmtree(job_dir, ignore_errors=True)
         return None
 
-    def _record(self, job_id: str, attempt: int, outcome: Outcome, job_dir: Path, item_id: str, item_type: str) -> None:
+    def _record(self, job_id: str, attempt: int, outcome: Outcome, job_dir: Path, job_input: dict[str, Any]) -> None:
+        item_id, item_type = job_input["itemId"], job_input["type"]
         if outcome.status == "rejected" and outcome.reason:
             return self._fail(job_id, attempt, outcome.reason, retryable=False)
         if outcome.status == "timeout":
@@ -222,13 +227,30 @@ class Runner:
             log.error("job %s: result breaks worker-result.schema.json: %r", job_id, e.message)
             return self._fail(job_id, attempt, "internal", retryable=True)
         try:
+            result = screen(self.queue, job_input, outcome.result, job_dir / "work" / "in")
+            validate("worker-result", result)
+        except QueueRejected as e:
+            if e.code == "conflict":
+                log.warning("job %s: duplicate lookup refused: %s", job_id, e)
+                return None
+            log.error("job %s: duplicate lookup refused: %s", job_id, e)
+            return self._fail(job_id, attempt, "internal", retryable=True)
+        except QueueError as e:
+            log.error("job %s: duplicate lookup failed: %s", job_id, e)
+            return self._fail(job_id, attempt, "internal", retryable=True)
+        except (ValueError, ValidationError) as e:
+            log.error("job %s: screening refused the result: %s", job_id, e)
+            return self._fail(job_id, attempt, "internal", retryable=True)
+        if result.get("flag"):
+            log.info("job %s: flagged %s", job_id, result["flag"]["reason"])
+        try:
             owner = os.getuid() if self.job_user is None else self.job_user.uid
-            publish_outputs(self.storage, outcome.result, job_dir / "work" / "out", item_id, item_type, owner)
+            publish_outputs(self.storage, result, job_dir / "work" / "out", item_id, item_type, owner)
         except (PublishError, StorageError) as e:
             log.error("job %s: publishing outputs failed: %r", job_id, str(e))
             return self._fail(job_id, attempt, "internal", retryable=True)
         try:
-            self.queue.complete(job_id, attempt, outcome.result)
+            self.queue.complete(job_id, attempt, result)
         except QueueRejected as e:
             if e.code == "conflict":
                 # The run is no longer ours (requeued as stale, maybe claimed by another worker) or

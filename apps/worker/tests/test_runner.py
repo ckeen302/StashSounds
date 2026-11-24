@@ -496,7 +496,13 @@ def test_a_match_completes_the_job_flagged(tmp_path: Path):
     j = job()
     q = FakeQueue([j])
     q.candidates = [
-        {"match": "exact", "item_id": str(uuid.uuid4()), "owner_id": str(uuid.uuid4()), "duration_ms": None, "chromaprint": None}
+        {
+            "match": "exact",
+            "item_id": str(uuid.uuid4()),
+            "owner_id": str(uuid.uuid4()),
+            "duration_ms": None,
+            "chromaprint": None,
+        }
     ]
     runner(q, tmp_path, "writes_preview").run_once()
     [(call, _, _, result)] = q.outcomes()

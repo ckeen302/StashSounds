@@ -314,7 +314,10 @@ def test_each_duplicate_fixture_is_flagged_after_its_original(db, tmp_path: Path
     it = process(db, tmp_path, dup["path"])
     assert (it["status"], it["flagged_reason"]) == (dup["expect"]["status"], dup["expect"]["reason"])
     assert it["details"]["loopSamples"] > 0  # still processed, for the owner and admins to review
-    [n] = db.q("select count(*) as n from public.notifications where item_id = :i and kind = 'flag'", i=uuid.UUID(it["item_id"]))
+    [n] = db.q(
+        "select count(*) as n from public.notifications where item_id = :i and kind = 'flag'",
+        i=uuid.UUID(it["item_id"]),
+    )
     assert n["n"] == 1
 
 
@@ -327,7 +330,12 @@ def test_the_same_user_re_uploading_their_own_loop_is_flagged_too(db, tmp_path: 
 
 
 def test_different_loops_are_not_duplicates_of_each_other(db, tmp_path: Path):
-    for loop in ("midnight_keys_140bpm_Am.wav", "dusty_soul_90_Dmin.wav", "rnb_pad_72bpm_Ebmaj.aiff", "trap_bells_150_F#m.mp3"):
+    for loop in (
+        "midnight_keys_140bpm_Am.wav",
+        "dusty_soul_90_Dmin.wav",
+        "rnb_pad_72bpm_Ebmaj.aiff",
+        "trap_bells_150_F#m.mp3",
+    ):
         it = process(db, tmp_path, f"generated/loops/{loop}")
         assert (it["status"], it["flagged_reason"]) == ("ready", None), loop
 

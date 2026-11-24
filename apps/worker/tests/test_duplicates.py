@@ -98,7 +98,7 @@ def test_each_duplicate_fixture_is_over_the_threshold_against_its_original(print
 
 def test_no_two_different_loop_fixtures_are_near_the_threshold(prints):
     worst = max(similarity(prints[a["path"]], prints[b["path"]]) for a, b in itertools.combinations(LOOPS, 2))
-    assert worst < THRESHOLD - 0.1  # measured 0.76
+    assert worst < THRESHOLD - 0.1  # measured 0.781 (drill_lead against midnight_keys); see handoff 114
 
 
 @pytest.mark.parametrize(
@@ -173,12 +173,20 @@ def staged(tmp_path: Path) -> tuple[dict[str, Any], Path]:
 
 
 def result(fp: list[int] | None = FP, duration_ms: int = 6857) -> dict[str, Any]:
-    prints = [] if fp is None else [{"filePath": f"{OWNER}/x/original.wav", "durationMs": duration_ms, "chromaprint": fp}]
+    prints = (
+        [] if fp is None else [{"filePath": f"{OWNER}/x/original.wav", "durationMs": duration_ms, "chromaprint": fp}]
+    )
     return {"type": "loop", "durationMs": duration_ms, "fingerprints": prints, "flag": None}
 
 
 def row(match: str, owner: str, fp: list[int] | None = None, duration_ms: int | None = None) -> dict[str, Any]:
-    return {"match": match, "item_id": str(uuid.uuid4()), "owner_id": owner, "duration_ms": duration_ms, "chromaprint": fp}
+    return {
+        "match": match,
+        "item_id": str(uuid.uuid4()),
+        "owner_id": owner,
+        "duration_ms": duration_ms,
+        "chromaprint": fp,
+    }
 
 
 def test_screen_looks_up_the_staged_originals_sha_and_the_duration_window(tmp_path: Path):
@@ -254,4 +262,3 @@ def test_a_fingerprint_for_a_file_that_is_not_the_original_is_refused(tmp_path: 
     r["fingerprints"][0]["filePath"] = "someone/else/original.wav"
     with pytest.raises(ValueError, match="not this job's original"):
         screen(Lookups([]), job_input, r, in_dir)
-

@@ -6,12 +6,13 @@ create function public.worker_duplicate_candidates(
   p_min_duration_ms int, p_max_duration_ms int)
 returns table (match text, item_id uuid, owner_id uuid, duration_ms int, chromaprint int[])
 language plpgsql set search_path = '' as $$
+#variable_conflict use_column
 declare v_job public.processing_jobs;
 begin
   v_job := public.worker_run(p_job_id, p_attempt);
   if p_sha256 !~ '^[0-9a-f]{64}$' then perform public.fail('invalid', 'Not a SHA-256.'); end if;
-  update public.item_files set sha256 = p_sha256
-   where id = p_file_id and item_id = v_job.item_id and role = 'original';
+  update public.item_files f set sha256 = p_sha256
+   where f.id = p_file_id and f.item_id = v_job.item_id and f.role = 'original';
   if not found then perform public.fail('invalid', 'Not this job''s original.'); end if;
   return query
     select 'exact', i.id, i.owner_id, null::int, null::int[]
