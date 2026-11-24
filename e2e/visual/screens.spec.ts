@@ -66,7 +66,8 @@ test.describe("sign-in", () => {
     await expect(dialog).toBeVisible();
     // Blur the field so the caret and the focus ring do not enter the image.
     await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur());
-    await expect(dialog).toHaveScreenshot("sign-in-dialog.png", exact);
+    // The panel only: the dimmed page behind it is not part of this baseline.
+    await expect(dialog.locator(":scope > div").first()).toHaveScreenshot("sign-in-dialog.png", exact);
   });
 });
 
