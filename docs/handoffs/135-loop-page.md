@@ -187,7 +187,7 @@ is touched only because the loop page's "More from" rows had to come under the b
 | Hero waveform drawn from peaks before audio arrives | e2e holds the preview request open, then reads the canvas pixels: more than 100 drawn bar columns with the loop's shape (not uniform loading bars), the preview requested once, still not played. |
 | Tempo, key, loop and volume controls bound to the engine | e2e: Space plays; `]` `]` reads back Em with +2; `=` reads 91; End on the tempo slider reads 180, still playing; reset returns to 90 and Dm. Tempo and key set before play are applied on start. Loop off (now `engine.setLoop`) stops at the end of the pass. Volume mute and unmute reach the player bar's slider. Audible: at 180 BPM the playhead moves at 2.00x wall time in the built app ("at double tempo the loop really plays twice as fast", asserts more than 1.5). |
 | Download calls requestDownload and shows the license | `server-actions.ts` calls `requestDownload({ itemId })`. e2e with the local adapter: the file saves, the record "Downloaded under Royalty-free 1.0" with the file name, the toast. Signed out asks to sign in and comes back to finish. Unit tests for the local adapter's record. |
-| First sound under 300 ms, LCP under 2.0 s, CLS under 0.05 | `e2e/perf/budgets.spec.ts` in `pnpm perf`: loop page LCP 552 to 612 ms, CLS 0, 204,566 bytes of compressed script before audio (budget 204,800), on CPU 4x and 4G; first sound after Space 142 to 173 ms (budget 300). |
+| First sound under 300 ms, LCP under 2.0 s, CLS under 0.05 | `e2e/perf/budgets.spec.ts` in `pnpm perf`: loop page LCP 552 to 612 ms, CLS 0, 204,702 bytes of compressed script before audio (budget 204,800), on CPU 4x and 4G; first sound after Space 142 to 173 ms (budget 300). |
 
 ### How the e2e stubs data
 - The test server runs with `STASH_DEV_PAGES=1` (playwright.config.ts already sets it). The real
@@ -205,7 +205,9 @@ is touched only because the loop page's "More from" rows had to come under the b
 Merged first: foundations a6fce8f (e2e env defaults, 800 px project, visual:update changed-only;
 one add/add conflict on `home-visual-tablet.png`, foundations' copy kept), then lane/audio-123 473aa6e
 (stretch from a served worklet, `setLoop`) and foundations 8dc75a3. PR #15's base is
-lane/interface-132, so the audio-123 commits show in its diff until #10 merges.
+lane/interface-132, so the audio-123 commits show in its diff until #10 merges. audio-123 was merged
+again at 05b326d (loop-off fixes, worklet retry); one `.gitignore` conflict (blank line), and the
+checks below are from after that merge.
 
 **Blocking**
 - **D1** Download on screen at every width. The in-panel Download / Like / Copy row shows only from
@@ -258,8 +260,10 @@ lane/interface-132, so the audio-123 commits show in its diff until #10 merges.
 
 **Script budget.** These changes added bytes, so more moved behind first use: the license record
 and the file-saving code (`_item/download-record.tsx`), the intent marker code (loaded only on the
-way back from sign-in), and the error view. The loop page is **204,566 bytes** of 204,800 (234 bytes
-of headroom; the audio-123 merge grew the engine). `/` is 184 KB.
+way back from sign-in), and the error view. The loop page is **204,702 bytes** of 204,800: **98 bytes of
+headroom** after audio-123 05b326d grew the engine. `/` is 184 KB. The next byte any shared code adds
+puts item pages over; the remaining big piece the page owns is the "More from" rows, which cannot
+move behind first use without losing their server-rendered HTML.
 
 ## Proof
 At the branch head, STASH_E2E_PORT=3237 (foundations now supplies the e2e environment defaults):
@@ -271,43 +275,43 @@ packages/ui typecheck: Done
 apps/web typecheck: Done
 (eslint . --max-warnings 0: no output)
 Running 75 tests using 2 workers
-  ✓  34 [e2e] › e2e/journeys/loop-page.spec.ts:39:1 › the page is server-rendered with its metadata and preview card (199ms)
-  ✓  35 [e2e] › e2e/journeys/loop-page.spec.ts:55:1 › an old slug redirects to the canonical address, and an unknown item is not found (531ms)
-  ✓  36 [e2e] › e2e/journeys/loop-page.spec.ts:62:1 › the hero waveform is drawn from the stored peaks before any audio arrives (555ms)
-  ✓  37 [e2e] › e2e/journeys/loop-page.spec.ts:93:1 › space plays and pauses; tempo and key drive the engine while it plays (953ms)
-  ✓  39 [e2e] › e2e/journeys/loop-page.spec.ts:147:1 › tempo and key set before play are applied when it starts (662ms)
-  ✓  40 [e2e] › e2e/journeys/loop-page.spec.ts:160:1 › loop off stops at the end of the pass; volume is shared with the player bar (1.4s)
-  ✓  38 [e2e] › e2e/journeys/loop-page.spec.ts:125:1 › at double tempo the loop really plays twice as fast (2.8s)
-  ✓  42 [e2e] › e2e/journeys/loop-page.spec.ts:192:1 › signed in, download saves the file and shows the license record (651ms)
-  ✓  41 [e2e] › e2e/journeys/loop-page.spec.ts:182:1 › signed out, download asks to sign in and comes back to finish (1.0s)
-  ✓  43 [e2e] › e2e/journeys/loop-page.spec.ts:206:1 › coming back from sign-in finishes the download that was asked for (1.3s)
-  ✓  45 [e2e] › e2e/journeys/loop-page.spec.ts:241:1 › signed in, like and follow toggle with their counts (627ms)
-  ✓  46 [e2e] › e2e/journeys/loop-page.spec.ts:256:1 › signed out, like and follow ask to sign in (725ms)
+  ✓  34 [e2e] › e2e/journeys/loop-page.spec.ts:39:1 › the page is server-rendered with its metadata and preview card (192ms)
+  ✓  35 [e2e] › e2e/journeys/loop-page.spec.ts:55:1 › an old slug redirects to the canonical address, and an unknown item is not found (553ms)
+  ✓  36 [e2e] › e2e/journeys/loop-page.spec.ts:62:1 › the hero waveform is drawn from the stored peaks before any audio arrives (455ms)
+  ✓  37 [e2e] › e2e/journeys/loop-page.spec.ts:93:1 › space plays and pauses; tempo and key drive the engine while it plays (972ms)
+  ✓  39 [e2e] › e2e/journeys/loop-page.spec.ts:147:1 › tempo and key set before play are applied when it starts (488ms)
+  ✓  40 [e2e] › e2e/journeys/loop-page.spec.ts:160:1 › loop off stops at the end of the pass; volume is shared with the player bar (938ms)
+  ✓  38 [e2e] › e2e/journeys/loop-page.spec.ts:125:1 › at double tempo the loop really plays twice as fast (2.6s)
+  ✓  41 [e2e] › e2e/journeys/loop-page.spec.ts:182:1 › signed out, download asks to sign in and comes back to finish (673ms)
+  ✓  42 [e2e] › e2e/journeys/loop-page.spec.ts:192:1 › signed in, download saves the file and shows the license record (617ms)
+  ✓  43 [e2e] › e2e/journeys/loop-page.spec.ts:206:1 › coming back from sign-in finishes the download that was asked for (1.1s)
+  ✓  45 [e2e] › e2e/journeys/loop-page.spec.ts:241:1 › signed in, like and follow toggle with their counts (410ms)
+  ✓  46 [e2e] › e2e/journeys/loop-page.spec.ts:256:1 › signed out, like and follow ask to sign in (773ms)
+  ✓  47 [e2e] › e2e/journeys/loop-page.spec.ts:266:1 › more from the uploader plays in place and becomes the queue (515ms)
   ✓  44 [e2e] › e2e/journeys/loop-page.spec.ts:221:1 › a bare link with ?then=download does nothing, even signed in (2.7s)
-  ✓  48 [e2e] › e2e/journeys/loop-page.spec.ts:279:1 › on a phone, download is pinned above the mini player (386ms)
-  ✓  47 [e2e] › e2e/journeys/loop-page.spec.ts:266:1 › more from the uploader plays in place and becomes the queue (627ms)
-  ✓  49 [e2e] › e2e/journeys/loop-page.spec.ts:295:3 › at 1440 px, download is on screen without scrolling, and only once (334ms)
-  ✓  50 [e2e] › e2e/journeys/loop-page.spec.ts:295:3 › at 1024 px, download is on screen without scrolling, and only once (372ms)
-  ✓  51 [e2e] › e2e/journeys/loop-page.spec.ts:295:3 › at 800 px, download is on screen without scrolling, and only once (385ms)
-  ✓  52 [e2e] › e2e/journeys/loop-page.spec.ts:295:3 › at 380 px, download is on screen without scrolling, and only once (327ms)
-  ✓  53 [e2e] › e2e/journeys/loop-page.spec.ts:309:1 › on a phone, the facts beside the play pad follow the tempo and the key shift (379ms)
-  ✓  54 [e2e] › e2e/journeys/loop-page.spec.ts:321:1 › the loop switch says ON or OFF in words as well as its pressed state (481ms)
-  ✓  55 [e2e] › e2e/journeys/loop-page.spec.ts:334:1 › the loop page passes the accessibility scan, idle and playing (1.8s)
-loop page playback rate at 180 BPM: 2.00
+  ✓  48 [e2e] › e2e/journeys/loop-page.spec.ts:279:1 › on a phone, download is pinned above the mini player (326ms)
+  ✓  49 [e2e] › e2e/journeys/loop-page.spec.ts:295:3 › at 1440 px, download is on screen without scrolling, and only once (337ms)
+  ✓  50 [e2e] › e2e/journeys/loop-page.spec.ts:295:3 › at 1024 px, download is on screen without scrolling, and only once (395ms)
+  ✓  51 [e2e] › e2e/journeys/loop-page.spec.ts:295:3 › at 800 px, download is on screen without scrolling, and only once (371ms)
+  ✓  52 [e2e] › e2e/journeys/loop-page.spec.ts:295:3 › at 380 px, download is on screen without scrolling, and only once (331ms)
+  ✓  53 [e2e] › e2e/journeys/loop-page.spec.ts:309:1 › on a phone, the facts beside the play pad follow the tempo and the key shift (401ms)
+  ✓  54 [e2e] › e2e/journeys/loop-page.spec.ts:321:1 › the loop switch says ON or OFF in words as well as its pressed state (514ms)
+  ✓  55 [e2e] › e2e/journeys/loop-page.spec.ts:334:1 › the loop page passes the accessibility scan, idle and playing (2.1s)
+loop page playback rate at 180 BPM: 2.01
   (the other 53, gallery, shell and smoke, all ✓)
-  75 passed (48.8s)
+  75 passed (46.7s)
 
 $ pnpm perf
-  ✓ every audio-first-sound, audio-seamless-loop and audio-test-page check (36), including
-    "dusty_soul_90_Dmin.wav: a seek while stretched fades out and back in, with no click"
-/: LCP 252 ms, CLS 0.0000, script 184 KB
-/loop/dusty-soul-chops-k3j9x0a2b1: LCP 612 ms, CLS 0.0000, script 200 KB   (204,566 bytes)
-loop page first sound after space: 153 ms
-  42 passed (55.9s)
+  ✓ every audio check (37), including audio-stretch-minified "after one failed fetch of the worklet
+    file, the next tempo change loads it again and is heard"
+/: LCP 184 ms, CLS 0.0000, script 184 KB
+/loop/dusty-soul-chops-k3j9x0a2b1: LCP 572 ms, CLS 0.0000, script 200 KB   (204,702 bytes)
+loop page first sound after space: 123 ms
+  43 passed (52.6s)
 
 $ pnpm test
  Test Files  36 passed | 1 skipped (37)
-      Tests  640 passed | 9 skipped (649)
+      Tests  648 passed | 9 skipped (657)
 
 $ pnpm run licenses
 All dependency licenses are on the allowed list.
