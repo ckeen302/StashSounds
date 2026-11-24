@@ -145,11 +145,21 @@ interface SeekResult {
   status: string;
   joins: JoinResult[];
   fadeOut: number;
+  before: number;
   fadeIn: number;
   positionS: number;
   targetS: number;
 }
+interface LoopOffResult {
+  status: string;
+  positionMs: number;
+  endS: number;
+  before: number;
+  after: number;
+  maxDiff: number;
+}
 interface Harness {
+  renderLoopOff(b64: string, item: unknown, rate: number, semitones: number): Promise<LoopOffResult>;
   renderPlain(b64: string, item: unknown, rate: number): Promise<PlainResult>;
   renderStretch(b64: string, item: unknown, rate: number, ratio: number, semitones: number): Promise<StretchResult>;
   renderLiveChange(b64: string, item: unknown, rate: number, ratio: number, semitones: number): Promise<StretchResult>;
@@ -165,6 +175,8 @@ async function harness(page: Page) {
       page.evaluate(async ([b, i, r, q, s]) => ((await import("/test-page/seamless.ts" as string)) as Harness).renderStretch(b, i, r, q, s), [b64, item, rate, ratio, semitones] as const),
     live: (b64: string, item: unknown, rate: number, ratio: number, semitones: number) =>
       page.evaluate(async ([b, i, r, q, s]) => ((await import("/test-page/seamless.ts" as string)) as Harness).renderLiveChange(b, i, r, q, s), [b64, item, rate, ratio, semitones] as const),
+    loopOff: (b64: string, item: unknown, rate: number, semitones: number) =>
+      page.evaluate(async ([b, i, r, s]) => ((await import("/test-page/seamless.ts" as string)) as Harness).renderLoopOff(b, i, r, s), [b64, item, rate, semitones] as const),
     seek: (b64: string, item: unknown, rate: number, ratio: number, semitones: number) =>
       page.evaluate(async ([b, i, r, q, s]) => ((await import("/test-page/seamless.ts" as string)) as Harness).renderSeekStretched(b, i, r, q, s), [b64, item, rate, ratio, semitones] as const),
   };
@@ -217,12 +229,37 @@ for (const c of cases) {
   test(`${c.name}: a seek while stretched fades out and back in, with no click`, async ({ page }) => {
     const h = await harness(page);
     const r = await h.seek(c.b64, c.item, 48000, 0.8, 3);
-    console.log(`seek    ${c.name} @48000: ${r.joins.map((j, k) => `${k ? "restart" : "seek"} step ${fmt(j.report.stepAtJoin)} vs ${fmt(j.report.maxStepElsewhere)}`).join("; ")}, fade out ${fmt(r.fadeOut)}, fade in ${fmt(r.fadeIn)}, from ${fmt(r.positionS)} s for ${fmt(r.targetS)} s`);
+    console.log(`seek    ${c.name} @48000: ${r.joins.map((j, k) => `${k ? "restart" : "seek"} step ${fmt(j.report.stepAtJoin)} vs ${fmt(j.report.maxStepElsewhere)}`).join("; ")}, fade out ${fmt(r.fadeOut)} (before ${fmt(r.before)}), fade in ${fmt(r.fadeIn)}, from ${fmt(r.positionS)} s for ${fmt(r.targetS)} s`);
     expect(r.status).toBe("playing");
     expect(r.positionS, "the new position starts where the seek asked").toBeCloseTo(r.targetS, 2);
+    // Against the same render without the seek, so the loop's own level changes do not count.
+    expect(r.before, "both renders are the same up to the seek").toBeCloseTo(1, 3);
     expect(r.fadeOut, "the old position fades out instead of being cut").toBeGreaterThan(0.5);
+    expect(r.fadeOut, "the old position fades out, it does not play on at full level").toBeLessThan(1);
     expect(r.fadeIn, "the new position ramps in from silence").toBeLessThan(0.3);
     expect(r.joins[0]!.faults.click, "click at the seek").toBe(false);
     expect(r.joins[1]!.faults.click, "click at the new start").toBe(false);
+  });
+}
+
+// Request 135-engine-loop-switch: with loop off, one pass and then silence, ended on the audio clock.
+for (const name of ["midnight_keys_with_tail.wav", "trap_bells_150_F#m.mp3"]) {
+  const c = cases.find((k) => k.name === name)!;
+  test(`${c.name}: with loop off, one pass on the plain path, then silence and paused at 0`, async ({ page }) => {
+    const h = await harness(page);
+    const r = await h.loopOff(c.b64, c.item, 48000, 0);
+    console.log(`loopoff ${c.name} plain: end ${fmt(r.endS)} s, rms before ${fmt(r.before)}, after ${fmt(r.after)}, maxDiff ${fmt(r.maxDiff)}`);
+    expect(r).toMatchObject({ status: "paused", positionMs: 0 });
+    expect(r.maxDiff, "the single pass is the loop, sample for sample").toBeLessThan(1e-6);
+    expect(r.before).toBeGreaterThan(0.01);
+    expect(r.after, "nothing after the loop end (not the decode's tail, not the next pass)").toBeLessThan(1e-4);
+  });
+  test(`${c.name}: with loop off, one pass through the stretch, then silence and paused at 0`, async ({ page }) => {
+    const h = await harness(page);
+    const r = await h.loopOff(c.b64, c.item, 48000, 3);
+    console.log(`loopoff ${c.name} stretch: end ${fmt(r.endS)} s, rms before ${fmt(r.before)}, after ${fmt(r.after)}`);
+    expect(r).toMatchObject({ status: "paused", positionMs: 0 });
+    expect(r.before).toBeGreaterThan(0.01);
+    expect(r.after, "nothing after the loop end").toBeLessThan(1e-4);
   });
 }

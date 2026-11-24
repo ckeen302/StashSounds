@@ -4,7 +4,11 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./stretch-worklet-file": {
+      "types": "./stretch-worklet-file.d.mts",
+      "default": "./stretch-worklet-file.mjs"
+    }
   },
   "scripts": {
     "typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.entry.json",

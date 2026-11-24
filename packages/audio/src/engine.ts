@@ -12,6 +12,7 @@ export const INITIAL_STATE: EngineState = {
   tempoRatio: 1,
   transpose: 0,
   volume: 0.8,
+  loop: true,
   queue: [],
   queueIndex: -1,
 };
@@ -26,6 +27,8 @@ const VOLUME_S = 0.01;
 const LEAD_S = 0.02;
 /** Minimum loop audio laid either side of the loop in the stretch's buffer (also at least 2x its latency). */
 const PAD_S = 1;
+/** How long the stretch may take to load, and then to answer latency(), before the loop plays on without it. */
+const STRETCH_TIMEOUT_MS = 3000;
 
 export interface EngineDeps {
   /** Called once, on the first gesture. Defaults to the browser's AudioContext. */
@@ -35,6 +38,8 @@ export interface EngineDeps {
   loadStretch?: (ctx: AudioContextLike) => Promise<StretchNodeLike>;
   /** Waits about this many seconds of audio clock. Defaults to a timer. */
   sleep?: (seconds: number) => Promise<void>;
+  /** Wall-clock deadline for loading the stretch and for its latency() answer. Defaults to 3 s. */
+  stretchTimeoutMs?: number;
 }
 
 /** A buffer source at the original tempo and key: sample-exact, no added latency. */
@@ -83,6 +88,7 @@ export class WebAudioEngine implements Engine {
   private readonly createContext: () => AudioContextLike;
   private readonly loadStretch: (ctx: AudioContextLike) => Promise<StretchNodeLike>;
   private readonly sleep: (seconds: number) => Promise<void>;
+  private readonly stretchTimeoutMs: number;
   private readonly loader: BufferLoader;
 
   private ctx: AudioContextLike | null = null;
@@ -96,6 +102,8 @@ export class WebAudioEngine implements Engine {
   private offsetS = 0;
   /** How the playing voice's position moves on the audio clock. Empty when nothing plays. */
   private timeline: Segment[] = [];
+  /** With loop off: audio-clock time the playing pass reaches the loop end and fades out, else null. */
+  private endAt: number | null = null;
   /** The plain voice whose handoff to the stretch is in flight, if any. */
   private handoffFor: PlainVoice | null = null;
 
@@ -123,6 +131,7 @@ export class WebAudioEngine implements Engine {
     this.createContext = deps.createContext ?? createBrowserContext;
     this.loadStretch = deps.loadStretch ?? createBrowserStretch;
     this.sleep = deps.sleep ?? ((s) => new Promise((resolve) => setTimeout(resolve, s * 1000)));
+    this.stretchTimeoutMs = deps.stretchTimeoutMs ?? STRETCH_TIMEOUT_MS;
     this.loader = new BufferLoader(deps.fetch ?? ((url, init) => globalThis.fetch(url, init)));
   }
 
@@ -317,9 +326,16 @@ export class WebAudioEngine implements Engine {
   }
 
   private startPlain(offset: number, fadeIn: boolean) {
+    const now = this.ctx!.currentTime;
+    this.voice = this.plainVoice(now, offset, fadeIn);
+    this.timeline = [{ at: now, pos: offset, rate: 1 }];
+    this.scheduleEnd();
+  }
+
+  /** A buffer source of the current item from `offset`, started at `when`, through its own gain. */
+  private plainVoice(when: number, offset: number, fadeIn: boolean): PlainVoice {
     const ctx = this.ctx!;
     const buffer = this.buffer!;
-    const now = ctx.currentTime;
     const src = ctx.createBufferSource();
     src.buffer = buffer;
     if (this.loopS) {
@@ -329,8 +345,8 @@ export class WebAudioEngine implements Engine {
     }
     const gain = ctx.createGain();
     if (offset > 0 || fadeIn) {
-      gain.gain.setValueAtTime(0, now);
-      gain.gain.setTargetAtTime(1, now, FADE_S);
+      gain.gain.setValueAtTime(0, when);
+      gain.gain.setTargetAtTime(1, when, FADE_S);
     }
     src.connect(gain);
     gain.connect(this.master!);
@@ -339,15 +355,96 @@ export class WebAudioEngine implements Engine {
       src.disconnect();
       gain.disconnect();
       if (this.voice !== voice) return;
-      // Natural end of a one-shot or demo: back to the start, paused.
-      this.voice = null;
-      this.timeline = [];
-      this.offsetS = 0;
-      this.set({ status: "paused" });
+      // Natural end of a one-shot or demo, or of a loop's last pass with loop off.
+      this.endOfItem();
     };
-    src.start(now, offset);
-    this.voice = voice;
-    this.timeline = [{ at: now, pos: offset, rate: 1 }];
+    src.start(when, offset);
+    return voice;
+  }
+
+  /** The item played to its end: back to the start, paused. A loop switched back on too late starts over. */
+  private endOfItem() {
+    this.voice = null;
+    this.timeline = [];
+    this.offsetS = 0;
+    this.endAt = null;
+    if (this.loopS && this.state.loop) {
+      this.startVoice(0);
+      return;
+    }
+    this.set({ status: "paused" });
+  }
+
+  /** Audio-clock time the pass playing now reaches the loop end, or null when there is none to place yet. */
+  private passEnd(): number | null {
+    const v = this.voice;
+    const loopS = this.loopS;
+    const ctx = this.ctx;
+    const seg = this.timeline.at(-1);
+    if (!v || !loopS || !ctx || !seg || seg.rate <= 0) return null;
+    if (v.kind === "stretch" && !v.started) return null;
+    const from = Math.max(ctx.currentTime, seg.at);
+    const done = seg.pos + (from - seg.at) * seg.rate; // seconds of loop since seg.pos, unwrapped
+    const passes = Math.floor(done / loopS + 1e-9) + 1;
+    return seg.at + (passes * loopS - seg.pos) / seg.rate;
+  }
+
+  /**
+   * With loop off, places the end of the playing pass on the audio clock: the voice fades out from the
+   * loop end and stops just after it, then the engine pauses at 0. Called whenever a voice starts or
+   * the stretch's rate changes, so the end always matches what is heard.
+   */
+  private scheduleEnd() {
+    if (this.state.loop || this.state.current?.kind !== "loop") return;
+    const end = this.passEnd();
+    const v = this.voice;
+    if (end === null || !v) return;
+    const prev = this.endAt;
+    this.endAt = end;
+    if (v.kind === "plain") {
+      v.gain.gain.setTargetAtTime(0, end, FADE_S);
+      v.src.stop(end + STOP_AFTER_S); // its onended pauses
+      return;
+    }
+    // Only the gain: the worklet keeps one pending change, and a new one drops every change at or
+    // after the current time, so a stop sent now would drop a start still waiting to be heard.
+    const gain = this.stretchGain!.gain;
+    if (prev !== null && prev > this.ctx!.currentTime) gain.cancelScheduledValues(prev);
+    gain.setTargetAtTime(0, end, FADE_S);
+    void this.pauseAtEnd(v, end);
+  }
+
+  /** Waits on the audio clock until the stretch's last pass has faded, then ends the item. */
+  private async pauseAtEnd(v: StretchVoice, end: number) {
+    const ctx = this.ctx!;
+    const silent = end + STOP_AFTER_S;
+    while (this.voice === v && this.endAt === end && ctx.currentTime < silent) await this.sleep(silent - ctx.currentTime);
+    if (this.voice !== v || this.endAt !== end) return; // replaced, stopped, re-timed or switched back on
+    // Silent under its gain since the end; now nothing is pending, so it can be told to stop.
+    this.stretchNode!.schedule({ active: false, output: ctx.currentTime }).catch((err: unknown) => console.warn("[audio]", err));
+    this.stretchQuietAt = Math.max(this.stretchQuietAt, silent);
+    this.endOfItem();
+  }
+
+  /**
+   * Loop switched back on with an end placed: the pass carries on into the next one with no gap. A
+   * plain voice cannot be unstopped, so a second one takes over from sample 0 exactly at the loop end.
+   * The stretch is still looping in the worklet: only its fade is taken back.
+   */
+  private cancelEnd() {
+    const end = this.endAt;
+    const v = this.voice;
+    const ctx = this.ctx;
+    if (end === null || !v || !ctx) return;
+    if (end <= ctx.currentTime) return; // already fading: endOfItem starts it over, as loop is on now
+    this.endAt = null;
+    if (v.kind === "plain") {
+      v.gain.gain.cancelScheduledValues(end);
+      v.gain.gain.setValueAtTime(0, end);
+      this.voice = this.plainVoice(end, 0, false);
+      return;
+    }
+    this.stretchGain!.gain.cancelScheduledValues(end);
   }
 
   /** Starts the loop on the stretch once it is loaded; until then the position holds at `offset`. */
@@ -368,6 +465,7 @@ export class WebAudioEngine implements Engine {
       this.scheduleStretchStart(T, offset);
       voice.started = true;
       this.timeline = [{ at: T, pos: offset, rate: this.state.tempoRatio }];
+      this.scheduleEnd();
     });
   }
 
@@ -418,10 +516,11 @@ export class WebAudioEngine implements Engine {
     if (!ctx || !master || !buffer || item?.kind !== "loop") return false;
     try {
       this.stretchLoad ??= (async () => {
-        const node = await this.loadStretch(ctx);
+        // A worklet that throws before it says it is ready leaves both of these waiting forever.
+        const node = await this.deadline(this.loadStretch(ctx), "the time stretch did not load", (late) => late.disconnect());
         let latency: number;
         try {
-          latency = await node.latency();
+          latency = await this.deadline(node.latency(), "the time stretch did not answer");
         } catch (err) {
           node.disconnect(); // not kept, so the retry makes a new one: let this one go
           throw err;
@@ -464,6 +563,31 @@ export class WebAudioEngine implements Engine {
     }
   }
 
+  /**
+   * Rejects with `what` if `p` has not settled within the stretch timeout. A value that lands after
+   * that goes to `late`, so a node made too late can be let go.
+   */
+  private deadline<T>(p: Promise<T>, what: string, late?: (value: T) => void): Promise<T> {
+    return new Promise<T>((resolve, reject) => {
+      let expired = false;
+      const timer = setTimeout(() => {
+        expired = true;
+        reject(new Error(`${what} within ${this.stretchTimeoutMs} ms`));
+      }, this.stretchTimeoutMs);
+      p.then(
+        (value) => {
+          clearTimeout(timer);
+          if (expired) late?.(value);
+          else resolve(value);
+        },
+        (err: unknown) => {
+          clearTimeout(timer);
+          reject(err);
+        },
+      );
+    });
+  }
+
   private resetTempoAndKey() {
     if (this.state.tempoRatio !== 1 || this.state.transpose !== 0) this.set({ tempoRatio: 1, transpose: 0 });
   }
@@ -478,6 +602,13 @@ export class WebAudioEngine implements Engine {
       return;
     }
     if (!v.started) return; // its start reads the current tempo and key
+    this.resendStretch();
+    this.scheduleEnd(); // the end moves with the rate
+  }
+
+  /** Sends the running stretch its stream with the current tempo and key, from where it will be. */
+  private resendStretch() {
+    const ctx = this.ctx!;
     // A change still waiting to be heard (the start, or the last change) is replaced at its own time,
     // because sending a later one would drop it. Otherwise the change is heard one lead from now.
     const now = ctx.currentTime;
@@ -518,6 +649,8 @@ export class WebAudioEngine implements Engine {
     v.src.stop(T + STOP_AFTER_S);
     this.voice = { kind: "stretch", started: true };
     this.timeline = [...this.timeline, { at: T, pos, rate: this.state.tempoRatio }];
+    this.endAt = null; // the plain voice's end went with it
+    this.scheduleEnd();
   }
 
   /** Fades the voice out over a few milliseconds and stops it. */
@@ -526,6 +659,7 @@ export class WebAudioEngine implements Engine {
     const ctx = this.ctx;
     this.voice = null;
     this.timeline = [];
+    this.endAt = null;
     if (!v || !ctx) return;
     const now = ctx.currentTime;
     if (v.kind === "plain") {
@@ -596,6 +730,13 @@ export class WebAudioEngine implements Engine {
     const v = Math.max(0, Math.min(1, volume));
     if (this.master && this.ctx) this.master.gain.setTargetAtTime(v, this.ctx.currentTime, VOLUME_S);
     this.set({ volume: v });
+  }
+
+  setLoop(on: boolean): void {
+    if (on === this.state.loop) return;
+    this.set({ loop: on });
+    if (on) this.cancelEnd();
+    else this.scheduleEnd();
   }
 
   // Kits (221), MIDI (223) and the preset sampler (224) give these sound.

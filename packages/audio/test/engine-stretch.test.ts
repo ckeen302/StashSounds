@@ -18,7 +18,7 @@ async function settle() {
   for (let i = 0; i < 10; i++) await flush();
 }
 
-function setup() {
+function setup(opts: { stretchTimeoutMs?: number } = {}) {
   const net = fakeFetch({ [url("a")]: 2100, [url("b")]: 3100, [url("s")]: 500 });
   const ctx = new FakeContext();
   const stretch = fakeStretchLoader();
@@ -28,7 +28,7 @@ function setup() {
     sleeps.push(s);
     ctx.advance(s);
   };
-  const e = new WebAudioEngine({ createContext: () => ctx, fetch: net.fetch, loadStretch: stretch.load, sleep });
+  const e = new WebAudioEngine({ createContext: () => ctx, fetch: net.fetch, loadStretch: stretch.load, sleep, ...opts });
   const plainPlaying = () => ctx.playing.filter((s) => s.buffer);
   return { e, ctx, stretch, node: stretch.node, plainPlaying, sleeps };
 }
@@ -384,6 +384,75 @@ describe("a stretch that fails to load", () => {
     await e.play(loop("a"));
     await settle();
     expect(e.getState()).toMatchObject({ status: "playing", transpose: 0 });
+    expect(plainPlaying()).toHaveLength(1);
+    warn.mockRestore();
+  });
+});
+
+// Request 135-stretch-in-production-build: a worklet that never answers must not hold tempo and key
+// in a state nobody hears. The engine gives the load and latency() a deadline (3 s by default).
+describe("a stretch that never answers", () => {
+  const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
+  it("times out by default after 3 s", () => {
+    expect(new WebAudioEngine() as unknown as { stretchTimeoutMs: number }).toHaveProperty("stretchTimeoutMs", 3000);
+  });
+  it("a load that never resolves falls back to the original tempo and key, playing on the plain path", async () => {
+    const { e, stretch, plainPlaying } = setup({ stretchTimeoutMs: 30 });
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => undefined);
+    stretch.hold();
+    await e.play(loop("a"));
+    e.setTempo(70);
+    await settle();
+    expect(e.getState().tempoRatio, "still waiting before the deadline").toBe(0.5);
+    await wait(60);
+    await settle();
+    expect(e.getState()).toMatchObject({ status: "playing", tempoRatio: 1, transpose: 0 });
+    expect(plainPlaying()).toHaveLength(1);
+    warn.mockRestore();
+  });
+  it("a loop about to start on a stretch that never loads starts on the plain path instead", async () => {
+    const { e, ctx, stretch, plainPlaying } = setup({ stretchTimeoutMs: 30 });
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => undefined);
+    stretch.hold();
+    e.setTranspose(2);
+    await e.play(loop("a"));
+    await wait(60);
+    await settle();
+    expect(e.getState()).toMatchObject({ status: "playing", transpose: 0 });
+    expect(plainPlaying()).toHaveLength(1);
+    ctx.advance(0.5);
+    expect(e.getPositionMs(), "the position moves again, at the original speed").toBeCloseTo(500);
+    warn.mockRestore();
+  });
+  it("a node that arrives after the deadline is disconnected, and the next change loads again", async () => {
+    const { e, stretch, node } = setup({ stretchTimeoutMs: 30 });
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => undefined);
+    stretch.hold();
+    await e.play(loop("a"));
+    e.setTempo(70);
+    await wait(60);
+    await settle();
+    stretch.release();
+    await settle();
+    expect(node.disconnects, "the late node is let go").toBe(1);
+    expect(e.getState().tempoRatio).toBe(1);
+    e.setTempo(70);
+    await settle();
+    expect(stretch.state.calls).toBe(2);
+    expect(e.getState().tempoRatio).toBe(0.5);
+    expect(node.lastStart).toBeDefined();
+    warn.mockRestore();
+  });
+  it("a node whose latency() never answers is disconnected and falls back", async () => {
+    const { e, node, plainPlaying } = setup({ stretchTimeoutMs: 30 });
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => undefined);
+    node.hangLatency = true;
+    await e.play(loop("a"));
+    e.setTempo(70);
+    await wait(60);
+    await settle();
+    expect(e.getState()).toMatchObject({ status: "playing", tempoRatio: 1 });
+    expect(node.disconnects).toBe(1);
     expect(plainPlaying()).toHaveLength(1);
     warn.mockRestore();
   });

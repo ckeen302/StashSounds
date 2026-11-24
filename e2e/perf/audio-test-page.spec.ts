@@ -49,7 +49,7 @@ test("the audio test page plays a WAV fixture loop", async ({ page }) => {
   page.on("pageerror", (e) => errors.push(e.message));
   const stretchRequests: string[] = [];
   page.on("request", (r) => {
-    if (r.url().includes("signalsmith-stretch")) stretchRequests.push(r.url());
+    if (r.url().includes("/vendor/signalsmith-stretch")) stretchRequests.push(r.url()); // the library, not its worklet file
   });
   // Count contexts and tap the output so the test can tell that real samples reach the destination.
   await page.addInitScript(() => {

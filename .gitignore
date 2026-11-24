@@ -22,3 +22,6 @@ supabase/.branches/
 .local/
 e2e/visual/__screenshots__/*-actual.png
 e2e/visual/__screenshots__/*-diff.png
+
+# Copied from the installed signalsmith-stretch at build time (scripts/copy-stretch-worklet.mjs)
+apps/web/public/worklets/

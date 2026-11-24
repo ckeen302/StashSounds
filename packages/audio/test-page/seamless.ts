@@ -242,11 +242,15 @@ export interface SeekResult {
   /** The seek, and the start of the new position. */
   joins: Join[];
   /**
-   * rms of the 1 ms after the seek over the 1 ms before it. A 5 ms fade keeps it near 0.9; a cut
-   * drops it to about 0. (A cut's single step can be smaller than the loop's own transients, so the
-   * step check alone does not catch it.)
+   * The gain the seek put on the old position over the 1 ms after it: rms of that 1 ms over the same
+   * 1 ms of a render that did not seek. A 5 ms fade keeps it near 0.9; a cut drops it to about 0.
+   * (A cut's single step can be smaller than the loop's own transients, so the step check alone does
+   * not catch it. And the loop's own level can change within 2 ms, so the 1 ms before the seek is no
+   * reference: dusty_soul falls to a quarter there by itself.)
    */
   fadeOut: number;
+  /** rms of the 1 ms before the seek over the same 1 ms unseeked: 1 when the two renders are the same up to the seek. */
+  before: number;
   /** rms of the 1 ms after the new start over the loudest 1 ms from 20 to 80 ms later: small when it ramps in. */
   fadeIn: number;
   /** Where the engine says the new position started, in seconds of loop. */
@@ -263,9 +267,26 @@ function rms(x: Float32Array, from: number, to: number): number {
 /**
  * Seek while stretched: the loop plays through the stretch from the start, and at 1.5 s seeks to 37%
  * of the loop. The old position must fade out and the new one fade in: no cut or click at the seek or
- * at the new start. (The dip between them is the fade, by design, so it is not a gap.)
+ * at the new start. (The dip between them is the fade, by design, so it is not a gap.) The same render
+ * without the seek is the reference for the fade-out.
  */
 export async function renderSeekStretched(b64: string, item: Loop, rate: number, ratio: number, semitones: number): Promise<SeekResult> {
+  const seeked = await seekRender(b64, item, rate, ratio, semitones, true);
+  const steady = await seekRender(b64, item, rate, ratio, semitones, false);
+  const { out, S, T, from } = seeked;
+  if (steady.S !== S) throw new Error(`the two renders suspended at different frames: ${S} and ${steady.S}`);
+  const ms = Math.round(0.001 * rate);
+  const joins = [join(out, S, rate, from), join(out, T, rate, from)];
+  const fadeOut = rms(out, S, S + ms) / rms(steady.out, S, S + ms);
+  const before = rms(out, S - ms, S) / rms(steady.out, S - ms, S);
+  let settled = 0; // the loudest 1 ms of the new position once its ramp is over
+  for (let i = T + Math.round(0.02 * rate); i < T + Math.round(0.08 * rate); i += ms) settled = Math.max(settled, rms(out, i, i + ms));
+  const fadeIn = rms(out, T, T + ms) / settled;
+  return { status: seeked.status, joins, fadeOut, before, fadeIn, positionS: seeked.positionS, targetS: seeked.targetS };
+}
+
+/** One render of the seek scenario; with `doSeek` false the suspend at 1.5 s only resumes. */
+async function seekRender(b64: string, item: Loop, rate: number, ratio: number, semitones: number, doSeek: boolean) {
   const bytes = bytesOf(b64);
   const decoded = await decode(bytes, rate);
   const L = loopFrames(item, decoded);
@@ -286,10 +307,12 @@ export async function renderSeekStretched(b64: string, item: Loop, rate: number,
   let seekedAt = NaN; // the suspend lands on a render quantum, not exactly at seekAt
   void ctx.suspend(seekAt).then(async () => {
     seekedAt = ctx.currentTime;
-    const n = schedules.length;
-    e.seek(targetS * 1000);
-    await until(() => schedules.slice(n).some((s) => s.active), "the restart after the seek");
-    await delivered();
+    if (doSeek) {
+      const n = schedules.length;
+      e.seek(targetS * 1000);
+      await until(() => schedules.slice(n).some((s) => s.active), "the restart after the seek");
+      await delivered();
+    }
     await realResume();
   });
   void ctx.suspend(2.2).then(async () => {
@@ -298,14 +321,67 @@ export async function renderSeekStretched(b64: string, item: Loop, rate: number,
   });
   const out = (await ctx.startRendering()).getChannelData(0);
   const first = schedules.find((s) => s.active)!.output!;
-  const from = Math.round((first + 0.1) * rate);
-  const S = Math.round(seekedAt * rate);
-  const T = Math.round(lastStart() * rate);
-  const ms = Math.round(0.001 * rate);
-  const joins = [join(out, S, rate, from), join(out, T, rate, from)];
-  const fadeOut = rms(out, S, S + ms) / rms(out, S - ms, S);
-  let settled = 0; // the loudest 1 ms of the new position once its ramp is over
-  for (let i = T + Math.round(0.02 * rate); i < T + Math.round(0.08 * rate); i += ms) settled = Math.max(settled, rms(out, i, i + ms));
-  const fadeIn = rms(out, T, T + ms) / settled;
-  return { status: e.getState().status, joins, fadeOut, fadeIn, positionS, targetS };
+  return {
+    out,
+    S: Math.round(seekedAt * rate),
+    T: Math.round(lastStart() * rate),
+    from: Math.round((first + 0.1) * rate),
+    status: e.getState().status,
+    positionS,
+    targetS,
+  };
+}
+
+export interface LoopOffResult {
+  /** Status and position once the render is over and the engine has caught up. */
+  status: string;
+  positionMs: number;
+  /** Where the engine's last pass ends, in seconds of render. */
+  endS: number;
+  /** rms from the start of the sound to 50 ms before the end: the loop is heard. */
+  before: number;
+  /** rms from 40 ms after the end to the end of the render: silence. */
+  after: number;
+  /** Plain path only: largest |rendered - expected| before the end (sample-exact single pass). */
+  maxDiff: number;
+}
+
+/**
+ * Loop switch off (request 135-engine-loop-switch): the loop plays one pass and then nothing, ending
+ * on the audio clock. Plain path at the original tempo and key, or through the stretch with a key change.
+ */
+export async function renderLoopOff(b64: string, item: Loop, rate: number, semitones: number): Promise<LoopOffResult> {
+  const bytes = bytesOf(b64);
+  const decoded = await decode(bytes, rate);
+  const L = loopFrames(item, decoded);
+  const Ls = L / rate;
+  const frames = Math.ceil((Ls + 1) * rate);
+  const { ctx } = offline(frames, rate);
+  const schedules: StretchChange[] = [];
+  const e = engineFor(ctx, bytes, schedules);
+  e.setLoop(false);
+  e.setTranspose(semitones);
+  await e.play(item);
+  if (semitones) {
+    await until(() => schedules.some((s) => s.active), "the stretch start");
+    await delivered();
+  }
+  const start = schedules.find((s) => s.active)?.output ?? 0;
+  const endS = start + Ls;
+  const out = (await ctx.startRendering()).getChannelData(0);
+  await until(() => e.getState().status === "paused", "the pause at the end");
+  const at = (s: number) => Math.round(s * rate);
+  let maxDiff = 0;
+  if (!semitones) {
+    const want = decoded.getChannelData(0);
+    for (let i = 0; i < at(endS) - at(0.001); i++) maxDiff = Math.max(maxDiff, Math.abs(out[i]! - VOLUME * want[i]!));
+  }
+  return {
+    status: e.getState().status,
+    positionMs: e.getPositionMs(),
+    endS,
+    before: rms(out, at(start + (semitones ? 0.1 : 0)), at(endS - 0.05)),
+    after: rms(out, at(endS + 0.04), out.length),
+    maxDiff,
+  };
 }

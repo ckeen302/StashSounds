@@ -13,6 +13,8 @@ export interface EngineState {
   transpose: number;
   /** 0 to 1 */
   volume: number;
+  /** Loops repeat while true (the default); while false a loop plays to its end once, then pauses at 0. */
+  loop: boolean;
   queue: Playable[];
   queueIndex: number;
 }
@@ -31,6 +33,8 @@ export interface Engine {
   /** Loops, MIDI, one-shots. */
   setTranspose(semitones: number): void;
   setVolume(volume: number): void;
+  /** Loops: on repeats, off plays the current pass to its end and pauses at 0. */
+  setLoop(on: boolean): void;
   /** MIDI. */
   setSound(sound: SoundId): void;
   /** Kits. */
