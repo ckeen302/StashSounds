@@ -636,6 +636,36 @@ describe("worker functions", () => {
     expect((await db.q(`select status from public.items where id = $1`, [it1.item_id])).rows[0]!.status).toBe("ready");
   });
 
+  it("worker_duplicate_candidates records the hash and returns other items' originals and fingerprints", async () => {
+    await db.as(service, `delete from public.processing_jobs`);
+    const first = await queuedItem("Dup original");
+    const job1 = (await db.as(service, `select * from public.claim_job()`)).rows[0]!;
+    const sha = "d".repeat(64); // a 31 s duration no other test uses keeps the window to this pair
+    const f1 = (await db.q(`select id from public.item_files where item_id = $1 and role = 'original'`, [first.item_id])).rows[0]!.id;
+    const call = (job: { id: string; attempts: number }, file: string, hash: string, min: number | null, max: number | null) =>
+      db.as(service, `select * from public.worker_duplicate_candidates($1, $2, $3, $4, $5, $6)`, [job.id, job.attempts, file, hash, min, max]);
+    expect((await call(job1, f1, sha, 30000, 33000)).rows).toEqual([]);
+    expect((await db.q(`select sha256 from public.item_files where id = $1`, [f1])).rows[0]!.sha256).toBe(sha);
+    await db.as(service, `select public.worker_complete($1, $3, $2)`, [job1.id,
+      JSON.stringify(loopResult(first.item_id, { fingerprints: [{ filePath: first.path, durationMs: 31337, chromaprint: [7, 8] }] })), job1.attempts]);
+
+    const second = await queuedItem("Dup copy");
+    const job2 = (await db.as(service, `select * from public.claim_job()`)).rows[0]!;
+    const f2 = (await db.q(`select id from public.item_files where item_id = $1 and role = 'original'`, [second.item_id])).rows[0]!.id;
+    const rows = (await call(job2, f2, sha, 30000, 33000)).rows.map((r) => [r.match, r.item_id, r.duration_ms, r.chromaprint]);
+    expect(rows).toEqual(expect.arrayContaining([["exact", first.item_id, null, null], ["fingerprint", first.item_id, 31337, [7, 8]]]));
+    expect(rows).toHaveLength(2);
+    // Outside the duration window, and with no window, only the exact match comes back.
+    expect((await call(job2, f2, sha, 40000, 42000)).rows.map((r) => r.match)).toEqual(["exact"]);
+    expect((await call(job2, f2, sha, null, null)).rows.map((r) => r.match)).toEqual(["exact"]);
+    // Another item's file, a bad hash and a stale attempt are refused.
+    expect(await rejection(call(job2, f1, sha, null, null))).toMatch(/^invalid:/);
+    expect(await rejection(call(job2, f2, "nothex", null, null))).toMatch(/^invalid:/);
+    expect(await rejection(call({ id: job2.id, attempts: job2.attempts + 1 }, f2, sha, null, null))).toMatch(/^conflict:/);
+    // Users cannot call it.
+    expect(await rejection(db.as(user(bob), `select * from public.worker_duplicate_candidates($1, 1, $2, $3, null, null)`, [job2.id, f2, sha]))).toMatch(/permission denied/);
+  });
+
   it("worker_complete refuses a job that is not running, a result of another type and paths outside the item", async () => {
     await db.as(service, `delete from public.processing_jobs`);
     const it4 = await queuedItem("Guarded");
