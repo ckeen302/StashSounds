@@ -18,6 +18,10 @@ export type PostedLoop = {
   durationMs: number;
   ext: string;
   postedAt: string;
+  instrument?: string | null;
+  genre?: string | null;
+  daw?: string | null;
+  description?: string | null;
 };
 
 const KEY = "stash.demo.loops.mine";
