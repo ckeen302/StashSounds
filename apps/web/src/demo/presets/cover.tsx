@@ -1,4 +1,3 @@
-import { useState } from "react";
 import COVERS from "./covers.json";
 
 /**
@@ -35,17 +34,15 @@ function tint(key: string) {
 
 export function Cover({ song, artist, size = "md" }: { song: string; artist: string; size?: "sm" | "md" }) {
   const row = coverFor(song, artist);
-  const [failed, setFailed] = useState(false);
   const box = size === "sm" ? "size-12" : "size-20 tablet:size-24";
-  if (row && !failed) {
+  if (row) {
+    // A background image, not <img>: the demo is a static page with no Next image loader behind it.
     return (
-      <img
-        src={row.file}
-        alt={`${row.album} cover`}
-        loading="lazy"
-        decoding="async"
-        onError={() => setFailed(true)}
-        className={`${box} shrink-0 rounded-control border border-border object-cover shadow-lg`}
+      <span
+        role="img"
+        aria-label={`${row.album} cover`}
+        style={{ backgroundImage: `url("${row.file}")` }}
+        className={`${box} shrink-0 rounded-control border border-border bg-raised bg-cover bg-center shadow-lg`}
       />
     );
   }
