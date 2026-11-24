@@ -3,6 +3,11 @@
 from __future__ import annotations
 
 import json
+import os
+import platform
+import signal
+import subprocess
+import sys
 import threading
 import time
 import uuid
@@ -10,8 +15,10 @@ from pathlib import Path
 
 import pytest
 
+import stash_worker.sandbox as sandbox
 from stash_worker.jobs import Rejected
 from stash_worker.sandbox import CHILD_FILE_BYTES, CHILD_PROCESSES, _uid_task_count, run_isolated
+from stash_worker.seccomp import Filter, Unsupported
 
 PAYLOAD = {"id": str(uuid.uuid4()), "itemId": str(uuid.uuid4()), "kind": "process_loop", "attempts": 1}
 MiB = 1 << 20
@@ -35,7 +42,7 @@ def run(handler: str, tmp_path: Path, timeout_s: float = 20, memory_bytes: int =
 def test_result_comes_back_from_the_child(tmp_path: Path):
     out = run("ok", tmp_path)
     assert out.status == "ok"
-    assert out.result is not None and out.result["files"][0]["path"].startswith(PAYLOAD["itemId"] + "/")
+    assert out.result is not None and out.result["type"] == "loop"
     assert (tmp_path / "work" / "scratch.bin").read_bytes() == b"temporary"
 
 
@@ -112,22 +119,41 @@ def test_the_child_sees_only_an_allowlisted_environment(tmp_path: Path, monkeypa
     assert Path(env["HOME"]).is_relative_to(tmp_path) and Path(env["TMPDIR"]).is_relative_to(tmp_path)
 
 
-def test_the_child_runs_under_resource_limits(tmp_path: Path):
+def test_the_child_runs_under_resource_limits(tmp_path: Path, monkeypatch):
+    # RLIMIT_NPROC counts every task of the uid, so the cap is what the uid runs at the start plus the
+    # allowance. The count is pinned here because other processes of the same uid (a shared CI host, or
+    # root on a dev box) start and stop between the child's start and this assertion; the real count is
+    # covered by the thread-counting test below.
+    assert _uid_task_count() is not None
+    monkeypatch.setattr(sandbox, "_uid_task_count", lambda uid=None: 123)
     run("env_probe", tmp_path, memory_bytes=768 * MiB)
     got = json.loads((tmp_path / "work" / "probe.json").read_text())["limits"]
     assert got["RLIMIT_AS"] == 768 * MiB
     assert got["RLIMIT_CORE"] == 0
     assert got["RLIMIT_FSIZE"] == CHILD_FILE_BYTES
-    # RLIMIT_NPROC counts every task of the uid, so the cap is what the uid runs now plus the allowance.
-    now = _uid_task_count()
-    assert now is not None
-    assert CHILD_PROCESSES < got["RLIMIT_NPROC"] <= now + CHILD_PROCESSES + 50
+    assert got["RLIMIT_NPROC"] == 123 + CHILD_PROCESSES
+
+
+def test_the_task_count_adds_up_every_thread_of_the_uids_processes(tmp_path: Path):
+    # A /proc laid out by hand: two processes of this uid with 3 and 1 tasks, and names that are not pids.
+    for pid, tasks in (("123", 3), ("456", 1)):
+        for t in range(tasks):
+            (tmp_path / pid / "task" / str(t)).mkdir(parents=True)
+    (tmp_path / "self" / "task" / "1").mkdir(parents=True)
+    (tmp_path / "sys").mkdir()
+    assert _uid_task_count(os.getuid(), proc=tmp_path) == 4
+    assert _uid_task_count(os.getuid() + 1, proc=tmp_path) == 0
+    assert _uid_task_count(proc=tmp_path / "missing") is None
 
 
 def test_the_process_allowance_counts_threads_not_just_processes():
     # The kernel checks RLIMIT_NPROC against every task (thread) of the real uid. Counting processes
     # left a uid running a many-threaded process (the GitHub runner agent) already over the cap, so
     # the child could not start ffmpeg or any grandchild. Holding 100 threads must raise the count by 100.
+    if os.geteuid() == 0:
+        # Root's count moves with every other root process; as root this is measured on the job uid,
+        # which runs nothing else (test_isolation.py::test_the_job_uid_task_count_counts_its_threads).
+        pytest.skip("measured on the job uid as root")
     before = _uid_task_count()
     stop = threading.Event()
     threads = [threading.Thread(target=stop.wait) for _ in range(100)]
@@ -160,7 +186,10 @@ def test_a_grandchild_starts_while_the_worker_uid_runs_many_threads(tmp_path: Pa
     assert (tmp_path / "work" / "grandchild.pid").exists()
 
 
-@pytest.mark.parametrize("handler", ["forge_runner_reason", "forge_flag_reason", "forge_garbage", "forge_list_result"])
+@pytest.mark.parametrize(
+    "handler",
+    ["forge_runner_reason", "forge_flag_reason", "forge_garbage", "forge_list_result", "forge_linked_outcome"],
+)
 def test_a_forged_outcome_is_a_crash(tmp_path: Path, handler: str):
     out = run(handler, tmp_path)
     assert (out.status, out.result, out.reason) == ("crashed", None, None)
@@ -170,3 +199,79 @@ def test_an_outcome_over_the_size_cap_is_not_read(tmp_path: Path):
     out = run("forge_huge_outcome", tmp_path)
     assert out.status == "crashed"
     assert "too large" in out.detail
+
+
+# -- the child's seccomp filter (PR #8 re-review N1, A1) -------------------------------------------------
+
+linux_only = pytest.mark.skipif(sys.platform != "linux", reason="seccomp is Linux only")
+
+SECCOMP_EXPECTED = {
+    "unshare_user": "EPERM",
+    "clone_newuser": "EPERM",
+    "keyctl": "EPERM",
+    "add_key": "EPERM",
+    "userfaultfd": "EPERM",
+    "io_uring_setup": "EPERM",
+    "open_tree": "EPERM",
+    "clone3": "ENOSYS",
+    "ptrace": "EPERM",
+    "no_new_privs": "1",
+    "seccomp": "2",
+    "ffmpeg": 0,
+}
+
+
+@linux_only
+def test_the_child_runs_under_no_new_privs_and_the_seccomp_filter(tmp_path: Path):
+    assert run("seccomp_probe", tmp_path).status == "ok"
+    assert json.loads((tmp_path / "work" / "probe.json").read_text()) == SECCOMP_EXPECTED
+
+
+@linux_only
+def test_the_filter_kills_a_process_on_a_foreign_architecture():
+    other = "aarch64" if platform.machine() == "x86_64" else "x86_64"
+    p = subprocess.run(  # noqa: S603
+        [sys.executable, "-I", "-S", "-c", "pass"],
+        preexec_fn=Filter(other).install,  # noqa: PLW1509
+        check=False,
+    )
+    assert p.returncode == -signal.SIGSYS
+
+
+PROBE = str(Path(__file__).with_name("syscall_probe.py"))
+
+
+def _probe(preexec_fn=None) -> dict[str, str]:
+    env = {**os.environ, "PYTHONPATH": os.pathsep.join(sys.path)}
+    p = subprocess.run(  # noqa: S603
+        [sys.executable, PROBE],
+        preexec_fn=preexec_fn,  # noqa: PLW1509
+        capture_output=True,
+        text=True,
+        check=True,
+        env=env,
+        timeout=20,
+    )
+    return json.loads(p.stdout)
+
+
+@linux_only
+def test_each_probe_is_refused_with_the_filter_and_answered_without_it():
+    # The probes must tell the filter being on from it being off (PR #8 third review): every call is
+    # EPERM under the filter, and none is EPERM without it.
+    without = _probe()
+    with_filter = _probe(Filter().install)
+    probed = {"clone_newuser", "keyctl", "add_key", "userfaultfd", "io_uring_setup", "open_tree"}
+    assert set(without) == set(with_filter) == probed
+    assert with_filter == dict.fromkeys(without, "EPERM")
+    assert [k for k, v in without.items() if v == "EPERM"] == []
+
+
+def test_there_is_no_filter_for_an_unknown_architecture():
+    with pytest.raises(Unsupported):
+        Filter("riscv64")
+
+
+@linux_only
+def test_a_filter_is_available_here():
+    assert sandbox.syscall_filter_available()

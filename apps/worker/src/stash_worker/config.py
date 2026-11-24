@@ -15,6 +15,7 @@ from typing import Any
 from urllib.parse import parse_qs, unquote, urlsplit
 
 from stash_worker.contracts import REPO_ROOT, limits
+from stash_worker.sandbox import JobUser
 
 LOCAL_HOSTS = frozenset({"localhost", "127.0.0.1", "::1"})
 SSLMODES = ("disable", "allow", "prefer", "require", "verify-ca", "verify-full")
@@ -77,12 +78,47 @@ def connect_params(url: str) -> dict[str, Any]:
     }
 
 
+STORAGE_KEYS = (
+    "STASH_S3_ENDPOINT",
+    "STASH_S3_REGION",
+    "STASH_S3_ACCESS_KEY_ID",
+    "STASH_S3_SECRET_ACCESS_KEY",
+    "STASH_BUCKET_ORIGINALS",
+    "STASH_BUCKET_PREVIEWS",
+)
+
+
 @dataclass(frozen=True)
 class Settings:
     database_url: str
     memory_bytes: int
     idle_min_s: float
     idle_max_s: float
+    storage_env: dict[str, str]
+    job_user: JobUser | None  # the uid every job's child runs as (STASH_JOB_USER)
+    allow_same_uid: bool  # STASH_WORKER_ALLOW_SAME_UID=1: run children as the worker's own uid (dev only)
+    # With a job user, each child gets a network namespace with no interfaces unless
+    # STASH_CHILD_NETWORK=shared (which logs a warning). Isolation needs CAP_SYS_ADMIN.
+    isolate_network: bool = False
+
+
+def _job_user(values: Mapping[str, str]) -> tuple[JobUser | None, bool]:
+    name = values.get("STASH_JOB_USER")
+    allow_same = values.get("STASH_WORKER_ALLOW_SAME_UID") == "1"
+    if not name:
+        if not allow_same:
+            raise SystemExit(
+                "stash-worker: set STASH_JOB_USER to the unprivileged user jobs run as (the worker image has "
+                "stash-job), or STASH_WORKER_ALLOW_SAME_UID=1 on a development machine."
+            )
+        return None, True
+    try:
+        user = JobUser.lookup(name)
+    except (KeyError, ValueError) as e:
+        raise SystemExit(f"stash-worker: STASH_JOB_USER {name!r} is not a usable user: {e}") from e
+    if os.geteuid() != 0:
+        raise SystemExit("stash-worker: STASH_JOB_USER needs the worker to run as root, which may switch to it.")
+    return user, allow_same
 
 
 def load_settings(env: Mapping[str, str] | None = None, dotenv: Path | None = None) -> Settings:
@@ -90,9 +126,14 @@ def load_settings(env: Mapping[str, str] | None = None, dotenv: Path | None = No
     url = values.get("DATABASE_URL")
     if not url:
         raise SystemExit("stash-worker: DATABASE_URL is not set (see .env.example).")
+    job_user, allow_same_uid = _job_user(values)
     return Settings(
         database_url=url,
         memory_bytes=int(limits()["worker"]["memoryMb"]) << 20,
         idle_min_s=float(values.get("STASH_WORKER_IDLE_MIN_S", 1)),
         idle_max_s=float(values.get("STASH_WORKER_IDLE_MAX_S", 15)),
+        storage_env={k: values[k] for k in STORAGE_KEYS if values.get(k)},
+        job_user=job_user,
+        allow_same_uid=allow_same_uid,
+        isolate_network=job_user is not None and values.get("STASH_CHILD_NETWORK") != "shared",
     )

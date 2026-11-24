@@ -4,6 +4,7 @@ version = "0.0.0"
 description = "Stash processing worker: turns each uploaded original into small playable files and metadata."
 requires-python = ">=3.12"
 dependencies = [
+  "boto3>=1.44.10",
   "jsonschema>=4.23",
   "pg8000>=1.31.6",
 ]

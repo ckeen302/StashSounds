@@ -14,6 +14,7 @@ apps/worker/
 - contracts: details.loop, worker-result
 
 ## Acceptance criteria
+- [ ] Handlers run as a separate unprivileged uid (or their own container) so a hostile file cannot read the worker's files or environment or signal the worker; a test proves the child cannot read a file only the worker uid can read (PR #3 review)
 - [ ] Real type verified from leading bytes, not the extension; fixtures/generated/hostile/actually_an_exe.wav fails with unsupported_format
 - [ ] ffmpeg decode to 44.1 kHz stereo float; silence and files over 60 s rejected (hostile fixtures)
 - [ ] Preview at −14 LUFS integrated with −1 dB true peak, MP3 at the bitrate in limits; previews under 500 KB for every fixture loop

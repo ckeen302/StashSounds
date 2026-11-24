@@ -15,6 +15,11 @@ COPY packages/contracts/generated /app/packages/contracts/generated
 COPY apps/worker/src ./src
 RUN uv sync --frozen --no-dev
 
-RUN useradd --create-home worker
-USER worker
-CMD ["uv", "run", "--frozen", "--no-dev", "python", "-m", "stash_worker"]
+# The parent runs as root because only a privileged process can start the job child as another uid
+# (ticket 112). It holds the credentials; each job runs as stash-job, which owns nothing here and can
+# read the app and the venv only because they are world-readable. Compose drops every capability
+# but the few the parent needs (docs/requests/112-worker-isolation-ci.md).
+RUN useradd --system --uid 10001 --user-group --no-create-home --shell /usr/sbin/nologin stash-job \
+ && chmod -R a+rX /app
+ENV STASH_JOB_USER=stash-job
+CMD ["/app/apps/worker/.venv/bin/python", "-m", "stash_worker"]

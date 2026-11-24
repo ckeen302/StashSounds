@@ -6,7 +6,11 @@ Failure handling; ticket 111).
 - Timeout: worker_fail('timeout', retryable=true).
 - Crash, memory cap, forged or malformed outcome, invalid result, no handler, worker_complete error,
   or a bug in the runner itself: worker_fail('internal', true).
-- Payload or job input breaks its schema, or claimed past the attempt limit: worker_fail('internal', false).
+- Payload or job input breaks its schema, the input is for another item type, or claimed past the
+  attempt limit: worker_fail('internal', false).
+- An input file over its type's size limit: worker_fail('too_large', false), before downloading it.
+- Storage error staging inputs or publishing outputs, or outputs that do not match the result:
+  worker_fail('internal', true). Nothing is completed until every output is uploaded.
 - Any call answered with conflict: nothing. The run is no longer this worker's (decision 0012).
 
 Every call after the claim names the claimed attempt. worker_fail applies the backoff and returns the
@@ -16,6 +20,7 @@ item to draft on the final failure.
 from __future__ import annotations
 
 import logging
+import os
 import shutil
 import tempfile
 import time
@@ -27,8 +32,10 @@ from jsonschema import ValidationError
 
 from stash_worker.contracts import limits, validate
 from stash_worker.db import JobQueue, QueueContractError, QueueError, QueueRejected
-from stash_worker.jobs import HANDLERS, TIMEOUT_KEYS, timeout_for
-from stash_worker.sandbox import Outcome, run_isolated
+from stash_worker.files import InputRejected, PublishError, publish_outputs, stage_inputs
+from stash_worker.jobs import HANDLERS, ITEM_TYPE_FOR_KIND, TIMEOUT_KEYS, timeout_for
+from stash_worker.sandbox import JobUser, Outcome, run_isolated
+from stash_worker.storage import Storage, StorageError
 
 log = logging.getLogger(__name__)
 
@@ -41,6 +48,9 @@ class Runner:
         self,
         queue: JobQueue,
         *,
+        storage: Storage,
+        job_user: JobUser | None = None,
+        isolate_network: bool | None = None,
         handlers: Mapping[str, str] = HANDLERS,
         timeouts: Mapping[str, float] | None = None,
         memory_bytes: int | None = None,
@@ -54,6 +64,9 @@ class Runner:
         """`timeouts` overrides limits.json per kind (tests only); every other kind uses timeout_for.
         `memory_bytes` defaults to limits.json worker.memoryMb; a job always runs with a cap."""
         self.queue = queue
+        self.storage = storage
+        self.job_user = job_user
+        self.isolate_network = isolate_network
         self.handlers = dict(handlers)
         self.timeouts = dict(timeouts or {})
         self.memory_bytes = memory_bytes if memory_bytes is not None else int(limits()["worker"]["memoryMb"]) << 20
@@ -157,9 +170,20 @@ class Runner:
         except ValidationError as e:
             log.error("job %s: job input breaks the contract: %s", job_id, e.message)
             return self._fail(job_id, attempt, "internal", retryable=False)
+        if job_input["type"] != ITEM_TYPE_FOR_KIND[payload["kind"]]:
+            log.error("job %s: a %s job for a %s item", job_id, payload["kind"], job_input["type"])
+            return self._fail(job_id, attempt, "internal", retryable=False)
 
         job_dir = Path(tempfile.mkdtemp(prefix=f"stash-job-{job_id}-", dir=self.temp_root))
         try:
+            try:
+                stage_inputs(self.storage, job_input, job_dir / "work" / "in")
+            except InputRejected as e:
+                log.warning("job %s: %s", job_id, e)
+                return self._fail(job_id, attempt, e.reason, retryable=False)
+            except StorageError as e:
+                log.error("job %s: staging inputs failed: %s", job_id, e)
+                return self._fail(job_id, attempt, "internal", retryable=True)
             started = time.monotonic()
             outcome = run_isolated(
                 handler,
@@ -168,9 +192,11 @@ class Runner:
                 job_dir,
                 timeout_s=self.timeout_for(payload["kind"]),
                 memory_bytes=self.memory_bytes,
+                job_user=self.job_user,
+                isolate_network=self.isolate_network,
             )
             log.info(
-                "job %s %s attempt %d: %s in %.1fs %s",
+                "job %s %s attempt %d: %s in %.1fs %r",
                 job_id,
                 payload["kind"],
                 attempt,
@@ -178,12 +204,12 @@ class Runner:
                 time.monotonic() - started,
                 outcome.reason or outcome.detail,
             )
-            self._record(job_id, attempt, outcome)
+            self._record(job_id, attempt, outcome, job_dir, payload["itemId"], job_input["type"])
         finally:
             shutil.rmtree(job_dir, ignore_errors=True)
         return None
 
-    def _record(self, job_id: str, attempt: int, outcome: Outcome) -> None:
+    def _record(self, job_id: str, attempt: int, outcome: Outcome, job_dir: Path, item_id: str, item_type: str) -> None:
         if outcome.status == "rejected" and outcome.reason:
             return self._fail(job_id, attempt, outcome.reason, retryable=False)
         if outcome.status == "timeout":
@@ -193,7 +219,13 @@ class Runner:
         try:
             validate("worker-result", outcome.result)
         except ValidationError as e:
-            log.error("job %s: result breaks worker-result.schema.json: %s", job_id, e.message)
+            log.error("job %s: result breaks worker-result.schema.json: %r", job_id, e.message)
+            return self._fail(job_id, attempt, "internal", retryable=True)
+        try:
+            owner = os.getuid() if self.job_user is None else self.job_user.uid
+            publish_outputs(self.storage, outcome.result, job_dir / "work" / "out", item_id, item_type, owner)
+        except (PublishError, StorageError) as e:
+            log.error("job %s: publishing outputs failed: %r", job_id, str(e))
             return self._fail(job_id, attempt, "internal", retryable=True)
         try:
             self.queue.complete(job_id, attempt, outcome.result)

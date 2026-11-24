@@ -16,6 +16,8 @@ from types import FrameType
 from stash_worker.config import load_settings
 from stash_worker.db import PgJobQueue
 from stash_worker.runner import Runner
+from stash_worker.sandbox import network_isolation_available, syscall_filter_available
+from stash_worker.storage import S3Storage
 
 log = logging.getLogger("stash_worker")
 
@@ -34,9 +36,27 @@ def main() -> int:
     signal.signal(signal.SIGINT, on_signal)
     signal.signal(signal.SIGTERM, on_signal)
 
+    if settings.job_user is None:
+        log.warning("jobs run as the worker's own uid (STASH_WORKER_ALLOW_SAME_UID=1): development only")
+    if settings.job_user is not None and not syscall_filter_available():
+        raise SystemExit(
+            "stash-worker: job children must run with no_new_privs and the worker's seccomp filter "
+            "(decision 0017), which could not be installed here (Linux on x86_64 or aarch64 only)."
+        )
+    if settings.isolate_network and not network_isolation_available():
+        raise SystemExit(
+            "stash-worker: job children need their own network namespace, which needs CAP_SYS_ADMIN "
+            "(decision 0017: compose adds SYS_ADMIN). STASH_CHILD_NETWORK=shared runs without it; "
+            "never set it in compose or CI."
+        )
+    if settings.job_user is not None and not settings.isolate_network:
+        log.warning("job children share the worker's network (STASH_CHILD_NETWORK=shared)")
     queue = PgJobQueue(settings.database_url)
     runner = Runner(
         queue,
+        storage=S3Storage.from_env(settings.storage_env),
+        job_user=settings.job_user,
+        isolate_network=settings.isolate_network,
         memory_bytes=settings.memory_bytes,
         sleep=lambda s: stop.wait(s),
         idle_min_s=settings.idle_min_s,

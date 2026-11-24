@@ -15,11 +15,12 @@ import pytest
 import stash_worker.__main__ as main_module
 from stash_worker.config import Settings, connect_params, load_settings
 from stash_worker.contracts import limits
+from stash_worker.sandbox import JobUser
 
 
 def test_settings_fall_back_to_env_local_and_the_environment_wins(tmp_path: Path):
     dotenv = tmp_path / ".env.local"
-    dotenv.write_text("# comment\nDATABASE_URL=postgresql://a:b@h:1/d\n")
+    dotenv.write_text("# comment\nDATABASE_URL=postgresql://a:b@h:1/d\nSTASH_WORKER_ALLOW_SAME_UID=1\n")
     s = load_settings(env={}, dotenv=dotenv)
     assert s.database_url == "postgresql://a:b@h:1/d"
     s = load_settings(env={"DATABASE_URL": "postgres://x@y/z"}, dotenv=dotenv)
@@ -27,7 +28,8 @@ def test_settings_fall_back_to_env_local_and_the_environment_wins(tmp_path: Path
 
 
 def test_the_memory_cap_comes_from_limits(tmp_path: Path):
-    s = load_settings(env={"DATABASE_URL": "postgres://x@localhost/z"}, dotenv=tmp_path / "missing")
+    env = {"DATABASE_URL": "postgres://x@localhost/z", "STASH_WORKER_ALLOW_SAME_UID": "1"}
+    s = load_settings(env=env, dotenv=tmp_path / "missing")
     assert s.memory_bytes == limits()["worker"]["memoryMb"] << 20
 
 
@@ -37,7 +39,15 @@ def test_settings_require_a_database_url(tmp_path: Path):
 
 
 def test_main_passes_the_configured_memory_cap_to_the_runner(monkeypatch):
-    settings = Settings(database_url="postgres://x@localhost/z", memory_bytes=321 << 20, idle_min_s=1, idle_max_s=2)
+    settings = Settings(
+        database_url="postgres://x@localhost/z",
+        memory_bytes=321 << 20,
+        idle_min_s=1,
+        idle_max_s=2,
+        storage_env=STORAGE_ENV,
+        job_user=JobUser(65534, 65534),
+        allow_same_uid=False,
+    )
     seen: dict[str, object] = {}
 
     class FakeRunner:
@@ -52,6 +62,48 @@ def test_main_passes_the_configured_memory_cap_to_the_runner(monkeypatch):
     monkeypatch.setattr(main_module.signal, "signal", lambda *a: None)
     assert main_module.main() == 0
     assert seen["memory_bytes"] == 321 << 20 and seen["ran"] is True
+    assert seen["job_user"] == JobUser(65534, 65534)
+    assert seen["storage"].buckets == {"originals": "o", "previews": "p"}
+
+
+STORAGE_ENV = {
+    "STASH_S3_ENDPOINT": "http://127.0.0.1:9",
+    "STASH_S3_REGION": "auto",
+    "STASH_S3_ACCESS_KEY_ID": "a",
+    "STASH_S3_SECRET_ACCESS_KEY": "b",
+    "STASH_BUCKET_ORIGINALS": "o",
+    "STASH_BUCKET_PREVIEWS": "p",
+}
+
+
+def test_settings_require_a_job_user_unless_same_uid_is_allowed(tmp_path: Path, monkeypatch):
+    monkeypatch.setattr(os, "geteuid", lambda: 0)  # as in the worker image
+    base = {"DATABASE_URL": "postgres://x@localhost/z", **STORAGE_ENV}
+    with pytest.raises(SystemExit, match="STASH_JOB_USER"):
+        load_settings(env=base, dotenv=tmp_path / "missing")
+    s = load_settings(env={**base, "STASH_WORKER_ALLOW_SAME_UID": "1"}, dotenv=tmp_path / "missing")
+    assert (s.job_user, s.allow_same_uid) == (None, True)
+    s = load_settings(env={**base, "STASH_JOB_USER": "nobody"}, dotenv=tmp_path / "missing")
+    assert s.job_user == JobUser.lookup("nobody") and s.storage_env == STORAGE_ENV
+    with pytest.raises(SystemExit, match="no-such-user"):
+        load_settings(env={**base, "STASH_JOB_USER": "no-such-user"}, dotenv=tmp_path / "missing")
+
+
+def test_a_job_users_children_have_no_network_unless_shared_is_set(tmp_path: Path, monkeypatch):
+    monkeypatch.setattr(os, "geteuid", lambda: 0)
+    base = {"DATABASE_URL": "postgres://x@localhost/z", **STORAGE_ENV}
+    assert load_settings(env={**base, "STASH_JOB_USER": "nobody"}, dotenv=tmp_path / "m").isolate_network is True
+    shared = {**base, "STASH_JOB_USER": "nobody", "STASH_CHILD_NETWORK": "shared"}
+    assert load_settings(env=shared, dotenv=tmp_path / "m").isolate_network is False
+    same = {**base, "STASH_WORKER_ALLOW_SAME_UID": "1"}
+    assert load_settings(env=same, dotenv=tmp_path / "m").isolate_network is False
+
+
+def test_a_job_user_needs_a_worker_that_can_switch_to_it(tmp_path: Path, monkeypatch):
+    base = {"DATABASE_URL": "postgres://x@localhost/z", "STASH_JOB_USER": "nobody", **STORAGE_ENV}
+    monkeypatch.setattr(os, "geteuid", lambda: 1000)
+    with pytest.raises(SystemExit, match="root"):
+        load_settings(env=base, dotenv=tmp_path / "missing")
 
 
 def test_connect_params_parse_a_supabase_url():
@@ -92,7 +144,13 @@ def test_remote_hosts_require_verified_tls():
 
 def test_the_worker_process_polls_claims_and_stops_on_sigterm(db):
     it = db.queued_item()
-    env = {**os.environ, "DATABASE_URL": db.url, "STASH_WORKER_IDLE_MAX_S": "0.2"}
+    env = {
+        **os.environ,
+        **STORAGE_ENV,
+        "DATABASE_URL": db.url,
+        "STASH_WORKER_IDLE_MAX_S": "0.2",
+        "STASH_WORKER_ALLOW_SAME_UID": "1",
+    }
     proc = subprocess.Popen(  # noqa: S603
         [sys.executable, "-m", "stash_worker"], env=env, stderr=subprocess.PIPE, text=True
     )
@@ -101,7 +159,7 @@ def test_the_worker_process_polls_claims_and_stops_on_sigterm(db):
         while db.job(it["job_id"])["error"] is None and time.monotonic() < deadline:
             time.sleep(0.1)
         job = db.job(it["job_id"])
-        # No processor is registered for loops until ticket 112, so the claim ends in a retryable failure.
+        # Storage at STASH_S3_ENDPOINT refuses connections, so staging the original fails retryably.
         assert (job["status"], job["attempts"], job["error"]) == ("queued", 1, "internal")
     finally:
         proc.send_signal(signal.SIGTERM)

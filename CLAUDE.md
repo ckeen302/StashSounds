@@ -22,6 +22,8 @@ supabase/migrations       Lead only           SQL schema and access policies
 supabase/tests            Platform lane       policy tests
 supabase/seed.sql         Lead only           local development data
 fixtures/                 Lead only           test files and manifest.json (ticket 006)
+e2e/                      Interface lane      journeys, accessibility scan, visual baselines
+e2e/perf/audio-*.spec.ts  Audio lane          audio test page checks (pnpm perf)
 scripts/, .github/        Lead only           tooling and CI
 docs/                     Lead                spec, tickets, decisions, handoffs, board
 docs/handoffs/NNN-*.md    The builder who finished the ticket
@@ -38,9 +40,10 @@ pnpm check                types and lint
 pnpm test                 unit tests
 pnpm db:test              database policy tests (needs Postgres 16+; see supabase/tests/README.md)
 pnpm worker:test          worker tests
-pnpm e2e                  end-to-end tests
+pnpm e2e                  end-to-end tests (STASH_E2E_PORT picks the server port; use a free one per worktree)
 pnpm visual               screenshot comparison in the pinned Playwright container (needs Docker)
-pnpm visual:update        rewrite screenshot baselines in the same container; commit them with the change
+pnpm visual:update        rewrite the baselines that fail or are missing, in the same container; commit them
+                          (no Docker? push to visual-update/<name>; CI commits the new PNGs back to that branch)
 pnpm perf                 performance budgets
 pnpm run licenses         dependency license check (plain `pnpm licenses` is a pnpm built-in)
 ```

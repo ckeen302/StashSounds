@@ -1,7 +1,7 @@
 """The child side of sandbox.py: `python -m stash_worker.child <job_dir>`.
 
 Reads <job_dir>/request.json ({handler, payload, input}), runs the handler with <job_dir>/work as its
-folder, and writes <job_dir>/outcome.json. Kept free of heavy imports so the memory cap goes to the
+folder, and writes <job_dir>/report/outcome.json. Kept free of heavy imports so the memory cap goes to the
 handler. The parent treats outcome.json as untrusted.
 """
 
@@ -16,9 +16,10 @@ from typing import Any
 
 
 def _write(job_dir: Path, outcome: dict[str, Any]) -> None:
-    tmp = job_dir / "outcome.json.tmp"
+    report = job_dir / "report"
+    tmp = report / "outcome.json.tmp"
     tmp.write_text(json.dumps(outcome))
-    os.replace(tmp, job_dir / "outcome.json")
+    os.replace(tmp, report / "outcome.json")
 
 
 def main(argv: list[str]) -> int:

@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { bucketSchema, fileRoleSchema, itemTypeSchema, jobKindSchema, kitCategorySchema } from "./enums.ts";
-import { bpmSchema, midiPitchSchema, musicalKeySchema, uuidSchema } from "./common.ts";
+import { bpmSchema, midiPitchSchema, musicalKeySchema, peaksSchema, uuidSchema } from "./common.ts";
+import { limits } from "./limits.ts";
 import { detailsSchemas } from "./details.ts";
 
 /** Maps each content type to the job that processes it. */
@@ -89,16 +90,30 @@ export const workerJobInputSchema = z.object({
 });
 export type WorkerJobInput = z.infer<typeof workerJobInputSchema>;
 
-/** A derived file the worker wrote to storage. */
-export const workerFileSchema = z.object({
-  role: fileRoleSchema,
+/**
+ * Meta of the derived file with role "peaks": the same bytes as the stored .peaks file, base64, so
+ * a result row needs no second request. worker_complete copies it to item_files.meta, and item.peaks
+ * is read from there (request 112-peaks-meta).
+ */
+export const peaksFileMetaSchema = z.object({ points: z.literal(limits.waveform.peakPoints), peaks: peaksSchema });
+
+const workerFileCommon = {
   bucket: bucketSchema,
   path: z.string().min(1).max(400),
   bytes: z.int().nonnegative(),
   mime: z.string().min(1),
   sha256: z.string().regex(/^[0-9a-f]{64}$/).nullable(),
-  meta: z.record(z.string(), z.unknown()).default({}),
-});
+};
+
+/** A derived file the worker wrote to storage. A peaks file must carry its peaks in meta. */
+export const workerFileSchema = z.union([
+  z.object({ ...workerFileCommon, role: z.literal("peaks"), meta: peaksFileMetaSchema }),
+  z.object({
+    ...workerFileCommon,
+    role: fileRoleSchema.exclude(["peaks"]),
+    meta: z.record(z.string(), z.unknown()).default({}),
+  }),
+]);
 
 export const workerKitSampleSchema = z.object({
   position: z.int().min(0),
