@@ -35,6 +35,7 @@ Statuses: todo, planning, building, review, merged.
 | 134 | interface | Upload flow for one loop | todo | 132, 102 |
 | 135 | interface | Loop item page | todo | 132, 103, 122 |
 | 136 | interface | Polish pass 1 | todo | 135 |
+| 137 | interface | Browser-only demo build | todo | 132, 135 |
 | 190 | lead | Phase 1 gate end-to-end test | todo | all above |
 
 ## Follow-ups from reviews (lead to schedule)
