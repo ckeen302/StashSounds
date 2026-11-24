@@ -37,6 +37,7 @@ from stash_worker.contracts import limits, validate
 from stash_worker.db import JobQueue, QueueContractError, QueueError, QueueRejected
 from stash_worker.files import InputRejected, PublishError, publish_outputs, stage_inputs
 from stash_worker.jobs import HANDLERS, ITEM_TYPE_FOR_KIND, TIMEOUT_KEYS, timeout_for
+from stash_worker.safefs import UnsafePath
 from stash_worker.sandbox import JobUser, Outcome, run_isolated
 from stash_worker.screen import screen
 from stash_worker.storage import Storage, StorageError
@@ -181,11 +182,11 @@ class Runner:
         job_dir = Path(tempfile.mkdtemp(prefix=f"stash-job-{job_id}-", dir=self.temp_root))
         try:
             try:
-                stage_inputs(self.storage, job_input, job_dir / "work" / "in")
+                digests = stage_inputs(self.storage, job_input, job_dir / "work" / "in")
             except InputRejected as e:
                 log.warning("job %s: %s", job_id, e)
                 return self._fail(job_id, attempt, e.reason, retryable=False)
-            except StorageError as e:
+            except (StorageError, UnsafePath) as e:
                 log.error("job %s: staging inputs failed: %s", job_id, e)
                 return self._fail(job_id, attempt, "internal", retryable=True)
             started = time.monotonic()
@@ -208,12 +209,20 @@ class Runner:
                 time.monotonic() - started,
                 outcome.reason or outcome.detail,
             )
-            self._record(job_id, attempt, outcome, job_dir, job_input)
+            self._record(job_id, attempt, outcome, job_dir, job_input, digests)
         finally:
             shutil.rmtree(job_dir, ignore_errors=True)
         return None
 
-    def _record(self, job_id: str, attempt: int, outcome: Outcome, job_dir: Path, job_input: dict[str, Any]) -> None:
+    def _record(
+        self,
+        job_id: str,
+        attempt: int,
+        outcome: Outcome,
+        job_dir: Path,
+        job_input: dict[str, Any],
+        digests: dict[str, str],
+    ) -> None:
         item_id, item_type = job_input["itemId"], job_input["type"]
         if outcome.status == "rejected" and outcome.reason:
             return self._fail(job_id, attempt, outcome.reason, retryable=False)
@@ -227,7 +236,8 @@ class Runner:
             log.error("job %s: result breaks worker-result.schema.json: %r", job_id, e.message)
             return self._fail(job_id, attempt, "internal", retryable=True)
         try:
-            result = screen(self.queue, job_input, outcome.result, job_dir / "work" / "in")
+            # The hashes from staging: the child has owned work/in since, so it is never read again.
+            result = screen(self.queue, job_input, outcome.result, digests)
             validate("worker-result", result)
         except QueueRejected as e:
             if e.code == "conflict":

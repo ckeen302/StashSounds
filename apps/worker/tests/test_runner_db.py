@@ -365,3 +365,35 @@ def test_the_lookup_is_fenced_to_the_claimed_attempt_and_its_own_original(db):
     assert e.value.code == "invalid"
     assert q.duplicate_candidates(it["job_id"], job["attempts"], it["file_id"], sha, None, None) == []
     q.close()
+
+
+def test_a_loop_too_short_to_fingerprint_is_still_caught_by_its_hash(db, tmp_path: Path):
+    # Below about 2.6 s fpcalc gives no fingerprint; an exact copy is still flagged (PR #16 review).
+    import subprocess
+
+    from stash_worker.contracts import REPO_ROOT
+
+    short = tmp_path / "short_loop.wav"
+    subprocess.run(  # noqa: S603
+        [  # noqa: S607
+            "ffmpeg", "-nostdin", "-v", "error", "-y", "-i",
+            str(REPO_ROOT / "fixtures/generated/loops/midnight_keys_140bpm_Am.wav"),
+            "-t", "1.714", "-c:a", "pcm_s16le", "-map_metadata", "-1", "-fflags", "+bitexact", str(short),
+        ],
+        check=True,
+    )  # fmt: skip
+    content = short.read_bytes()
+    results = []
+    for _ in range(2):
+        it = db.queued_item(file_name="short_loop_140bpm.wav", content=content)
+        r = make_runner(db, tmp_path, LOOP)
+        r.timeouts.clear()
+        assert r.run_once() is True
+        results.append({**it, **db.item(it["item_id"])})
+    first, copy = results
+    assert first["status"] == "ready"
+    assert (
+        db.q("select count(*) as n from public.fingerprints where item_id = :i", i=uuid.UUID(first["item_id"]))[0]["n"]
+        == 0
+    )
+    assert (copy["status"], copy["flagged_reason"]) == ("flagged", "duplicate_exact")

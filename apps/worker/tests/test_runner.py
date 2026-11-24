@@ -528,3 +528,20 @@ def test_a_failed_lookup_is_retried_and_nothing_is_published(tmp_path: Path, err
     runner(q, tmp_path, "writes_preview").run_once()
     assert q.outcomes() == [fail(j, "internal", True)]
     assert q.storage.uploads == []
+
+
+@pytest.mark.parametrize("handler", ["replace_original", "link_original_to_fifo"])
+def test_the_hash_is_taken_before_the_child_runs_so_the_child_cannot_change_it(tmp_path: Path, handler: str):
+    import hashlib
+    import threading
+
+    j = job()
+    q = FakeQueue([j])
+    r = runner(q, tmp_path, handler)
+    t = threading.Thread(target=r.run_once, daemon=True)
+    t.start()
+    t.join(timeout=30)
+    assert not t.is_alive(), "the parent blocked on the child's file"
+    [lookup] = [c for c in q.calls if c[0] == "duplicate_candidates"]
+    assert lookup[4] == hashlib.sha256(ORIGINAL).hexdigest()
+    assert [c[0] for c in q.outcomes()] == ["complete"]

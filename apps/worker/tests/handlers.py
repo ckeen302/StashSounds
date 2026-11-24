@@ -322,3 +322,23 @@ def hold_threads(ctx: JobContext) -> dict[str, Any]:
     for t in threads:
         t.join()
     return loop_result(ctx.payload["itemId"])
+
+
+def replace_original(ctx: JobContext) -> dict[str, Any]:
+    """A taken-over child swapping the staged original for other bytes (PR #16 review)."""
+    for f in ctx.input["files"]:
+        p = ctx.input_path(f)
+        p.unlink()
+        p.write_bytes(b"something else entirely")
+    return loop_result(ctx.payload["itemId"])
+
+
+def link_original_to_fifo(ctx: JobContext) -> dict[str, Any]:
+    """A taken-over child replacing the staged original with a symlink to a FIFO no one writes."""
+    fifo = ctx.workdir / "never-written"
+    os.mkfifo(fifo)
+    for f in ctx.input["files"]:
+        p = ctx.input_path(f)
+        p.unlink()
+        p.symlink_to(fifo)
+    return loop_result(ctx.payload["itemId"])

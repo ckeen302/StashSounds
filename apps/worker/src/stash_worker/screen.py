@@ -1,7 +1,8 @@
 """Duplicate screening in the parent (build spec: Worker jobs, common step 2 and Fingerprint; ticket 114).
 
 After the child's result is validated and before anything is published, the parent:
-1. hashes each staged original (SHA-256; hashing is safe on a hostile file);
+1. takes each original's SHA-256 from staging (files.stage_inputs hashes it before the child starts;
+   the child owns work/in afterwards, so the parent never reads it again);
 2. asks the database for candidates (public.worker_duplicate_candidates, request 114-duplicate-lookup),
    which also records the hash on the original: other items' originals with the same hash, and other
    items' fingerprints whose duration is within DURATION_RATIO of the upload's;
@@ -17,6 +18,7 @@ from __future__ import annotations
 
 import copy
 import hashlib
+import logging
 import math
 from pathlib import Path
 from typing import Any, Protocol
@@ -30,6 +32,11 @@ from stash_worker.contracts import limits
 DURATION_RATIO = 0.75
 # The alignment must overlap at least this share of the shorter fingerprint.
 MIN_OVERLAP = 0.9
+# At most this many fingerprints are compared per original, nearest duration first, so the parent's
+# work stays bounded whatever the catalog holds (about 0.1 s for 200 sixty-second loops).
+MAX_FINGERPRINT_CANDIDATES = 200
+
+log = logging.getLogger(__name__)
 
 
 class DuplicateLookup(Protocol):
@@ -78,10 +85,13 @@ def _flag(match: str, own: bool, score: float | None) -> dict[str, Any]:
     return {"reason": "duplicate_fingerprint", "detail": f"Sounds the same as {whose} (similarity {score:.3f})."}
 
 
-def screen(queue: DuplicateLookup, job_input: dict[str, Any], result: dict[str, Any], in_dir: Path) -> dict[str, Any]:
-    """The result with `flag` set when an original duplicates another item's. Raises ValueError when the
-    result fingerprints a file that is not one of this job's originals, and the queue's errors as they
-    are. A flag the handler already set is kept."""
+def screen(
+    queue: DuplicateLookup, job_input: dict[str, Any], result: dict[str, Any], digests: dict[str, str]
+) -> dict[str, Any]:
+    """The result with `flag` set when an original duplicates another item's. `digests` is {file id:
+    SHA-256} from staging. Raises ValueError when the result fingerprints a file that is not one of this
+    job's originals or an original has no digest, and the queue's errors as they are. A flag the
+    handler already set is kept."""
     out = copy.deepcopy(result)
     originals = [f for f in job_input["files"] if f["role"] == "original"]
     by_path = {f["path"]: f for f in originals}
@@ -94,18 +104,32 @@ def screen(queue: DuplicateLookup, job_input: dict[str, Any], result: dict[str, 
 
     found: list[tuple[int, int, str, bool, float | None]] = []
     for f in originals:
-        sha = sha256_file(in_dir / f["id"])
+        sha = digests.get(f["id"])
+        if sha is None:
+            raise ValueError(f"no digest for original {f['id']}")
         fp = prints.get(f["path"])
         lo, hi = duration_window(int(fp["durationMs"])) if fp else (None, None)
         rows = queue.duplicate_candidates(job_input["jobId"], int(job_input["attempt"]), f["id"], sha, lo, hi)
+        prints_rows = []
         for row in rows:
             own = str(row["owner_id"]) == str(job_input["ownerId"])
             if row["match"] == "exact":
                 found.append((0, int(own), "exact", own, None))
             elif row["match"] == "fingerprint" and fp and row.get("chromaprint"):
-                score = similarity(fp["chromaprint"], list(row["chromaprint"]))
-                if score > threshold:
-                    found.append((1, int(own), "fingerprint", own, score))
+                prints_rows.append((own, row))
+        if fp is not None and len(prints_rows) > MAX_FINGERPRINT_CANDIDATES:
+            log.warning(
+                "item %s: compared the nearest %d of %d fingerprints in the duration window",
+                job_input["itemId"],
+                MAX_FINGERPRINT_CANDIDATES,
+                len(prints_rows),
+            )
+        if fp is not None:
+            prints_rows.sort(key=lambda r: abs(int(r[1]["duration_ms"]) - int(fp["durationMs"])))
+        for own, row in prints_rows[:MAX_FINGERPRINT_CANDIDATES]:
+            score = similarity(fp["chromaprint"], list(row["chromaprint"]))
+            if score > threshold:
+                found.append((1, int(own), "fingerprint", own, score))
     if found and not out.get("flag"):
         # Exact before fingerprint, another user before the uploader, then the closest match.
         found.sort(key=lambda m: (m[0], m[1], -(m[4] or 0)))

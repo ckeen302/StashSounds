@@ -191,8 +191,38 @@ def test_inputs_are_staged_by_file_id_within_their_limits(tmp_path: Path):
     src.write_bytes(b"0123456789")
     store.upload("originals", f["path"], src, "audio/wav", None)
     in_dir = tmp_path / "work" / "in"
-    stage_inputs(store, job_input(item, owner, [f]), in_dir)
+    digests = stage_inputs(store, job_input(item, owner, [f]), in_dir)
     assert (in_dir / f["id"]).read_bytes() == b"0123456789"
+    # Hashed by the parent at staging, before any child exists (PR #16 review).
+    assert digests == {f["id"]: hashlib.sha256(b"0123456789").hexdigest()}
+
+
+def test_hashing_a_staged_file_refuses_a_symlink_to_a_fifo_without_blocking(tmp_path: Path):
+    import threading
+
+    from stash_worker.files import hash_staged
+    from stash_worker.safefs import UnsafePath
+
+    in_dir = tmp_path / "in"
+    in_dir.mkdir()
+    os.mkfifo(tmp_path / "fifo")
+    (in_dir / "link").symlink_to(tmp_path / "fifo")
+    os.mkfifo(in_dir / "fifo")
+    outcomes: list[str] = []
+
+    def attempt(name: str) -> None:
+        try:
+            hash_staged(in_dir, name)
+            outcomes.append("hashed")
+        except UnsafePath:
+            outcomes.append("refused")
+
+    for name in ("link", "fifo"):
+        t = threading.Thread(target=attempt, args=(name,), daemon=True)
+        t.start()
+        t.join(timeout=5)
+        assert not t.is_alive(), f"hashing {name} blocked"
+    assert outcomes == ["refused", "refused"]
 
 
 def test_an_input_over_its_type_limit_is_too_large_without_downloading(tmp_path: Path):

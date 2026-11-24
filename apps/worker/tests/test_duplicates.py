@@ -158,9 +158,8 @@ class Lookups:
         return self.rows
 
 
-def staged(tmp_path: Path) -> tuple[dict[str, Any], Path]:
+def staged(tmp_path: Path) -> tuple[dict[str, Any], dict[str, str]]:
     file_id = str(uuid.uuid4())
-    (tmp_path / file_id).write_bytes(b"audio bytes")
     job_input = {
         "jobId": str(uuid.uuid4()),
         "attempt": 2,
@@ -169,7 +168,7 @@ def staged(tmp_path: Path) -> tuple[dict[str, Any], Path]:
         "type": "loop",
         "files": [{"id": file_id, "role": "original", "path": f"{OWNER}/x/original.wav"}],
     }
-    return job_input, tmp_path
+    return job_input, {file_id: hashlib.sha256(b"audio bytes").hexdigest()}
 
 
 def result(fp: list[int] | None = FP, duration_ms: int = 6857) -> dict[str, Any]:
@@ -190,9 +189,9 @@ def row(match: str, owner: str, fp: list[int] | None = None, duration_ms: int | 
 
 
 def test_screen_looks_up_the_staged_originals_sha_and_the_duration_window(tmp_path: Path):
-    job_input, in_dir = staged(tmp_path)
+    job_input, digests = staged(tmp_path)
     q = Lookups([])
-    out = screen(q, job_input, result(), in_dir)
+    out = screen(q, job_input, result(), digests)
     assert out["flag"] is None
     f = job_input["files"][0]
     assert q.calls == [
@@ -201,64 +200,101 @@ def test_screen_looks_up_the_staged_originals_sha_and_the_duration_window(tmp_pa
 
 
 def test_without_a_fingerprint_only_the_sha_is_looked_up(tmp_path: Path):
-    job_input, in_dir = staged(tmp_path)
+    job_input, digests = staged(tmp_path)
     q = Lookups([])
-    screen(q, job_input, result(fp=None), in_dir)
+    screen(q, job_input, result(fp=None), digests)
     assert q.calls[0][4:] == (None, None)
 
 
 def test_an_exact_copy_of_another_users_original_is_duplicate_exact(tmp_path: Path):
-    job_input, in_dir = staged(tmp_path)
-    out = screen(Lookups([row("exact", OTHER)]), job_input, result(), in_dir)
+    job_input, digests = staged(tmp_path)
+    out = screen(Lookups([row("exact", OTHER)]), job_input, result(), digests)
     assert out["flag"]["reason"] == "duplicate_exact"
     assert "your own" not in out["flag"]["detail"]
 
 
 def test_the_uploaders_own_file_is_flagged_too_and_says_so(tmp_path: Path):
-    job_input, in_dir = staged(tmp_path)
-    out = screen(Lookups([row("exact", OWNER)]), job_input, result(), in_dir)
+    job_input, digests = staged(tmp_path)
+    out = screen(Lookups([row("exact", OWNER)]), job_input, result(), digests)
     assert out["flag"]["reason"] == "duplicate_exact"
     assert "your own" in out["flag"]["detail"]
 
 
 def test_a_fingerprint_over_the_threshold_is_duplicate_fingerprint(tmp_path: Path):
-    job_input, in_dir = staged(tmp_path)
+    job_input, digests = staged(tmp_path)
     near = list(FP)
     near[0] ^= 0xFF  # 8 of 1280 bits differ
-    out = screen(Lookups([row("fingerprint", OTHER, near, 6700)]), job_input, result(), in_dir)
+    out = screen(Lookups([row("fingerprint", OTHER, near, 6700)]), job_input, result(), digests)
     assert out["flag"]["reason"] == "duplicate_fingerprint"
     assert len(out["flag"]["detail"]) <= 500
 
 
 def test_a_fingerprint_under_the_threshold_is_not_flagged(tmp_path: Path):
-    job_input, in_dir = staged(tmp_path)
+    job_input, digests = staged(tmp_path)
     far = [x ^ 0x0F0F0F0F for x in FP]  # half the bits
-    assert screen(Lookups([row("fingerprint", OTHER, far, 6857)]), job_input, result(), in_dir)["flag"] is None
+    assert screen(Lookups([row("fingerprint", OTHER, far, 6857)]), job_input, result(), digests)["flag"] is None
 
 
 def test_exact_wins_over_fingerprint_and_another_user_over_the_uploader(tmp_path: Path):
-    job_input, in_dir = staged(tmp_path)
+    job_input, digests = staged(tmp_path)
     rows = [row("fingerprint", OTHER, FP, 6857), row("exact", OWNER), row("exact", OTHER)]
-    out = screen(Lookups(rows), job_input, result(), in_dir)
+    out = screen(Lookups(rows), job_input, result(), digests)
     assert out["flag"]["reason"] == "duplicate_exact"
     assert "your own" not in out["flag"]["detail"]
     rows = [row("fingerprint", OWNER, FP, 6857), row("fingerprint", OTHER, FP, 6857)]
-    out = screen(Lookups(rows), job_input, result(), in_dir)
+    out = screen(Lookups(rows), job_input, result(), digests)
     assert (out["flag"]["reason"], "your own" in out["flag"]["detail"]) == ("duplicate_fingerprint", False)
 
 
 def test_screen_leaves_an_existing_flag_and_does_not_change_the_input(tmp_path: Path):
-    job_input, in_dir = staged(tmp_path)
+    job_input, digests = staged(tmp_path)
     r = result()
-    out = screen(Lookups([row("exact", OTHER)]), job_input, r, in_dir)
+    out = screen(Lookups([row("exact", OTHER)]), job_input, r, digests)
     assert r["flag"] is None and out is not r
     r["flag"] = {"reason": "pack_name_blocklist"}
-    assert screen(Lookups([row("exact", OTHER)]), job_input, r, in_dir)["flag"] == {"reason": "pack_name_blocklist"}
+    assert screen(Lookups([row("exact", OTHER)]), job_input, r, digests)["flag"] == {"reason": "pack_name_blocklist"}
 
 
 def test_a_fingerprint_for_a_file_that_is_not_the_original_is_refused(tmp_path: Path):
-    job_input, in_dir = staged(tmp_path)
+    job_input, digests = staged(tmp_path)
     r = result()
     r["fingerprints"][0]["filePath"] = "someone/else/original.wav"
     with pytest.raises(ValueError, match="not this job's original"):
-        screen(Lookups([]), job_input, r, in_dir)
+        screen(Lookups([]), job_input, r, digests)
+
+
+def test_a_missing_digest_is_refused(tmp_path: Path):
+    job_input, _ = staged(tmp_path)
+    with pytest.raises(ValueError, match="no digest"):
+        screen(Lookups([]), job_input, result(), {})
+
+
+def test_only_the_nearest_durations_are_compared_up_to_the_cap(tmp_path: Path, caplog):
+    from stash_worker.screen import MAX_FINGERPRINT_CANDIDATES
+
+    assert MAX_FINGERPRINT_CANDIDATES == 200
+    job_input, digests = staged(tmp_path)
+    far = [x ^ 0x0F0F0F0F for x in FP]
+    decoys = [row("fingerprint", OTHER, far, 6857 + (i % 2) * 2 - 1) for i in range(MAX_FINGERPRINT_CANDIDATES)]
+    match_near = row("fingerprint", OTHER, FP, 6857)
+    out = screen(Lookups([*decoys, match_near]), job_input, result(), digests)
+    assert out["flag"]["reason"] == "duplicate_fingerprint"  # the nearest duration is compared first
+    match_far = row("fingerprint", OTHER, FP, 8000)
+    with caplog.at_level("WARNING"):
+        out = screen(Lookups([match_far, *decoys]), job_input, result(), digests)
+    assert out["flag"] is None  # beyond the cap: not compared, and logged
+    assert "compared the nearest 200 of 201" in caplog.text
+
+
+def test_comparing_the_cap_of_long_fingerprints_stays_fast(tmp_path: Path):
+    import time
+
+    from stash_worker.screen import MAX_FINGERPRINT_CANDIDATES
+
+    job_input, digests = staged(tmp_path)
+    long_fp = [(i * 2654435761) % 2**32 - 2**31 for i in range(480)]  # a 60 s loop
+    rows = [row("fingerprint", OTHER, long_fp[::-1], 60000) for _ in range(MAX_FINGERPRINT_CANDIDATES)]
+    r = result(fp=long_fp, duration_ms=60000)
+    started = time.monotonic()
+    screen(Lookups(rows), job_input, r, digests)
+    assert time.monotonic() - started < 10  # measured about 0.1 s

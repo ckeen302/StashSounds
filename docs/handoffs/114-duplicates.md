@@ -237,3 +237,57 @@ SKIPPED [1] tests/test_isolation.py:311: starting the child as another uid needs
 409 passed, 18 skipped in 67.27s (0:01:07)
 ```
 Ruff: `All checks passed!` and `35 files already formatted`.
+
+## PR #16 review
+
+Foundations cd06f55 is merged at fdb26ee. That brings in migration 20261124020000, which takes an advisory
+lock so that lookups of the same hash run one at a time, and the trust note in decision 0018.
+
+**Blocking: the parent hashed `work/in/<id>` after the child had run.** This is fixed. The parent now
+hashes each original at staging, right after it downloads it and before the child starts. It opens the
+file with `safefs.open_beneath`, which uses O_NOFOLLOW on every path component and O_NONBLOCK on the leaf,
+and accepts only a regular file with one link. `stage_inputs` returns `{file_id: sha256}` and
+`files.hash_staged` does the hashing. The runner passes the digests to `screen(queue, job_input, result,
+digests)`, and screen raises an error if a digest is missing. From then on the parent never reads
+`work/in`. An `UnsafePath` at staging is an internal, retryable failure, the same as a storage error.
+Tests:
+- `test_runner.py::test_the_hash_is_taken_before_the_child_runs_so_the_child_cannot_change_it`, with two
+  cases. In `replace_original` the child unlinks the staged file and writes other bytes. In
+  `link_original_to_fifo` the child replaces it with a symlink to a FIFO. In both cases the lookup gets the
+  sha256 of the original bytes and the job completes. Each case runs in a thread with a 30 s join, so a
+  hang fails the test rather than blocking the suite.
+- `test_storage.py::test_hashing_a_staged_file_refuses_a_symlink_to_a_fifo_without_blocking`. A symlink to
+  a FIFO is refused, and so is a FIFO placed there directly. Each check runs with a 5 s join.
+- `test_duplicates.py::test_a_missing_digest_is_refused`.
+
+**Advisory: an exact copy of a loop too short to fingerprint.** Added
+`test_runner_db.py::test_a_loop_too_short_to_fingerprint_is_still_caught_by_its_hash`. It cuts a 1.714 s
+bit-exact WAV from `midnight_keys`. The first upload becomes ready with no fingerprint row. When a
+different user uploads the same bytes, the copy is flagged `duplicate_exact` end to end.
+
+**Advisory: a time bound on the offset loop.** I chose a cap on candidates over a wall-clock budget.
+`screen.MAX_FINGERPRINT_CANDIDATES = 200`. The rows in the duration window are sorted by distance from the
+upload's duration, and only the nearest 200 are compared. When rows are cut off, the worker logs a warning:
+`compared the nearest N of M fingerprints in the duration window`. I prefer the cap because it gives the
+same answer on a slow machine as on a fast one, and its tests are deterministic.
+- `test_only_the_nearest_durations_are_compared_up_to_the_cap` sets up 200 decoys next to the upload's
+  duration. A match just inside the cap is flagged. A match at a far duration, beyond the cap, is not, and
+  the warning is logged.
+- `test_comparing_the_cap_of_long_fingerprints_stays_fast` compares 200 fingerprints of 120 s each in
+  under 10 s.
+
+The other two points were accepted with no change. Exact matches still count originals that are
+processing, ready or removed. The child still supplies the fingerprint, which decision 0018 now records.
+
+As root, `STASH_REQUIRE_DB=1 STASH_REQUIRE_ISOLATION=1 pnpm worker:test`:
+```
+SKIPPED [1] tests/test_contracts.py:74: got empty parameter set for (path)
+SKIPPED [1] tests/test_sandbox.py:167: measured on the job uid as root
+503 passed, 2 skipped in 76.61s (0:01:16)
+```
+As uid 65534, with the same command as above, run from the worktree, which that uid can traverse:
+```
+487 passed, 18 skipped in 71.83s (0:01:11)
+```
+All 18 skips are the same as before: `test_contracts.py:74`, and the `test_isolation.py` tests that need
+root to start the child as another uid. Ruff: `All checks passed!` and `35 files already formatted`.
