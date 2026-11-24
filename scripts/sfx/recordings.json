@@ -1,5 +1,5 @@
 {
- "_note": "Public-domain and CC0 recordings from Wikimedia Commons. Each entry keeps its source page, author and license; scripts/build-demo-sfx.py fetches and trims them.",
+ "_note": "Public-domain and CC0 recordings: Wikimedia Commons files (file), and US government audio from the National Park Service and NASA (url). Each keeps its source page, author and license; scripts/build-demo-sfx.py fetches and trims them.",
  "recordings": [
   {
    "file": "File:Lion raring-sound1TamilNadu178.ogg",
@@ -1252,6 +1252,958 @@
    "license": "PD-self",
    "author": "Wikimedia Commons contributor",
    "page": "https://commons.wikimedia.org/wiki/File%3ADoorbell-classic-dingdong.ogg"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-WolfDENA.mp3",
+   "title": "nri-WolfDENA.mp3",
+   "cat": "animals",
+   "sub": "dogs-wolves",
+   "name": "Wolf howling, Denali",
+   "tags": [
+    "wolf",
+    "howl",
+    "dark"
+   ],
+   "length": 12,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-wolf.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/imr/avElement/yell-YELLWolves20160111T20ms2.mp3",
+   "title": "yell-YELLWolves20160111T20ms2.mp3",
+   "cat": "animals",
+   "sub": "dogs-wolves",
+   "name": "Wolf pack howling, Yellowstone",
+   "tags": [
+    "wolf",
+    "pack",
+    "howl",
+    "dark"
+   ],
+   "length": 14,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/yell/learn/photosmultimedia/sounds-wolves.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/imr/avElement/yell-YELLWolvesDec252013.mp3",
+   "title": "yell-YELLWolvesDec252013.mp3",
+   "cat": "animals",
+   "sub": "dogs-wolves",
+   "name": "Wolves at night",
+   "tags": [
+    "wolf",
+    "night"
+   ],
+   "length": 14,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/yell/learn/photosmultimedia/sounds-wolves.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-CoyotesMOJA.mp3",
+   "title": "nri-CoyotesMOJA.mp3",
+   "cat": "animals",
+   "sub": "dogs-wolves",
+   "name": "Coyotes yipping, Mojave",
+   "tags": [
+    "coyote",
+    "yip",
+    "night"
+   ],
+   "length": 12,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-coyotes.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-CoyotesChaseGRSA.mp3",
+   "title": "nri-CoyotesChaseGRSA.mp3",
+   "cat": "animals",
+   "sub": "dogs-wolves",
+   "name": "Coyote chase",
+   "tags": [
+    "coyote",
+    "chase"
+   ],
+   "length": 10,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-coyote-chase.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/imr/avElement/yell-YELLCoyotes150315.mp3",
+   "title": "yell-YELLCoyotes150315.mp3",
+   "cat": "animals",
+   "sub": "dogs-wolves",
+   "name": "Coyotes howling",
+   "tags": [
+    "coyote",
+    "howl"
+   ],
+   "length": 12,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/yell/learn/photosmultimedia/sounds-coyote.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/imr/avElement/yell-YELLMJ23200837redfox.mp3",
+   "title": "yell-YELLMJ23200837redfox.mp3",
+   "cat": "animals",
+   "sub": "dogs-wolves",
+   "name": "Red fox calling",
+   "tags": [
+    "fox",
+    "scream"
+   ],
+   "length": 8,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/yell/learn/photosmultimedia/sounds-redfox.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-ElkBuglingGRSA.mp3",
+   "title": "nri-ElkBuglingGRSA.mp3",
+   "cat": "animals",
+   "sub": "wild",
+   "name": "Elk bugle",
+   "tags": [
+    "elk",
+    "bugle",
+    "scream"
+   ],
+   "length": 10,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-elk.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/imr/avElement/yell-ElkBugle1.mp3",
+   "title": "yell-ElkBugle1.mp3",
+   "cat": "animals",
+   "sub": "wild",
+   "name": "Bull elk bugling",
+   "tags": [
+    "elk",
+    "bugle"
+   ],
+   "length": 10,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/yell/learn/photosmultimedia/sounds-elk.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/imr/avElement/YELL-BisonRut-JenniferJerrett.mp3",
+   "title": "YELL-BisonRut-JenniferJerrett.mp3",
+   "cat": "animals",
+   "sub": "wild",
+   "name": "Bison bellowing in the rut",
+   "tags": [
+    "bison",
+    "roar",
+    "bellow",
+    "dark"
+   ],
+   "length": 12,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/yell/learn/photosmultimedia/sounds-bison.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-BisonYELL.mp3",
+   "title": "nri-BisonYELL.mp3",
+   "cat": "animals",
+   "sub": "wild",
+   "name": "Bison grunting",
+   "tags": [
+    "bison",
+    "grunt"
+   ],
+   "length": 10,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-bison.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/imr/avElement/yell-YELLgrizzlyA20160624SM3031431.mp3",
+   "title": "yell-YELLgrizzlyA20160624SM3031431.mp3",
+   "cat": "animals",
+   "sub": "wild",
+   "name": "Grizzly bear huffing",
+   "tags": [
+    "bear",
+    "grizzly",
+    "growl"
+   ],
+   "length": 10,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/yell/learn/photosmultimedia/grizzlysounds.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-BearwithCubsDENA.mp3",
+   "title": "nri-BearwithCubsDENA.mp3",
+   "cat": "animals",
+   "sub": "wild",
+   "name": "Bear with cubs",
+   "tags": [
+    "bear",
+    "cubs"
+   ],
+   "length": 10,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-bearcubs.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-AlligatorEVER1.mp3",
+   "title": "nri-AlligatorEVER1.mp3",
+   "cat": "animals",
+   "sub": "wild",
+   "name": "Alligator bellow",
+   "tags": [
+    "alligator",
+    "growl",
+    "swamp",
+    "dark"
+   ],
+   "length": 10,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-alligator.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-BighornSheepRammingHeadsZION.mp3",
+   "title": "nri-BighornSheepRammingHeadsZION.mp3",
+   "cat": "animals",
+   "sub": "wild",
+   "name": "Bighorn sheep ramming heads",
+   "tags": [
+    "ram",
+    "impact",
+    "clash"
+   ],
+   "length": 8,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-bighorn-ram.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-KillerWhaleGLBA.mp3",
+   "title": "nri-KillerWhaleGLBA.mp3",
+   "cat": "animals",
+   "sub": "wild",
+   "name": "Killer whale calls",
+   "tags": [
+    "orca",
+    "whale",
+    "underwater"
+   ],
+   "length": 12,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-orca.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-HumpbackGLBA.mp3",
+   "title": "nri-HumpbackGLBA.mp3",
+   "cat": "animals",
+   "sub": "wild",
+   "name": "Humpback whale song",
+   "tags": [
+    "whale",
+    "underwater",
+    "eerie"
+   ],
+   "length": 14,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-humpback-whale.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-SpottedBatYOSE.mp3",
+   "title": "nri-SpottedBatYOSE.mp3",
+   "cat": "animals",
+   "sub": "wild",
+   "name": "Spotted bat clicks",
+   "tags": [
+    "bat",
+    "clicks"
+   ],
+   "length": 8,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-spotted-bat.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-CommonRavenGRTE.mp3",
+   "title": "nri-CommonRavenGRTE.mp3",
+   "cat": "animals",
+   "sub": "birds",
+   "name": "Common raven croaks",
+   "tags": [
+    "raven",
+    "crow",
+    "dark"
+   ],
+   "length": 8,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-common-raven.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-SpottedOwlYOSE.mp3",
+   "title": "nri-SpottedOwlYOSE.mp3",
+   "cat": "animals",
+   "sub": "birds",
+   "name": "Spotted owl hoots",
+   "tags": [
+    "owl",
+    "night",
+    "hoot"
+   ],
+   "length": 10,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-spotted-owl.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-OspreyGRTE.mp3",
+   "title": "nri-OspreyGRTE.mp3",
+   "cat": "animals",
+   "sub": "birds",
+   "name": "Osprey calls",
+   "tags": [
+    "osprey",
+    "bird",
+    "hawk"
+   ],
+   "length": 8,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-osprey.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-SandhillCranesDENA.mp3",
+   "title": "nri-SandhillCranesDENA.mp3",
+   "cat": "animals",
+   "sub": "birds",
+   "name": "Sandhill cranes",
+   "tags": [
+    "crane",
+    "bird"
+   ],
+   "length": 10,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-sandhill-crane.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/imr/avElement/yell-YELLCOLO20160913T18ms.mp3",
+   "title": "yell-YELLCOLO20160913T18ms.mp3",
+   "cat": "animals",
+   "sub": "birds",
+   "name": "Common loon wail",
+   "tags": [
+    "loon",
+    "eerie",
+    "lake"
+   ],
+   "length": 12,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/yell/learn/photosmultimedia/sounds-commonloon.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-PeregrineandRaven.mp3",
+   "title": "nri-PeregrineandRaven.mp3",
+   "cat": "animals",
+   "sub": "birds",
+   "name": "Peregrine falcon and raven",
+   "tags": [
+    "falcon",
+    "raven"
+   ],
+   "length": 10,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-peregrine-raven_bryce.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/imr/avElement/yell-YELLDawnChorus.mp3",
+   "title": "yell-YELLDawnChorus.mp3",
+   "cat": "animals",
+   "sub": "birds",
+   "name": "Dawn chorus, Yellowstone",
+   "tags": [
+    "birds",
+    "morning",
+    "chorus"
+   ],
+   "length": 14,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/yell/learn/photosmultimedia/sounds-dawnchorus.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-ChickensMIMA.mp3",
+   "title": "nri-ChickensMIMA.mp3",
+   "cat": "animals",
+   "sub": "farm",
+   "name": "Chickens in the yard",
+   "tags": [
+    "chicken",
+    "farm"
+   ],
+   "length": 10,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-chickens.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-GreenTreeFrogEvergladesNP.mp3",
+   "title": "nri-GreenTreeFrogEvergladesNP.mp3",
+   "cat": "animals",
+   "sub": "insects",
+   "name": "Green tree frogs",
+   "tags": [
+    "frog",
+    "night",
+    "swamp"
+   ],
+   "length": 12,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-green-treefrog.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-PigFrogEvergladesNP.mp3",
+   "title": "nri-PigFrogEvergladesNP.mp3",
+   "cat": "animals",
+   "sub": "insects",
+   "name": "Pig frogs grunting",
+   "tags": [
+    "frog",
+    "grunt"
+   ],
+   "length": 10,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-pigfrog.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/imr/avElement/yell-ChorusFrogs.mp3",
+   "title": "yell-ChorusFrogs.mp3",
+   "cat": "animals",
+   "sub": "insects",
+   "name": "Chorus frogs",
+   "tags": [
+    "frog",
+    "night"
+   ],
+   "length": 12,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/yell/learn/photosmultimedia/sounds-chorusfrogs.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-Cricket.mp3",
+   "title": "nri-Cricket.mp3",
+   "cat": "animals",
+   "sub": "insects",
+   "name": "Crickets, real",
+   "tags": [
+    "crickets",
+    "night"
+   ],
+   "length": 12,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-crickets.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-BeeYOSE.mp3",
+   "title": "nri-BeeYOSE.mp3",
+   "cat": "animals",
+   "sub": "insects",
+   "name": "Bee buzzing",
+   "tags": [
+    "bee",
+    "buzz"
+   ],
+   "length": 8,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-bee.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-CarAlarmKEFJ.mp3",
+   "title": "nri-CarAlarmKEFJ.mp3",
+   "cat": "sirens",
+   "sub": "car-alarms",
+   "name": "Car alarm, real",
+   "tags": [
+    "car alarm",
+    "street"
+   ],
+   "length": 12,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-car-alarm.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-SirenGRTE.mp3",
+   "title": "nri-SirenGRTE.mp3",
+   "cat": "sirens",
+   "sub": "ambulance-fire",
+   "name": "Emergency siren in a valley",
+   "tags": [
+    "siren",
+    "echo"
+   ],
+   "length": 14,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-siren.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-HelicopterYOSE.mp3",
+   "title": "nri-HelicopterYOSE.mp3",
+   "cat": "vehicles",
+   "sub": "aircraft",
+   "name": "Helicopter flyover, Yosemite",
+   "tags": [
+    "helicopter",
+    "flyover"
+   ],
+   "length": 14,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-helicopter.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-JetYOSE.mp3",
+   "title": "nri-JetYOSE.mp3",
+   "cat": "vehicles",
+   "sub": "aircraft",
+   "name": "Jet flyover, Yosemite",
+   "tags": [
+    "jet",
+    "flyover",
+    "plane"
+   ],
+   "length": 14,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-jet.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-PropellerGOGA.mp3",
+   "title": "nri-PropellerGOGA.mp3",
+   "cat": "vehicles",
+   "sub": "aircraft",
+   "name": "Propeller plane, Golden Gate",
+   "tags": [
+    "plane",
+    "propeller"
+   ],
+   "length": 14,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-propeller.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-MotorcycleMORA.mp3",
+   "title": "nri-MotorcycleMORA.mp3",
+   "cat": "vehicles",
+   "sub": "motorcycles",
+   "name": "Motorcycle passing, Mount Rainier",
+   "tags": [
+    "motorcycle",
+    "pass-by"
+   ],
+   "length": 12,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-motorcycle.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-BoatNOCA.mp3",
+   "title": "nri-BoatNOCA.mp3",
+   "cat": "vehicles",
+   "sub": "boats",
+   "name": "Motor boat",
+   "tags": [
+    "boat",
+    "engine"
+   ],
+   "length": 12,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-motorboat.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-Snowmobile.mp3",
+   "title": "nri-Snowmobile.mp3",
+   "cat": "vehicles",
+   "sub": "motorcycles",
+   "name": "Snowmobile passing",
+   "tags": [
+    "snowmobile",
+    "engine"
+   ],
+   "length": 12,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-snowmobile.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-RotarySnowPlow.mp3",
+   "title": "nri-RotarySnowPlow.mp3",
+   "cat": "vehicles",
+   "sub": "trains",
+   "name": "Rotary snowplow",
+   "tags": [
+    "snowplow",
+    "machine",
+    "engine"
+   ],
+   "length": 12,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-snowplow.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-cannon.mp3",
+   "title": "nri-cannon.mp3",
+   "cat": "weapons",
+   "sub": "explosions",
+   "name": "Cannon fire, real",
+   "tags": [
+    "cannon",
+    "boom",
+    "war"
+   ],
+   "length": 8,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-cannon.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-MusketFireMIMA.mp3",
+   "title": "nri-MusketFireMIMA.mp3",
+   "cat": "weapons",
+   "sub": "gunshots",
+   "name": "Musket volley, real",
+   "tags": [
+    "musket",
+    "gunshot",
+    "war"
+   ],
+   "length": 8,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-musket.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-battlesounds.mp3",
+   "title": "nri-battlesounds.mp3",
+   "cat": "weapons",
+   "sub": "gunshots",
+   "name": "Battle reenactment",
+   "tags": [
+    "battle",
+    "war",
+    "gunfire"
+   ],
+   "length": 14,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-battle.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-ChainsawSEKI.mp3",
+   "title": "nri-ChainsawSEKI.mp3",
+   "cat": "foley",
+   "sub": "household",
+   "name": "Chainsaw",
+   "tags": [
+    "chainsaw",
+    "horror",
+    "engine"
+   ],
+   "length": 10,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-chainsaw.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/imr/avElement/yell-YELLSplitLogs20160913T002.mp3",
+   "title": "yell-YELLSplitLogs20160913T002.mp3",
+   "cat": "foley",
+   "sub": "household",
+   "name": "Splitting logs with an axe",
+   "tags": [
+    "axe",
+    "wood",
+    "chop"
+   ],
+   "length": 10,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/yell/learn/photosmultimedia/sounds-soundscapes.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/imr/avElement/yell-YELLChopKindling20160913T0011.mp3",
+   "title": "yell-YELLChopKindling20160913T0011.mp3",
+   "cat": "foley",
+   "sub": "household",
+   "name": "Chopping kindling",
+   "tags": [
+    "axe",
+    "chop"
+   ],
+   "length": 8,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/yell/learn/photosmultimedia/sounds-soundscapes.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-ReveilleFOLS.mp3",
+   "title": "nri-ReveilleFOLS.mp3",
+   "cat": "sirens",
+   "sub": "alarm-clocks",
+   "name": "Reveille bugle call",
+   "tags": [
+    "bugle",
+    "military",
+    "wake up"
+   ],
+   "length": 12,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-reveille.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-Thunder.mp3",
+   "title": "nri-Thunder.mp3",
+   "cat": "ambience",
+   "sub": "weather",
+   "name": "Thunder rolling, real",
+   "tags": [
+    "thunder",
+    "storm"
+   ],
+   "length": 14,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-thunder.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/imr/avElement/yell-Thunderandbirds140704.mp3",
+   "title": "yell-Thunderandbirds140704.mp3",
+   "cat": "ambience",
+   "sub": "weather",
+   "name": "Thunder and birds",
+   "tags": [
+    "thunder",
+    "birds"
+   ],
+   "length": 14,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/yell/learn/photosmultimedia/sounds-thunder.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-RainDEPO.mp3",
+   "title": "nri-RainDEPO.mp3",
+   "cat": "ambience",
+   "sub": "weather",
+   "name": "Rain in the forest",
+   "tags": [
+    "rain",
+    "forest"
+   ],
+   "length": 14,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-rain.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-OceanOlympicNP.mp3",
+   "title": "nri-OceanOlympicNP.mp3",
+   "cat": "ambience",
+   "sub": "nature",
+   "name": "Pacific surf, Olympic coast",
+   "tags": [
+    "ocean",
+    "waves"
+   ],
+   "length": 16,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-ocean.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-StreamMUWO.mp3",
+   "title": "nri-StreamMUWO.mp3",
+   "cat": "ambience",
+   "sub": "nature",
+   "name": "Stream in Muir Woods",
+   "tags": [
+    "stream",
+    "water"
+   ],
+   "length": 14,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/sounds-stream.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-AvalancheDENA.mp3",
+   "title": "nri-AvalancheDENA.mp3",
+   "cat": "ambience",
+   "sub": "nature",
+   "name": "Avalanche",
+   "tags": [
+    "avalanche",
+    "rumble",
+    "impact"
+   ],
+   "length": 14,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/avalanche.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/nri/avElement/nri-RockslideYOSE.mp3",
+   "title": "nri-RockslideYOSE.mp3",
+   "cat": "ambience",
+   "sub": "nature",
+   "name": "Rockfall",
+   "tags": [
+    "rockfall",
+    "crash",
+    "impact"
+   ],
+   "length": 12,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/subjects/sound/rockfall.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/imr/avElement/yell-YELLOldFaithful20150322T13ms.mp3",
+   "title": "yell-YELLOldFaithful20150322T13ms.mp3",
+   "cat": "ambience",
+   "sub": "nature",
+   "name": "Old Faithful erupting",
+   "tags": [
+    "geyser",
+    "eruption",
+    "steam"
+   ],
+   "length": 16,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/yell/learn/photosmultimedia/sounds-oldfaithful.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/imr/avElement/yell-NorrisBlackGrowler.mp3",
+   "title": "yell-NorrisBlackGrowler.mp3",
+   "cat": "ambience",
+   "sub": "nature",
+   "name": "Black Growler steam vent",
+   "tags": [
+    "steam",
+    "vent",
+    "roar"
+   ],
+   "length": 14,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/yell/learn/photosmultimedia/sounds-blackgrowler.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/imr/avElement/yell-YELLMapleFire20160814T04ms3.mp3",
+   "title": "yell-YELLMapleFire20160814T04ms3.mp3",
+   "cat": "ambience",
+   "sub": "nature",
+   "name": "Wildfire burning",
+   "tags": [
+    "fire",
+    "wildfire",
+    "crackle"
+   ],
+   "length": 14,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/yell/learn/photosmultimedia/sounds-fire.htm"
+  },
+  {
+   "url": "https://www.nps.gov/nps-audiovideo/legacy/mp3/imr/avElement/yell-YELLPealeCabinWoodstove20160914T15ms.mp3",
+   "title": "yell-YELLPealeCabinWoodstove20160914T15ms.mp3",
+   "cat": "ambience",
+   "sub": "city",
+   "name": "Woodstove in a cabin",
+   "tags": [
+    "fire",
+    "cabin",
+    "cozy"
+   ],
+   "length": 14,
+   "license": "PD-USGov-NPS",
+   "author": "National Park Service",
+   "page": "https://www.nps.gov/yell/learn/photosmultimedia/sounds-soundscapes.htm"
+  },
+  {
+   "url": "https://images-assets.nasa.gov/audio/KSC-20260401-AU-LMM01-0001-Artemis_II_Live_Launch_Coverage_Pad_CS6/KSC-20260401-AU-LMM01-0001-Artemis_II_Live_Launch_Coverage_Pad_CS6~128k.mp3",
+   "title": "KSC-20260401-AU-LMM01-0001-Artemis_II_Live_Launch_Coverage_Pad_CS6",
+   "cat": "scifi",
+   "sub": "space",
+   "name": "Rocket launch at the pad, Artemis II",
+   "tags": [
+    "rocket",
+    "launch",
+    "roar",
+    "space"
+   ],
+   "length": 16,
+   "license": "PD-USGov-NASA",
+   "author": "NASA",
+   "page": "https://images.nasa.gov/details/KSC-20260401-AU-LMM01-0001-Artemis_II_Live_Launch_Coverage_Pad_CS6"
+  },
+  {
+   "url": "https://images-assets.nasa.gov/audio/KSC-20260401-AU-LMM01-0001-Artemis_II_Live_Launch_Coverage_Pad_CS1/KSC-20260401-AU-LMM01-0001-Artemis_II_Live_Launch_Coverage_Pad_CS1~128k.mp3",
+   "title": "KSC-20260401-AU-LMM01-0001-Artemis_II_Live_Launch_Coverage_Pad_CS1",
+   "cat": "scifi",
+   "sub": "space",
+   "name": "Rocket liftoff, close pad mic",
+   "tags": [
+    "rocket",
+    "liftoff",
+    "rumble"
+   ],
+   "length": 16,
+   "license": "PD-USGov-NASA",
+   "author": "NASA",
+   "page": "https://images.nasa.gov/details/KSC-20260401-AU-LMM01-0001-Artemis_II_Live_Launch_Coverage_Pad_CS1"
+  },
+  {
+   "url": "https://images-assets.nasa.gov/audio/KSC-20250801-AU-LMM01-0001-SpaceX_Crew_11_Live_Launch_Coverage_Blast1_Blast2-M14833/KSC-20250801-AU-LMM01-0001-SpaceX_Crew_11_Live_Launch_Coverage_Blast1_Blast2-M14833~128k.mp3",
+   "title": "KSC-20250801-AU-LMM01-0001-SpaceX_Crew_11_Live_Launch_Coverage_Blast1_Blast2-M14833",
+   "cat": "scifi",
+   "sub": "space",
+   "name": "Rocket launch blast, SpaceX Crew-11",
+   "tags": [
+    "rocket",
+    "launch",
+    "blast"
+   ],
+   "length": 16,
+   "license": "PD-USGov-NASA",
+   "author": "NASA",
+   "page": "https://images.nasa.gov/details/KSC-20250801-AU-LMM01-0001-SpaceX_Crew_11_Live_Launch_Coverage_Blast1_Blast2-M14833"
   }
  ]
 }
