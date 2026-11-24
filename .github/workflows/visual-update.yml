@@ -1,14 +1,15 @@
 # Regenerates screenshot baselines in the pinned Playwright container, for lanes without Docker.
 # Push the branch whose baselines need updating to `visual-update/<anything>`; this job runs
-# `pnpm visual:update` there and uploads the changed baselines as the `visual-baselines` artifact.
-# The builder downloads it (`gh run download <run> -n visual-baselines`), reviews the images and
-# commits them on the real branch. It never pushes, so every baseline change is a reviewed commit.
+# `pnpm visual:update` there and commits the changed PNGs back to that same visual-update branch
+# (never to a lane branch). The builder fetches it, reviews each image, and commits them on the
+# real branch, so every baseline change is still a reviewed commit. A push made with GITHUB_TOKEN
+# does not start another run.
 name: Visual baselines
 on:
   push:
     branches: ["visual-update/**"]
 permissions:
-  contents: read
+  contents: write
 jobs:
   update:
     runs-on: ubuntu-24.04
@@ -35,16 +36,13 @@ jobs:
       - name: pnpm visual:update
         env: { STASH_BASE_URL: "http://localhost:3100" }
         run: pnpm visual:update
-      - name: Collect changed baselines
+      - name: Commit changed baselines to this visual-update branch
         run: |
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
-          git status --porcelain -- '*.png' | awk '{print $2}' > changed.txt
-          cat changed.txt
-          tar -cf baselines.tar -T changed.txt
-      - uses: actions/upload-artifact@v4
-        with:
-          name: visual-baselines
-          path: |
-            baselines.tar
-            changed.txt
-          retention-days: 7
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A -- '*.png'
+          git diff --cached --stat
+          if git diff --cached --quiet; then echo "No baseline changed."; exit 0; fi
+          git commit -m "Visual baselines regenerated in the pinned container"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
