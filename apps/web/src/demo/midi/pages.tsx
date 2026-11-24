@@ -35,6 +35,7 @@ import { saveFiles } from "../save";
 import { writeMidi } from "./write";
 import { classicLabel, type Classic } from "./classics";
 import { progressionOf } from "./songs";
+import { Comments } from "../social";
 import { midiPlayer, TIMBRES, type MidiPlayerState, type Timbre } from "./synth";
 
 const player = midiPlayer();
@@ -410,6 +411,7 @@ export function MidiPage({ publicId }: { publicId: string }) {
 
           {item.song && <ChordChart song={item.song} />}
           {item.classic && <ClassicChart c={item.classic} items={items} />}
+          <Comments itemId={item.id} title={item.title} />
 
           <section aria-label="About" className="flex flex-col gap-4 rounded-panel border border-border bg-surface p-4">
             <p className="max-w-160 text-body text-text">{item.description}</p>

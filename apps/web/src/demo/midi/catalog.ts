@@ -276,7 +276,7 @@ export function soundForInstrument(name: string | undefined): Timbre {
  * one is listed here, not in song-chords.json, so it never passes for a researched fact.
  */
 const BY_EAR: Record<string, Timbre> = {
-  "long time (intro)|playboi carti": "guitar", // Caden, in the project thread: "should be played as a guitar"
+  "long time (intro)|playboi carti": "synth", // Caden, in the project thread: "long time harmony is a synth"
 };
 
 /** The researched song progressions as MIDI items, A to Z by artist. One that does not parse is left out. */

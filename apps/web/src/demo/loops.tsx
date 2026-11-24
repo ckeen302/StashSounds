@@ -13,6 +13,7 @@ import {
   IconButton,
   Menu,
   PlayButton,
+  Plus,
   TagChip,
   UiLink,
   useToast,
@@ -22,7 +23,7 @@ import {
 import { useEffect, useMemo, useState } from "react";
 import { nowPlaying } from "../app/_shell/now-playing";
 import type { Catalog } from "./data";
-import { GENRES, useCrateEntries } from "./explore";
+import { GENRES, producerByHandle, useCrateEntries } from "./explore";
 import { Dropdown } from "./presets/page";
 import { saveLoopRow } from "./save";
 import { PACK_WEEK, PACKS } from "./packs";
@@ -30,6 +31,8 @@ import { Why, SmartSearch } from "./search-ui";
 import { loopProfile } from "./search-index";
 import { likeness, match, parseQuery, quality, type Profile } from "./smart-search";
 import { addPlay, plays, set } from "./store";
+import { CommentGlyph, Comments, commentCount, trendScore, useSocialVersion } from "./social";
+import { navigate } from "./router";
 
 /**
  * The Loops tab as a loop library reads: a search bar with dropdown filters and date presets, then
@@ -66,14 +69,25 @@ const TEMPOS: { id: string; label: string; min: number; max: number }[] = [
   { id: "faster", label: "160 and up", min: 160, max: 999 },
 ];
 
+const trend = (l: Loop) =>
+  trendScore({ id: l.row.id, ownerId: producerByHandle(l.row.owner.handle)?.id ?? l.row.owner.handle, publishedAt: l.row.publishedAt, likes: l.row.likesCount, downloads: l.row.downloadsCount }, Date.now());
+
+/** A count button in a loop's corner: like, download, comment. */
+const PILL =
+  "inline-flex h-8 items-center gap-1.5 rounded-control border border-border bg-raised px-2.5 font-mono text-numeric tabular text-text-muted ui-hover:border-border-strong ui-hover:text-text aria-pressed:border-accent aria-pressed:text-accent aria-pressed:*:fill-current aria-expanded:border-border-strong aria-expanded:text-text disabled:opacity-60";
+
 const SORTS: Record<
   string,
   { label: string; by: (a: Loop, b: Loop) => number }
 > = {
   match: {
     label: "Best match",
-    // Relevance when there is a search, newest when there is not.
-    by: (a, b) => b.score - a.score || b.row.publishedAt.localeCompare(a.row.publishedAt),
+    // Relevance when there is a search, trending when there is not.
+    by: (a, b) => b.score - a.score || trend(b) - trend(a),
+  },
+  trending: {
+    label: "Trending",
+    by: (a, b) => trend(b) - trend(a),
   },
   best: {
     label: "Best (downloads per play)",
@@ -543,6 +557,9 @@ function LoopEntry({
   const liked = row.viewer?.liked ?? false;
   const crate = useCrateEntries(row.id, row.title);
   const [saving, setSaving] = useState(false);
+  const [talk, setTalk] = useState(false);
+  useSocialVersion();
+  const comments = commentCount(row.id);
   const bars = row.length?.unit === "bars" ? row.length.value : null;
   const label = [
     `Loop`,
@@ -607,17 +624,28 @@ function LoopEntry({
             {` · ${postedText(row.publishedAt, now)}`}
           </span>
         </div>
-        <div className="flex shrink-0 items-center gap-3 font-mono text-numeric tabular text-text-muted">
-          <span title="Downloads" className="flex items-center gap-1">
-            <span className="sr-only">Downloads </span>
-            <span aria-hidden="true">↓</span>
-            {formatCount(row.downloadsCount)}
-          </span>
-          <span title="Likes" className="flex items-center gap-1">
-            <span className="sr-only">Likes </span>
-            <span aria-hidden="true">♥</span>
+        <div className="flex shrink-0 items-center gap-1.5">
+          <button
+            type="button"
+            aria-pressed={liked}
+            aria-label={`${liked ? "Unlike" : "Like"} ${row.title}, ${row.likesCount} likes`}
+            onClick={() => {
+              set("likes", row.id, !liked);
+              onChange();
+            }}
+            className={PILL}
+          >
+            <Heart className="size-4" aria-hidden="true" />
             {formatCount(row.likesCount)}
-          </span>
+          </button>
+          <button type="button" aria-label={`Download ${row.title}, ${row.downloadsCount} downloads`} onClick={() => void download()} disabled={saving} className={PILL}>
+            <Download className="size-4" aria-hidden="true" />
+            {formatCount(row.downloadsCount)}
+          </button>
+          <button type="button" aria-expanded={talk} aria-label={`Comments on ${row.title}, ${comments}`} onClick={() => setTalk(!talk)} className={PILL}>
+            <CommentGlyph />
+            {formatCount(comments)}
+          </button>
         </div>
       </div>
 
@@ -709,15 +737,7 @@ function LoopEntry({
         >
           More like this
         </Button>
-        <IconButton
-          icon={Heart}
-          label={liked ? `Unlike ${row.title}` : `Like ${row.title}`}
-          on={liked}
-          onClick={() => {
-            set("likes", row.id, !liked);
-            onChange();
-          }}
-        />
+        <IconButton icon={Plus} label={`More from ${row.owner.handle}`} onClick={() => navigate(`/u/${row.owner.handle}`)} />
         <Menu
           entries={crate}
           trigger={
@@ -725,6 +745,7 @@ function LoopEntry({
           }
         />
       </div>
+      {talk && <Comments itemId={row.id} title={row.title} compact />}
     </li>
   );
 }

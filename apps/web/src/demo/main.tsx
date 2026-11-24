@@ -46,11 +46,13 @@ import {
   LibraryPage,
   NewCrateHost,
   ProfilePage,
+  producerByHandle,
   useCrateEntries,
   type RenderLoops,
 } from "./explore";
 import { FlipPanel } from "./flip";
 import { LoopTools } from "./loop-tools";
+import { Comments, trendScore } from "./social";
 import { LoopsPage } from "./loops";
 import { pack, PACK_WEEK } from "./packs";
 import { ALL_SONGS, madeBy, songHref, TOP_PRODUCERS } from "./presets/songs";
@@ -121,6 +123,14 @@ function useRows(): [ItemRow[], () => void] {
   const [version, setVersion] = useState(0);
   const rows = useMemo(() => catalog.rows.map(withViewer), [version]); // eslint-disable-line react-hooks/exhaustive-deps
   return [rows, () => setVersion((v) => v + 1)];
+}
+
+/** Loops in feed order: engagement over age (see social.tsx), people you follow lifted. */
+function trending(rows: ItemRow[]): ItemRow[] {
+  const now = Date.now();
+  const score = (r: ItemRow) =>
+    trendScore({ id: r.id, ownerId: producerByHandle(r.owner.handle)?.id ?? r.owner.handle, publishedAt: r.publishedAt, likes: r.likesCount, downloads: r.downloadsCount }, now);
+  return [...rows].sort((a, b) => score(b) - score(a));
 }
 
 /** The loops as result rows: the list is the player's queue, arrows move the selection. */
@@ -371,9 +381,9 @@ function Home() {
 
         <section aria-labelledby="trending" className="flex flex-col gap-3">
           <div id="trending">
-            <SectionHead title="New loops" sub="Tap to hear. Arrows move, Space plays." href="/loops" more={`All ${rows.length} loops`} />
+            <SectionHead title="Trending now" sub="What producers are playing, liking and grabbing, with new sounds lifted. Tap to hear." href="/loops" more={`All ${rows.length} loops`} />
           </div>
-          <LoopList label="New loops" rows={rows.slice(0, 6)} onChange={refresh} />
+          <LoopList label="Trending now" rows={trending(rows).slice(0, 6)} onChange={refresh} />
         </section>
 
         <section aria-labelledby="songs-shelf" className="flex flex-col gap-3">
@@ -715,6 +725,9 @@ function LoopPage({ publicId }: { publicId: string }) {
     <>
       <ItemView key={publicId} view={view} />
       <LoopTools key={`fit-${publicId}`} row={view.page.item} />
+      <div className="mx-auto w-full max-w-content px-3 pb-8 tablet:px-4 desktop:px-6">
+        <Comments itemId={view.page.item.id} title={view.page.item.title} />
+      </div>
       <FlipPanel key={`flip-${publicId}`} row={view.page.item} />
       <MoreLikeThis key={`like-${publicId}`} row={view.page.item} />
     </>
