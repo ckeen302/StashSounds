@@ -10,6 +10,7 @@ export { health } from "./health.ts";
 export { getSession, requireUser, type MemberSession, type Session } from "./session.ts";
 export { claimHandle, signInWithEmail, signInWithProvider, signOut, updateProfile } from "./auth/actions.ts";
 export { authCallback } from "./auth/callback-handler.ts";
+export { completeUpload, createUploadSlot } from "./uploads/actions.ts";
 export { safeNextPath } from "./auth/next-path.ts";
 export { updateSession } from "./supabase/proxy.ts";
 export { createServerSupabase } from "./supabase/server.ts";
