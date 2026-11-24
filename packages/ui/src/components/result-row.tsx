@@ -1,6 +1,7 @@
 "use client";
 
-import { formatKey, type ItemRow } from "@stash/contracts";
+import type { ItemRow } from "@stash/contracts";
+import { formatKey } from "@stash/contracts/format";
 import { useState, type ReactNode } from "react";
 import { TagChip, TYPE_LABEL } from "./chip.tsx";
 import { cx, transition, type PreviewState } from "./cx.ts";

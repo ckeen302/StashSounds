@@ -1,6 +1,7 @@
 "use client";
 
-import { LICENSES, type LicenseKind } from "@stash/contracts";
+import type { LicenseKind } from "@stash/contracts";
+import { LICENSE_LABELS as LICENSES } from "@stash/contracts/format";
 import { cx, transition, type PreviewState } from "./cx.ts";
 import { UiLink } from "./link.tsx";
 import { Tooltip } from "./tooltip.tsx";
