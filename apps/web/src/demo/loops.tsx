@@ -15,6 +15,7 @@ import {
   PlayButton,
   Plus,
   TagChip,
+  TextInput,
   UiLink,
   useToast,
   Waveform,
@@ -22,7 +23,7 @@ import {
 } from "@stash/ui";
 import { useEffect, useMemo, useState } from "react";
 import { nowPlaying } from "../app/_shell/now-playing";
-import type { Catalog } from "./data";
+import { LOOP_BYTES, type Catalog } from "./data";
 import { GENRES, producerByHandle, useCrateEntries } from "./explore";
 import { Dropdown } from "./presets/page";
 import { saveLoopRow } from "./save";
@@ -54,6 +55,7 @@ const CATEGORIES: [string, RegExp][] = [
   ["Lead", /lead|whistle|stab/i],
   ["808", /808|bass/i],
   ["Drums", /drum|bounce|hat/i],
+  ["Melody", /melody|synth/i],
 ];
 function categoryOf(row: ItemRow): string {
   const text = [row.title, ...row.tags].join(" ");
@@ -155,6 +157,12 @@ type Filters = {
   page: number;
   /** "More like this": the loop the list is ranked against. */
   like: string | null;
+  /** Tags picked from a loop's tag line or the tag cloud; a loop must carry every one. */
+  tags: string[];
+  /** Advanced search: a BPM range, either end open. */
+  bpmFrom: number | null;
+  bpmTo: number | null;
+  tsig: string;
 };
 const DEFAULT: Filters = {
   q: "",
@@ -167,9 +175,20 @@ const DEFAULT: Filters = {
   sort: "match",
   page: 1,
   like: null,
+  tags: [],
+  bpmFrom: null,
+  bpmTo: null,
+  tsig: "all",
 };
 // Filters survive leaving the tab and coming back, for this visit.
 let saved: Filters = DEFAULT;
+
+/** Every loop in the demo is in 4/4; the tag still filters, so the tag line reads the same everywhere. */
+const TSIG = "4/4";
+const norm = (t: string) => t.trim().toLowerCase();
+const sizeText = (bytes: number) => (bytes >= 1_000_000 ? `${(bytes / 1_000_000).toFixed(2)} MB` : `${Math.max(1, Math.round(bytes / 1000))} KB`);
+/** A loop's tags as one set: its own tags, genre and category, for the tag filter and the cloud. */
+const tagSet = (l: Pick<Loop, "row" | "genre" | "category">) => new Set([...l.row.tags, l.genre, l.category].filter(Boolean).map(norm));
 
 const keyId = (k: MusicalKey) => `${k.root}${k.mode}`;
 const ordinal = (n: number) =>
@@ -270,6 +289,20 @@ export function LoopsPage({
     );
   }, [loops]);
 
+  // The tag cloud: the tags most loops carry, with how many carry each.
+  const cloud = useMemo(() => {
+    const n = new Map<string, number>();
+    for (const l of loops) for (const t of l.row.tags.map(norm)) n.set(t, (n.get(t) ?? 0) + 1);
+    return [...n.entries()].filter(([t]) => t.length > 1).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, 18);
+  }, [loops]);
+  const [advanced, setAdvanced] = useState(() => saved.bpmFrom !== null || saved.bpmTo !== null || saved.tsig !== "all");
+  const [fromText, setFromText] = useState(saved.bpmFrom === null ? "" : String(saved.bpmFrom));
+  const [toText, setToText] = useState(saved.bpmTo === null ? "" : String(saved.bpmTo));
+  const toggleTag = (t: string) => {
+    const k = norm(t);
+    update({ tags: f.tags.includes(k) ? f.tags.filter((x) => x !== k) : [...f.tags, k], like: null });
+  };
+
   const tempo = TEMPOS.find((t) => t.id === f.tempo) ?? TEMPOS[0]!;
   const hours = WHEN.find((w) => w.id === f.when)?.hours ?? Infinity;
   const query = parseQuery(f.q);
@@ -285,6 +318,13 @@ export function LoopsPage({
           (l.row.bpm >= tempo.min && l.row.bpm <= tempo.max),
     )
     .filter((l) => now - Date.parse(l.row.publishedAt) <= hours * 3_600_000)
+    .filter(() => f.tsig === "all" || f.tsig === TSIG)
+    .filter((l) => (f.bpmFrom === null || (l.row.bpm ?? 0) >= f.bpmFrom) && (f.bpmTo === null || (l.row.bpm ?? 999) <= f.bpmTo))
+    .filter((l) => {
+      if (!f.tags.length) return true;
+      const have = tagSet(l);
+      return f.tags.every((t) => have.has(t));
+    })
     .flatMap((l): Loop[] => {
       if (likeOf) {
         if (l.row.id === likeOf.row.id) return [];
@@ -302,6 +342,19 @@ export function LoopsPage({
   const onPage = shown.slice(from, from + PER_PAGE);
   const queue = onPage.map((l) => l.row);
   const touched = JSON.stringify({ ...f, page: 1 }) !== JSON.stringify(DEFAULT);
+  // What is narrowing the list right now, each one removable on its own.
+  const applied: [string, Partial<Filters>][] = [
+    ...(f.q ? [[`"${f.q}"`, { q: "" }] as [string, Partial<Filters>]] : []),
+    ...f.tags.map((t): [string, Partial<Filters>] => [t, { tags: f.tags.filter((x) => x !== t) }]),
+    ...(f.category !== "all" ? [[f.category, { category: "all" }] as [string, Partial<Filters>]] : []),
+    ...(f.genre !== "all" ? [[f.genre, { genre: "all" }] as [string, Partial<Filters>]] : []),
+    ...(f.key !== "all" ? [[`Key: ${formatKey(keys.find((k) => keyId(k) === f.key)!)}`, { key: "all" }] as [string, Partial<Filters>]] : []),
+    ...(f.bpm !== null ? [[`${f.bpm} bpm`, { bpm: null }] as [string, Partial<Filters>]] : []),
+    ...(f.tempo !== "any" ? [[`${tempo.label} BPM`, { tempo: "any" }] as [string, Partial<Filters>]] : []),
+    ...(f.bpmFrom !== null || f.bpmTo !== null ? [[`${f.bpmFrom ?? 40} to ${f.bpmTo ?? 300} BPM`, { bpmFrom: null, bpmTo: null }] as [string, Partial<Filters>]] : []),
+    ...(f.tsig !== "all" ? [[f.tsig, { tsig: "all" }] as [string, Partial<Filters>]] : []),
+    ...(f.when !== "all" ? [[WHEN.find((w) => w.id === f.when)!.label, { when: "all" }] as [string, Partial<Filters>]] : []),
+  ];
 
   const engine = getEngine();
   const currentId = usePlayerState((s) => s.current?.id ?? null);
@@ -425,8 +478,78 @@ export function LoopsPage({
               {w.label}
             </FilterChip>
           ))}
+          <Button size="sm" variant="ghost" aria-expanded={advanced} onClick={() => setAdvanced(!advanced)}>
+            {advanced ? "Hide advanced search" : "Advanced search"}
+          </Button>
+        </div>
+        {advanced && (
+          <form
+            aria-label="Advanced search"
+            className="flex flex-wrap items-end gap-2 border-t border-border pt-3"
+            onSubmit={(e) => {
+              e.preventDefault();
+              const read = (t: string) => (t.trim() === "" ? null : Math.max(40, Math.min(300, Math.round(Number(t)))));
+              const a = read(fromText);
+              const b = read(toText);
+              const [lo, hi] = a !== null && b !== null && a > b ? [b, a] : [a, b];
+              update({ bpmFrom: lo, bpmTo: hi, bpm: null, tempo: "any" });
+            }}
+          >
+            <TextInput label="BPM from" inputMode="numeric" placeholder="40" value={fromText} onChange={(e) => setFromText(e.target.value.replace(/[^\d]/g, ""))} className="w-28" />
+            <TextInput label="BPM to" inputMode="numeric" placeholder="300" value={toText} onChange={(e) => setToText(e.target.value.replace(/[^\d]/g, ""))} className="w-28" />
+            <Dropdown
+              name="Time signature"
+              value={f.tsig === "all" ? "Any" : f.tsig}
+              selected={f.tsig}
+              options={[["all", "Any"], [TSIG, TSIG]]}
+              onPick={(v) => update({ tsig: v })}
+            />
+            <Button type="submit" size="sm" variant="secondary">
+              Search
+            </Button>
+          </form>
+        )}
+        {/* One sideways row on a phone, so the loops stay near the top; wrapped from tablet up. */}
+        <div role="group" aria-label="Popular tags" className="-mx-3 flex items-center gap-2 overflow-x-auto border-t border-border px-3 pt-3 pb-1 tablet:mx-0 tablet:flex-wrap tablet:overflow-visible tablet:px-0 tablet:pb-0">
+          <span className="text-label text-label-caps text-text-muted">Popular tags</span>
+          {cloud.map(([t, n]) => (
+            <FilterChip key={t} selected={f.tags.includes(t)} onToggle={() => toggleTag(t)}>
+              {`${t} ${n}`}
+            </FilterChip>
+          ))}
         </div>
       </section>
+
+      {applied.length > 0 && (
+        <div role="group" aria-label="Filters on" className="flex flex-wrap items-center gap-2">
+          <span className="text-label text-label-caps text-text-muted">Showing</span>
+          {applied.map(([label, patch]) => (
+            <TagChip
+              key={label}
+              onRemove={() => {
+                if ("bpmFrom" in patch) {
+                  setFromText("");
+                  setToText("");
+                }
+                update(patch);
+              }}
+            >
+              {label}
+            </TagChip>
+          ))}
+          <Button
+            size="sm"
+            variant="ghost"
+            onClick={() => {
+              setFromText("");
+              setToText("");
+              update({ ...DEFAULT, sort: f.sort });
+            }}
+          >
+            Clear all
+          </Button>
+        </div>
+      )}
 
       {likeOf && (
         <div className="flex flex-wrap items-center justify-between gap-2 rounded-panel border border-accent bg-surface p-3">
@@ -472,6 +595,8 @@ export function LoopsPage({
                 void nowPlaying().playFrom(engine, queue, i);
               }}
               onFilter={(patch) => update(patch)}
+              onTag={toggleTag}
+              activeTags={f.tags}
               onChange={onChange}
             />
           ))}
@@ -539,12 +664,16 @@ function LoopEntry({
   now,
   onPlay,
   onFilter,
+  onTag,
+  activeTags,
   onChange,
 }: {
   loop: Loop;
   now: number;
   onPlay: () => void;
   onFilter: (patch: Partial<Filters>) => void;
+  onTag: (t: string) => void;
+  activeTags: string[];
   onChange: () => void;
 }) {
   const { row } = loop;
@@ -642,6 +771,10 @@ function LoopEntry({
             <Download className="size-4" aria-hidden="true" />
             {formatCount(row.downloadsCount)}
           </button>
+          <span aria-label={`${plays(row.id)} plays`} title="Plays" className={PILL}>
+            <PlayGlyph />
+            {formatCount(plays(row.id))}
+          </span>
           <button type="button" aria-expanded={talk} aria-label={`Comments on ${row.title}, ${comments}`} onClick={() => setTalk(!talk)} className={PILL}>
             <CommentGlyph />
             {formatCount(comments)}
@@ -692,7 +825,7 @@ function LoopEntry({
         <TagChip onClick={() => onFilter({ category: loop.category })}>
           {loop.category}
         </TagChip>
-        <TagChip>4/4</TagChip>
+        <TagChip onClick={() => onFilter({ tsig: TSIG })}>{TSIG}</TagChip>
         {row.key ? (
           <TagChip
             onClick={() => onFilter({ key: keyId(row.key!) })}
@@ -701,17 +834,21 @@ function LoopEntry({
           <TagChip>Key: none</TagChip>
         )}
         {bars && <TagChip>{`${bars} bars`}</TagChip>}
+        {LOOP_BYTES.has(row.id) && <TagChip>{sizeText(LOOP_BYTES.get(row.id)!)}</TagChip>}
         {row.tags
-          .filter((t) => t.toLowerCase() !== loop.genre.toLowerCase())
+          .filter((t) => norm(t) !== norm(loop.genre))
           .map((t) => (
-            <TagChip key={t} onClick={() => onFilter({ q: t })}>
+            <TagChip key={t} aria-pressed={activeTags.includes(norm(t))} onClick={() => onTag(t)}>
               {t}
             </TagChip>
           ))}
       </div>
 
       {loop.description && (
-        <p className="line-clamp-2 text-small text-text">{loop.description}</p>
+        <p className="text-small text-text">
+          <span className="text-text-muted">{"Description: "}</span>
+          {loop.description}
+        </p>
       )}
       <Why why={loop.why} />
 
@@ -770,5 +907,14 @@ function PackStrip() {
         ))}
       </ul>
     </section>
+  );
+}
+
+/** A play triangle, drawn like the interface's other icons (24 grid, 2 px stroke, current colour). */
+function PlayGlyph() {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M7 4.5v15l12-7.5z" />
+    </svg>
   );
 }

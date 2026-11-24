@@ -94,9 +94,13 @@ const creatorCopy: Record<string, Copy> = Object.fromEntries(
   }),
 );
 
+/** The size of each loop's download, by item id: the tag line shows it, the way a loop library does. */
+export const LOOP_BYTES = new Map<string, number>();
+
 function rowFor(e: Entry, c: Copy, base: string): ItemRow {
   const publicId = `demoloop${String(c.n).padStart(2, "0")}`;
   const id = `00000000-0000-4000-8000-${String(c.n).padStart(12, "0")}`;
+  LOOP_BYTES.set(id, e.preview.bytes);
   return itemRowSchema.parse({
     id,
     publicId,
