@@ -1,0 +1,4 @@
+/* The demo's stylesheet: the app's own (app/globals.css), scanned from apps/web/src. */
+@import "tailwindcss";
+@import "@stash/ui/theme.css";
+@import "@stash/ui/components.css";

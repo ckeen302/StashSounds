@@ -25,7 +25,7 @@ const config = [
     ignores: [
       "**/node_modules/**", "**/.next/**", "**/dist/**", "**/coverage/**", "apps/worker/**",
       "test-results/**", "playwright-report/**", "**/next-env.d.ts", ".claude/**", "fixtures/**",
-      "apps/web/public/worklets/**",
+      "apps/web/public/worklets/**", "apps/web/out-demo/**",
     ],
   },
   ...nextVitals,

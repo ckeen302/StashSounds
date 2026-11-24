@@ -1,0 +1,288 @@
+import { StrictMode, useEffect, useMemo, useState, useSyncExternalStore, type ReactNode } from "react";
+import { createRoot } from "react-dom/client";
+import { getEngine, usePlayerState } from "@stash/audio";
+import type { ItemPage, ItemRow } from "@stash/contracts";
+import {
+  Bell,
+  ButtonLink,
+  EmptyState,
+  Library,
+  LinkProvider,
+  ResultList,
+  ResultRow,
+  Search,
+  ToastProvider,
+  TooltipProvider,
+  Upload,
+  User,
+  useToast,
+  type IconComponent,
+  type PlayState,
+} from "@stash/ui";
+import { AppShell } from "../app/_shell/app-shell";
+import { nowPlaying } from "../app/_shell/now-playing";
+import { ItemView } from "../app/_item/item-view";
+import { LogoMark } from "../app/logo-mark";
+import { buildCatalog, type Catalog } from "./data";
+import { HashLink } from "./hash-link";
+import { navigate, startRouter, usePath } from "./router";
+import { has, set } from "./store";
+
+/**
+ * The browser-only demo (ticket 137): the real shell, player bar, result rows, loop page and audio
+ * engine, fed by the demo catalog instead of the database, on a hash router. No server, no account.
+ */
+
+const catalog: Catalog = buildCatalog(document.baseURI);
+
+/** A row as this browser's viewer sees it: their like, counted once. */
+function withViewer(row: ItemRow): ItemRow {
+  const liked = has("likes", row.id);
+  return { ...row, likesCount: row.likesCount + (liked ? 1 : 0), viewer: { liked } };
+}
+
+function pageForViewer(page: ItemPage): ItemPage {
+  const follows = has("follows", page.owner.id);
+  const item = withViewer(page.item);
+  return {
+    ...page,
+    item: { ...page.item, likesCount: item.likesCount, viewer: item.viewer },
+    owner: { ...page.owner, viewerFollows: follows, followersCount: page.owner.followersCount + (follows ? 1 : 0) },
+    moreFromOwner: page.moreFromOwner.map(withViewer),
+    similar: page.similar.map(withViewer),
+  };
+}
+
+let searchQuery = "";
+const searchListeners = new Set<() => void>();
+function useSearchQuery(): string {
+  return useSyncExternalStore(
+    (l) => {
+      searchListeners.add(l);
+      return () => searchListeners.delete(l);
+    },
+    () => searchQuery,
+    () => "",
+  );
+}
+
+function useRows(): [ItemRow[], () => void] {
+  const [version, setVersion] = useState(0);
+  const rows = useMemo(() => catalog.rows.map(withViewer), [version]); // eslint-disable-line react-hooks/exhaustive-deps
+  return [rows, () => setVersion((v) => v + 1)];
+}
+
+/** The loops as result rows: the list is the player's queue, arrows move the selection. */
+function LoopList({ label, rows, onChange }: { label: string; rows: ItemRow[]; onChange: () => void }) {
+  const engine = getEngine();
+  const status = usePlayerState((s) => s.status);
+  const currentId = usePlayerState((s) => s.current?.id ?? null);
+  const toast = useToast();
+  const [selected, setSelected] = useState(-1);
+  const stateOf = (id: string): PlayState => (id !== currentId || status === "idle" ? "paused" : status);
+  const play = (i: number) => void nowPlaying().playFrom(engine, rows, i);
+  // Five small previews: fetch and decode them all up front, so every row plays at once.
+  useEffect(() => {
+    for (const r of rows) engine.preload(r.playable);
+  }, [engine, rows]);
+
+  return (
+    <div
+      onKeyDown={(e) => {
+        if (e.target instanceof HTMLInputElement) return;
+        if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+          e.preventDefault();
+          const next = Math.max(0, Math.min(rows.length - 1, selected + (e.key === "ArrowDown" ? 1 : -1)));
+          setSelected(next);
+          if (currentId) play(next);
+        } else if (e.key === "Enter" && selected >= 0) {
+          navigate(rows[selected]!.href);
+        }
+      }}
+    >
+      <ResultList label={label}>
+        {rows.map((r, i) => (
+          <ResultRow
+            key={r.id}
+            row={r}
+            selected={i === selected}
+            playState={stateOf(r.playable.id)}
+            onPlay={() => {
+              setSelected(i);
+              play(i);
+            }}
+            onLike={(liked) => {
+              set("likes", r.id, liked);
+              onChange();
+              if (liked) toast({ tone: "success", title: "Liked", description: "Saved in this browser. This is the demo." });
+            }}
+            onDownload={() => navigate(r.href)}
+          />
+        ))}
+      </ResultList>
+    </div>
+  );
+}
+
+function Page({ children }: { children: ReactNode }) {
+  return <main className="mx-auto flex max-w-content flex-col gap-8 px-3 py-8 tablet:px-4 desktop:px-6">{children}</main>;
+}
+
+function Home() {
+  const [rows, refresh] = useRows();
+  return (
+    <Page>
+      <section className="flex flex-col gap-4 rounded-panel border border-border bg-surface p-6">
+        <div className="flex items-center gap-3">
+          <LogoMark size={32} />
+          <span className="text-title font-extrabold tracking-tight">stash</span>
+          <span className="rounded-control border border-border-strong px-2 py-1 text-label text-label-caps text-text-muted">Demo</span>
+        </div>
+        <h1 className="text-display text-balance">Find a sound, hear it instantly, grab it.</h1>
+        <p className="max-w-prose text-body text-text-muted">
+          Press play on any loop. Open one to change its tempo and key while it plays, scrub the waveform and grab it with its license. Space plays
+          and pauses; the arrow keys move through the list. Everything here runs in your browser: the producers are made up, and likes and
+          follows stay on this device.
+        </p>
+      </section>
+      <section className="flex flex-col gap-3">
+        <h2 className="text-title">Fresh loops</h2>
+        <LoopList label="Fresh loops" rows={rows} onChange={refresh} />
+      </section>
+    </Page>
+  );
+}
+
+function Browse() {
+  const [rows, refresh] = useRows();
+  const byTempo = useMemo(() => [...rows].sort((a, b) => (a.bpm ?? 0) - (b.bpm ?? 0)), [rows]);
+  return (
+    <Page>
+      <header className="flex flex-col gap-1">
+        <span className="text-label text-label-caps text-text-muted">Browse</span>
+        <h1 className="text-title">Loops, slowest to fastest</h1>
+      </header>
+      <LoopList label="Loops" rows={byTempo} onChange={refresh} />
+    </Page>
+  );
+}
+
+function SearchResults() {
+  const [rows, refresh] = useRows();
+  const query = useSearchQuery();
+  const q = query.trim().toLowerCase();
+  const hits = q
+    ? rows.filter((r) => [r.title, r.owner.handle, r.owner.displayName, ...r.tags].some((s) => s.toLowerCase().includes(q)))
+    : rows;
+  return (
+    <Page>
+      <header className="flex flex-col gap-1">
+        <span className="text-label text-label-caps text-text-muted">Search</span>
+        <h1 className="text-title">{q ? `Results for “${query.trim()}”` : "All loops"}</h1>
+      </header>
+      {hits.length > 0 ? (
+        <LoopList label="Search results" rows={hits} onChange={refresh} />
+      ) : (
+        <EmptyState icon={Search} title="No loops match" action={<ButtonLink href="/" variant="secondary">See every loop</ButtonLink>}>
+          The demo has five loops. Try “trap”, “soul” or “nova”.
+        </EmptyState>
+      )}
+    </Page>
+  );
+}
+
+function NotInDemo({ title, icon, children }: { title: string; icon: IconComponent; children: string }) {
+  return (
+    <Page>
+      <h1 className="text-title">{title}</h1>
+      <EmptyState icon={icon} title="Not in the demo" action={<ButtonLink href="/" variant="secondary">Back to the loops</ButtonLink>}>
+        {children}
+      </EmptyState>
+    </Page>
+  );
+}
+
+function LoopPage({ publicId }: { publicId: string }) {
+  const page = catalog.page(publicId);
+  // Read once per visit to the page, so the viewer's like and follow show as left.
+  const view = useMemo(() => (page ? { page: pageForViewer(page), viewer: { signedIn: true }, source: "local" as const } : null), [page]);
+  if (!view) return <NotFound />;
+  return <ItemView key={publicId} view={view} />;
+}
+
+function NotFound() {
+  return (
+    <Page>
+      <EmptyState icon={Search} title="That loop isn't here" action={<ButtonLink href="/" variant="secondary">Back to the loops</ButtonLink>}>
+        The demo has five loops. This link points at something else.
+      </EmptyState>
+    </Page>
+  );
+}
+
+function Route() {
+  const path = usePath();
+  useEffect(() => {
+    const page = /^\/loop\/(?:.*-)?([a-z0-9]+)$/.exec(path);
+    const title = page ? catalog.page(page[1]!)?.item.title : null;
+    document.title = title ? `${title} · Stash demo` : "Stash demo";
+  }, [path]);
+  const loop = /^\/loop\/(?:.*-)?([a-z0-9]+)$/.exec(path);
+  if (loop) return <LoopPage publicId={loop[1]!} />;
+  if (path === "/") return <Home />;
+  if (path.startsWith("/browse")) return <Browse />;
+  if (path === "/search") return <SearchResults />;
+  if (path === "/upload")
+    return <NotInDemo title="Upload" icon={Upload}>Uploading needs an account and the processing pipeline, so it is not part of this demo.</NotInDemo>;
+  if (path === "/library")
+    return <NotInDemo title="Library" icon={Library}>Your library lives with your account. In the demo, the loops you like stay liked on this device.</NotInDemo>;
+  if (path === "/notifications")
+    return <NotInDemo title="Notifications" icon={Bell}>Notifications arrive when producers you follow post. The demo has no account to send them to.</NotInDemo>;
+  if (path === "/login" || path.startsWith("/u/"))
+    return <NotInDemo title="Profile" icon={User}>Sign-in and profiles need an account. In the demo you are already treated as signed in.</NotInDemo>;
+  return <NotFound />;
+}
+
+function App() {
+  return (
+    <LinkProvider component={HashLink}>
+      <TooltipProvider>
+        <ToastProvider viewport={false}>
+          <AppShell>
+            <Route />
+          </AppShell>
+        </ToastProvider>
+      </TooltipProvider>
+    </LinkProvider>
+  );
+}
+
+startRouter(catalog.hrefOf);
+
+// Any app link that is not a packages/ui link (plain anchors) stays in the page.
+document.addEventListener("click", (e) => {
+  if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey) return;
+  const a = (e.target as Element | null)?.closest?.("a[href]");
+  const href = a?.getAttribute("href");
+  if (a && href?.startsWith("/")) {
+    e.preventDefault();
+    navigate(href);
+  }
+});
+// The top bar's search form searches the demo's loops instead of leaving the page.
+document.addEventListener("submit", (e) => {
+  const form = e.target as HTMLFormElement;
+  e.preventDefault();
+  if (form.getAttribute("role") === "search") {
+    searchQuery = String(new FormData(form).get("q") ?? "");
+    for (const l of searchListeners) l();
+    navigate("/search");
+  }
+});
+
+document.body.className = "h-dvh overflow-hidden bg-bg text-text";
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+);
