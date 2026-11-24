@@ -49,7 +49,8 @@ pnpm run licenses         dependency license check (plain `pnpm licenses` is a p
 ```
 Generators (lead only): `pnpm --filter @stash/contracts gen` (JSON Schemas for the worker),
 `pnpm --filter @stash/ui gen` (theme.css from tokens), `node scripts/sync-limits.mjs` (limits
-migration), `python3 scripts/gen-fixtures.py` (synthetic fixtures).
+migration), `python3 scripts/gen-fixtures.py` (synthetic fixtures), `node scripts/build-demo.mjs`
+(demo previews and apps/web/src/demo/generated/loops.json, ticket 137).
 
 ## Rules
 1. Edit only the paths your lane owns. For anything else, write docs/requests/NNN-name.md.
