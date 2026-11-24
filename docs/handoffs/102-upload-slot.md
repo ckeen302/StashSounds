@@ -381,3 +381,15 @@ apps/web typecheck: Done
       Tests  114 passed (114)
 ```
 The 7 skipped tests are the SeaweedFS suite, which needs storage that is not available here.
+
+### Follow-up (foundations 0da7500, lead fix P1)
+
+`enqueue_processing` now checks the claim before suspension and size, so a call that does not hold the claim always gets conflict. The comment on the refused-for-good delete in complete-upload.ts now gives that reason: invalid or forbidden reaches only the call that still holds the claim, so the copy it deletes is its own.
+
+```
+$ pnpm check && pnpm test && pnpm db:test
+ Test Files  12 passed | 1 skipped (13)
+      Tests  247 passed | 7 skipped (254)
+ Test Files  3 passed (3)
+      Tests  115 passed (115)
+```
