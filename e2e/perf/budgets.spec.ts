@@ -36,12 +36,12 @@ for (const { path, network } of [
       await cdp.send("Network.enable");
       await cdp.send("Network.emulateNetworkConditions", NETWORK_4G);
     }
-    let scriptBytes = 0;
-    page.on("response", async (res) => {
-      if (res.request().resourceType() === "script") {
-        // responseBodySize is the encoded (compressed) size on the wire.
-        scriptBytes += (await res.request().sizes()).responseBodySize;
-      }
+    // Every script's size is read once its body has arrived; all of them are awaited before the sum,
+    // so a late size can never be left out (summing inside the handler raced the assertion).
+    const sizes: Promise<number>[] = [];
+    page.on("requestfinished", (req) => {
+      // responseBodySize is the encoded (compressed) size on the wire.
+      if (req.resourceType() === "script") sizes.push(req.sizes().then((s) => s.responseBodySize));
     });
     await page.goto(path, { waitUntil: "networkidle" });
     const { lcp, cls } = await page.evaluate(
@@ -59,6 +59,7 @@ for (const { path, network } of [
           setTimeout(() => resolve({ lcp, cls }), 500);
         }),
     );
+    const scriptBytes = (await Promise.all(sizes)).reduce((a, b) => a + b, 0);
     console.log(`${path}: LCP ${Math.round(lcp)} ms, CLS ${cls.toFixed(4)}, script ${Math.round(scriptBytes / 1024)} KB`);
     expect(lcp, "largest contentful paint was measured").toBeGreaterThan(0);
     expect(lcp, "largest contentful paint (ms)").toBeLessThan(budget.itemPageLcpMs);
