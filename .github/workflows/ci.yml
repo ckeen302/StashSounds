@@ -184,6 +184,17 @@ jobs:
           cache: pnpm
       - uses: astral-sh/setup-uv@v6
       - run: pnpm install --frozen-lockfile
+      # The registry rate-limits image pulls when several runs start at once. Pull with retries
+      # first, then stop, so the next step still proves the cold one-command start from cached images.
+      - name: Pull the Supabase images (retried on registry rate limits)
+        run: |
+          for i in 1 2 3; do
+            npx supabase start && break
+            npx supabase stop --no-backup || true
+            [ "$i" = 3 ] && exit 1
+            sleep 60
+          done
+          npx supabase stop --no-backup
       - name: pnpm dev starts Supabase (migrations and seed), storage, the worker and the web app
         run: pnpm dev --check
       - name: The production worker image builds
