@@ -220,6 +220,8 @@ export function OneShotsPage() {
       <div className="flex flex-col gap-3 tablet:flex-row tablet:items-center tablet:justify-between">
         <SearchInput
           label="Search hits, kits, producers"
+          hideLabel
+          placeholder="Search hits, kits, producers"
           shortcut=""
           value={q}
           onChange={(e) => {

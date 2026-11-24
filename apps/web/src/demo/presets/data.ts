@@ -151,7 +151,16 @@ const seen = new Set<string>();
 const flat = (x: string) => x.toLowerCase().replace(/\(.*?\)/g, "").replace(/[^a-z0-9]/g, "");
 // A named preset is one row per song, however the plugin is spelled ("Kontakt (Factory Library)" vs "Kontakt Factory Library").
 const keyOf = (p: PresetEntry) => (p.preset ? `${flat(p.song)}|${flat(p.preset)}` : [flat(p.song), flat(p.plugin), flat(p.role)].join("|"));
+/** "Jazz Guitar (factory library)" -> name "Jazz Guitar", note "factory library": the name is what you type into the browser. */
+export function presetParts(preset: string | null): { name: string; note: string | null } {
+  const m = /^(.*?)\s*\(([^)]*)\)\s*$/.exec(preset ?? "");
+  return m && m[1] ? { name: m[1], note: m[2]! } : { name: preset ?? "", note: null };
+}
+
+/** A row counts only when it names both the plugin and the preset: "Kontakt" alone isn't something a producer can load. */
+const complete = (p: PresetEntry) => !!p.preset?.trim() && !/not named|unknown|unnamed/i.test(p.preset) && !!p.plugin.trim() && !/not named|unknown/i.test(p.plugin);
 export const PRESETS: PresetEntry[] = [...HAND, ...(found as unknown as PresetEntry[])].filter((p) => {
+  if (!complete(p)) return false;
   const k = keyOf(p);
   if (seen.has(k)) return false;
   seen.add(k);

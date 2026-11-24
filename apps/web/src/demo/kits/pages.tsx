@@ -75,7 +75,7 @@ export function KitsPage() {
       </header>
 
       <div className="flex flex-col gap-3 tablet:flex-row tablet:items-center tablet:justify-between">
-        <SearchInput label="Search kits, producers, sounds" shortcut="" value={q} onChange={(e) => setQ(e.target.value)} onClear={() => setQ("")} className="tablet:w-80" />
+        <SearchInput label="Search kits, producers, sounds" hideLabel placeholder="Search kits, producers, sounds" shortcut="" value={q} onChange={(e) => setQ(e.target.value)} onClear={() => setQ("")} className="tablet:w-80" />
         <div role="group" aria-label="Genre" className="flex flex-wrap gap-2">
           {genres.map((g) => (
             <FilterChip key={g} selected={genre === g} onToggle={() => setGenre(g)}>
@@ -103,7 +103,7 @@ export function KitsPage() {
             <p className="text-small text-text-muted">{summary(k.sounds)}</p>
             <div className="flex items-center justify-between gap-3 font-mono text-numeric tabular text-text-muted">
               <span>{`${k.sounds.length} sounds`}</span>
-              {!k.mine && <span>{`${k.downloads.toLocaleString("en")} downloads`}</span>}
+              {!k.mine && k.downloads > 0 && <span>{`${k.downloads.toLocaleString("en")} downloads`}</span>}
             </div>
           </li>
         ))}

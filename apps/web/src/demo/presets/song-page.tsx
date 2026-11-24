@@ -1,6 +1,6 @@
 import { ButtonLink, EmptyState, UiLink } from "@stash/ui";
 import { songChordItems } from "../midi/catalog";
-import { coverFor } from "./cover";
+import { Cover, coverFor } from "./cover";
 import { CONFIDENCE, type Confidence } from "./data";
 import { ConfidenceKey, familyOf, Meter, PatchStrip } from "./page";
 import {
@@ -67,6 +67,7 @@ export function PresetSongPage({ slug }: { slug: string }) {
       </UiLink>
 
       <header className="flex flex-col gap-5 tablet:flex-row tablet:items-end">
+        <Cover song={s.song} artist={s.artist} size="lg" />
         <div className="flex min-w-0 flex-col gap-2">
           <span className="text-label text-label-caps text-text-muted">
             The presets behind

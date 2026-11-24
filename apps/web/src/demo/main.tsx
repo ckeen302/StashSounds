@@ -300,7 +300,7 @@ function Home() {
           <span className="st-dot size-2 rounded-full" aria-hidden="true" />
           The sound network for producers
         </span>
-        <h1 className="st-hero-title text-display max-w-4xl text-balance">
+        <h1 className="st-hero-title st-hero-xl text-display max-w-4xl text-balance">
           Find the sound. Hear it now. <span className="st-grad">Follow who made it.</span>
         </h1>
         <p className="max-w-prose text-body text-text-muted">

@@ -1,7 +1,7 @@
 import { Button, Check, ChevronDown, FilterChip, Menu, SearchInput, UiLink, type MenuEntry } from "@stash/ui";
 import { useMemo, useState } from "react";
-import { coverFor } from "./cover";
-import { CONFIDENCE, PRESETS, type Confidence, type PresetEntry } from "./data";
+import { Cover, coverFor } from "./cover";
+import { CONFIDENCE, PRESETS, presetParts, type Confidence, type PresetEntry } from "./data";
 import { groupSongs, LEVEL, madeBy, songHref, TOP_PRODUCERS, type Song } from "./songs";
 
 /**
@@ -198,9 +198,6 @@ export function PresetsPage() {
           onPick={(v) => reset(() => setSound(v))}
         />
         <Dropdown name="Sort" active={false} value={SORTS[sort].label} options={(Object.keys(SORTS) as SortId[]).map((s): [string, string] => [s, SORTS[s].label])} selected={sort} onPick={(v) => reset(() => setSort(v as SortId))} />
-        <FilterChip selected={named} onToggle={() => reset(() => setNamed(!named))}>
-          Exact preset named
-        </FilterChip>
         {touched && (
           <Button
             size="sm"
@@ -261,6 +258,7 @@ function SongCard({ s }: { s: Song }) {
   return (
     <li className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-4">
       <div className="flex items-center gap-4">
+        <Cover song={s.song} artist={s.artist} />
         <div className="flex min-w-0 flex-1 flex-col gap-0.5">
           <UiLink href={songHref(s.song, s.artist)} className="text-title break-words text-text ui-hover:underline">
             {s.song}
@@ -298,7 +296,8 @@ export function PatchStrip({ e }: { e: PresetEntry }) {
       <span className="text-label text-label-caps text-text-muted">{/^not stated/i.test(e.role) ? "Sound not stated" : e.role}</span>
       <div className="st-box flex flex-col gap-1 rounded-control border border-border-strong bg-bg px-3 py-2">
         <span className="font-mono text-small break-words text-text-muted">{[e.plugin, e.path].filter(Boolean).join(" › ")}</span>
-        <span className={`font-mono text-body-strong break-words ${e.preset ? "text-accent" : "text-text-muted"}`}>{e.preset ?? "Preset not named"}</span>
+        <span className="font-mono text-body-strong break-words text-accent">{presetParts(e.preset).name}</span>
+        {presetParts(e.preset).note && <span className="text-small text-text-muted">{presetParts(e.preset).note}</span>}
       </div>
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
         <span className="flex items-center gap-2" title={CONFIDENCE[e.confidence].blurb}>
@@ -342,7 +341,7 @@ function FromTheProducer() {
             </div>
             <div className="st-box flex flex-col gap-1 rounded-control border border-border-strong bg-bg px-3 py-2">
               <span className="truncate font-mono text-small text-text-muted">{e.plugin}</span>
-              <span className="font-mono text-body-strong break-words text-accent">{e.preset}</span>
+              <span className="font-mono text-body-strong break-words text-accent">{presetParts(e.preset).name}</span>
             </div>
             <a href={e.source.url} target="_blank" rel="noreferrer" className="mt-auto truncate text-small text-text-muted underline underline-offset-2 ui-hover:text-text">
               {e.quoteBy ? `Said by ${e.quoteBy}` : e.source.label}

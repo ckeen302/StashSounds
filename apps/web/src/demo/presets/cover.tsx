@@ -1,10 +1,8 @@
-import { Sprite, type SpriteId } from "../pixel";
 import COVERS from "./covers.json";
 
 /**
  * The album cover beside a song. Real art comes from covers.json (the file is published next to the
- * page, since the page can't load images from other sites). Until a song has one, it shows
- * as a pixel item icon on a tile tinted by the song, so a shelf reads as a row of items, not a row of gaps.
+ * page, since the page can't load images from other sites). Until a song has one, nothing is shown.
  */
 
 type CoverRow = {
@@ -14,15 +12,6 @@ type CoverRow = {
 };
 const ROWS = COVERS as Record<string, CoverRow>;
 
-const TINTS = [
-  ["bg-type-loop/15", "bg-type-loop"],
-  ["bg-type-preset/15", "bg-type-preset"],
-  ["bg-type-midi/15", "bg-type-midi"],
-  ["bg-type-kit/15", "bg-type-kit"],
-  ["bg-type-oneshot/15", "bg-type-oneshot"],
-  ["bg-accent/15", "bg-accent"],
-] as const;
-
 export function coverKey(song: string, artist: string): string {
   return `${song}|${artist}`.toLowerCase();
 }
@@ -30,26 +19,6 @@ export function coverKey(song: string, artist: string): string {
 export function coverFor(song: string, artist: string): CoverRow | null {
   return ROWS[coverKey(song, artist)] ?? null;
 }
-
-function hash(key: string): number {
-  let h = 0;
-  for (const ch of key) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
-  return h;
-}
-
-function tint(key: string) {
-  return TINTS[hash(key) % TINTS.length]!;
-}
-
-const ICONS: SpriteId[] = [
-  "keys",
-  "bell",
-  "flute",
-  "wave",
-  "bass",
-  "guitar",
-  "pad",
-];
 
 export function Cover({
   song,
@@ -80,16 +49,6 @@ export function Cover({
       />
     );
   }
-  const [sleeve] = tint(coverKey(song, artist));
-  const icon = ICONS[hash(coverKey(song, artist)) % ICONS.length]!;
-  const px =
-    size === "sm" ? 30 : size === "lg" ? 96 : size === "fill" ? 64 : 48;
-  return (
-    <span
-      aria-hidden="true"
-      className={`${box} flex shrink-0 items-center justify-center st-cover overflow-hidden rounded-control border border-border ${sleeve}`}
-    >
-      <Sprite id={icon} size={px} />
-    </span>
-  );
+  // No stand-in art: until the real cover is in, the entry shows none.
+  return null;
 }
