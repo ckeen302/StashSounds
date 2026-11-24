@@ -2,8 +2,8 @@
  * The component index. Ticket 131 adds the first twenty components of the design spec's thirty;
  * each appears in /dev/gallery in every state before a screen may use it. Screens compose these and
  * never restyle them. Ticket 132 adds the slider (volume), the player bar and its phone sheet.
- * The rest (select, stepper, drop zone, piano roll, pads, keyboard, transport, a general sheet)
- * arrive with the tickets that need them.
+ * Ticket 135 adds the stepper (key shift) and the transport. The rest (select, drop zone, piano
+ * roll, pads, keyboard, a general sheet) arrive with the tickets that need them.
  */
 export type { PreviewState } from "./cx.ts";
 export * from "./icon.tsx";
@@ -24,6 +24,9 @@ export { ContextMenu, Menu, MenuPreview, type MenuEntry } from "./menu.tsx";
 export { Tooltip, TooltipProvider, TooltipSurface } from "./tooltip.tsx";
 export { ToastPreview, ToastProvider, ToastSurface, ToastViewport, useToast, type ToastOptions, type ToastTone } from "./toast.tsx";
 export { Slider, volumeText, type SliderProps } from "./slider.tsx";
+export { Stepper, type StepperProps } from "./stepper.tsx";
+export { Transport, type TransportProps } from "./transport.tsx";
+export { keyShiftText, semitoneText, tempoRange, TRANSPOSE_LIMIT, transposedKey } from "./transport-math.ts";
 export { describePlayer, PlayerBar, PlayerSheet, PlayerSheetPreview, playerFraction, type PlayerBarProps, type PlayerSheetProps, type PlayerStatus } from "./player-bar.tsx";
 export { useFrameLoop } from "./frame.ts";
 export { SkeletonBlock, SkeletonCard, SkeletonText } from "./skeleton.tsx";

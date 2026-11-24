@@ -90,11 +90,12 @@ describe("Transport", () => {
   });
 
   it("shows the changed tempo and key, and offers a reset only when something changed", () => {
-    expect(html(h(Transport, full))).not.toContain("Reset tempo and key");
+    expect(html(h(Transport, full))).toMatch(/aria-label="Reset tempo and key"[^>]*disabled=""/);
     const out = html(h(Transport, { ...full, tempo: { ...full.tempo, bpm: 100 }, keyShift: { ...full.keyShift, semitones: -2 } }));
     expect(out).toMatch(/data-tempo-readout[^>]*>100</);
     expect(out).toMatch(/data-key-readout[^>]*>Cm</);
-    expect(out).toContain("Reset tempo and key");
+    expect(out).toContain('aria-label="Reset tempo and key"');
+    expect(out).not.toMatch(/aria-label="Reset tempo and key"[^>]*disabled=""/);
     expect(out).toContain("−2");
   });
 
