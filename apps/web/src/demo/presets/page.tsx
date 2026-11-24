@@ -72,9 +72,9 @@ function soundsOf(role: string): string[] {
 
 type Song = { key: string; song: string; artist: string; producer: string; entries: PresetEntry[]; best: number; named: number };
 const SORTS = {
+  sure: { label: "Best sourced first", by: (a: Song, b: Song) => b.best - a.best || b.named - a.named || a.artist.localeCompare(b.artist) },
   artist: { label: "Artist A to Z", by: (a: Song, b: Song) => a.artist.localeCompare(b.artist) || a.song.localeCompare(b.song) },
   sounds: { label: "Most sounds", by: (a: Song, b: Song) => b.entries.length - a.entries.length || a.artist.localeCompare(b.artist) },
-  sure: { label: "Surest first", by: (a: Song, b: Song) => b.best - a.best || b.named - a.named || a.artist.localeCompare(b.artist) },
   named: { label: "Exact presets first", by: (a: Song, b: Song) => b.named - a.named || b.best - a.best || a.artist.localeCompare(b.artist) },
 } as const;
 type SortId = keyof typeof SORTS;
@@ -86,7 +86,7 @@ export function PresetsPage() {
   const [family, setFamily] = useState<string>("All");
   const [sound, setSound] = useState<string>("All");
   const [named, setNamed] = useState(false);
-  const [sort, setSort] = useState<SortId>("artist");
+  const [sort, setSort] = useState<SortId>("sure");
   const [q, setQ] = useState("");
   const [limit, setLimit] = useState(PAGE);
 

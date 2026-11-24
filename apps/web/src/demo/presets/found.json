@@ -4777,5 +4777,2319 @@
   "path": "Orchestra, Wood",
   "quote": "Flute - FabFilter Twin2: Orchestra, Wood - Classic Flute DJM",
   "quoteBy": "eza333"
+ },
+ {
+  "song": "Pillz",
+  "artist": "Gucci Mane",
+  "producer": "Zaytoven",
+  "plugin": "Roland Fantom (hardware workstation)",
+  "preset": null,
+  "role": "Not stated (the track's sounds)",
+  "confidence": "producer",
+  "source": {
+   "label": "Sound On Sound: Zaytoven",
+   "url": "https://www.soundonsound.com/people/zaytoven"
+  },
+  "quote": "The sounds that I used on the Gucci Mane track 'Pillz' back in the day (2006) are from the Fantom",
+  "quoteBy": "Zaytoven"
+ },
+ {
+  "song": "Blown Away",
+  "artist": "Curren$y",
+  "producer": "Unknown",
+  "plugin": "Apple Logic Pro (gated synths)",
+  "preset": "16th Chord Ensemble",
+  "role": "Chords (heard from the beginning)",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: Let's play Name That Preset! (page 12)",
+   "url": "https://www.futureproducers.com/forums/threads/lets-play-name-that-preset.308269/page-12"
+  },
+  "quote": "off the top of my head the only one i can think of is Blown Away - Curren$y",
+  "quoteBy": "alexamiles (Future Producers forum)"
+ },
+ {
+  "song": "Oxy Music",
+  "artist": "Schoolboy Q",
+  "producer": "Unknown",
+  "plugin": "Native Instruments Absynth 4",
+  "preset": "Stepping Vox",
+  "role": "Chords (hedged: 'sounds alot like', maybe tweaked)",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: Let's play Name That Preset! (page 12)",
+   "url": "https://www.futureproducers.com/forums/threads/lets-play-name-that-preset.308269/page-12"
+  },
+  "quote": "the chords on oxy music by schoolboy sounds alot like stepping vox from absynth 4.",
+  "quoteBy": "alexamiles (Future Producers forum)"
+ },
+ {
+  "song": "OG",
+  "artist": "Kid Ink",
+  "producer": "Unknown",
+  "plugin": "reFX Nexus 2",
+  "preset": "Neverland",
+  "role": "Not stated (third oscillator, effects off)",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: Let's play Name That Preset! (page 11)",
+   "url": "https://www.futureproducers.com/forums/threads/lets-play-name-that-preset.308269/page-11"
+  },
+  "path": "Omnicron XP",
+  "quote": "Kid Ink : OG - Omnicron XP/Neverland - third oscillator with efects off",
+  "quoteBy": "FerrariCalifronia (Future Producers forum)"
+ },
+ {
+  "song": "Crazy",
+  "artist": "Kid Ink",
+  "producer": "Unknown",
+  "plugin": "reFX Nexus 2",
+  "preset": "TG Sequenced 4",
+  "role": "Gated pad",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: Let's play Name That Preset! (page 11)",
+   "url": "https://www.futureproducers.com/forums/threads/lets-play-name-that-preset.308269/page-11"
+  },
+  "path": "Gated Pads",
+  "quote": "Kid Ink :Crazy - Gated Pads/TG Sequenced 4",
+  "quoteBy": "FerrariCalifronia (Future Producers forum)"
+ },
+ {
+  "song": "Hallelujah",
+  "artist": "T.I.",
+  "producer": "Unknown",
+  "plugin": "reFX Nexus 2",
+  "preset": "Voicetoy",
+  "role": "Voice sound",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: Let's play Name That Preset! (page 11)",
+   "url": "https://www.futureproducers.com/forums/threads/lets-play-name-that-preset.308269/page-11"
+  },
+  "path": "Voice",
+  "quote": "TI : Hallelujah - Voice/Voicetoy",
+  "quoteBy": "FerrariCalifronia (Future Producers forum)"
+ },
+ {
+  "song": "Work",
+  "artist": "A$AP Ferg",
+  "producer": "Unknown",
+  "plugin": "reFX Nexus 2",
+  "preset": "Karate Kid",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: Let's play Name That Preset! (page 11)",
+   "url": "https://www.futureproducers.com/forums/threads/lets-play-name-that-preset.308269/page-11"
+  },
+  "path": "Classical",
+  "quote": "Asap Ferg :Work - Classical/Karate Kid",
+  "quoteBy": "FerrariCalifronia (Future Producers forum)"
+ },
+ {
+  "song": "Good Life",
+  "artist": "Kanye West feat. T-Pain",
+  "producer": "DJ Toomp",
+  "plugin": "Roland Fantom-S88 (hardware workstation)",
+  "preset": null,
+  "role": "Main synth hook (author guesses one of the preset brass synth sounds)",
+  "confidence": "community",
+  "source": {
+   "label": "Reverb Machine: How Kanye West Created \"Good Life\"",
+   "url": "https://reverbmachine.com/blog/dissecting-kanye-wests-good-life/"
+  },
+  "quote": "in the studio video he appears to be playing it on a Roland Fantom S88 keyboard",
+  "quoteBy": "Reverb Machine (blog author)"
+ },
+ {
+  "song": "4U",
+  "artist": "Pi'erre Bourne",
+  "producer": "Unknown",
+  "plugin": "u-he TyrellN6 or Native Instruments FM8 (source lists both plugins without mapping)",
+  "preset": "HS Norgan",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Pierre Bourne - 4U Presets | Preset Finds (omar16riyaz)",
+   "url": "https://www.youtube.com/watch?v=NhJF0JYVRow"
+  },
+  "quote": "VST: TyrellN6 by U-he and FM8 by Native Instruments. Presets: HS Norgan and Dazzle Synth.",
+  "quoteBy": "omar16riyaz (YouTube)"
+ },
+ {
+  "song": "4U",
+  "artist": "Pi'erre Bourne",
+  "producer": "Unknown",
+  "plugin": "u-he TyrellN6 or Native Instruments FM8 (source lists both plugins without mapping)",
+  "preset": "Dazzle Synth",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Pierre Bourne - 4U Presets | Preset Finds (omar16riyaz)",
+   "url": "https://www.youtube.com/watch?v=NhJF0JYVRow"
+  },
+  "quote": "VST: TyrellN6 by U-he and FM8 by Native Instruments. Presets: HS Norgan and Dazzle Synth.",
+  "quoteBy": "omar16riyaz (YouTube)"
+ },
+ {
+  "song": "5 Ways",
+  "artist": "Homixide Gang",
+  "producer": "Unknown",
+  "plugin": "u-he Hive 2",
+  "preset": "BJN Overdrive",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Homixide Gang - 5 Ways Presets | Preset Finds (omar16riyaz)",
+   "url": "https://www.youtube.com/watch?v=htPN4NkDKDE"
+  },
+  "quote": "VST: Hive2 by U-he ... Presets: BJN Overdrive",
+  "quoteBy": "omar16riyaz (YouTube)"
+ },
+ {
+  "song": "Suge",
+  "artist": "DaBaby",
+  "producer": "jetsonmade (co-producer; article subject)",
+  "plugin": "Image-Line / Sonic Cat Purity",
+  "preset": null,
+  "role": "Synth line (Jaws-like melody)",
+  "confidence": "press",
+  "source": {
+   "label": "Splice blog: Breaking down hit tracks co-produced by jetsonmade",
+   "url": "https://splice.com/blog/breaking-down-jetsonmade-tracks/"
+  },
+  "quote": "The synth line in “Suge” is voiced by Sonic Cat’s Purity",
+  "quoteBy": "Harrison Shimazu (Splice blog writer, analysis)"
+ },
+ {
+  "song": "RAF",
+  "artist": "A$AP Mob",
+  "producer": "Unknown",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "In Memorium 1",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets/Sounds used by popular producers",
+   "url": "https://www.ktt2.com/presets-sounds-used-by-popular-producers-34684"
+  },
+  "quote": "RAF by ASAP MOB is In Memorium 1 in Omnisphere",
+  "quoteBy": "DEL_5445 (KTT2 forum)"
+ },
+ {
+  "song": "Blue Suede",
+  "artist": "Vince Staples",
+  "producer": "Unknown",
+  "plugin": "LennarDigital Sylenth1",
+  "preset": null,
+  "role": "Synth sound",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets/Sounds used by popular producers",
+   "url": "https://www.ktt2.com/presets-sounds-used-by-popular-producers-34684"
+  },
+  "quote": "blue suede by vince staples synth sound is from sylenth as well.",
+  "quoteBy": "baella (KTT2 forum)"
+ },
+ {
+  "song": "7 Rings",
+  "artist": "Ariana Grande",
+  "producer": "Unknown",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Spooky Piano",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets/Sounds used by popular producers",
+   "url": "https://www.ktt2.com/presets-sounds-used-by-popular-producers-34684"
+  },
+  "path": "Pads + Strings",
+  "quote": "Ariana Grande - 7 Rings : Omnisphere -> Pads + Strings > Spooky Piano",
+  "quoteBy": "flizzy (KTT2 forum)"
+ },
+ {
+  "song": "Yea (as written in the post)",
+  "artist": "Lil Jon",
+  "producer": "Unknown",
+  "plugin": "Apple GarageBand (loop)",
+  "preset": null,
+  "role": "Not stated (a GarageBand loop)",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets/Sounds used by popular producers",
+   "url": "https://www.ktt2.com/presets-sounds-used-by-popular-producers-34684"
+  },
+  "quote": "Lil Jon- Yea - Garageband Loop",
+  "quoteBy": "gh0stman (KTT2 forum)"
+ },
+ {
+  "song": "Oh No",
+  "artist": "Noreaga (as stated in the post)",
+  "producer": "Unknown",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": "Old & Analog (censored on the page as 'Old & A***og')",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: The Neptunes/Pharrell Presets on the Korg Triton (Vid in OP)",
+   "url": "https://www.ktt2.com/the-neptunes-pharrell-presets-on-the-korg-triton-23803"
+  },
+  "quote": "Old & A***og - Oh No by Noreaga",
+  "quoteBy": "MrKiD (KTT2 forum, thread OP)"
+ },
+ {
+  "song": "Legends",
+  "artist": "Jim Jones",
+  "producer": "Unknown",
+  "plugin": "Roland Fantom (hardware workstation)",
+  "preset": "VirtualHuman",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: Let's play Name That Preset! (page 7)",
+   "url": "https://www.futureproducers.com/forums/threads/lets-play-name-that-preset.308269/page-7"
+  },
+  "quote": "VirtualHuman preset in the fantom and fat draken preset in the lead section in ravity",
+  "quoteBy": "Future Producers forum member (username not shown)"
+ },
+ {
+  "song": "Legends",
+  "artist": "Jim Jones",
+  "producer": "Unknown",
+  "plugin": "Ravity (Sonic Cat)",
+  "preset": "Fat Draken",
+  "role": "Lead section",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: Let's play Name That Preset! (page 7)",
+   "url": "https://www.futureproducers.com/forums/threads/lets-play-name-that-preset.308269/page-7"
+  },
+  "quote": "VirtualHuman preset in the fantom and fat draken preset in the lead section in ravity",
+  "quoteBy": "Future Producers forum member (username not shown)"
+ },
+ {
+  "song": "Wanna Move",
+  "artist": "Diddy",
+  "producer": "Unknown",
+  "plugin": "reFX Vanguard",
+  "preset": "FX Tek Helicopter",
+  "role": "Opening \"swish\" effect",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: Let's play Name That Preset! (page 7)",
+   "url": "https://www.futureproducers.com/forums/threads/lets-play-name-that-preset.308269/page-7"
+  },
+  "quote": "Opening \"Swish\" In Diddy's \"Wanna Move\" and also in \"Diddy Rock\" is the Vanguard 'FX Tek Helicopter'.",
+  "quoteBy": "Future Producers forum member (username not shown)"
+ },
+ {
+  "song": "Diddy Rock",
+  "artist": "Diddy",
+  "producer": "Unknown",
+  "plugin": "reFX Vanguard",
+  "preset": "FX Tek Helicopter",
+  "role": "Opening \"swish\" effect",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: Let's play Name That Preset! (page 7)",
+   "url": "https://www.futureproducers.com/forums/threads/lets-play-name-that-preset.308269/page-7"
+  },
+  "quote": "Opening \"Swish\" In Diddy's \"Wanna Move\" and also in \"Diddy Rock\" is the Vanguard 'FX Tek Helicopter'.",
+  "quoteBy": "Future Producers forum member (username not shown)"
+ },
+ {
+  "song": "Elevator",
+  "artist": "Flo Rida",
+  "producer": "Unknown",
+  "plugin": "ARP (plugin not further specified)",
+  "preset": "Finger Cascade",
+  "role": "Not stated (given as one example of many songs)",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: Let's play Name That Preset! (page 7)",
+   "url": "https://www.futureproducers.com/forums/threads/lets-play-name-that-preset.308269/page-7"
+  },
+  "quote": "ARP Finger Cascade - Many songs, but I'm gonna say for an example, Flo Rida's",
+  "quoteBy": "Future Producers forum member (username not shown)"
+ },
+ {
+  "song": "Every Girl",
+  "artist": "Young Money",
+  "producer": "Unknown",
+  "plugin": "Applied Acoustics Ultra Analog",
+  "preset": null,
+  "role": "Lead synth (poster forgot the preset name)",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: Let's play Name That Preset! (page 7)",
+   "url": "https://www.futureproducers.com/forums/threads/lets-play-name-that-preset.308269/page-7"
+  },
+  "quote": "The Lead Synth from Young Money-Every Girl is a preset in Ultra Analog the name escapes me at the moment though.",
+  "quoteBy": "Future Producers forum member (username not shown)"
+ },
+ {
+  "song": "Higher",
+  "artist": "G.O.O.D. Music",
+  "producer": "Hit-Boy",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Whistilzer 1",
+  "role": "Not stated (adds a named preset to the existing Omnisphere row)",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "Higher - G.o.o.d Music: Whistilzer 1 in Omnisphere",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Higher",
+  "artist": "G.O.O.D. Music",
+  "producer": "Hit-Boy",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Tuvan",
+  "role": "Not stated (adds a named preset to the existing Omnisphere row)",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "Higher - G.o.o.d Music: Tuvan in Omnisphere",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Paperbond",
+  "artist": "Wiz Khalifa",
+  "producer": "ID Labs",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Bowed Gopichand FX Bend",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "Paperbond - Wiz khalifa: Bowed Gopichand FX Bend in Omnisphere",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "We In This",
+  "artist": "DJ Drama",
+  "producer": "Kane Beatz",
+  "plugin": "reFX Nexus",
+  "preset": "GT Lead Guitar 2",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "XP Guitars",
+  "quote": "We In This - DJ Drama: GT Lead Guitar 2 under XP Guitars in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "We Be Steady Mobbin'",
+  "artist": "Lil Wayne",
+  "producer": "Kane Beatz",
+  "plugin": "LennarDigital Sylenth1",
+  "preset": "001 ARP 303 Saw",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "We Be Steady Mobbin' - Lil' Wayne: 001 ARP 303 Saw in Sylenth",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Flexing",
+  "artist": "The Underachievers",
+  "producer": "Lex Luger",
+  "plugin": "reFX Nexus",
+  "preset": "SY Big Bells",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Fantasy And Dream",
+  "quote": "Flexing - The Underachievers: SY Big Bells, under Fantasy And Dream in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Scholar",
+  "artist": "Gucci Mane",
+  "producer": "Lex Luger",
+  "plugin": "reFX Nexus",
+  "preset": "LD Crying Female",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "XP Psytrance",
+  "quote": "Scholar - Gucci Mane: LD Crying Female, under XP Psytrance in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "MC Hammer",
+  "artist": "Rick Ross",
+  "producer": "Lex Luger",
+  "plugin": "reFX Nexus",
+  "preset": "CL Soft Orchester",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Classical",
+  "quote": "MC Hammer - Rick Ross: CL Soft Orchester, under Classical in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "MC Hammer",
+  "artist": "Rick Ross",
+  "producer": "Lex Luger",
+  "plugin": "reFX Nexus",
+  "preset": "ST Dark Cellos",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Classical",
+  "quote": "MC Hammer - Rick Ross: ST Dark Cellos, under Classical in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "MC Hammer",
+  "artist": "Rick Ross",
+  "producer": "Lex Luger",
+  "plugin": "reFX Nexus",
+  "preset": "BR Hollywood Brass",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Classical",
+  "quote": "MC Hammer - Rick Ross: BR Hollywood Brass, under Classical in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "MC Hammer",
+  "artist": "Rick Ross",
+  "producer": "Lex Luger",
+  "plugin": "reFX Nexus",
+  "preset": "Arp Amptron",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Andromeda",
+  "quote": "MC Hammer - Rick Ross: Arp Amptron, under Andromeda in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Smokin & Sippin",
+  "artist": "Juicy J",
+  "producer": "Lex Luger",
+  "plugin": "reFX Nexus",
+  "preset": "AR Bullet Time",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "Smokin & Sippin - Juicy J: AR Bullet Time in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Go N' Get It",
+  "artist": "Ace Hood",
+  "producer": "Lex Luger",
+  "plugin": "Image-Line Purity",
+  "preset": "Three Keyboards",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Piano",
+  "quote": "Go N' Get It - Ace Hood: Three Keyboards, under Piano in Purity",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "I'm 100",
+  "artist": "Juicy J",
+  "producer": "Lex Luger",
+  "plugin": "Image-Line Purity",
+  "preset": "1st impression",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "I'm 100 - Juicy J: 1st impression in Purity",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Pass Around",
+  "artist": "Gucci Mane & Young Scooter",
+  "producer": "Lex Luger",
+  "plugin": "Image-Line Purity",
+  "preset": "Smallest",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Bell & Perc",
+  "quote": "Pass Around - Gucci Mane & Young Scooter: Smallest, under Bell & Perc in Purity",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Move That Dope",
+  "artist": "Future",
+  "producer": "Mike WiLL Made-It",
+  "plugin": "Steinberg HyperSonic",
+  "preset": "Telephone",
+  "role": "Not stated (a second HyperSonic preset alongside the existing Train Whistle row)",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "Move That Dope - Future: Telephone in Hypersonic",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "House Party",
+  "artist": "Meek Mill",
+  "producer": "The Beat Bully",
+  "plugin": "Native Instruments Massive",
+  "preset": "Concave",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "House Party - Meek Mill: Concave in Massive",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Stay Schemin'",
+  "artist": "Rick Ross",
+  "producer": "The Beat Bully",
+  "plugin": "reFX Nexus",
+  "preset": "LD Theme Init 1",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Dance Leads",
+  "quote": "Stay Schemin' - Rick Ross: LD Theme Init 1, under Dance Leads in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Anonymous",
+  "artist": "Bobby Valentino",
+  "producer": "Timbaland",
+  "plugin": "reFX Vanguard",
+  "preset": "ARP X-Tasy",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "Anonymous - Bobby Valentino: ARP X-Tasy in Vangaurd",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Everyday",
+  "artist": "Chief Keef",
+  "producer": "Young Chop",
+  "plugin": "reFX Nexus",
+  "preset": "Sequenced 1",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Gated Pads",
+  "quote": "Everyday - Chief Keef: Sequenced 1, under Gated Pads in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Everyday",
+  "artist": "Chief Keef",
+  "producer": "Young Chop",
+  "plugin": "reFX Nexus",
+  "preset": "BR Analog Brass 2",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Synthetic Brass",
+  "quote": "Everyday - Chief Keef: BR Analog Brass 2, under Synthetic Brass in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Everyday",
+  "artist": "Chief Keef",
+  "producer": "Young Chop",
+  "plugin": "reFX Nexus",
+  "preset": "BR Massive Bigband",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Synthetic Brass",
+  "quote": "Everyday - Chief Keef: BR Massive Bigband, under Synthetic Brass in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Everyday",
+  "artist": "Chief Keef",
+  "producer": "Young Chop",
+  "plugin": "Image-Line Purity",
+  "preset": "Autumn",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Lead Synth",
+  "quote": "Everyday - Chief Keef: Autumn, under Lead Synth in Purity",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Hallelujah",
+  "artist": "Chief Keef",
+  "producer": "Young Chop",
+  "plugin": "reFX Nexus",
+  "preset": "One Ping",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "XP Pop",
+  "quote": "Hallelujah - Chief Keef: One Ping, under XP Pop in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "52 Bars Prt 2",
+  "artist": "Lil Durk",
+  "producer": "Young Chop",
+  "plugin": "Tone2 Gladiator",
+  "preset": "AR Sandmann XS",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "52 Bars Prt 2 - Lil Durk: AR Sandmann XS in Gladiator",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Traffic",
+  "artist": "Lil Reese",
+  "producer": "Young Chop",
+  "plugin": "reFX Nexus",
+  "preset": "TG 4 LayerGate",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Gated Pads",
+  "quote": "Traffic - Lil Reese: TG 4 LayerGate, under Gated Pads in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Ocho Cinco",
+  "artist": "French Montana",
+  "producer": "Young Chop",
+  "plugin": "reFX Nexus",
+  "preset": "Virus Guitar",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Fantasy and Dream",
+  "quote": "Ocho Cinco - French Montana: Virus Guitar, under Fantasy and Dream in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Mula",
+  "artist": "Big Sean",
+  "producer": "Young Chop",
+  "plugin": "reFX Nexus",
+  "preset": "Simple Saw",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Dance Leads",
+  "quote": "Mula - Big Sean: Simple Saw, under Dance Leads in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Mula",
+  "artist": "Big Sean",
+  "producer": "Young Chop",
+  "plugin": "reFX Nexus",
+  "preset": "Pizzicato Bells",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Plucked",
+  "quote": "Mula - Big Sean: Pizzicato Bells, under Plucked in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Mula",
+  "artist": "Big Sean",
+  "producer": "Young Chop",
+  "plugin": "reFX Nexus",
+  "preset": "Hands Up Bells 3",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Plucked",
+  "quote": "Mula - Big Sean: Hands Up Bells 3, under Plucked in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Successful",
+  "artist": "Drake",
+  "producer": "Noah \"40\" Shebib",
+  "plugin": "AIR Music Technology Xpand!2",
+  "preset": "#20 Spooky",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Soft Pads",
+  "quote": "Successful - Drake: #20 Spooky under Soft Pads in Xpand 2",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Trust Issues",
+  "artist": "Drake",
+  "producer": "Noah \"40\" Shebib",
+  "plugin": "AIR Music Technology Xpand!2",
+  "preset": "#32 The Dentist",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Hard Leads",
+  "quote": "Trust Issues - Drake: #32 The Dentist, under Hard Leads in Xpand 2",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Lust For Life",
+  "artist": "Drake",
+  "producer": "Noah \"40\" Shebib",
+  "plugin": "AIR Music Technology Xpand!2",
+  "preset": "#13 Eurodance",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Soft Leads",
+  "quote": "Lust For Life - Drake: #13 Eurodance, under Soft Leads in Xpand 2",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Danny Glover",
+  "artist": "Young Thug",
+  "producer": "808 Mafia",
+  "plugin": "reFX Nexus",
+  "preset": "Manyte Pad",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "DRZA Vol2",
+  "quote": "Danny Glover - Young Thug: Manyte Pad , under DRZA Vol2 in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Special",
+  "artist": "Future",
+  "producer": "808 Mafia",
+  "plugin": "reFX Nexus",
+  "preset": "Min Guitar Strum",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "XP Dance Orchestra",
+  "quote": "Special - Future: Min Guitar Strum, under XP Dance Orchestra in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "John",
+  "artist": "Lil Wayne",
+  "producer": "AYO The Producer",
+  "plugin": "Native Instruments FireBird (Reaktor)",
+  "preset": "Phasefast",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "John - Lil' Wayne: Phasefast in Firebird",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Hopes & Dreams",
+  "artist": "Wiz Khalifa",
+  "producer": "B. Carr",
+  "plugin": "Motion Samples SoulTown Samples Vol. 1 (sample library)",
+  "preset": "Swltwn20_1.wav, Swltwn20_2.wav, Swltwn20_3.wav",
+  "role": "Not stated (three samples listed)",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "Hopes & Dreams - Wiz Khalifa: Swltwn20_1.wav in Motion Samples SoulTown Samples Vol. 1",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "5Am In Toronto",
+  "artist": "Drake",
+  "producer": "Boi-1da",
+  "plugin": "Tone2 Gladiator",
+  "preset": "AR Walruss2 MF",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "5Am In Toronto - Drake: AR Walruss2 MF in Gladiator",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "9AM In Dallas",
+  "artist": "Drake",
+  "producer": "Boi-1da",
+  "plugin": "reFX Nexus",
+  "preset": "BA My Pony",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "XP Vocoder",
+  "quote": "9AM In Dallas - Drake: BA My Pony, under XP Vocoder in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Are We In This Together",
+  "artist": "Day 26",
+  "producer": "Bryan-Michael Cox",
+  "plugin": "Native Instruments FM8",
+  "preset": "Fastest Train",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "Are We In This Together - Day 26: Fastest Train in FM8",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Start It Up",
+  "artist": "Lloyd Banks",
+  "producer": "Cardiak",
+  "plugin": "reFX Vanguard",
+  "preset": "ARP X-Tasy",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "Start It Up - Lloyd Banks: ARP X-Tasy in Vangaurd",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Mercy",
+  "artist": "Ace Hood",
+  "producer": "Cardiak",
+  "plugin": "Native Instruments FM8",
+  "preset": "Digitized Dulcimer",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "Mercy - Ace Hood: Digitized Dulcimer in FM8",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Mrs Green",
+  "artist": "Killa Kyleon",
+  "producer": "Cardo",
+  "plugin": "Tone2 Gladiator",
+  "preset": "AR Deluzions BN",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "Mrs Green - Killa Kyleon: AR Deluzions BN in Gladiator",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "7 Eleven",
+  "artist": "Krondon",
+  "producer": "Cardo",
+  "plugin": "Native Instruments Massive",
+  "preset": "Tuby Three",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "7 Eleven - Krondon: Tuby Three in Massive",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Money Keep Tellin Me",
+  "artist": "Fredo Santana",
+  "producer": "Cardo",
+  "plugin": "reFX Nexus",
+  "preset": "Odyssey Arp",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Stratosphere XP",
+  "quote": "Money Keep Tellin Me - Fredo Santana: Odyssey Arp, Stratosphere XP in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Earth: Oldest Computer",
+  "artist": "Childish Gambino",
+  "producer": "Childish Gambino / Ludwig Göransson",
+  "plugin": "LennarDigital Sylenth1",
+  "preset": "023: HOV Dominator",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "Earth: Oldest Computer - Childish Gambino: 023: HOV Dominator in Sylenth",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "U.O.E.N.O",
+  "artist": "Rocko",
+  "producer": "Childish Major",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Solo Over Saints",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Stack Mode",
+  "quote": "U.O.E.N.O - Rocko: Solo Over Saints, under Stack Mode in Omnisphere",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "My Type Of Party",
+  "artist": "Dom Kennedy",
+  "producer": "DJ Dahi",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Granular Flute Solo",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "My Type Of Party - Dom Kennedy: Granular Flute Solo in Omnisphere",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Intro(GMB)",
+  "artist": "Pac Div",
+  "producer": "DJ Dahi",
+  "plugin": "reFX Nexus",
+  "preset": "AR Goldmine",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Sid",
+  "quote": "Intro(GMB) - Pac Div: AR Goldmine, under Sid in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Cuban Link Gucci Rope",
+  "artist": "Krondon",
+  "producer": "DJ Dahi",
+  "plugin": "Native Instruments Massive",
+  "preset": "Water Star Glitter",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "Cuban Link Gucci Rope - Krondon: Water Star Glitter in Massive",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "We Takin Over",
+  "artist": "DJ Khaled",
+  "producer": "Danjahandz",
+  "plugin": "reFX Nexus",
+  "preset": "Dance Organ",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Classical",
+  "quote": "We Takin Over - Dj Khaled: Dance Organ, uncer Classical in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Tell Him the Truth",
+  "artist": "Keri Hilson",
+  "producer": "Danjahandz",
+  "plugin": "Image-Line Purity",
+  "preset": "Crono Lead (07)",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "Tell Him the Truth - Keri Hilson: Crono Lead (07) in Purity",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Macaroni Time",
+  "artist": "Chief Keef",
+  "producer": "Dirty Vans",
+  "plugin": "reFX Nexus",
+  "preset": "AR Jingle Bells",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "XP Store'n'Forward",
+  "quote": "Macaroni Time - Chief Keef: AR Jingle Bells, under in XP Store'n'Forward in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Kill You",
+  "artist": "Fredo Santana",
+  "producer": "Dirty Vans",
+  "plugin": "reFX Nexus",
+  "preset": "PN Arena Ambience",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Piano",
+  "quote": "Kill You - Fredo Santana: PN Arena Ambience, under Piano in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Kill You",
+  "artist": "Fredo Santana",
+  "producer": "Dirty Vans",
+  "plugin": "Sonic Cat Ravity",
+  "preset": "Hyper Pad",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Slow Synth",
+  "quote": "Kill You - Fredo Santana: Hyper Pad, under Slow Synth in Ravity",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Kill You",
+  "artist": "Fredo Santana",
+  "producer": "Dirty Vans",
+  "plugin": "Sonic Cat Ravity",
+  "preset": "Pan Flute",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Wood & Reed",
+  "quote": "Kill You - Fredo Santana: Pan Flute, under Wood & Reed in Ravity",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Kill You",
+  "artist": "Fredo Santana",
+  "producer": "Dirty Vans",
+  "plugin": "Image-Line Purity",
+  "preset": "Fat Draken 2",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Lead Synth",
+  "quote": "Kill You - Fredo Santana: Fat Draken 2, under Lead Synth in Purity",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Maybe",
+  "artist": "Kid Cudi",
+  "producer": "Dot Da Genius",
+  "plugin": "Tone2 Gladiator",
+  "preset": "Arp Fortune Wheel",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "Maybe - Kid Cudi: Arp Fortune Wheel in Gladiator",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Rockin' That **** (title censored on the page)",
+  "artist": "The-Dream",
+  "producer": "The-Dream",
+  "plugin": "Tone2 Gladiator",
+  "preset": "Analog Brass",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "Rockin' that **** - The Dream: Analog Brass in Gladiator",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Lost In The Sauce",
+  "artist": "Kid Ink",
+  "producer": "Jahlil Beats",
+  "plugin": "Image-Line Sytrus",
+  "preset": "Rich Ensemble",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "Lost In The Sauce - Kid Ink: Rich Ensemble in Sytrus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Brothers",
+  "artist": "Kid Cudi",
+  "producer": "Kid Cudi",
+  "plugin": "Native Instruments Massive",
+  "preset": "Dusty Old Organ",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "Brothers - Kid Cudi: Dusty Old Organ in Massive",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "King Wizard",
+  "artist": "Kid Cudi",
+  "producer": "Kid Cudi",
+  "plugin": "Native Instruments Massive",
+  "preset": "Sprungfeder",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "King Wizard - Kid Cudi: Sprungfeder in Massive",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Beez",
+  "artist": "Kid Cudi",
+  "producer": "Kid Cudi",
+  "plugin": "Native Instruments Massive",
+  "preset": "Splashy Glass",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "Beez - Kid Cudi: Splashy Glass in Massive",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Dance Move",
+  "artist": "French Montana",
+  "producer": "The Renegades",
+  "plugin": "reFX Nexus",
+  "preset": "LD Butterfield",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "Dance Move - French Montana: LD Butterfield, in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Ain't Worried About Nothin'",
+  "artist": "French Montana",
+  "producer": "Rico Love",
+  "plugin": "Tone2 Gladiator",
+  "preset": "LD PercLead 2 AL",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "Ain't Worried About Nothin' - French Montana: LD PercLead 2 AL in Gladiator",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Ain't Worried About Nothin'",
+  "artist": "French Montana",
+  "producer": "Rico Love",
+  "plugin": "Tone2 Gladiator",
+  "preset": "AnalogSquare MF",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "Ain't Worried About Nothin' - French Montana: AnalogSquare MF in Gladiator",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Ain't Worried About Nothin'",
+  "artist": "French Montana",
+  "producer": "Rico Love",
+  "plugin": "Novation V-Station",
+  "preset": "HardLead19",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "Ain't Worried About Nothin' - French Montana: HardLead19 in Novation Vstation",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Do It All",
+  "artist": "Drake",
+  "producer": "Rob Holiday",
+  "plugin": "reFX Nexus",
+  "preset": "Swirl Pad",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Single Layered Pads",
+  "quote": "Do It All - Drake: Swirl Pad, under Single Layered Pads in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Do It All",
+  "artist": "Drake",
+  "producer": "Rob Holiday",
+  "plugin": "reFX Nexus",
+  "preset": "AR Push Me",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Store n Forward",
+  "quote": "Do It All - Drake: AR Push Me, under Store n Forward in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Start Over",
+  "artist": "Beyoncé",
+  "producer": "Shea Taylor",
+  "plugin": "reFX Nexus",
+  "preset": "AR Bullet Time",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Arpeggios",
+  "quote": "Start Over - Beyonce: AR Bullet Time, under Arpeggios in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Keep It Trill",
+  "artist": "Kirko Bangz",
+  "producer": "Sound M.O.B.",
+  "plugin": "Tone2 RayBlaster",
+  "preset": "Agony Hoover MF",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "Keep It Trill - Kirko Bangz: Agony Hoover MF in Rayblaster",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Drink In My Cup",
+  "artist": "Kirko Bangz",
+  "producer": "Sound M.O.B.",
+  "plugin": "reFX Nexus",
+  "preset": "GT Jazz Guitar",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Guitars",
+  "quote": "Drink In My Cup - Kirko Bangz: GT Jazz Guitar, under Guitars in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "HYFR",
+  "artist": "Drake",
+  "producer": "T-Minus",
+  "plugin": "Tone2 Gladiator",
+  "preset": "LD Retronica MF",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "HYFR - Drake: LD Retronica MF in Gladiator",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Ambition",
+  "artist": "Wale",
+  "producer": "T-Minus",
+  "plugin": "reFX Nexus",
+  "preset": "Hollywood Violins",
+  "role": "Not stated (post adds: portamento on TRG, speed 1/8)",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Classical",
+  "quote": "Ambition - Wale: Hollywood Violins, under Classical in Nexus[portamento on TRG, speed 1/8]",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Overdose",
+  "artist": "SD",
+  "producer": "Tarentino",
+  "plugin": "reFX Nexus",
+  "preset": "Amigavoice Soft",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Voice",
+  "quote": "Overdose - SD: Amigavoice Soft, under Voice in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Jealous",
+  "artist": "Fredo Santana",
+  "producer": "Tarentino",
+  "plugin": "reFX Nexus",
+  "preset": "Arena Ambience",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Piano",
+  "quote": "Jealous - Fredo Santana: Arena Ambience, under Piano in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Jealous",
+  "artist": "Fredo Santana",
+  "producer": "Tarentino",
+  "plugin": "reFX Nexus",
+  "preset": "LD Adagio",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Dance Leads",
+  "quote": "Jealous - Fredo Santana: LD Adagio, under Dance Leads in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Is It Me",
+  "artist": "Cyhi The Prince",
+  "producer": "TEC BEATZ",
+  "plugin": "reFX Nexus",
+  "preset": "LV Vocal Lead",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "LV XP Vol 3",
+  "quote": "Is It Me - Cyhi The Prince: LV Vocal Lead, under LV XP Vol 3 in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Time Machine",
+  "artist": "Travis Scott",
+  "producer": "Travis Scott",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Gospel Choir Ohs",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "Time Machine - Travi$ Scott: Gospel Choir Ohs in Omnisphere",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Illamerica",
+  "artist": "Travis Scott",
+  "producer": "Travis Scott",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Big Ol' Bee Bass Lead",
+  "role": "Not stated (preset name garbled on the page as 'Big OlÕ Bee Bass Lead')",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "Illamerica - Travi$ Scott: Big OlÕ Bee Bass Lead in Omnisphere",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "The Tape Intro",
+  "artist": "Tyler, the Creator",
+  "producer": "Tyler, the Creator",
+  "plugin": "Reason NN-XT",
+  "preset": "Porta Chord",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Texture and Musical FX",
+  "quote": "The Tape Intro - Tyler The Creator: Porta Chord, under Texture and Musical FX, under NN-XT in Reason",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Buzzin",
+  "artist": "Domo Genesis",
+  "producer": "Tyler, the Creator",
+  "plugin": "Reason NN-XT",
+  "preset": "MPoly JumpLead",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Synth Lead",
+  "quote": "Buzzin - Domo Genesis: MPoly JumpLead, under Synth Lead, under NN-XT in Reason",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "SteamRoller",
+  "artist": "Domo Genesis",
+  "producer": "Tyler, the Creator",
+  "plugin": "Reason NN-XT",
+  "preset": "FATFEMALECHOIR",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Voice and Choir",
+  "quote": "SteamRoller - Domo Genesis: FATFEMALECHOIR, under Voice and Choir, under NN-XT in Reason",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "SteamRoller",
+  "artist": "Domo Genesis",
+  "producer": "Tyler, the Creator",
+  "plugin": "Reason Combinator",
+  "preset": "The Alan Smithee One Note Orchester Jz",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Strings",
+  "quote": "SteamRoller - Domo Genesis: The Alan Smithee One Note Orchester Jz, under Strings, under Combinator in Reason",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Doms",
+  "artist": "Domo Genesis",
+  "producer": "Tyler, the Creator",
+  "plugin": "Reason NN-XT",
+  "preset": "Xtacy 54",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Texture and Musical FX",
+  "quote": "Doms - Domo Genesis: Xtacy 54, under Texture and Musical FX, under NN-XT in Reason",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "P",
+  "artist": "Odd Future",
+  "producer": "Tyler, the Creator",
+  "plugin": "Reason Thor",
+  "preset": "Tekamine Pulse",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Rhythmic",
+  "quote": "P - Odd Future: Tekamine Pulse, under Rhythmic, under Thor in Reason",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "P",
+  "artist": "Odd Future",
+  "producer": "Tyler, the Creator",
+  "plugin": "Reason Thor",
+  "preset": "Nuage Harp",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Poly Synths",
+  "quote": "P - Odd Future: Nuage Harp, under Poly Synths, under Thor in Reason",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "P",
+  "artist": "Odd Future",
+  "producer": "Tyler, the Creator",
+  "plugin": "Reason Subtractor",
+  "preset": "Boomer",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "BassDrums",
+  "quote": "P - Odd Future: Boomer, under BassDrums, under Subtrator in Reason",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "P",
+  "artist": "Odd Future",
+  "producer": "Tyler, the Creator",
+  "plugin": "Reason NN19",
+  "preset": "Synfifth",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Synth and Keyboard",
+  "quote": "P - Odd Future: Synfifth, under Synth and Keyboard, under NN19 in Reason",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Sam (Is Dead)",
+  "artist": "Odd Future",
+  "producer": "Tyler, the Creator",
+  "plugin": "Reason NN19",
+  "preset": "Brassens",
+  "role": "Not stated (brass; separate from the existing RhodesMK1 row)",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Brass and woodwind",
+  "quote": "Sam Is Dead - Odd Future: Brassens, under Brass and woodwind, under NN19 in Reason",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "DTA",
+  "artist": "Casey Veggies",
+  "producer": "Tyler, the Creator",
+  "plugin": "Image-Line Sytrus",
+  "preset": "Celestial 3",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Short Synth",
+  "quote": "DTA - Casey Veggies: Celestial 3, under Short Synth, under Sytrus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Mushrooms",
+  "artist": "Tyler, the Creator",
+  "producer": "Tyler, the Creator",
+  "plugin": "Reason Combinator",
+  "preset": "Dark World",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "Mushrooms - Tyler The Creator: Dark World, under Combinator in Reason",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Growin' Up in the Gutter",
+  "artist": "Yelawolf",
+  "producer": "Will Power/SupaHotBeats",
+  "plugin": "Tone2 Gladiator",
+  "preset": "SY DevilFM MF",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "Growin' Up in the Gutter - YelaWolf: SY DevilFM MF in Gladiator",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Catfish Billy",
+  "artist": "Yelawolf",
+  "producer": "Will Power/SupaHotBeats",
+  "plugin": "Tone2 Gladiator",
+  "preset": "Arp Fortune Wheel",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "Catfish Billy - Yelawolf: Arp Fortune Wheel in Gladiator",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Gangster",
+  "artist": "Yelawolf",
+  "producer": "Will Power/SupaHotBeats",
+  "plugin": "reFX Nexus",
+  "preset": "WW Karate Kid",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Classical",
+  "quote": "Gangster - Yelawolf: WW Karate Kid, under Classical in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Ape **** (title censored on the page)",
+  "artist": "Chief Keef",
+  "producer": "Yung Lan",
+  "plugin": "reFX Nexus",
+  "preset": "AR Monks",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Psytrance",
+  "quote": "Ape **** - Chief Keef: AR Monks, under Psytrance in Nexus",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Blacc Friday",
+  "artist": "MellowHype",
+  "producer": "Left Brain",
+  "plugin": "Reason Thor",
+  "preset": "Flanger Gas",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Poly Synths",
+  "quote": "Blacc Friday - MellowHype: Flanger Gas, under Poly Synths, under Thor in Reason",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Brain",
+  "artist": "MellowHype",
+  "producer": "Left Brain",
+  "plugin": "Reason NN19",
+  "preset": "Raw_2600_Saw",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Synth Raw Elements",
+  "quote": "Brain - MellowHype: Raw_2600_Saw, under Synth Raw Elements, under NN19 in Reason",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Stripclub",
+  "artist": "MellowHype",
+  "producer": "Left Brain",
+  "plugin": "Reason Thor",
+  "preset": "Synthetic Mezzo Fvox",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Voice & Choir",
+  "quote": "Stripclub - MellowHype: Synthetic Mezzo Fvox, under Voice & Choir, under Thor in Reason",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Claustroflowbic",
+  "artist": "Hodgy Beats",
+  "producer": "Left Brain",
+  "plugin": "Reason Thor",
+  "preset": "Lost In Translation",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Lead Synths",
+  "quote": "Claustroflowbic - Hodgy Beats: Lost In Translation, under Lead Synths, under Thor in Reason",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Rolex",
+  "artist": "Hodgy Beats",
+  "producer": "Left Brain",
+  "plugin": "Reason Subtractor",
+  "preset": "4am Bass",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Bass",
+  "quote": "Rolex - Hodgy Beats: 4am Bass, under Bass, under Subtractor in Reason",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Snow White",
+  "artist": "Hodgy Beats",
+  "producer": "Left Brain",
+  "plugin": "Reason Subtractor",
+  "preset": "Bright Nite",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "path": "Pads",
+  "quote": "Snow White - Hodgy Beats: Bright Nite, under Pads, under Sub-tractor in Reason",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Epar",
+  "artist": "Earl Sweatshirt",
+  "producer": "Left Brain",
+  "plugin": "Reason Combinator",
+  "preset": "Concert Vibes",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
+   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
+  },
+  "quote": "Epar - Earl Sweatshirt: Concert Vibes, under Combinator in Reason",
+  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
+ },
+ {
+  "song": "Who's Next",
+  "artist": "Ken Carson",
+  "producer": "Loesoe",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Broken Square Lead",
+  "role": "Not stated (everything else made in Serum: sine lead with glide, sine pluck)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How Who's Next by Ken Carson was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=gi0mDEvwzfI"
+  },
+  "quote": "Omnisphere - Broken Square Lead ... Everything else is made in Serum",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "4U",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "u-he TyrellN6",
+  "preset": "HS Norgan",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Pierre Bourne - 4U Presets | Preset Finds",
+   "url": "https://www.youtube.com/watch?v=NhJF0JYVRow"
+  },
+  "quote": "VST: TyrellN6 by U-he and FM8 by Native Instruments ... Presets: HS Norgan and Dazzle Synth",
+  "quoteBy": "omar16riyaz"
+ },
+ {
+  "song": "4U",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Native Instruments FM8",
+  "preset": "Dazzle Synth",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Pierre Bourne - 4U Presets | Preset Finds",
+   "url": "https://www.youtube.com/watch?v=NhJF0JYVRow"
+  },
+  "quote": "VST: TyrellN6 by U-he and FM8 by Native Instruments ... Presets: HS Norgan and Dazzle Synth",
+  "quoteBy": "omar16riyaz"
+ },
+ {
+  "song": "Timeless",
+  "artist": "The Weeknd & Playboi Carti",
+  "producer": "Unknown",
+  "plugin": "reFX Nexus",
+  "preset": null,
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #323: \"Timeless\" by The Weeknd & Playboi Carti",
+   "url": "https://www.youtube.com/watch?v=9gvYkPGdAvU"
+  },
+  "quote": "FAMOUS PRESETS #323: \"Timeless\" by The Weeknd & Playboi Carti ... #refxnexus #nexuspresets",
+  "quoteBy": "BLUE STEEL"
+ },
+ {
+  "song": "Convinced (Mystery Machine)",
+  "artist": "Chavo / Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Glorious Harmonic 5ths",
+  "role": "Guitar",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Convinced' by Chavo was made [Mystery Machine by Pi'erre](w/ Presets)",
+   "url": "https://www.youtube.com/watch?v=8Pq8GDP7cJw"
+  },
+  "quote": "Guitar : Omnisphere - Glorious Harmonic 5ths",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Convinced (Mystery Machine)",
+  "artist": "Chavo / Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Whistlers Bells",
+  "role": "Sine lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Convinced' by Chavo was made [Mystery Machine by Pi'erre](w/ Presets)",
+   "url": "https://www.youtube.com/watch?v=8Pq8GDP7cJw"
+  },
+  "quote": "Sine : Omnisphere - Whistlers Bells",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Doublemint & Horoscopes",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "FabFilter Twin 2",
+  "preset": "Fr Horn Section DJM",
+  "role": "Chords (one preset list given for both songs)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Doublemint' & 'Horoscopes' by Pi'erre Bourne was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=8O5BcbWJHkg"
+  },
+  "path": "Orchestral > Brass",
+  "quote": "Chords - FabFilter Twin2: Orchestral - Brass - Fr Horn Section DJM",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Doublemint & Horoscopes",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "FabFilter Twin 2",
+  "preset": "Solo Brass 1 JN",
+  "role": "Lead (one preset list given for both songs)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Doublemint' & 'Horoscopes' by Pi'erre Bourne was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=8O5BcbWJHkg"
+  },
+  "path": "Orchestral > Brass",
+  "quote": "Lead - FabFilter Twin2: Orchestral - Brass - Solo Brass 1 JN",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Doublemint & Horoscopes",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "FabFilter Twin 2",
+  "preset": "Quartet O",
+  "role": "Bass (one preset list given for both songs)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Doublemint' & 'Horoscopes' by Pi'erre Bourne was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=8O5BcbWJHkg"
+  },
+  "path": "Bass > Acoustic",
+  "quote": "Bass - FabFilter Twin2: Bass - Acoustic - Quartet O",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Sossboy",
+  "artist": "Pi'erre Bourne",
+  "producer": "Unknown",
+  "plugin": "u-he TyrellN6",
+  "preset": "KEYS Bright EP",
+  "role": "Keys (\"Hold on\" section)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Sossboy' and 'Deja Vu' by P'ierre Bourne was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=bfA09nB7G4c"
+  },
+  "path": "Julian Ray",
+  "quote": "Keys - Tyrell N6: Julian Ray, KEYS Bright EP",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Sossboy",
+  "artist": "Pi'erre Bourne",
+  "producer": "Unknown",
+  "plugin": "FabFilter Twin 2",
+  "preset": "Dramesque SM",
+  "role": "Pad (\"Hold on\" section)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Sossboy' and 'Deja Vu' by P'ierre Bourne was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=bfA09nB7G4c"
+  },
+  "path": "Pad > Other",
+  "quote": "Pad - FabFilter Twin 2: Pad, Other, Dramesque SM",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Money Talk (also the Deja Vu intro)",
+  "artist": "Pi'erre Bourne",
+  "producer": "Unknown",
+  "plugin": "Siegfried Kullmann SQ8L",
+  "preset": "A006 WAH EP",
+  "role": "Keys",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Sossboy' and 'Deja Vu' by P'ierre Bourne was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=bfA09nB7G4c"
+  },
+  "quote": "Money Talk ... Keys - SQ8L: A006 WAH EP ... Deja Vu ... Intro ... Same as Money Talk",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Money Talk (also the Deja Vu intro)",
+  "artist": "Pi'erre Bourne",
+  "producer": "Unknown",
+  "plugin": "Siegfried Kullmann SQ8L",
+  "preset": "A012 SPACELAB",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Sossboy' and 'Deja Vu' by P'ierre Bourne was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=bfA09nB7G4c"
+  },
+  "quote": "Money Talk ... Lead - SQ8L: A012 SPACELAB ... Deja Vu ... Intro ... Same as Money Talk",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Deja Vu",
+  "artist": "Pi'erre Bourne",
+  "producer": "Unknown",
+  "plugin": "Native Instruments Massive",
+  "preset": "Dusty Old Organ",
+  "role": "Organ (\"One For Me & Make It Splash\" section)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Sossboy' and 'Deja Vu' by P'ierre Bourne was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=bfA09nB7G4c"
+  },
+  "quote": "One For Me & Make It Splash ... Organ - Massive: Dusty Old Organ",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Remember Me",
+  "artist": "Glokk40Spaz",
+  "producer": "Unknown",
+  "plugin": "Image-Line Purity",
+  "preset": "OberTeim 2",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Remember Me' by Glokk40Spaz was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=3aUtb7xdxWQ"
+  },
+  "path": "Fast Synth",
+  "quote": "Pad - Purity: Fast Synth - OberTeim 2",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Remember Me",
+  "artist": "Glokk40Spaz",
+  "producer": "Unknown",
+  "plugin": "Image-Line Purity",
+  "preset": "Celesta",
+  "role": "Bell",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Remember Me' by Glokk40Spaz was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=3aUtb7xdxWQ"
+  },
+  "path": "Bell & Perc",
+  "quote": "Bell - Purity: Bell & Perc - Celesta",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "confusing",
+  "artist": "1oneam",
+  "producer": "Unknown",
+  "plugin": "Siegfried Kullmann SQ8L",
+  "preset": "A021 Wave Mod",
+  "role": "Keys",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'confusing' by 1oneam was made (w/ Presets)",
+   "url": "https://www.youtube.com/watch?v=enBt1Rf472E"
+  },
+  "path": "Bank A",
+  "quote": "Keys - SQ8L: Bank A - A021 Wave Mod",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "confusing",
+  "artist": "1oneam",
+  "producer": "Unknown",
+  "plugin": "Siegfried Kullmann SQ8L",
+  "preset": "A008 Small Lead",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'confusing' by 1oneam was made (w/ Presets)",
+   "url": "https://www.youtube.com/watch?v=enBt1Rf472E"
+  },
+  "path": "Bank A",
+  "quote": "Lead - SQ8L: Bank A - A008 Small Lead",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "confusing",
+  "artist": "1oneam",
+  "producer": "Unknown",
+  "plugin": "Siegfried Kullmann SQ8L",
+  "preset": "A002 Bottle",
+  "role": "Pluck",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'confusing' by 1oneam was made (w/ Presets)",
+   "url": "https://www.youtube.com/watch?v=enBt1Rf472E"
+  },
+  "path": "Bank A",
+  "quote": "Pluck - SQ8L: Bank A - A002 Bottle",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "confusing",
+  "artist": "1oneam",
+  "producer": "Unknown",
+  "plugin": "Siegfried Kullmann SQ8L",
+  "preset": "A024 Anabas 2",
+  "role": "Second pluck",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'confusing' by 1oneam was made (w/ Presets)",
+   "url": "https://www.youtube.com/watch?v=enBt1Rf472E"
+  },
+  "path": "Bank A",
+  "quote": "Pluck 2 - SQ8L: Bank A - A024 Anabas 2",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "IDFWU",
+  "artist": "Big Sean",
+  "producer": "DJ Mustard",
+  "plugin": "reFX Nexus",
+  "preset": null,
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Big Sean x DJ Mustard - IDFWU | Nexus Preset | [I Found those VST Presets #33]",
+   "url": "https://www.youtube.com/watch?v=TGP8uKc4mVE"
+  },
+  "quote": "A VST preset used by DJ Mustard in the song 'IDFWUt'' by Big Sean off the album 'Dark Sky Paradise'",
+  "quoteBy": "JC Biffro"
+ },
+ {
+  "song": "Wanna Move",
+  "artist": "P. Diddy",
+  "producer": "Unknown",
+  "plugin": "reFX Vanguard",
+  "preset": null,
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: P Diddy - Press Play Tracks | Vanguard Preset | [I Found those VST Presets #15]",
+   "url": "https://www.youtube.com/watch?v=tyO_fcBsI9g"
+  },
+  "quote": "A preset taken from the Vanguard VST ... Original songs this Vanguard VST preset was used on: http://bit.ly/P-Diddy_Wanna-Move",
+  "quoteBy": "JC Biffro"
+ },
+ {
+  "song": "Diddy Rock",
+  "artist": "P. Diddy",
+  "producer": "Unknown",
+  "plugin": "reFX Vanguard",
+  "preset": null,
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: P Diddy - Press Play Tracks | Vanguard Preset | [I Found those VST Presets #15]",
+   "url": "https://www.youtube.com/watch?v=tyO_fcBsI9g"
+  },
+  "quote": "A preset taken from the Vanguard VST ... Original songs this Vanguard VST preset was used on: ... http://bit.ly/P-Diddy_Diddy-Rock",
+  "quoteBy": "JC Biffro"
  }
 ]
