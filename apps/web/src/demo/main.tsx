@@ -33,8 +33,7 @@ import { MidiList, MidiPage, UploadPage, useMidiItems } from "./midi/pages";
 import { PresetsPage } from "./presets/page";
 import { SoundDesign } from "./sound-design";
 import { BrowsePage, LibraryPage, NewCrateHost, ProfilePage, useCrateEntries, type RenderLoops } from "./explore";
-import { KitsPage } from "./kits";
-import { StackPage } from "./stack/page";
+import { KitPage, KitsPage, KitUploadPage } from "./kits/pages";
 import type { MidiKind } from "@stash/contracts";
 import { FilterChip, SearchInput, UiLink } from "@stash/ui";
 
@@ -156,8 +155,8 @@ function Page({ children }: { children: ReactNode }) {
 
 const FEATURES = [
   { href: "/browse", name: "Browse by key and tempo", blurb: "Genre, a BPM range, a key and the keys that mix with it. Sort by trending or downloads." },
-  { href: "/stack", name: "Stack sounds", blurb: "Layer up to four MIDI parts. They lock to one tempo and move into one key while they play." },
-  { href: "/kits", name: "Drum kits", blurb: "Sixteen pads on your keyboard and a step sequencer. Post the bar as MIDI." },
+  { href: "/kits", name: "Drum kits", blurb: "Kicks, 808s, snares and hats from producers, sorted by type. Upload your own kit by dropping in your one-shots." },
+  { href: "/midi", name: "Chords from the songs", blurb: "The chord progressions of 164 popular songs as MIDI, at their key and tempo, with sources." },
   { href: "/sound-design", name: "Sound design", blurb: "Shape a synth patch with knobs and a scope, play it from your keyboard, save it." },
   { href: "/presets", name: "Presets behind the songs", blurb: "Which synth and preset are on famous rap records, each with a source and how sure it is." },
   { href: "/library", name: "Your library", blurb: "Likes, crates of sounds for one beat, who you follow and what you posted." },
@@ -234,6 +233,11 @@ function Home() {
 function BrowseRoute() {
   const [rows] = useRows();
   return <BrowsePage catalog={catalog} rows={rows} renderLoops={renderLoops} />;
+}
+
+function LoopsRoute() {
+  const [rows] = useRows();
+  return <BrowsePage catalog={catalog} rows={rows} renderLoops={renderLoops} only="loop" />;
 }
 
 function ProfileRoute({ handle }: { handle: string }) {
@@ -355,8 +359,8 @@ function AllMidi() {
 const TABS = [
   { href: "/", name: "Home" },
   { href: "/browse", name: "Browse" },
+  { href: "/loops", name: "Loops" },
   { href: "/midi", name: "MIDI" },
-  { href: "/stack", name: "Stack" },
   { href: "/kits", name: "Drum kits" },
   { href: "/sound-design", name: "Sound design" },
   { href: "/presets", name: "Presets" },
@@ -367,7 +371,7 @@ const TABS = [
 /** The demo's own tabs across the top of every page, for the screens the app's rail does not list yet. */
 function DemoTabs() {
   const path = usePath();
-  const current = (href: string) => (href === "/" ? path === "/" : path === href || (href === "/midi" && path.startsWith("/midi")));
+  const current = (href: string) => (href === "/" ? path === "/" : path === href || (href === "/midi" && path.startsWith("/midi")) || (href === "/kits" && (path.startsWith("/kit/") || path === "/kit-upload")));
   return (
     <nav aria-label="Demo sections" className="border-b border-border bg-bg">
       <ul className="mx-auto flex max-w-content gap-1 overflow-x-auto px-3 tablet:px-4 desktop:px-6">
@@ -408,7 +412,10 @@ function Route() {
   if (path === "/presets") return <PresetsPage />;
   if (path === "/library") return <LibraryRoute />;
   if (path === "/kits") return <KitsPage />;
-  if (path === "/stack") return <StackPage />;
+  const kitPage = /^\/kit\/([a-z0-9]+)$/.exec(path);
+  if (kitPage) return <KitPage key={kitPage[1]} id={kitPage[1]!} />;
+  if (path === "/kit-upload") return <KitUploadPage />;
+  if (path === "/loops") return <LoopsRoute />;
   if (path === "/notifications")
     return <NotInDemo title="Notifications" icon={Bell}>Notifications arrive when producers you follow post. The demo has no account to send them to.</NotInDemo>;
   const profile = /^\/u\/([a-z0-9_]+)$/.exec(path);

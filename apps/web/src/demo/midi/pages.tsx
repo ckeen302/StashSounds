@@ -8,7 +8,6 @@ import {
   EmptyState,
   FilterChip,
   Heart,
-  Plus,
   LicenseBadge,
   PlayButton,
   Stat,
@@ -26,7 +25,6 @@ import {
 } from "@stash/ui";
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { CrateMenu } from "../explore";
-import { addToStack, inStack, stackFull, stackVersion, subscribeStack, MAX_LAYERS } from "../stack/store";
 import { navigate } from "../router";
 import { has, set } from "../store";
 import { midiItem, midiItems, midiVersion, postUpload, removeUpload, slugify, subscribeMidi, type MidiItem } from "./catalog";
@@ -122,31 +120,6 @@ function SoundPicker({ value, onChange, drums }: { value: SoundId; onChange: (s:
         </FilterChip>
       ))}
     </div>
-  );
-}
-
-/** Layer this item with others in the stack, at one tempo and one key. */
-function StackButton({ itemId, title }: { itemId: string; title: string }) {
-  useSyncExternalStore(subscribeStack, stackVersion, stackVersion);
-  const toast = useToast();
-  if (inStack(itemId))
-    return (
-      <ButtonLink href="/stack" variant="secondary">
-        In your stack: open it
-      </ButtonLink>
-    );
-  return (
-    <Button
-      variant="secondary"
-      icon={Plus}
-      disabled={stackFull()}
-      onClick={() => {
-        addToStack(itemId);
-        toast({ tone: "success", title: "Added to your stack", description: `${title} now plays in time and in key with the other layers.` });
-      }}
-    >
-      {stackFull() ? `Stack is full (${MAX_LAYERS} layers)` : "Add to stack"}
-    </Button>
   );
 }
 
@@ -388,7 +361,6 @@ export function MidiPage({ publicId }: { publicId: string }) {
               </Button>
               <CrateMenu itemId={item.id} title={item.title} />
             </div>
-            <StackButton itemId={item.id} title={item.title} />
             {item.mine && (
               <Button
                 variant="danger"

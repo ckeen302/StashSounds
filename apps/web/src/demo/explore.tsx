@@ -140,20 +140,22 @@ const keyId = (k: MusicalKey) => `${k.root}${k.mode}`;
 // Filters survive leaving the page and coming back, for this visit.
 type Filters = { q: string; type: "all" | "loop" | "midi"; genre: string | null; key: string | null; mix: boolean; min: number; max: number; sort: SortId };
 const DEFAULT: Filters = { q: "", type: "all", genre: null, key: null, mix: false, min: 60, max: 180, sort: "trending" };
-let saved: Filters = DEFAULT;
+const saved: Record<string, Filters> = {};
 
 function useSounds(catalog: Catalog, loopRows: ItemRow[]): Sound[] {
   const midi = useMidiItems();
   return useMemo(() => [...loopRows.map((r) => loopSound(r, catalog)), ...midi.map(midiSound)], [catalog, loopRows, midi]);
 }
 
-export function BrowsePage({ catalog, rows, renderLoops }: { catalog: Catalog; rows: ItemRow[]; renderLoops: RenderLoops }) {
-  const all = useSounds(catalog, rows);
-  const [f, setF] = useState<Filters>(saved);
+export function BrowsePage({ catalog, rows, renderLoops, only }: { catalog: Catalog; rows: ItemRow[]; renderLoops: RenderLoops; only?: "loop" }) {
+  const every = useSounds(catalog, rows);
+  const all = only ? every.filter((s) => s.type === only) : every;
+  const page = only ?? "all";
+  const [f, setF] = useState<Filters>(saved[page] ?? DEFAULT);
   const update = (patch: Partial<Filters>) =>
     setF((cur) => {
-      saved = { ...cur, ...patch };
-      return saved;
+      saved[page] = { ...cur, ...patch };
+      return saved[page];
     });
 
   const keys = useMemo(() => {
@@ -180,8 +182,8 @@ export function BrowsePage({ catalog, rows, renderLoops }: { catalog: Catalog; r
   return (
     <main className="mx-auto flex w-full max-w-content flex-col gap-6 px-3 py-8 tablet:px-4 desktop:px-6">
       <header className="flex flex-col gap-1">
-        <span className="text-label text-label-caps text-text-muted">Browse</span>
-        <h1 className="text-title">Every sound, filtered the way you search</h1>
+        <span className="text-label text-label-caps text-text-muted">{only ? "Loops" : "Browse"}</span>
+        <h1 className="text-title">{only ? "Loops, filtered the way you search" : "Every sound, filtered the way you search"}</h1>
         <p className="max-w-prose text-body text-text-muted">
           Pick a genre, a tempo range and a key. Turn on “Mixes with” to also see the keys that sit with it: the relative key and the neighbours on the circle
           of fifths. Every result plays right here.
@@ -191,7 +193,7 @@ export function BrowsePage({ catalog, rows, renderLoops }: { catalog: Catalog; r
       <section aria-label="Filters" className="flex flex-col gap-4 rounded-panel border border-border bg-surface p-4">
         <div className="flex flex-col gap-3 tablet:flex-row tablet:items-center tablet:justify-between">
           <SearchInput label="Search titles, producers, tags" shortcut="" value={f.q} onChange={(e) => update({ q: e.target.value })} onClear={() => update({ q: "" })} className="tablet:w-80" />
-          <div role="group" aria-label="Type" className="flex flex-wrap gap-2">
+          <div role="group" aria-label="Type" className={`flex flex-wrap gap-2 ${only ? "hidden" : ""}`}>
             {(["all", "loop", "midi"] as const).map((t) => (
               <FilterChip key={t} selected={f.type === t} onToggle={() => update({ type: t })}>
                 {`${t === "all" ? "All" : t === "loop" ? "Loops" : "MIDI"} ${t === "all" ? all.length : all.filter((s) => s.type === t).length}`}
