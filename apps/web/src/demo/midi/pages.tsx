@@ -8,6 +8,7 @@ import {
   EmptyState,
   FilterChip,
   Heart,
+  IconButton,
   LicenseBadge,
   PlayButton,
   Stat,
@@ -32,7 +33,9 @@ import { MidiError, parseMidi, SOUND_FOR, type MidiAnalysis } from "./parse";
 import { PianoRoll } from "./piano-roll";
 import { saveFiles } from "../save";
 import { writeMidi } from "./write";
-import { midiPlayer, type MidiPlayerState } from "./synth";
+import { classicLabel, type Classic } from "./classics";
+import { progressionOf } from "./songs";
+import { midiPlayer, TIMBRES, type MidiPlayerState, type Timbre } from "./synth";
 
 const player = midiPlayer();
 // One thing plays at a time: a MIDI item pauses the loop engine, and a loop pauses the MIDI.
@@ -55,7 +58,34 @@ export function useMidiItems(): MidiItem[] {
 }
 
 const KIND_LABEL: Record<MidiKind, string> = { chords: "Chords", melody: "Melody", drums: "Drums", bass: "Bass" };
-const SOUND_LABEL: Record<SoundId, string> = { keys: "Keys", pluck: "Pluck", pad: "Pad", bass: "Bass", "808": "808", bell: "Bell", strings: "Strings", drums: "Drums" };
+const SOUND_LABEL: Record<Timbre, string> = {
+  keys: "Electric piano",
+  piano: "Piano",
+  guitar: "Guitar",
+  acoustic: "Acoustic guitar",
+  organ: "Organ",
+  synth: "Synth",
+  pad: "Pad",
+  strings: "Strings",
+  choir: "Choir",
+  flute: "Flute",
+  pluck: "Pluck",
+  bass: "Bass",
+  "808": "808",
+  bell: "Bell",
+  drums: "Drums",
+};
+const POSTED_SOUNDS = soundIdSchema.options.filter((o) => o !== "drums");
+
+/** Saves the item as a .mid named "<title> <key> <bpm>bpm.mid". */
+export async function saveMidi(item: MidiItem, toast: ReturnType<typeof useToast>) {
+  const name = `${item.title}${item.key ? ` ${formatKey(item.key)}` : ""} ${Math.round(item.notes.bpm)}bpm.mid`;
+  const out = await saveFiles(item.title, [{ name, data: new Blob([writeMidi(item.notes, item.title)]) }]).catch(() => "failed" as const);
+  if (out === "saved") {
+    set("downloads", item.id, true);
+    toast({ tone: "success", title: "Saved the MIDI file", description: "Drop it on any instrument in your DAW." });
+  } else if (out === "failed") toast({ tone: "error", title: "The MIDI file did not save", description: "Try again in a moment." });
+}
 
 function playStateOf(s: MidiPlayerState, id: string): PlayState {
   return s.currentId === id && s.status === "playing" ? "playing" : "paused";
@@ -70,6 +100,7 @@ function rollLabel(m: Pick<MidiItem, "kind" | "key" | "notes">): string {
 /** MIDI as result rows: play pad, a strip of the roll with its playhead, title, kind, key, BPM, bars. */
 export function MidiList({ label, items }: { label: string; items: MidiItem[] }) {
   const s = useMidiPlayer();
+  const toast = useToast();
   const cell = "font-mono text-numeric tabular text-text";
   return (
     <div className="overflow-hidden rounded-panel border border-border bg-surface">
@@ -81,6 +112,7 @@ export function MidiList({ label, items }: { label: string; items: MidiItem[] })
         <span className="hidden w-14 shrink-0 text-label text-label-caps text-text-muted tablet:block">Key</span>
         <span className="w-14 shrink-0 text-right text-label text-label-caps text-text-muted">BPM</span>
         <span className="hidden w-14 shrink-0 text-right text-label text-label-caps text-text-muted desktop:block">Bars</span>
+        <span className="w-10 shrink-0" />
       </div>
       <ul aria-label={label}>
         {items.map((m) => {
@@ -104,6 +136,9 @@ export function MidiList({ label, items }: { label: string; items: MidiItem[] })
               <div className={`hidden w-14 shrink-0 tablet:block ${cell}`}>{m.key ? formatKey(m.key) : "—"}</div>
               <div className={`w-14 shrink-0 text-right ${cell}`}>{Math.round(m.notes.bpm)}</div>
               <div className={`hidden w-14 shrink-0 text-right desktop:block ${cell}`}>{m.notes.bars}</div>
+              <div className="w-10 shrink-0">
+                <IconButton icon={Download} label={`Download ${m.title} as MIDI`} onClick={() => void saveMidi(m, toast)} />
+              </div>
             </li>
           );
         })}
@@ -112,16 +147,68 @@ export function MidiList({ label, items }: { label: string; items: MidiItem[] })
   );
 }
 
-function SoundPicker({ value, onChange, drums }: { value: SoundId; onChange: (s: SoundId) => void; drums: boolean }) {
-  const options = drums ? (["drums"] as SoundId[]) : soundIdSchema.options.filter((o) => o !== "drums");
+function SoundPicker<T extends Timbre>({ value, onChange, drums, options }: { value: Timbre; onChange: (s: T) => void; drums: boolean; options: readonly T[] }) {
+  const shown = drums ? options.filter((o) => o === "drums") : options.filter((o) => o !== "drums");
   return (
     <div role="group" aria-label="Sound" className="flex flex-wrap gap-2">
-      {options.map((o) => (
+      {shown.map((o) => (
         <FilterChip key={o} selected={value === o} onToggle={() => onChange(o)}>
           {SOUND_LABEL[o]}
         </FilterChip>
       ))}
     </div>
+  );
+}
+
+/** A classic progression: its numerals over the chords in the example key, the source, and songs on it. */
+function ClassicChart({ c, items }: { c: Classic; items: MidiItem[] }) {
+  const label = classicLabel(c);
+  const onIt = label ? items.filter((m) => m.song && progressionOf(m.song)?.label === label) : [];
+  return (
+    <section aria-labelledby="classic-title" className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-4">
+      <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <h2 id="classic-title" className="text-label text-label-caps text-text-muted">
+          The progression
+        </h2>
+        <span className="font-mono text-numeric tabular text-text-muted">{`Written in ${c.key}`}</span>
+      </div>
+      <ol aria-label="Chords" className="flex flex-wrap gap-2">
+        {c.chords.map(([ch, beats], i) => (
+          <li key={i} className="st-box flex flex-col rounded-control border border-border-strong bg-raised px-3 py-2">
+            <span className="font-mono text-body-strong text-accent">{c.numerals[i]}</span>
+            <span className="font-mono text-small text-text">{ch}</span>
+            <span className="text-small text-text-muted">{beats === 4 ? "1 bar" : beats % 4 === 0 ? `${beats / 4} bars` : `${beats} beats`}</span>
+          </li>
+        ))}
+      </ol>
+      <blockquote className="border-l-2 border-border-strong pl-3 text-small text-text">
+        “{c.quote}”{" "}
+        <a href={c.source.url} target="_blank" rel="noreferrer" className="text-text-muted underline underline-offset-2">
+          {c.source.label}
+        </a>
+      </blockquote>
+      {c.examples.length > 0 && (
+        <p className="text-small text-text-muted">
+          <span className="text-text">Heard in: </span>
+          {c.examples.map((e) => (e.artist ? `${e.song} (${e.artist})` : e.song)).join(", ")}
+        </p>
+      )}
+      {onIt.length > 0 && (
+        <div className="flex flex-col gap-2">
+          <span className="text-label text-label-caps text-text-muted">Songs in the library on it</span>
+          <ul className="flex flex-wrap gap-2">
+            {onIt.slice(0, 12).map((m) => (
+              <li key={m.id}>
+                <UiLink href={m.href} className="text-small text-text underline underline-offset-2">
+                  {`${m.song!.song} · ${m.song!.artist}`}
+                </UiLink>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      <p className="text-small text-text-muted">Chord lengths are ours; the source gives the chords, not the timing. Shift the key above to put it in your track&apos;s key.</p>
+    </section>
   );
 }
 
@@ -158,7 +245,7 @@ function ChordChart({ song }: { song: NonNullable<MidiItem["song"]> }) {
               </a>
             </>
           ) : (
-            "The instrument on the record isn't sourced yet, so it plays on keys. Switch the sound above."
+            "The instrument on the record isn't sourced yet. Switch the sound above to try another."
           )}
         </li>
         <li>
@@ -263,6 +350,11 @@ export function MidiPage({ publicId }: { publicId: string }) {
                 by <span className="text-text">{item.owner.displayName}</span> <span>@{item.owner.handle}</span>
               </p>
             )}
+            <div className="flex flex-wrap gap-2">
+              <Button variant="primary" icon={Download} onClick={() => void saveMidi(item, toast)}>
+                Download .mid
+              </Button>
+            </div>
           </header>
 
           <section aria-label="MIDI player" className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-4">
@@ -309,7 +401,7 @@ export function MidiPage({ publicId }: { publicId: string }) {
             <h2 id="sound-title" className="text-label text-label-caps text-text-muted">
               Play it on
             </h2>
-            <SoundPicker value={current ? s.sound : item.sound} drums={item.notes.drums} onChange={(o) => {
+            <SoundPicker value={current ? s.sound : item.sound} drums={item.notes.drums} options={item.notes.drums ? (["drums"] as Timbre[]) : TIMBRES} onChange={(o) => {
               if (!current) player.load(item.id, item.notes, item.sound);
               player.setSound(o);
             }} />
@@ -317,6 +409,7 @@ export function MidiPage({ publicId }: { publicId: string }) {
           </section>
 
           {item.song && <ChordChart song={item.song} />}
+          {item.classic && <ClassicChart c={item.classic} items={items} />}
 
           <section aria-label="About" className="flex flex-col gap-4 rounded-panel border border-border bg-surface p-4">
             <p className="max-w-160 text-body text-text">{item.description}</p>
@@ -362,12 +455,7 @@ export function MidiPage({ publicId }: { publicId: string }) {
                 variant="primary"
                 icon={Download}
                 className="flex-1"
-                onClick={() =>
-                  void saveFiles(item.title, [{ name: `${item.title}${item.key ? ` ${formatKey(item.key)}` : ""} ${Math.round(item.notes.bpm)}bpm.mid`, data: new Blob([writeMidi(item.notes, item.title)]) }]).then((out) => {
-                    if (out === "saved") toast({ tone: "success", title: "Saved the MIDI file", description: "Drop it on any instrument in your DAW." });
-                    else if (out === "failed") toast({ tone: "error", title: "The MIDI file did not save", description: "Try again in a moment." });
-                  })
-                }
+                onClick={() => void saveMidi(item, toast)}
               >
                 Download .mid
               </Button>
@@ -672,6 +760,7 @@ export function UploadPage({ embedded = false }: { embedded?: boolean } = {}) {
               <SoundPicker
                 value={draft.sound}
                 drums={notes.drums}
+                options={notes.drums ? soundIdSchema.options : POSTED_SOUNDS}
                 onChange={(o) => {
                   setDraft({ ...draft, sound: o });
                   if (previewing) player.setSound(o);

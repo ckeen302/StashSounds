@@ -120,7 +120,7 @@ export function PresetSongPage({ slug }: { slug: string }) {
         <h2 className="text-title">Sounds on the record</h2>
         <ul className="grid grid-cols-1 items-start gap-x-6 gap-y-6 rounded-panel border border-border bg-surface p-4 desktop:grid-cols-2">
           {s.entries.map((e, i) => (
-            <PatchStrip key={`${e.plugin}-${e.preset}-${e.role}-${i}`} e={e} />
+            <PatchStrip key={`${e.plugin}-${e.preset}-${e.role}-${i}`} e={e} detail />
           ))}
         </ul>
       </section>

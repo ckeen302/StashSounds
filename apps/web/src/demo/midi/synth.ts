@@ -11,17 +11,26 @@ import type { Patch } from "./patch";
 
 export type MidiStatus = "idle" | "playing" | "paused";
 
+/**
+ * The demo's sounds: the contract's SoundIds plus instrument models for playing a song's chords on
+ * something close to the record (a strummed guitar, a piano, an organ). Demo only; the contract's
+ * SoundId is what a posted MIDI file stores.
+ */
+export type Timbre = SoundId | "piano" | "guitar" | "acoustic" | "organ" | "synth" | "choir" | "flute";
+export const TIMBRES: Timbre[] = ["keys", "piano", "guitar", "acoustic", "organ", "synth", "pad", "strings", "choir", "flute", "pluck", "bell", "bass", "808"];
+const STRUM_S: Partial<Record<Timbre, number>> = { guitar: 0.014, acoustic: 0.018 };
+
 export type MidiPlayerState = {
   status: MidiStatus;
   currentId: string | null;
   tempoRatio: number;
   transpose: number;
   loop: boolean;
-  sound: SoundId;
+  sound: Timbre;
   volume: number;
 };
 
-type Track = { id: string; notes: MidiNotesFile; sound: SoundId; lengthBeats: number };
+type Track = { id: string; notes: MidiNotesFile; sound: Timbre; lengthBeats: number };
 
 const LOOKAHEAD_S = 0.15;
 const TICK_MS = 25;
@@ -131,7 +140,7 @@ export class MidiPlayer {
   lengthBeats = (): number => this.track?.lengthBeats ?? 0;
 
   /** Load a track. Keeps playing state only if it is the same id. */
-  load(id: string, notes: MidiNotesFile, sound: SoundId) {
+  load(id: string, notes: MidiNotesFile, sound: Timbre) {
     if (this.track?.id === id) return;
     this.stopAll();
     const bpb = (notes.timeSignature[0] * 4) / notes.timeSignature[1];
@@ -140,7 +149,7 @@ export class MidiPlayer {
     this.set({ currentId: id, status: "paused", sound, tempoRatio: 1, transpose: 0 });
   }
 
-  async play(id?: string, notes?: MidiNotesFile, sound?: SoundId) {
+  async play(id?: string, notes?: MidiNotesFile, sound?: Timbre) {
     if (id && notes && sound) this.load(id, notes, sound);
     if (!this.track) return;
     const ctx = this.ensure();
@@ -163,7 +172,7 @@ export class MidiPlayer {
     this.set({ status: "paused" });
   }
 
-  toggle(id: string, notes: MidiNotesFile, sound: SoundId) {
+  toggle(id: string, notes: MidiNotesFile, sound: Timbre) {
     if (this.state.currentId === id && this.state.status === "playing") this.pause();
     else void this.play(id, notes, sound);
   }
@@ -196,7 +205,7 @@ export class MidiPlayer {
     this.reanchor(() => this.set({ loop: on }));
   }
 
-  setSound(sound: SoundId) {
+  setSound(sound: Timbre) {
     if (this.track) this.track.sound = sound;
     this.set({ sound });
   }
@@ -290,9 +299,18 @@ export class MidiPlayer {
       const base = cycle * L;
       const lo = a - base;
       const hi = Math.min(b - base, L);
+      const strum = t.notes.drums ? 0 : (STRUM_S[t.sound] ?? 0);
+      let chordStart = -1;
+      let inChord = 0;
       for (let i = lowerBound(notes, lo); i < notes.length && notes[i]![0] < hi; i++) {
         const [start, len, pitch, vel] = notes[i]!;
-        const when = this.anchorTime + (base + start - this.anchorBeat) * spb;
+        // A guitar strums: notes that start together are spread low to high by a few milliseconds.
+        if (start - chordStart > 0.05) {
+          chordStart = start;
+          inChord = 0;
+        } else inChord++;
+        // The chart already rolls chord notes by a hair; the strum is spread from the chord's first note.
+        const when = this.anchorTime + (base + (strum ? chordStart : start) - this.anchorBeat) * spb + inChord * strum;
         if (when < ctx.currentTime - 0.01) continue;
         this.voice(t.sound, t.notes.drums ? pitch : pitch + this.state.transpose, vel, Math.max(when, ctx.currentTime), len * spb, t.notes.drums);
       }
@@ -318,7 +336,7 @@ export class MidiPlayer {
   // ---------------------------------------------------------------------------------------------
   // Voices
 
-  private voice(sound: SoundId, pitch: number, vel: number, at: number, dur: number, drums: boolean) {
+  private voice(sound: Timbre, pitch: number, vel: number, at: number, dur: number, drums: boolean) {
     const ctx = this.ctx!;
     const amp = 0.32 * (vel / 127) ** 1.4;
     if (drums || sound === "drums") return this.drum(pitch, amp, at);
@@ -453,6 +471,143 @@ export class MidiPlayer {
         send = 0.45;
         break;
       }
+      case "piano": {
+        // Acoustic piano: a few partials that fade faster the higher they are, and a felt hammer.
+        const partials: [number, number, number][] = [[1, 1, 1.6], [2, 0.45, 0.9], [3, 0.22, 0.5], [4, 0.12, 0.3], [6, 0.05, 0.15]];
+        for (const [h, lvl, tau] of partials) {
+          const pg = ctx.createGain();
+          pg.connect(g);
+          pg.gain.setValueAtTime(lvl, at);
+          pg.gain.setTargetAtTime(0.0001, at + 0.005, tau * (f > 600 ? 0.5 : 1));
+          osc(h === 1 ? "triangle" : "sine", f * h, h * 1.5, pg);
+        }
+        this.hammer(g, at, f * 4, amp * 0.25, 0.015, nodes);
+        env.setValueAtTime(0, at);
+        env.linearRampToValueAtTime(amp * 0.8, at + 0.003);
+        release = 0.3;
+        send = 0.3;
+        break;
+      }
+      case "guitar":
+      case "acoustic": {
+        // A plucked string: bright at the pick, darkening as it rings, with a body resonance.
+        const acoustic = sound === "acoustic";
+        const fl = filter(f * 10, acoustic ? 0.9 : 1.6);
+        fl.frequency.setValueAtTime(Math.min(f * (acoustic ? 16 : 10), 14000), at);
+        fl.frequency.setTargetAtTime(Math.max(f * (acoustic ? 3 : 2.2), 300), at + 0.01, acoustic ? 0.35 : 0.22);
+        osc("sawtooth", f, -4, fl);
+        osc(acoustic ? "triangle" : "square", f, 5, fl);
+        if (acoustic) osc("sine", f * 2, 0, fl);
+        const body = ctx.createBiquadFilter();
+        body.type = "peaking";
+        body.frequency.value = acoustic ? 220 : 800;
+        body.gain.value = 4;
+        fl.disconnect();
+        fl.connect(body).connect(g);
+        this.hammer(g, at, acoustic ? 4500 : 2500, amp * (acoustic ? 0.5 : 0.25), 0.008, nodes);
+        env.setValueAtTime(0, at);
+        env.linearRampToValueAtTime(amp * 0.75, at + 0.002);
+        env.setTargetAtTime(amp * 0.05, at + 0.01, acoustic ? 0.9 : 0.6);
+        release = 0.18;
+        send = acoustic ? 0.3 : 0.45;
+        break;
+      }
+      case "organ": {
+        // Drawbars 16', 8', 4', 2 2/3' through a slow rotating-speaker wobble.
+        const lfo = ctx.createOscillator();
+        lfo.frequency.value = 6.4;
+        const depth = ctx.createGain();
+        depth.gain.value = 5;
+        lfo.connect(depth);
+        nodes.push(lfo);
+        for (const [h, lvl] of [[0.5, 0.5], [1, 0.8], [2, 0.5], [3, 0.3], [4, 0.15]] as const) {
+          const dg = ctx.createGain();
+          dg.gain.value = lvl;
+          dg.connect(g);
+          depth.connect(osc("sine", f * h, 0, dg).detune);
+        }
+        const click = ctx.createGain();
+        click.connect(g);
+        click.gain.setValueAtTime(0.3, at);
+        click.gain.exponentialRampToValueAtTime(0.001, at + 0.03);
+        osc("sine", f * 8, 0, click);
+        env.setValueAtTime(0, at);
+        env.linearRampToValueAtTime(amp * 0.38, at + 0.008);
+        release = 0.08;
+        send = 0.35;
+        break;
+      }
+      case "synth": {
+        // A polysynth chord: detuned saws and a square, a filter that opens on each hit.
+        const fl = filter(2200, 2.5);
+        fl.frequency.setValueAtTime(Math.min(f * 14, 9000), at);
+        fl.frequency.setTargetAtTime(Math.max(f * 4, 900), at + 0.02, 0.3);
+        for (const d of [-14, 0, 14]) osc("sawtooth", f, d, fl);
+        osc("square", f / 2, 0, fl);
+        env.setValueAtTime(0, at);
+        env.linearRampToValueAtTime(amp * 0.4, at + 0.01);
+        env.setTargetAtTime(amp * 0.28, at + 0.05, 0.4);
+        release = 0.4;
+        send = 0.5;
+        break;
+      }
+      case "choir": {
+        // "Aah": a buzzy source through two vowel formants, with vibrato.
+        const lfo = ctx.createOscillator();
+        lfo.frequency.value = 5;
+        const depth = ctx.createGain();
+        depth.gain.value = 9;
+        lfo.connect(depth);
+        nodes.push(lfo);
+        const mix = ctx.createGain();
+        mix.gain.value = 1;
+        for (const [fq, q, lvl] of [[730, 6, 1], [1090, 8, 0.6], [2440, 10, 0.25]] as const) {
+          const bp = ctx.createBiquadFilter();
+          bp.type = "bandpass";
+          bp.frequency.value = fq;
+          bp.Q.value = q;
+          const lg = ctx.createGain();
+          lg.gain.value = lvl * 3;
+          mix.connect(bp).connect(lg).connect(g);
+        }
+        for (const d of [-8, 8]) depth.connect(osc("sawtooth", f, d, mix).detune);
+        env.setValueAtTime(0, at);
+        env.linearRampToValueAtTime(amp * 0.55, at + 0.3);
+        release = 0.7;
+        send = 0.7;
+        break;
+      }
+      case "flute": {
+        // A breathy sine: a little noise at the note's pitch, vibrato that comes in late.
+        const lfo = ctx.createOscillator();
+        lfo.frequency.value = 5.2;
+        const depth = ctx.createGain();
+        depth.gain.setValueAtTime(0, at);
+        depth.gain.linearRampToValueAtTime(12, at + 0.4);
+        lfo.connect(depth);
+        nodes.push(lfo);
+        depth.connect(osc("sine", f).detune);
+        const h2 = ctx.createGain();
+        h2.gain.value = 0.15;
+        h2.connect(g);
+        osc("sine", f * 2, 0, h2);
+        const src = ctx.createBufferSource();
+        src.buffer = this.noise;
+        src.loop = true;
+        const bp = ctx.createBiquadFilter();
+        bp.type = "bandpass";
+        bp.frequency.value = f;
+        bp.Q.value = 12;
+        const ng = ctx.createGain();
+        ng.gain.value = 0.35;
+        src.connect(bp).connect(ng).connect(g);
+        nodes.push(src);
+        env.setValueAtTime(0, at);
+        env.linearRampToValueAtTime(amp * 0.6, at + 0.07);
+        release = 0.15;
+        send = 0.45;
+        break;
+      }
       default:
         osc("triangle", f);
         env.setValueAtTime(0, at);
@@ -470,6 +625,22 @@ export class MidiPlayer {
       n.stop(end + 0.1);
     }
     this.track_(g, nodes, at, end);
+  }
+
+  /** A short noise burst: a pick on a string or a hammer on a piano string. */
+  private hammer(dest: AudioNode, at: number, freq: number, level: number, decay: number, nodes: AudioScheduledSourceNode[]) {
+    const ctx = this.ctx!;
+    const src = ctx.createBufferSource();
+    src.buffer = this.noise;
+    const bp = ctx.createBiquadFilter();
+    bp.type = "bandpass";
+    bp.frequency.value = Math.min(freq, 12000);
+    bp.Q.value = 1.2;
+    const ng = ctx.createGain();
+    ng.gain.setValueAtTime(level, at);
+    ng.gain.exponentialRampToValueAtTime(0.0001, at + decay);
+    src.connect(bp).connect(ng).connect(dest);
+    nodes.push(src);
   }
 
   private track_(g: GainNode, nodes: AudioScheduledSourceNode[], start: number, end: number) {

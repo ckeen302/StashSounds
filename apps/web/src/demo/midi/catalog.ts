@@ -1,7 +1,9 @@
-import type { LicenseKind, MidiKind, MidiNotesFile, MusicalKey, SoundId } from "@stash/contracts";
+import type { LicenseKind, MidiKind, MidiNotesFile, MusicalKey } from "@stash/contracts";
+import type { Timbre } from "./synth";
 import { extra, producers, type Producer } from "../data";
 import * as lib from "./library";
 import { CHORDS_OWNER, SONG_CHORDS, songKey, songNotes, type SongChords } from "./songs";
+import { CLASSICS, classicChart, type Classic } from "./classics";
 
 /**
  * The demo's MIDI items: four patterns written for the demo, plus whatever this browser's viewer
@@ -18,7 +20,8 @@ export type MidiItem = {
   href: string;
   owner: Producer;
   kind: MidiKind;
-  sound: SoundId;
+  /** What it plays on here: a SoundId, or for a song's chords the instrument model closest to the record. */
+  sound: Timbre;
   key: MusicalKey | null;
   notes: MidiNotesFile;
   tags: string[];
@@ -32,6 +35,8 @@ export type MidiItem = {
   mine?: boolean;
   /** A popular song's chord progression, with where the chords, key and tempo came from. */
   song?: SongChords;
+  /** One of the classic progressions (the axis, ii–V–I, the blues), not a single song's. */
+  classic?: Classic;
 };
 
 export { extra };
@@ -237,15 +242,42 @@ export function subscribeMidi(l: () => void) {
 }
 export const midiVersion = () => version;
 
-/** The closest of the demo's sounds to the instrument on the record; keys when the record's is not known. */
-export function soundForInstrument(name: string | undefined): SoundId {
+/**
+ * The closest of the demo's sounds to the instrument carrying the chords on the record: a strummed
+ * guitar for a guitar loop, a piano for a piano. The first instrument named wins ("guitar and organ
+ * stabs" plays on guitar). Keys (an electric piano) when the record's is not known.
+ */
+export function soundForInstrument(name: string | undefined): Timbre {
   const n = (name ?? "").toLowerCase();
-  if (/bell|glock|music box|celesta|chime|vibraphone|marimba|kalimba/.test(n)) return "bell";
-  if (/string|violin|cello|orchestra|harp/.test(n)) return "strings";
-  if (/guitar|pluck|arp|banjo|koto|sitar/.test(n)) return "pluck";
-  if (/pad|choir|vocal|synth|organ|ambient/.test(n)) return "pad";
-  return "keys";
+  const rules: [RegExp, Timbre][] = [
+    [/acoustic guitar|classical guitar|nylon|banjo|ukulele|mandolin/, "acoustic"],
+    [/guitar/, "guitar"],
+    [/rhodes|electric piano|wurlitzer|\bep\b|watery keys/, "keys"],
+    [/piano/, "piano"],
+    [/organ/, "organ"],
+    [/choir|vocal|voices/, "choir"],
+    [/flute|pan pipe|recorder/, "flute"],
+    [/bell|glock|music.box|celesta|chime|vibraphone|marimba|kalimba/, "bell"],
+    [/mellotron|string|violin|cello|orchestra/, "strings"],
+    [/harp|koto|sitar|pluck|arp/, "pluck"],
+    [/pad|ambient|atmospheric|swell/, "pad"],
+    [/synth|juno|prophet|jx-/, "synth"],
+  ];
+  let best: [number, Timbre] | null = null;
+  for (const [re, t] of rules) {
+    const m = re.exec(n);
+    if (m && (!best || m.index < best[0])) best = [m.index, t];
+  }
+  return best?.[1] ?? "keys";
 }
+
+/**
+ * Instruments the team has named by ear where no fetched source describes the record yet. Each
+ * one is listed here, not in song-chords.json, so it never passes for a researched fact.
+ */
+const BY_EAR: Record<string, Timbre> = {
+  "long time (intro)|playboi carti": "guitar", // Caden, in the project thread: "should be played as a guitar"
+};
 
 /** The researched song progressions as MIDI items, A to Z by artist. One that does not parse is left out. */
 const songItems: MidiItem[] = SONG_CHORDS.flatMap((s, i) => {
@@ -262,7 +294,7 @@ const songItems: MidiItem[] = SONG_CHORDS.flatMap((s, i) => {
     href: `/midi/${slug}-${publicId}`,
     owner: CHORDS_OWNER,
     kind: "chords",
-    sound: soundForInstrument(s.instrument?.name),
+    sound: BY_EAR[`${s.song}|${s.artist}`.toLowerCase()] ?? soundForInstrument(s.instrument?.name),
     key: songKey(s),
     notes,
     tags: ["song chords", s.artist.toLowerCase()],
@@ -276,9 +308,42 @@ const songItems: MidiItem[] = SONG_CHORDS.flatMap((s, i) => {
   return [item];
 }).sort((a, b) => a.song!.artist.localeCompare(b.song!.artist) || a.song!.song.localeCompare(b.song!.song));
 
-/** Every MIDI item: the viewer's posts first, then the originals newest first, then the song chords. */
+/** The classic progressions as MIDI items, in the order the research lists them (most used first). */
+const classicItems: MidiItem[] = CLASSICS.flatMap((c, i) => {
+  const chart = classicChart(c);
+  const notes = songNotes(chart);
+  if (!notes) return [];
+  const publicId = `democlassic${String(i + 1).padStart(3, "0")}`;
+  const slug = slugify(`${c.name} chords`);
+  const item: MidiItem = {
+    id: `classic-${publicId}`,
+    publicId,
+    slug,
+    title: c.name,
+    href: `/midi/${slug}-${publicId}`,
+    owner: CHORDS_OWNER,
+    kind: "chords",
+    sound: "piano",
+    key: songKey(chart),
+    notes,
+    tags: ["classic progression", ...c.aka.map((a) => a.toLowerCase())],
+    description: `${c.numerals.join("–")}, written out in ${c.key}: ${c.chords.map(([ch]) => ch).join(", ")}. Shift the key to fit your track.`,
+    license: "royalty_free",
+    likes: 0,
+    downloads: 0,
+    publishedAt: "2026-11-24T15:00:00Z",
+    classic: c,
+  };
+  return [item];
+});
+
+/** Every MIDI item: the viewer's posts first, then the originals newest first, then the song chords, then the classics. */
 export function midiItems(): MidiItem[] {
-  return [...loadUploads(), ...[...built].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt)), ...songItems];
+  return [...loadUploads(), ...[...built].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt)), ...songItems, ...classicItems];
+}
+
+export function classicItemsList(): MidiItem[] {
+  return classicItems;
 }
 
 export function songChordItems(): MidiItem[] {

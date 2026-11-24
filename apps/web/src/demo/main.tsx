@@ -50,12 +50,13 @@ import {
   type RenderLoops,
 } from "./explore";
 import { FlipPanel } from "./flip";
+import { LoopTools } from "./loop-tools";
 import { LoopsPage } from "./loops";
 import { pack, PACK_WEEK } from "./packs";
 import { ALL_SONGS, madeBy, songHref, TOP_PRODUCERS } from "./presets/songs";
 import { PRESETS, type Confidence } from "./presets/data";
 import { kits } from "./kits/store";
-import { saveFiles } from "./save";
+import { saveFiles, saveLoopRow } from "./save";
 import { SmartSearch, useQuery } from "./search-ui";
 import { loopProfile, midiProfile } from "./search-index";
 import { match, moreLike } from "./smart-search";
@@ -165,7 +166,7 @@ function LoopList({
         }
       }}
     >
-      <ResultList label={label}>
+      <ResultList label={label} className="st-rows">
         {rows.map((r, i) => (
           <LoopRow
             key={r.id}
@@ -186,7 +187,17 @@ function LoopList({
                   description: "Saved in this browser. This is the demo.",
                 });
             }}
-            onDownload={() => navigate(r.href)}
+            onDownload={() =>
+              void saveLoopRow(r)
+                .then(({ outcome, name }) => {
+                  if (outcome === "saved") {
+                    set("downloads", r.id, true);
+                    onChange();
+                    toast({ tone: "success", title: "Downloaded", description: name });
+                  } else if (outcome === "failed") throw new Error(name);
+                })
+                .catch(() => toast({ tone: "error", title: "The download did not start", description: "Try again in a moment." }))
+            }
           />
         ))}
       </ResultList>
@@ -703,6 +714,7 @@ function LoopPage({ publicId }: { publicId: string }) {
   return (
     <>
       <ItemView key={publicId} view={view} />
+      <LoopTools key={`fit-${publicId}`} row={view.page.item} />
       <FlipPanel key={`flip-${publicId}`} row={view.page.item} />
       <MoreLikeThis key={`like-${publicId}`} row={view.page.item} />
     </>
@@ -755,7 +767,10 @@ function AllMidi() {
   const [kind, setKind] = useState<MidiKind | "all">("all");
   const [q, setQ] = useState("");
   const query = useQuery(q);
+  const classics = all.filter((m) => m.classic);
+  const [allClassics, setAllClassics] = useState(false);
   const midi = all
+    .filter((m) => !m.classic)
     .filter((m) => origin === "all" || (origin === "songs") === !!m.song)
     .map((m) => ({ m, hit: match(midiProfile(m), query) }))
     .filter((x) => x.hit)
@@ -814,11 +829,25 @@ function AllMidi() {
               selected={origin === o}
               onToggle={() => setOrigin(o)}
             >
-              {`${ORIGIN_NAME[o]} ${o === "all" ? all.length : all.filter((m) => (o === "songs") === !!m.song).length}`}
+              {ORIGIN_NAME[o]}
             </FilterChip>
           ))}
         </div>
       </div>
+      {!q && classics.length > 0 && (
+        <section aria-labelledby="classics" className="flex flex-col gap-3">
+          <div className="flex flex-col gap-1">
+            <h2 id="classics" className="text-title">Classic progressions</h2>
+            <p className="max-w-prose text-small text-text-muted">The moves under decades of records: the four-chord axis, the &apos;50s, ii–V–I, the blues, the Andalusian cadence and more. Play one, shift it to your key, and drag the MIDI into your DAW.</p>
+          </div>
+          <MidiList label="Classic progressions" items={allClassics ? classics : classics.slice(0, 8)} />
+          {classics.length > 8 && (
+            <Button variant="secondary" size="sm" className="self-start" onClick={() => setAllClassics(!allClassics)}>
+              {allClassics ? "Show fewer" : `Show all ${classics.length}`}
+            </Button>
+          )}
+        </section>
+      )}
       {progressions.length > 0 && (
         <section aria-labelledby="progressions" className="flex flex-col gap-3">
           <div className="flex items-end justify-between gap-3">
@@ -860,7 +889,7 @@ function AllMidi() {
       <div role="group" aria-label="Kind" className="flex flex-wrap gap-2">
         {KINDS.map((k) => (
           <FilterChip key={k} selected={kind === k} onToggle={() => setKind(k)}>
-            {`${KIND_NAME[k]} ${k === "all" ? midi.length : midi.filter((m) => m.kind === k).length}`}
+            {KIND_NAME[k]}
           </FilterChip>
         ))}
       </div>

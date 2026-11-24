@@ -24,7 +24,7 @@ import { nowPlaying } from "../app/_shell/now-playing";
 import type { Catalog } from "./data";
 import { GENRES, useCrateEntries } from "./explore";
 import { Dropdown } from "./presets/page";
-import { saveFetched } from "./save";
+import { saveLoopRow } from "./save";
 import { PACK_WEEK, PACKS } from "./packs";
 import { Why, SmartSearch } from "./search-ui";
 import { loopProfile } from "./search-index";
@@ -557,8 +557,7 @@ function LoopEntry({
     if (!("previewUrl" in row.playable)) return;
     setSaving(true);
     try {
-      const name = `${row.title}${row.bpm ? ` ${row.bpm}bpm` : ""}${row.key ? ` ${formatKey(row.key)}` : ""}.mp3`;
-      const outcome = await saveFetched(row.playable.previewUrl, name);
+      const { outcome, name } = await saveLoopRow(row);
       if (outcome === "saved") {
         set("downloads", row.id, true);
         onChange();

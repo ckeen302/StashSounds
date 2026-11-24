@@ -2,7 +2,7 @@ import { useSyncExternalStore } from "react";
 import type { Producer } from "../data";
 import { VIEWER } from "../midi/catalog";
 import { MidiPlayer } from "../midi/synth";
-import { wav } from "../save";
+import { saveFiles, wav, type SaveOutcome } from "../save";
 import { decode, deleteFile, getFile, putFile, type Category, type Kit, type KitSound } from "../kits/store";
 
 /**
@@ -143,4 +143,20 @@ export async function fileOf(s: OneShot): Promise<Blob | null> {
   }
   const b = await bufferOf(s);
   return b ? wav(b) : null;
+}
+
+/** Saves hits as one zip (the first `max`), names made unique. "empty" when none has audio here. */
+export async function saveShots(list: OneShot[], zipName: string, max = 60): Promise<{ outcome: SaveOutcome | "empty"; names: string[] }> {
+  const files: { name: string; data: Blob }[] = [];
+  const used = new Set<string>();
+  for (const s of list.slice(0, max)) {
+    const data = await fileOf(s);
+    if (!data) continue;
+    let name = fileName(s);
+    for (let i = 2; used.has(name); i++) name = fileName(s).replace(/(\.\w+)$/, `_${i}$1`);
+    used.add(name);
+    files.push({ name, data });
+  }
+  if (files.length === 0) return { outcome: "empty", names: [] };
+  return { outcome: await saveFiles(zipName, files), names: files.map((f) => f.name) };
 }

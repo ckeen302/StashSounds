@@ -1,3 +1,5 @@
+import type { ItemRow } from "@stash/contracts";
+import { formatKey } from "@stash/contracts/format";
 /**
  * Saving a file from the demo. On the published page the browser's own download is blocked, so the
  * file goes through the page's `downloads` capability, which takes zip but not mp3 or wav: audio is
@@ -154,4 +156,11 @@ export function wav(buf: AudioBuffer): Blob {
     }
   }
   return new Blob([view], { type: "audio/wav" });
+}
+
+/** A loop row's preview, saved as "<title> <bpm>bpm <key>.mp3". */
+export async function saveLoopRow(row: ItemRow): Promise<{ outcome: SaveOutcome | "none"; name: string }> {
+  const name = `${row.title}${row.bpm ? ` ${row.bpm}bpm` : ""}${row.key ? ` ${formatKey(row.key)}` : ""}.mp3`;
+  if (!("previewUrl" in row.playable)) return { outcome: "none", name };
+  return { outcome: await saveFetched(row.playable.previewUrl, name), name };
 }

@@ -1,0 +1,1820 @@
+[
+ {
+  "name": "Axis progression",
+  "aka": [
+   "I–V–vi–IV",
+   "Four-chord song",
+   "Pop-punk progression"
+  ],
+  "numerals": [
+   "I",
+   "V",
+   "vi",
+   "IV"
+  ],
+  "key": "C major",
+  "chords": [
+   [
+    "C",
+    4
+   ],
+   [
+    "G",
+    4
+   ],
+   [
+    "Am",
+    4
+   ],
+   [
+    "F",
+    4
+   ]
+  ],
+  "examples": [
+   {
+    "song": "Runaway",
+    "artist": "Kanye West"
+   },
+   {
+    "song": "Someone Like You",
+    "artist": "Adele"
+   },
+   {
+    "song": "Girls Like You",
+    "artist": "Maroon 5"
+   },
+   {
+    "song": "Forever Young",
+    "artist": "Alphaville"
+   },
+   {
+    "song": "Paparazzi",
+    "artist": "Lady Gaga"
+   }
+  ],
+  "quote": "The I–V–vi–IV chord progression or Axis progression is a common chord progression popular across several music genres.",
+  "source": {
+   "label": "Wikipedia, I–V–vi–IV progression",
+   "url": "https://en.wikipedia.org/wiki/I–V–vi–IV_progression"
+  }
+ },
+ {
+  "name": "Sensitive female progression",
+  "aka": [
+   "vi–IV–I–V",
+   "Axis progression (minor rotation)"
+  ],
+  "numerals": [
+   "vi",
+   "IV",
+   "I",
+   "V"
+  ],
+  "key": "C major",
+  "chords": [
+   [
+    "Am",
+    4
+   ],
+   [
+    "F",
+    4
+   ],
+   [
+    "C",
+    4
+   ],
+   [
+    "G",
+    4
+   ]
+  ],
+  "examples": [
+   {
+    "song": "All of Me",
+    "artist": "John Legend"
+   },
+   {
+    "song": "Love the Way You Lie",
+    "artist": "Eminem feat. Rihanna"
+   },
+   {
+    "song": "Not Afraid",
+    "artist": "Eminem"
+   },
+   {
+    "song": "Whistle",
+    "artist": "Flo Rida"
+   },
+   {
+    "song": "Despacito",
+    "artist": "Luis Fonsi"
+   }
+  ],
+  "quote": "of the progression, \"vi–IV–I–V\", was dubbed the \"sensitive female chord progression\" by Boston Globe columnist Marc Hirsh.",
+  "source": {
+   "label": "Wikipedia, I–V–vi–IV progression",
+   "url": "https://en.wikipedia.org/wiki/I–V–vi–IV_progression"
+  }
+ },
+ {
+  "name": "'50s progression",
+  "aka": [
+   "Doo-wop progression",
+   "Heart and Soul chords",
+   "Stand by Me changes",
+   "Ice cream changes"
+  ],
+  "numerals": [
+   "I",
+   "vi",
+   "IV",
+   "V"
+  ],
+  "key": "C major",
+  "chords": [
+   [
+    "C",
+    4
+   ],
+   [
+    "Am",
+    4
+   ],
+   [
+    "F",
+    4
+   ],
+   [
+    "G",
+    4
+   ]
+  ],
+  "examples": [
+   {
+    "song": "Stand by Me",
+    "artist": "Ben E. King"
+   },
+   {
+    "song": "Heart and Soul",
+    "artist": "Larry Clinton feat. Bea Wain"
+   },
+   {
+    "song": "Earth Angel",
+    "artist": "The Penguins"
+   },
+   {
+    "song": "Every Breath You Take",
+    "artist": "The Police"
+   },
+   {
+    "song": "Lollipop",
+    "artist": "Ronald & Ruby"
+   }
+  ],
+  "quote": "The progression, represented in Roman numeral analysis, is I–vi–IV–V.",
+  "source": {
+   "label": "Wikipedia, '50s progression",
+   "url": "https://en.wikipedia.org/wiki/%2750s_progression"
+  }
+ },
+ {
+  "name": "Andalusian cadence",
+  "aka": [
+   "Minor descending tetrachord",
+   "Diatonic phrygian tetrachord"
+  ],
+  "numerals": [
+   "i",
+   "bVII",
+   "bVI",
+   "V"
+  ],
+  "key": "A minor",
+  "chords": [
+   [
+    "Am",
+    4
+   ],
+   [
+    "G",
+    4
+   ],
+   [
+    "F",
+    4
+   ],
+   [
+    "E",
+    4
+   ]
+  ],
+  "examples": [
+   {
+    "song": "Runaway",
+    "artist": "Del Shannon"
+   },
+   {
+    "song": "Walk, Don't Run",
+    "artist": "The Ventures"
+   },
+   {
+    "song": "Happy Together",
+    "artist": "The Turtles"
+   },
+   {
+    "song": "California Dreamin'",
+    "artist": "The Mamas & the Papas"
+   },
+   {
+    "song": "Sultans of Swing",
+    "artist": "Dire Straits"
+   }
+  ],
+  "quote": "The Andalusian cadence (diatonic phrygian tetrachord) is a term adopted from flamenco music for a chord progression comprising four chords descending stepwise",
+  "source": {
+   "label": "Wikipedia, Andalusian cadence",
+   "url": "https://en.wikipedia.org/wiki/Andalusian_cadence"
+  }
+ },
+ {
+  "name": "Twelve-bar blues",
+  "aka": [
+   "Blues changes"
+  ],
+  "numerals": [
+   "I",
+   "I",
+   "I",
+   "I",
+   "IV",
+   "IV",
+   "I",
+   "I",
+   "V",
+   "IV",
+   "I",
+   "V"
+  ],
+  "key": "C major",
+  "chords": [
+   [
+    "C",
+    4
+   ],
+   [
+    "C",
+    4
+   ],
+   [
+    "C",
+    4
+   ],
+   [
+    "C",
+    4
+   ],
+   [
+    "F",
+    4
+   ],
+   [
+    "F",
+    4
+   ],
+   [
+    "C",
+    4
+   ],
+   [
+    "C",
+    4
+   ],
+   [
+    "G",
+    4
+   ],
+   [
+    "F",
+    4
+   ],
+   [
+    "C",
+    4
+   ],
+   [
+    "G",
+    4
+   ]
+  ],
+  "examples": [
+   {
+    "song": "Now's the Time",
+    "artist": "Charlie Parker"
+   },
+   {
+    "song": "Billie's Bounce",
+    "artist": "Charlie Parker"
+   },
+   {
+    "song": "Tenor Madness",
+    "artist": "Sonny Rollins"
+   }
+  ],
+  "quote": "The twelve-bar blues (or blues changes) is one of the most prominent chord progressions in popular music.",
+  "source": {
+   "label": "Wikipedia, Twelve-bar blues",
+   "url": "https://en.wikipedia.org/wiki/Twelve-bar_blues"
+  }
+ },
+ {
+  "name": "Twelve-bar blues (quick change)",
+  "aka": [
+   "Quick-change blues"
+  ],
+  "numerals": [
+   "I",
+   "IV",
+   "I",
+   "I",
+   "IV",
+   "IV",
+   "I",
+   "I",
+   "V",
+   "IV",
+   "I",
+   "I"
+  ],
+  "key": "C major",
+  "chords": [
+   [
+    "C",
+    4
+   ],
+   [
+    "F",
+    4
+   ],
+   [
+    "C",
+    4
+   ],
+   [
+    "C",
+    4
+   ],
+   [
+    "F",
+    4
+   ],
+   [
+    "F",
+    4
+   ],
+   [
+    "C",
+    4
+   ],
+   [
+    "C",
+    4
+   ],
+   [
+    "G",
+    4
+   ],
+   [
+    "F",
+    4
+   ],
+   [
+    "C",
+    4
+   ],
+   [
+    "C",
+    4
+   ]
+  ],
+  "examples": [],
+  "quote": "The twelve-bar blues (or blues changes) is one of the most prominent chord progressions in popular music.",
+  "source": {
+   "label": "Wikipedia, Twelve-bar blues",
+   "url": "https://en.wikipedia.org/wiki/Twelve-bar_blues"
+  }
+ },
+ {
+  "name": "ii–V–I",
+  "aka": [
+   "Two–five–one",
+   "ii–V–I turnaround"
+  ],
+  "numerals": [
+   "ii7",
+   "V7",
+   "Imaj7"
+  ],
+  "key": "C major",
+  "chords": [
+   [
+    "Dm7",
+    4
+   ],
+   [
+    "G7",
+    4
+   ],
+   [
+    "Cmaj7",
+    8
+   ]
+  ],
+  "examples": [
+   {
+    "song": "If I Fell",
+    "artist": "The Beatles"
+   },
+   {
+    "song": "Honeysuckle Rose",
+    "artist": ""
+   },
+   {
+    "song": "Satin Doll",
+    "artist": ""
+   }
+  ],
+  "quote": "The ii–V–I progression (\"two–five–one\", occasionally referred to as the ii–V–I turnaround) is a common cadential chord progression",
+  "source": {
+   "label": "Wikipedia, ii–V–I progression",
+   "url": "https://en.wikipedia.org/wiki/Ii–V–I_progression"
+  }
+ },
+ {
+  "name": "Minor ii–V–i",
+  "aka": [
+   "Minor two–five–one"
+  ],
+  "numerals": [
+   "iiø7",
+   "V7",
+   "i"
+  ],
+  "key": "C minor",
+  "chords": [
+   [
+    "Dm7b5",
+    4
+   ],
+   [
+    "G7",
+    4
+   ],
+   [
+    "Cm",
+    8
+   ]
+  ],
+  "examples": [],
+  "quote": "The ii–V–I progression (\"two–five–one\", occasionally referred to as the ii–V–I turnaround) is a common cadential chord progression",
+  "source": {
+   "label": "Wikipedia, ii–V–I progression",
+   "url": "https://en.wikipedia.org/wiki/Ii–V–I_progression"
+  }
+ },
+ {
+  "name": "Royal road progression",
+  "aka": [
+   "Ōdō shinkō",
+   "Koakuma chord progression",
+   "IVM7–V7–iii7–vi"
+  ],
+  "numerals": [
+   "IVmaj7",
+   "V7",
+   "iii7",
+   "vi"
+  ],
+  "key": "C major",
+  "chords": [
+   [
+    "Fmaj7",
+    4
+   ],
+   [
+    "G7",
+    4
+   ],
+   [
+    "Em7",
+    4
+   ],
+   [
+    "Am",
+    4
+   ]
+  ],
+  "examples": [
+   {
+    "song": "Yoru ni Kakeru",
+    "artist": "Yoasobi"
+   },
+   {
+    "song": "Boku no Migite",
+    "artist": "The Blue Hearts"
+   },
+   {
+    "song": "Mirai e",
+    "artist": "Kiroro"
+   },
+   {
+    "song": "Ghost Town",
+    "artist": "Benson Boone"
+   }
+  ],
+  "quote": "The royal road progression (王道進行, ōdō shinkō), also known as the IVM7–V7–iii7–vi progression or koakuma chord progression",
+  "source": {
+   "label": "Wikipedia, Royal road progression",
+   "url": "https://en.wikipedia.org/wiki/Royal_road_progression"
+  }
+ },
+ {
+  "name": "Ragtime progression",
+  "aka": [],
+  "numerals": [
+   "III7",
+   "VI7",
+   "II7",
+   "V7",
+   "I"
+  ],
+  "key": "C major",
+  "chords": [
+   [
+    "E7",
+    4
+   ],
+   [
+    "A7",
+    4
+   ],
+   [
+    "D7",
+    4
+   ],
+   [
+    "G7",
+    4
+   ],
+   [
+    "C",
+    4
+   ]
+  ],
+  "examples": [
+   {
+    "song": "Hey! Baby",
+    "artist": "Bruce Channel"
+   },
+   {
+    "song": "Alice's Restaurant",
+    "artist": "Arlo Guthrie"
+   },
+   {
+    "song": "Sweet Georgia Brown",
+    "artist": "Ben Bernie & Maceo Pinkard"
+   },
+   {
+    "song": "They're Red Hot",
+    "artist": "Robert Johnson"
+   }
+  ],
+  "quote": "The ragtime progression (E7-A7-D7-G7-C) often appears in the bridge of jazz standards.",
+  "source": {
+   "label": "Wikipedia, Ragtime progression",
+   "url": "https://en.wikipedia.org/wiki/Ragtime_progression"
+  }
+ },
+ {
+  "name": "Circle progression",
+  "aka": [
+   "vi–ii–V–I",
+   "Circle-of-fifths progression"
+  ],
+  "numerals": [
+   "vi",
+   "ii",
+   "V",
+   "I"
+  ],
+  "key": "C major",
+  "chords": [
+   [
+    "Am",
+    4
+   ],
+   [
+    "Dm",
+    4
+   ],
+   [
+    "G",
+    4
+   ],
+   [
+    "C",
+    4
+   ]
+  ],
+  "examples": [
+   {
+    "song": "Island in the Sun",
+    "artist": "Weezer"
+   },
+   {
+    "song": "It's My Life",
+    "artist": "Talk Talk"
+   }
+  ],
+  "quote": "In music, the vi–ii–V–I progression is a chord progression (also called the circle progression for the circle of fifths",
+  "source": {
+   "label": "Wikipedia, Circle progression",
+   "url": "https://en.wikipedia.org/wiki/Circle_progression"
+  }
+ },
+ {
+  "name": "Backdoor progression",
+  "aka": [
+   "Backdoor ii–V"
+  ],
+  "numerals": [
+   "iv7",
+   "bVII7",
+   "I"
+  ],
+  "key": "C major",
+  "chords": [
+   [
+    "Fm7",
+    4
+   ],
+   [
+    "Bb7",
+    4
+   ],
+   [
+    "C",
+    8
+   ]
+  ],
+  "examples": [],
+  "quote": "In jazz and jazz harmony, the chord progression from iv7 to ♭VII7 to I",
+  "source": {
+   "label": "Wikipedia, Backdoor progression",
+   "url": "https://en.wikipedia.org/wiki/Backdoor_progression"
+  }
+ },
+ {
+  "name": "Pachelbel's Canon",
+  "aka": [
+   "Canon progression",
+   "Pachelbel's progression"
+  ],
+  "numerals": [
+   "I",
+   "V",
+   "vi",
+   "iii",
+   "IV",
+   "I",
+   "IV",
+   "V"
+  ],
+  "key": "D major",
+  "chords": [
+   [
+    "D",
+    2
+   ],
+   [
+    "A",
+    2
+   ],
+   [
+    "Bm",
+    2
+   ],
+   [
+    "F#m",
+    2
+   ],
+   [
+    "G",
+    2
+   ],
+   [
+    "D",
+    2
+   ],
+   [
+    "G",
+    2
+   ],
+   [
+    "A",
+    2
+   ]
+  ],
+  "examples": [
+   {
+    "song": "Basket Case",
+    "artist": "Green Day"
+   },
+   {
+    "song": "Don't Look Back in Anger",
+    "artist": "Oasis"
+   },
+   {
+    "song": "Memories",
+    "artist": "Maroon 5"
+   },
+   {
+    "song": "Rain and Tears",
+    "artist": "Aphrodite's Child"
+   },
+   {
+    "song": "All Together Now",
+    "artist": "The Farm"
+   }
+  ],
+  "quote": "Elements of the piece, especially its chord progression, were used in a variety of pop songs.",
+  "source": {
+   "label": "Wikipedia, Pachelbel's Canon",
+   "url": "https://en.wikipedia.org/wiki/Pachelbel%27s_Canon"
+  }
+ },
+ {
+  "name": "Just the Two of Us progression",
+  "aka": [
+   "Sunny progression (reordered)"
+  ],
+  "numerals": [
+   "IVmaj7",
+   "III7",
+   "vi7",
+   "v7",
+   "I7"
+  ],
+  "key": "Ab major",
+  "chords": [
+   [
+    "Dbmaj7",
+    4
+   ],
+   [
+    "C7",
+    4
+   ],
+   [
+    "Fm7",
+    2
+   ],
+   [
+    "Ebm7",
+    1
+   ],
+   [
+    "Ab7",
+    1
+   ]
+  ],
+  "examples": [
+   {
+    "song": "Just the Two of Us",
+    "artist": "Grover Washington Jr. feat. Bill Withers"
+   },
+   {
+    "song": "Sunny",
+    "artist": "Bobby Hebb"
+   }
+  ],
+  "quote": "can be thought of as a double-time modified reordering of the first four bars of the \"Sunny\" chord progression.",
+  "source": {
+   "label": "Wikipedia, Just the Two of Us (Grover Washington Jr. song)",
+   "url": "https://en.wikipedia.org/wiki/Just_the_Two_of_Us_(Grover_Washington_Jr._song)"
+  }
+ },
+ {
+  "name": "Montgomery-Ward bridge",
+  "aka": [
+   "Riepel's Monte"
+  ],
+  "numerals": [
+   "I7",
+   "IV7",
+   "ii7",
+   "V7"
+  ],
+  "key": "C major",
+  "chords": [
+   [
+    "C7",
+    8
+   ],
+   [
+    "F7",
+    8
+   ],
+   [
+    "Dm7",
+    8
+   ],
+   [
+    "G7",
+    8
+   ]
+  ],
+  "examples": [
+   {
+    "song": "The Sunny Side of the Street",
+    "artist": ""
+   },
+   {
+    "song": "When You're Smiling",
+    "artist": ""
+   },
+   {
+    "song": "Satin Doll",
+    "artist": ""
+   },
+   {
+    "song": "Honeysuckle Rose",
+    "artist": ""
+   }
+  ],
+  "quote": "In jazz music, the Montgomery-Ward bridge (also Riepel's Monte) is a standard chord progression often used as the bridge",
+  "source": {
+   "label": "Wikipedia, Montgomery-Ward bridge",
+   "url": "https://en.wikipedia.org/wiki/Montgomery-Ward_bridge"
+  }
+ },
+ {
+  "name": "Eight-bar blues",
+  "aka": [
+   "Worried Life Blues changes"
+  ],
+  "numerals": [
+   "I",
+   "I",
+   "IV",
+   "IV",
+   "I",
+   "V",
+   "I",
+   "IV",
+   "I",
+   "V"
+  ],
+  "key": "C major",
+  "chords": [
+   [
+    "C",
+    4
+   ],
+   [
+    "C",
+    4
+   ],
+   [
+    "F",
+    4
+   ],
+   [
+    "F",
+    4
+   ],
+   [
+    "C",
+    4
+   ],
+   [
+    "G",
+    4
+   ],
+   [
+    "C",
+    2
+   ],
+   [
+    "F",
+    2
+   ],
+   [
+    "C",
+    2
+   ],
+   [
+    "G",
+    2
+   ]
+  ],
+  "examples": [
+   {
+    "song": "Worried Life Blues",
+    "artist": "Big Maceo"
+   },
+   {
+    "song": "Key to the Highway",
+    "artist": "Big Bill Broonzy"
+   },
+   {
+    "song": "Nobody Knows You When You're Down and Out",
+    "artist": "Bessie Smith"
+   },
+   {
+    "song": "Trouble in Mind",
+    "artist": "Bertha Hill"
+   },
+   {
+    "song": "How Long Blues",
+    "artist": "Leroy Carr"
+   }
+  ],
+  "quote": "In music, an eight-bar blues is a common blues chord progression.",
+  "source": {
+   "label": "Wikipedia, Eight-bar blues",
+   "url": "https://en.wikipedia.org/wiki/Eight-bar_blues"
+  }
+ },
+ {
+  "name": "I–IV–V",
+  "aka": [
+   "Three-chord progression",
+   "1-4-5"
+  ],
+  "numerals": [
+   "I",
+   "IV",
+   "V"
+  ],
+  "key": "C major",
+  "chords": [
+   [
+    "C",
+    4
+   ],
+   [
+    "F",
+    4
+   ],
+   [
+    "G",
+    8
+   ]
+  ],
+  "examples": [
+   {
+    "song": "La Bamba",
+    "artist": "Ritchie Valens"
+   },
+   {
+    "song": "Like a Rolling Stone",
+    "artist": "Bob Dylan"
+   },
+   {
+    "song": "Blitzkrieg Bop",
+    "artist": "Ramones"
+   },
+   {
+    "song": "Walking on Sunshine",
+    "artist": "Katrina and the Waves"
+   },
+   {
+    "song": "My Best Friend's Girl",
+    "artist": "The Cars"
+   }
+  ],
+  "quote": "It’s a simple but effective progression that can be used in a variety of genres to create a catchy and memorable song.",
+  "source": {
+   "label": "Berklee Online, Common Chord Progressions",
+   "url": "https://online.berklee.edu/takenote/common-chord-progressions-and-how-to-make-them-your-own/"
+  }
+ },
+ {
+  "name": "Creep progression",
+  "aka": [
+   "I–III–IV–iv",
+   "Chromatic puff"
+  ],
+  "numerals": [
+   "I",
+   "III",
+   "IV",
+   "iv"
+  ],
+  "key": "G major",
+  "chords": [
+   [
+    "G",
+    4
+   ],
+   [
+    "B",
+    4
+   ],
+   [
+    "C",
+    4
+   ],
+   [
+    "Cm",
+    4
+   ]
+  ],
+  "examples": [
+   {
+    "song": "Creep",
+    "artist": "Radiohead"
+   },
+   {
+    "song": "The Air That I Breathe",
+    "artist": "Albert Hammond and Mike Hazelwood"
+   },
+   {
+    "song": "Get Free",
+    "artist": "Lana Del Rey"
+   }
+  ],
+  "quote": "The I III IV iv progression, which has also been used in a number of other songs",
+  "source": {
+   "label": "Berklee Online, Common Chord Progressions",
+   "url": "https://online.berklee.edu/takenote/common-chord-progressions-and-how-to-make-them-your-own/"
+  }
+ },
+ {
+  "name": "Plagal sigh",
+  "aka": [
+   "Minor plagal",
+   "IV–iv–I"
+  ],
+  "numerals": [
+   "IV",
+   "iv",
+   "I"
+  ],
+  "key": "C major",
+  "chords": [
+   [
+    "F",
+    4
+   ],
+   [
+    "Fm",
+    4
+   ],
+   [
+    "C",
+    8
+   ]
+  ],
+  "examples": [
+   {
+    "song": "Wake Me Up When September Ends",
+    "artist": "Green Day"
+   }
+  ],
+  "quote": "The 'plagal sigh' schema, IV–iv–I, includes the scale-degree voice-leading la–le–sol",
+  "source": {
+   "label": "Open Music Theory, Blues-Based Schemas",
+   "url": "https://viva.pressbooks.pub/openmusictheory/chapter/blues-based-schemas/"
+  }
+ },
+ {
+  "name": "Minor plagal cadence",
+  "aka": [
+   "iv–I"
+  ],
+  "numerals": [
+   "iv",
+   "I"
+  ],
+  "key": "C major",
+  "chords": [
+   [
+    "Fm",
+    4
+   ],
+   [
+    "C",
+    4
+   ]
+  ],
+  "examples": [
+   {
+    "song": "Space Oddity",
+    "artist": "David Bowie"
+   },
+   {
+    "song": "Don't Look Back in Anger",
+    "artist": "Oasis"
+   },
+   {
+    "song": "Crying",
+    "artist": "Roy Orbison"
+   }
+  ],
+  "quote": "A minor plagal cadence is a type of plagal cadence which uses a minor iv instead of the typical major IV",
+  "source": {
+   "label": "Wikipedia, Plagal cadence",
+   "url": "https://en.wikipedia.org/wiki/Plagal_cadence"
+  }
+ },
+ {
+  "name": "Double plagal",
+  "aka": [
+   "bVII–IV–I"
+  ],
+  "numerals": [
+   "bVII",
+   "IV",
+   "I"
+  ],
+  "key": "C major",
+  "chords": [
+   [
+    "Bb",
+    4
+   ],
+   [
+    "F",
+    4
+   ],
+   [
+    "C",
+    8
+   ]
+  ],
+  "examples": [
+   {
+    "song": "Hey Jude (coda)",
+    "artist": "The Beatles"
+   }
+  ],
+  "quote": "The 'double-plagal' progression (Walter Everett's term) is an expansion of the plagal progression discussed above.",
+  "source": {
+   "label": "Open Music Theory, Blues-Based Schemas",
+   "url": "https://viva.pressbooks.pub/openmusictheory/chapter/blues-based-schemas/"
+  }
+ },
+ {
+  "name": "Mixolydian progression",
+  "aka": [
+   "I–bVII–IV",
+   "V–IV–I turnaround (modal spelling)"
+  ],
+  "numerals": [
+   "I",
+   "bVII",
+   "IV",
+   "I"
+  ],
+  "key": "D major",
+  "chords": [
+   [
+    "D",
+    4
+   ],
+   [
+    "C",
+    4
+   ],
+   [
+    "G",
+    4
+   ],
+   [
+    "D",
+    4
+   ]
+  ],
+  "examples": [
+   {
+    "song": "Sweet Child o' Mine",
+    "artist": "Guns N' Roses"
+   },
+   {
+    "song": "Royals",
+    "artist": "Lorde"
+   },
+   {
+    "song": "Express Yourself",
+    "artist": "Madonna"
+   },
+   {
+    "song": "Born This Way",
+    "artist": "Lady Gaga"
+   },
+   {
+    "song": "L.A. Woman",
+    "artist": "The Doors"
+   }
+  ],
+  "quote": "V–IV–I turnaround, a common modal chord progression when spelled as I–♭VII–IV",
+  "source": {
+   "label": "Wikipedia, Mixolydian mode",
+   "url": "https://en.wikipedia.org/wiki/Mixolydian_mode"
+  }
+ },
+ {
+  "name": "Aeolian cadence",
+  "aka": [
+   "Mario cadence",
+   "bVI–bVII–I"
+  ],
+  "numerals": [
+   "bVI",
+   "bVII",
+   "I"
+  ],
+  "key": "C major",
+  "chords": [
+   [
+    "Ab",
+    4
+   ],
+   [
+    "Bb",
+    4
+   ],
+   [
+    "C",
+    8
+   ]
+  ],
+  "examples": [
+   {
+    "song": "With a Little Help from My Friends",
+    "artist": "The Beatles"
+   }
+  ],
+  "quote": "The ♭VI ♭VII I cadence is commonly found at the end of a Super Mario level, or during a baseball game.",
+  "source": {
+   "label": "Berklee Online, Common Chord Progressions",
+   "url": "https://online.berklee.edu/takenote/common-chord-progressions-and-how-to-make-them-your-own/"
+  }
+ },
+ {
+  "name": "Epic minor progression",
+  "aka": [
+   "i–VI–III–VII",
+   "Singer/songwriter (minor)"
+  ],
+  "numerals": [
+   "i",
+   "bVI",
+   "bIII",
+   "bVII"
+  ],
+  "key": "A minor",
+  "chords": [
+   [
+    "Am",
+    4
+   ],
+   [
+    "F",
+    4
+   ],
+   [
+    "C",
+    4
+   ],
+   [
+    "G",
+    4
+   ]
+  ],
+  "examples": [
+   {
+    "song": "Love the Way You Lie",
+    "artist": "Eminem"
+   },
+   {
+    "song": "Numb",
+    "artist": "Linkin Park"
+   }
+  ],
+  "quote": "It's popular for a reason—this chord progression is emotionally resonant.",
+  "source": {
+   "label": "Native Instruments Blog, Minor chord progressions",
+   "url": "https://www.native-instruments.com/blogs/blog/minor-chord-progressions"
+  }
+ },
+ {
+  "name": "Minor rise (VI–VII–i)",
+  "aka": [
+   "i–bVI–bVII (rotation)",
+   "bVI–bVII–i"
+  ],
+  "numerals": [
+   "bVI",
+   "bVII",
+   "i"
+  ],
+  "key": "A minor",
+  "chords": [
+   [
+    "F",
+    4
+   ],
+   [
+    "G",
+    4
+   ],
+   [
+    "Am",
+    8
+   ]
+  ],
+  "examples": [
+   {
+    "song": "Stay",
+    "artist": "The Kid LAROI & Justin Bieber"
+   },
+   {
+    "song": "Redbone",
+    "artist": "Childish Gambino"
+   },
+   {
+    "song": "Wonderwall (pre-chorus)",
+    "artist": "Oasis"
+   },
+   {
+    "song": "Bad Romance (chorus)",
+    "artist": "Lady Gaga"
+   }
+  ],
+  "quote": "It commences with a major chord, transitions to another major chord, effectively heightening tension",
+  "source": {
+   "label": "Native Instruments Blog, Minor chord progressions",
+   "url": "https://www.native-instruments.com/blogs/blog/minor-chord-progressions"
+  }
+ },
+ {
+  "name": "Aeolian shuttle",
+  "aka": [
+   "i–bVII–bVI–bVII"
+  ],
+  "numerals": [
+   "i",
+   "bVII",
+   "bVI",
+   "bVII"
+  ],
+  "key": "A minor",
+  "chords": [
+   [
+    "Am",
+    4
+   ],
+   [
+    "G",
+    4
+   ],
+   [
+    "F",
+    4
+   ],
+   [
+    "G",
+    4
+   ]
+  ],
+  "examples": [
+   {
+    "song": "Somebody That I Used to Know (chorus)",
+    "artist": "Gotye"
+   }
+  ],
+  "quote": "This progression can be understood as a shuttle between i and ♭VI, with the intermediate ♭VIIs acting as passing chords.",
+  "source": {
+   "label": "Open Music Theory, Modal Schemas",
+   "url": "https://viva.pressbooks.pub/openmusictheory/chapter/modal-schemas/"
+  }
+ },
+ {
+  "name": "Lament (aeolian)",
+  "aka": [
+   "Lament bass",
+   "Minor descending tetrachord"
+  ],
+  "numerals": [
+   "i",
+   "bVII",
+   "bVI",
+   "v"
+  ],
+  "key": "A minor",
+  "chords": [
+   [
+    "Am",
+    4
+   ],
+   [
+    "G",
+    4
+   ],
+   [
+    "F",
+    4
+   ],
+   [
+    "Em",
+    4
+   ]
+  ],
+  "examples": [
+   {
+    "song": "I Don't Like You",
+    "artist": "Eva Simons"
+   }
+  ],
+  "quote": "One particular flavor, i–♭VII–♭VI–v, strongly implies the aeolian mode due to the absence of a leading tone",
+  "source": {
+   "label": "Open Music Theory, Modal Schemas",
+   "url": "https://viva.pressbooks.pub/openmusictheory/chapter/modal-schemas/"
+  }
+ },
+ {
+  "name": "Descending minor (i–VII–VI–iv)",
+  "aka": [
+   "i–bVII–bVI–iv"
+  ],
+  "numerals": [
+   "i",
+   "bVII",
+   "bVI",
+   "iv"
+  ],
+  "key": "A minor",
+  "chords": [
+   [
+    "Am",
+    4
+   ],
+   [
+    "G",
+    4
+   ],
+   [
+    "F",
+    4
+   ],
+   [
+    "Dm",
+    4
+   ]
+  ],
+  "examples": [
+   {
+    "song": "Lights",
+    "artist": "Ellie Goulding"
+   },
+   {
+    "song": "Comfortably Numb",
+    "artist": "Pink Floyd"
+   }
+  ],
+  "quote": "This minor chord progression is an exciting way to descend down the minor scale and create a stepwise bassline.",
+  "source": {
+   "label": "Native Instruments Blog, Minor chord progressions",
+   "url": "https://www.native-instruments.com/blogs/blog/minor-chord-progressions"
+  }
+ },
+ {
+  "name": "i–iv–v",
+  "aka": [
+   "Minor three-chord progression"
+  ],
+  "numerals": [
+   "i",
+   "iv",
+   "v"
+  ],
+  "key": "A minor",
+  "chords": [
+   [
+    "Am",
+    4
+   ],
+   [
+    "Dm",
+    4
+   ],
+   [
+    "Em",
+    8
+   ]
+  ],
+  "examples": [],
+  "quote": "the i, iv and v chords are A minor, D minor and E minor.",
+  "source": {
+   "label": "Wikipedia, Chord progression",
+   "url": "https://en.wikipedia.org/wiki/Chord_progression"
+  }
+ },
+ {
+  "name": "Hopscotch",
+  "aka": [
+   "IV–V–vi–I"
+  ],
+  "numerals": [
+   "IV",
+   "V",
+   "vi",
+   "I"
+  ],
+  "key": "C major",
+  "chords": [
+   [
+    "F",
+    4
+   ],
+   [
+    "G",
+    4
+   ],
+   [
+    "Am",
+    4
+   ],
+   [
+    "C",
+    4
+   ]
+  ],
+  "examples": [
+   {
+    "song": "Dancing with a Stranger",
+    "artist": "Sam Smith"
+   },
+   {
+    "song": "No Brainer",
+    "artist": "DJ Khaled, Justin Bieber & Quavo"
+   },
+   {
+    "song": "Mixed Personalities",
+    "artist": "YNW Melly"
+   },
+   {
+    "song": "Love to Hate Me",
+    "artist": "BLACKPINK"
+   }
+  ],
+  "quote": "This four-chord schema has become increasingly common in pop music since 2010.",
+  "source": {
+   "label": "Open Music Theory, Four-Chord Schemas",
+   "url": "https://viva.pressbooks.pub/openmusictheory/chapter/4-chord-schemas/"
+  }
+ },
+ {
+  "name": "IV–V–I–vi",
+  "aka": [
+   "Doo-wop rotation"
+  ],
+  "numerals": [
+   "IV",
+   "V",
+   "I",
+   "vi"
+  ],
+  "key": "C major",
+  "chords": [
+   [
+    "F",
+    4
+   ],
+   [
+    "G",
+    4
+   ],
+   [
+    "C",
+    4
+   ],
+   [
+    "Am",
+    4
+   ]
+  ],
+  "examples": [
+   {
+    "song": "Good Luck, Babe!",
+    "artist": "Chappell Roan"
+   }
+  ],
+  "quote": "This sequence starts on the IV and ends on the vi, which gives it a cyclical feeling as it doesn't truly resolve.",
+  "source": {
+   "label": "Native Instruments Blog, Common chord progressions",
+   "url": "https://www.native-instruments.com/blogs/blog/common-chord-progressions"
+  }
+ },
+ {
+  "name": "Puff progression",
+  "aka": [
+   "I–iii–IV"
+  ],
+  "numerals": [
+   "I",
+   "iii",
+   "IV"
+  ],
+  "key": "C major",
+  "chords": [
+   [
+    "C",
+    4
+   ],
+   [
+    "Em",
+    4
+   ],
+   [
+    "F",
+    8
+   ]
+  ],
+  "examples": [
+   {
+    "song": "Puff, the Magic Dragon",
+    "artist": "Peter, Paul and Mary"
+   },
+   {
+    "song": "Let's Get It On",
+    "artist": "Marvin Gaye"
+   }
+  ],
+  "quote": "Puff schemas, which use the mediant triad (iii), are one such schema.",
+  "source": {
+   "label": "Open Music Theory, Puff Schemas",
+   "url": "https://viva.pressbooks.pub/openmusictheory/chapter/puff-schemas/"
+  }
+ },
+ {
+  "name": "Dorian shuttle",
+  "aka": [
+   "i–IV"
+  ],
+  "numerals": [
+   "i",
+   "IV"
+  ],
+  "key": "A minor",
+  "chords": [
+   [
+    "Am",
+    8
+   ],
+   [
+    "D",
+    8
+   ]
+  ],
+  "examples": [
+   {
+    "song": "Get Lucky",
+    "artist": "Daft Punk"
+   },
+   {
+    "song": "Dance, Dance, Dance",
+    "artist": "CHIC"
+   }
+  ],
+  "quote": "The dorian shuttle alternates between a major IV chord and a minor i chord.",
+  "source": {
+   "label": "Open Music Theory, Modal Schemas",
+   "url": "https://viva.pressbooks.pub/openmusictheory/chapter/modal-schemas/"
+  }
+ },
+ {
+  "name": "Lydian cadence",
+  "aka": [
+   "II–IV–I"
+  ],
+  "numerals": [
+   "II",
+   "IV",
+   "I"
+  ],
+  "key": "C major",
+  "chords": [
+   [
+    "D",
+    4
+   ],
+   [
+    "F",
+    4
+   ],
+   [
+    "C",
+    8
+   ]
+  ],
+  "examples": [
+   {
+    "song": "Forget You",
+    "artist": "Cee Lo Green"
+   }
+  ],
+  "quote": "The most popular progression using II♯ is the lydian cadence II♯–IV–I, or D–F–C in C major.",
+  "source": {
+   "label": "Open Music Theory, Modal Schemas",
+   "url": "https://viva.pressbooks.pub/openmusictheory/chapter/modal-schemas/"
+  }
+ },
+ {
+  "name": "Two-chord soul vamp",
+  "aka": [
+   "I–IV vamp"
+  ],
+  "numerals": [
+   "I",
+   "IV"
+  ],
+  "key": "C major",
+  "chords": [
+   [
+    "C",
+    8
+   ],
+   [
+    "F",
+    8
+   ]
+  ],
+  "examples": [
+   {
+    "song": "Soul Man",
+    "artist": "Sam and Dave"
+   },
+   {
+    "song": "In the Midnight Hour",
+    "artist": "Wilson Pickett"
+   }
+  ],
+  "quote": "Many songs simply use the two-chord vamp I–IV (very common in R&B and soul music).",
+  "source": {
+   "label": "Open Music Theory, Blues-Based Schemas",
+   "url": "https://viva.pressbooks.pub/openmusictheory/chapter/blues-based-schemas/"
+  }
+ },
+ {
+  "name": "Minor pop loop (i–VI–iv–VII)",
+  "aka": [
+   "Say My Name chorus"
+  ],
+  "numerals": [
+   "i",
+   "bVI",
+   "iv",
+   "bVII",
+   "vii°"
+  ],
+  "key": "A minor",
+  "chords": [
+   [
+    "Am",
+    4
+   ],
+   [
+    "F",
+    4
+   ],
+   [
+    "Dm",
+    4
+   ],
+   [
+    "G",
+    2
+   ],
+   [
+    "Abdim",
+    2
+   ]
+  ],
+  "examples": [
+   {
+    "song": "Say My Name (chorus)",
+    "artist": "Destiny's Child"
+   }
+  ],
+  "quote": "Here the V chord has been replaced with a diatonic VII chord that walks up by a half step to the vii° chord.",
+  "source": {
+   "label": "Hooktheory Blog, Minor chord progressions",
+   "url": "https://www.hooktheory.com/blog/minor-chord-progressions/"
+  }
+ }
+]

@@ -20,6 +20,7 @@ import {
 import { useEffect, useMemo, useRef, useState } from "react";
 import { navigate } from "../router";
 import { has, set } from "../store";
+import { allShots, saveShots } from "../oneshots/store";
 import { CATEGORIES, categoryOf, cleanName, decode, labelOf, play, postKit, removeKit, useKits, type Category, type Draft, type Kit, type KitSound } from "./store";
 
 /**
@@ -48,7 +49,19 @@ function preview(k: Kit) {
   order.forEach((s, i) => window.setTimeout(() => void play(s), i * 210));
 }
 
+/** Saves every sound in the kit as one zip. */
+async function saveKit(k: Kit, toast: ReturnType<typeof useToast>) {
+  const shots = allShots([k]).filter((s) => s.kit?.id === k.id);
+  const { outcome, names } = await saveShots(shots, k.name, 200).catch(() => ({ outcome: "failed" as const, names: [] as string[] }));
+  if (outcome === "saved") {
+    set("downloads", k.id, true);
+    toast({ tone: "success", title: `Saved ${names.length} sounds`, description: `${k.name}.zip` });
+  } else if (outcome === "empty") toast({ tone: "error", title: "Nothing to save", description: "This kit's audio isn't in this browser anymore." });
+  else if (outcome === "failed") toast({ tone: "error", title: "The kit did not save", description: "Try again in a moment." });
+}
+
 export function KitsPage() {
+  const toast = useToast();
   const all = useKits();
   const [genre, setGenre] = useState("All");
   const [q, setQ] = useState("");
@@ -102,8 +115,13 @@ export function KitsPage() {
             </div>
             <p className="text-small text-text-muted">{summary(k.sounds)}</p>
             <div className="flex items-center justify-between gap-3 font-mono text-numeric tabular text-text-muted">
-              <span>{`${k.sounds.length} sounds`}</span>
-              {!k.mine && k.downloads > 0 && <span>{`${k.downloads.toLocaleString("en")} downloads`}</span>}
+              <span>
+                {`${k.sounds.length} sounds`}
+                {!k.mine && k.downloads > 0 ? ` · ${k.downloads.toLocaleString("en")} downloads` : ""}
+              </span>
+              <Button size="sm" variant="secondary" icon={Download} aria-label={`Download ${k.name}`} onClick={() => void saveKit(k, toast)}>
+                Download
+              </Button>
             </div>
           </li>
         ))}
@@ -178,7 +196,7 @@ export function KitPage({ id }: { id: string }) {
             <Button
               variant="primary"
               icon={Download}
-              onClick={() => toast({ tone: "info", title: "Downloads are off in the demo", description: `In Stash this saves the ${k.sounds.length} sounds as a zip with the kit's license.` })}
+              onClick={() => void saveKit(k, toast)}
             >
               Download kit
             </Button>

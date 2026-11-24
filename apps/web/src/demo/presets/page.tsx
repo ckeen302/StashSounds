@@ -232,8 +232,6 @@ export function PresetsPage() {
         </Button>
       )}
       {songs.length === 0 && <p className="text-body text-text-muted">Nothing matches. Clear the search or pick another plugin.</p>}
-
-      <ConfidenceKey />
     </main>
   );
 }
@@ -290,7 +288,8 @@ export function Meter({ c }: { c: Confidence }) {
 }
 
 /** One sound, shown the way a synth's preset display shows it: plugin and bank above, the name big. */
-export function PatchStrip({ e }: { e: PresetEntry }) {
+/** One preset. The browse list shows only the sound, the VST and the preset; `detail` adds how sure it is, the source and the quote. */
+export function PatchStrip({ e, detail = false }: { e: PresetEntry; detail?: boolean }) {
   return (
     <li className="flex flex-col gap-2">
       <span className="text-label text-label-caps text-text-muted">{/^not stated/i.test(e.role) ? "Sound not stated" : e.role}</span>
@@ -299,7 +298,7 @@ export function PatchStrip({ e }: { e: PresetEntry }) {
         <span className="font-mono text-body-strong break-words text-accent">{presetParts(e.preset).name}</span>
         {presetParts(e.preset).note && <span className="text-small text-text-muted">{presetParts(e.preset).note}</span>}
       </div>
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+      {detail && <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
         <span className="flex items-center gap-2" title={CONFIDENCE[e.confidence].blurb}>
           <Meter c={e.confidence} />
           <span className={`text-label text-label-caps ${TONE_TEXT[e.confidence]}`}>{CONFIDENCE[e.confidence].label}</span>
@@ -307,8 +306,8 @@ export function PatchStrip({ e }: { e: PresetEntry }) {
         <a href={e.source.url} target="_blank" rel="noreferrer" className="min-w-0 text-small break-words text-text-muted underline underline-offset-2 ui-hover:text-text">
           {e.source.label}
         </a>
-      </div>
-      {e.quote && (
+      </div>}
+      {detail && e.quote && (
         <blockquote className="border-l-2 border-border-strong pl-3 text-small text-text">
           “{e.quote}”{e.quoteBy && <span className="text-text-muted"> — {e.quoteBy}</span>}
         </blockquote>
@@ -326,7 +325,6 @@ function FromTheProducer() {
       <div className="flex items-center gap-2">
         <Meter c="producer" />
         <span className="text-label text-label-caps text-accent">Straight from the producer</span>
-        <span className="font-mono text-numeric tabular text-text-muted">{rows.length}</span>
       </div>
       <ul className="-mx-3 flex gap-2 overflow-x-auto px-3 pb-1 tablet:mx-0 tablet:px-0">
         {rows.map((e, i) => (
@@ -343,9 +341,6 @@ function FromTheProducer() {
               <span className="truncate font-mono text-small text-text-muted">{e.plugin}</span>
               <span className="font-mono text-body-strong break-words text-accent">{presetParts(e.preset).name}</span>
             </div>
-            <a href={e.source.url} target="_blank" rel="noreferrer" className="mt-auto truncate text-small text-text-muted underline underline-offset-2 ui-hover:text-text">
-              {e.quoteBy ? `Said by ${e.quoteBy}` : e.source.label}
-            </a>
           </li>
         ))}
       </ul>

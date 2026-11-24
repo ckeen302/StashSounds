@@ -1,8 +1,7 @@
 import { Button, Download, EmptyState, IconButton, PlayButton, SearchInput, Trash, UiLink, Upload, useToast } from "@stash/ui";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { CATEGORIES, categoryOf, cleanName, decode, labelOf, play, useKits, type Category } from "../kits/store";
-import { saveFiles } from "../save";
-import { allShots, fileName, fileOf, peaksOf, postShots, removeShot, useMineVersion, type OneShot, type ShotDraft } from "./store";
+import { allShots, fileName, peaksOf, postShots, removeShot, saveShots, useMineVersion, type OneShot, type ShotDraft } from "./store";
 
 /**
  * The One-shots tab: every single hit on Stash, sorted by type. Pick a type, run down the list with
@@ -69,22 +68,12 @@ export function OneShotsPage() {
   const grab = async (list: OneShot[], zipName: string) => {
     setBusy(zipName);
     try {
-      const files: { name: string; data: Blob }[] = [];
-      const used = new Set<string>();
-      for (const s of list.slice(0, MAX_ZIP)) {
-        const data = await fileOf(s);
-        if (!data) continue;
-        let name = fileName(s);
-        for (let i = 2; used.has(name); i++) name = fileName(s).replace(/(\.\w+)$/, `_${i}$1`);
-        used.add(name);
-        files.push({ name, data });
-      }
-      if (files.length === 0) {
+      const { outcome, names } = await saveShots(list.slice(0, MAX_ZIP), zipName);
+      if (outcome === "empty") {
         toast({ tone: "error", title: "Nothing to save", description: "The audio for these hits isn't in this browser anymore." });
         return;
       }
-      const outcome = await saveFiles(zipName, files);
-      if (outcome === "saved") toast({ tone: "success", title: files.length === 1 ? "Saved" : `Saved ${files.length} hits`, description: files.length === 1 ? files[0]!.name : `${zipName}.zip` });
+      if (outcome === "saved") toast({ tone: "success", title: names.length === 1 ? "Saved" : `Saved ${names.length} hits`, description: names.length === 1 ? names[0]! : `${zipName}.zip` });
       else if (outcome === "failed") toast({ tone: "error", title: "Couldn't save", description: "Try again in a moment." });
     } finally {
       setBusy(null);

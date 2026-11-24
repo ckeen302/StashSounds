@@ -395,3 +395,10 @@ html[data-look="stash"] main h1.st-hero-xl { font-size: clamp(40px, 6vw, 76px); 
 html[data-look="stash"] .text-label-caps { font-family: var(--font-sans); font-weight: 600; letter-spacing: 0.08em; }
 html[data-look="stash"] main > header { padding-bottom: 4px; }
 html[data-look="stash"] main h2.text-title { font-size: 20px; line-height: 26px; }
+
+/* Row actions: the download is always in view, not only on hover. On phones only the download shows. */
+.st-rows ul > li > div:last-child { opacity: 1; }
+@media (max-width: 639.98px) {
+  .st-rows ul > li > div:last-child { display: flex; width: auto; }
+  .st-rows ul > li > div:last-child :is(button[aria-pressed], button[aria-label^="More for"]) { display: none; }
+}
