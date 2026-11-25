@@ -170,6 +170,9 @@ writeFileSync(
 mkdirSync(join(out, "demo/sfx"), { recursive: true });
 for (const f of readdirSync(join(demoSrc, "sfx/media"))) if (f.endsWith(".mp3")) copyFileSync(join(demoSrc, "sfx/media", f), join(out, "demo/sfx", f));
 const worklet = await import(pathToFileURL(webRequire.resolve("@stash/audio/stretch-worklet-file")).href);
+// Album covers for the preset songs (presets/covers.json points at covers/<slug>.jpg next to the page).
+mkdirSync(join(out, "covers"), { recursive: true });
+for (const f of readdirSync(join(demoSrc, "presets/covers"))) if (f.endsWith(".jpg")) copyFileSync(join(demoSrc, "presets/covers", f), join(out, "covers", f));
 mkdirSync(join(out, "worklets"), { recursive: true });
 copyFileSync(worklet.stretchWorkletFile, join(out, worklet.STRETCH_WORKLET_PATH.replace(/^\//, "")));
 
