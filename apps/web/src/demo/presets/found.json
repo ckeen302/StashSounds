@@ -12177,5 +12177,245 @@
    "label": "r/FindThePreset (Reddit)",
    "url": "https://www.reddit.com/r/findthepreset/"
   }
+ },
+ {
+  "song": "Lambtruck",
+  "artist": "OsamaSon",
+  "producer": "ok",
+  "plugin": "Tone2 ElectraX",
+  "preset": "flapper 2",
+  "role": "chords",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  },
+  "path": "Chords, NewSoundsV2.6"
+ },
+ {
+  "song": "Lambtruck",
+  "artist": "OsamaSon",
+  "producer": "ok",
+  "plugin": "Tone2 ElectraX",
+  "preset": "softsyncer",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  },
+  "path": "Lead, NewSoundsV2.6"
+ },
+ {
+  "song": "Lambtruck",
+  "artist": "OsamaSon",
+  "producer": "ok",
+  "plugin": "Tone2 ElectraX",
+  "preset": "1noiselead mf",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  },
+  "path": "Counterlead"
+ },
+ {
+  "song": "Ref",
+  "artist": "OsamaSon",
+  "producer": "Jay Trench, Rok",
+  "plugin": "u-he ACE",
+  "preset": "hs on the run",
+  "role": "arp",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  },
+  "path": "Rhythmic"
+ },
+ {
+  "song": "Dark Knight Dummo",
+  "artist": "Trippie Redd feat. Travis Scott",
+  "producer": "Honorable C.N.O.T.E.",
+  "plugin": "AIR Music Technology Xpand!2",
+  "preset": "Orchestral Brass",
+  "role": "brass",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Type Shit",
+  "artist": "Future, Metro Boomin, Travis Scott & Playboi Carti",
+  "producer": "Metro Boomin",
+  "plugin": "Korg Triton",
+  "preset": "EXP TubularBells",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Both Sides",
+  "artist": "NAV & Metro Boomin feat. 21 Savage",
+  "producer": "Metro Boomin",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Homecoming Cascade",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Both Sides",
+  "artist": "NAV & Metro Boomin feat. 21 Savage",
+  "producer": "Metro Boomin",
+  "plugin": "reFX Nexus",
+  "preset": "LD Crying Female",
+  "role": "vocal",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  },
+  "path": "XP Psytrance"
+ },
+ {
+  "song": "Both Sides",
+  "artist": "NAV & Metro Boomin feat. 21 Savage",
+  "producer": "Metro Boomin",
+  "plugin": "reFX Nexus",
+  "preset": "Flute Solo",
+  "role": "flute",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  },
+  "path": "XP Dance Orchestra"
+ },
+ {
+  "song": "Hope",
+  "artist": "XXXTentacion",
+  "producer": "John Cunningham, XXXTENTACION",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Mellotron Flute",
+  "role": "flute",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Moonlight",
+  "artist": "XXXTentacion",
+  "producer": "John Cunningham",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Gamelan Wheel",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Suge",
+  "artist": "DaBaby",
+  "producer": "JetsonMade",
+  "plugin": "Luxonix Purity",
+  "preset": "Mutiato",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Goosebumps",
+  "artist": "Travis Scott feat. Kendrick Lamar",
+  "producer": "Cardo, Mike Dean",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Cheese Ping Delay",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Ransom",
+  "artist": "Lil Tecca",
+  "producer": "Nick Mira, Taz Taylor",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Bell - Blaze",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Cops",
+  "artist": "Chief Keef",
+  "producer": "Chief Keef",
+  "plugin": "reFX Nexus 2",
+  "preset": "Ballad Grand Piano",
+  "role": "piano",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Cops",
+  "artist": "Chief Keef",
+  "producer": "Chief Keef",
+  "plugin": "reFX Nexus 2",
+  "preset": "Singin Diva",
+  "role": "vocal",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Cops",
+  "artist": "Chief Keef",
+  "producer": "Chief Keef",
+  "plugin": "reFX Nexus 2",
+  "preset": "Violon Solo 1",
+  "role": "strings",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Cops",
+  "artist": "Chief Keef",
+  "producer": "Chief Keef",
+  "plugin": "reFX Nexus 2",
+  "preset": "brass stakkato 2",
+  "role": "brass",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
  }
 ]
