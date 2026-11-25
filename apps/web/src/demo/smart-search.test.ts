@@ -58,3 +58,42 @@ describe("likeness", () => {
     expect(near.score).toBeGreaterThan(far.score);
   });
 });
+
+describe("artists and typos", () => {
+  it("reads an artist as a style, so their songs rank first and loops in that lane follow", () => {
+    expect(parseQuery("carti type beat").styles.map((s) => s.name)).toEqual(["Playboi Carti"]);
+    expect(parseQuery("the weeknd").styles.map((s) => s.name)).toEqual(["The Weeknd"]);
+    const song = profile({ id: "s", kind: "midi", title: "Long Time", bpm: 140, key: null, words: ["Long Time", "Playboi Carti"], people: ["Playboi Carti", "Pi'erre Bourne"], publishedAt: "2026-11-01T00:00:00Z" });
+    expect(match(song, parseQuery("carti"))!.why).toContain("By Playboi Carti");
+    expect(match(loop({ words: ["rage", "synth", "lead", "hard"] }), parseQuery("carti"))!.why).toContain("Playboi Carti style");
+  });
+  it("forgives a typo in a long name word and keeps the typed word for the chip", () => {
+    const q = parseQuery("metro boomim");
+    expect(q.styles.map((s) => s.name)).toEqual(["Metro Boomin"]);
+    expect(q.words).toEqual([]);
+    expect(parseQuery("trvis scott").styles.map((s) => s.name)).toEqual(["Travis Scott"]);
+    const t = parseQuery("dark trvis scott").tokens.find((x) => x.kind === "style")!;
+    expect(withoutToken("dark trvis scott", t)).toBe("dark");
+  });
+  it("reads hi-hat spellings and keys spelled out", () => {
+    for (const q of ["hihat", "hi hat", "hi-hats", "hat rolls"]) {
+      expect(parseQuery(q).sounds).toEqual(["Drums"]);
+      expect(parseQuery(q).words).toEqual([]);
+    }
+    expect(parseQuery("c sharp minor").key).toEqual({ root: 1, mode: "minor" });
+    expect(parseQuery("140bpm").bpm?.exact).toBe(140);
+  });
+});
+
+describe("plain words", () => {
+  it("finds a plural of a word in the text, and an era is not a tempo", async () => {
+    const { termHit, terms } = await import("./text-match");
+    expect(termHit(terms("Hard 808 kit"), "808s")).toBeGreaterThan(0);
+    expect(termHit(terms("Hi-hat"), "hats")).toBeGreaterThan(0);
+    expect(termHit(terms("Hi-hat"), "hihat")).toBeGreaterThan(0);
+    expect(termHit(terms("Pluck lead"), "plus")).toBe(0);
+    expect(parseQuery("90s boom bap").bpm).toBeNull();
+    expect(parseQuery("90s boom bap").genres).toEqual(["Boom bap"]);
+    expect(parseQuery("140s").bpm).toEqual({ min: 140, max: 149, exact: null });
+  });
+});

@@ -56,7 +56,12 @@ export function termHit(words: string[], w: string): number {
     if (t.startsWith(w) && (w.length >= 2 || /\d/.test(w))) best = Math.max(best, 2);
     else if (typos && best < 1 && (within(t, w, typos) || (w.length >= 6 && t.length > w.length && within(t.slice(0, w.length), w, 1)))) best = 1;
   }
-  // "hihat" against "hi hat", "pluggnb" against "plugg n b": the words run together.
+  // "808s" against "808", "hats" against "hat", "boxes" against "box": a plural of a word in the text.
+  if (best < 2 && w.length >= 3 && w.endsWith("s")) {
+    const stems = w.endsWith("es") && w.length >= 5 ? [w.slice(0, -1), w.slice(0, -2)] : [w.slice(0, -1)];
+    if (words.some((t) => stems.some((x) => t === x || (x.length >= 4 && t.startsWith(x))))) best = 2;
+  }
+    // "hihat" against "hi hat", "pluggnb" against "plugg n b": the words run together.
   if (!best && w.length >= 5 && words.join("").includes(w)) best = 1;
   return best;
 }

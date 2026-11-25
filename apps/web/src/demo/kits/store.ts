@@ -329,8 +329,39 @@ function stopOthers() {
   midiPlayer().pause();
 }
 
+// Each request to play gets a number; a sound still loading when a newer request comes in is
+// dropped, so fast tapping or arrowing through a list never plays stale hits out of order.
+let playSeq = 0;
+let sequenceTimers: number[] = [];
+
+/** Claims the next play; `isCurrentPlay` says whether a later request has replaced it. */
+export function claimPlay(): number {
+  return ++playSeq;
+}
+export function isCurrentPlay(n: number): boolean {
+  return n === playSeq;
+}
+
+function cancelSequence() {
+  for (const t of sequenceTimers) window.clearTimeout(t);
+  sequenceTimers = [];
+}
+
+/** Plays sounds one after another (a kit's preview); starting it again, or playing any one sound, cancels it. */
+export function playSequence(sounds: (KitSound | Draft)[], gapMs: number) {
+  cancelSequence();
+  sequenceTimers = sounds.map((s, i) => window.setTimeout(() => void play(s, undefined, true), i * gapMs));
+}
+
+/** Starts fetching and cutting a kit's sounds so the first tap plays at once. */
+export function warmSounds(sounds: (KitSound | Draft)[]) {
+  for (const s of sounds) if ("clip" in s && s.clip) void clipBuffer(s.clip).catch(() => undefined);
+}
+
 /** Plays one sound now. A draft plays from its bytes before it is posted. */
-export async function play(sound: KitSound | Draft, key?: string) {
+export async function play(sound: KitSound | Draft, key?: string, fromSequence = false) {
+  if (!fromSequence) cancelSequence();
+  const mine = claimPlay();
   stopOthers();
   if ("hit" in sound && sound.hit) {
     midiPlayer().hit(sound.hit.pitch, 112, sound.hit.tune, sound.hit.stretch);
@@ -338,7 +369,7 @@ export async function play(sound: KitSound | Draft, key?: string) {
   }
   if ("clip" in sound && sound.clip) {
     const buf = await clipBuffer(sound.clip).catch(() => null);
-    if (buf) playBuffer(buf, false);
+    if (buf && isCurrentPlay(mine)) playBuffer(buf, false);
     return;
   }
   const id = key ?? ("fileKey" in sound ? sound.fileKey : undefined);
@@ -349,7 +380,7 @@ export async function play(sound: KitSound | Draft, key?: string) {
     buf = await decode(data);
     if (id) decoded.set(id, buf);
   }
-  playBuffer(buf, false);
+  if (isCurrentPlay(mine)) playBuffer(buf, false);
 }
 
 /** Plays a buffer now, cutting off whatever one-shot played before it. */

@@ -2,7 +2,7 @@ import { HOUSE, type Producer } from "../data";
 import { VIEWER } from "../midi/catalog";
 import { MidiPlayer, type Timbre } from "../midi/synth";
 import { saveFiles, wav, type SaveOutcome } from "../save";
-import { decode, getFile, playBuffer } from "../kits/store";
+import { claimPlay, decode, getFile, isCurrentPlay, playBuffer } from "../kits/store";
 import { loadMine, type Stored } from "./store";
 
 /**
@@ -184,8 +184,15 @@ export function bufferOf(s: MelodicShot): Promise<AudioBuffer | null> {
 }
 
 export async function playShot(s: MelodicShot): Promise<void> {
+  const mine = claimPlay();
   const b = await bufferOf(s);
-  if (b) playBuffer(b);
+  // A newer tap or arrow key won while this one was rendering: don't play it late.
+  if (b && isCurrentPlay(mine)) playBuffer(b);
+}
+
+/** Renders a few sounds ahead of time so the next tap or arrow key plays without a wait. */
+export function warmShots(shots: MelodicShot[]) {
+  for (const s of shots) void bufferOf(s);
 }
 
 const peakCache = new Map<string, number[]>();

@@ -1,5 +1,6 @@
 import { Button, Check, ChevronDown, FilterChip, Menu, SearchInput, UiLink, type MenuEntry } from "@stash/ui";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { queryWords, textMatch } from "../text-match";
 import { albumOf, Cover, coverFor } from "./cover";
 import { CONFIDENCE, PRESETS, presetParts, type Confidence, type PresetEntry } from "./data";
 import { groupSongs, LEVEL, madeBy, songHref, TOP_PRODUCERS, type Song } from "./songs";
@@ -80,15 +81,18 @@ type SortId = keyof typeof SORTS;
 
 const PAGE = 30;
 
+/** The tab's search and filters outlive a visit to a song, so Back lands where the producer left off. */
+const kept = { conf: "all" as Confidence | "all", family: "All", sound: "All", named: false, sort: "sure" as SortId, q: "", who: "All", limit: PAGE, open: false };
+
 export function PresetsPage() {
-  const [conf, setConf] = useState<Confidence | "all">("all");
-  const [family, setFamily] = useState<string>("All");
-  const [sound, setSound] = useState<string>("All");
-  const [named, setNamed] = useState(false);
-  const [sort, setSort] = useState<SortId>("sure");
-  const [q, setQ] = useState("");
-  const [who, setWho] = useState("All");
-  const [limit, setLimit] = useState(PAGE);
+  const [conf, setConf] = useState<Confidence | "all">(kept.conf);
+  const [family, setFamily] = useState<string>(kept.family);
+  const [sound, setSound] = useState<string>(kept.sound);
+  const [named, setNamed] = useState(kept.named);
+  const [sort, setSort] = useState<SortId>(kept.sort);
+  const [q, setQ] = useState(kept.q);
+  const [who, setWho] = useState(kept.who);
+  const [limit, setLimit] = useState(kept.limit);
 
   const indexed = useMemo(() => PRESETS.map((p) => ({ p, family: familyOf(p.plugin), sounds: soundsOf(p.role) })), []);
   const families = useMemo(() => {
@@ -97,6 +101,23 @@ export function PresetsPage() {
     return [...counts.entries()].sort((a, b) => b[1] - a[1]);
   }, [indexed]);
   const needle = q.trim().toLowerCase();
+  // Each word has to land somewhere (song, artist, producer, plugin, preset), ignoring accents,
+  // apostrophes and one typo: "beyonce", "dont", "travis sicko" and "omnishpere" all find their songs.
+  const words = queryWords(q);
+  const hit = (p: PresetEntry) => {
+    if (!words.length) return true;
+    const m = textMatch(
+      [
+        { text: p.song, weight: 3 },
+        { text: p.artist, weight: 3 },
+        { text: p.producer, weight: 2 },
+        { text: `${p.plugin} ${p.preset ?? ""}`, weight: 1 },
+        { text: `${p.role} ${p.path ?? ""}`, weight: 1 },
+      ],
+      words,
+    );
+    return !!m?.all;
+  };
   const matching = indexed
     .filter(
       (x) =>
@@ -104,7 +125,7 @@ export function PresetsPage() {
         (family === "All" || x.family === family) &&
         (sound === "All" || x.sounds.includes(sound)) &&
         (!named || x.p.preset) &&
-        (!needle || [x.p.song, x.p.artist, x.p.producer, x.p.plugin, x.p.preset ?? "", x.p.role, x.p.path ?? ""].some((s) => s.toLowerCase().includes(needle))),
+        (!needle || x.p.song.toLowerCase().includes(needle) || x.p.artist.toLowerCase().includes(needle) || hit(x.p)),
     )
     .map((x) => x.p);
   const songs = groupSongs(matching).filter((x) => who === "All" || madeBy(x, who)).sort(SORTS[sort].by);
@@ -115,8 +136,20 @@ export function PresetsPage() {
     setLimit(PAGE);
   };
   const counts = (c: Confidence) => PRESETS.filter((p) => p.confidence === c).length;
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(kept.open);
   const touched = conf !== "all" || family !== "All" || sound !== "All" || named || needle !== "" || who !== "All";
+  useEffect(() => {
+    Object.assign(kept, { conf, family, sound, named, sort, q, who, limit, open });
+  }, [conf, family, sound, named, sort, q, who, limit, open]);
+  const clearAll = () =>
+    reset(() => {
+      setConf("all");
+      setFamily("All");
+      setSound("All");
+      setNamed(false);
+      setQ("");
+      setWho("All");
+    });
 
   return (
     <main className="mx-auto flex w-full max-w-content flex-col gap-3 px-3 py-5 tablet:px-4 desktop:px-6">
@@ -202,16 +235,7 @@ export function PresetsPage() {
           <Button
             size="sm"
             variant="ghost"
-            onClick={() =>
-              reset(() => {
-                setConf("all");
-                setFamily("All");
-                setSound("All");
-                setNamed(false);
-                setQ("");
-                setWho("All");
-              })
-            }
+            onClick={clearAll}
           >
             Clear
           </Button>
@@ -238,7 +262,18 @@ export function PresetsPage() {
           {`Show ${Math.min(PAGE, songs.length - limit)} more of ${songs.length - limit}`}
         </Button>
       )}
-      {songs.length === 0 && <p className="text-body text-text-muted">Nothing matches. Clear the search or pick another plugin.</p>}
+      {songs.length === 0 && (
+        <div className="flex flex-col items-start gap-2">
+          <p className="text-body text-text-muted">
+            {needle ? `No presets for “${q.trim()}” yet. Try the song title or the artist's name on its own.` : "Nothing matches. Clear the filters or pick another plugin."}
+          </p>
+          {touched && (
+            <Button size="sm" variant="secondary" onClick={clearAll}>
+              Clear search and filters
+            </Button>
+          )}
+        </div>
+      )}
     </main>
   );
 }

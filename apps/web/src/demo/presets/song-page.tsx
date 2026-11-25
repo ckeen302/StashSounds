@@ -1,6 +1,7 @@
 import { ButtonLink, EmptyState, UiLink } from "@stash/ui";
 import { CrateMenu } from "../explore";
 import { songChordItems } from "../midi/catalog";
+import { fold } from "../text-match";
 import { albumOf, Cover, coverFor, tileStyle } from "./cover";
 import { CONFIDENCE, presetParts, type PresetEntry } from "./data";
 import { ConfidenceKey, familyOf, Meter, partOf, TONE_TEXT } from "./page";
@@ -22,9 +23,7 @@ import {
 
 
 function lead(artist: string): string {
-  return (artist.split(/ feat\.? | ft\.? |,| & | x /i)[0] ?? artist)
-    .trim()
-    .toLowerCase();
+  return fold(artist.split(/ feat\.? | ft\.? |,| & | x | and /i)[0] ?? artist);
 }
 
 export function PresetSongPage({ slug }: { slug: string }) {
@@ -49,7 +48,7 @@ export function PresetSongPage({ slug }: { slug: string }) {
   const chords = songChordItems().find(
     (m) =>
       m.song &&
-      m.song.song.toLowerCase() === s.song.toLowerCase() &&
+      fold(m.song.song.replace(/\s*\(.*?\)\s*/g, " ")) === fold(s.song.replace(/\s*\(.*?\)\s*/g, " ")) &&
       lead(m.song.artist) === lead(s.artist),
   );
   const who = producersOf(s.producer);

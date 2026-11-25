@@ -83,8 +83,16 @@ export function SamplesPage() {
     setLimit(PAGE);
   };
   const needle = flat(q.trim());
-  const has = (...xs: string[]) =>
-    !needle || xs.some((x) => flat(x).includes(needle));
+  // Every word has to show up somewhere, so "kanye stronger" or "dilla donuts" finds the song
+  // even though no one field holds both words. Punctuation is ignored ("jay z" finds "Jay-Z").
+  const loose = (x: string) => flat(x).replace(/[^\p{L}\p{N}]+/gu, " ");
+  const words = loose(needle).split(" ").filter(Boolean);
+  const has = (...xs: string[]) => {
+    if (!words.length) return true;
+    const hay = " " + loose(xs.join(" ")) + " ";
+    const squashed = hay.replace(/ /g, "");
+    return words.every((w) => hay.includes(w) || squashed.includes(w));
+  };
   const fits = (u: { genre: string; year: number | null }) =>
     (!genre || u.genre === genre) && (!decade || decadeOf(u.year) === decade);
 

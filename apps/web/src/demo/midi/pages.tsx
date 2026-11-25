@@ -1,6 +1,7 @@
 import { getEngine } from "@stash/audio";
 import { LICENSES, midiKindSchema, soundIdSchema, type MidiKind, type SoundId } from "@stash/contracts";
 import { formatKey } from "@stash/contracts/format";
+import { fold } from "../text-match";
 import {
   Button,
   ButtonLink,
@@ -95,9 +96,22 @@ function playStateOf(s: MidiPlayerState, id: string): PlayState {
 }
 
 function rollLabel(m: Pick<MidiItem, "kind" | "key" | "notes">): string {
-  return [`Piano roll: ${KIND_LABEL[m.kind]}`, `${m.notes.bars} bars`, `${m.notes.notes.length} notes`, `${Math.round(m.notes.bpm)} BPM`, m.key ? formatKey(m.key) : ""]
+  return [`Piano roll: ${KIND_LABEL[m.kind]}`, `${m.notes.bars} bars`, `${m.notes.notes.length} notes`, `${Math.round(m.notes.bpm)} BPM`, keyLabel(m)]
     .filter(Boolean)
     .join(", ");
+}
+
+/** The song's own spelling of its key ("Bb minor" stays Bbm, not A#m), so the header and chart agree. */
+function keyLabel(m: Pick<MidiItem, "key" | "song">, shown: string = m.key ? formatKey(m.key) : ""): string {
+  const own = m.song?.key.match(/^([A-G][b♭])/)?.[1]?.replace("♭", "b");
+  if (!own || !shown) return shown;
+  const sharp: Record<string, string> = { Db: "C#", Eb: "D#", Gb: "F#", Ab: "G#", Bb: "A#" };
+  return sharp[own] && shown.startsWith(sharp[own]!) && shown === (m.key ? formatKey(m.key) : "") ? own + shown.slice(2) : shown;
+}
+
+/** The lead artist, folded: "Travis Scott ft. Drake" and "Travis Scott" are the same artist. */
+function leadArtist(a: string): string {
+  return fold(a.split(/ feat\.? | ft\.? |,| & | x | and /i)[0] ?? a);
 }
 
 /** MIDI as result rows: play pad, a strip of the roll with its playhead, title, kind, key, BPM, bars. */
@@ -136,7 +150,7 @@ export function MidiList({ label, items }: { label: string; items: MidiItem[] })
                 <span className="truncate text-small text-text-muted">@{m.owner.handle}{m.mine ? " · posted from this browser" : ""}</span>
               </div>
               <div className="hidden w-20 shrink-0 text-small text-text tablet:block">{m.part ? DRUM_PART_LABEL[m.part] : KIND_LABEL[m.kind]}</div>
-              <div className={`hidden w-14 shrink-0 tablet:block ${cell}`}>{m.key ? formatKey(m.key) : "—"}</div>
+              <div className={`hidden w-14 shrink-0 tablet:block ${cell}`}>{keyLabel(m) || "—"}</div>
               <div className={`w-14 shrink-0 text-right ${cell}`}>{Math.round(m.notes.bpm)}</div>
               <div className={`hidden w-14 shrink-0 text-right desktop:block ${cell}`}>{m.notes.bars}</div>
               <div className="w-10 shrink-0">
@@ -235,7 +249,7 @@ function PackChart({ item }: { item: MidiItem }) {
         <h2 id="pack-title" className="text-label text-label-caps text-text-muted">
           {`Chords · ${p.name}`}
         </h2>
-        <span className="font-mono text-numeric tabular text-text-muted">{[item.key ? formatKey(item.key) : "", `${Math.round(item.notes.bpm)} BPM`, RHYTHM_NAME[p.rhythm]].filter(Boolean).join(" · ")}</span>
+        <span className="font-mono text-numeric tabular text-text-muted">{[keyLabel(item), `${Math.round(item.notes.bpm)} BPM`, RHYTHM_NAME[p.rhythm]].filter(Boolean).join(" · ")}</span>
       </div>
       <ol aria-label="Chords" className="flex flex-wrap gap-2">
         {p.chords.map(([c, beats], i) => (
@@ -372,10 +386,10 @@ export function MidiPage({ publicId }: { publicId: string }) {
   void likeTick;
   const following = has("follows", item.owner.id);
   const liveBpm = Math.round(item.notes.bpm * (current ? s.tempoRatio : 1));
-  const liveKey = transposedKey(item.key, current && !item.notes.drums ? s.transpose : 0);
+  const liveKey = keyLabel(item, transposedKey(item.key, current && !item.notes.drums ? s.transpose : 0) ?? "");
   const bpb = (item.notes.timeSignature[0] * 4) / item.notes.timeSignature[1];
   const others = items.filter((m) => m.id !== item.id);
-  const sameArtist = item.song ? others.filter((m) => m.song?.artist === item.song!.artist) : item.pack ? others.filter((m) => m.pack?.name === item.pack!.name) : [];
+  const sameArtist = item.song ? others.filter((m) => !!m.song && leadArtist(m.song.artist) === leadArtist(item.song!.artist)) : item.pack ? others.filter((m) => m.pack?.name === item.pack!.name) : [];
   const more = sameArtist.length > 0 ? sameArtist : others.filter((m) => m.owner.id === item.owner.id);
 
   return (
@@ -542,7 +556,7 @@ export function MidiPage({ publicId }: { publicId: string }) {
           </section>
           <section aria-label="Details" className="grid grid-cols-3 gap-4 rounded-panel border border-border bg-surface p-4 cq-md:col-span-2 cq-md:grid-cols-6 cq-xl:col-span-1 cq-xl:grid-cols-3">
             <Stat label="BPM" value={Math.round(item.notes.bpm)} />
-            <Stat label="Key" value={item.key ? formatKey(item.key) : "—"} />
+            <Stat label="Key" value={keyLabel(item) || "—"} />
             <Stat label="Bars" value={item.notes.bars} />
             <Stat label="Notes" value={item.notes.notes.length} />
             <Stat label="Likes" value={item.likes + (liked ? 1 : 0)} />

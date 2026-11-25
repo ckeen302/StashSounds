@@ -23,7 +23,7 @@ import { CrateMenu } from "../explore";
 import { navigate } from "../router";
 import { has, set } from "../store";
 import { allShots, saveShots } from "../oneshots/store";
-import { CATEGORIES, categoryOf, cleanName, decode, labelOf, play, postKit, removeKit, useKits, type Category, type Draft, type Kit, type KitSound } from "./store";
+import { CATEGORIES, categoryOf, cleanName, decode, labelOf, play, playSequence, postKit, removeKit, useKits, warmSounds, type Category, type Draft, type Kit, type KitSound } from "./store";
 
 /**
  * The drum kits screens: every kit, one kit's sounds, and posting a kit of your own one-shots.
@@ -48,7 +48,7 @@ function preview(k: Kit) {
   const order = [pick(["kick", "808"]), pick(["hat"]), pick(["snare", "clap"]), pick(["hat"]), pick(["808", "kick"]), pick(["open hat", "hat"]), pick(["clap", "snare"])].filter(
     (s): s is KitSound => !!s,
   );
-  order.forEach((s, i) => window.setTimeout(() => void play(s), i * 210));
+  playSequence(order, 210);
 }
 
 /** Saves every sound in the kit as one zip. */
@@ -174,7 +174,7 @@ export function KitsPage() {
         {shown.map((k) => (
           <li key={k.id} className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-4">
             <div className="flex items-start gap-3">
-              <PlayButton title={`a preview of ${k.name}`} state="paused" onClick={() => preview(k)} />
+              <PlayButton title={`a preview of ${k.name}`} state="paused" onPointerEnter={() => warmSounds(k.sounds)} onClick={() => preview(k)} />
               <div className="flex min-w-0 flex-1 flex-col">
                 <UiLink href={`/kit/${k.id}`} className="truncate text-body-strong text-text ui-hover:underline">
                   {k.name}
@@ -220,6 +220,11 @@ export function KitPage({ id }: { id: string }) {
   const listRef = useRef<HTMLUListElement>(null);
   const sounds = useMemo(() => (k ? (cat === "all" ? k.sounds : k.sounds.filter((s) => s.category === cat)) : []), [k, cat]);
 
+  // Fetch and cut the kit's sounds as the page opens, so the first tap plays at once.
+  useEffect(() => {
+    if (k) warmSounds(k.sounds);
+  }, [k]);
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const t = e.target as HTMLElement | null;
@@ -250,6 +255,11 @@ export function KitPage({ id }: { id: string }) {
     );
   }
   void likeTick;
+  // A new filter starts at its first sound, so Space never points past the end of a shorter list.
+  const pick = (c: Category | "all") => {
+    setCat(c);
+    setSelected(0);
+  };
   const liked = has("likes", k.id);
   const counts = (c: Category) => k.sounds.filter((s) => s.category === c).length;
 
@@ -313,11 +323,11 @@ export function KitPage({ id }: { id: string }) {
       </header>
 
       <div role="group" aria-label="Sound type" className="flex flex-wrap gap-2">
-        <FilterChip selected={cat === "all"} onToggle={() => setCat("all")}>
+        <FilterChip selected={cat === "all"} onToggle={() => pick("all")}>
           {`All ${k.sounds.length}`}
         </FilterChip>
         {CATEGORIES.filter((c) => counts(c.id) > 0).map((c) => (
-          <FilterChip key={c.id} selected={cat === c.id} onToggle={() => setCat(c.id)}>
+          <FilterChip key={c.id} selected={cat === c.id} onToggle={() => pick(c.id)}>
             {`${c.plural} ${counts(c.id)}`}
           </FilterChip>
         ))}
@@ -334,7 +344,14 @@ export function KitPage({ id }: { id: string }) {
               <PlayButton
                 title={s.name}
                 state="paused"
-                onClick={() => {
+                // Fire on press, not release, like a pad; a keyboard press (no pointer) still plays on click.
+                onPointerDown={(e) => {
+                  if (e.button !== 0) return;
+                  setSelected(i);
+                  void play(s);
+                }}
+                onClick={(e) => {
+                  if (e.detail !== 0) return;
                   setSelected(i);
                   void play(s);
                 }}
