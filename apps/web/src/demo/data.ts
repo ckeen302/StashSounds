@@ -2,6 +2,7 @@ import { itemPageSchema, itemRowSchema, LICENSES, type ItemPage, type ItemRow, t
 import generated from "./generated/loops.json" with { type: "json" };
 import more from "./generated/more-loops.json" with { type: "json" };
 import creator from "./creator/loops.json" with { type: "json" };
+import library from "./loop-library/loops.json" with { type: "json" };
 
 /**
  * The demo's catalog: the five generated loop fixtures (scripts/build-demo.mjs made their previews
@@ -94,6 +95,35 @@ const creatorCopy: Record<string, Copy> = Object.fromEntries(
   }),
 );
 
+/**
+ * The loop library (scripts/loops/build.py): loops rendered from the chord packs on CC0 sampled
+ * instruments and the demo's own synths, numbered after the creators' loops. Posted by the house
+ * account with no invented counts.
+ */
+const libraryCopy: Record<string, Copy> = Object.fromEntries(
+  library.loops.map((l, i) => {
+    const c = l.copy;
+    return [
+      l.slug,
+      {
+        n: 6 + more.loops.length + creator.loops.length + i,
+        title: c.title,
+        slug: l.slug,
+        owner: HOUSE,
+        tags: c.tags,
+        genre: c.genre,
+        reference: c.reference,
+        description: c.description,
+        license: "royalty_free" as LicenseKind,
+        likes: 0,
+        downloads: 0,
+        // Newest first in the feed: the library goes up in catalog order, a minute apart.
+        publishedAt: new Date(Date.UTC(2026, 10, 25, 22, 0) - i * 60_000).toISOString(),
+      },
+    ];
+  }),
+);
+
 /** The size of each loop's download, by item id: the tag line shows it, the way a loop library does. */
 export const LOOP_BYTES = new Map<string, number>();
 /** A producer's own upload, by item id: Download gives this file, not the preview. */
@@ -143,9 +173,9 @@ export type Catalog = {
 
 /** Builds the catalog with preview URLs relative to the page (`base`, normally document.baseURI). */
 export function buildCatalog(base: string): Catalog {
-  const all: Entry[] = [...generated.loops, ...more.loops, ...creator.loops];
+  const all: Entry[] = [...generated.loops, ...more.loops, ...creator.loops, ...library.loops];
   const entries = all.map((e) => {
-    const c = copy[e.slug] ?? moreCopy[e.slug] ?? creatorCopy[e.slug];
+    const c = copy[e.slug] ?? moreCopy[e.slug] ?? creatorCopy[e.slug] ?? libraryCopy[e.slug];
     if (!c) throw new Error(`no demo copy for ${e.slug}`);
     return { e, c, row: rowFor(e, c, base) };
   });
