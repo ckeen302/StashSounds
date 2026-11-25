@@ -66,6 +66,9 @@ norm = lambda s: re.sub(r"[^a-z0-9]", "", s.lower())
 
 songs, dropped = [], 0
 for page, album, artist, year, tracks in raw:
+    # Soundtracks and compilations credit no one artist; their songs are left out.
+    if not artist or re.match(r"(?i)various", artist): continue
+    artist = re.sub(r"^the ", "The ", artist)
     artist = artist.replace("Joey Badass", "Joey Bada$$").replace("ASAP Rocky", "A$AP Rocky").replace("Juice Wrld", "Juice WRLD")
     for title, prod, samples in tracks:
         title = re.sub(r"\{\{'\}\}|\{\{.*$", "", title).strip()
@@ -90,7 +93,7 @@ for page, album, artist, year, tracks in raw:
         songs.append({"song": title, "artist": artist, "year": year, "album": album, "producers": producers(prod),
                       "samples": uses, "sources": [{"label": f"Wikipedia: {album}, sample credits", "url": wiki(page)}]})
 
-json.dump(songs, open(out_path, "w"), ensure_ascii=False, indent=1)
+json.dump(songs, open(out_path, "w"), ensure_ascii=False, separators=(",", ":"))
 from collections import Counter
 print(len(songs), "songs,", sum(len(s["samples"]) for s in songs), "samples,", dropped, "dropped")
 print(Counter(u["genre"] for s in songs for u in s["samples"]).most_common())
