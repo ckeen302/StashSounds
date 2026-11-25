@@ -1,0 +1,5186 @@
+{
+ "packs": [
+  {
+   "name": "Neon Riot",
+   "style": "rage",
+   "description": "Bright-but-menacing rage synth chords: add9 and sus stacks, open fifths and major lifts at 150 to 170."
+  },
+  {
+   "name": "Static Crown",
+   "style": "rage",
+   "description": "Harder rage loops with dorian lifts, #9 dominants and fast two-beat changes."
+  },
+  {
+   "name": "Velvet Coffin",
+   "style": "dark synth",
+   "description": "Ominous vamp-style minor progressions with chromatic bass descents and tritone moves."
+  },
+  {
+   "name": "Sugar Glitch",
+   "style": "hyperpop",
+   "description": "Glossy hyperpop-rap chords: major 7ths, add9s and lydian colour at 155 to 180."
+  },
+  {
+   "name": "Cowbell Cathedral",
+   "style": "phonk",
+   "description": "Memphis and drift phonk in phrygian and harmonic minor, heavy on diminished chords and b9 dominants."
+  }
+ ],
+ "progressions": [
+  {
+   "title": "Laser Halo",
+   "pack": "Neon Riot",
+   "bpm": 160,
+   "key": "F# minor",
+   "tags": [
+    "rage",
+    "bright",
+    "synth"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "F#m(add9)",
+     4,
+     [
+      42,
+      61,
+      66,
+      68,
+      69
+     ]
+    ],
+    [
+     "Dadd9",
+     4,
+     [
+      38,
+      57,
+      62,
+      64,
+      66
+     ]
+    ],
+    [
+     "Asus2",
+     4,
+     [
+      45,
+      57,
+      64,
+      71
+     ]
+    ],
+    [
+     "E/G#",
+     4,
+     [
+      44,
+      59,
+      64,
+      68
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     1,
+     73
+    ],
+    [
+     1,
+     1,
+     69
+    ],
+    [
+     2,
+     2,
+     68
+    ],
+    [
+     8,
+     2,
+     71
+    ],
+    [
+     12,
+     4,
+     68
+    ]
+   ],
+   "description": "F#m(add9) to Dadd9 and an open Asus2, then E over G# lifts straight back into the tonic. Pulse it under a fast hat roll and let the open fifths do the shouting."
+  },
+  {
+   "title": "Cherry Overdrive",
+   "pack": "Neon Riot",
+   "bpm": 165,
+   "key": "A minor",
+   "tags": [
+    "rage",
+    "menacing",
+    "lead"
+   ],
+   "rhythm": "stabs",
+   "chords": [
+    [
+     "Am(add9)",
+     4,
+     [
+      45,
+      64,
+      71,
+      72,
+      76
+     ]
+    ],
+    [
+     "Fmaj7#11",
+     4,
+     [
+      41,
+      64,
+      69,
+      71,
+      72
+     ]
+    ],
+    [
+     "Csus2/G",
+     4,
+     [
+      43,
+      62,
+      67,
+      72
+     ]
+    ],
+    [
+     "E7sus4",
+     2,
+     [
+      40,
+      62,
+      69,
+      71
+     ]
+    ],
+    [
+     "E7b9",
+     2,
+     [
+      40,
+      62,
+      65,
+      68,
+      71
+     ]
+    ]
+   ],
+   "description": "A bright add9 tonic that turns sour on the Fmaj7#11, then a suspended E that cracks open into E7b9. Stab it hard and leave space for the 808."
+  },
+  {
+   "title": "Chrome Teeth",
+   "pack": "Neon Riot",
+   "bpm": 155,
+   "key": "C# minor",
+   "tags": [
+    "rage",
+    "dark",
+    "pad"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "C#m9",
+     4,
+     [
+      37,
+      64,
+      68,
+      71,
+      75
+     ]
+    ],
+    [
+     "Amaj9",
+     4,
+     [
+      45,
+      64,
+      68,
+      71,
+      73
+     ]
+    ],
+    [
+     "Eadd9",
+     4,
+     [
+      40,
+      66,
+      68,
+      71,
+      76
+     ]
+    ],
+    [
+     "Bsus4",
+     4,
+     [
+      35,
+      64,
+      66,
+      71
+     ]
+    ],
+    [
+     "C#m9",
+     4,
+     [
+      37,
+      64,
+      68,
+      71,
+      75
+     ]
+    ],
+    [
+     "Amaj9",
+     4,
+     [
+      45,
+      64,
+      68,
+      71,
+      73
+     ]
+    ],
+    [
+     "F#m11",
+     4,
+     [
+      42,
+      64,
+      69,
+      71,
+      73
+     ]
+    ],
+    [
+     "G#7sus4",
+     2,
+     [
+      44,
+      66,
+      73,
+      75
+     ]
+    ],
+    [
+     "G#7",
+     2,
+     [
+      44,
+      66,
+      72,
+      75
+     ]
+    ]
+   ],
+   "description": "Eight bars that keep E and B ringing on top while the bass walks under them, then a suspended G# that drops into a full dominant. The major lift on bar three is the hook."
+  },
+  {
+   "title": "Bloodmoon Sprint",
+   "pack": "Neon Riot",
+   "bpm": 170,
+   "key": "G minor",
+   "tags": [
+    "rage",
+    "menacing",
+    "aggressive"
+   ],
+   "rhythm": "stabs",
+   "chords": [
+    [
+     "Gm(add9)",
+     4,
+     [
+      43,
+      62,
+      67,
+      69,
+      70
+     ]
+    ],
+    [
+     "Ebmaj7#11",
+     4,
+     [
+      39,
+      62,
+      67,
+      69,
+      70
+     ]
+    ],
+    [
+     "Cm9",
+     4,
+     [
+      36,
+      63,
+      67,
+      70,
+      74
+     ]
+    ],
+    [
+     "D7sus4",
+     2,
+     [
+      38,
+      60,
+      67,
+      69
+     ]
+    ],
+    [
+     "D7#9",
+     2,
+     [
+      38,
+      60,
+      66,
+      69,
+      77
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     1.5,
+     74
+    ],
+    [
+     1.5,
+     0.5,
+     70
+    ],
+    [
+     2,
+     2,
+     69
+    ],
+    [
+     4,
+     4,
+     74
+    ],
+    [
+     14,
+     2,
+     77
+    ]
+   ],
+   "description": "The same four upper notes sit over G and then Eb, so the colour flips from minor to lydian without moving a finger. Ends on a gritty D7#9 turnaround."
+  },
+  {
+   "title": "Venom Glitter",
+   "pack": "Neon Riot",
+   "bpm": 158,
+   "key": "E minor",
+   "tags": [
+    "rage",
+    "bright",
+    "bell"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "Em(add9)",
+     4,
+     [
+      40,
+      59,
+      64,
+      66,
+      67
+     ]
+    ],
+    [
+     "Cmaj9",
+     4,
+     [
+      36,
+      59,
+      62,
+      64,
+      67
+     ]
+    ],
+    [
+     "Dadd9/F#",
+     4,
+     [
+      42,
+      57,
+      62,
+      64,
+      66
+     ]
+    ],
+    [
+     "Bsus4",
+     2,
+     [
+      35,
+      64,
+      66,
+      71
+     ]
+    ],
+    [
+     "B7",
+     2,
+     [
+      35,
+      63,
+      66,
+      69
+     ]
+    ]
+   ],
+   "description": "Close cluster voicings that barely move: Em(add9), Cmaj9, D over F#, then a suspended B that resolves to B7. Pulse it on a bell or pluck."
+  },
+  {
+   "title": "Pixel Guillotine",
+   "pack": "Neon Riot",
+   "bpm": 162,
+   "key": "Bb minor",
+   "tags": [
+    "rage",
+    "dark",
+    "synth"
+   ],
+   "rhythm": "stabs",
+   "chords": [
+    [
+     "Bbm9",
+     4,
+     [
+      34,
+      61,
+      65,
+      68,
+      72
+     ]
+    ],
+    [
+     "Gbmaj7",
+     4,
+     [
+      42,
+      61,
+      65,
+      66,
+      70
+     ]
+    ],
+    [
+     "Dbadd9",
+     4,
+     [
+      37,
+      61,
+      63,
+      65,
+      68
+     ]
+    ],
+    [
+     "Absus2",
+     4,
+     [
+      44,
+      63,
+      68,
+      70
+     ]
+    ],
+    [
+     "Bbm9",
+     4,
+     [
+      34,
+      61,
+      65,
+      68,
+      72
+     ]
+    ],
+    [
+     "Gbmaj9#11",
+     4,
+     [
+      42,
+      65,
+      68,
+      70,
+      72
+     ]
+    ],
+    [
+     "Ebm11",
+     4,
+     [
+      39,
+      61,
+      66,
+      68,
+      70
+     ]
+    ],
+    [
+     "F7sus4",
+     2,
+     [
+      41,
+      63,
+      70,
+      72
+     ]
+    ],
+    [
+     "F7b9",
+     2,
+     [
+      41,
+      63,
+      66,
+      69,
+      72
+     ]
+    ]
+   ],
+   "description": "A minor-key run that keeps F on top for six bars, opens the Gb into a #11 on the repeat and lands on a suspended F that bites as F7b9."
+  },
+  {
+   "title": "Sugarcoat Riot",
+   "pack": "Neon Riot",
+   "bpm": 150,
+   "key": "D minor",
+   "tags": [
+    "rage",
+    "bright",
+    "pad"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "Dm(add9)",
+     4,
+     [
+      38,
+      57,
+      62,
+      64,
+      65
+     ]
+    ],
+    [
+     "Bbmaj9",
+     4,
+     [
+      34,
+      57,
+      60,
+      62,
+      65
+     ]
+    ],
+    [
+     "F/A",
+     4,
+     [
+      45,
+      60,
+      65,
+      69
+     ]
+    ],
+    [
+     "Gm9",
+     2,
+     [
+      43,
+      58,
+      62,
+      65,
+      69
+     ]
+    ],
+    [
+     "A7b9",
+     2,
+     [
+      45,
+      61,
+      67,
+      70
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     2,
+     69
+    ],
+    [
+     2,
+     2,
+     76
+    ],
+    [
+     8,
+     4,
+     72
+    ],
+    [
+     14,
+     2,
+     73
+    ]
+   ],
+   "description": "Dm(add9) into a soft Bbmaj9, a bright F over A, then Gm9 and a dark A7b9 pickup. The relative-major bar is the lift before the sting."
+  },
+  {
+   "title": "Hazard Bloom",
+   "pack": "Neon Riot",
+   "bpm": 168,
+   "key": "B minor",
+   "tags": [
+    "rage",
+    "menacing",
+    "synth"
+   ],
+   "rhythm": "stabs",
+   "chords": [
+    [
+     "Bm(add9)",
+     4,
+     [
+      35,
+      61,
+      62,
+      66,
+      71
+     ]
+    ],
+    [
+     "Gmaj7#11",
+     4,
+     [
+      43,
+      61,
+      62,
+      66,
+      71
+     ]
+    ],
+    [
+     "Em9",
+     4,
+     [
+      40,
+      62,
+      66,
+      67,
+      71
+     ]
+    ],
+    [
+     "F#7sus4",
+     2,
+     [
+      42,
+      64,
+      71,
+      73
+     ]
+    ],
+    [
+     "F#7#9",
+     2,
+     [
+      42,
+      64,
+      70,
+      73,
+      81
+     ]
+    ]
+   ],
+   "description": "One cluster shape over B and then G turns minor into lydian, Em9 keeps the top steady, and F#7#9 snaps it back. Stab it with a detuned saw."
+  },
+  {
+   "title": "Acid Paradise",
+   "pack": "Neon Riot",
+   "bpm": 155,
+   "key": "Eb minor",
+   "tags": [
+    "rage",
+    "bright",
+    "atmospheric"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "Ebm(add9)",
+     4,
+     [
+      39,
+      58,
+      63,
+      65,
+      66
+     ]
+    ],
+    [
+     "Cbmaj7",
+     4,
+     [
+      35,
+      58,
+      63,
+      66,
+      70
+     ]
+    ],
+    [
+     "Gbadd9",
+     4,
+     [
+      42,
+      58,
+      61,
+      66,
+      68
+     ]
+    ],
+    [
+     "Dbsus2",
+     4,
+     [
+      37,
+      56,
+      61,
+      63
+     ]
+    ],
+    [
+     "Ebm(add9)",
+     4,
+     [
+      39,
+      58,
+      63,
+      65,
+      66
+     ]
+    ],
+    [
+     "Abm9",
+     4,
+     [
+      44,
+      59,
+      63,
+      66,
+      70
+     ]
+    ],
+    [
+     "Cbmaj7#11",
+     4,
+     [
+      35,
+      58,
+      63,
+      65,
+      66
+     ]
+    ],
+    [
+     "Bb7sus4",
+     2,
+     [
+      34,
+      56,
+      63,
+      65
+     ]
+    ],
+    [
+     "Bb7",
+     2,
+     [
+      34,
+      56,
+      62,
+      65
+     ]
+    ]
+   ],
+   "description": "Eight bars in Eb minor that lean on the bVI and bIII for brightness, then a #11 on the second pass and a suspended Bb that resolves to a full dominant."
+  },
+  {
+   "title": "Red Static",
+   "pack": "Static Crown",
+   "bpm": 160,
+   "key": "C minor",
+   "tags": [
+    "rage",
+    "dark",
+    "synth"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "Cm(add9)",
+     4,
+     [
+      36,
+      55,
+      60,
+      62,
+      63
+     ]
+    ],
+    [
+     "Abmaj9",
+     4,
+     [
+      32,
+      55,
+      58,
+      60,
+      63
+     ]
+    ],
+    [
+     "Eb/Bb",
+     4,
+     [
+      34,
+      55,
+      58,
+      63
+     ]
+    ],
+    [
+     "F/A",
+     4,
+     [
+      33,
+      60,
+      65,
+      69
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     2,
+     75
+    ],
+    [
+     2,
+     2,
+     74
+    ],
+    [
+     4,
+     4,
+     72
+    ],
+    [
+     12,
+     4,
+     69
+    ]
+   ],
+   "description": "Cm(add9) to Abmaj9 and Eb over Bb, then a major F over A: the dorian lift that makes rage chords feel triumphant instead of sad."
+  },
+  {
+   "title": "Riot Glare",
+   "pack": "Static Crown",
+   "bpm": 166,
+   "key": "F minor",
+   "tags": [
+    "rage",
+    "aggressive",
+    "lead"
+   ],
+   "rhythm": "stabs",
+   "chords": [
+    [
+     "Fm(add9)",
+     6,
+     [
+      41,
+      60,
+      65,
+      67,
+      68
+     ]
+    ],
+    [
+     "Dbadd9",
+     2,
+     [
+      37,
+      56,
+      61,
+      63,
+      65
+     ]
+    ],
+    [
+     "Bbm9",
+     6,
+     [
+      34,
+      61,
+      65,
+      68,
+      72
+     ]
+    ],
+    [
+     "C7sus4",
+     2,
+     [
+      36,
+      58,
+      65,
+      67
+     ]
+    ],
+    [
+     "Fm(add9)",
+     6,
+     [
+      41,
+      60,
+      65,
+      67,
+      68
+     ]
+    ],
+    [
+     "Dbmaj7#11",
+     2,
+     [
+      37,
+      60,
+      65,
+      67,
+      68
+     ]
+    ],
+    [
+     "Gbmaj7",
+     6,
+     [
+      42,
+      58,
+      61,
+      65
+     ]
+    ],
+    [
+     "C7b9",
+     2,
+     [
+      36,
+      58,
+      61,
+      64,
+      67
+     ]
+    ]
+   ],
+   "description": "Long six-beat chords with two-beat kicks into the next one. The Neapolitan Gbmaj7 in bar seven darkens it right before C7b9 throws it back to the top."
+  },
+  {
+   "title": "Gutter Comet",
+   "pack": "Static Crown",
+   "bpm": 158,
+   "key": "G# minor",
+   "tags": [
+    "rage",
+    "bright",
+    "pad"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "G#m11",
+     4,
+     [
+      44,
+      61,
+      66,
+      71,
+      75
+     ]
+    ],
+    [
+     "Emaj9",
+     4,
+     [
+      40,
+      63,
+      66,
+      68,
+      71
+     ]
+    ],
+    [
+     "Badd9",
+     4,
+     [
+      35,
+      61,
+      63,
+      66,
+      71
+     ]
+    ],
+    [
+     "F#/A#",
+     4,
+     [
+      34,
+      61,
+      66,
+      70
+     ]
+    ]
+   ],
+   "description": "G#m11 into Emaj9 and Badd9 with B held on top, then F# over A# walks the bass back up. Bright, wide and loopable for days."
+  },
+  {
+   "title": "Overclock Prayer",
+   "pack": "Static Crown",
+   "bpm": 170,
+   "key": "F# minor",
+   "tags": [
+    "rage",
+    "menacing",
+    "synth"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "F#m9",
+     4,
+     [
+      42,
+      57,
+      61,
+      64,
+      68
+     ]
+    ],
+    [
+     "Dmaj9",
+     4,
+     [
+      38,
+      57,
+      61,
+      64,
+      66
+     ]
+    ],
+    [
+     "Bm11",
+     4,
+     [
+      35,
+      57,
+      62,
+      64,
+      66
+     ]
+    ],
+    [
+     "C#7sus4",
+     2,
+     [
+      37,
+      59,
+      66,
+      68
+     ]
+    ],
+    [
+     "C#7",
+     2,
+     [
+      37,
+      59,
+      65,
+      68
+     ]
+    ],
+    [
+     "F#m9",
+     4,
+     [
+      42,
+      57,
+      61,
+      64,
+      68
+     ]
+    ],
+    [
+     "Dmaj9",
+     4,
+     [
+      38,
+      57,
+      61,
+      64,
+      66
+     ]
+    ],
+    [
+     "Esus2",
+     4,
+     [
+      40,
+      59,
+      64,
+      66
+     ]
+    ],
+    [
+     "C#7#9",
+     4,
+     [
+      37,
+      59,
+      65,
+      68,
+      76
+     ]
+    ]
+   ],
+   "description": "Tight inner voices over a moving bass: F#m9, Dmaj9, Bm11 and a sus-to-dominant C#. The second half swaps in an open Esus2 and a nasty C#7#9."
+  },
+  {
+   "title": "Diamond Fever",
+   "pack": "Static Crown",
+   "bpm": 158,
+   "key": "E minor",
+   "tags": [
+    "rage",
+    "dark",
+    "bell"
+   ],
+   "rhythm": "stabs",
+   "chords": [
+    [
+     "Em9",
+     4,
+     [
+      40,
+      62,
+      66,
+      67,
+      71
+     ]
+    ],
+    [
+     "Cmaj7#11",
+     4,
+     [
+      36,
+      59,
+      64,
+      66,
+      67
+     ]
+    ],
+    [
+     "Am9",
+     4,
+     [
+      33,
+      55,
+      59,
+      60,
+      64
+     ]
+    ],
+    [
+     "B7sus4",
+     2,
+     [
+      35,
+      57,
+      64,
+      66
+     ]
+    ],
+    [
+     "B7b9",
+     2,
+     [
+      35,
+      57,
+      63,
+      66,
+      72
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     1,
+     71
+    ],
+    [
+     1.5,
+     0.5,
+     67
+    ],
+    [
+     2,
+     2,
+     66
+    ],
+    [
+     4,
+     4,
+     67
+    ],
+    [
+     14,
+     2,
+     72
+    ]
+   ],
+   "description": "Em9 to a lydian C, Am9 dropping the register, then B7sus4 into B7b9. The b9 on top is the menace."
+  },
+  {
+   "title": "Hollow Crown",
+   "pack": "Static Crown",
+   "bpm": 150,
+   "key": "C# minor",
+   "tags": [
+    "rage",
+    "dark",
+    "pad"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "C#m(add9)",
+     4,
+     [
+      37,
+      56,
+      61,
+      63,
+      64
+     ]
+    ],
+    [
+     "Amaj7",
+     4,
+     [
+      33,
+      56,
+      61,
+      64
+     ]
+    ],
+    [
+     "F#m9",
+     4,
+     [
+      42,
+      57,
+      61,
+      64,
+      68
+     ]
+    ],
+    [
+     "G#7sus4",
+     2,
+     [
+      32,
+      54,
+      61,
+      63
+     ]
+    ],
+    [
+     "G#7",
+     2,
+     [
+      32,
+      54,
+      60,
+      63
+     ]
+    ]
+   ],
+   "description": "C#m(add9), Amaj7 and F#m9 keep C# and E in the middle while the bass drops, then G# suspends and resolves. Low and wide for a slower rage bounce."
+  },
+  {
+   "title": "Sonic Barbwire",
+   "pack": "Static Crown",
+   "bpm": 156,
+   "key": "B minor",
+   "tags": [
+    "rage",
+    "aggressive",
+    "synth"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "Bm9",
+     4,
+     [
+      35,
+      62,
+      66,
+      69,
+      73
+     ]
+    ],
+    [
+     "Gmaj9",
+     4,
+     [
+      43,
+      62,
+      66,
+      69,
+      71
+     ]
+    ],
+    [
+     "D/F#",
+     4,
+     [
+      42,
+      57,
+      62,
+      66
+     ]
+    ],
+    [
+     "Em11",
+     4,
+     [
+      40,
+      62,
+      67,
+      69,
+      71
+     ]
+    ],
+    [
+     "Bm9",
+     4,
+     [
+      35,
+      62,
+      66,
+      69,
+      73
+     ]
+    ],
+    [
+     "Gmaj7#11",
+     4,
+     [
+      43,
+      61,
+      62,
+      66,
+      71
+     ]
+    ],
+    [
+     "Asus2",
+     4,
+     [
+      45,
+      59,
+      64,
+      69
+     ]
+    ],
+    [
+     "F#7#9",
+     4,
+     [
+      42,
+      64,
+      70,
+      73,
+      81
+     ]
+    ]
+   ],
+   "description": "Bm9 and Gmaj9 share three notes, D over F# brightens it, Em11 hangs. The second pass goes lydian, opens up on Asus2 and ends on a full bar of F#7#9."
+  },
+  {
+   "title": "Hex Sprinter",
+   "pack": "Static Crown",
+   "bpm": 162,
+   "key": "F minor",
+   "tags": [
+    "rage",
+    "menacing",
+    "lead"
+   ],
+   "rhythm": "stabs",
+   "chords": [
+    [
+     "Fm9",
+     2,
+     [
+      41,
+      56,
+      60,
+      63,
+      67
+     ]
+    ],
+    [
+     "Dbmaj9",
+     2,
+     [
+      37,
+      56,
+      60,
+      63,
+      65
+     ]
+    ],
+    [
+     "Bbm9",
+     2,
+     [
+      34,
+      56,
+      60,
+      61,
+      65
+     ]
+    ],
+    [
+     "C7sus4",
+     2,
+     [
+      36,
+      58,
+      65,
+      67
+     ]
+    ],
+    [
+     "Fm9",
+     2,
+     [
+      41,
+      56,
+      60,
+      63,
+      67
+     ]
+    ],
+    [
+     "Dbmaj7#11",
+     2,
+     [
+      37,
+      60,
+      65,
+      67,
+      68
+     ]
+    ],
+    [
+     "Ebadd9",
+     2,
+     [
+      39,
+      58,
+      63,
+      65,
+      67
+     ]
+    ],
+    [
+     "C7#9",
+     2,
+     [
+      36,
+      58,
+      64,
+      67,
+      75
+     ]
+    ]
+   ],
+   "description": "Two-beat changes for a fast, restless loop: the bass moves every half bar while the top barely does. Ebadd9 lifts before the C7#9 snaps it shut."
+  },
+  {
+   "title": "Afterburn Hymn",
+   "pack": "Static Crown",
+   "bpm": 170,
+   "key": "A minor",
+   "tags": [
+    "rage",
+    "bright",
+    "atmospheric"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "Am11",
+     4,
+     [
+      33,
+      55,
+      60,
+      62,
+      64
+     ]
+    ],
+    [
+     "Fmaj9",
+     4,
+     [
+      41,
+      55,
+      60,
+      64,
+      69
+     ]
+    ],
+    [
+     "D/F#",
+     4,
+     [
+      42,
+      57,
+      62,
+      66
+     ]
+    ],
+    [
+     "E7sus4",
+     2,
+     [
+      40,
+      62,
+      69,
+      71
+     ]
+    ],
+    [
+     "E7",
+     2,
+     [
+      40,
+      62,
+      68,
+      71
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     2,
+     76
+    ],
+    [
+     2,
+     2,
+     74
+    ],
+    [
+     4,
+     4,
+     72
+    ],
+    [
+     8,
+     4,
+     78
+    ],
+    [
+     12,
+     4,
+     76
+    ]
+   ],
+   "description": "Am11 and Fmaj9 float, then a major D over F# gives the dorian lift and E7sus4 to E7 pulls it home. Big and anthemic at 170."
+  },
+  {
+   "title": "Crypt Neon",
+   "pack": "Velvet Coffin",
+   "bpm": 145,
+   "key": "C minor",
+   "tags": [
+    "dark synth",
+    "ominous",
+    "arp"
+   ],
+   "rhythm": "arp",
+   "chords": [
+    [
+     "Cm(add9)",
+     4,
+     [
+      36,
+      63,
+      67,
+      72,
+      74
+     ]
+    ],
+    [
+     "Cm(maj9)/B",
+     4,
+     [
+      35,
+      63,
+      67,
+      71,
+      74
+     ]
+    ],
+    [
+     "Cm9/Bb",
+     4,
+     [
+      34,
+      63,
+      67,
+      70,
+      74
+     ]
+    ],
+    [
+     "Abmaj7#11",
+     4,
+     [
+      32,
+      63,
+      67,
+      72,
+      74
+     ]
+    ],
+    [
+     "Fm9",
+     4,
+     [
+      41,
+      63,
+      67,
+      68,
+      72
+     ]
+    ],
+    [
+     "Dbmaj7",
+     4,
+     [
+      37,
+      65,
+      68,
+      72
+     ]
+    ],
+    [
+     "G7sus4",
+     4,
+     [
+      43,
+      65,
+      72,
+      74
+     ]
+    ],
+    [
+     "G7b9",
+     4,
+     [
+      43,
+      65,
+      68,
+      71,
+      74
+     ]
+    ]
+   ],
+   "description": "A chromatic bass descent from C through B and Bb to Ab under a held Eb-G shape, then Fm9, the Neapolitan Db and a slow G7b9 resolve. Arp it on a cold synth."
+  },
+  {
+   "title": "Tritone Mass",
+   "pack": "Velvet Coffin",
+   "bpm": 150,
+   "key": "E minor",
+   "tags": [
+    "dark synth",
+    "ominous",
+    "pad"
+   ],
+   "rhythm": "held",
+   "chords": [
+    [
+     "Em9",
+     4,
+     [
+      40,
+      55,
+      59,
+      62,
+      66
+     ]
+    ],
+    [
+     "Bbmaj7#11",
+     4,
+     [
+      34,
+      57,
+      62,
+      64,
+      65
+     ]
+    ],
+    [
+     "Cmaj7",
+     4,
+     [
+      36,
+      59,
+      64,
+      67
+     ]
+    ],
+    [
+     "B7b9",
+     4,
+     [
+      35,
+      57,
+      63,
+      66,
+      72
+     ]
+    ]
+   ],
+   "description": "Em9 jumps a tritone to Bbmaj7#11, which keeps E in the voicing, then Cmaj7 and B7b9. The tritone leap is the whole mood."
+  },
+  {
+   "title": "Velvet Descent",
+   "pack": "Velvet Coffin",
+   "bpm": 140,
+   "key": "A minor",
+   "tags": [
+    "dark synth",
+    "cinematic",
+    "strings"
+   ],
+   "rhythm": "roll",
+   "chords": [
+    [
+     "Am9",
+     4,
+     [
+      33,
+      55,
+      59,
+      60,
+      64
+     ]
+    ],
+    [
+     "Am(maj9)/G#",
+     4,
+     [
+      32,
+      60,
+      64,
+      68,
+      71
+     ]
+    ],
+    [
+     "Am9/G",
+     4,
+     [
+      31,
+      60,
+      64,
+      67,
+      71
+     ]
+    ],
+    [
+     "D9/F#",
+     4,
+     [
+      30,
+      60,
+      64,
+      66,
+      69
+     ]
+    ],
+    [
+     "Fmaj7#11",
+     4,
+     [
+      29,
+      60,
+      64,
+      69,
+      71
+     ]
+    ],
+    [
+     "E7sus4",
+     2,
+     [
+      28,
+      62,
+      69,
+      71
+     ]
+    ],
+    [
+     "E7b9",
+     2,
+     [
+      28,
+      62,
+      65,
+      68,
+      71
+     ]
+    ],
+    [
+     "Dm9",
+     4,
+     [
+      38,
+      60,
+      64,
+      65,
+      69
+     ]
+    ],
+    [
+     "E7#9",
+     4,
+     [
+      40,
+      62,
+      68,
+      71,
+      79
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     4,
+     76
+    ],
+    [
+     4,
+     4,
+     76
+    ],
+    [
+     8,
+     4,
+     74
+    ],
+    [
+     12,
+     4,
+     72
+    ],
+    [
+     16,
+     4,
+     71
+    ],
+    [
+     20,
+     4,
+     68
+    ]
+   ],
+   "description": "A line-cliche bass falling A, G#, G, F#, F, E under a steady A minor shape, then Dm9 and a sharp E7#9 to restart. Roll it slowly on strings or a pad."
+  },
+  {
+   "title": "Gothic Pulse",
+   "pack": "Velvet Coffin",
+   "bpm": 160,
+   "key": "F# minor",
+   "tags": [
+    "dark synth",
+    "menacing",
+    "synth"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "F#m(add9)",
+     4,
+     [
+      42,
+      61,
+      66,
+      68,
+      69
+     ]
+    ],
+    [
+     "Gmaj7",
+     4,
+     [
+      43,
+      59,
+      62,
+      66,
+      67
+     ]
+    ],
+    [
+     "Cmaj7",
+     4,
+     [
+      36,
+      59,
+      64,
+      67
+     ]
+    ],
+    [
+     "C#7b9",
+     4,
+     [
+      37,
+      59,
+      65,
+      68,
+      74
+     ]
+    ]
+   ],
+   "description": "Tonic to the phrygian G, then a tritone drop to C before C#7b9 drags it back. Pulse it with a sidechained saw."
+  },
+  {
+   "title": "Black Sedan",
+   "pack": "Velvet Coffin",
+   "bpm": 155,
+   "key": "G minor",
+   "tags": [
+    "dark synth",
+    "ominous",
+    "arp"
+   ],
+   "rhythm": "arp",
+   "chords": [
+    [
+     "Gm9",
+     4,
+     [
+      43,
+      58,
+      62,
+      65,
+      69
+     ]
+    ],
+    [
+     "Ebmaj7",
+     4,
+     [
+      39,
+      58,
+      62,
+      67
+     ]
+    ],
+    [
+     "Cm11",
+     4,
+     [
+      36,
+      58,
+      63,
+      65,
+      67
+     ]
+    ],
+    [
+     "D7b9",
+     4,
+     [
+      38,
+      60,
+      63,
+      66,
+      69
+     ]
+    ],
+    [
+     "Gm9",
+     4,
+     [
+      43,
+      58,
+      62,
+      65,
+      69
+     ]
+    ],
+    [
+     "Dbmaj7#11",
+     4,
+     [
+      37,
+      60,
+      65,
+      67,
+      68
+     ]
+    ],
+    [
+     "Cm9",
+     4,
+     [
+      36,
+      58,
+      62,
+      63,
+      67
+     ]
+    ],
+    [
+     "F#dim7",
+     4,
+     [
+      42,
+      57,
+      60,
+      63,
+      66
+     ]
+    ]
+   ],
+   "description": "Gm9, Ebmaj7, Cm11 and a dark D7b9, then the second half swaps in a tritone-away Dbmaj7#11 and ends on F#dim7, a leading-tone chord that never quite resolves."
+  },
+  {
+   "title": "Sigil Hour",
+   "pack": "Velvet Coffin",
+   "bpm": 148,
+   "key": "Bb minor",
+   "tags": [
+    "dark synth",
+    "ominous",
+    "pad"
+   ],
+   "rhythm": "held",
+   "chords": [
+    [
+     "Bbm11",
+     4,
+     [
+      34,
+      56,
+      61,
+      63,
+      65
+     ]
+    ],
+    [
+     "Gbmaj7#11",
+     4,
+     [
+      42,
+      58,
+      60,
+      61,
+      65
+     ]
+    ],
+    [
+     "Eø7",
+     4,
+     [
+      40,
+      58,
+      62,
+      67
+     ]
+    ],
+    [
+     "F7b9",
+     4,
+     [
+      41,
+      57,
+      63,
+      66
+     ]
+    ]
+   ],
+   "description": "Bbm11 and a lydian Gb, then the bass jumps a tritone to Eø7 before F7b9 resolves home. Long held pads, no drums needed to feel the dread."
+  },
+  {
+   "title": "Coffin Glow",
+   "pack": "Velvet Coffin",
+   "bpm": 165,
+   "key": "D minor",
+   "tags": [
+    "dark synth",
+    "menacing",
+    "synth"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "Dm9",
+     2,
+     [
+      38,
+      53,
+      57,
+      60,
+      64
+     ]
+    ],
+    [
+     "Dm(maj9)/C#",
+     2,
+     [
+      37,
+      53,
+      57,
+      61,
+      64
+     ]
+    ],
+    [
+     "Dm9/C",
+     2,
+     [
+      36,
+      53,
+      57,
+      60,
+      64
+     ]
+    ],
+    [
+     "Bm7b5",
+     2,
+     [
+      35,
+      53,
+      57,
+      62
+     ]
+    ],
+    [
+     "Bbmaj7",
+     2,
+     [
+      34,
+      53,
+      57,
+      62
+     ]
+    ],
+    [
+     "A7sus4",
+     2,
+     [
+      33,
+      55,
+      62,
+      64
+     ]
+    ],
+    [
+     "A7b9",
+     2,
+     [
+      33,
+      55,
+      58,
+      61,
+      64
+     ]
+    ],
+    [
+     "Dm(add9)",
+     2,
+     [
+      38,
+      53,
+      57,
+      62,
+      64
+     ]
+    ]
+   ],
+   "description": "A fast chromatic bass descent D, C#, C, B, Bb, A under a frozen F-A shape, two beats per chord. The A7b9 at the end is pure vamp tension."
+  },
+  {
+   "title": "Wraith Engine",
+   "pack": "Velvet Coffin",
+   "bpm": 142,
+   "key": "C# minor",
+   "tags": [
+    "dark synth",
+    "cinematic",
+    "pad"
+   ],
+   "rhythm": "roll",
+   "chords": [
+    [
+     "C#m11",
+     4,
+     [
+      37,
+      59,
+      64,
+      66,
+      68
+     ]
+    ],
+    [
+     "Amaj9",
+     4,
+     [
+      33,
+      56,
+      59,
+      61,
+      64
+     ]
+    ],
+    [
+     "Dmaj7",
+     4,
+     [
+      38,
+      57,
+      61,
+      66
+     ]
+    ],
+    [
+     "G#7b9",
+     4,
+     [
+      32,
+      54,
+      57,
+      60,
+      63
+     ]
+    ],
+    [
+     "C#m(maj9)",
+     4,
+     [
+      37,
+      56,
+      60,
+      63,
+      64
+     ]
+    ],
+    [
+     "F#m9",
+     4,
+     [
+      42,
+      57,
+      61,
+      64,
+      68
+     ]
+    ],
+    [
+     "Gmaj7#11",
+     4,
+     [
+      43,
+      59,
+      61,
+      62,
+      66
+     ]
+    ],
+    [
+     "G#7#9",
+     4,
+     [
+      44,
+      60,
+      66,
+      71,
+      75
+     ]
+    ]
+   ],
+   "description": "C#m11 to Amaj9, then the Neapolitan D and a harmonic-minor G#7b9. The back half adds a minor-major tonic and a tritone G before the #9 dominant."
+  },
+  {
+   "title": "Hearse Arp",
+   "pack": "Velvet Coffin",
+   "bpm": 158,
+   "key": "F minor",
+   "tags": [
+    "dark synth",
+    "ominous",
+    "arp"
+   ],
+   "rhythm": "arp",
+   "chords": [
+    [
+     "Fm(add9)",
+     4,
+     [
+      41,
+      56,
+      60,
+      65,
+      67
+     ]
+    ],
+    [
+     "Fm(maj9)/E",
+     4,
+     [
+      40,
+      56,
+      60,
+      64,
+      67
+     ]
+    ],
+    [
+     "Fm9/Eb",
+     4,
+     [
+      39,
+      56,
+      60,
+      63,
+      67
+     ]
+    ],
+    [
+     "Dbmaj7#11",
+     4,
+     [
+      37,
+      56,
+      60,
+      65,
+      67
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     4,
+     72
+    ],
+    [
+     4,
+     4,
+     71
+    ],
+    [
+     8,
+     4,
+     70
+    ],
+    [
+     12,
+     4,
+     68
+    ]
+   ],
+   "description": "Only one voice moves (F, E, Eb) while the bass walks down with it, then it settles on a lydian Db. Arp it on a glassy synth."
+  },
+  {
+   "title": "Obsidian Choir",
+   "pack": "Velvet Coffin",
+   "bpm": 150,
+   "key": "Eb minor",
+   "tags": [
+    "dark synth",
+    "cinematic",
+    "choir"
+   ],
+   "rhythm": "held",
+   "chords": [
+    [
+     "Ebm9",
+     4,
+     [
+      39,
+      54,
+      58,
+      61,
+      65
+     ]
+    ],
+    [
+     "Cbmaj7",
+     4,
+     [
+      35,
+      54,
+      58,
+      63
+     ]
+    ],
+    [
+     "Abm11",
+     4,
+     [
+      32,
+      54,
+      59,
+      61,
+      63
+     ]
+    ],
+    [
+     "Bb7b9",
+     4,
+     [
+      34,
+      56,
+      59,
+      62,
+      65
+     ]
+    ],
+    [
+     "Ebm9",
+     4,
+     [
+      39,
+      54,
+      58,
+      61,
+      65
+     ]
+    ],
+    [
+     "Amaj7#11",
+     4,
+     [
+      33,
+      56,
+      61,
+      63,
+      64
+     ]
+    ],
+    [
+     "Abm9",
+     4,
+     [
+      32,
+      54,
+      58,
+      59,
+      63
+     ]
+    ],
+    [
+     "Bb7#9",
+     4,
+     [
+      34,
+      56,
+      62,
+      65,
+      73
+     ]
+    ]
+   ],
+   "description": "Ebm9, Cbmaj7 and Abm11 into Bb7b9, then a tritone-away Amaj7#11 that holds the same notes respelled. Lush and ominous on a choir pad."
+  },
+  {
+   "title": "Phantom Dial",
+   "pack": "Velvet Coffin",
+   "bpm": 162,
+   "key": "B minor",
+   "tags": [
+    "dark synth",
+    "menacing",
+    "synth"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "Bm(add9)",
+     4,
+     [
+      35,
+      54,
+      59,
+      61,
+      62
+     ]
+    ],
+    [
+     "Fmaj7#11",
+     4,
+     [
+      41,
+      57,
+      59,
+      60,
+      64
+     ]
+    ],
+    [
+     "Gmaj9",
+     4,
+     [
+      43,
+      57,
+      59,
+      62,
+      66
+     ]
+    ],
+    [
+     "F#7b9",
+     4,
+     [
+      42,
+      58,
+      61,
+      64,
+      67
+     ]
+    ]
+   ],
+   "description": "Bm(add9) drops a tritone to Fmaj7#11 with B kept as the #11, Gmaj9 eases off and F#7b9 lands the menace. Pulse it in eighths."
+  },
+  {
+   "title": "Ash Cathedral",
+   "pack": "Velvet Coffin",
+   "bpm": 140,
+   "key": "G# minor",
+   "tags": [
+    "dark synth",
+    "cinematic",
+    "organ"
+   ],
+   "rhythm": "roll",
+   "chords": [
+    [
+     "G#m9",
+     4,
+     [
+      32,
+      59,
+      63,
+      66,
+      70
+     ]
+    ],
+    [
+     "Emaj7#11",
+     4,
+     [
+      40,
+      58,
+      59,
+      63,
+      68
+     ]
+    ],
+    [
+     "C#m9",
+     4,
+     [
+      37,
+      59,
+      63,
+      64,
+      68
+     ]
+    ],
+    [
+     "D7#11",
+     4,
+     [
+      38,
+      60,
+      66,
+      68,
+      69
+     ]
+    ]
+   ],
+   "description": "G#m9, a lydian E and C#m9, then D7#11 a tritone away whose G# keeps a thread to the tonic. Roll it on an organ."
+  },
+  {
+   "title": "Grave Shift",
+   "pack": "Velvet Coffin",
+   "bpm": 164,
+   "key": "E minor",
+   "tags": [
+    "dark synth",
+    "ominous",
+    "synth"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "Em(add9)",
+     4,
+     [
+      40,
+      59,
+      64,
+      66,
+      67
+     ]
+    ],
+    [
+     "Em(maj9)/D#",
+     4,
+     [
+      39,
+      59,
+      63,
+      66,
+      67
+     ]
+    ],
+    [
+     "Em9/D",
+     4,
+     [
+      38,
+      59,
+      62,
+      66,
+      67
+     ]
+    ],
+    [
+     "C#m7b5",
+     4,
+     [
+      37,
+      59,
+      64,
+      67
+     ]
+    ],
+    [
+     "Cmaj7#11",
+     4,
+     [
+      36,
+      59,
+      64,
+      66,
+      67
+     ]
+    ],
+    [
+     "B7sus4",
+     4,
+     [
+      35,
+      57,
+      64,
+      66
+     ]
+    ],
+    [
+     "Fmaj7",
+     4,
+     [
+      41,
+      57,
+      60,
+      64
+     ]
+    ],
+    [
+     "B7b9",
+     4,
+     [
+      35,
+      57,
+      60,
+      63,
+      66
+     ]
+    ]
+   ],
+   "description": "Eight bars of bass falling by half steps from E to C under a held G and F#, then a phrygian F before B7b9. Built for a slow-burn vamp."
+  },
+  {
+   "title": "Spectral Lane",
+   "pack": "Velvet Coffin",
+   "bpm": 152,
+   "key": "G minor",
+   "tags": [
+    "dark synth",
+    "ominous",
+    "pad"
+   ],
+   "rhythm": "held",
+   "chords": [
+    [
+     "Gm11",
+     4,
+     [
+      43,
+      58,
+      60,
+      62,
+      65
+     ]
+    ],
+    [
+     "Abmaj7",
+     4,
+     [
+      32,
+      55,
+      60,
+      63
+     ]
+    ],
+    [
+     "C#dim7",
+     4,
+     [
+      37,
+      55,
+      58,
+      64
+     ]
+    ],
+    [
+     "D7b9",
+     4,
+     [
+      38,
+      54,
+      60,
+      63,
+      69
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     4,
+     74
+    ],
+    [
+     4,
+     4,
+     75
+    ],
+    [
+     8,
+     4,
+     76
+    ],
+    [
+     12,
+     4,
+     75
+    ]
+   ],
+   "description": "Gm11 to the phrygian Ab, then C#dim7 a tritone from the root and D7b9 to resolve. Dark, slow and wide."
+  },
+  {
+   "title": "Bubblegum Orbit",
+   "pack": "Sugar Glitch",
+   "bpm": 170,
+   "key": "D major",
+   "tags": [
+    "hyperpop",
+    "bright",
+    "synth"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "Dmaj9",
+     4,
+     [
+      38,
+      54,
+      57,
+      61,
+      64
+     ]
+    ],
+    [
+     "Bm(add9)",
+     4,
+     [
+      35,
+      54,
+      59,
+      61,
+      62
+     ]
+    ],
+    [
+     "Gmaj9",
+     4,
+     [
+      43,
+      54,
+      57,
+      59,
+      62
+     ]
+    ],
+    [
+     "A6",
+     4,
+     [
+      33,
+      54,
+      57,
+      61,
+      64
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     1,
+     69
+    ],
+    [
+     1,
+     1,
+     73
+    ],
+    [
+     2,
+     2,
+     76
+    ],
+    [
+     8,
+     2,
+     74
+    ],
+    [
+     12,
+     4,
+     73
+    ]
+   ],
+   "description": "Dmaj9, Bm(add9), Gmaj9 and A6, with F# always in the voicing. Sweet, bright and made to pulse under pitched-up vocals."
+  },
+  {
+   "title": "Glitter Mainframe",
+   "pack": "Sugar Glitch",
+   "bpm": 175,
+   "key": "E major",
+   "tags": [
+    "hyperpop",
+    "bright",
+    "bell"
+   ],
+   "rhythm": "arp",
+   "chords": [
+    [
+     "Emaj9",
+     4,
+     [
+      40,
+      56,
+      59,
+      63,
+      66
+     ]
+    ],
+    [
+     "Amaj7#11",
+     4,
+     [
+      33,
+      56,
+      61,
+      63,
+      64
+     ]
+    ],
+    [
+     "C#m9",
+     4,
+     [
+      37,
+      56,
+      59,
+      63,
+      64
+     ]
+    ],
+    [
+     "Badd9",
+     4,
+     [
+      35,
+      54,
+      59,
+      61,
+      63
+     ]
+    ],
+    [
+     "Emaj9",
+     4,
+     [
+      40,
+      56,
+      59,
+      63,
+      66
+     ]
+    ],
+    [
+     "G#m7",
+     4,
+     [
+      32,
+      54,
+      59,
+      63
+     ]
+    ],
+    [
+     "Amaj9",
+     4,
+     [
+      33,
+      56,
+      59,
+      61,
+      64
+     ]
+    ],
+    [
+     "B9sus4",
+     4,
+     [
+      35,
+      54,
+      57,
+      61,
+      64
+     ]
+    ]
+   ],
+   "description": "Major-seven sparkle with a lydian A, C#m9 and Badd9, then G#m7 and a floating B9sus4 that never fully resolves. Arp it on a bell."
+  },
+  {
+   "title": "Candy Firewall",
+   "pack": "Sugar Glitch",
+   "bpm": 160,
+   "key": "A major",
+   "tags": [
+    "hyperpop",
+    "bright",
+    "pluck"
+   ],
+   "rhythm": "bounce",
+   "chords": [
+    [
+     "Amaj9",
+     4,
+     [
+      33,
+      56,
+      59,
+      61,
+      64
+     ]
+    ],
+    [
+     "Dmaj7#11",
+     4,
+     [
+      38,
+      56,
+      61,
+      66,
+      69
+     ]
+    ],
+    [
+     "F#m11",
+     4,
+     [
+      42,
+      59,
+      61,
+      64,
+      69
+     ]
+    ],
+    [
+     "Eadd9/G#",
+     4,
+     [
+      44,
+      59,
+      64,
+      66,
+      68
+     ]
+    ]
+   ],
+   "description": "Amaj9 to a lydian D with G# kept on the bottom of the voicing, F#m11 and E over G# to walk back up. Bounce it on a pluck."
+  },
+  {
+   "title": "Cloud Lag",
+   "pack": "Sugar Glitch",
+   "bpm": 180,
+   "key": "C major",
+   "tags": [
+    "hyperpop",
+    "dreamy",
+    "synth"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "Cmaj9",
+     2,
+     [
+      36,
+      52,
+      55,
+      59,
+      62
+     ]
+    ],
+    [
+     "Em9",
+     2,
+     [
+      40,
+      55,
+      59,
+      62,
+      66
+     ]
+    ],
+    [
+     "Fmaj7#11",
+     2,
+     [
+      41,
+      57,
+      59,
+      60,
+      64
+     ]
+    ],
+    [
+     "G6",
+     2,
+     [
+      43,
+      59,
+      62,
+      64
+     ]
+    ],
+    [
+     "Am9",
+     2,
+     [
+      33,
+      55,
+      59,
+      60,
+      64
+     ]
+    ],
+    [
+     "Fmaj9",
+     2,
+     [
+      41,
+      57,
+      60,
+      64,
+      67
+     ]
+    ],
+    [
+     "D7/F#",
+     2,
+     [
+      42,
+      60,
+      62,
+      66,
+      69
+     ]
+    ],
+    [
+     "Gsus4",
+     2,
+     [
+      43,
+      60,
+      62,
+      67
+     ]
+    ]
+   ],
+   "description": "Two-beat changes at 180 through Cmaj9, Em9 with a lydian F#, a #11 on F and a secondary D7 over F#. Busy, bright and glitchy."
+  },
+  {
+   "title": "Hologram Crush",
+   "pack": "Sugar Glitch",
+   "bpm": 165,
+   "key": "F major",
+   "tags": [
+    "hyperpop",
+    "dreamy",
+    "pad"
+   ],
+   "rhythm": "arp",
+   "chords": [
+    [
+     "Fmaj9",
+     4,
+     [
+      41,
+      57,
+      60,
+      64,
+      67
+     ]
+    ],
+    [
+     "Bbmaj7#11",
+     4,
+     [
+      34,
+      57,
+      62,
+      64,
+      65
+     ]
+    ],
+    [
+     "Dm9",
+     4,
+     [
+      38,
+      53,
+      57,
+      60,
+      64
+     ]
+    ],
+    [
+     "Cadd9/E",
+     4,
+     [
+      40,
+      55,
+      60,
+      62,
+      64
+     ]
+    ],
+    [
+     "Fmaj9",
+     4,
+     [
+      41,
+      57,
+      60,
+      64,
+      67
+     ]
+    ],
+    [
+     "Am7",
+     4,
+     [
+      33,
+      55,
+      60,
+      64
+     ]
+    ],
+    [
+     "Bbmaj9",
+     4,
+     [
+      34,
+      57,
+      60,
+      62,
+      65
+     ]
+    ],
+    [
+     "C9sus4",
+     4,
+     [
+      36,
+      58,
+      62,
+      65,
+      67
+     ]
+    ]
+   ],
+   "description": "Fmaj9 and a lydian Bb, Dm9 and C over E stepping the bass back up, then Am7, Bbmaj9 and a C9sus4 that hangs. Arp it fast and let it shimmer."
+  },
+  {
+   "title": "Pastel Overload",
+   "pack": "Sugar Glitch",
+   "bpm": 172,
+   "key": "Bb major",
+   "tags": [
+    "hyperpop",
+    "bright",
+    "keys"
+   ],
+   "rhythm": "push",
+   "chords": [
+    [
+     "Bbmaj9",
+     4,
+     [
+      34,
+      57,
+      60,
+      62,
+      65
+     ]
+    ],
+    [
+     "Ebmaj7#11",
+     4,
+     [
+      39,
+      57,
+      62,
+      67,
+      70
+     ]
+    ],
+    [
+     "Gm9",
+     4,
+     [
+      43,
+      58,
+      62,
+      65,
+      69
+     ]
+    ],
+    [
+     "Fadd9/A",
+     4,
+     [
+      33,
+      60,
+      65,
+      67,
+      69
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     2,
+     74
+    ],
+    [
+     2,
+     2,
+     77
+    ],
+    [
+     4,
+     4,
+     74
+    ],
+    [
+     8,
+     2,
+     70
+    ],
+    [
+     10,
+     2,
+     69
+    ],
+    [
+     12,
+     4,
+     67
+    ]
+   ],
+   "description": "Bbmaj9, a lydian Eb, Gm9, then F over A climbing back to the root. Push every chord early for that rushing hyperpop feel."
+  },
+  {
+   "title": "Sparkle Shard",
+   "pack": "Sugar Glitch",
+   "bpm": 155,
+   "key": "G major",
+   "tags": [
+    "hyperpop",
+    "dreamy",
+    "pluck"
+   ],
+   "rhythm": "bounce",
+   "chords": [
+    [
+     "Gmaj9",
+     4,
+     [
+      43,
+      59,
+      62,
+      66,
+      69
+     ]
+    ],
+    [
+     "Cmaj7#11",
+     4,
+     [
+      36,
+      59,
+      64,
+      66,
+      67
+     ]
+    ],
+    [
+     "Em(add9)",
+     4,
+     [
+      40,
+      59,
+      64,
+      66,
+      67
+     ]
+    ],
+    [
+     "Dsus2",
+     2,
+     [
+      38,
+      57,
+      62,
+      64
+     ]
+    ],
+    [
+     "D/F#",
+     2,
+     [
+      42,
+      57,
+      62,
+      66
+     ]
+    ]
+   ],
+   "description": "Gmaj9 into a lydian C whose voicing carries straight into Em(add9), then Dsus2 and D over F# to climb home. Light and bouncy."
+  },
+  {
+   "title": "Starlight Inbox",
+   "pack": "Sugar Glitch",
+   "bpm": 168,
+   "key": "Ab major",
+   "tags": [
+    "hyperpop",
+    "bright",
+    "synth"
+   ],
+   "rhythm": "arp",
+   "chords": [
+    [
+     "Abmaj9",
+     4,
+     [
+      32,
+      55,
+      58,
+      60,
+      63
+     ]
+    ],
+    [
+     "Fm9",
+     4,
+     [
+      41,
+      56,
+      60,
+      63,
+      67
+     ]
+    ],
+    [
+     "Dbmaj7#11",
+     4,
+     [
+      37,
+      55,
+      60,
+      65,
+      68
+     ]
+    ],
+    [
+     "Eb9sus4",
+     4,
+     [
+      39,
+      56,
+      58,
+      61,
+      65
+     ]
+    ],
+    [
+     "Abmaj9",
+     4,
+     [
+      32,
+      55,
+      58,
+      60,
+      63
+     ]
+    ],
+    [
+     "Cm7",
+     4,
+     [
+      36,
+      58,
+      63,
+      67
+     ]
+    ],
+    [
+     "Dbmaj9",
+     4,
+     [
+      37,
+      60,
+      63,
+      65,
+      68
+     ]
+    ],
+    [
+     "Ebadd9",
+     4,
+     [
+      39,
+      58,
+      63,
+      65,
+      67
+     ]
+    ]
+   ],
+   "description": "Abmaj9, Fm9 and a lydian Db into a suspended Eb, then Cm7 and Dbmaj9 rising to a clean Ebadd9. Wide-eyed and glossy."
+  },
+  {
+   "title": "Wifi Angel",
+   "pack": "Sugar Glitch",
+   "bpm": 178,
+   "key": "B major",
+   "tags": [
+    "hyperpop",
+    "bright",
+    "bell"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "Bmaj9",
+     4,
+     [
+      35,
+      58,
+      61,
+      63,
+      66
+     ]
+    ],
+    [
+     "Emaj7#11",
+     4,
+     [
+      40,
+      58,
+      63,
+      68,
+      71
+     ]
+    ],
+    [
+     "G#m9",
+     4,
+     [
+      32,
+      59,
+      63,
+      66,
+      70
+     ]
+    ],
+    [
+     "F#9sus4",
+     4,
+     [
+      42,
+      59,
+      61,
+      64,
+      68
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     1,
+     78
+    ],
+    [
+     1,
+     1,
+     75
+    ],
+    [
+     2,
+     2,
+     73
+    ],
+    [
+     4,
+     2,
+     71
+    ],
+    [
+     6,
+     2,
+     70
+    ],
+    [
+     12,
+     4,
+     68
+    ]
+   ],
+   "description": "Bmaj9 and a lydian E, G#m9 and a floating F#9sus4. Fast eighth-note pulse on a bell patch sells it."
+  },
+  {
+   "title": "Sugar Rush Protocol",
+   "pack": "Sugar Glitch",
+   "bpm": 160,
+   "key": "Db major",
+   "tags": [
+    "hyperpop",
+    "dreamy",
+    "keys"
+   ],
+   "rhythm": "bounce",
+   "chords": [
+    [
+     "Dbmaj9",
+     6,
+     [
+      37,
+      53,
+      56,
+      60,
+      63
+     ]
+    ],
+    [
+     "Bbm7",
+     2,
+     [
+      34,
+      56,
+      61,
+      65
+     ]
+    ],
+    [
+     "Gbmaj7#11",
+     6,
+     [
+      42,
+      53,
+      58,
+      60,
+      61
+     ]
+    ],
+    [
+     "Ab9sus4",
+     2,
+     [
+      32,
+      54,
+      58,
+      61,
+      63
+     ]
+    ],
+    [
+     "Dbmaj9",
+     6,
+     [
+      37,
+      53,
+      56,
+      60,
+      63
+     ]
+    ],
+    [
+     "Fm7",
+     2,
+     [
+      41,
+      56,
+      60,
+      63
+     ]
+    ],
+    [
+     "Ebm9",
+     6,
+     [
+      39,
+      54,
+      58,
+      61,
+      65
+     ]
+    ],
+    [
+     "Ab9",
+     2,
+     [
+      32,
+      54,
+      58,
+      60,
+      63
+     ]
+    ]
+   ],
+   "description": "Six-beat chords with two-beat pickups: Dbmaj9, a lydian Gb, a suspended Ab, then Ebm9 and Ab9 back to the top."
+  },
+  {
+   "title": "Rainbow Lag",
+   "pack": "Sugar Glitch",
+   "bpm": 166,
+   "key": "F# major",
+   "tags": [
+    "hyperpop",
+    "bright",
+    "pluck"
+   ],
+   "rhythm": "arp",
+   "chords": [
+    [
+     "F#maj9",
+     4,
+     [
+      42,
+      58,
+      61,
+      65,
+      68
+     ]
+    ],
+    [
+     "Bmaj7#11",
+     4,
+     [
+      35,
+      58,
+      63,
+      65,
+      66
+     ]
+    ],
+    [
+     "D#m9",
+     4,
+     [
+      39,
+      54,
+      58,
+      61,
+      65
+     ]
+    ],
+    [
+     "C#add9",
+     4,
+     [
+      37,
+      56,
+      61,
+      63,
+      65
+     ]
+    ]
+   ],
+   "description": "F#maj9 to a lydian B, D#m9 and C#add9, with E# ringing through every chord. Arp it on a pluck and pitch it up."
+  },
+  {
+   "title": "Lilac Server",
+   "pack": "Sugar Glitch",
+   "bpm": 174,
+   "key": "Eb major",
+   "tags": [
+    "hyperpop",
+    "dreamy",
+    "synth"
+   ],
+   "rhythm": "push",
+   "chords": [
+    [
+     "Ebmaj9",
+     4,
+     [
+      39,
+      55,
+      58,
+      62,
+      65
+     ]
+    ],
+    [
+     "Abmaj7#11",
+     4,
+     [
+      32,
+      55,
+      60,
+      62,
+      63
+     ]
+    ],
+    [
+     "Cm11",
+     4,
+     [
+      36,
+      58,
+      63,
+      65,
+      67
+     ]
+    ],
+    [
+     "Bb9sus4",
+     2,
+     [
+      34,
+      56,
+      60,
+      63,
+      65
+     ]
+    ],
+    [
+     "Bbadd9",
+     2,
+     [
+      34,
+      53,
+      58,
+      60,
+      62
+     ]
+    ]
+   ],
+   "description": "Ebmaj9, a lydian Ab, Cm11, and a suspended Bb that resolves to Bbadd9. Push it early for a breathless top-line bed."
+  },
+  {
+   "title": "Memphis Fog",
+   "pack": "Cowbell Cathedral",
+   "bpm": 130,
+   "key": "C# minor",
+   "tags": [
+    "phonk",
+    "dark",
+    "memphis"
+   ],
+   "rhythm": "held",
+   "chords": [
+    [
+     "C#m(add9)",
+     4,
+     [
+      37,
+      56,
+      61,
+      63,
+      64
+     ]
+    ],
+    [
+     "Dmaj7",
+     4,
+     [
+      38,
+      57,
+      61,
+      66
+     ]
+    ],
+    [
+     "G#7b9",
+     4,
+     [
+      32,
+      54,
+      60,
+      63,
+      69
+     ]
+    ],
+    [
+     "C#m(maj7)",
+     4,
+     [
+      37,
+      56,
+      60,
+      64
+     ]
+    ]
+   ],
+   "description": "C#m(add9) slides up a half step to the phrygian D, then a harmonic-minor G#7b9 and a minor-major tonic. Pure Memphis smoke under a cowbell."
+  },
+  {
+   "title": "Tape Hiss Prayer",
+   "pack": "Cowbell Cathedral",
+   "bpm": 135,
+   "key": "F minor",
+   "tags": [
+    "phonk",
+    "dark",
+    "bell"
+   ],
+   "rhythm": "arp",
+   "chords": [
+    [
+     "Fm9",
+     4,
+     [
+      41,
+      56,
+      60,
+      63,
+      67
+     ]
+    ],
+    [
+     "Gbmaj7",
+     4,
+     [
+      42,
+      58,
+      61,
+      65
+     ]
+    ],
+    [
+     "Edim7",
+     4,
+     [
+      40,
+      55,
+      58,
+      61
+     ]
+    ],
+    [
+     "C7b9",
+     4,
+     [
+      36,
+      58,
+      61,
+      64,
+      67
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     2,
+     72
+    ],
+    [
+     2,
+     2,
+     68
+    ],
+    [
+     4,
+     4,
+     70
+    ],
+    [
+     8,
+     2,
+     67
+    ],
+    [
+     10,
+     2,
+     70
+    ],
+    [
+     12,
+     4,
+     64
+    ]
+   ],
+   "description": "Fm9, a phrygian Gb, Edim7 and C7b9: every chord leans on the half step. Arp it on a lo-fi bell."
+  },
+  {
+   "title": "Cobra Lowrider",
+   "pack": "Cowbell Cathedral",
+   "bpm": 128,
+   "key": "A minor",
+   "tags": [
+    "phonk",
+    "memphis",
+    "keys"
+   ],
+   "rhythm": "bounce",
+   "chords": [
+    [
+     "Am(add9)",
+     4,
+     [
+      33,
+      52,
+      57,
+      59,
+      60
+     ]
+    ],
+    [
+     "Bbmaj7",
+     4,
+     [
+      34,
+      53,
+      57,
+      62
+     ]
+    ],
+    [
+     "G#dim7",
+     4,
+     [
+      32,
+      59,
+      62,
+      65
+     ]
+    ],
+    [
+     "E7b9",
+     4,
+     [
+      40,
+      56,
+      59,
+      62,
+      65
+     ]
+    ],
+    [
+     "Am(add9)",
+     4,
+     [
+      33,
+      52,
+      57,
+      59,
+      60
+     ]
+    ],
+    [
+     "Dm9",
+     4,
+     [
+      38,
+      53,
+      57,
+      60,
+      64
+     ]
+    ],
+    [
+     "Bbmaj7#11",
+     4,
+     [
+      34,
+      57,
+      62,
+      64,
+      65
+     ]
+    ],
+    [
+     "E7#9",
+     4,
+     [
+      40,
+      62,
+      68,
+      71,
+      79
+     ]
+    ]
+   ],
+   "description": "Am(add9), the phrygian Bb, G#dim7 and E7b9, then Dm9, a #11 Bb and a gritty E7#9. Bounce it slow and low."
+  },
+  {
+   "title": "Smoke Hallway",
+   "pack": "Cowbell Cathedral",
+   "bpm": 140,
+   "key": "D minor",
+   "tags": [
+    "phonk",
+    "dark",
+    "synth"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "Dm11",
+     4,
+     [
+      38,
+      60,
+      65,
+      67,
+      69
+     ]
+    ],
+    [
+     "Ebmaj7",
+     4,
+     [
+      39,
+      62,
+      67,
+      70
+     ]
+    ],
+    [
+     "C#dim7",
+     4,
+     [
+      37,
+      64,
+      67,
+      70
+     ]
+    ],
+    [
+     "A7b9",
+     4,
+     [
+      33,
+      61,
+      67,
+      70
+     ]
+    ]
+   ],
+   "description": "Dm11 to the phrygian Eb, then C#dim7 and A7b9 with Bb held on top through three chords. Pulse it with a distorted 808."
+  },
+  {
+   "title": "Haunted Cassette",
+   "pack": "Cowbell Cathedral",
+   "bpm": 125,
+   "key": "G minor",
+   "tags": [
+    "phonk",
+    "memphis",
+    "dark"
+   ],
+   "rhythm": "held",
+   "chords": [
+    [
+     "Gm(add9)",
+     4,
+     [
+      43,
+      58,
+      62,
+      67,
+      69
+     ]
+    ],
+    [
+     "Abmaj7#11",
+     4,
+     [
+      32,
+      55,
+      60,
+      62,
+      63
+     ]
+    ],
+    [
+     "Cm9",
+     4,
+     [
+      36,
+      58,
+      62,
+      63,
+      67
+     ]
+    ],
+    [
+     "D7b9",
+     4,
+     [
+      38,
+      60,
+      63,
+      66,
+      69
+     ]
+    ]
+   ],
+   "description": "Gm(add9), a phrygian Ab with the D kept as #11, Cm9 and a harmonic-minor D7b9. Slow, held and tape-warped."
+  },
+  {
+   "title": "Crown Vic Choir",
+   "pack": "Cowbell Cathedral",
+   "bpm": 132,
+   "key": "B minor",
+   "tags": [
+    "phonk",
+    "memphis",
+    "choir"
+   ],
+   "rhythm": "roll",
+   "chords": [
+    [
+     "Bm9",
+     4,
+     [
+      35,
+      62,
+      66,
+      69,
+      73
+     ]
+    ],
+    [
+     "Cmaj7",
+     4,
+     [
+      36,
+      59,
+      64,
+      67
+     ]
+    ],
+    [
+     "A#dim7",
+     4,
+     [
+      34,
+      61,
+      64,
+      67
+     ]
+    ],
+    [
+     "F#7b9",
+     4,
+     [
+      42,
+      64,
+      67,
+      70,
+      73
+     ]
+    ],
+    [
+     "Bm(add9)",
+     4,
+     [
+      35,
+      54,
+      59,
+      61,
+      62
+     ]
+    ],
+    [
+     "Em9",
+     4,
+     [
+      40,
+      55,
+      59,
+      62,
+      66
+     ]
+    ],
+    [
+     "Cmaj7#11",
+     4,
+     [
+      36,
+      59,
+      64,
+      66,
+      67
+     ]
+    ],
+    [
+     "F#7#9",
+     4,
+     [
+      42,
+      64,
+      70,
+      73,
+      81
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     4,
+     78
+    ],
+    [
+     4,
+     4,
+     79
+    ],
+    [
+     8,
+     4,
+     76
+    ],
+    [
+     12,
+     4,
+     73
+    ]
+   ],
+   "description": "Bm9 to the phrygian C, A#dim7 and F#7b9, then Em9, a lydian C and F#7#9. Roll it on a choir patch for that cathedral Memphis sound."
+  },
+  {
+   "title": "Ghost Cowbell",
+   "pack": "Cowbell Cathedral",
+   "bpm": 138,
+   "key": "E minor",
+   "tags": [
+    "phonk",
+    "dark",
+    "keys"
+   ],
+   "rhythm": "stabs",
+   "chords": [
+    [
+     "Em(add9)",
+     4,
+     [
+      40,
+      59,
+      64,
+      66,
+      67
+     ]
+    ],
+    [
+     "Fmaj7",
+     4,
+     [
+      41,
+      57,
+      60,
+      64
+     ]
+    ],
+    [
+     "D#dim7",
+     4,
+     [
+      39,
+      54,
+      57,
+      60
+     ]
+    ],
+    [
+     "B7b9",
+     4,
+     [
+      35,
+      57,
+      60,
+      63,
+      66
+     ]
+    ]
+   ],
+   "description": "Em(add9) up a half step to Fmaj7, then D#dim7 and B7b9 sharing the C. Stab it between cowbell hits."
+  },
+  {
+   "title": "Purple Slab",
+   "pack": "Cowbell Cathedral",
+   "bpm": 142,
+   "key": "F# minor",
+   "tags": [
+    "phonk",
+    "memphis",
+    "synth"
+   ],
+   "rhythm": "bounce",
+   "chords": [
+    [
+     "F#m9",
+     4,
+     [
+      42,
+      57,
+      61,
+      64,
+      68
+     ]
+    ],
+    [
+     "Gmaj7#11",
+     4,
+     [
+      43,
+      59,
+      61,
+      62,
+      66
+     ]
+    ],
+    [
+     "E#dim7",
+     4,
+     [
+      41,
+      56,
+      59,
+      62
+     ]
+    ],
+    [
+     "C#7b9",
+     4,
+     [
+      37,
+      59,
+      62,
+      65,
+      68
+     ]
+    ]
+   ],
+   "description": "F#m9 to a lydian G, then E#dim7 and C#7b9 sharing B, D and G#. Bounce it under a chopped vocal."
+  },
+  {
+   "title": "Handbrake Neon",
+   "pack": "Cowbell Cathedral",
+   "bpm": 150,
+   "key": "G# minor",
+   "tags": [
+    "phonk",
+    "drift",
+    "synth"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "G#m(add9)",
+     4,
+     [
+      32,
+      51,
+      56,
+      58,
+      59
+     ]
+    ],
+    [
+     "Amaj7",
+     4,
+     [
+      33,
+      56,
+      61,
+      64
+     ]
+    ],
+    [
+     "Emaj7",
+     4,
+     [
+      40,
+      56,
+      59,
+      63
+     ]
+    ],
+    [
+     "D#7b9",
+     4,
+     [
+      39,
+      61,
+      64,
+      67,
+      70
+     ]
+    ]
+   ],
+   "description": "G#m(add9) up a half step to Amaj7, Emaj7, and D#7b9 with its b9 on E. Pulse it fast with a cowbell lead for drift phonk."
+  },
+  {
+   "title": "Sideways Siren",
+   "pack": "Cowbell Cathedral",
+   "bpm": 155,
+   "key": "C minor",
+   "tags": [
+    "phonk",
+    "drift",
+    "aggressive"
+   ],
+   "rhythm": "stabs",
+   "chords": [
+    [
+     "Cm9",
+     4,
+     [
+      36,
+      51,
+      55,
+      58,
+      62
+     ]
+    ],
+    [
+     "Dbmaj7",
+     4,
+     [
+      37,
+      53,
+      56,
+      60
+     ]
+    ],
+    [
+     "Bdim7",
+     4,
+     [
+      35,
+      53,
+      56,
+      62
+     ]
+    ],
+    [
+     "G7b9",
+     4,
+     [
+      31,
+      53,
+      56,
+      59,
+      62
+     ]
+    ],
+    [
+     "Cm(add9)",
+     4,
+     [
+      36,
+      55,
+      60,
+      62,
+      63
+     ]
+    ],
+    [
+     "Abmaj7#11",
+     4,
+     [
+      32,
+      55,
+      60,
+      62,
+      63
+     ]
+    ],
+    [
+     "Fm9",
+     4,
+     [
+      41,
+      56,
+      60,
+      63,
+      67
+     ]
+    ],
+    [
+     "G7#9",
+     4,
+     [
+      31,
+      53,
+      59,
+      62,
+      70
+     ]
+    ]
+   ],
+   "description": "Cm9, the phrygian Db, Bdim7 and G7b9, then a held cluster over C and Ab, Fm9 and G7#9. Stab it hard for drift phonk."
+  },
+  {
+   "title": "Burnout Lane",
+   "pack": "Cowbell Cathedral",
+   "bpm": 145,
+   "key": "Eb minor",
+   "tags": [
+    "phonk",
+    "drift",
+    "dark"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "Ebm(add9)",
+     4,
+     [
+      39,
+      58,
+      63,
+      65,
+      66
+     ]
+    ],
+    [
+     "Emaj7",
+     4,
+     [
+      40,
+      59,
+      63,
+      68
+     ]
+    ],
+    [
+     "Ddim7",
+     4,
+     [
+      38,
+      56,
+      59,
+      65
+     ]
+    ],
+    [
+     "Bb7b9",
+     4,
+     [
+      34,
+      56,
+      59,
+      62,
+      65
+     ]
+    ]
+   ],
+   "description": "Ebm(add9) slides up a half step to Emaj7, then Ddim7 and Bb7b9 share Ab, B and F. Pulse it under a cowbell melody."
+  },
+  {
+   "title": "Midnight Touge",
+   "pack": "Cowbell Cathedral",
+   "bpm": 160,
+   "key": "A minor",
+   "tags": [
+    "phonk",
+    "drift",
+    "synth"
+   ],
+   "rhythm": "arp",
+   "chords": [
+    [
+     "Am9",
+     2,
+     [
+      33,
+      55,
+      59,
+      60,
+      64
+     ]
+    ],
+    [
+     "Fmaj7",
+     2,
+     [
+      41,
+      57,
+      60,
+      64
+     ]
+    ],
+    [
+     "Dm9",
+     2,
+     [
+      38,
+      53,
+      57,
+      60,
+      64
+     ]
+    ],
+    [
+     "E7b9",
+     2,
+     [
+      40,
+      56,
+      59,
+      62,
+      65
+     ]
+    ],
+    [
+     "Am(maj9)",
+     2,
+     [
+      33,
+      56,
+      59,
+      60,
+      64
+     ]
+    ],
+    [
+     "Fmaj7#11",
+     2,
+     [
+      41,
+      57,
+      59,
+      60,
+      64
+     ]
+    ],
+    [
+     "G#dim7",
+     2,
+     [
+      32,
+      59,
+      62,
+      65
+     ]
+    ],
+    [
+     "E7#9",
+     2,
+     [
+      40,
+      56,
+      62,
+      67,
+      71
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     2,
+     76
+    ],
+    [
+     2,
+     2,
+     72
+    ],
+    [
+     4,
+     2,
+     69
+    ],
+    [
+     6,
+     2,
+     68
+    ],
+    [
+     8,
+     2,
+     71
+    ],
+    [
+     10,
+     2,
+     72
+    ],
+    [
+     12,
+     2,
+     74
+    ],
+    [
+     14,
+     2,
+     71
+    ]
+   ],
+   "description": "Two-beat harmonic-minor changes at 160: Am9, Fmaj7, Dm9 and E7b9, then a minor-major tonic, #11 F, G#dim7 and E7#9. Arp it fast."
+  },
+  {
+   "title": "Clutch Kick Ritual",
+   "pack": "Cowbell Cathedral",
+   "bpm": 152,
+   "key": "Bb minor",
+   "tags": [
+    "phonk",
+    "drift",
+    "bell"
+   ],
+   "rhythm": "bounce",
+   "chords": [
+    [
+     "Bbm9",
+     4,
+     [
+      34,
+      61,
+      65,
+      68,
+      72
+     ]
+    ],
+    [
+     "Cbmaj7",
+     4,
+     [
+      35,
+      58,
+      63,
+      66
+     ]
+    ],
+    [
+     "Adim7",
+     4,
+     [
+      33,
+      60,
+      63,
+      66
+     ]
+    ],
+    [
+     "F7b9",
+     4,
+     [
+      41,
+      63,
+      66,
+      69,
+      72
+     ]
+    ]
+   ],
+   "description": "Bbm9 to the phrygian Cb, then Adim7 and F7b9 with Gb hanging on top. Bounce it on a bell for drift phonk."
+  },
+  {
+   "title": "Gravel Chapel Rims",
+   "pack": "Cowbell Cathedral",
+   "bpm": 135,
+   "key": "D minor",
+   "tags": [
+    "phonk",
+    "memphis",
+    "keys"
+   ],
+   "rhythm": "roll",
+   "chords": [
+    [
+     "Dm(add9)",
+     4,
+     [
+      38,
+      57,
+      62,
+      64,
+      65
+     ]
+    ],
+    [
+     "Dm(maj9)/C#",
+     4,
+     [
+      37,
+      57,
+      61,
+      64,
+      65
+     ]
+    ],
+    [
+     "Dm9/C",
+     4,
+     [
+      36,
+      57,
+      60,
+      64,
+      65
+     ]
+    ],
+    [
+     "Bbmaj7#11",
+     4,
+     [
+      34,
+      57,
+      62,
+      64,
+      65
+     ]
+    ],
+    [
+     "Gm9",
+     4,
+     [
+      43,
+      58,
+      62,
+      65,
+      69
+     ]
+    ],
+    [
+     "Ebmaj7",
+     4,
+     [
+      39,
+      58,
+      62,
+      67
+     ]
+    ],
+    [
+     "C#dim7",
+     4,
+     [
+      37,
+      58,
+      64,
+      67
+     ]
+    ],
+    [
+     "A7b9",
+     4,
+     [
+      33,
+      55,
+      61,
+      64,
+      70
+     ]
+    ]
+   ],
+   "description": "A line-cliche bass falling D, C#, C, Bb under a held E-F cluster, then Gm9, the phrygian Eb, C#dim7 and A7b9. Roll it on a dusty piano."
+  },
+  {
+   "title": "Slide Lights",
+   "pack": "Cowbell Cathedral",
+   "bpm": 158,
+   "key": "F minor",
+   "tags": [
+    "phonk",
+    "drift",
+    "aggressive"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "Fm(add9)",
+     4,
+     [
+      41,
+      60,
+      65,
+      67,
+      68
+     ]
+    ],
+    [
+     "Gbmaj7#11",
+     4,
+     [
+      42,
+      60,
+      65,
+      66,
+      70
+     ]
+    ],
+    [
+     "Edim7",
+     4,
+     [
+      40,
+      61,
+      67,
+      70
+     ]
+    ],
+    [
+     "C7b9",
+     4,
+     [
+      36,
+      58,
+      61,
+      64,
+      67
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     2,
+     72
+    ],
+    [
+     2,
+     2,
+     68
+    ],
+    [
+     4,
+     4,
+     70
+    ],
+    [
+     8,
+     4,
+     73
+    ],
+    [
+     12,
+     4,
+     76
+    ]
+   ],
+   "description": "Fm(add9) to a lydian Gb a half step up, then Edim7 and C7b9 sharing Db, G and Bb. Fast eighth pulse with a cowbell on top."
+  },
+  {
+   "title": "Drift Requiem",
+   "pack": "Cowbell Cathedral",
+   "bpm": 145,
+   "key": "G minor",
+   "tags": [
+    "phonk",
+    "drift",
+    "dark"
+   ],
+   "rhythm": "held",
+   "chords": [
+    [
+     "Gm9",
+     4,
+     [
+      43,
+      58,
+      62,
+      65,
+      69
+     ]
+    ],
+    [
+     "Abmaj7#11",
+     4,
+     [
+      32,
+      55,
+      60,
+      62,
+      63
+     ]
+    ],
+    [
+     "Ebmaj7",
+     4,
+     [
+      39,
+      58,
+      62,
+      67
+     ]
+    ],
+    [
+     "F#dim7",
+     4,
+     [
+      42,
+      57,
+      60,
+      63
+     ]
+    ],
+    [
+     "Gm(maj9)",
+     4,
+     [
+      43,
+      58,
+      62,
+      66,
+      69
+     ]
+    ],
+    [
+     "Cm11",
+     4,
+     [
+      36,
+      58,
+      63,
+      65,
+      67
+     ]
+    ],
+    [
+     "Abmaj9",
+     4,
+     [
+      32,
+      55,
+      58,
+      60,
+      63
+     ]
+    ],
+    [
+     "D7#9",
+     4,
+     [
+      38,
+      60,
+      66,
+      69,
+      77
+     ]
+    ]
+   ],
+   "description": "Gm9, a phrygian Ab, Ebmaj7 and F#dim7, then a minor-major tonic, Cm11, Abmaj9 and D7#9. Held and wide, slower drift for the outro."
+  }
+ ]
+}

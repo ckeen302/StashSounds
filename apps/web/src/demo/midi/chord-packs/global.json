@@ -1,0 +1,5174 @@
+{
+ "packs": [
+  {
+   "name": "Sunset Highlife Keys",
+   "style": "afrobeats",
+   "description": "Warm afrobeats and afro-swing keys: major 7 and minor 9 loops, sunny two-chord vamps and soft sus turnarounds at 98 to 115 BPM."
+  },
+  {
+   "name": "Log Drum Lounge",
+   "style": "amapiano",
+   "description": "Jazzy amapiano chords for log-drum grooves: dorian 13ths, minor 11ths and altered dominants at 110 to 115 BPM."
+  },
+  {
+   "name": "Perreo Nocturno",
+   "style": "latin",
+   "description": "Reggaeton and latin trap harmony: minor i-VI-III-VII colors, Andalusian descents with extensions and dark harmonic-minor loops."
+  },
+  {
+   "name": "Paper Heart Tapes",
+   "style": "emo rap",
+   "description": "Sad, open, guitar-shaped voicings for emo rap: add9 and sus chords, slash-bass walkdowns and borrowed minor iv sighs."
+  },
+  {
+   "name": "Skyline Anthems",
+   "style": "pop rap",
+   "description": "Bright radio pop rap progressions with inspiring lifts, maj9 color and the borrowed minor iv that makes a hook feel bigger."
+  }
+ ],
+ "progressions": [
+  {
+   "title": "Harmattan Glow",
+   "pack": "Sunset Highlife Keys",
+   "bpm": 104,
+   "key": "F major",
+   "tags": [
+    "afrobeats",
+    "warm",
+    "sunny"
+   ],
+   "rhythm": "bounce",
+   "chords": [
+    [
+     "Bbmaj9",
+     4,
+     [
+      46,
+      62,
+      65,
+      69,
+      72
+     ]
+    ],
+    [
+     "Am7",
+     4,
+     [
+      45,
+      64,
+      67,
+      69,
+      72
+     ]
+    ],
+    [
+     "Dm9",
+     4,
+     [
+      38,
+      64,
+      65,
+      69,
+      72
+     ]
+    ],
+    [
+     "Gm9",
+     2,
+     [
+      43,
+      65,
+      69,
+      70,
+      74
+     ]
+    ],
+    [
+     "C13sus4",
+     2,
+     [
+      36,
+      65,
+      69,
+      70,
+      74
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     1.5,
+     74
+    ],
+    [
+     1.5,
+     0.5,
+     72
+    ],
+    [
+     2,
+     2,
+     69
+    ],
+    [
+     4.5,
+     1.5,
+     76
+    ],
+    [
+     6,
+     2,
+     72
+    ],
+    [
+     8,
+     1.5,
+     77
+    ],
+    [
+     9.5,
+     0.5,
+     76
+    ],
+    [
+     10,
+     2,
+     72
+    ],
+    [
+     12,
+     2,
+     74
+    ],
+    [
+     14,
+     2,
+     77
+    ]
+   ],
+   "description": "IVmaj9 to iii7 to vi9, then a quick ii9 into a C13sus4 that never fully resolves. Bounce it under a shaker and the loop feels like late afternoon."
+  },
+  {
+   "title": "Marina Drift",
+   "pack": "Sunset Highlife Keys",
+   "bpm": 100,
+   "key": "Ab major",
+   "tags": [
+    "afrobeats",
+    "smooth",
+    "vamp"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "Dbmaj9",
+     4,
+     [
+      37,
+      63,
+      65,
+      68,
+      72
+     ]
+    ],
+    [
+     "Cm7",
+     4,
+     [
+      36,
+      63,
+      67,
+      70,
+      72
+     ]
+    ],
+    [
+     "Dbmaj9",
+     4,
+     [
+      37,
+      63,
+      65,
+      68,
+      72
+     ]
+    ],
+    [
+     "Eb9sus4",
+     2,
+     [
+      39,
+      61,
+      65,
+      68,
+      70
+     ]
+    ],
+    [
+     "Eb7",
+     2,
+     [
+      39,
+      61,
+      63,
+      67,
+      70
+     ]
+    ]
+   ],
+   "description": "A sunny two-chord vamp between IVmaj9 and iii7, with a suspended V that tightens into Eb7 at the very end to pull the loop round."
+  },
+  {
+   "title": "Okada Rooftop",
+   "pack": "Sunset Highlife Keys",
+   "bpm": 108,
+   "key": "G major",
+   "tags": [
+    "afrobeats",
+    "bright",
+    "bouncy"
+   ],
+   "rhythm": "stabs",
+   "chords": [
+    [
+     "Cmaj9",
+     4,
+     [
+      36,
+      62,
+      64,
+      67,
+      71
+     ]
+    ],
+    [
+     "Bm7",
+     2,
+     [
+      35,
+      62,
+      66,
+      69,
+      71
+     ]
+    ],
+    [
+     "E7b9",
+     2,
+     [
+      40,
+      62,
+      65,
+      68,
+      71
+     ]
+    ],
+    [
+     "Am9",
+     4,
+     [
+      45,
+      60,
+      64,
+      67,
+      71
+     ]
+    ],
+    [
+     "D13",
+     4,
+     [
+      38,
+      60,
+      64,
+      66,
+      71
+     ]
+    ]
+   ],
+   "description": "Cmaj9 slides to Bm7 and a passing E7b9 that pushes hard into Am9, then D13 rides the bar out. Stab it on the offbeats for afro-swing bounce."
+  },
+  {
+   "title": "Palm Wine Fade",
+   "pack": "Sunset Highlife Keys",
+   "bpm": 102,
+   "key": "D major",
+   "tags": [
+    "afrobeats",
+    "mellow",
+    "guitar"
+   ],
+   "rhythm": "roll",
+   "chords": [
+    [
+     "Gmaj7",
+     4,
+     [
+      43,
+      62,
+      66,
+      67,
+      71
+     ]
+    ],
+    [
+     "F#m7",
+     4,
+     [
+      42,
+      61,
+      64,
+      66,
+      69
+     ]
+    ],
+    [
+     "Bm9",
+     4,
+     [
+      47,
+      61,
+      66,
+      69,
+      74
+     ]
+    ],
+    [
+     "Em9",
+     4,
+     [
+      40,
+      62,
+      66,
+      67,
+      71
+     ]
+    ],
+    [
+     "Gmaj7",
+     4,
+     [
+      43,
+      62,
+      66,
+      67,
+      71
+     ]
+    ],
+    [
+     "F#7b13",
+     4,
+     [
+      42,
+      62,
+      64,
+      66,
+      70
+     ]
+    ],
+    [
+     "Bm11",
+     4,
+     [
+      47,
+      62,
+      64,
+      66,
+      69,
+      73
+     ]
+    ],
+    [
+     "A13sus4",
+     2,
+     [
+      45,
+      62,
+      66,
+      67,
+      71
+     ]
+    ],
+    [
+     "A9",
+     2,
+     [
+      45,
+      61,
+      64,
+      67,
+      71
+     ]
+    ]
+   ],
+   "top": [
+    [
+     2,
+     1,
+     78
+    ],
+    [
+     3,
+     1,
+     76
+    ],
+    [
+     4,
+     2,
+     73
+    ],
+    [
+     10,
+     1,
+     74
+    ],
+    [
+     11,
+     1,
+     73
+    ],
+    [
+     12,
+     4,
+     71
+    ],
+    [
+     18,
+     1,
+     78
+    ],
+    [
+     19,
+     1,
+     76
+    ],
+    [
+     20,
+     4,
+     74
+    ],
+    [
+     26,
+     1,
+     73
+    ],
+    [
+     27,
+     1,
+     71
+    ],
+    [
+     28,
+     4,
+     71
+    ]
+   ],
+   "description": "Eight bars of IVmaj7, iii7, vi9 and ii9, then the second half swaps in F#7b13 as a secondary dominant into Bm11. Rolled like a palm-wine guitar."
+  },
+  {
+   "title": "Lekki Sunday",
+   "pack": "Sunset Highlife Keys",
+   "bpm": 98,
+   "key": "E major",
+   "tags": [
+    "afrobeats",
+    "laid back",
+    "pads"
+   ],
+   "rhythm": "held",
+   "chords": [
+    [
+     "Amaj9",
+     8,
+     [
+      45,
+      59,
+      64,
+      68,
+      73
+     ]
+    ],
+    [
+     "G#m7",
+     8,
+     [
+      44,
+      59,
+      63,
+      66,
+      68
+     ]
+    ],
+    [
+     "C#m9",
+     8,
+     [
+      37,
+      59,
+      63,
+      64,
+      68
+     ]
+    ],
+    [
+     "F#9sus4",
+     4,
+     [
+      42,
+      59,
+      61,
+      64,
+      68
+     ]
+    ],
+    [
+     "F#13",
+     4,
+     [
+      42,
+      58,
+      63,
+      64,
+      68
+     ]
+    ]
+   ],
+   "description": "Long two-bar chords for a slow afro-swing record: IVmaj9, iii7, vi9 and a suspended II that opens into F#13. Leaves plenty of room for a vocal."
+  },
+  {
+   "title": "Gold Coast Sway",
+   "pack": "Sunset Highlife Keys",
+   "bpm": 110,
+   "key": "Bb major",
+   "tags": [
+    "afrobeats",
+    "vamp",
+    "dance"
+   ],
+   "rhythm": "bounce",
+   "chords": [
+    [
+     "Bbmaj9",
+     4,
+     [
+      46,
+      62,
+      65,
+      69,
+      72
+     ]
+    ],
+    [
+     "Cm11",
+     4,
+     [
+      36,
+      62,
+      63,
+      65,
+      67,
+      70
+     ]
+    ],
+    [
+     "Bbmaj9/D",
+     4,
+     [
+      38,
+      60,
+      62,
+      65,
+      69
+     ]
+    ],
+    [
+     "Ebmaj7#11",
+     4,
+     [
+      39,
+      58,
+      62,
+      67,
+      69
+     ]
+    ]
+   ],
+   "description": "A I-to-ii vamp that climbs through Bbmaj9 over D into a lydian Ebmaj7#11. The bass walks up while the top barely moves, so it loops forever."
+  },
+  {
+   "title": "Swing Daydream",
+   "pack": "Sunset Highlife Keys",
+   "bpm": 100,
+   "key": "C major",
+   "tags": [
+    "afrobeats",
+    "dreamy",
+    "borrowed"
+   ],
+   "rhythm": "push",
+   "chords": [
+    [
+     "Fmaj9",
+     4,
+     [
+      41,
+      60,
+      64,
+      67,
+      69
+     ]
+    ],
+    [
+     "Em9",
+     4,
+     [
+      40,
+      62,
+      66,
+      67,
+      71
+     ]
+    ],
+    [
+     "Dm9",
+     4,
+     [
+      38,
+      64,
+      65,
+      69,
+      72
+     ]
+    ],
+    [
+     "Fm6",
+     2,
+     [
+      41,
+      62,
+      65,
+      68,
+      72
+     ]
+    ],
+    [
+     "G13sus4",
+     2,
+     [
+      43,
+      64,
+      65,
+      69,
+      72
+     ]
+    ]
+   ],
+   "description": "Fmaj9 steps down through Em9 and Dm9, then a borrowed Fm6 darkens the last bar before G13sus4. Push the chords an eighth early for afro-swing lilt."
+  },
+  {
+   "title": "Lagoon Bounce",
+   "pack": "Sunset Highlife Keys",
+   "bpm": 112,
+   "key": "A major",
+   "tags": [
+    "afrobeats",
+    "sunny",
+    "keys"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "Dmaj9",
+     4,
+     [
+      38,
+      61,
+      64,
+      66,
+      69
+     ]
+    ],
+    [
+     "C#m7",
+     4,
+     [
+      37,
+      61,
+      64,
+      68,
+      71
+     ]
+    ],
+    [
+     "Bm11",
+     4,
+     [
+      35,
+      61,
+      64,
+      66,
+      69,
+      74
+     ]
+    ],
+    [
+     "E9sus4",
+     4,
+     [
+      40,
+      62,
+      66,
+      69,
+      71
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0.5,
+     0.5,
+     76
+    ],
+    [
+     1,
+     1,
+     78
+    ],
+    [
+     2.5,
+     1.5,
+     76
+    ],
+    [
+     4.5,
+     0.5,
+     76
+    ],
+    [
+     5,
+     1,
+     80
+    ],
+    [
+     6.5,
+     1.5,
+     76
+    ],
+    [
+     8.5,
+     0.5,
+     74
+    ],
+    [
+     9,
+     1,
+     76
+    ],
+    [
+     10.5,
+     1.5,
+     73
+    ],
+    [
+     12,
+     4,
+     71
+    ]
+   ],
+   "description": "IVmaj9, iii7, ii11 and a suspended V that never lands on the I, so the loop keeps floating. The short top hook sits on E the whole way."
+  },
+  {
+   "title": "Danfo Lights",
+   "pack": "Sunset Highlife Keys",
+   "bpm": 106,
+   "key": "Eb major",
+   "tags": [
+    "afrobeats",
+    "warm",
+    "rhodes"
+   ],
+   "rhythm": "stabs",
+   "chords": [
+    [
+     "Abmaj9",
+     4,
+     [
+      44,
+      58,
+      63,
+      67,
+      72
+     ]
+    ],
+    [
+     "Gm7",
+     4,
+     [
+      43,
+      62,
+      65,
+      67,
+      70
+     ]
+    ],
+    [
+     "Cm9",
+     4,
+     [
+      36,
+      62,
+      63,
+      67,
+      70
+     ]
+    ],
+    [
+     "Fm9",
+     2,
+     [
+      41,
+      63,
+      67,
+      68,
+      72
+     ]
+    ],
+    [
+     "Bb13",
+     2,
+     [
+      46,
+      62,
+      67,
+      68,
+      72
+     ]
+    ]
+   ],
+   "description": "The classic IV-iii-vi descent dressed as maj9, m7 and m9, with a ii9 to Bb13 turnaround. Great on a Rhodes with light stabs."
+  },
+  {
+   "title": "Coastal Ember",
+   "pack": "Sunset Highlife Keys",
+   "bpm": 100,
+   "key": "C# minor",
+   "tags": [
+    "afrobeats",
+    "moody",
+    "pads"
+   ],
+   "rhythm": "held",
+   "chords": [
+    [
+     "C#m9",
+     8,
+     [
+      37,
+      63,
+      64,
+      68,
+      71
+     ]
+    ],
+    [
+     "Amaj9",
+     8,
+     [
+      33,
+      61,
+      64,
+      68,
+      71
+     ]
+    ],
+    [
+     "E69",
+     8,
+     [
+      40,
+      61,
+      66,
+      68,
+      71
+     ]
+    ],
+    [
+     "B9sus4",
+     4,
+     [
+      35,
+      61,
+      64,
+      66,
+      69
+     ]
+    ],
+    [
+     "B13",
+     4,
+     [
+      35,
+      56,
+      61,
+      63,
+      69
+     ]
+    ]
+   ],
+   "description": "A minor afrobeats loop: i9, VImaj9, III6/9 and a suspended VII that opens into B13. Warm but a little wistful."
+  },
+  {
+   "title": "Ankara Sunlight",
+   "pack": "Sunset Highlife Keys",
+   "bpm": 103,
+   "key": "B major",
+   "tags": [
+    "afrobeats",
+    "lush",
+    "slash chords"
+   ],
+   "rhythm": "bounce",
+   "chords": [
+    [
+     "Emaj7#11",
+     4,
+     [
+      40,
+      58,
+      63,
+      68,
+      71
+     ]
+    ],
+    [
+     "E/F#",
+     4,
+     [
+      42,
+      59,
+      64,
+      68
+     ]
+    ],
+    [
+     "Bmaj9/D#",
+     4,
+     [
+      39,
+      58,
+      61,
+      63,
+      66
+     ]
+    ],
+    [
+     "G#m9",
+     4,
+     [
+      44,
+      58,
+      63,
+      66,
+      71
+     ]
+    ]
+   ],
+   "description": "Emaj7#11 gives way to E over F#, the soft gospel-style dominant, then Bmaj9 over D# and G#m9. All the movement is in the bass."
+  },
+  {
+   "title": "Highlife Breeze",
+   "pack": "Sunset Highlife Keys",
+   "bpm": 115,
+   "key": "G minor",
+   "tags": [
+    "afrobeats",
+    "highlife",
+    "arp"
+   ],
+   "rhythm": "arp",
+   "chords": [
+    [
+     "Gm9",
+     4,
+     [
+      43,
+      57,
+      62,
+      65,
+      70
+     ]
+    ],
+    [
+     "Ebmaj9",
+     4,
+     [
+      39,
+      58,
+      62,
+      65,
+      67
+     ]
+    ],
+    [
+     "Cm11",
+     4,
+     [
+      36,
+      58,
+      62,
+      63,
+      65,
+      67
+     ]
+    ],
+    [
+     "D7#9",
+     4,
+     [
+      38,
+      54,
+      57,
+      60,
+      65
+     ]
+    ]
+   ],
+   "description": "Minor highlife color: i9, VImaj9, iv11 and a D7#9 with real bite. Arpeggiate it like a palm-wine guitar line over a held bass."
+  },
+  {
+   "title": "Shebeen Velvet",
+   "pack": "Log Drum Lounge",
+   "bpm": 112,
+   "key": "F minor",
+   "tags": [
+    "amapiano",
+    "jazzy",
+    "deep"
+   ],
+   "rhythm": "held",
+   "chords": [
+    [
+     "Fm9",
+     4,
+     [
+      41,
+      63,
+      67,
+      68,
+      72
+     ]
+    ],
+    [
+     "Bb13",
+     4,
+     [
+      46,
+      62,
+      67,
+      68,
+      72
+     ]
+    ],
+    [
+     "Dbmaj9",
+     4,
+     [
+      37,
+      63,
+      65,
+      68,
+      72
+     ]
+    ],
+    [
+     "C7b9",
+     4,
+     [
+      36,
+      61,
+      64,
+      67,
+      70
+     ]
+    ],
+    [
+     "Fm11",
+     4,
+     [
+      41,
+      60,
+      63,
+      67,
+      68,
+      70
+     ]
+    ],
+    [
+     "Bb9",
+     4,
+     [
+      46,
+      60,
+      62,
+      65,
+      68
+     ]
+    ],
+    [
+     "Dbmaj9",
+     4,
+     [
+      37,
+      60,
+      63,
+      65,
+      68
+     ]
+    ],
+    [
+     "Gm7b5",
+     2,
+     [
+      43,
+      58,
+      61,
+      65,
+      67
+     ]
+    ],
+    [
+     "C7#9",
+     2,
+     [
+      36,
+      64,
+      67,
+      70,
+      75
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     2,
+     79
+    ],
+    [
+     2,
+     2,
+     80
+    ],
+    [
+     4,
+     4,
+     79
+    ],
+    [
+     8,
+     2,
+     77
+    ],
+    [
+     10,
+     2,
+     75
+    ],
+    [
+     12,
+     4,
+     73
+    ],
+    [
+     16,
+     4,
+     72
+    ],
+    [
+     20,
+     4,
+     74
+    ],
+    [
+     24,
+     4,
+     72
+    ],
+    [
+     28,
+     2,
+     70
+    ],
+    [
+     30,
+     2,
+     75
+    ]
+   ],
+   "description": "Dorian i9 to IV13, then Dbmaj9 and an altered C7b9. The second pass ends on a ii-V of Gm7b5 and C7#9 for a jazzy log-drum turnaround."
+  },
+  {
+   "title": "Log Drum Dusk",
+   "pack": "Log Drum Lounge",
+   "bpm": 113,
+   "key": "D minor",
+   "tags": [
+    "amapiano",
+    "dark",
+    "jazzy"
+   ],
+   "rhythm": "stabs",
+   "chords": [
+    [
+     "Dm9",
+     4,
+     [
+      38,
+      64,
+      65,
+      69,
+      72
+     ]
+    ],
+    [
+     "G13",
+     4,
+     [
+      43,
+      64,
+      65,
+      69,
+      71
+     ]
+    ],
+    [
+     "Bbmaj7#11",
+     4,
+     [
+      46,
+      64,
+      65,
+      69,
+      74
+     ]
+    ],
+    [
+     "A7b13",
+     4,
+     [
+      45,
+      65,
+      67,
+      69,
+      73
+     ]
+    ]
+   ],
+   "description": "i9 to a dorian G13, then a lydian Bbmaj7#11 falling into A7b13. Short stabs over the log drum keep space for the bass."
+  },
+  {
+   "title": "Kasi Twilight",
+   "pack": "Log Drum Lounge",
+   "bpm": 112,
+   "key": "Bb minor",
+   "tags": [
+    "amapiano",
+    "soulful",
+    "keys"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "Bbm11",
+     4,
+     [
+      46,
+      61,
+      63,
+      65,
+      68,
+      72
+     ]
+    ],
+    [
+     "Ebm9",
+     4,
+     [
+      39,
+      61,
+      65,
+      66,
+      70
+     ]
+    ],
+    [
+     "Gbmaj9",
+     4,
+     [
+      42,
+      61,
+      65,
+      68,
+      70
+     ]
+    ],
+    [
+     "F7sus4",
+     2,
+     [
+      41,
+      60,
+      63,
+      65,
+      70
+     ]
+    ],
+    [
+     "F7b9",
+     2,
+     [
+      41,
+      60,
+      63,
+      66,
+      69
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     2,
+     75
+    ],
+    [
+     2,
+     2,
+     73
+    ],
+    [
+     4,
+     4,
+     77
+    ],
+    [
+     8,
+     2,
+     80
+    ],
+    [
+     10,
+     2,
+     77
+    ],
+    [
+     12,
+     2,
+     75
+    ],
+    [
+     14,
+     2,
+     78
+    ]
+   ],
+   "description": "Bbm11 to Ebm9 and Gbmaj9, then F7sus4 cracks open into F7b9. A soulful pianistic loop that suits pulsing eighths."
+  },
+  {
+   "title": "Soweto Silk",
+   "pack": "Log Drum Lounge",
+   "bpm": 115,
+   "key": "E minor",
+   "tags": [
+    "amapiano",
+    "smooth",
+    "arp"
+   ],
+   "rhythm": "arp",
+   "chords": [
+    [
+     "Em9",
+     4,
+     [
+      40,
+      62,
+      66,
+      67,
+      71
+     ]
+    ],
+    [
+     "Am11",
+     4,
+     [
+      45,
+      60,
+      62,
+      64,
+      67,
+      71
+     ]
+    ],
+    [
+     "Cmaj9",
+     4,
+     [
+      36,
+      62,
+      64,
+      67,
+      71
+     ]
+    ],
+    [
+     "B7b9",
+     4,
+     [
+      35,
+      60,
+      63,
+      66,
+      69
+     ]
+    ],
+    [
+     "Em9",
+     4,
+     [
+      40,
+      62,
+      66,
+      67,
+      71
+     ]
+    ],
+    [
+     "Gmaj9",
+     4,
+     [
+      43,
+      62,
+      66,
+      69,
+      71
+     ]
+    ],
+    [
+     "Cmaj7#11",
+     4,
+     [
+      36,
+      64,
+      66,
+      67,
+      71
+     ]
+    ],
+    [
+     "B7#5",
+     2,
+     [
+      35,
+      63,
+      67,
+      69,
+      71
+     ]
+    ],
+    [
+     "B7",
+     2,
+     [
+      35,
+      63,
+      66,
+      69,
+      71
+     ]
+    ]
+   ],
+   "description": "Eight bars: i9, iv11, VImaj9 and B7b9, then a brighter second half through Gmaj9 and Cmaj7#11 to an augmented B7#5 that settles to B7."
+  },
+  {
+   "title": "Midnight Taxi Rank",
+   "pack": "Log Drum Lounge",
+   "bpm": 112,
+   "key": "C minor",
+   "tags": [
+    "amapiano",
+    "late night",
+    "pads"
+   ],
+   "rhythm": "held",
+   "chords": [
+    [
+     "Cm9",
+     6,
+     [
+      36,
+      62,
+      63,
+      67,
+      70
+     ]
+    ],
+    [
+     "Fm9",
+     2,
+     [
+      41,
+      63,
+      67,
+      68,
+      72
+     ]
+    ],
+    [
+     "Abmaj7",
+     6,
+     [
+      44,
+      63,
+      67,
+      68,
+      72
+     ]
+    ],
+    [
+     "G7b9",
+     2,
+     [
+      43,
+      62,
+      65,
+      68,
+      71
+     ]
+    ]
+   ],
+   "description": "Uneven chord lengths give this one its swing: six beats of Cm9, a quick Fm9, six beats of Abmaj7 and a short G7b9 kick back to the top."
+  },
+  {
+   "title": "Jozi Afterparty",
+   "pack": "Log Drum Lounge",
+   "bpm": 113,
+   "key": "A minor",
+   "tags": [
+    "amapiano",
+    "bouncy",
+    "jazzy"
+   ],
+   "rhythm": "bounce",
+   "chords": [
+    [
+     "Am9",
+     4,
+     [
+      45,
+      59,
+      64,
+      67,
+      72
+     ]
+    ],
+    [
+     "Dm9",
+     4,
+     [
+      38,
+      60,
+      64,
+      65,
+      69
+     ]
+    ],
+    [
+     "Fmaj7",
+     2,
+     [
+      41,
+      60,
+      64,
+      65,
+      69
+     ]
+    ],
+    [
+     "E7#9",
+     2,
+     [
+      40,
+      56,
+      59,
+      62,
+      67
+     ]
+    ],
+    [
+     "Am11",
+     4,
+     [
+      45,
+      59,
+      62,
+      64,
+      67,
+      72
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     1,
+     71
+    ],
+    [
+     1,
+     1,
+     72
+    ],
+    [
+     2,
+     2,
+     76
+    ],
+    [
+     4,
+     2,
+     77
+    ],
+    [
+     6,
+     2,
+     76
+    ],
+    [
+     8,
+     2,
+     76
+    ],
+    [
+     10,
+     2,
+     79
+    ],
+    [
+     12,
+     4,
+     74
+    ]
+   ],
+   "description": "i9, iv9, then a fast VImaj7 to E7#9 before resolving to Am11. The #9 gives it that bluesy amapiano grit."
+  },
+  {
+   "title": "Marimba Smoke",
+   "pack": "Log Drum Lounge",
+   "bpm": 112,
+   "key": "F# minor",
+   "tags": [
+    "amapiano",
+    "mellow",
+    "arp"
+   ],
+   "rhythm": "arp",
+   "chords": [
+    [
+     "F#m9",
+     8,
+     [
+      42,
+      64,
+      68,
+      69,
+      73
+     ]
+    ],
+    [
+     "Bm9",
+     8,
+     [
+      47,
+      62,
+      66,
+      69,
+      73
+     ]
+    ],
+    [
+     "Dmaj9",
+     8,
+     [
+      38,
+      64,
+      66,
+      69,
+      73
+     ]
+    ],
+    [
+     "C#9sus4",
+     4,
+     [
+      37,
+      63,
+      66,
+      68,
+      71
+     ]
+    ],
+    [
+     "C#7b9",
+     4,
+     [
+      37,
+      62,
+      65,
+      68,
+      71
+     ]
+    ]
+   ],
+   "description": "Two-bar chords for marimba or soft keys: i9, iv9, VImaj9 and a suspended V that resolves its sus into C#7b9."
+  },
+  {
+   "title": "Blue Lounge Steps",
+   "pack": "Log Drum Lounge",
+   "bpm": 114,
+   "key": "G# minor",
+   "tags": [
+    "amapiano",
+    "jazzy",
+    "deep"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "G#m11",
+     4,
+     [
+      44,
+      58,
+      61,
+      63,
+      66,
+      71
+     ]
+    ],
+    [
+     "C#13",
+     4,
+     [
+      37,
+      58,
+      63,
+      65,
+      71
+     ]
+    ],
+    [
+     "F#maj9",
+     4,
+     [
+      42,
+      56,
+      61,
+      65,
+      70
+     ]
+    ],
+    [
+     "D#7b9",
+     4,
+     [
+      39,
+      58,
+      61,
+      64,
+      67
+     ]
+    ]
+   ],
+   "description": "A dorian i11 to IV13 move, then down to VIImaj9 and an altered D#7b9. Deep and jazzy under a rolling log drum."
+  },
+  {
+   "title": "Dembow Neon",
+   "pack": "Perreo Nocturno",
+   "bpm": 94,
+   "key": "A minor",
+   "tags": [
+    "reggaeton",
+    "dark",
+    "club"
+   ],
+   "rhythm": "bounce",
+   "chords": [
+    [
+     "Am9",
+     4,
+     [
+      45,
+      59,
+      64,
+      67,
+      72
+     ]
+    ],
+    [
+     "Fmaj7",
+     4,
+     [
+      41,
+      60,
+      64,
+      65,
+      69
+     ]
+    ],
+    [
+     "Cmaj9",
+     4,
+     [
+      36,
+      62,
+      64,
+      67,
+      71
+     ]
+    ],
+    [
+     "G69",
+     4,
+     [
+      43,
+      62,
+      64,
+      69,
+      71
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0.75,
+     0.75,
+     76
+    ],
+    [
+     1.5,
+     0.5,
+     74
+    ],
+    [
+     2,
+     2,
+     72
+    ],
+    [
+     4.75,
+     0.75,
+     76
+    ],
+    [
+     5.5,
+     0.5,
+     72
+    ],
+    [
+     6,
+     2,
+     69
+    ],
+    [
+     8.75,
+     0.75,
+     74
+    ],
+    [
+     9.5,
+     0.5,
+     76
+    ],
+    [
+     10,
+     2,
+     79
+    ],
+    [
+     12,
+     4,
+     71
+    ]
+   ],
+   "description": "The reggaeton i-VI-III-VII as Am9, Fmaj7, Cmaj9 and G6/9. The bounce rhythm lines up with the dembow, and the top line follows the 3-3-2."
+  },
+  {
+   "title": "Malecon Heat",
+   "pack": "Perreo Nocturno",
+   "bpm": 92,
+   "key": "D minor",
+   "tags": [
+    "reggaeton",
+    "sensual",
+    "keys"
+   ],
+   "rhythm": "bounce",
+   "chords": [
+    [
+     "Dm9",
+     4,
+     [
+      38,
+      64,
+      65,
+      69,
+      72
+     ]
+    ],
+    [
+     "Bbmaj9",
+     4,
+     [
+      34,
+      62,
+      65,
+      69,
+      72
+     ]
+    ],
+    [
+     "Fmaj7",
+     4,
+     [
+      41,
+      64,
+      65,
+      69,
+      72
+     ]
+    ],
+    [
+     "C9sus4",
+     2,
+     [
+      36,
+      62,
+      65,
+      67,
+      70
+     ]
+    ],
+    [
+     "A7b9",
+     2,
+     [
+      33,
+      61,
+      64,
+      67,
+      70
+     ]
+    ]
+   ],
+   "description": "i9, VImaj9, IIImaj7, then a suspended VII and a harmonic-minor A7b9 that snaps back to Dm9. Smooth enough for a romantic perreo."
+  },
+  {
+   "title": "Faro Rojo",
+   "pack": "Perreo Nocturno",
+   "bpm": 96,
+   "key": "E minor",
+   "tags": [
+    "reggaeton",
+    "andalusian",
+    "spanish"
+   ],
+   "rhythm": "push",
+   "chords": [
+    [
+     "Em9",
+     4,
+     [
+      40,
+      62,
+      66,
+      67,
+      71
+     ]
+    ],
+    [
+     "D69",
+     4,
+     [
+      38,
+      64,
+      66,
+      69,
+      71
+     ]
+    ],
+    [
+     "Cmaj7",
+     4,
+     [
+      36,
+      60,
+      64,
+      67,
+      71
+     ]
+    ],
+    [
+     "B7b9",
+     4,
+     [
+      35,
+      60,
+      63,
+      66,
+      69
+     ]
+    ]
+   ],
+   "description": "An Andalusian descent with extensions: Em9, D6/9, Cmaj7 and a flamenco-flavored B7b9. Push it an eighth early against the dembow."
+  },
+  {
+   "title": "Humo de Playa",
+   "pack": "Perreo Nocturno",
+   "bpm": 90,
+   "key": "C minor",
+   "tags": [
+    "reggaeton",
+    "moody",
+    "pads"
+   ],
+   "rhythm": "bounce",
+   "chords": [
+    [
+     "Cm9",
+     4,
+     [
+      36,
+      62,
+      63,
+      67,
+      70
+     ]
+    ],
+    [
+     "Abmaj9",
+     4,
+     [
+      44,
+      60,
+      63,
+      67,
+      70
+     ]
+    ],
+    [
+     "Ebmaj9",
+     4,
+     [
+      39,
+      62,
+      65,
+      67,
+      70
+     ]
+    ],
+    [
+     "Bb13sus4",
+     4,
+     [
+      34,
+      63,
+      67,
+      68,
+      72
+     ]
+    ],
+    [
+     "Cm11",
+     4,
+     [
+      36,
+      62,
+      63,
+      65,
+      67,
+      70
+     ]
+    ],
+    [
+     "Abmaj7#11",
+     4,
+     [
+      44,
+      62,
+      63,
+      67,
+      72
+     ]
+    ],
+    [
+     "Fm9",
+     4,
+     [
+      41,
+      63,
+      67,
+      68,
+      72
+     ]
+    ],
+    [
+     "G7b13",
+     4,
+     [
+      43,
+      63,
+      65,
+      67,
+      71
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     2,
+     79
+    ],
+    [
+     2,
+     2,
+     75
+    ],
+    [
+     4,
+     4,
+     72
+    ],
+    [
+     8,
+     2,
+     74
+    ],
+    [
+     10,
+     2,
+     70
+    ],
+    [
+     12,
+     4,
+     72
+    ],
+    [
+     16,
+     2,
+     77
+    ],
+    [
+     18,
+     2,
+     75
+    ],
+    [
+     20,
+     4,
+     74
+    ],
+    [
+     24,
+     4,
+     72
+    ],
+    [
+     28,
+     2,
+     71
+    ],
+    [
+     30,
+     2,
+     75
+    ]
+   ],
+   "description": "Eight bars: i-VI-III-VII in maj9 and 13sus4 colors, then a second half that turns through Abmaj7#11 and Fm9 to G7b13 for the drop."
+  },
+  {
+   "title": "Toque de Queda",
+   "pack": "Perreo Nocturno",
+   "bpm": 95,
+   "key": "G minor",
+   "tags": [
+    "reggaeton",
+    "dark",
+    "stabs"
+   ],
+   "rhythm": "stabs",
+   "chords": [
+    [
+     "Gm11",
+     4,
+     [
+      43,
+      57,
+      62,
+      65,
+      70,
+      72
+     ]
+    ],
+    [
+     "Ebmaj7",
+     4,
+     [
+      39,
+      62,
+      63,
+      67,
+      70
+     ]
+    ],
+    [
+     "Cm9",
+     4,
+     [
+      36,
+      62,
+      63,
+      67,
+      70
+     ]
+    ],
+    [
+     "D7#9",
+     4,
+     [
+      38,
+      66,
+      69,
+      72,
+      77
+     ]
+    ]
+   ],
+   "description": "i11, VImaj7, iv9 and a harsh D7#9. Short stabs leave space for the dembow and make the #9 hit hard."
+  },
+  {
+   "title": "Lunar Perreo",
+   "pack": "Perreo Nocturno",
+   "bpm": 98,
+   "key": "B minor",
+   "tags": [
+    "reggaeton",
+    "night",
+    "synth"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "Bm9",
+     4,
+     [
+      35,
+      62,
+      66,
+      69,
+      73
+     ]
+    ],
+    [
+     "Gmaj9",
+     4,
+     [
+      43,
+      62,
+      66,
+      69,
+      71
+     ]
+    ],
+    [
+     "Em11",
+     4,
+     [
+      40,
+      62,
+      66,
+      67,
+      69,
+      71
+     ]
+    ],
+    [
+     "F#7b9",
+     4,
+     [
+      42,
+      61,
+      64,
+      67,
+      70
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0.75,
+     0.75,
+     78
+    ],
+    [
+     1.5,
+     2.5,
+     73
+    ],
+    [
+     4.75,
+     0.75,
+     78
+    ],
+    [
+     5.5,
+     2.5,
+     74
+    ],
+    [
+     8.75,
+     0.75,
+     79
+    ],
+    [
+     9.5,
+     2.5,
+     69
+    ],
+    [
+     12,
+     4,
+     79
+    ]
+   ],
+   "description": "i9, VImaj9, iv11 and a harmonic-minor F#7b9. The top line answers on the same syncopation every bar."
+  },
+  {
+   "title": "Rosa Callejera",
+   "pack": "Perreo Nocturno",
+   "bpm": 92,
+   "key": "Eb major",
+   "tags": [
+    "reggaeton",
+    "romantic",
+    "bright"
+   ],
+   "rhythm": "roll",
+   "chords": [
+    [
+     "Ebmaj9",
+     4,
+     [
+      39,
+      62,
+      65,
+      67,
+      70
+     ]
+    ],
+    [
+     "Cm9",
+     4,
+     [
+      36,
+      62,
+      63,
+      67,
+      70
+     ]
+    ],
+    [
+     "Abmaj7",
+     4,
+     [
+      44,
+      63,
+      67,
+      68,
+      72
+     ]
+    ],
+    [
+     "Bb9sus4",
+     2,
+     [
+      46,
+      63,
+      65,
+      68,
+      72
+     ]
+    ],
+    [
+     "Bb7",
+     2,
+     [
+      46,
+      62,
+      65,
+      68,
+      70
+     ]
+    ]
+   ],
+   "description": "A rare major reggaeton loop: Imaj9, vi9, IVmaj7 and a suspended V that resolves into Bb7. Good for a romantic, sunny record."
+  },
+  {
+   "title": "Calor Lento",
+   "pack": "Perreo Nocturno",
+   "bpm": 88,
+   "key": "F# minor",
+   "tags": [
+    "reggaeton",
+    "slow",
+    "sensual"
+   ],
+   "rhythm": "held",
+   "chords": [
+    [
+     "F#m9",
+     8,
+     [
+      42,
+      64,
+      68,
+      69,
+      73
+     ]
+    ],
+    [
+     "Dmaj9",
+     8,
+     [
+      38,
+      64,
+      66,
+      69,
+      73
+     ]
+    ],
+    [
+     "Aadd9",
+     4,
+     [
+      33,
+      64,
+      69,
+      71,
+      73
+     ]
+    ],
+    [
+     "Eadd9",
+     4,
+     [
+      40,
+      64,
+      68,
+      71,
+      78
+     ]
+    ],
+    [
+     "C#7sus4",
+     4,
+     [
+      37,
+      66,
+      68,
+      71,
+      73
+     ]
+    ],
+    [
+     "C#7b9",
+     4,
+     [
+      37,
+      65,
+      68,
+      71,
+      74
+     ]
+    ]
+   ],
+   "description": "Slow reggaeton: two bars each of F#m9 and Dmaj9, then Aadd9 and Eadd9 lead into a C#7sus4 that releases into C#7b9."
+  },
+  {
+   "title": "Navaja Fria",
+   "pack": "Perreo Nocturno",
+   "bpm": 140,
+   "key": "C# minor",
+   "tags": [
+    "latin trap",
+    "dark",
+    "piano"
+   ],
+   "rhythm": "held",
+   "chords": [
+    [
+     "C#m9",
+     4,
+     [
+      37,
+      63,
+      64,
+      68,
+      71
+     ]
+    ],
+    [
+     "Amaj7#11",
+     4,
+     [
+      33,
+      63,
+      64,
+      68,
+      73
+     ]
+    ],
+    [
+     "F#m11",
+     4,
+     [
+      42,
+      64,
+      68,
+      69,
+      71,
+      73
+     ]
+    ],
+    [
+     "G#7b9",
+     4,
+     [
+      44,
+      63,
+      66,
+      69,
+      72
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     0.5,
+     80
+    ],
+    [
+     0.5,
+     0.5,
+     76
+    ],
+    [
+     1,
+     1,
+     75
+    ],
+    [
+     3,
+     1,
+     76
+    ],
+    [
+     4,
+     2,
+     75
+    ],
+    [
+     6,
+     2,
+     73
+    ],
+    [
+     8,
+     4,
+     71
+    ],
+    [
+     12,
+     2,
+     72
+    ],
+    [
+     14,
+     2,
+     69
+    ]
+   ],
+   "description": "i9, a lydian VImaj7#11, iv11 and the harmonic-minor G#7b9. Cold piano over half-time drums."
+  },
+  {
+   "title": "Barrio Eclipse",
+   "pack": "Perreo Nocturno",
+   "bpm": 145,
+   "key": "F minor",
+   "tags": [
+    "latin trap",
+    "sinister",
+    "arp"
+   ],
+   "rhythm": "arp",
+   "chords": [
+    [
+     "Fmmaj9",
+     4,
+     [
+      41,
+      64,
+      67,
+      68,
+      72
+     ]
+    ],
+    [
+     "Dbmaj7",
+     4,
+     [
+      37,
+      61,
+      65,
+      68,
+      72
+     ]
+    ],
+    [
+     "Bbm9",
+     4,
+     [
+      34,
+      61,
+      65,
+      68,
+      72
+     ]
+    ],
+    [
+     "C7b9",
+     4,
+     [
+      36,
+      61,
+      64,
+      67,
+      70
+     ]
+    ]
+   ],
+   "description": "Starts on a minor-major ninth for that spy-movie tension, then Dbmaj7, Bbm9 and C7b9 from F harmonic minor. Arp it over an 808."
+  },
+  {
+   "title": "Sombra Dorada",
+   "pack": "Perreo Nocturno",
+   "bpm": 136,
+   "key": "Bb minor",
+   "tags": [
+    "latin trap",
+    "dark",
+    "stabs"
+   ],
+   "rhythm": "stabs",
+   "chords": [
+    [
+     "Bbm9",
+     4,
+     [
+      46,
+      61,
+      65,
+      68,
+      72
+     ]
+    ],
+    [
+     "Gbmaj7",
+     4,
+     [
+      42,
+      61,
+      65,
+      66,
+      70
+     ]
+    ],
+    [
+     "Ebm11",
+     2,
+     [
+      39,
+      61,
+      65,
+      66,
+      68,
+      70
+     ]
+    ],
+    [
+     "F7#9",
+     2,
+     [
+      41,
+      57,
+      60,
+      63,
+      68
+     ]
+    ],
+    [
+     "Bbm11",
+     4,
+     [
+      46,
+      56,
+      60,
+      61,
+      63,
+      65
+     ]
+    ]
+   ],
+   "description": "i9 to VImaj7, then a quick iv11 to F7#9 and back to Bbm11. Short stabs keep it menacing."
+  },
+  {
+   "title": "Cristal Oscuro",
+   "pack": "Perreo Nocturno",
+   "bpm": 150,
+   "key": "G# minor",
+   "tags": [
+    "latin trap",
+    "cinematic",
+    "dark"
+   ],
+   "rhythm": "held",
+   "chords": [
+    [
+     "G#m9",
+     8,
+     [
+      44,
+      58,
+      63,
+      66,
+      71
+     ]
+    ],
+    [
+     "Emaj7#11",
+     8,
+     [
+      40,
+      58,
+      63,
+      68,
+      71
+     ]
+    ],
+    [
+     "C#m9",
+     4,
+     [
+      37,
+      63,
+      64,
+      68,
+      71
+     ]
+    ],
+    [
+     "D#7b13",
+     4,
+     [
+      39,
+      61,
+      63,
+      67,
+      71
+     ]
+    ],
+    [
+     "G#mmaj9",
+     4,
+     [
+      44,
+      58,
+      63,
+      67,
+      71
+     ]
+    ],
+    [
+     "D#7b9",
+     4,
+     [
+      39,
+      61,
+      64,
+      67,
+      70
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     4,
+     70
+    ],
+    [
+     4,
+     4,
+     71
+    ],
+    [
+     8,
+     4,
+     75
+    ],
+    [
+     12,
+     4,
+     70
+    ],
+    [
+     16,
+     4,
+     71
+    ],
+    [
+     20,
+     4,
+     71
+    ],
+    [
+     24,
+     4,
+     79
+    ],
+    [
+     28,
+     4,
+     76
+    ]
+   ],
+   "description": "Eight cinematic bars: i9, VImaj7#11, iv9 and D#7b13, then a minor-major i that heads back into D#7b9."
+  },
+  {
+   "title": "Reina del Humo",
+   "pack": "Perreo Nocturno",
+   "bpm": 132,
+   "key": "E minor",
+   "tags": [
+    "latin trap",
+    "moody",
+    "pads"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "Em11",
+     4,
+     [
+      40,
+      54,
+      62,
+      67,
+      69,
+      71
+     ]
+    ],
+    [
+     "Cmaj7#11",
+     4,
+     [
+      36,
+      54,
+      59,
+      64,
+      67
+     ]
+    ],
+    [
+     "F#m7b5",
+     4,
+     [
+      42,
+      57,
+      60,
+      64,
+      66
+     ]
+    ],
+    [
+     "B7b13",
+     4,
+     [
+      47,
+      57,
+      59,
+      63,
+      67
+     ]
+    ]
+   ],
+   "description": "i11, VImaj7#11 and a minor ii half-diminished F#m7b5 into B7b13. A dark minor ii-V under a trap pulse."
+  },
+  {
+   "title": "Ultima Bala",
+   "pack": "Perreo Nocturno",
+   "bpm": 142,
+   "key": "A minor",
+   "tags": [
+    "latin trap",
+    "harmonic minor",
+    "dark"
+   ],
+   "rhythm": "held",
+   "chords": [
+    [
+     "Ammaj9",
+     4,
+     [
+      45,
+      59,
+      64,
+      68,
+      72
+     ]
+    ],
+    [
+     "Fmaj7#11",
+     4,
+     [
+      41,
+      59,
+      64,
+      69,
+      72
+     ]
+    ],
+    [
+     "Dm9",
+     4,
+     [
+      38,
+      64,
+      65,
+      69,
+      72
+     ]
+    ],
+    [
+     "E7b9",
+     2,
+     [
+      40,
+      62,
+      65,
+      68,
+      71
+     ]
+    ],
+    [
+     "E7#9",
+     2,
+     [
+      40,
+      56,
+      59,
+      62,
+      67
+     ]
+    ]
+   ],
+   "description": "Harmonic-minor color all the way: Am(maj9), Fmaj7#11, Dm9, then E7b9 shifting to E7#9 for a nasty last bar."
+  },
+  {
+   "title": "Ghost on Repeat",
+   "pack": "Paper Heart Tapes",
+   "bpm": 80,
+   "key": "E major",
+   "tags": [
+    "emo rap",
+    "sad",
+    "guitar"
+   ],
+   "rhythm": "roll",
+   "chords": [
+    [
+     "C#m9",
+     4,
+     [
+      37,
+      63,
+      64,
+      68,
+      71
+     ]
+    ],
+    [
+     "Aadd9",
+     4,
+     [
+      33,
+      61,
+      64,
+      69,
+      71
+     ]
+    ],
+    [
+     "Eadd9",
+     4,
+     [
+      40,
+      64,
+      66,
+      68,
+      71
+     ]
+    ],
+    [
+     "Bsus4",
+     2,
+     [
+      35,
+      64,
+      66,
+      71
+     ]
+    ],
+    [
+     "B/D#",
+     2,
+     [
+      39,
+      63,
+      66,
+      71
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     2,
+     76
+    ],
+    [
+     2,
+     2,
+     75
+    ],
+    [
+     4,
+     4,
+     73
+    ],
+    [
+     8,
+     2,
+     71
+    ],
+    [
+     10,
+     2,
+     78
+    ],
+    [
+     12,
+     2,
+     76
+    ],
+    [
+     14,
+     2,
+     75
+    ]
+   ],
+   "description": "vi-IV-I-V made sad and open: C#m9, Aadd9, Eadd9, then Bsus4 resolving over D# so the bass climbs back to C#."
+  },
+  {
+   "title": "Hoodie Weather",
+   "pack": "Paper Heart Tapes",
+   "bpm": 75,
+   "key": "A major",
+   "tags": [
+    "emo rap",
+    "melancholy",
+    "guitar"
+   ],
+   "rhythm": "roll",
+   "chords": [
+    [
+     "F#m11",
+     4,
+     [
+      42,
+      56,
+      59,
+      64,
+      69,
+      73
+     ]
+    ],
+    [
+     "Dmaj7",
+     4,
+     [
+      38,
+      62,
+      66,
+      69,
+      73
+     ]
+    ],
+    [
+     "Aadd9/C#",
+     4,
+     [
+      37,
+      59,
+      64,
+      69,
+      73
+     ]
+    ],
+    [
+     "Esus4",
+     2,
+     [
+      40,
+      59,
+      64,
+      69
+     ]
+    ],
+    [
+     "E/G#",
+     2,
+     [
+      44,
+      59,
+      64,
+      68
+     ]
+    ]
+   ],
+   "description": "F#m11, Dmaj7, Aadd9 over C#, then Esus4 to E over G#. The bass walks F# - D - C# - E - G# like a fingerpicked guitar."
+  },
+  {
+   "title": "Paper Lungs",
+   "pack": "Paper Heart Tapes",
+   "bpm": 150,
+   "key": "D major",
+   "tags": [
+    "emo rap",
+    "sad",
+    "half time"
+   ],
+   "rhythm": "held",
+   "chords": [
+    [
+     "Bm7add11",
+     8,
+     [
+      35,
+      62,
+      64,
+      66,
+      69
+     ]
+    ],
+    [
+     "Gmaj7",
+     8,
+     [
+      43,
+      62,
+      66,
+      67,
+      71
+     ]
+    ],
+    [
+     "Dadd9/F#",
+     8,
+     [
+      42,
+      62,
+      64,
+      66,
+      69
+     ]
+    ],
+    [
+     "Asus2",
+     4,
+     [
+      45,
+      64,
+      69,
+      71
+     ]
+    ],
+    [
+     "A/C#",
+     4,
+     [
+      37,
+      64,
+      69,
+      73
+     ]
+    ]
+   ],
+   "description": "Two-bar chords for a 150 BPM half-time beat: Bm7add11, Gmaj7, Dadd9 over F#, then Asus2 and A over C#."
+  },
+  {
+   "title": "Static Halo",
+   "pack": "Paper Heart Tapes",
+   "bpm": 85,
+   "key": "G major",
+   "tags": [
+    "emo rap",
+    "borrowed",
+    "emotional"
+   ],
+   "rhythm": "roll",
+   "chords": [
+    [
+     "Em9",
+     4,
+     [
+      40,
+      62,
+      66,
+      67,
+      71
+     ]
+    ],
+    [
+     "Cadd9",
+     4,
+     [
+      36,
+      62,
+      64,
+      67,
+      72
+     ]
+    ],
+    [
+     "Gadd9/B",
+     4,
+     [
+      35,
+      62,
+      67,
+      69,
+      71
+     ]
+    ],
+    [
+     "Cm6/Eb",
+     4,
+     [
+      39,
+      63,
+      67,
+      69,
+      72
+     ]
+    ]
+   ],
+   "description": "Em9, Cadd9, Gadd9 over B, then the borrowed Cm6 over Eb. The minor iv makes the loop ache every time it comes round."
+  },
+  {
+   "title": "Last Text Unread",
+   "pack": "Paper Heart Tapes",
+   "bpm": 140,
+   "key": "C major",
+   "tags": [
+    "emo rap",
+    "sad",
+    "arp"
+   ],
+   "rhythm": "arp",
+   "chords": [
+    [
+     "Am9",
+     8,
+     [
+      45,
+      59,
+      64,
+      67,
+      72
+     ]
+    ],
+    [
+     "Fmaj9",
+     8,
+     [
+      41,
+      60,
+      64,
+      67,
+      69
+     ]
+    ],
+    [
+     "Cadd9/E",
+     8,
+     [
+      40,
+      60,
+      64,
+      67,
+      74
+     ]
+    ],
+    [
+     "Gsus4",
+     4,
+     [
+      43,
+      60,
+      67,
+      74
+     ]
+    ],
+    [
+     "G/B",
+     4,
+     [
+      47,
+      62,
+      67,
+      71
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     6,
+     76
+    ],
+    [
+     6,
+     2,
+     74
+    ],
+    [
+     8,
+     6,
+     72
+    ],
+    [
+     14,
+     2,
+     69
+    ],
+    [
+     16,
+     6,
+     74
+    ],
+    [
+     22,
+     2,
+     76
+    ],
+    [
+     24,
+     4,
+     72
+    ],
+    [
+     28,
+     4,
+     71
+    ]
+   ],
+   "description": "Eight bars of open, guitar-style arps: Am9, Fmaj9, Cadd9 over E, Gsus4 and G over B. Perfect under a 140 half-time drum loop."
+  },
+  {
+   "title": "Faded Polaroid",
+   "pack": "Paper Heart Tapes",
+   "bpm": 78,
+   "key": "B major",
+   "tags": [
+    "emo rap",
+    "nostalgic",
+    "guitar"
+   ],
+   "rhythm": "roll",
+   "chords": [
+    [
+     "G#m9",
+     4,
+     [
+      44,
+      58,
+      63,
+      66,
+      71
+     ]
+    ],
+    [
+     "Eadd9",
+     4,
+     [
+      40,
+      59,
+      64,
+      66,
+      68
+     ]
+    ],
+    [
+     "Badd9/D#",
+     4,
+     [
+      39,
+      59,
+      63,
+      66,
+      73
+     ]
+    ],
+    [
+     "F#sus4",
+     4,
+     [
+      42,
+      59,
+      66,
+      73
+     ]
+    ]
+   ],
+   "description": "vi9, IVadd9, Iadd9 over D# and a suspended V that never resolves. Wistful and unfinished on purpose."
+  },
+  {
+   "title": "Rain on the Ferry",
+   "pack": "Paper Heart Tapes",
+   "bpm": 145,
+   "key": "F major",
+   "tags": [
+    "emo rap",
+    "sad",
+    "borrowed"
+   ],
+   "rhythm": "roll",
+   "chords": [
+    [
+     "Dm9",
+     4,
+     [
+      38,
+      64,
+      65,
+      69,
+      72
+     ]
+    ],
+    [
+     "Bbmaj9",
+     4,
+     [
+      34,
+      62,
+      65,
+      69,
+      72
+     ]
+    ],
+    [
+     "Fadd9/A",
+     4,
+     [
+      33,
+      65,
+      67,
+      69,
+      72
+     ]
+    ],
+    [
+     "Bbm6",
+     2,
+     [
+      34,
+      65,
+      67,
+      70,
+      73
+     ]
+    ],
+    [
+     "C7sus4",
+     2,
+     [
+      36,
+      65,
+      67,
+      70,
+      72
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     4,
+     76
+    ],
+    [
+     4,
+     4,
+     74
+    ],
+    [
+     8,
+     4,
+     72
+    ],
+    [
+     12,
+     2,
+     73
+    ],
+    [
+     14,
+     2,
+     70
+    ]
+   ],
+   "description": "Dm9, Bbmaj9, Fadd9 over A, then a borrowed Bbm6 and C7sus4. The Db in the top line is the tear in the eye."
+  },
+  {
+   "title": "Empty Passenger Seat",
+   "pack": "Paper Heart Tapes",
+   "bpm": 82,
+   "key": "Eb major",
+   "tags": [
+    "emo rap",
+    "lonely",
+    "guitar"
+   ],
+   "rhythm": "roll",
+   "chords": [
+    [
+     "Cm11",
+     4,
+     [
+      36,
+      62,
+      63,
+      65,
+      67,
+      70
+     ]
+    ],
+    [
+     "Abmaj9",
+     4,
+     [
+      44,
+      60,
+      63,
+      67,
+      70
+     ]
+    ],
+    [
+     "Ebadd9/G",
+     4,
+     [
+      43,
+      63,
+      65,
+      67,
+      70
+     ]
+    ],
+    [
+     "Bbsus4",
+     2,
+     [
+      46,
+      63,
+      65,
+      70
+     ]
+    ],
+    [
+     "Bb/D",
+     2,
+     [
+      38,
+      62,
+      65,
+      70
+     ]
+    ]
+   ],
+   "description": "vi11, IVmaj9, Iadd9 over G, then Bbsus4 to Bb over D. A late-night drive in four bars."
+  },
+  {
+   "title": "Midnight Voicemail",
+   "pack": "Paper Heart Tapes",
+   "bpm": 155,
+   "key": "C minor",
+   "tags": [
+    "emo rap",
+    "dark",
+    "guitar"
+   ],
+   "rhythm": "arp",
+   "chords": [
+    [
+     "Cmadd9",
+     4,
+     [
+      36,
+      62,
+      63,
+      67,
+      72
+     ]
+    ],
+    [
+     "Abmaj7",
+     4,
+     [
+      44,
+      63,
+      67,
+      68,
+      72
+     ]
+    ],
+    [
+     "Ebadd9",
+     4,
+     [
+      39,
+      63,
+      65,
+      67,
+      70
+     ]
+    ],
+    [
+     "Bbsus2",
+     2,
+     [
+      34,
+      60,
+      65,
+      70
+     ]
+    ],
+    [
+     "Bb/D",
+     2,
+     [
+      38,
+      62,
+      65,
+      70
+     ]
+    ]
+   ],
+   "description": "Minor emo loop for a fast half-time beat: Cm(add9), Abmaj7, Ebadd9, then Bbsus2 and Bb over D climbing back to C."
+  },
+  {
+   "title": "Sleepless Satellite",
+   "pack": "Paper Heart Tapes",
+   "bpm": 72,
+   "key": "G minor",
+   "tags": [
+    "emo rap",
+    "spacey",
+    "pads"
+   ],
+   "rhythm": "held",
+   "chords": [
+    [
+     "Gm9",
+     8,
+     [
+      43,
+      57,
+      62,
+      65,
+      70
+     ]
+    ],
+    [
+     "Ebmaj7#11",
+     8,
+     [
+      39,
+      57,
+      62,
+      67,
+      70
+     ]
+    ],
+    [
+     "Bbadd9",
+     8,
+     [
+      34,
+      58,
+      62,
+      65,
+      72
+     ]
+    ],
+    [
+     "Fsus4",
+     4,
+     [
+      41,
+      58,
+      65,
+      72
+     ]
+    ],
+    [
+     "F/A",
+     4,
+     [
+      45,
+      60,
+      65,
+      69
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     4,
+     69
+    ],
+    [
+     4,
+     4,
+     70
+    ],
+    [
+     8,
+     8,
+     69
+    ],
+    [
+     16,
+     4,
+     72
+    ],
+    [
+     20,
+     4,
+     74
+    ],
+    [
+     24,
+     4,
+     72
+    ],
+    [
+     28,
+     4,
+     69
+    ]
+   ],
+   "description": "Slow and floating: Gm9, a lydian Ebmaj7#11, Bbadd9, then Fsus4 to F over A leading back to G."
+  },
+  {
+   "title": "Fading Taillights",
+   "pack": "Paper Heart Tapes",
+   "bpm": 150,
+   "key": "A minor",
+   "tags": [
+    "emo rap",
+    "sad",
+    "dorian"
+   ],
+   "rhythm": "roll",
+   "chords": [
+    [
+     "Amadd9",
+     4,
+     [
+      45,
+      59,
+      64,
+      69,
+      72
+     ]
+    ],
+    [
+     "Fmaj7",
+     4,
+     [
+      41,
+      64,
+      65,
+      69,
+      72
+     ]
+    ],
+    [
+     "Cadd9/G",
+     4,
+     [
+      43,
+      62,
+      64,
+      67,
+      72
+     ]
+    ],
+    [
+     "Dsus2/F#",
+     2,
+     [
+      42,
+      62,
+      64,
+      69
+     ]
+    ],
+    [
+     "Esus4",
+     2,
+     [
+      40,
+      59,
+      64,
+      69
+     ]
+    ]
+   ],
+   "description": "Am(add9), Fmaj7, Cadd9 over G and a dorian Dsus2 over F# before an Esus4 that leaves the question open."
+  },
+  {
+   "title": "Cracked Screen Glow",
+   "pack": "Paper Heart Tapes",
+   "bpm": 84,
+   "key": "Bb major",
+   "tags": [
+    "emo rap",
+    "borrowed",
+    "emotional"
+   ],
+   "rhythm": "roll",
+   "chords": [
+    [
+     "Gm9",
+     4,
+     [
+      43,
+      57,
+      62,
+      65,
+      70
+     ]
+    ],
+    [
+     "Ebmaj7",
+     4,
+     [
+      39,
+      58,
+      62,
+      63,
+      67
+     ]
+    ],
+    [
+     "Bbadd9/D",
+     4,
+     [
+      38,
+      58,
+      60,
+      62,
+      65
+     ]
+    ],
+    [
+     "Ebm6",
+     2,
+     [
+      39,
+      58,
+      60,
+      63,
+      66
+     ]
+    ],
+    [
+     "F7sus4",
+     2,
+     [
+      41,
+      58,
+      60,
+      63,
+      65
+     ]
+    ]
+   ],
+   "description": "vi9, IVmaj7, Iadd9 over D, then the borrowed Ebm6 and F7sus4. Bittersweet, like a happy memory going sour."
+  },
+  {
+   "title": "Ashen Echoes",
+   "pack": "Paper Heart Tapes",
+   "bpm": 76,
+   "key": "Ab major",
+   "tags": [
+    "emo rap",
+    "heartbreak",
+    "keys"
+   ],
+   "rhythm": "held",
+   "chords": [
+    [
+     "Fm9",
+     4,
+     [
+      41,
+      63,
+      67,
+      68,
+      72
+     ]
+    ],
+    [
+     "Dbmaj9",
+     4,
+     [
+      37,
+      63,
+      65,
+      68,
+      72
+     ]
+    ],
+    [
+     "Abadd9/C",
+     4,
+     [
+      36,
+      63,
+      68,
+      70,
+      72
+     ]
+    ],
+    [
+     "Eb7sus4",
+     4,
+     [
+      39,
+      63,
+      68,
+      70,
+      73
+     ]
+    ]
+   ],
+   "description": "vi9, IVmaj9, Iadd9 over C and a suspended Eb7. Soft, held and heavy on the heart."
+  },
+  {
+   "title": "Victory Lap Lights",
+   "pack": "Skyline Anthems",
+   "bpm": 96,
+   "key": "C major",
+   "tags": [
+    "pop rap",
+    "uplifting",
+    "piano"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "Cadd9",
+     4,
+     [
+      36,
+      62,
+      64,
+      67,
+      72
+     ]
+    ],
+    [
+     "Fmaj7",
+     4,
+     [
+      41,
+      64,
+      65,
+      69,
+      72
+     ]
+    ],
+    [
+     "Am9",
+     4,
+     [
+      45,
+      59,
+      64,
+      67,
+      72
+     ]
+    ],
+    [
+     "Fm6",
+     2,
+     [
+      41,
+      60,
+      65,
+      68,
+      74
+     ]
+    ],
+    [
+     "G13sus4",
+     2,
+     [
+      43,
+      64,
+      65,
+      69,
+      72
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     1,
+     79
+    ],
+    [
+     1,
+     1,
+     76
+    ],
+    [
+     2,
+     2,
+     74
+    ],
+    [
+     4,
+     2,
+     76
+    ],
+    [
+     6,
+     2,
+     72
+    ],
+    [
+     8,
+     2,
+     71
+    ],
+    [
+     10,
+     2,
+     72
+    ],
+    [
+     12,
+     2,
+     68
+    ],
+    [
+     14,
+     2,
+     69
+    ]
+   ],
+   "description": "Cadd9, Fmaj7, Am9, then the borrowed Fm6 and G13sus4. The Ab-to-A in the top line is the lift into the next hook."
+  },
+  {
+   "title": "Rooftop Toast",
+   "pack": "Skyline Anthems",
+   "bpm": 92,
+   "key": "G major",
+   "tags": [
+    "pop rap",
+    "bright",
+    "celebration"
+   ],
+   "rhythm": "bounce",
+   "chords": [
+    [
+     "Gmaj9",
+     4,
+     [
+      43,
+      57,
+      62,
+      66,
+      71
+     ]
+    ],
+    [
+     "Bm7",
+     4,
+     [
+      47,
+      57,
+      62,
+      66,
+      71
+     ]
+    ],
+    [
+     "Cmaj9",
+     4,
+     [
+      36,
+      62,
+      64,
+      67,
+      71
+     ]
+    ],
+    [
+     "Cm6",
+     4,
+     [
+      36,
+      60,
+      63,
+      67,
+      69
+     ]
+    ]
+   ],
+   "description": "Imaj9, iii7, IVmaj9 and a full bar of borrowed Cm6. Bright, then bittersweet, then back to the top."
+  },
+  {
+   "title": "Window Down Summer",
+   "pack": "Skyline Anthems",
+   "bpm": 100,
+   "key": "D major",
+   "tags": [
+    "pop rap",
+    "summer",
+    "feel good"
+   ],
+   "rhythm": "push",
+   "chords": [
+    [
+     "Dmaj9",
+     4,
+     [
+      38,
+      61,
+      64,
+      66,
+      69
+     ]
+    ],
+    [
+     "F#m7",
+     4,
+     [
+      42,
+      61,
+      64,
+      66,
+      69
+     ]
+    ],
+    [
+     "Gmaj9",
+     4,
+     [
+      43,
+      59,
+      62,
+      66,
+      69
+     ]
+    ],
+    [
+     "A13sus4",
+     4,
+     [
+      45,
+      62,
+      66,
+      67,
+      71
+     ]
+    ],
+    [
+     "Bm9",
+     4,
+     [
+      47,
+      62,
+      66,
+      69,
+      73
+     ]
+    ],
+    [
+     "F#m7/A",
+     4,
+     [
+      45,
+      64,
+      66,
+      69,
+      73
+     ]
+    ],
+    [
+     "Gmaj7",
+     4,
+     [
+      43,
+      62,
+      66,
+      67,
+      71
+     ]
+    ],
+    [
+     "Gm6",
+     4,
+     [
+      43,
+      62,
+      64,
+      67,
+      70
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     2,
+     76
+    ],
+    [
+     2,
+     2,
+     78
+    ],
+    [
+     4,
+     4,
+     76
+    ],
+    [
+     8,
+     2,
+     74
+    ],
+    [
+     10,
+     2,
+     71
+    ],
+    [
+     12,
+     4,
+     78
+    ],
+    [
+     16,
+     2,
+     73
+    ],
+    [
+     18,
+     2,
+     74
+    ],
+    [
+     20,
+     4,
+     73
+    ],
+    [
+     24,
+     2,
+     71
+    ],
+    [
+     26,
+     2,
+     74
+    ],
+    [
+     28,
+     4,
+     70
+    ]
+   ],
+   "description": "Eight bars of summer: Dmaj9, F#m7, Gmaj9 and A13sus4, then Bm9, F#m7 over A, Gmaj7 and a borrowed Gm6 to come home."
+  },
+  {
+   "title": "Big Dreams Avenue",
+   "pack": "Skyline Anthems",
+   "bpm": 95,
+   "key": "Ab major",
+   "tags": [
+    "pop rap",
+    "inspiring",
+    "piano"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "Abadd9",
+     4,
+     [
+      44,
+      58,
+      63,
+      68,
+      72
+     ]
+    ],
+    [
+     "Eb/G",
+     4,
+     [
+      43,
+      58,
+      63,
+      67
+     ]
+    ],
+    [
+     "Fm9",
+     4,
+     [
+      41,
+      56,
+      60,
+      63,
+      67
+     ]
+    ],
+    [
+     "Dbmaj7",
+     2,
+     [
+      37,
+      56,
+      60,
+      61,
+      65
+     ]
+    ],
+    [
+     "Dbm6",
+     2,
+     [
+      37,
+      56,
+      61,
+      64,
+      70
+     ]
+    ]
+   ],
+   "description": "Abadd9 walks down over G to Fm9, then Dbmaj7 turns to Dbm6. The classic inspiring descent with a borrowed sigh at the end."
+  },
+  {
+   "title": "Gold Medal Morning",
+   "pack": "Skyline Anthems",
+   "bpm": 102,
+   "key": "E major",
+   "tags": [
+    "pop rap",
+    "bright",
+    "anthem"
+   ],
+   "rhythm": "bounce",
+   "chords": [
+    [
+     "Emaj9",
+     4,
+     [
+      40,
+      63,
+      66,
+      68,
+      71
+     ]
+    ],
+    [
+     "B/D#",
+     4,
+     [
+      39,
+      63,
+      66,
+      71
+     ]
+    ],
+    [
+     "C#m9",
+     4,
+     [
+      37,
+      63,
+      64,
+      68,
+      71
+     ]
+    ],
+    [
+     "Amaj7",
+     2,
+     [
+      33,
+      64,
+      68,
+      69,
+      73
+     ]
+    ],
+    [
+     "Am6",
+     2,
+     [
+      33,
+      64,
+      66,
+      69,
+      72
+     ]
+    ]
+   ],
+   "description": "Emaj9, B over D#, C#m9, then Amaj7 to Am6. The bass steps down and the minor iv makes the loop feel earned."
+  },
+  {
+   "title": "Hometown Parade",
+   "pack": "Skyline Anthems",
+   "bpm": 98,
+   "key": "F major",
+   "tags": [
+    "pop rap",
+    "uplifting",
+    "keys"
+   ],
+   "rhythm": "push",
+   "chords": [
+    [
+     "Bbmaj9",
+     4,
+     [
+      46,
+      62,
+      65,
+      69,
+      72
+     ]
+    ],
+    [
+     "C/Bb",
+     4,
+     [
+      46,
+      64,
+      67,
+      72
+     ]
+    ],
+    [
+     "Am7",
+     4,
+     [
+      45,
+      64,
+      67,
+      69,
+      72
+     ]
+    ],
+    [
+     "Dm9",
+     2,
+     [
+      38,
+      64,
+      65,
+      69,
+      72
+     ]
+    ],
+    [
+     "C9sus4",
+     2,
+     [
+      36,
+      62,
+      65,
+      67,
+      70
+     ]
+    ]
+   ],
+   "description": "Bbmaj9 lifts to C over Bb, falls to Am7 and Dm9, then a C9sus4 loops it back. That C over Bb is the uplift."
+  },
+  {
+   "title": "Open Sky Lift",
+   "pack": "Skyline Anthems",
+   "bpm": 104,
+   "key": "Bb major",
+   "tags": [
+    "pop rap",
+    "inspiring",
+    "pads"
+   ],
+   "rhythm": "held",
+   "chords": [
+    [
+     "Bbmaj9",
+     8,
+     [
+      46,
+      62,
+      65,
+      69,
+      72
+     ]
+    ],
+    [
+     "Dm7",
+     8,
+     [
+      38,
+      62,
+      65,
+      69,
+      72
+     ]
+    ],
+    [
+     "Ebmaj9",
+     8,
+     [
+      39,
+      62,
+      65,
+      67,
+      70
+     ]
+    ],
+    [
+     "Ebm6",
+     4,
+     [
+      39,
+      60,
+      63,
+      66,
+      70
+     ]
+    ],
+    [
+     "F13sus4",
+     4,
+     [
+      41,
+      62,
+      63,
+      67,
+      70
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     3,
+     74
+    ],
+    [
+     3,
+     1,
+     72
+    ],
+    [
+     4,
+     4,
+     77
+    ],
+    [
+     8,
+     3,
+     77
+    ],
+    [
+     11,
+     1,
+     74
+    ],
+    [
+     12,
+     4,
+     72
+    ],
+    [
+     16,
+     4,
+     79
+    ],
+    [
+     20,
+     4,
+     77
+    ],
+    [
+     24,
+     4,
+     78
+    ],
+    [
+     28,
+     4,
+     79
+    ]
+   ],
+   "description": "Two-bar chords: Bbmaj9, Dm7, Ebmaj9, then a borrowed Ebm6 and F13sus4. The Gb to G at the end is the big lift into the hook."
+  },
+  {
+   "title": "Headline Sunrise",
+   "pack": "Skyline Anthems",
+   "bpm": 90,
+   "key": "A major",
+   "tags": [
+    "pop rap",
+    "bright",
+    "piano"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "Aadd9",
+     4,
+     [
+      45,
+      59,
+      64,
+      69,
+      73
+     ]
+    ],
+    [
+     "C#m7",
+     4,
+     [
+      37,
+      59,
+      64,
+      68,
+      73
+     ]
+    ],
+    [
+     "Dmaj9",
+     4,
+     [
+      38,
+      61,
+      64,
+      66,
+      69
+     ]
+    ],
+    [
+     "E13sus4",
+     4,
+     [
+      40,
+      61,
+      66,
+      69,
+      74
+     ]
+    ]
+   ],
+   "description": "Iadd9, iii7, IVmaj9 and a V13sus4 that keeps the loop rising without resolving. Clean radio piano."
+  },
+  {
+   "title": "Main Stage Glow",
+   "pack": "Skyline Anthems",
+   "bpm": 100,
+   "key": "Eb major",
+   "tags": [
+    "pop rap",
+    "anthem",
+    "synth"
+   ],
+   "rhythm": "bounce",
+   "chords": [
+    [
+     "Cm9",
+     4,
+     [
+      36,
+      62,
+      63,
+      67,
+      70
+     ]
+    ],
+    [
+     "Abmaj9",
+     4,
+     [
+      44,
+      60,
+      63,
+      67,
+      70
+     ]
+    ],
+    [
+     "Ebadd9/G",
+     4,
+     [
+      43,
+      63,
+      65,
+      67,
+      70
+     ]
+    ],
+    [
+     "Bb13sus4",
+     4,
+     [
+      46,
+      63,
+      67,
+      68,
+      72
+     ]
+    ]
+   ],
+   "description": "vi9, IVmaj9, Iadd9 over G and Bb13sus4. A big, bright stadium loop for a hook."
+  },
+  {
+   "title": "First Class Window",
+   "pack": "Skyline Anthems",
+   "bpm": 97,
+   "key": "F# major",
+   "tags": [
+    "pop rap",
+    "luxury",
+    "keys"
+   ],
+   "rhythm": "push",
+   "chords": [
+    [
+     "F#maj9",
+     4,
+     [
+      42,
+      61,
+      65,
+      68,
+      70
+     ]
+    ],
+    [
+     "A#m7",
+     4,
+     [
+      46,
+      61,
+      65,
+      68,
+      70
+     ]
+    ],
+    [
+     "Bmaj9",
+     4,
+     [
+      47,
+      61,
+      63,
+      66,
+      70
+     ]
+    ],
+    [
+     "Bm6",
+     2,
+     [
+      47,
+      59,
+      62,
+      66,
+      68
+     ]
+    ],
+    [
+     "C#13sus4",
+     2,
+     [
+      37,
+      59,
+      63,
+      66,
+      70
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     1.5,
+     80
+    ],
+    [
+     1.5,
+     2.5,
+     77
+    ],
+    [
+     4,
+     4,
+     77
+    ],
+    [
+     8,
+     2,
+     73
+    ],
+    [
+     10,
+     2,
+     75
+    ],
+    [
+     12,
+     2,
+     74
+    ],
+    [
+     14,
+     2,
+     75
+    ]
+   ],
+   "description": "Imaj9, iii7, IVmaj9, then a borrowed Bm6 and C#13sus4. Smooth and expensive sounding."
+  },
+  {
+   "title": "Pocket Full of Sun",
+   "pack": "Skyline Anthems",
+   "bpm": 94,
+   "key": "Db major",
+   "tags": [
+    "pop rap",
+    "warm",
+    "feel good"
+   ],
+   "rhythm": "held",
+   "chords": [
+    [
+     "Dbmaj9",
+     4,
+     [
+      37,
+      63,
+      65,
+      68,
+      72
+     ]
+    ],
+    [
+     "Fm7",
+     4,
+     [
+      41,
+      63,
+      65,
+      68,
+      72
+     ]
+    ],
+    [
+     "Gbmaj7#11",
+     4,
+     [
+      42,
+      61,
+      65,
+      70,
+      72
+     ]
+    ],
+    [
+     "Gbm6",
+     4,
+     [
+      42,
+      61,
+      66,
+      69,
+      75
+     ]
+    ]
+   ],
+   "description": "Dbmaj9, Fm7, a lydian Gbmaj7#11, then the same root turns minor as Gbm6. Warm with a touch of nostalgia."
+  },
+  {
+   "title": "Comeback Season",
+   "pack": "Skyline Anthems",
+   "bpm": 105,
+   "key": "B major",
+   "tags": [
+    "pop rap",
+    "triumphant",
+    "piano"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "G#m9",
+     4,
+     [
+      44,
+      58,
+      63,
+      66,
+      71
+     ]
+    ],
+    [
+     "Emaj9",
+     4,
+     [
+      40,
+      59,
+      63,
+      66,
+      68
+     ]
+    ],
+    [
+     "Bmaj9/D#",
+     4,
+     [
+      39,
+      61,
+      63,
+      66,
+      70
+     ]
+    ],
+    [
+     "C#m9",
+     2,
+     [
+      37,
+      59,
+      63,
+      64,
+      68
+     ]
+    ],
+    [
+     "F#13",
+     2,
+     [
+      42,
+      58,
+      63,
+      64,
+      68
+     ]
+    ]
+   ],
+   "description": "vi9, IVmaj9, Imaj9 over D#, then a ii9 to F#13 turnaround. Triumphant with a soulful finish."
+  },
+  {
+   "title": "Daylight Anthem",
+   "pack": "Skyline Anthems",
+   "bpm": 98,
+   "key": "G major",
+   "tags": [
+    "pop rap",
+    "anthem",
+    "uplifting"
+   ],
+   "rhythm": "roll",
+   "chords": [
+    [
+     "Cmaj9",
+     4,
+     [
+      36,
+      62,
+      64,
+      67,
+      71
+     ]
+    ],
+    [
+     "D/C",
+     4,
+     [
+      36,
+      62,
+      66,
+      69
+     ]
+    ],
+    [
+     "Bm7",
+     4,
+     [
+      35,
+      62,
+      66,
+      69,
+      71
+     ]
+    ],
+    [
+     "Em9",
+     4,
+     [
+      40,
+      62,
+      66,
+      67,
+      71
+     ]
+    ],
+    [
+     "Am9",
+     4,
+     [
+      45,
+      60,
+      64,
+      67,
+      71
+     ]
+    ],
+    [
+     "Gmaj9/B",
+     4,
+     [
+      47,
+      57,
+      62,
+      66,
+      71
+     ]
+    ],
+    [
+     "Cm6",
+     4,
+     [
+      36,
+      60,
+      63,
+      67,
+      69
+     ]
+    ],
+    [
+     "D13sus4",
+     4,
+     [
+      38,
+      60,
+      64,
+      67,
+      71
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     4,
+     76
+    ],
+    [
+     4,
+     4,
+     78
+    ],
+    [
+     8,
+     4,
+     74
+    ],
+    [
+     12,
+     4,
+     78
+    ],
+    [
+     16,
+     4,
+     76
+    ],
+    [
+     20,
+     4,
+     74
+    ],
+    [
+     24,
+     4,
+     75
+    ],
+    [
+     28,
+     4,
+     76
+    ]
+   ],
+   "description": "Eight bars: Cmaj9 to D over C, Bm7 and Em9, then Am9, Gmaj9 over B, a borrowed Cm6 and D13sus4 to launch the hook again."
+  }
+ ]
+}

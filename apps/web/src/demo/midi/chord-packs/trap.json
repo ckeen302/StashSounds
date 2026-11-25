@@ -1,0 +1,5141 @@
+{
+ "packs": [
+  {
+   "name": "Cold Vault",
+   "style": "trap",
+   "description": "Dark, ominous minor-key trap: phrygian half-step moves, harmonic-minor V7s and pedal bass under shifting upper voices."
+  },
+  {
+   "name": "Neon Grief",
+   "style": "trap",
+   "description": "Sad, melodic trap chords with borrowed minor iv colour, 9ths and 11ths and slow-burn resolutions."
+  },
+  {
+   "name": "Velvet Bando",
+   "style": "trap",
+   "description": "Atlanta-style trap keys made for bounce: syncopated stabs, pulses and anticipations that sit in the pocket with the hats."
+  },
+  {
+   "name": "Iron Bells",
+   "style": "trap",
+   "description": "Bell-led trap voicings in a high, glassy register, written to be arpeggiated or played on chimes and music boxes."
+  },
+  {
+   "name": "Midnight Ivory",
+   "style": "trap",
+   "description": "Piano-led trap progressions with rolled extended voicings, chromatic bass lines and half-time ballads."
+  }
+ ],
+ "progressions": [
+  {
+   "title": "Bando Cathedral",
+   "pack": "Cold Vault",
+   "bpm": 140,
+   "key": "C minor",
+   "tags": [
+    "trap",
+    "dark",
+    "ominous",
+    "bells"
+   ],
+   "rhythm": "arp",
+   "chords": [
+    [
+     "Cm(add9)",
+     8,
+     [
+      36,
+      55,
+      62,
+      63,
+      67
+     ]
+    ],
+    [
+     "Dbmaj7/C",
+     8,
+     [
+      36,
+      56,
+      60,
+      61,
+      65
+     ]
+    ],
+    [
+     "Cm(add9)",
+     8,
+     [
+      36,
+      55,
+      62,
+      63,
+      67
+     ]
+    ],
+    [
+     "Abmaj7",
+     4,
+     [
+      32,
+      55,
+      60,
+      63,
+      67
+     ]
+    ],
+    [
+     "G7b9",
+     4,
+     [
+      43,
+      53,
+      56,
+      59,
+      62
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     1.5,
+     75
+    ],
+    [
+     1.5,
+     0.5,
+     74
+    ],
+    [
+     2,
+     2,
+     67
+    ],
+    [
+     8,
+     1.5,
+     77
+    ],
+    [
+     9.5,
+     0.5,
+     75
+    ],
+    [
+     10,
+     2,
+     73
+    ],
+    [
+     24,
+     2,
+     72
+    ],
+    [
+     26,
+     1,
+     71
+    ],
+    [
+     27,
+     1,
+     68
+    ]
+   ],
+   "description": "A C minor pedal that leans on a Dbmaj7 half step above it, then falls through Abmaj7 to a harmonic-minor G7b9. Arp it on a bell and leave the 808 room on beat one."
+  },
+  {
+   "title": "808 Seance",
+   "pack": "Cold Vault",
+   "bpm": 150,
+   "key": "F# minor",
+   "tags": [
+    "trap",
+    "dark",
+    "ominous"
+   ],
+   "rhythm": "stabs",
+   "chords": [
+    [
+     "F#m(maj7)",
+     4,
+     [
+      42,
+      57,
+      61,
+      65,
+      69
+     ]
+    ],
+    [
+     "Gmaj7/F#",
+     4,
+     [
+      42,
+      55,
+      59,
+      62,
+      66
+     ]
+    ],
+    [
+     "Dmaj7/F#",
+     4,
+     [
+      42,
+      57,
+      61,
+      62,
+      66
+     ]
+    ],
+    [
+     "C#7b9",
+     4,
+     [
+      37,
+      59,
+      62,
+      65,
+      68
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     1,
+     73
+    ],
+    [
+     1,
+     1,
+     77
+    ],
+    [
+     2,
+     2,
+     78
+    ],
+    [
+     4,
+     2,
+     79
+    ],
+    [
+     6,
+     2,
+     78
+    ],
+    [
+     8,
+     4,
+     81
+    ],
+    [
+     12,
+     2,
+     80
+    ],
+    [
+     14,
+     2,
+     77
+    ]
+   ],
+   "description": "F#m(maj7) and a phrygian Gmaj7 over the same F# pedal, then Dmaj7 and a C#7b9 that pulls straight back home. The stabs keep it tense; let the bass ring."
+  },
+  {
+   "title": "Crypt Hi-Hats",
+   "pack": "Cold Vault",
+   "bpm": 145,
+   "key": "D minor",
+   "tags": [
+    "trap",
+    "dark",
+    "ominous"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "Dm9",
+     4,
+     [
+      38,
+      53,
+      57,
+      60,
+      64
+     ]
+    ],
+    [
+     "Dm(maj9)",
+     4,
+     [
+      38,
+      53,
+      57,
+      61,
+      64
+     ]
+    ],
+    [
+     "Dm7",
+     4,
+     [
+      38,
+      53,
+      57,
+      60,
+      62
+     ]
+    ],
+    [
+     "Bbmaj7/D",
+     4,
+     [
+      38,
+      53,
+      57,
+      58,
+      62
+     ]
+    ],
+    [
+     "Gm9/D",
+     4,
+     [
+      38,
+      53,
+      57,
+      58,
+      62
+     ]
+    ],
+    [
+     "Ebmaj7/D",
+     4,
+     [
+      38,
+      55,
+      58,
+      62,
+      63
+     ]
+    ],
+    [
+     "Dm9",
+     4,
+     [
+      38,
+      53,
+      57,
+      60,
+      64
+     ]
+    ],
+    [
+     "A7b9",
+     4,
+     [
+      33,
+      55,
+      61,
+      64,
+      70
+     ]
+    ]
+   ],
+   "description": "Seven bars of D pedal while the inner voice creeps C, C#, C, Bb, then a phrygian Ebmaj7 and an A7b9 turnaround. Pulse it in eighths under fast hats."
+  },
+  {
+   "title": "Gutter Requiem",
+   "pack": "Cold Vault",
+   "bpm": 72,
+   "key": "Bb minor",
+   "tags": [
+    "trap",
+    "dark",
+    "half-time",
+    "piano"
+   ],
+   "rhythm": "held",
+   "chords": [
+    [
+     "Bbm11",
+     6,
+     [
+      34,
+      56,
+      61,
+      63,
+      65
+     ]
+    ],
+    [
+     "Gbmaj7#11",
+     2,
+     [
+      30,
+      53,
+      58,
+      60,
+      61
+     ]
+    ],
+    [
+     "Ebm9",
+     4,
+     [
+      39,
+      54,
+      58,
+      61,
+      65
+     ]
+    ],
+    [
+     "F7#9",
+     4,
+     [
+      41,
+      57,
+      63,
+      68
+     ]
+    ]
+   ],
+   "description": "A long Bbm11 that slips to Gbmaj7#11, the minor iv as Ebm9 and a gritty F7#9 dominant. Written for half-time drums at 144."
+  },
+  {
+   "title": "Phrygian Trenches",
+   "pack": "Cold Vault",
+   "bpm": 155,
+   "key": "E minor",
+   "tags": [
+    "trap",
+    "dark",
+    "ominous"
+   ],
+   "rhythm": "stabs",
+   "chords": [
+    [
+     "Em(add9)",
+     4,
+     [
+      40,
+      55,
+      59,
+      64,
+      66
+     ]
+    ],
+    [
+     "Fmaj7/E",
+     4,
+     [
+      40,
+      57,
+      60,
+      64,
+      65
+     ]
+    ],
+    [
+     "Em(add9)",
+     4,
+     [
+      40,
+      55,
+      59,
+      64,
+      66
+     ]
+    ],
+    [
+     "Cmaj9",
+     2,
+     [
+      36,
+      52,
+      55,
+      59,
+      62
+     ]
+    ],
+    [
+     "B7b9",
+     2,
+     [
+      35,
+      57,
+      60,
+      63,
+      66
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     1,
+     71
+    ],
+    [
+     1,
+     0.5,
+     74
+    ],
+    [
+     1.5,
+     2.5,
+     76
+    ],
+    [
+     4,
+     1,
+     77
+    ],
+    [
+     5,
+     3,
+     76
+    ],
+    [
+     12,
+     1,
+     75
+    ],
+    [
+     13,
+     1,
+     78
+    ],
+    [
+     14,
+     2,
+     71
+    ]
+   ],
+   "description": "Em add9 against a phrygian Fmaj7 over the E pedal, then a fast Cmaj9 to B7b9 kick at the end of the loop."
+  },
+  {
+   "title": "Trap House Lanterns",
+   "pack": "Cold Vault",
+   "bpm": 138,
+   "key": "G minor",
+   "tags": [
+    "trap",
+    "dark",
+    "melodic"
+   ],
+   "rhythm": "roll",
+   "chords": [
+    [
+     "Gm9",
+     6,
+     [
+      43,
+      58,
+      62,
+      65,
+      69
+     ]
+    ],
+    [
+     "Ebmaj7#11",
+     2,
+     [
+      39,
+      58,
+      62,
+      67,
+      69
+     ]
+    ],
+    [
+     "Cm11",
+     4,
+     [
+      36,
+      58,
+      63,
+      65,
+      67
+     ]
+    ],
+    [
+     "D7b9",
+     4,
+     [
+      38,
+      60,
+      63,
+      66,
+      69
+     ]
+    ]
+   ],
+   "description": "Gm9 to Ebmaj7#11 with the A held on top, the Cm11 iv, then D7b9 from harmonic minor. Roll each chord for a dark, wide pad."
+  },
+  {
+   "title": "Trap Choir Ruins",
+   "pack": "Cold Vault",
+   "bpm": 142,
+   "key": "A minor",
+   "tags": [
+    "trap",
+    "dark",
+    "ominous"
+   ],
+   "rhythm": "held",
+   "chords": [
+    [
+     "Am9",
+     8,
+     [
+      33,
+      55,
+      60,
+      64,
+      71
+     ]
+    ],
+    [
+     "Fmaj7#11",
+     8,
+     [
+      29,
+      57,
+      59,
+      60,
+      64
+     ]
+    ],
+    [
+     "Dm9",
+     4,
+     [
+      38,
+      53,
+      57,
+      60,
+      64
+     ]
+    ],
+    [
+     "Bbmaj7",
+     4,
+     [
+      34,
+      57,
+      62,
+      65
+     ]
+    ],
+    [
+     "E7#9",
+     8,
+     [
+      40,
+      56,
+      62,
+      67
+     ]
+    ]
+   ],
+   "description": "Two long bars each of Am9 and Fmaj7#11, then Dm9 into the Neapolitan Bbmaj7 and a sour E7#9. Put it on a choir or string pad."
+  },
+  {
+   "title": "Ominous 808 Tolls",
+   "pack": "Cold Vault",
+   "bpm": 160,
+   "key": "Eb minor",
+   "tags": [
+    "trap",
+    "ominous",
+    "bells"
+   ],
+   "rhythm": "arp",
+   "chords": [
+    [
+     "Ebm(maj7)",
+     4,
+     [
+      39,
+      54,
+      58,
+      62,
+      65
+     ]
+    ],
+    [
+     "Ebm7",
+     4,
+     [
+      39,
+      54,
+      58,
+      61,
+      65
+     ]
+    ],
+    [
+     "Cbmaj7",
+     4,
+     [
+      35,
+      54,
+      58,
+      63,
+      65
+     ]
+    ],
+    [
+     "Bb7b9",
+     4,
+     [
+      34,
+      56,
+      59,
+      62,
+      65
+     ]
+    ]
+   ],
+   "description": "Ebm with the seventh sliding D to Db, the bVI as Cbmaj7 and a Bb7b9 with Cb on top. Arpeggiate fast on a toy-bell patch."
+  },
+  {
+   "title": "Trap Fog Sermon",
+   "pack": "Cold Vault",
+   "bpm": 135,
+   "key": "C# minor",
+   "tags": [
+    "trap",
+    "dark",
+    "melodic"
+   ],
+   "rhythm": "stabs",
+   "chords": [
+    [
+     "C#m11",
+     4,
+     [
+      37,
+      59,
+      64,
+      66,
+      68
+     ]
+    ],
+    [
+     "Dmaj7",
+     4,
+     [
+      38,
+      61,
+      66,
+      69
+     ]
+    ],
+    [
+     "Amaj9",
+     4,
+     [
+      33,
+      56,
+      59,
+      61,
+      64
+     ]
+    ],
+    [
+     "G#7b9",
+     4,
+     [
+      32,
+      60,
+      63,
+      66,
+      69
+     ]
+    ]
+   ],
+   "description": "C#m11 up a half step to Dmaj7, then Amaj9 and a G#7b9 that sets the A against the root. Short stabs, long 808."
+  },
+  {
+   "title": "808 Lullaby Ruins",
+   "pack": "Cold Vault",
+   "bpm": 70,
+   "key": "F minor",
+   "tags": [
+    "trap",
+    "dark",
+    "half-time",
+    "piano"
+   ],
+   "rhythm": "held",
+   "chords": [
+    [
+     "Fm9",
+     8,
+     [
+      29,
+      56,
+      60,
+      63,
+      67
+     ]
+    ],
+    [
+     "Dbmaj7#11",
+     8,
+     [
+      37,
+      56,
+      60,
+      65,
+      67
+     ]
+    ],
+    [
+     "Bbm9",
+     4,
+     [
+      34,
+      56,
+      60,
+      61,
+      65
+     ]
+    ],
+    [
+     "Gm7b5",
+     4,
+     [
+      31,
+      53,
+      58,
+      61
+     ]
+    ],
+    [
+     "C7b9",
+     8,
+     [
+      36,
+      52,
+      58,
+      61
+     ]
+    ]
+   ],
+   "description": "Fm9 and Dbmaj7#11 share most of their notes, then a minor ii-V of Gm7b5 to C7b9 holds the tension for two bars. Half-time piano at 140."
+  },
+  {
+   "title": "Bando Phantom",
+   "pack": "Cold Vault",
+   "bpm": 148,
+   "key": "B minor",
+   "tags": [
+    "trap",
+    "dark",
+    "ominous"
+   ],
+   "rhythm": "bounce",
+   "chords": [
+    [
+     "Bm(add9)",
+     4,
+     [
+      35,
+      54,
+      59,
+      61,
+      62
+     ]
+    ],
+    [
+     "Cmaj7/B",
+     4,
+     [
+      35,
+      55,
+      59,
+      60,
+      64
+     ]
+    ],
+    [
+     "Gmaj7",
+     4,
+     [
+      31,
+      54,
+      59,
+      62
+     ]
+    ],
+    [
+     "F#7b9",
+     4,
+     [
+      30,
+      52,
+      55,
+      58,
+      61
+     ]
+    ]
+   ],
+   "description": "Bm add9, then Cmaj7 hanging over the B pedal for the phrygian rub, Gmaj7 and a low F#7b9. Bounce it under a sliding 808."
+  },
+  {
+   "title": "Gravel Trap Omen",
+   "pack": "Cold Vault",
+   "bpm": 158,
+   "key": "G# minor",
+   "tags": [
+    "trap",
+    "dark",
+    "melodic"
+   ],
+   "rhythm": "push",
+   "chords": [
+    [
+     "G#m9",
+     4,
+     [
+      32,
+      59,
+      63,
+      66,
+      70
+     ]
+    ],
+    [
+     "Emaj7",
+     4,
+     [
+      40,
+      56,
+      59,
+      63,
+      66
+     ]
+    ],
+    [
+     "F#add9",
+     4,
+     [
+      42,
+      58,
+      61,
+      66,
+      68
+     ]
+    ],
+    [
+     "D#7b9",
+     4,
+     [
+      39,
+      55,
+      58,
+      61,
+      64
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     1.5,
+     75
+    ],
+    [
+     1.5,
+     1.5,
+     78
+    ],
+    [
+     3,
+     1,
+     75
+    ],
+    [
+     4,
+     4,
+     80
+    ],
+    [
+     8,
+     2,
+     78
+    ],
+    [
+     10,
+     2,
+     73
+    ],
+    [
+     12,
+     4,
+     79
+    ]
+   ],
+   "description": "i-bVI-bVII in G# minor dressed as G#m9, Emaj7 and F# add9, with a harmonic-minor D#7b9 to turn it. Each chord lands an eighth early."
+  },
+  {
+   "title": "808 Heartache",
+   "pack": "Neon Grief",
+   "bpm": 140,
+   "key": "A minor",
+   "tags": [
+    "trap",
+    "sad",
+    "melodic"
+   ],
+   "rhythm": "arp",
+   "chords": [
+    [
+     "Am(add9)",
+     4,
+     [
+      33,
+      59,
+      60,
+      64,
+      69
+     ]
+    ],
+    [
+     "Fmaj9",
+     4,
+     [
+      29,
+      57,
+      60,
+      64,
+      67
+     ]
+    ],
+    [
+     "Gadd9/B",
+     4,
+     [
+      35,
+      57,
+      59,
+      62,
+      67
+     ]
+    ],
+    [
+     "Esus4",
+     2,
+     [
+      40,
+      57,
+      59,
+      64
+     ]
+    ],
+    [
+     "E7",
+     2,
+     [
+      40,
+      56,
+      59,
+      62
+     ]
+    ],
+    [
+     "Am9",
+     4,
+     [
+      33,
+      55,
+      60,
+      64,
+      71
+     ]
+    ],
+    [
+     "Fmaj7#11",
+     4,
+     [
+      29,
+      57,
+      59,
+      60,
+      64
+     ]
+    ],
+    [
+     "Dm9",
+     4,
+     [
+      38,
+      53,
+      57,
+      60,
+      64
+     ]
+    ],
+    [
+     "E7b9",
+     4,
+     [
+      40,
+      56,
+      59,
+      62,
+      65
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     1,
+     76
+    ],
+    [
+     1,
+     1,
+     72
+    ],
+    [
+     2,
+     2,
+     71
+    ],
+    [
+     4,
+     2,
+     69
+    ],
+    [
+     6,
+     2,
+     72
+    ],
+    [
+     8,
+     4,
+     74
+    ],
+    [
+     12,
+     4,
+     68
+    ],
+    [
+     16,
+     1,
+     76
+    ],
+    [
+     17,
+     1,
+     79
+    ],
+    [
+     18,
+     2,
+     76
+    ],
+    [
+     24,
+     4,
+     77
+    ],
+    [
+     28,
+     4,
+     80
+    ]
+   ],
+   "description": "i-bVI-bVII-V in A minor with add9 colour, then a darker second half through Fmaj7#11, Dm9 and E7b9. The top line is the hook."
+  },
+  {
+   "title": "Hi-Hat Halo",
+   "pack": "Neon Grief",
+   "bpm": 144,
+   "key": "Eb major",
+   "tags": [
+    "trap",
+    "sad",
+    "melodic"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "Ebmaj9",
+     4,
+     [
+      39,
+      55,
+      58,
+      62,
+      65
+     ]
+    ],
+    [
+     "Cm11",
+     4,
+     [
+      36,
+      58,
+      63,
+      65,
+      67
+     ]
+    ],
+    [
+     "Abmaj7#11",
+     4,
+     [
+      32,
+      55,
+      60,
+      62,
+      63
+     ]
+    ],
+    [
+     "Abm6",
+     4,
+     [
+      32,
+      53,
+      59,
+      63
+     ]
+    ]
+   ],
+   "description": "Bright Ebmaj9 and Cm11, then Abmaj7#11 turns into the borrowed Abm6 for the sad drop. Pulse it under rolling hats."
+  },
+  {
+   "title": "Drip Rain Ballad",
+   "pack": "Neon Grief",
+   "bpm": 150,
+   "key": "D minor",
+   "tags": [
+    "trap",
+    "sad",
+    "piano"
+   ],
+   "rhythm": "roll",
+   "chords": [
+    [
+     "Dm11",
+     4,
+     [
+      38,
+      60,
+      65,
+      67,
+      69
+     ]
+    ],
+    [
+     "Bbmaj9",
+     4,
+     [
+      34,
+      57,
+      60,
+      62,
+      65
+     ]
+    ],
+    [
+     "Gm9",
+     4,
+     [
+      31,
+      58,
+      62,
+      65,
+      69
+     ]
+    ],
+    [
+     "A7sus4",
+     2,
+     [
+      33,
+      55,
+      62,
+      64
+     ]
+    ],
+    [
+     "A7b9",
+     2,
+     [
+      33,
+      55,
+      58,
+      61,
+      64
+     ]
+    ]
+   ],
+   "description": "Dm11, Bbmaj9 and Gm9 with an A7sus4 that resolves its suspension into A7b9 inside the last bar. Roll it on a soft piano."
+  },
+  {
+   "title": "Trap Goodbye Letter",
+   "pack": "Neon Grief",
+   "bpm": 135,
+   "key": "F# minor",
+   "tags": [
+    "trap",
+    "sad",
+    "piano"
+   ],
+   "rhythm": "arp",
+   "chords": [
+    [
+     "F#m9",
+     4,
+     [
+      30,
+      57,
+      61,
+      64,
+      68
+     ]
+    ],
+    [
+     "Dmaj7",
+     4,
+     [
+      38,
+      57,
+      61,
+      66
+     ]
+    ],
+    [
+     "Bm9",
+     4,
+     [
+      35,
+      57,
+      61,
+      62,
+      66
+     ]
+    ],
+    [
+     "C#7sus4",
+     2,
+     [
+      37,
+      59,
+      66,
+      68
+     ]
+    ],
+    [
+     "C#7",
+     2,
+     [
+      37,
+      59,
+      65,
+      68
+     ]
+    ],
+    [
+     "F#m9",
+     4,
+     [
+      30,
+      57,
+      61,
+      64,
+      68
+     ]
+    ],
+    [
+     "Dmaj9",
+     4,
+     [
+      38,
+      57,
+      61,
+      64,
+      66
+     ]
+    ],
+    [
+     "Bm7",
+     2,
+     [
+      35,
+      57,
+      62,
+      66
+     ]
+    ],
+    [
+     "Gmaj7#11",
+     2,
+     [
+      31,
+      54,
+      59,
+      61,
+      62
+     ]
+    ],
+    [
+     "C#7b9",
+     4,
+     [
+      37,
+      59,
+      62,
+      65,
+      68
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     2,
+     73
+    ],
+    [
+     2,
+     2,
+     76
+    ],
+    [
+     4,
+     4,
+     78
+    ],
+    [
+     8,
+     2,
+     74
+    ],
+    [
+     10,
+     2,
+     73
+    ],
+    [
+     12,
+     4,
+     77
+    ],
+    [
+     16,
+     2,
+     80
+    ],
+    [
+     18,
+     2,
+     81
+    ],
+    [
+     20,
+     4,
+     78
+    ],
+    [
+     24,
+     2,
+     74
+    ],
+    [
+     26,
+     2,
+     71
+    ],
+    [
+     28,
+     4,
+     73
+    ]
+   ],
+   "description": "F#m9, Dmaj7 and Bm9 into a suspended C#7, then the second pass sneaks in the Neapolitan Gmaj7#11 before C#7b9."
+  },
+  {
+   "title": "Ice Chain Tears",
+   "pack": "Neon Grief",
+   "bpm": 76,
+   "key": "C minor",
+   "tags": [
+    "trap",
+    "sad",
+    "half-time",
+    "piano"
+   ],
+   "rhythm": "held",
+   "chords": [
+    [
+     "Cm9",
+     4,
+     [
+      36,
+      58,
+      62,
+      63,
+      67
+     ]
+    ],
+    [
+     "Abmaj9",
+     4,
+     [
+      32,
+      60,
+      63,
+      67,
+      70
+     ]
+    ],
+    [
+     "Fm9",
+     4,
+     [
+      29,
+      56,
+      60,
+      63,
+      67
+     ]
+    ],
+    [
+     "Dbmaj7",
+     2,
+     [
+      37,
+      60,
+      65,
+      68
+     ]
+    ],
+    [
+     "G7b13",
+     2,
+     [
+      31,
+      53,
+      59,
+      63
+     ]
+    ]
+   ],
+   "description": "Cm9, Abmaj9 and Fm9 in a slow half-time sway, with a Neapolitan Dbmaj7 and a G7b13 squeezed into the last bar."
+  },
+  {
+   "title": "Bando Moonlight",
+   "pack": "Neon Grief",
+   "bpm": 142,
+   "key": "G major",
+   "tags": [
+    "trap",
+    "sad",
+    "melodic"
+   ],
+   "rhythm": "roll",
+   "chords": [
+    [
+     "Gmaj9",
+     4,
+     [
+      31,
+      54,
+      57,
+      59,
+      62
+     ]
+    ],
+    [
+     "Em11",
+     4,
+     [
+      40,
+      55,
+      57,
+      62,
+      66
+     ]
+    ],
+    [
+     "Cm(add9)",
+     4,
+     [
+      36,
+      55,
+      62,
+      63,
+      67
+     ]
+    ],
+    [
+     "D7sus4",
+     2,
+     [
+      38,
+      55,
+      60,
+      64
+     ]
+    ],
+    [
+     "D7b9",
+     2,
+     [
+      38,
+      54,
+      57,
+      60,
+      63
+     ]
+    ]
+   ],
+   "description": "Major-key sad trap: Gmaj9 and Em11, then the borrowed Cm add9 darkens it before a suspended D7 resolves to D7b9."
+  },
+  {
+   "title": "Lost Trap Voicemail",
+   "pack": "Neon Grief",
+   "bpm": 145,
+   "key": "Bb minor",
+   "tags": [
+    "trap",
+    "sad",
+    "melodic"
+   ],
+   "rhythm": "arp",
+   "chords": [
+    [
+     "Bbm9",
+     4,
+     [
+      34,
+      61,
+      65,
+      68,
+      72
+     ]
+    ],
+    [
+     "Gbmaj7",
+     4,
+     [
+      30,
+      61,
+      65,
+      70
+     ]
+    ],
+    [
+     "Dbadd9",
+     4,
+     [
+      37,
+      56,
+      61,
+      63,
+      65
+     ]
+    ],
+    [
+     "Fsus4",
+     2,
+     [
+      29,
+      58,
+      60,
+      65
+     ]
+    ],
+    [
+     "F7b9",
+     2,
+     [
+      29,
+      57,
+      60,
+      63,
+      66
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     1,
+     77
+    ],
+    [
+     1,
+     1,
+     80
+    ],
+    [
+     2,
+     2,
+     82
+    ],
+    [
+     4,
+     4,
+     77
+    ],
+    [
+     8,
+     2,
+     75
+    ],
+    [
+     10,
+     2,
+     73
+    ],
+    [
+     12,
+     2,
+     72
+    ],
+    [
+     14,
+     2,
+     69
+    ]
+   ],
+   "description": "i-bVI-bIII in Bb minor, then Fsus4 resolving to F7b9. Voiced high so a fast arp sounds like a melody on its own."
+  },
+  {
+   "title": "Rainfall 808",
+   "pack": "Neon Grief",
+   "bpm": 70,
+   "key": "B minor",
+   "tags": [
+    "trap",
+    "sad",
+    "half-time"
+   ],
+   "rhythm": "held",
+   "chords": [
+    [
+     "Bm11",
+     8,
+     [
+      35,
+      57,
+      62,
+      64,
+      66
+     ]
+    ],
+    [
+     "Gmaj9",
+     4,
+     [
+      31,
+      54,
+      57,
+      59,
+      62
+     ]
+    ],
+    [
+     "Em9",
+     4,
+     [
+      40,
+      55,
+      59,
+      62,
+      66
+     ]
+    ],
+    [
+     "Cmaj7#11",
+     8,
+     [
+      36,
+      59,
+      64,
+      66,
+      67
+     ]
+    ],
+    [
+     "F#7#9",
+     8,
+     [
+      30,
+      58,
+      64,
+      69
+     ]
+    ]
+   ],
+   "description": "Bm11 for two bars, Gmaj9 and Em9, then the Neapolitan Cmaj7#11 and an F#7#9 that hangs for the whole last two bars."
+  },
+  {
+   "title": "Sad Trap Polaroid",
+   "pack": "Neon Grief",
+   "bpm": 135,
+   "key": "Ab major",
+   "tags": [
+    "trap",
+    "sad",
+    "melodic"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "Abmaj7",
+     4,
+     [
+      32,
+      55,
+      60,
+      63
+     ]
+    ],
+    [
+     "Fm9",
+     4,
+     [
+      29,
+      56,
+      60,
+      63,
+      67
+     ]
+    ],
+    [
+     "Dbmaj9",
+     4,
+     [
+      37,
+      53,
+      56,
+      60,
+      63
+     ]
+    ],
+    [
+     "Dbm6",
+     2,
+     [
+      37,
+      52,
+      56,
+      58,
+      61
+     ]
+    ],
+    [
+     "Eb7sus4",
+     2,
+     [
+      39,
+      56,
+      58,
+      61
+     ]
+    ]
+   ],
+   "description": "Abmaj7 to Fm9 and Dbmaj9, then Db turns minor for two beats before a suspended Eb7 loops it back."
+  },
+  {
+   "title": "Hi-Hat Elegy",
+   "pack": "Neon Grief",
+   "bpm": 152,
+   "key": "E minor",
+   "tags": [
+    "trap",
+    "sad",
+    "melodic"
+   ],
+   "rhythm": "stabs",
+   "chords": [
+    [
+     "Em9",
+     4,
+     [
+      40,
+      55,
+      59,
+      62,
+      66
+     ]
+    ],
+    [
+     "Cmaj7",
+     4,
+     [
+      36,
+      55,
+      59,
+      64
+     ]
+    ],
+    [
+     "Am11",
+     4,
+     [
+      33,
+      55,
+      60,
+      62,
+      64
+     ]
+    ],
+    [
+     "B7b9",
+     2,
+     [
+      35,
+      57,
+      60,
+      63,
+      66
+     ]
+    ],
+    [
+     "B7#5",
+     2,
+     [
+      35,
+      57,
+      63,
+      67
+     ]
+    ]
+   ],
+   "description": "Em9, Cmaj7 and Am11, then B7b9 pushes its fifth up to G for B7#5 so the loop leans back into Em."
+  },
+  {
+   "title": "Lonely Trap Satellite",
+   "pack": "Neon Grief",
+   "bpm": 140,
+   "key": "F major",
+   "tags": [
+    "trap",
+    "melodic",
+    "bells"
+   ],
+   "rhythm": "arp",
+   "chords": [
+    [
+     "Fmaj9",
+     4,
+     [
+      29,
+      57,
+      60,
+      64,
+      67
+     ]
+    ],
+    [
+     "Am7",
+     4,
+     [
+      33,
+      55,
+      60,
+      64
+     ]
+    ],
+    [
+     "Bbmaj7",
+     2,
+     [
+      34,
+      57,
+      62,
+      65
+     ]
+    ],
+    [
+     "Bbm6",
+     2,
+     [
+      34,
+      55,
+      61,
+      65
+     ]
+    ],
+    [
+     "Gm9",
+     2,
+     [
+      31,
+      53,
+      57,
+      58,
+      62
+     ]
+    ],
+    [
+     "C7sus4",
+     2,
+     [
+      36,
+      53,
+      58,
+      60
+     ]
+    ]
+   ],
+   "description": "Fmaj9 and Am7, then the IV turns minor (Bbmaj7 to Bbm6) before Gm9 and C7sus4. Bittersweet major for melodic trap."
+  },
+  {
+   "title": "Bando Lullaby",
+   "pack": "Neon Grief",
+   "bpm": 75,
+   "key": "G minor",
+   "tags": [
+    "trap",
+    "sad",
+    "half-time",
+    "piano"
+   ],
+   "rhythm": "held",
+   "chords": [
+    [
+     "Gm(add9)",
+     2,
+     [
+      31,
+      57,
+      58,
+      62
+     ]
+    ],
+    [
+     "Gm(maj7)/F#",
+     2,
+     [
+      30,
+      58,
+      62,
+      66
+     ]
+    ],
+    [
+     "Gm7/F",
+     2,
+     [
+      29,
+      58,
+      62,
+      65
+     ]
+    ],
+    [
+     "C9/E",
+     2,
+     [
+      40,
+      55,
+      58,
+      62,
+      64
+     ]
+    ],
+    [
+     "Ebmaj7",
+     4,
+     [
+      39,
+      55,
+      58,
+      62
+     ]
+    ],
+    [
+     "D7b9",
+     4,
+     [
+      38,
+      54,
+      60,
+      63
+     ]
+    ]
+   ],
+   "description": "A chromatic bass walk G, F#, F, E under a held Gm, landing on Ebmaj7 and D7b9. Classic sad descent at half-time."
+  },
+  {
+   "title": "Peachtree Trap Bounce",
+   "pack": "Velvet Bando",
+   "bpm": 140,
+   "key": "C# minor",
+   "tags": [
+    "trap",
+    "melodic",
+    "bounce"
+   ],
+   "rhythm": "bounce",
+   "chords": [
+    [
+     "C#m7",
+     4,
+     [
+      37,
+      59,
+      64,
+      68
+     ]
+    ],
+    [
+     "Amaj7",
+     4,
+     [
+      33,
+      61,
+      64,
+      68
+     ]
+    ],
+    [
+     "F#m9",
+     4,
+     [
+      30,
+      57,
+      61,
+      64,
+      68
+     ]
+    ],
+    [
+     "G#7#9",
+     4,
+     [
+      32,
+      60,
+      66,
+      71
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     0.5,
+     80
+    ],
+    [
+     0.5,
+     0.5,
+     76
+    ],
+    [
+     1,
+     1,
+     73
+    ],
+    [
+     4,
+     2,
+     76
+    ],
+    [
+     6,
+     2,
+     80
+    ],
+    [
+     8,
+     2,
+     81
+    ],
+    [
+     10,
+     2,
+     80
+    ],
+    [
+     12,
+     2,
+     83
+    ],
+    [
+     14,
+     2,
+     80
+    ]
+   ],
+   "description": "C#m7, Amaj7 and F#m9 with the G# held on top, then a G#7#9 for bite. Bounce it and let the 808 follow the roots."
+  },
+  {
+   "title": "Trap Boulevard Stabs",
+   "pack": "Velvet Bando",
+   "bpm": 150,
+   "key": "G minor",
+   "tags": [
+    "trap",
+    "dark",
+    "bounce"
+   ],
+   "rhythm": "stabs",
+   "chords": [
+    [
+     "Gm7",
+     2,
+     [
+      31,
+      53,
+      58,
+      62
+     ]
+    ],
+    [
+     "Abmaj7",
+     2,
+     [
+      32,
+      55,
+      60,
+      63
+     ]
+    ],
+    [
+     "Gm7",
+     2,
+     [
+      31,
+      53,
+      58,
+      62
+     ]
+    ],
+    [
+     "Fadd9",
+     2,
+     [
+      29,
+      57,
+      60,
+      67
+     ]
+    ],
+    [
+     "Ebmaj9",
+     4,
+     [
+      39,
+      55,
+      58,
+      62,
+      65
+     ]
+    ],
+    [
+     "D7#9",
+     4,
+     [
+      38,
+      54,
+      60,
+      65
+     ]
+    ]
+   ],
+   "description": "Gm7 flicking up to a phrygian Abmaj7 and back, then F add9, Ebmaj9 and D7#9. Short stabs on the syncopations."
+  },
+  {
+   "title": "Chrome Rims Pulse",
+   "pack": "Velvet Bando",
+   "bpm": 145,
+   "key": "F minor",
+   "tags": [
+    "trap",
+    "dark",
+    "melodic"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "Fm9",
+     4,
+     [
+      29,
+      56,
+      60,
+      63,
+      67
+     ]
+    ],
+    [
+     "Dbmaj9",
+     4,
+     [
+      37,
+      60,
+      63,
+      65,
+      68
+     ]
+    ],
+    [
+     "Ebsus4",
+     2,
+     [
+      39,
+      56,
+      58,
+      63
+     ]
+    ],
+    [
+     "Eb",
+     2,
+     [
+      39,
+      55,
+      58,
+      63
+     ]
+    ],
+    [
+     "C7b9",
+     4,
+     [
+      36,
+      52,
+      55,
+      58,
+      61
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     1,
+     72
+    ],
+    [
+     1,
+     1,
+     75
+    ],
+    [
+     2,
+     2,
+     77
+    ],
+    [
+     4,
+     4,
+     80
+    ],
+    [
+     8,
+     2,
+     79
+    ],
+    [
+     10,
+     2,
+     75
+    ],
+    [
+     12,
+     4,
+     76
+    ]
+   ],
+   "description": "i-bVI-bVII with Fm9 and Dbmaj9, a suspended Eb that resolves, then a C7b9 to drag it back to F minor."
+  },
+  {
+   "title": "Trap Mansion Strut",
+   "pack": "Velvet Bando",
+   "bpm": 135,
+   "key": "Eb minor",
+   "tags": [
+    "trap",
+    "dark",
+    "bounce"
+   ],
+   "rhythm": "bounce",
+   "chords": [
+    [
+     "Ebm9",
+     4,
+     [
+      39,
+      54,
+      58,
+      61,
+      65
+     ]
+    ],
+    [
+     "Abm9",
+     4,
+     [
+      32,
+      54,
+      58,
+      59,
+      63
+     ]
+    ],
+    [
+     "Cbmaj7",
+     4,
+     [
+      35,
+      58,
+      63,
+      66
+     ]
+    ],
+    [
+     "Bb7#9",
+     4,
+     [
+      34,
+      62,
+      68,
+      73
+     ]
+    ]
+   ],
+   "description": "Ebm9 and Abm9 with smooth common tones, the bVI as Cbmaj7, and a Bb7#9 with the sharp nine on top."
+  },
+  {
+   "title": "Hi-Hat Parade",
+   "pack": "Velvet Bando",
+   "bpm": 155,
+   "key": "A minor",
+   "tags": [
+    "trap",
+    "dark",
+    "bounce"
+   ],
+   "rhythm": "stabs",
+   "chords": [
+    [
+     "Am7",
+     4,
+     [
+      33,
+      55,
+      60,
+      64
+     ]
+    ],
+    [
+     "Bbmaj7",
+     4,
+     [
+      34,
+      57,
+      62,
+      65
+     ]
+    ],
+    [
+     "Fmaj7",
+     4,
+     [
+      29,
+      57,
+      60,
+      64
+     ]
+    ],
+    [
+     "E7b9",
+     4,
+     [
+      40,
+      56,
+      62,
+      65
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     1,
+     76
+    ],
+    [
+     1.5,
+     0.5,
+     79
+    ],
+    [
+     2,
+     2,
+     81
+    ],
+    [
+     4,
+     2,
+     82
+    ],
+    [
+     6,
+     2,
+     81
+    ],
+    [
+     8,
+     2,
+     79
+    ],
+    [
+     10,
+     2,
+     76
+    ],
+    [
+     12,
+     4,
+     80
+    ]
+   ],
+   "description": "Am7 up a half step to a phrygian Bbmaj7, down to Fmaj7 and out through E7b9. Built for fast stabs."
+  },
+  {
+   "title": "Trap Velour",
+   "pack": "Velvet Bando",
+   "bpm": 142,
+   "key": "B minor",
+   "tags": [
+    "trap",
+    "melodic",
+    "bounce"
+   ],
+   "rhythm": "push",
+   "chords": [
+    [
+     "Bm9",
+     4,
+     [
+      35,
+      62,
+      66,
+      69,
+      73
+     ]
+    ],
+    [
+     "Gmaj7",
+     2,
+     [
+      31,
+      62,
+      66,
+      71
+     ]
+    ],
+    [
+     "A6",
+     2,
+     [
+      33,
+      61,
+      66,
+      69
+     ]
+    ],
+    [
+     "Em7",
+     4,
+     [
+      40,
+      62,
+      67,
+      71
+     ]
+    ],
+    [
+     "F#7sus4",
+     2,
+     [
+      30,
+      59,
+      61,
+      64
+     ]
+    ],
+    [
+     "F#7",
+     2,
+     [
+      30,
+      58,
+      61,
+      64
+     ]
+    ]
+   ],
+   "description": "Bm9 moving to Gmaj7 and A6 in quick halves, Em7, then a suspended F#7 that resolves. Anticipated for a lazy swing."
+  },
+  {
+   "title": "Bando Coupe Glide",
+   "pack": "Velvet Bando",
+   "bpm": 150,
+   "key": "Ab major",
+   "tags": [
+    "trap",
+    "melodic",
+    "bounce"
+   ],
+   "rhythm": "bounce",
+   "chords": [
+    [
+     "Abmaj9",
+     4,
+     [
+      32,
+      55,
+      58,
+      60,
+      63
+     ]
+    ],
+    [
+     "Fm7",
+     4,
+     [
+      29,
+      56,
+      60,
+      63
+     ]
+    ],
+    [
+     "Dbmaj7",
+     4,
+     [
+      37,
+      53,
+      56,
+      60
+     ]
+    ],
+    [
+     "Eb7sus4",
+     2,
+     [
+      39,
+      56,
+      58,
+      61
+     ]
+    ],
+    [
+     "Eb9",
+     2,
+     [
+      39,
+      55,
+      61,
+      65
+     ]
+    ]
+   ],
+   "description": "Abmaj9, Fm7, Dbmaj7 and a suspended Eb that opens into Eb9. Bright, smooth Atlanta-style bounce."
+  },
+  {
+   "title": "Trap Drumline Strut",
+   "pack": "Velvet Bando",
+   "bpm": 160,
+   "key": "D minor",
+   "tags": [
+    "trap",
+    "dark",
+    "bounce"
+   ],
+   "rhythm": "stabs",
+   "chords": [
+    [
+     "Dm9",
+     4,
+     [
+      38,
+      53,
+      57,
+      60,
+      64
+     ]
+    ],
+    [
+     "Ebmaj7",
+     4,
+     [
+      39,
+      55,
+      58,
+      62
+     ]
+    ],
+    [
+     "Dm9",
+     4,
+     [
+      38,
+      53,
+      57,
+      60,
+      64
+     ]
+    ],
+    [
+     "Ebmaj7#11",
+     4,
+     [
+      39,
+      55,
+      57,
+      62
+     ]
+    ],
+    [
+     "Bbmaj7",
+     4,
+     [
+      34,
+      57,
+      62,
+      65
+     ]
+    ],
+    [
+     "Gm9",
+     4,
+     [
+      31,
+      58,
+      62,
+      65,
+      69
+     ]
+    ],
+    [
+     "A7b9",
+     8,
+     [
+      33,
+      55,
+      58,
+      61,
+      64
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     2,
+     81
+    ],
+    [
+     2,
+     2,
+     77
+    ],
+    [
+     4,
+     2,
+     79
+    ],
+    [
+     6,
+     2,
+     82
+    ],
+    [
+     8,
+     4,
+     81
+    ],
+    [
+     12,
+     4,
+     79
+    ],
+    [
+     16,
+     4,
+     77
+    ],
+    [
+     20,
+     4,
+     74
+    ],
+    [
+     24,
+     4,
+     73
+    ],
+    [
+     28,
+     4,
+     76
+    ]
+   ],
+   "description": "Dm9 against a phrygian Ebmaj7 twice (the second with a sharp eleven), then Bbmaj7, Gm9 and two bars of A7b9."
+  },
+  {
+   "title": "Plug Talk Groove",
+   "pack": "Velvet Bando",
+   "bpm": 138,
+   "key": "C minor",
+   "tags": [
+    "trap",
+    "bounce",
+    "melodic"
+   ],
+   "rhythm": "bounce",
+   "chords": [
+    [
+     "Cm11",
+     4,
+     [
+      36,
+      58,
+      63,
+      65
+     ]
+    ],
+    [
+     "Abmaj7",
+     4,
+     [
+      32,
+      55,
+      60,
+      63
+     ]
+    ],
+    [
+     "Bb6",
+     2,
+     [
+      34,
+      53,
+      55,
+      62
+     ]
+    ],
+    [
+     "Bb7",
+     2,
+     [
+      34,
+      56,
+      62,
+      65
+     ]
+    ],
+    [
+     "Gm7",
+     2,
+     [
+      31,
+      53,
+      58,
+      62
+     ]
+    ],
+    [
+     "G7#9",
+     2,
+     [
+      31,
+      59,
+      65,
+      70
+     ]
+    ]
+   ],
+   "description": "Cm11 and Abmaj7, then Bb6 to Bb7 and Gm7 turning major as G7#9. Quick changes in the second half keep it bouncing."
+  },
+  {
+   "title": "Trap Lobby Lights",
+   "pack": "Velvet Bando",
+   "bpm": 145,
+   "key": "E major",
+   "tags": [
+    "trap",
+    "melodic"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "Emaj9",
+     4,
+     [
+      40,
+      56,
+      59,
+      63,
+      66
+     ]
+    ],
+    [
+     "C#m9",
+     4,
+     [
+      37,
+      56,
+      59,
+      63,
+      64
+     ]
+    ],
+    [
+     "Amaj7#11",
+     4,
+     [
+      33,
+      56,
+      61,
+      63
+     ]
+    ],
+    [
+     "Am6",
+     2,
+     [
+      33,
+      54,
+      60,
+      64
+     ]
+    ],
+    [
+     "B7sus4",
+     2,
+     [
+      35,
+      57,
+      64,
+      66
+     ]
+    ]
+   ],
+   "description": "Major-key trap: Emaj9, C#m9 and Amaj7#11, then the borrowed Am6 and a suspended B7. Pulse it for a glossy feel."
+  },
+  {
+   "title": "Ice Grill Stabs",
+   "pack": "Velvet Bando",
+   "bpm": 140,
+   "key": "Bb minor",
+   "tags": [
+    "trap",
+    "dark",
+    "ominous"
+   ],
+   "rhythm": "stabs",
+   "chords": [
+    [
+     "Bbm7",
+     2,
+     [
+      34,
+      56,
+      61,
+      65
+     ]
+    ],
+    [
+     "Cbmaj7/Bb",
+     2,
+     [
+      34,
+      54,
+      58,
+      63
+     ]
+    ],
+    [
+     "Bbm7",
+     2,
+     [
+      34,
+      56,
+      61,
+      65
+     ]
+    ],
+    [
+     "Gbmaj7",
+     2,
+     [
+      30,
+      53,
+      58,
+      61
+     ]
+    ],
+    [
+     "Ebm9",
+     4,
+     [
+      39,
+      54,
+      58,
+      61,
+      65
+     ]
+    ],
+    [
+     "F7b9",
+     4,
+     [
+      29,
+      57,
+      63,
+      66
+     ]
+    ]
+   ],
+   "description": "Bbm7 rocking against Cbmaj7 over the Bb pedal, then Gbmaj7, Ebm9 and F7b9. Tight stabs, menacing low end."
+  },
+  {
+   "title": "Bando Rooftop Bounce",
+   "pack": "Velvet Bando",
+   "bpm": 148,
+   "key": "F# minor",
+   "tags": [
+    "trap",
+    "melodic",
+    "bounce"
+   ],
+   "rhythm": "bounce",
+   "chords": [
+    [
+     "F#m11",
+     4,
+     [
+      42,
+      57,
+      59,
+      61,
+      64
+     ]
+    ],
+    [
+     "Dmaj9",
+     4,
+     [
+      38,
+      54,
+      57,
+      61,
+      64
+     ]
+    ],
+    [
+     "E6",
+     4,
+     [
+      40,
+      56,
+      59,
+      61
+     ]
+    ],
+    [
+     "C#7#9",
+     4,
+     [
+      37,
+      53,
+      59,
+      64
+     ]
+    ]
+   ],
+   "description": "F#m11, Dmaj9 and E6 (i-bVI-bVII), then a C#7#9 with the sharp nine on top. Smooth upper voices, bouncing hits."
+  },
+  {
+   "title": "Bando Bell Tower",
+   "pack": "Iron Bells",
+   "bpm": 140,
+   "key": "D minor",
+   "tags": [
+    "trap",
+    "bells",
+    "ominous"
+   ],
+   "rhythm": "arp",
+   "chords": [
+    [
+     "Dm(add9)",
+     4,
+     [
+      38,
+      57,
+      62,
+      64,
+      65
+     ]
+    ],
+    [
+     "Dm(maj7)",
+     4,
+     [
+      38,
+      57,
+      61,
+      64,
+      65
+     ]
+    ],
+    [
+     "Dm7",
+     4,
+     [
+      38,
+      57,
+      60,
+      64,
+      65
+     ]
+    ],
+    [
+     "Dm6",
+     4,
+     [
+      38,
+      57,
+      59,
+      64,
+      65
+     ]
+    ],
+    [
+     "Bbmaj7",
+     4,
+     [
+      34,
+      57,
+      62,
+      65
+     ]
+    ],
+    [
+     "Gm9",
+     4,
+     [
+      31,
+      57,
+      58,
+      62,
+      65
+     ]
+    ],
+    [
+     "Ebmaj7#11",
+     4,
+     [
+      39,
+      55,
+      57,
+      62
+     ]
+    ],
+    [
+     "A7b9",
+     4,
+     [
+      33,
+      55,
+      58,
+      61,
+      64
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     1,
+     74
+    ],
+    [
+     1,
+     1,
+     76
+    ],
+    [
+     2,
+     2,
+     81
+    ],
+    [
+     4,
+     2,
+     85
+    ],
+    [
+     6,
+     2,
+     81
+    ],
+    [
+     8,
+     2,
+     84
+    ],
+    [
+     10,
+     2,
+     81
+    ],
+    [
+     12,
+     4,
+     83
+    ],
+    [
+     16,
+     4,
+     86
+    ],
+    [
+     20,
+     4,
+     89
+    ],
+    [
+     24,
+     4,
+     81
+    ],
+    [
+     28,
+     4,
+     85
+    ]
+   ],
+   "description": "A line clich\u00e9 over D minor (D, C#, C, B) for four bars, then Bbmaj7, Gm9, a Neapolitan Ebmaj7#11 and A7b9. Arp it on bells."
+  },
+  {
+   "title": "808 Music Box",
+   "pack": "Iron Bells",
+   "bpm": 72,
+   "key": "A minor",
+   "tags": [
+    "trap",
+    "bells",
+    "half-time",
+    "sad"
+   ],
+   "rhythm": "arp",
+   "chords": [
+    [
+     "Am(add9)",
+     4,
+     [
+      33,
+      64,
+      71,
+      72
+     ]
+    ],
+    [
+     "Fmaj7",
+     4,
+     [
+      29,
+      64,
+      69,
+      72
+     ]
+    ],
+    [
+     "Cmaj7/G",
+     4,
+     [
+      31,
+      64,
+      67,
+      71
+     ]
+    ],
+    [
+     "Dm9",
+     2,
+     [
+      38,
+      65,
+      69,
+      72,
+      76
+     ]
+    ],
+    [
+     "E7b9",
+     2,
+     [
+      40,
+      62,
+      65,
+      68,
+      71
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     1,
+     81
+    ],
+    [
+     1,
+     1,
+     83
+    ],
+    [
+     2,
+     2,
+     84
+    ],
+    [
+     4,
+     4,
+     88
+    ],
+    [
+     8,
+     2,
+     86
+    ],
+    [
+     10,
+     2,
+     83
+    ],
+    [
+     12,
+     2,
+     81
+    ],
+    [
+     14,
+     2,
+     80
+    ]
+   ],
+   "description": "Am add9, Fmaj7 and Cmaj7 over G in a high music-box register, then Dm9 and E7b9. Written for half-time."
+  },
+  {
+   "title": "Glacier Trap Chimes",
+   "pack": "Iron Bells",
+   "bpm": 144,
+   "key": "D major",
+   "tags": [
+    "trap",
+    "bells",
+    "melodic"
+   ],
+   "rhythm": "arp",
+   "chords": [
+    [
+     "Dmaj9",
+     4,
+     [
+      38,
+      66,
+      69,
+      73,
+      76
+     ]
+    ],
+    [
+     "Bm9",
+     4,
+     [
+      35,
+      62,
+      66,
+      69,
+      73
+     ]
+    ],
+    [
+     "Gmaj7#11",
+     4,
+     [
+      31,
+      66,
+      71,
+      73
+     ]
+    ],
+    [
+     "Gm6",
+     2,
+     [
+      31,
+      64,
+      70,
+      74
+     ]
+    ],
+    [
+     "A7sus4",
+     2,
+     [
+      33,
+      67,
+      74,
+      76
+     ]
+    ]
+   ],
+   "description": "Dmaj9, Bm9 and Gmaj7#11 high and glassy, then the IV turns minor as Gm6 before a suspended A7."
+  },
+  {
+   "title": "Haunted Trap Carillon",
+   "pack": "Iron Bells",
+   "bpm": 150,
+   "key": "C minor",
+   "tags": [
+    "trap",
+    "bells",
+    "dark"
+   ],
+   "rhythm": "arp",
+   "chords": [
+    [
+     "Cm(maj9)",
+     4,
+     [
+      36,
+      63,
+      67,
+      71,
+      74
+     ]
+    ],
+    [
+     "Cm9",
+     4,
+     [
+      36,
+      63,
+      67,
+      70,
+      74
+     ]
+    ],
+    [
+     "Abmaj7",
+     4,
+     [
+      32,
+      63,
+      67,
+      72
+     ]
+    ],
+    [
+     "Dbmaj7",
+     2,
+     [
+      37,
+      65,
+      68,
+      72
+     ]
+    ],
+    [
+     "G7b9",
+     2,
+     [
+      31,
+      65,
+      68,
+      71,
+      74
+     ]
+    ]
+   ],
+   "description": "Cm(maj9) relaxing to Cm9, then Abmaj7, a Neapolitan Dbmaj7 and G7b9. The B to Bb to C motion on top carries the melody."
+  },
+  {
+   "title": "Trap Icicle Bells",
+   "pack": "Iron Bells",
+   "bpm": 135,
+   "key": "G# minor",
+   "tags": [
+    "trap",
+    "bells",
+    "melodic"
+   ],
+   "rhythm": "arp",
+   "chords": [
+    [
+     "G#m11",
+     4,
+     [
+      32,
+      66,
+      71,
+      73,
+      75
+     ]
+    ],
+    [
+     "Emaj9",
+     4,
+     [
+      40,
+      68,
+      71,
+      75,
+      78
+     ]
+    ],
+    [
+     "C#m9",
+     4,
+     [
+      37,
+      64,
+      68,
+      71,
+      75
+     ]
+    ],
+    [
+     "D#7b9",
+     4,
+     [
+      39,
+      67,
+      73,
+      76
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     1,
+     80
+    ],
+    [
+     1,
+     1,
+     82
+    ],
+    [
+     2,
+     2,
+     83
+    ],
+    [
+     4,
+     4,
+     87
+    ],
+    [
+     8,
+     2,
+     85
+    ],
+    [
+     10,
+     2,
+     83
+    ],
+    [
+     12,
+     4,
+     85
+    ]
+   ],
+   "description": "G#m11, Emaj9 and C#m9 voiced up high, then D#7b9 for the harmonic-minor pull. Fast arps on a glock or bell."
+  },
+  {
+   "title": "Bando Wind Chimes",
+   "pack": "Iron Bells",
+   "bpm": 140,
+   "key": "E minor",
+   "tags": [
+    "trap",
+    "bells",
+    "melodic"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "Em(add9)",
+     4,
+     [
+      40,
+      67,
+      71,
+      76,
+      78
+     ]
+    ],
+    [
+     "Cmaj9",
+     4,
+     [
+      36,
+      64,
+      67,
+      71,
+      74
+     ]
+    ],
+    [
+     "Gmaj7/D",
+     4,
+     [
+      38,
+      66,
+      67,
+      71
+     ]
+    ],
+    [
+     "Bsus4",
+     2,
+     [
+      35,
+      64,
+      66,
+      71
+     ]
+    ],
+    [
+     "B7",
+     2,
+     [
+      35,
+      63,
+      66,
+      69
+     ]
+    ]
+   ],
+   "description": "Em add9 and Cmaj9, Gmaj7 over D, then a Bsus4 resolving to B7. Pulse it on a bell with lots of reverb."
+  },
+  {
+   "title": "Trap Chandelier",
+   "pack": "Iron Bells",
+   "bpm": 145,
+   "key": "Eb minor",
+   "tags": [
+    "trap",
+    "bells",
+    "dark"
+   ],
+   "rhythm": "arp",
+   "chords": [
+    [
+     "Ebm9",
+     4,
+     [
+      39,
+      66,
+      70,
+      73,
+      77
+     ]
+    ],
+    [
+     "Cbmaj7",
+     4,
+     [
+      35,
+      63,
+      66,
+      70
+     ]
+    ],
+    [
+     "Abm9",
+     4,
+     [
+      32,
+      59,
+      63,
+      66,
+      70
+     ]
+    ],
+    [
+     "Bb7#5",
+     2,
+     [
+      34,
+      62,
+      66,
+      68
+     ]
+    ],
+    [
+     "Bb7b9",
+     2,
+     [
+      34,
+      62,
+      68,
+      71
+     ]
+    ]
+   ],
+   "description": "Ebm9, Cbmaj7 and Abm9 with Bb on top throughout, then Bb7#5 and Bb7b9 as a two-step dominant."
+  },
+  {
+   "title": "Ghost Bell 808",
+   "pack": "Iron Bells",
+   "bpm": 70,
+   "key": "C# minor",
+   "tags": [
+    "trap",
+    "bells",
+    "half-time",
+    "ominous"
+   ],
+   "rhythm": "arp",
+   "chords": [
+    [
+     "C#m(add9)",
+     8,
+     [
+      37,
+      56,
+      61,
+      63,
+      64
+     ]
+    ],
+    [
+     "Amaj9",
+     4,
+     [
+      33,
+      56,
+      59,
+      61,
+      64
+     ]
+    ],
+    [
+     "F#m9",
+     4,
+     [
+      30,
+      57,
+      61,
+      64,
+      68
+     ]
+    ],
+    [
+     "Dmaj7#11",
+     8,
+     [
+      38,
+      54,
+      57,
+      61,
+      68
+     ]
+    ],
+    [
+     "G#7b9",
+     8,
+     [
+      32,
+      54,
+      57,
+      60,
+      63
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     4,
+     68
+    ],
+    [
+     4,
+     4,
+     76
+    ],
+    [
+     8,
+     4,
+     75
+    ],
+    [
+     12,
+     4,
+     73
+    ],
+    [
+     16,
+     8,
+     78
+    ],
+    [
+     24,
+     4,
+     81
+    ],
+    [
+     28,
+     4,
+     80
+    ]
+   ],
+   "description": "Two bars of C#m add9, Amaj9 and F#m9, then a Neapolitan Dmaj7#11 and two bars of G#7b9. Half-time and haunted."
+  },
+  {
+   "title": "Trap Steeple",
+   "pack": "Iron Bells",
+   "bpm": 158,
+   "key": "F minor",
+   "tags": [
+    "trap",
+    "bells",
+    "ominous"
+   ],
+   "rhythm": "arp",
+   "chords": [
+    [
+     "Fm(add9)",
+     4,
+     [
+      29,
+      60,
+      67,
+      68
+     ]
+    ],
+    [
+     "Gbmaj7",
+     4,
+     [
+      30,
+      61,
+      65,
+      70
+     ]
+    ],
+    [
+     "Dbmaj9",
+     4,
+     [
+      37,
+      60,
+      63,
+      65,
+      68
+     ]
+    ],
+    [
+     "C7b9",
+     4,
+     [
+      36,
+      64,
+      70,
+      73
+     ]
+    ]
+   ],
+   "description": "Fm add9 up a half step to a phrygian Gbmaj7, then Dbmaj9 and C7b9. Sparse bell voicings for fast arps."
+  },
+  {
+   "title": "Frostbite Trap Bells",
+   "pack": "Iron Bells",
+   "bpm": 140,
+   "key": "B minor",
+   "tags": [
+    "trap",
+    "bells",
+    "melodic"
+   ],
+   "rhythm": "arp",
+   "chords": [
+    [
+     "Bm9",
+     4,
+     [
+      35,
+      62,
+      66,
+      69,
+      73
+     ]
+    ],
+    [
+     "Gmaj9",
+     4,
+     [
+      31,
+      62,
+      66,
+      69,
+      71
+     ]
+    ],
+    [
+     "Em9",
+     4,
+     [
+      40,
+      62,
+      66,
+      67,
+      71
+     ]
+    ],
+    [
+     "Cmaj7#11",
+     4,
+     [
+      36,
+      64,
+      66,
+      71
+     ]
+    ],
+    [
+     "Bm11",
+     4,
+     [
+      35,
+      62,
+      64,
+      69
+     ]
+    ],
+    [
+     "Gmaj7",
+     4,
+     [
+      31,
+      62,
+      66,
+      71
+     ]
+    ],
+    [
+     "A#dim7",
+     4,
+     [
+      34,
+      61,
+      64,
+      67
+     ]
+    ],
+    [
+     "F#7b9",
+     4,
+     [
+      30,
+      64,
+      67,
+      70
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     2,
+     78
+    ],
+    [
+     2,
+     2,
+     81
+    ],
+    [
+     4,
+     4,
+     83
+    ],
+    [
+     8,
+     2,
+     79
+    ],
+    [
+     10,
+     2,
+     78
+    ],
+    [
+     12,
+     4,
+     76
+    ],
+    [
+     16,
+     4,
+     74
+    ],
+    [
+     20,
+     4,
+     78
+    ],
+    [
+     24,
+     4,
+     79
+    ],
+    [
+     28,
+     4,
+     82
+    ]
+   ],
+   "description": "Bm9, Gmaj9, Em9 and a Neapolitan Cmaj7#11, then a second pass with an A#dim7 passing chord into F#7b9."
+  },
+  {
+   "title": "Dungeon Bell Ritual",
+   "pack": "Iron Bells",
+   "bpm": 150,
+   "key": "G minor",
+   "tags": [
+    "trap",
+    "bells",
+    "dark"
+   ],
+   "rhythm": "arp",
+   "chords": [
+    [
+     "Gm9",
+     4,
+     [
+      31,
+      58,
+      62,
+      65,
+      69
+     ]
+    ],
+    [
+     "Abmaj7",
+     4,
+     [
+      32,
+      60,
+      63,
+      67
+     ]
+    ],
+    [
+     "Ebmaj7/G",
+     4,
+     [
+      31,
+      55,
+      58,
+      62,
+      63
+     ]
+    ],
+    [
+     "F#dim7",
+     2,
+     [
+      30,
+      57,
+      60,
+      63
+     ]
+    ],
+    [
+     "D7b9",
+     2,
+     [
+      38,
+      54,
+      57,
+      60,
+      63
+     ]
+    ]
+   ],
+   "description": "Gm9 to a phrygian Abmaj7, Ebmaj7 over G, then F#dim7 sliding into D7b9."
+  },
+  {
+   "title": "Hollow Trap Glockenspiel",
+   "pack": "Iron Bells",
+   "bpm": 145,
+   "key": "C major",
+   "tags": [
+    "trap",
+    "bells",
+    "melodic"
+   ],
+   "rhythm": "pulse",
+   "chords": [
+    [
+     "Cmaj9",
+     4,
+     [
+      36,
+      64,
+      67,
+      71,
+      74
+     ]
+    ],
+    [
+     "Am9",
+     4,
+     [
+      33,
+      60,
+      64,
+      67,
+      71
+     ]
+    ],
+    [
+     "Fmaj7#11",
+     4,
+     [
+      29,
+      64,
+      69,
+      71
+     ]
+    ],
+    [
+     "Fm6",
+     2,
+     [
+      29,
+      62,
+      68,
+      72
+     ]
+    ],
+    [
+     "G7sus4",
+     2,
+     [
+      31,
+      65,
+      72,
+      74
+     ]
+    ]
+   ],
+   "description": "Cmaj9, Am9 and Fmaj7#11, then the borrowed Fm6 and a suspended G7. Pulse it on a glockenspiel."
+  },
+  {
+   "title": "Trap Piano Confession",
+   "pack": "Midnight Ivory",
+   "bpm": 140,
+   "key": "Db major",
+   "tags": [
+    "trap",
+    "piano",
+    "melodic"
+   ],
+   "rhythm": "roll",
+   "chords": [
+    [
+     "Dbmaj9",
+     4,
+     [
+      37,
+      53,
+      56,
+      60,
+      63
+     ]
+    ],
+    [
+     "Bbm11",
+     4,
+     [
+      34,
+      56,
+      61,
+      63,
+      65
+     ]
+    ],
+    [
+     "Gbmaj7#11",
+     4,
+     [
+      30,
+      53,
+      58,
+      60,
+      61
+     ]
+    ],
+    [
+     "Gbm6",
+     2,
+     [
+      30,
+      51,
+      57,
+      61
+     ]
+    ],
+    [
+     "Ab7sus4",
+     2,
+     [
+      32,
+      54,
+      61,
+      63
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     2,
+     77
+    ],
+    [
+     2,
+     2,
+     80
+    ],
+    [
+     4,
+     4,
+     75
+    ],
+    [
+     8,
+     2,
+     73
+    ],
+    [
+     10,
+     2,
+     77
+    ],
+    [
+     12,
+     2,
+     81
+    ],
+    [
+     14,
+     2,
+     78
+    ]
+   ],
+   "description": "Dbmaj9, Bbm11 and Gbmaj7#11, then the borrowed Gbm6 and a suspended Ab7. Roll each chord on a warm upright."
+  },
+  {
+   "title": "Bando Nocturne",
+   "pack": "Midnight Ivory",
+   "bpm": 72,
+   "key": "E minor",
+   "tags": [
+    "trap",
+    "piano",
+    "half-time",
+    "dark"
+   ],
+   "rhythm": "held",
+   "chords": [
+    [
+     "Em11",
+     8,
+     [
+      40,
+      62,
+      67,
+      69,
+      71
+     ]
+    ],
+    [
+     "Cmaj7#11",
+     4,
+     [
+      36,
+      64,
+      66,
+      71
+     ]
+    ],
+    [
+     "Am9",
+     4,
+     [
+      33,
+      60,
+      64,
+      67,
+      71
+     ]
+    ],
+    [
+     "Fmaj7",
+     8,
+     [
+      29,
+      64,
+      69,
+      72
+     ]
+    ],
+    [
+     "B7#9",
+     8,
+     [
+      35,
+      63,
+      69,
+      74
+     ]
+    ]
+   ],
+   "description": "Em11 for two bars, Cmaj7#11 and Am9, then a phrygian Fmaj7 and a B7#9 for the last two bars. Half-time piano at 144."
+  },
+  {
+   "title": "808 Prayer Keys",
+   "pack": "Midnight Ivory",
+   "bpm": 150,
+   "key": "A major",
+   "tags": [
+    "trap",
+    "piano",
+    "sad"
+   ],
+   "rhythm": "push",
+   "chords": [
+    [
+     "Amaj9",
+     4,
+     [
+      33,
+      56,
+      59,
+      61,
+      64
+     ]
+    ],
+    [
+     "F#m11",
+     4,
+     [
+      30,
+      57,
+      59,
+      61,
+      64
+     ]
+    ],
+    [
+     "Dmaj7",
+     2,
+     [
+      38,
+      57,
+      61,
+      66
+     ]
+    ],
+    [
+     "Dm6",
+     2,
+     [
+      38,
+      59,
+      65,
+      69
+     ]
+    ],
+    [
+     "E7sus4",
+     2,
+     [
+      40,
+      57,
+      59,
+      62
+     ]
+    ],
+    [
+     "E7b9",
+     2,
+     [
+      40,
+      56,
+      62,
+      65
+     ]
+    ]
+   ],
+   "description": "Amaj9 and F#m11, then the IV goes minor (Dmaj7 to Dm6) and E7sus4 resolves into E7b9. Sad major trap on piano."
+  },
+  {
+   "title": "Trap Hymnal",
+   "pack": "Midnight Ivory",
+   "bpm": 145,
+   "key": "Bb minor",
+   "tags": [
+    "trap",
+    "piano",
+    "dark"
+   ],
+   "rhythm": "roll",
+   "chords": [
+    [
+     "Bbm9",
+     2,
+     [
+      34,
+      61,
+      65,
+      68,
+      72
+     ]
+    ],
+    [
+     "Bbm(maj7)/A",
+     2,
+     [
+      33,
+      61,
+      65,
+      69
+     ]
+    ],
+    [
+     "Bbm7/Ab",
+     2,
+     [
+      32,
+      61,
+      65,
+      68
+     ]
+    ],
+    [
+     "Gm7b5",
+     2,
+     [
+      31,
+      61,
+      65,
+      70
+     ]
+    ],
+    [
+     "Gbmaj7",
+     4,
+     [
+      30,
+      61,
+      65,
+      70
+     ]
+    ],
+    [
+     "F7b9",
+     4,
+     [
+      29,
+      60,
+      63,
+      66,
+      69
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     2,
+     73
+    ],
+    [
+     2,
+     2,
+     72
+    ],
+    [
+     4,
+     2,
+     70
+    ],
+    [
+     6,
+     2,
+     73
+    ],
+    [
+     8,
+     4,
+     77
+    ],
+    [
+     12,
+     2,
+     75
+    ],
+    [
+     14,
+     2,
+     78
+    ]
+   ],
+   "description": "A descending bass Bb, A, Ab, G under Bb minor, landing on Gbmaj7 and F7b9. Roll it on a dark grand."
+  },
+  {
+   "title": "Trap Rose Piano",
+   "pack": "Midnight Ivory",
+   "bpm": 142,
+   "key": "C# minor",
+   "tags": [
+    "trap",
+    "piano",
+    "sad"
+   ],
+   "rhythm": "push",
+   "chords": [
+    [
+     "C#m9",
+     4,
+     [
+      37,
+      56,
+      59,
+      63,
+      64
+     ]
+    ],
+    [
+     "Amaj7",
+     4,
+     [
+      33,
+      56,
+      61,
+      64
+     ]
+    ],
+    [
+     "E/G#",
+     4,
+     [
+      32,
+      59,
+      64,
+      68
+     ]
+    ],
+    [
+     "F#m9",
+     2,
+     [
+      30,
+      57,
+      61,
+      64,
+      68
+     ]
+    ],
+    [
+     "G#7b9",
+     2,
+     [
+      32,
+      54,
+      57,
+      60
+     ]
+    ]
+   ],
+   "description": "C#m9, Amaj7 and E over G#, then a quick F#m9 to G#7b9. Pushed an eighth early for an emotional, rushing feel."
+  },
+  {
+   "title": "Late Trap Sonata",
+   "pack": "Midnight Ivory",
+   "bpm": 72,
+   "key": "G minor",
+   "tags": [
+    "trap",
+    "piano",
+    "half-time",
+    "sad"
+   ],
+   "rhythm": "held",
+   "chords": [
+    [
+     "Gm11",
+     8,
+     [
+      31,
+      53,
+      58,
+      60,
+      62
+     ]
+    ],
+    [
+     "Ebmaj9",
+     8,
+     [
+      39,
+      55,
+      58,
+      62,
+      65
+     ]
+    ],
+    [
+     "Cm9",
+     4,
+     [
+      36,
+      58,
+      62,
+      63,
+      67
+     ]
+    ],
+    [
+     "Abmaj7",
+     4,
+     [
+      32,
+      55,
+      60,
+      63
+     ]
+    ],
+    [
+     "D7b9",
+     8,
+     [
+      38,
+      54,
+      57,
+      60,
+      63
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     4,
+     74
+    ],
+    [
+     4,
+     2,
+     77
+    ],
+    [
+     6,
+     2,
+     82
+    ],
+    [
+     8,
+     8,
+     79
+    ],
+    [
+     16,
+     4,
+     75
+    ],
+    [
+     20,
+     4,
+     72
+    ],
+    [
+     24,
+     8,
+     78
+    ]
+   ],
+   "description": "Two bars each of Gm11 and Ebmaj9, then Cm9, a Neapolitan Abmaj7 and two bars of D7b9. A half-time ballad."
+  },
+  {
+   "title": "Bando Keys Diary",
+   "pack": "Midnight Ivory",
+   "bpm": 135,
+   "key": "Ab minor",
+   "tags": [
+    "trap",
+    "piano",
+    "dark"
+   ],
+   "rhythm": "roll",
+   "chords": [
+    [
+     "Abm9",
+     4,
+     [
+      32,
+      59,
+      63,
+      66,
+      70
+     ]
+    ],
+    [
+     "Fbmaj7",
+     4,
+     [
+      40,
+      56,
+      59,
+      63
+     ]
+    ],
+    [
+     "Dbm9",
+     4,
+     [
+      37,
+      52,
+      56,
+      59,
+      63
+     ]
+    ],
+    [
+     "Eb7b9",
+     4,
+     [
+      39,
+      55,
+      61,
+      64
+     ]
+    ]
+   ],
+   "description": "Abm9, Fbmaj7 and Dbm9 keep Eb in the voicing, then Eb7b9 adds the harmonic-minor G. Deep, rolled piano."
+  },
+  {
+   "title": "Trap Prelude Rain",
+   "pack": "Midnight Ivory",
+   "bpm": 140,
+   "key": "Bb major",
+   "tags": [
+    "trap",
+    "piano",
+    "melodic"
+   ],
+   "rhythm": "push",
+   "chords": [
+    [
+     "Bbmaj9",
+     4,
+     [
+      34,
+      57,
+      60,
+      62,
+      65
+     ]
+    ],
+    [
+     "Gm9",
+     4,
+     [
+      31,
+      58,
+      62,
+      65,
+      69
+     ]
+    ],
+    [
+     "Ebmaj7#11",
+     2,
+     [
+      39,
+      55,
+      57,
+      62
+     ]
+    ],
+    [
+     "Ebm6",
+     2,
+     [
+      39,
+      54,
+      58,
+      60
+     ]
+    ],
+    [
+     "F7sus4",
+     2,
+     [
+      29,
+      58,
+      63,
+      67
+     ]
+    ],
+    [
+     "F13",
+     2,
+     [
+      29,
+      57,
+      62,
+      63
+     ]
+    ]
+   ],
+   "description": "Bbmaj9 and Gm9, the IV going from Ebmaj7#11 to a borrowed Ebm6, then F7sus4 opening into F13."
+  },
+  {
+   "title": "808 Ivory Smoke",
+   "pack": "Midnight Ivory",
+   "bpm": 155,
+   "key": "F minor",
+   "tags": [
+    "trap",
+    "piano",
+    "dark"
+   ],
+   "rhythm": "push",
+   "chords": [
+    [
+     "Fm11",
+     4,
+     [
+      29,
+      56,
+      58,
+      60,
+      63
+     ]
+    ],
+    [
+     "Dbmaj7",
+     4,
+     [
+      37,
+      56,
+      60,
+      65
+     ]
+    ],
+    [
+     "Bbm9",
+     4,
+     [
+      34,
+      56,
+      60,
+      61,
+      65
+     ]
+    ],
+    [
+     "Ebsus4",
+     2,
+     [
+      39,
+      56,
+      58,
+      63
+     ]
+    ],
+    [
+     "Edim7",
+     2,
+     [
+      40,
+      55,
+      58,
+      61
+     ]
+    ]
+   ],
+   "description": "Fm11, Dbmaj7 and Bbm9, then Ebsus4 and an Edim7 passing chord that climbs back into F minor."
+  },
+  {
+   "title": "Trap Velvet Etude",
+   "pack": "Midnight Ivory",
+   "bpm": 138,
+   "key": "B major",
+   "tags": [
+    "trap",
+    "piano",
+    "melodic"
+   ],
+   "rhythm": "roll",
+   "chords": [
+    [
+     "Bmaj9",
+     4,
+     [
+      35,
+      58,
+      61,
+      63,
+      66
+     ]
+    ],
+    [
+     "G#m9",
+     4,
+     [
+      32,
+      59,
+      63,
+      66,
+      70
+     ]
+    ],
+    [
+     "Emaj7#11",
+     4,
+     [
+      40,
+      56,
+      58,
+      63
+     ]
+    ],
+    [
+     "Em6",
+     2,
+     [
+      40,
+      55,
+      59,
+      61
+     ]
+    ],
+    [
+     "F#7sus4",
+     2,
+     [
+      30,
+      59,
+      61,
+      64
+     ]
+    ]
+   ],
+   "top": [
+    [
+     0,
+     2,
+     78
+    ],
+    [
+     2,
+     2,
+     75
+    ],
+    [
+     4,
+     4,
+     71
+    ],
+    [
+     8,
+     2,
+     70
+    ],
+    [
+     10,
+     2,
+     73
+    ],
+    [
+     12,
+     2,
+     79
+    ],
+    [
+     14,
+     2,
+     76
+    ]
+   ],
+   "description": "Bmaj9 and G#m9, then Emaj7#11 turning minor as Em6 and a suspended F#7 to loop. Rolled and warm."
+  },
+  {
+   "title": "Penthouse Trap Reverie",
+   "pack": "Midnight Ivory",
+   "bpm": 72,
+   "key": "Gb major",
+   "tags": [
+    "trap",
+    "piano",
+    "half-time",
+    "melodic"
+   ],
+   "rhythm": "held",
+   "chords": [
+    [
+     "Gbmaj9",
+     8,
+     [
+      30,
+      53,
+      56,
+      58,
+      61
+     ]
+    ],
+    [
+     "Ebm11",
+     4,
+     [
+      39,
+      61,
+      66,
+      68
+     ]
+    ],
+    [
+     "Cbmaj7",
+     4,
+     [
+      35,
+      58,
+      63,
+      66
+     ]
+    ],
+    [
+     "Cbm6",
+     8,
+     [
+      35,
+      56,
+      62,
+      66
+     ]
+    ],
+    [
+     "Db7sus4",
+     4,
+     [
+      37,
+      54,
+      59,
+      63
+     ]
+    ],
+    [
+     "Db7b9",
+     4,
+     [
+      37,
+      53,
+      59,
+      62
+     ]
+    ]
+   ],
+   "description": "Gbmaj9, Ebm11 and Cbmaj7, then the IV turns minor for two bars before a suspended Db7 resolves to Db7b9."
+  },
+  {
+   "title": "Trap Requiem Keys",
+   "pack": "Midnight Ivory",
+   "bpm": 140,
+   "key": "F# minor",
+   "tags": [
+    "trap",
+    "piano",
+    "dark"
+   ],
+   "rhythm": "roll",
+   "chords": [
+    [
+     "F#m9",
+     4,
+     [
+      30,
+      57,
+      61,
+      64,
+      68
+     ]
+    ],
+    [
+     "Gmaj7/F#",
+     4,
+     [
+      30,
+      55,
+      59,
+      62,
+      66
+     ]
+    ],
+    [
+     "Dmaj7#11",
+     4,
+     [
+      38,
+      54,
+      57,
+      61,
+      68
+     ]
+    ],
+    [
+     "C#7#9",
+     4,
+     [
+      37,
+      53,
+      59,
+      64
+     ]
+    ]
+   ],
+   "description": "F#m9 against a phrygian Gmaj7 over the F# pedal, then Dmaj7#11 and a C#7#9. Rolled dark piano."
+  }
+ ]
+}

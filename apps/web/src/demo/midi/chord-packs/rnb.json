@@ -1,0 +1,1048 @@
+{
+  "packs": [
+    {"name": "After Hours Velvet", "style": "rnb", "description": "Moody, spacious late-night R&B: minor nines, sus dominants and altered turnarounds that leave room for a vocal."},
+    {"name": "Pager Era", "style": "rnb", "description": "Lush 90s and 2000s R&B changes: IVmaj9 to iii to vi, ii-V lifts and secondary dominants at mid tempos."},
+    {"name": "Smoke and Satin", "style": "rnb", "description": "Trap-soul: dark minor keys with sweet maj9 and #9 colors, at slow tempos or double-time 130 to 150."},
+    {"name": "Candle Count", "style": "rnb", "description": "Slow jam ballad changes with borrowed minor iv chords, diminished passing chords and gospel-leaning turnarounds."},
+    {"name": "Pillow Static", "style": "rnb", "description": "Dreamy bedroom R&B built on maj7#11 and maj9#11 colors, floating sus chords and soft modal shifts."}
+  ],
+  "progressions": [
+    {
+      "title": "Low Lamp",
+      "pack": "After Hours Velvet",
+      "bpm": 68,
+      "key": "Db major",
+      "tags": ["rnb", "late night", "lush"],
+      "rhythm": "held",
+      "chords": [
+        ["Gbmaj9", 4, [42, 61, 65, 68, 70]],
+        ["Fm9", 4, [41, 55, 60, 63, 68]],
+        ["Ebm11", 4, [39, 54, 61, 65, 68]],
+        ["Ab13sus4", 2, [44, 54, 61, 65, 70]],
+        ["Ab13", 2, [44, 54, 60, 65, 70]]
+      ],
+      "top": [[3, 1, 82], [4, 3, 84], [8, 4, 85], [14, 2, 84]],
+      "description": "IVmaj9 to iii9 to ii11, then a sus 13 that resolves to a plain 13 in the last bar. Loop it under a sparse vocal."
+    },
+    {
+      "title": "Rain on Glass",
+      "pack": "After Hours Velvet",
+      "bpm": 72,
+      "key": "F minor",
+      "tags": ["rnb", "late night", "moody"],
+      "rhythm": "arp",
+      "chords": [
+        ["Fm9", 4, [41, 56, 63, 67, 72]],
+        ["Dbmaj7#11", 4, [37, 56, 65, 67, 72]],
+        ["Bbm11", 4, [34, 56, 61, 63, 72]],
+        ["C7#9", 4, [36, 55, 63, 64, 70]]
+      ],
+      "description": "i9 to a bright bVImaj7#11, then iv11 and a gritty V7#9 back home. The #11 on the Db is the color."
+    },
+    {
+      "title": "Slow Taillights",
+      "pack": "After Hours Velvet",
+      "bpm": 64,
+      "key": "Bb minor",
+      "tags": ["rnb", "late night", "spacious"],
+      "rhythm": "roll",
+      "chords": [
+        ["Bbm9", 8, [34, 61, 65, 68, 72]],
+        ["Gbmaj9", 8, [42, 61, 65, 68, 70]],
+        ["Ebm9", 4, [39, 54, 61, 65, 70]],
+        ["Ab13", 4, [44, 54, 60, 65, 70]],
+        ["Gbmaj7#11", 4, [42, 60, 65, 70, 73]],
+        ["F7#9", 4, [41, 56, 60, 63, 69]]
+      ],
+      "description": "Two long bars each on i9 and bVImaj9, then a iv-bVII move and a #11 into the V7#9. Plenty of room for ad-libs."
+    },
+    {
+      "title": "Ceiling Fan",
+      "pack": "After Hours Velvet",
+      "bpm": 76,
+      "key": "E minor",
+      "tags": ["rnb", "late night", "keys"],
+      "rhythm": "push",
+      "chords": [
+        ["Em11", 4, [40, 54, 62, 67, 69]],
+        ["Cmaj9", 4, [36, 52, 59, 62, 67]],
+        ["Am9", 2, [33, 52, 59, 60, 67]],
+        ["D9", 2, [38, 52, 60, 66, 69]],
+        ["Gmaj7/B", 2, [35, 54, 59, 62, 67]],
+        ["B7#9", 2, [35, 54, 62, 63, 69]]
+      ],
+      "top": [[0, 3, 86], [4, 3, 83], [8, 2, 83], [10, 2, 81], [12, 2, 83], [14, 2, 86]],
+      "description": "Dorian-flavored minor with a quick iv-VII-III climb, then the major V7#9 to pull back to Em11. Pushed chords give it lean."
+    },
+    {
+      "title": "Unread Messages",
+      "pack": "After Hours Velvet",
+      "bpm": 70,
+      "key": "Ab major",
+      "tags": ["rnb", "late night", "smooth"],
+      "rhythm": "held",
+      "chords": [
+        ["Dbmaj9", 4, [37, 56, 63, 65, 72]],
+        ["Cm7", 4, [36, 55, 63, 70, 72]],
+        ["Fm9", 4, [41, 55, 63, 68, 72]],
+        ["Bbm9", 2, [46, 56, 61, 65, 72]],
+        ["Eb13sus4", 2, [39, 56, 61, 65, 72]]
+      ],
+      "description": "The classic IV-iii-vi-ii-V walk-down, voiced with nines and a floating sus 13. It never fully lands on the I, so it loops forever."
+    },
+    {
+      "title": "Half Moon Exit",
+      "pack": "After Hours Velvet",
+      "bpm": 66,
+      "key": "C# minor",
+      "tags": ["rnb", "late night", "dark"],
+      "rhythm": "arp",
+      "chords": [
+        ["C#m9", 4, [37, 59, 63, 68, 76]],
+        ["Amaj7#11", 4, [33, 61, 63, 68, 76]],
+        ["F#m11", 4, [42, 57, 64, 68, 71]],
+        ["G#7#9", 4, [44, 59, 63, 66, 72]],
+        ["C#m9", 4, [37, 59, 63, 68, 76]],
+        ["Amaj9", 4, [33, 59, 61, 68, 76]],
+        ["B13sus4", 4, [35, 61, 68, 69, 76]],
+        ["G#7b9", 4, [44, 60, 66, 69, 75]]
+      ],
+      "description": "Eight bars of i-VI-iv-V with the second half swapping in a bVII13sus and a b9 dominant. Arp it slowly over 808 subs."
+    },
+    {
+      "title": "Neon Hum",
+      "pack": "After Hours Velvet",
+      "bpm": 74,
+      "key": "G minor",
+      "tags": ["rnb", "late night", "jazzy"],
+      "rhythm": "stabs",
+      "chords": [
+        ["Gm9", 4, [43, 57, 62, 65, 70]],
+        ["Ebmaj9", 4, [39, 55, 62, 65, 70]],
+        ["Am7b5", 4, [33, 55, 63, 69, 72]],
+        ["D7b9", 4, [38, 54, 60, 63, 69]]
+      ],
+      "top": [[2, 2, 81], [4, 4, 82], [8, 3, 84], [12, 4, 87]],
+      "description": "i9 to VImaj9, then a proper minor ii-V with a half-diminished chord and a b9 dominant. The top line leans on the b9."
+    },
+    {
+      "title": "Two AM Drive",
+      "pack": "After Hours Velvet",
+      "bpm": 62,
+      "key": "B major",
+      "tags": ["rnb", "late night", "warm"],
+      "rhythm": "roll",
+      "chords": [
+        ["Emaj9", 4, [40, 56, 63, 66, 71]],
+        ["D#m7", 4, [39, 58, 63, 66, 73]],
+        ["G#m9", 4, [44, 58, 63, 66, 71]],
+        ["C#m9", 2, [37, 59, 63, 68, 76]],
+        ["F#13", 2, [42, 58, 64, 68, 75]]
+      ],
+      "description": "IVmaj9 down through iii7 and vi9 to a ii-V, all in a warm close voicing. Slow strum, lots of reverb."
+    },
+    {
+      "title": "Velour",
+      "pack": "After Hours Velvet",
+      "bpm": 68,
+      "key": "Eb minor",
+      "tags": ["rnb", "late night", "moody"],
+      "rhythm": "held",
+      "chords": [
+        ["Ebm9", 4, [39, 54, 61, 65, 70]],
+        ["Cbmaj7#11", 4, [35, 54, 63, 65, 70]],
+        ["Abm11", 4, [44, 54, 59, 61, 70]],
+        ["Bb7#9", 4, [46, 53, 61, 62, 68]]
+      ],
+      "description": "Dark i9 against a glowing bVImaj7#11, with an Abm11 and a Bb7#9 to close the circle. Leave the hi-hats sparse."
+    },
+    {
+      "title": "Backroom Glow",
+      "pack": "After Hours Velvet",
+      "bpm": 78,
+      "key": "A major",
+      "tags": ["rnb", "late night", "backdoor"],
+      "rhythm": "bounce",
+      "chords": [
+        ["Amaj9", 4, [45, 59, 64, 68, 73]],
+        ["Dmaj9", 4, [38, 57, 64, 66, 73]],
+        ["Dm9", 4, [38, 57, 64, 65, 72]],
+        ["G13", 4, [43, 57, 64, 65, 71]]
+      ],
+      "top": [[0, 4, 83], [4, 4, 85], [8, 4, 84], [12, 4, 83]],
+      "description": "Imaj9 to IVmaj9, then the borrowed iv9 and a backdoor bVII13 that slides back home. The top line rides the C#-C half-step."
+    },
+    {
+      "title": "Static Prayer",
+      "pack": "After Hours Velvet",
+      "bpm": 60,
+      "key": "D minor",
+      "tags": ["rnb", "late night", "spacious"],
+      "rhythm": "held",
+      "chords": [
+        ["Dm11", 8, [38, 60, 65, 67, 76]],
+        ["Bbmaj9#11", 8, [34, 60, 62, 69, 76]],
+        ["Gm9", 4, [43, 58, 62, 65, 69]],
+        ["C13", 4, [36, 58, 62, 64, 69]],
+        ["Fmaj9/A", 4, [33, 60, 64, 67, 69]],
+        ["A7b9", 4, [33, 61, 64, 67, 70]]
+      ],
+      "description": "Long Dm11 and Bbmaj9#11 pads, then a ii-V into the relative major over A and a b9 dominant to restart. Built for slow vocals."
+    },
+    {
+      "title": "Lighter Flick",
+      "pack": "After Hours Velvet",
+      "bpm": 72,
+      "key": "F# minor",
+      "tags": ["rnb", "late night", "smooth"],
+      "rhythm": "push",
+      "chords": [
+        ["F#m9", 4, [42, 56, 64, 69, 73]],
+        ["Dmaj7#11", 4, [38, 56, 66, 69, 73]],
+        ["Bm9", 2, [35, 57, 62, 66, 73]],
+        ["E9sus4", 2, [40, 57, 62, 66, 71]],
+        ["C#m7", 2, [37, 56, 61, 64, 71]],
+        ["C#7b9", 2, [37, 56, 62, 65, 71]]
+      ],
+      "description": "i9 to VImaj7#11, then iv9 and a sus VII, with the v minor turning into a b9 dominant on the last two beats."
+    },
+    {
+      "title": "Rollerskate Dusk",
+      "pack": "Pager Era",
+      "bpm": 92,
+      "key": "Eb major",
+      "tags": ["rnb", "90s", "lush"],
+      "rhythm": "bounce",
+      "chords": [
+        ["Abmaj9", 4, [44, 58, 63, 67, 72]],
+        ["Gm7", 4, [43, 58, 65, 67, 74]],
+        ["Cm9", 4, [36, 58, 63, 67, 74]],
+        ["Fm9", 2, [41, 56, 63, 67, 72]],
+        ["Bb13sus4", 2, [46, 56, 63, 67, 72]]
+      ],
+      "top": [[2, 2, 82], [4, 4, 86], [8, 3, 87], [12, 2, 84], [14, 2, 84]],
+      "description": "IVmaj9 to iii7 to vi9 to ii9 to V13sus, the lush 90s walk. Bounce it with a swung kick."
+    },
+    {
+      "title": "Mixtape Sleeve",
+      "pack": "Pager Era",
+      "bpm": 88,
+      "key": "Db major",
+      "tags": ["rnb", "90s", "lush"],
+      "rhythm": "held",
+      "chords": [
+        ["Gbmaj9", 4, [42, 61, 65, 68, 70]],
+        ["Fm7", 4, [41, 60, 63, 65, 68]],
+        ["Bbm9", 4, [46, 60, 65, 68, 73]],
+        ["Ebm9", 2, [39, 61, 65, 70, 78]],
+        ["Ab13sus4", 2, [44, 61, 65, 70, 78]],
+        ["Gbmaj9", 4, [42, 61, 68, 70, 77]],
+        ["F7#9", 4, [41, 63, 69, 72, 80]],
+        ["Bbm9", 2, [46, 61, 68, 72, 77]],
+        ["Eb9", 2, [39, 61, 67, 70, 77]],
+        ["Ebm11", 2, [39, 61, 66, 68, 77]],
+        ["Ab13", 2, [44, 60, 66, 70, 77]]
+      ],
+      "description": "The IV-iii-vi-ii-V walk, then on the repeat the iii becomes a V7#9 of vi and the ii gets its own dominant. Eight bars of movement."
+    },
+    {
+      "title": "Two Way Pager",
+      "pack": "Pager Era",
+      "bpm": 96,
+      "key": "Bb major",
+      "tags": ["rnb", "2000s", "smooth"],
+      "rhythm": "push",
+      "chords": [
+        ["Ebmaj9", 4, [39, 62, 65, 67, 70]],
+        ["D7#9", 4, [38, 54, 60, 65, 69]],
+        ["Gm9", 2, [43, 58, 62, 65, 69]],
+        ["Gm9/F", 2, [41, 58, 62, 65, 69]],
+        ["Cm11", 2, [36, 58, 63, 65, 74]],
+        ["F13sus4", 2, [41, 58, 63, 67, 74]]
+      ],
+      "description": "IVmaj9 to a V7#9 of vi, Gm9 stepping down to F in the bass, then ii11 to a sus 13. Push the chords for that early-2000s lean."
+    },
+    {
+      "title": "Chrome Rims",
+      "pack": "Pager Era",
+      "bpm": 98,
+      "key": "G major",
+      "tags": ["rnb", "2000s", "bouncy"],
+      "rhythm": "stabs",
+      "chords": [
+        ["Cmaj9", 2, [36, 59, 64, 67, 74]],
+        ["Bm7", 2, [35, 57, 59, 66, 74]],
+        ["Em9", 2, [40, 59, 66, 67, 74]],
+        ["A13", 2, [45, 59, 66, 67, 73]],
+        ["Am9", 2, [45, 59, 64, 67, 72]],
+        ["D13sus4", 2, [38, 59, 64, 67, 72]],
+        ["Bm7", 2, [35, 57, 59, 66, 74]],
+        ["E7#9", 2, [40, 56, 59, 62, 67]]
+      ],
+      "top": [[0, 2, 86], [2, 2, 86], [4, 2, 90], [6, 1.5, 90], [8, 2, 88], [10, 2, 88], [12, 2, 86], [14, 2, 91]],
+      "description": "Two-beat changes: IV-iii-vi with a V of V, then ii-V and a V7#9 of vi to kick back to the top. Stab it."
+    },
+    {
+      "title": "Hallway Payphone",
+      "pack": "Pager Era",
+      "bpm": 90,
+      "key": "F major",
+      "tags": ["rnb", "90s", "warm"],
+      "rhythm": "roll",
+      "chords": [
+        ["Bbmaj9", 4, [34, 57, 60, 65, 74]],
+        ["C9/Bb", 4, [34, 58, 64, 67, 74]],
+        ["Am7", 4, [33, 57, 64, 67, 72]],
+        ["D7b9", 2, [38, 57, 63, 66, 72]],
+        ["Gm9", 1, [43, 57, 62, 65, 70]],
+        ["C13", 1, [36, 57, 62, 64, 70]]
+      ],
+      "description": "IVmaj9 to a V9 over the IV bass, then iii7 and a b9 secondary dominant into a fast ii-V. The C over Bb is the 90s move."
+    },
+    {
+      "title": "Frosted Tips",
+      "pack": "Pager Era",
+      "bpm": 94,
+      "key": "Ab major",
+      "tags": ["rnb", "2000s", "lush"],
+      "rhythm": "bounce",
+      "chords": [
+        ["Dbmaj9", 4, [37, 56, 63, 65, 72]],
+        ["Cm7", 4, [36, 55, 63, 70, 72]],
+        ["Fm9", 4, [41, 55, 63, 68, 72]],
+        ["Ebm9", 2, [39, 54, 61, 65, 70]],
+        ["Ab13", 2, [44, 54, 60, 65, 70]],
+        ["Dbmaj9", 4, [37, 53, 60, 63, 68]],
+        ["Dbm9", 4, [37, 52, 59, 63, 68]],
+        ["Cm7", 2, [36, 58, 60, 63, 67]],
+        ["F7#9", 2, [41, 57, 60, 63, 68]],
+        ["Bbm9", 2, [46, 60, 65, 68, 73]],
+        ["Eb13sus4", 2, [39, 60, 65, 68, 73]]
+      ],
+      "description": "IV-iii-vi, then a ii-V to the IV, which turns minor on the second pass. A V7#9 of ii and a sus 13 close the loop."
+    },
+    {
+      "title": "Slow Wind Hits",
+      "pack": "Pager Era",
+      "bpm": 86,
+      "key": "C minor",
+      "tags": ["rnb", "90s", "moody"],
+      "rhythm": "held",
+      "chords": [
+        ["Cm11", 4, [36, 58, 63, 65, 74]],
+        ["Fm9", 4, [41, 56, 63, 67, 72]],
+        ["Abmaj9", 2, [44, 58, 63, 67, 72]],
+        ["Bb13", 2, [46, 56, 62, 67, 72]],
+        ["Dm7b5", 2, [38, 56, 62, 65, 72]],
+        ["G7b9", 2, [43, 56, 62, 65, 71]]
+      ],
+      "description": "i11 to iv9, a VI-VII lift, then a minor ii-V with a b9. Minor 90s R&B with a jazz turnaround."
+    },
+    {
+      "title": "Satin Jacket",
+      "pack": "Pager Era",
+      "bpm": 100,
+      "key": "E major",
+      "tags": ["rnb", "2000s", "lush"],
+      "rhythm": "push",
+      "chords": [
+        ["Amaj9", 4, [45, 59, 64, 68, 73]],
+        ["G#m7", 4, [44, 59, 66, 68, 75]],
+        ["C#m9", 4, [37, 59, 64, 68, 75]],
+        ["F#m9", 2, [42, 57, 64, 68, 73]],
+        ["B13sus4", 2, [47, 57, 64, 68, 73]],
+        ["Amaj9", 4, [45, 59, 64, 68, 73]],
+        ["G#7#9", 4, [44, 59, 63, 66, 72]],
+        ["C#m9", 2, [37, 59, 63, 68, 76]],
+        ["C#m9/B", 2, [35, 59, 63, 68, 76]],
+        ["F#m11", 2, [42, 57, 59, 64, 68]],
+        ["B13", 2, [47, 57, 61, 63, 68]]
+      ],
+      "top": [[2, 2, 83], [4, 4, 83], [8, 4, 87], [13, 1, 85], [15, 1, 85], [20, 4, 83], [24, 4, 87], [30, 2, 85]],
+      "description": "The IV-iii-vi-ii-V walk, then the iii turns into a V7#9 of vi and the bass walks down under C#m9. Pushed for energy."
+    },
+    {
+      "title": "Lipgloss Weather",
+      "pack": "Pager Era",
+      "bpm": 88,
+      "key": "A minor",
+      "tags": ["rnb", "90s", "smooth"],
+      "rhythm": "arp",
+      "chords": [
+        ["Am9", 4, [45, 60, 64, 67, 71]],
+        ["Fmaj9", 4, [41, 60, 64, 67, 69]],
+        ["Bm7b5", 2, [35, 59, 62, 65, 69]],
+        ["E7b9", 2, [40, 59, 62, 65, 68]],
+        ["Am9/G", 2, [43, 59, 64, 67, 72]],
+        ["D9/F#", 2, [42, 57, 64, 66, 72]]
+      ],
+      "description": "i9 to VImaj9 and a minor ii-V, then the bass walks down G to F# under a Dorian IV9. Arp it over a laid-back beat."
+    },
+    {
+      "title": "Radio Edit Kiss",
+      "pack": "Pager Era",
+      "bpm": 90,
+      "key": "D major",
+      "tags": ["rnb", "90s", "borrowed"],
+      "rhythm": "held",
+      "chords": [
+        ["Dmaj9", 4, [38, 57, 64, 66, 73]],
+        ["F#7#9", 4, [42, 57, 64, 70, 73]],
+        ["Bm9", 4, [47, 57, 62, 66, 73]],
+        ["Em11", 2, [40, 55, 57, 62, 66]],
+        ["Gm6", 2, [43, 55, 58, 62, 64]]
+      ],
+      "description": "Imaj9 to a V7#9 of vi, Bm9, then ii11 and the borrowed minor iv6 that melts back to the I."
+    },
+    {
+      "title": "Glossy Hallway",
+      "pack": "Pager Era",
+      "bpm": 92,
+      "key": "Gb major",
+      "tags": ["rnb", "2000s", "lush"],
+      "rhythm": "bounce",
+      "chords": [
+        ["Cbmaj9", 4, [35, 61, 63, 66, 70]],
+        ["Bbm7", 4, [34, 61, 65, 68, 70]],
+        ["Ebm9", 4, [39, 54, 61, 65, 70]],
+        ["Abm9", 2, [44, 54, 59, 63, 70]],
+        ["Db13sus4", 2, [37, 54, 59, 63, 70]]
+      ],
+      "description": "The IV-iii-vi-ii-V walk in Gb, where it sits nicely under the hands. Sus 13 at the end leaves it hanging."
+    },
+    {
+      "title": "Sunday Detail",
+      "pack": "Pager Era",
+      "bpm": 96,
+      "key": "C major",
+      "tags": ["rnb", "2000s", "tritone"],
+      "rhythm": "push",
+      "chords": [
+        ["Fmaj9", 4, [41, 55, 64, 69, 72]],
+        ["Em7", 4, [40, 55, 62, 64, 71]],
+        ["Am9", 4, [45, 55, 60, 64, 71]],
+        ["Dm9", 2, [38, 53, 60, 64, 69]],
+        ["G13sus4", 2, [43, 53, 60, 64, 69]],
+        ["Fmaj9", 4, [41, 55, 60, 64, 69]],
+        ["E7#9", 4, [40, 55, 59, 62, 68]],
+        ["Am9", 2, [45, 55, 59, 64, 72]],
+        ["Eb13", 2, [39, 55, 61, 65, 72]],
+        ["Dm9", 2, [38, 53, 60, 64, 69]],
+        ["G13", 2, [43, 53, 59, 64, 69]]
+      ],
+      "top": [[0, 4, 81], [4, 4, 83], [8, 4, 83], [12, 2, 84], [14, 2, 81], [16, 4, 88], [20, 4, 91], [24, 2, 88], [26, 2, 84], [28, 2, 88], [30, 2, 88]],
+      "description": "Eight bars: the IV-iii-vi-ii-V walk, then a V7#9 of vi and an Eb13 tritone sub sliding into Dm9. Pushed and lush."
+    },
+    {
+      "title": "Ashtray Halo",
+      "pack": "Smoke and Satin",
+      "bpm": 140,
+      "key": "F minor",
+      "tags": ["rnb", "trap soul", "dark"],
+      "rhythm": "roll",
+      "chords": [
+        ["Fm9", 4, [41, 56, 63, 67, 72]],
+        ["Dbmaj9", 4, [37, 56, 63, 65, 72]],
+        ["Bbm11", 4, [34, 56, 61, 63, 72]],
+        ["C7b9", 4, [36, 55, 61, 64, 70]]
+      ],
+      "top": [[0, 3, 84], [4, 3, 84], [8, 3, 85], [12, 4, 85]],
+      "description": "i9 to VImaj9 to iv11 to a b9 dominant, felt half-time at 140. The top note holds C then rises to the b9."
+    },
+    {
+      "title": "Tinted Promise",
+      "pack": "Smoke and Satin",
+      "bpm": 68,
+      "key": "C# minor",
+      "tags": ["rnb", "trap soul", "moody"],
+      "rhythm": "held",
+      "chords": [
+        ["C#m11", 6, [37, 59, 64, 66, 75]],
+        ["Amaj9", 2, [33, 59, 64, 68, 73]],
+        ["F#m9", 6, [42, 57, 64, 68, 73]],
+        ["G#7b13", 2, [44, 56, 64, 66, 72]]
+      ],
+      "description": "Six beats of i11 with a short VImaj9 pickup, six of iv9, then a quick V7b13 that aches back to the i. Slow, wide and dark."
+    },
+    {
+      "title": "Cold Sheets",
+      "pack": "Smoke and Satin",
+      "bpm": 136,
+      "key": "G# minor",
+      "tags": ["rnb", "trap soul", "cold"],
+      "rhythm": "arp",
+      "chords": [
+        ["G#m9", 8, [44, 58, 63, 66, 71]],
+        ["Emaj7#11", 8, [40, 58, 63, 68, 71]],
+        ["C#m9", 4, [37, 59, 63, 68, 76]],
+        ["D#7#9", 4, [39, 61, 67, 70, 78]],
+        ["Bmaj9", 4, [35, 61, 63, 70, 78]],
+        ["D#7b9", 4, [39, 61, 67, 70, 76]]
+      ],
+      "description": "Two long bars of i9 and VImaj7#11, then iv to V7#9, the relative major and a b9 dominant. Arp it at double time."
+    },
+    {
+      "title": "Glass Halo",
+      "pack": "Smoke and Satin",
+      "bpm": 70,
+      "key": "B minor",
+      "tags": ["rnb", "trap soul", "sweet"],
+      "rhythm": "stabs",
+      "chords": [
+        ["Bm9", 4, [35, 57, 61, 66, 74]],
+        ["Gmaj9", 4, [43, 57, 59, 66, 74]],
+        ["Em11", 2, [40, 57, 66, 67, 74]],
+        ["A13", 2, [45, 59, 66, 67, 73]],
+        ["F#7#9", 4, [42, 58, 64, 69, 73]]
+      ],
+      "description": "i9 and VImaj9, then iv11 and bVII13 into a V7#9. Sweet extensions over a dark minor."
+    },
+    {
+      "title": "Backseat Halo",
+      "pack": "Smoke and Satin",
+      "bpm": 144,
+      "key": "A minor",
+      "tags": ["rnb", "trap soul", "dark"],
+      "rhythm": "bounce",
+      "chords": [
+        ["Am11", 4, [45, 59, 62, 67, 72]],
+        ["Fmaj9", 4, [41, 57, 64, 67, 72]],
+        ["Dm9", 2, [38, 57, 64, 65, 72]],
+        ["Bbmaj7#11", 2, [34, 57, 64, 65, 74]],
+        ["E7#9", 4, [40, 56, 62, 67, 71]]
+      ],
+      "description": "i11 to VImaj9, then iv9 and a Neapolitan Bbmaj7#11 into V7#9. The bII is the dark turn."
+    },
+    {
+      "title": "Dim Dashboard",
+      "pack": "Smoke and Satin",
+      "bpm": 65,
+      "key": "E minor",
+      "tags": ["rnb", "trap soul", "spacious"],
+      "rhythm": "held",
+      "chords": [
+        ["Em9", 6, [40, 54, 62, 67, 71]],
+        ["Cmaj9", 6, [36, 55, 62, 64, 71]],
+        ["Am11", 4, [33, 55, 60, 62, 71]],
+        ["B7#9", 4, [35, 54, 62, 63, 69]],
+        ["Cmaj7#11", 6, [36, 54, 59, 64, 67]],
+        ["B7b9", 6, [35, 54, 60, 63, 69]]
+      ],
+      "description": "Six-beat i9 and VImaj9 pads, iv11 to V7#9, then a lydian VI and a six-beat b9 dominant. Lots of space for a vocal."
+    },
+    {
+      "title": "Velvet Rope Line",
+      "pack": "Smoke and Satin",
+      "bpm": 138,
+      "key": "F# minor",
+      "tags": ["rnb", "trap soul", "moody"],
+      "rhythm": "push",
+      "chords": [
+        ["F#m9", 4, [42, 56, 64, 69, 73]],
+        ["Dmaj9", 4, [38, 57, 64, 66, 73]],
+        ["G#m7b5", 2, [44, 56, 62, 66, 71]],
+        ["C#7#9", 2, [37, 56, 64, 65, 71]],
+        ["F#m9/E", 2, [40, 56, 64, 69, 73]],
+        ["Bm11", 2, [35, 57, 62, 64, 73]]
+      ],
+      "description": "i9 to VImaj9, a minor ii-V with a #9, then the bass drops to E and lands on iv11. Push it at double time."
+    },
+    {
+      "title": "Soft Threat",
+      "pack": "Smoke and Satin",
+      "bpm": 72,
+      "key": "C minor",
+      "tags": ["rnb", "trap soul", "dark"],
+      "rhythm": "arp",
+      "chords": [
+        ["Cm9", 4, [36, 58, 63, 67, 74]],
+        ["Abmaj9", 4, [44, 58, 63, 67, 72]],
+        ["Ebmaj9/G", 4, [43, 58, 65, 67, 74]],
+        ["G7b9", 4, [43, 59, 65, 68, 74]]
+      ],
+      "top": [[0, 4, 86], [4, 4, 84], [8, 4, 86], [12, 4, 89]],
+      "description": "i9 to VImaj9, then IIImaj9 over G so the bass sits still into the G7b9. Arp it over a slow trap beat."
+    },
+    {
+      "title": "Gold Fronts",
+      "pack": "Smoke and Satin",
+      "bpm": 140,
+      "key": "G minor",
+      "tags": ["rnb", "trap soul", "sweet"],
+      "rhythm": "stabs",
+      "chords": [
+        ["Gm11", 4, [43, 58, 65, 69, 72]],
+        ["Ebmaj7#11", 4, [39, 58, 67, 69, 74]],
+        ["Cm9", 4, [36, 58, 63, 67, 74]],
+        ["D7#9", 4, [38, 60, 66, 69, 77]]
+      ],
+      "top": [[0, 2, 84], [2, 2, 81], [4, 4, 81], [8, 4, 86], [12, 4, 89]],
+      "description": "i11 to VImaj7#11 to iv9 to V7#9. Short stabs at 140 with the top line hitting the #9."
+    },
+    {
+      "title": "Rose Tint Ride",
+      "pack": "Smoke and Satin",
+      "bpm": 66,
+      "key": "D minor",
+      "tags": ["rnb", "trap soul", "moody"],
+      "rhythm": "roll",
+      "chords": [
+        ["Dm9", 4, [38, 60, 64, 69, 77]],
+        ["Bbmaj9", 4, [34, 60, 62, 69, 77]],
+        ["Gm11", 4, [43, 60, 69, 70, 77]],
+        ["A7#9", 2, [45, 61, 67, 72, 76]],
+        ["A7b9", 2, [45, 61, 67, 70, 76]]
+      ],
+      "description": "i9 to VImaj9 to iv11, then the dominant moves from #9 to b9 in the last bar. Slow strum."
+    },
+    {
+      "title": "Midnight Ledger",
+      "pack": "Smoke and Satin",
+      "bpm": 134,
+      "key": "Bb minor",
+      "tags": ["rnb", "trap soul", "dark"],
+      "rhythm": "held",
+      "chords": [
+        ["Bbm11", 8, [34, 61, 63, 68, 72]],
+        ["Gbmaj9", 4, [42, 61, 65, 68, 70]],
+        ["Fm7", 4, [41, 60, 63, 65, 68]],
+        ["Ebm9", 4, [39, 54, 61, 65, 70]],
+        ["Ab13", 4, [44, 54, 60, 65, 70]],
+        ["Dbmaj9", 4, [37, 53, 60, 63, 68]],
+        ["F7#9", 4, [41, 57, 60, 63, 68]]
+      ],
+      "description": "Eight bars: long i11, VImaj9 and v7, then iv9, bVII13 and the relative major before a V7#9 brings it home."
+    },
+    {
+      "title": "Grey Hoodie",
+      "pack": "Smoke and Satin",
+      "bpm": 70,
+      "key": "F minor",
+      "tags": ["rnb", "trap soul", "phrygian"],
+      "rhythm": "held",
+      "chords": [
+        ["Fm11", 4, [41, 56, 63, 67, 70]],
+        ["Gbmaj7#11", 4, [42, 61, 65, 70, 72]],
+        ["Ebm9", 4, [39, 61, 65, 70, 78]],
+        ["C7b9", 4, [36, 61, 67, 70, 76]]
+      ],
+      "description": "i11 up a half step to a Phrygian bIImaj7#11, then bVIIm9 and a b9 dominant. Cold and sweet at once."
+    },
+    {
+      "title": "Last Slow Dance",
+      "pack": "Candle Count",
+      "bpm": 64,
+      "key": "Eb major",
+      "tags": ["rnb", "slow jam", "ballad"],
+      "rhythm": "roll",
+      "chords": [
+        ["Ebmaj9", 4, [39, 62, 65, 67, 70]],
+        ["G7b9", 4, [43, 62, 65, 68, 71]],
+        ["Cm9", 4, [36, 62, 67, 70, 75]],
+        ["Bbm9", 2, [34, 61, 68, 72, 77]],
+        ["Eb13", 2, [39, 61, 67, 72, 77]],
+        ["Abmaj9", 4, [44, 60, 67, 70, 75]],
+        ["Abm9", 4, [44, 59, 66, 70, 75]],
+        ["Gm7", 2, [43, 58, 65, 67, 74]],
+        ["C7b9", 2, [36, 58, 64, 67, 73]],
+        ["Fm9", 2, [41, 56, 63, 67, 72]],
+        ["Bb13sus4", 2, [46, 56, 63, 67, 72]]
+      ],
+      "top": [[0, 4, 86], [4, 4, 89], [8, 4, 87], [12, 2, 85], [14, 2, 85], [16, 4, 84], [20, 4, 83], [24, 2, 82], [26, 2, 85], [28, 2, 84], [30, 2, 84]],
+      "description": "Imaj9 to a V of vi, a ii-V to the IV, then the IV goes minor and a chain of dominants walks back to the V. Ballad gold."
+    },
+    {
+      "title": "Candlewax",
+      "pack": "Candle Count",
+      "bpm": 68,
+      "key": "Ab major",
+      "tags": ["rnb", "slow jam", "warm"],
+      "rhythm": "held",
+      "chords": [
+        ["Abmaj9", 4, [44, 58, 63, 67, 72]],
+        ["Fm9", 4, [41, 56, 63, 67, 72]],
+        ["Dbmaj9", 4, [37, 56, 63, 65, 72]],
+        ["Eb13sus4", 2, [39, 56, 61, 65, 72]],
+        ["Eb13", 2, [39, 55, 61, 65, 72]]
+      ],
+      "top": [[0, 4, 82], [4, 4, 84], [8, 4, 87], [12, 2, 89], [14, 2, 91]],
+      "description": "I-vi-IV-V with every chord dressed in nines and a sus 13 that resolves. A top line that climbs over the whole loop."
+    },
+    {
+      "title": "Quiet Storm Front",
+      "pack": "Candle Count",
+      "bpm": 60,
+      "key": "Db major",
+      "tags": ["rnb", "slow jam", "borrowed"],
+      "rhythm": "roll",
+      "chords": [
+        ["Dbmaj9", 4, [37, 56, 63, 65, 72]],
+        ["Bbm9", 4, [34, 56, 61, 65, 72]],
+        ["Gbmaj9", 2, [42, 56, 61, 65, 70]],
+        ["Gbm6", 2, [42, 54, 61, 63, 69]],
+        ["Ab13sus4", 2, [44, 54, 61, 65, 70]],
+        ["Ab7b9", 2, [44, 54, 60, 63, 69]]
+      ],
+      "description": "Imaj9 to vi9, then the IV turns into the borrowed minor iv6 and a sus dominant gets a b9 on the way home."
+    },
+    {
+      "title": "Promise Ring",
+      "pack": "Candle Count",
+      "bpm": 72,
+      "key": "G major",
+      "tags": ["rnb", "slow jam", "gospel"],
+      "rhythm": "held",
+      "chords": [
+        ["Gmaj9", 4, [43, 57, 62, 66, 71]],
+        ["Bm7", 4, [47, 57, 62, 66, 71]],
+        ["Cmaj9", 4, [36, 55, 62, 64, 71]],
+        ["Cm6", 4, [36, 55, 63, 69, 72]],
+        ["Bm7", 2, [35, 54, 62, 69, 71]],
+        ["E7b9", 2, [40, 56, 62, 65, 71]],
+        ["Am9", 2, [45, 55, 60, 64, 71]],
+        ["Gmaj9/B", 2, [47, 54, 62, 69, 71]],
+        ["Bbdim7", 2, [46, 55, 61, 64, 70]],
+        ["Am9", 2, [45, 55, 60, 64, 71]],
+        ["D13sus4", 2, [38, 55, 60, 64, 71]],
+        ["D7b9", 2, [38, 54, 60, 63, 69]]
+      ],
+      "description": "I-iii-IV-iv, then iii to a V of ii, and a I over B rising through Bbdim7 back to Am9. Gospel-ballad passing chords."
+    },
+    {
+      "title": "Rose Petal Floor",
+      "pack": "Candle Count",
+      "bpm": 66,
+      "key": "Bb major",
+      "tags": ["rnb", "slow jam", "backdoor"],
+      "rhythm": "push",
+      "chords": [
+        ["Bbmaj9", 4, [34, 57, 60, 65, 74]],
+        ["Dm7", 4, [38, 57, 60, 65, 74]],
+        ["Ebmaj9", 4, [39, 58, 65, 67, 74]],
+        ["Ebm9", 2, [39, 58, 65, 66, 73]],
+        ["Ab13", 2, [44, 58, 65, 66, 72]]
+      ],
+      "top": [[0, 4, 84], [4, 4, 84], [8, 4, 86], [12, 2, 85], [14, 2, 84]],
+      "description": "Imaj9 to iii7 to IVmaj9, then the borrowed iv9 and a backdoor bVII13 that resolves to the I. The top line slides D to Db to C."
+    },
+    {
+      "title": "Window Fog",
+      "pack": "Candle Count",
+      "bpm": 62,
+      "key": "F major",
+      "tags": ["rnb", "slow jam", "ballad"],
+      "rhythm": "roll",
+      "chords": [
+        ["Fmaj9", 4, [41, 55, 64, 69, 72]],
+        ["E7#9", 4, [40, 55, 62, 68, 71]],
+        ["Dm9", 2, [38, 53, 60, 64, 69]],
+        ["Dm9/G", 2, [43, 53, 60, 64, 69]],
+        ["Bbmaj9", 2, [46, 53, 60, 62, 69]],
+        ["C13sus4", 2, [36, 53, 58, 62, 69]]
+      ],
+      "description": "Imaj9 to a V7#9 of vi landing deceptively on Dm9, then Dm over G as a soft sus, IVmaj9 and a sus 13."
+    },
+    {
+      "title": "Bath Water Blue",
+      "pack": "Candle Count",
+      "bpm": 70,
+      "key": "C major",
+      "tags": ["rnb", "slow jam", "borrowed"],
+      "rhythm": "held",
+      "chords": [
+        ["Cmaj9", 4, [36, 59, 64, 67, 74]],
+        ["Bm7b5", 2, [35, 57, 59, 65, 74]],
+        ["E7b9", 2, [40, 59, 65, 68, 74]],
+        ["Am9", 2, [45, 59, 64, 67, 72]],
+        ["Am9/G", 2, [43, 59, 64, 67, 72]],
+        ["Fmaj9", 2, [41, 57, 64, 67, 72]],
+        ["Fm6", 2, [41, 56, 62, 65, 72]]
+      ],
+      "top": [[0, 4, 86], [4, 2, 86], [6, 2, 89], [8, 2, 88], [10, 2, 88], [12, 2, 88], [14, 2, 86]],
+      "description": "Imaj9 to a minor ii-V of vi, Am9 with the bass walking down to G, then IVmaj9 to the borrowed iv6."
+    },
+    {
+      "title": "After the Argument",
+      "pack": "Candle Count",
+      "bpm": 64,
+      "key": "A major",
+      "tags": ["rnb", "slow jam", "ballad"],
+      "rhythm": "roll",
+      "chords": [
+        ["Amaj9", 4, [45, 59, 64, 68, 73]],
+        ["C#7#9", 4, [37, 59, 65, 68, 76]],
+        ["F#m9", 4, [42, 57, 64, 68, 73]],
+        ["F#m9/E", 4, [40, 57, 64, 68, 73]],
+        ["Dmaj9", 4, [38, 57, 64, 66, 73]],
+        ["Dm6", 4, [38, 57, 59, 65, 74]],
+        ["C#m7", 2, [37, 56, 59, 64, 73]],
+        ["F#7b9", 2, [42, 58, 64, 67, 73]],
+        ["Bm9", 2, [47, 57, 62, 66, 73]],
+        ["E13sus4", 2, [40, 57, 62, 66, 73]]
+      ],
+      "description": "Imaj9 to a V of vi, F#m9 with a walking bass, IV to the borrowed iv6, then iii-VI-ii-V home. Eight bars for a hook."
+    },
+    {
+      "title": "Overnight Bag",
+      "pack": "Candle Count",
+      "bpm": 68,
+      "key": "E major",
+      "tags": ["rnb", "slow jam", "warm"],
+      "rhythm": "held",
+      "chords": [
+        ["Emaj9", 4, [40, 56, 63, 66, 71]],
+        ["G#m7", 4, [44, 56, 63, 66, 71]],
+        ["Amaj9", 4, [45, 56, 64, 71, 73]],
+        ["B13sus4", 2, [47, 56, 64, 69, 73]],
+        ["B13", 2, [47, 56, 63, 69, 73]]
+      ],
+      "description": "I-iii-IV-V in maj9 and sus 13 colors. Simple bones, rich voicings, ready for a falsetto."
+    },
+    {
+      "title": "Dimmer Switch",
+      "pack": "Candle Count",
+      "bpm": 66,
+      "key": "Gb major",
+      "tags": ["rnb", "slow jam", "lush"],
+      "rhythm": "arp",
+      "chords": [
+        ["Gbmaj9", 4, [42, 61, 65, 68, 70]],
+        ["Ebm9", 4, [39, 54, 61, 65, 70]],
+        ["Abm9", 4, [44, 54, 59, 63, 70]],
+        ["Db13", 2, [37, 53, 59, 63, 70]],
+        ["Db7#9", 2, [37, 53, 59, 64, 68]]
+      ],
+      "description": "I-vi-ii-V with the dominant turning from 13 to #9 in the last bar. Arp it slowly."
+    },
+    {
+      "title": "Unspoken Vow",
+      "pack": "Candle Count",
+      "bpm": 62,
+      "key": "G minor",
+      "tags": ["rnb", "slow jam", "circle"],
+      "rhythm": "roll",
+      "chords": [
+        ["Gm9", 4, [43, 57, 62, 65, 70]],
+        ["Cm9", 2, [36, 58, 62, 67, 75]],
+        ["F13", 2, [41, 57, 63, 67, 74]],
+        ["Bbmaj9", 2, [46, 57, 65, 72, 74]],
+        ["Ebmaj9", 2, [39, 58, 65, 67, 74]],
+        ["Am7b5", 2, [33, 57, 63, 67, 72]],
+        ["D7b9", 2, [38, 57, 63, 66, 72]]
+      ],
+      "top": [[0, 4, 81], [4, 2, 82], [6, 2, 86], [8, 2, 86], [10, 2, 86], [12, 2, 84], [14, 2, 84]],
+      "description": "The minor circle of fifths: i9, iv9, bVII13, IIImaj9, VImaj9, then a ii-V with a b9 back to the i."
+    },
+    {
+      "title": "Long Goodnight",
+      "pack": "Candle Count",
+      "bpm": 70,
+      "key": "F# major",
+      "tags": ["rnb", "slow jam", "borrowed"],
+      "rhythm": "held",
+      "chords": [
+        ["F#maj9", 4, [42, 61, 65, 68, 70]],
+        ["A#m7", 4, [46, 61, 65, 68, 70]],
+        ["Bmaj9", 4, [47, 61, 63, 66, 70]],
+        ["Bm6", 2, [47, 62, 66, 68, 71]],
+        ["C#13sus4", 2, [37, 58, 63, 66, 71]]
+      ],
+      "description": "Imaj9 to iii7 to IVmaj9, the borrowed minor iv6 and a sus 13. A tender four-bar loop."
+    },
+    {
+      "title": "Cloud Ceiling",
+      "pack": "Pillow Static",
+      "bpm": 80,
+      "key": "C major",
+      "tags": ["rnb", "bedroom", "dreamy"],
+      "rhythm": "arp",
+      "chords": [
+        ["Cmaj7#11", 4, [36, 55, 64, 66, 71]],
+        ["Fmaj7#11", 4, [41, 57, 60, 64, 71]],
+        ["Am9", 4, [45, 55, 60, 64, 71]],
+        ["Dm9/G", 4, [43, 53, 60, 64, 69]]
+      ],
+      "top": [[0, 4, 90], [4, 4, 88], [8, 4, 83], [12, 4, 84]],
+      "description": "Two lydian maj7#11 chords, then vi9 and a Dm9 over G that floats like a sus. The F# on top is the dream."
+    },
+    {
+      "title": "Lava Lamp Drift",
+      "pack": "Pillow Static",
+      "bpm": 76,
+      "key": "D major",
+      "tags": ["rnb", "bedroom", "dreamy"],
+      "rhythm": "arp",
+      "chords": [
+        ["Dmaj7#11", 8, [38, 57, 66, 68, 73]],
+        ["Bm9", 8, [35, 57, 62, 66, 73]],
+        ["Gmaj9#11", 8, [43, 57, 59, 66, 73]],
+        ["A13sus4", 4, [45, 59, 66, 67, 74]],
+        ["A13", 4, [45, 59, 66, 67, 73]]
+      ],
+      "description": "Two-bar chords: Imaj7#11, vi9, IVmaj9#11, then a sus 13 that resolves. Slow, wide arpeggios."
+    },
+    {
+      "title": "Fairy Lights",
+      "pack": "Pillow Static",
+      "bpm": 84,
+      "key": "Eb major",
+      "tags": ["rnb", "bedroom", "dreamy"],
+      "rhythm": "held",
+      "chords": [
+        ["Ebmaj9", 4, [39, 62, 65, 67, 70]],
+        ["Cbmaj7#11", 4, [35, 54, 63, 65, 70]],
+        ["Abmaj9#11", 4, [44, 55, 62, 70, 72]],
+        ["Bb13sus4", 4, [46, 55, 63, 68, 72]]
+      ],
+      "top": [[0, 4, 89], [4, 4, 89], [8, 4, 86], [12, 4, 84]],
+      "description": "Imaj9 to the borrowed bVImaj7#11, IVmaj9#11 and a floating sus 13. The F on top rings through the first two chords."
+    },
+    {
+      "title": "Pastel Static",
+      "pack": "Pillow Static",
+      "bpm": 72,
+      "key": "A major",
+      "tags": ["rnb", "bedroom", "soft"],
+      "rhythm": "roll",
+      "chords": [
+        ["Amaj7#11", 4, [45, 61, 63, 68, 76]],
+        ["F#m11", 4, [42, 57, 64, 68, 71]],
+        ["Dmaj9#11", 4, [38, 56, 64, 66, 73]],
+        ["E6add9", 4, [40, 56, 59, 66, 73]]
+      ],
+      "description": "Imaj7#11, vi11, IVmaj9#11 and a V6/9 that never pushes too hard. Bedroom R&B with no tension at all."
+    },
+    {
+      "title": "Duvet Orbit",
+      "pack": "Pillow Static",
+      "bpm": 86,
+      "key": "F major",
+      "tags": ["rnb", "bedroom", "borrowed"],
+      "rhythm": "push",
+      "chords": [
+        ["Fmaj7#11", 4, [41, 60, 64, 69, 71]],
+        ["Em7", 4, [40, 62, 64, 67, 71]],
+        ["Dm9", 4, [38, 64, 69, 72, 77]],
+        ["Bbmaj7#11", 2, [34, 64, 69, 74, 77]],
+        ["Bbm6", 2, [34, 67, 70, 73, 77]]
+      ],
+      "description": "Imaj7#11 stepping down through Em7 and Dm9, then IVmaj7#11 turning into the borrowed minor iv6."
+    },
+    {
+      "title": "Tape Hiss Heart",
+      "pack": "Pillow Static",
+      "bpm": 78,
+      "key": "Bb major",
+      "tags": ["rnb", "bedroom", "dreamy"],
+      "rhythm": "held",
+      "chords": [
+        ["Bbmaj9", 4, [34, 57, 60, 65, 74]],
+        ["Gbmaj7#11", 4, [42, 58, 60, 65, 73]],
+        ["Ebmaj9", 4, [39, 58, 65, 67, 74]],
+        ["Ebm9", 4, [39, 58, 65, 66, 73]],
+        ["Dm7", 4, [38, 57, 65, 72, 74]],
+        ["Gm9", 4, [43, 57, 65, 70, 74]],
+        ["Cm11", 4, [36, 58, 63, 65, 74]],
+        ["F13sus4", 4, [41, 58, 63, 67, 74]]
+      ],
+      "description": "Imaj9 to a borrowed bVImaj7#11, IV to iv, then iii-vi-ii-V. Eight bars of soft color changes."
+    },
+    {
+      "title": "Glow Stars",
+      "pack": "Pillow Static",
+      "bpm": 74,
+      "key": "B major",
+      "tags": ["rnb", "bedroom", "dreamy"],
+      "rhythm": "arp",
+      "chords": [
+        ["Bmaj7#11", 4, [35, 54, 63, 65, 70]],
+        ["G#m9", 4, [44, 54, 59, 63, 70]],
+        ["Emaj9#11", 4, [40, 54, 56, 63, 70]],
+        ["F#13sus4", 4, [42, 56, 63, 64, 71]]
+      ],
+      "top": [[0, 4, 89], [4, 4, 90], [8, 4, 90], [12, 4, 87]],
+      "description": "Imaj7#11, vi9, IVmaj9#11 and a sus 13. The lydian #11 on top makes it sparkle."
+    },
+    {
+      "title": "Snooze Button",
+      "pack": "Pillow Static",
+      "bpm": 82,
+      "key": "G major",
+      "tags": ["rnb", "bedroom", "lofi"],
+      "rhythm": "bounce",
+      "chords": [
+        ["Gmaj7#11", 4, [43, 59, 62, 66, 73]],
+        ["Ebmaj7#11", 4, [39, 58, 62, 67, 69]],
+        ["Cmaj9", 4, [36, 59, 62, 64, 67]],
+        ["D9sus4", 4, [38, 60, 64, 67, 69]]
+      ],
+      "description": "Imaj7#11 to the borrowed bVImaj7#11, then IVmaj9 and a sus 9. Two lydian chords a major third apart."
+    },
+    {
+      "title": "Underwater Bedroom",
+      "pack": "Pillow Static",
+      "bpm": 72,
+      "key": "Db major",
+      "tags": ["rnb", "bedroom", "dreamy"],
+      "rhythm": "roll",
+      "chords": [
+        ["Dbmaj7#11", 4, [37, 56, 65, 67, 72]],
+        ["Bbm11", 4, [34, 56, 61, 63, 72]],
+        ["Gbmaj9#11", 4, [42, 56, 58, 65, 72]],
+        ["Ebm9", 2, [39, 58, 65, 66, 73]],
+        ["Ab13sus4", 2, [44, 58, 65, 66, 73]]
+      ],
+      "description": "Imaj7#11, vi11, IVmaj9#11, then a ii-V with a sus 13. Soft and wet."
+    },
+    {
+      "title": "Window Seat Haze",
+      "pack": "Pillow Static",
+      "bpm": 78,
+      "key": "C# minor",
+      "tags": ["rnb", "bedroom", "soft"],
+      "rhythm": "arp",
+      "chords": [
+        ["C#m9", 4, [37, 59, 63, 68, 76]],
+        ["Amaj7#11", 4, [33, 61, 63, 68, 76]],
+        ["Emaj9", 4, [40, 63, 68, 71, 78]],
+        ["B6add9", 4, [35, 63, 68, 73, 78]]
+      ],
+      "description": "i9 to VImaj7#11 to the relative IIImaj9 and a bVII6/9. Minor but never dark."
+    },
+    {
+      "title": "Soft Focus",
+      "pack": "Pillow Static",
+      "bpm": 88,
+      "key": "Ab major",
+      "tags": ["rnb", "bedroom", "borrowed"],
+      "rhythm": "push",
+      "chords": [
+        ["Abmaj7#11", 4, [44, 60, 63, 67, 74]],
+        ["Fm11", 4, [41, 56, 63, 67, 70]],
+        ["Dbmaj9#11", 4, [37, 55, 63, 65, 72]],
+        ["Dbm6", 4, [37, 56, 64, 70, 73]]
+      ],
+      "top": [[0, 4, 86], [4, 4, 87], [8, 4, 91], [12, 4, 88]],
+      "description": "Imaj7#11 to vi11, IVmaj9#11, then the IV turns minor for a full bar. The top line falls G to Fb."
+    },
+    {
+      "title": "Static Pillowcase",
+      "pack": "Pillow Static",
+      "bpm": 76,
+      "key": "Gb major",
+      "tags": ["rnb", "bedroom", "dreamy"],
+      "rhythm": "held",
+      "chords": [
+        ["Gbmaj7#11", 6, [42, 58, 61, 65, 72]],
+        ["Ebm11", 2, [39, 54, 61, 65, 68]],
+        ["Cbmaj9#11", 6, [35, 53, 61, 63, 70]],
+        ["Db13sus4", 2, [37, 54, 59, 63, 70]],
+        ["Gbmaj7#11", 6, [42, 60, 65, 70, 73]],
+        ["Bbm11", 2, [46, 60, 63, 68, 73]],
+        ["Cbmaj9#11", 4, [47, 58, 63, 65, 73]],
+        ["Db13", 4, [37, 58, 63, 65, 71]]
+      ],
+      "description": "Six-beat pads on Imaj7#11 and IVmaj9#11 with short vi11 and sus 13 pickups between them, resolving on the last bar. Made for slow, washed-out keys."
+    }
+  ]
+}

@@ -36,6 +36,8 @@ import { startLooks, useLook } from "./looks";
 import { midiItem, type MidiItem } from "./midi/catalog";
 import { MidiList, MidiPage, useMidiItems } from "./midi/pages";
 import { progressionOf } from "./midi/songs";
+import { CHORD_PACKS, PACK_PROGRESSIONS, TEMPO_BANDS } from "./midi/chord-packs";
+import { Dropdown } from "./presets/page";
 import { PresetsPage } from "./presets/page";
 import { PresetSongPage } from "./presets/song-page";
 import { SoundDesign } from "./sound-design";
@@ -829,24 +831,53 @@ function midiFilter(m: MidiItem, f: MidiFilter): boolean {
   return f === "kicksnare" ? part === "kick" || part === "snare" : part === f;
 }
 
-type Origin = "all" | "songs" | "posts";
+type Origin = "all" | "packs" | "songs" | "posts";
 const ORIGIN_NAME: Record<Origin, string> = {
   all: "Everything",
+  packs: "Chord packs",
   songs: "Chords from songs",
   posts: "Producers' patterns",
 };
+function originOf(m: MidiItem): Origin {
+  return m.pack ? "packs" : m.song ? "songs" : "posts";
+}
+const KEY_ROOTS = ["C", "C#", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"];
+/** The styles the chord packs come in (each progression's first tag), most progressions first. */
+const PACK_STYLES = (() => {
+  const n = new Map<string, number>();
+  for (const p of PACK_PROGRESSIONS) n.set(p.tags[0]!, (n.get(p.tags[0]!) ?? 0) + 1);
+  return [...n.entries()].sort((a, b) => b[1] - a[1]).map(([t]) => t);
+})();
+/** The packs that hold at least one progression in a style. */
+const PACKS_BY_STYLE = new Map(PACK_STYLES.map((t) => [t, new Set(PACK_PROGRESSIONS.filter((p) => p.tags[0] === t).map((p) => p.pack))]));
+const PAGE = 60;
 
 function AllMidi() {
   const all = useMidiItems();
   const [origin, setOrigin] = useState<Origin>("all");
   const [kind, setKind] = useState<MidiFilter>("all");
   const [q, setQ] = useState("");
+  const [style, setStyle] = useState("all");
+  const [tempo, setTempo] = useState("all");
+  const [keyRoot, setKeyRoot] = useState("all");
+  const [keyMode, setKeyMode] = useState("all");
+  const [packName, setPackName] = useState<string | null>(null);
+  const [allPacks, setAllPacks] = useState(false);
+  const [limit, setLimit] = useState(PAGE);
   const query = useQuery(q);
   const classics = all.filter((m) => m.classic);
   const [allClassics, setAllClassics] = useState(false);
   const midi = all
     .filter((m) => !m.classic)
-    .filter((m) => origin === "all" || (origin === "songs") === !!m.song)
+    .filter((m) => origin === "all" || originOf(m) === origin)
+    .filter((m) => !packName || m.pack?.name === packName)
+    .filter((m) => style === "all" || (m.pack ? m.tags[0] === style : m.tags.includes(style)))
+    .filter((m) => {
+      const band = TEMPO_BANDS.find((b) => b.id === tempo);
+      return !band || (m.notes.bpm >= band.min && m.notes.bpm <= band.max);
+    })
+    .filter((m) => keyRoot === "all" || m.key?.root === KEY_ROOTS.indexOf(keyRoot))
+    .filter((m) => keyMode === "all" || m.key?.mode === keyMode)
     .map((m) => ({ m, hit: match(midiProfile(m), query) }))
     .filter((x) => x.hit)
     .sort((a, b) => b.hit!.score - a.hit!.score)
@@ -865,6 +896,20 @@ function AllMidi() {
   }, [all]);
   const kinded = midi.filter((m) => midiFilter(m, kind));
   const shown = prog ? kinded.filter((m) => m.song && progressionOf(m.song)?.label === prog) : kinded;
+  const packCounts = useMemo(() => {
+    const n = new Map<string, number>();
+    for (const m of all) if (m.pack) n.set(m.pack.name, (n.get(m.pack.name) ?? 0) + 1);
+    return n;
+  }, [all]);
+  const packs = CHORD_PACKS.filter((p) => style === "all" || PACKS_BY_STYLE.get(style)?.has(p.name));
+  const filtered = style !== "all" || tempo !== "all" || keyRoot !== "all" || keyMode !== "all" || !!packName;
+  // A new filter starts the list at its first page again.
+  const filterKey = [origin, kind, q, style, tempo, keyRoot, keyMode, packName, prog].join("|");
+  const [lastKey, setLastKey] = useState(filterKey);
+  if (lastKey !== filterKey) {
+    setLastKey(filterKey);
+    setLimit(PAGE);
+  }
   return (
     <Page>
       <header className="flex flex-col gap-1">
@@ -895,7 +940,90 @@ function AllMidi() {
           ))}
         </div>
       </div>
-      {!q && classics.length > 0 && (kind === "all" || kind === "chords") && (
+      <div role="group" aria-label="Filter MIDI" className="flex flex-wrap items-center gap-2">
+        <Dropdown
+          name="Style"
+          value={style === "all" ? "Any" : style}
+          selected={style}
+          options={[["all", "Any"], ...PACK_STYLES.map((t): [string, string] => [t, t])]}
+          onPick={(v) => {
+            setStyle(v);
+            setPackName(null);
+          }}
+        />
+        <Dropdown
+          name="Tempo"
+          value={TEMPO_BANDS.find((b) => b.id === tempo)?.label ?? "Any"}
+          selected={tempo}
+          options={[["all", "Any"], ...TEMPO_BANDS.map((b): [string, string] => [b.id, `${b.label} BPM`])]}
+          onPick={setTempo}
+        />
+        <Dropdown name="Key" value={keyRoot === "all" ? "Any" : keyRoot} selected={keyRoot} options={[["all", "Any"], ...KEY_ROOTS.map((k): [string, string] => [k, k])]} onPick={setKeyRoot} />
+        <Dropdown
+          name="Scale"
+          value={keyMode === "all" ? "Any" : keyMode === "minor" ? "Minor" : "Major"}
+          selected={keyMode}
+          options={[["all", "Any"], ["minor", "Minor"], ["major", "Major"]]}
+          onPick={setKeyMode}
+        />
+        {packName && (
+          <FilterChip selected onToggle={() => setPackName(null)}>
+            {packName}
+          </FilterChip>
+        )}
+        {filtered && (
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => {
+              setStyle("all");
+              setTempo("all");
+              setKeyRoot("all");
+              setKeyMode("all");
+              setPackName(null);
+            }}
+          >
+            Clear filters
+          </Button>
+        )}
+      </div>
+      {!q && packs.length > 0 && (kind === "all" || kind === "chords") && (origin === "all" || origin === "packs") && (
+        <section aria-labelledby="chord-packs" className="flex flex-col gap-3">
+          <div className="flex flex-col gap-1">
+            <h2 id="chord-packs" className="text-title">Chord packs</h2>
+            <p className="text-small text-text-muted">{`${packCounts.size} packs, ${[...packCounts.values()].reduce((a, b) => a + b, 0)} voiced progressions written for Stash. Pick a pack to hear every progression in it.`}</p>
+          </div>
+          <ul className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-4">
+            {(allPacks ? packs : packs.slice(0, 8)).map((p) => (
+              <li key={p.name}>
+                <button
+                  type="button"
+                  aria-pressed={packName === p.name}
+                  data-t="midi"
+                  onClick={() => {
+                    setPackName(packName === p.name ? null : p.name);
+                    setOrigin("all");
+                  }}
+                  className="st-type flex h-full w-full flex-col items-start gap-2 rounded-panel border border-border bg-surface p-4 text-left ui-hover:border-border-strong aria-pressed:border-accent aria-pressed:bg-raised"
+                >
+                  <span className="flex w-full items-baseline justify-between gap-2">
+                    <span className="st-hero-title text-title text-text">{p.name}</span>
+                    <span className="shrink-0 text-small text-text-muted">{p.style}</span>
+                  </span>
+                  <span className="text-small text-text">{`${packCounts.get(p.name) ?? 0} progressions`}</span>
+                  <span className="line-clamp-2 text-small text-text-muted">{p.description}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+          {packs.length > 8 && (
+            <Button variant="secondary" size="sm" className="self-start" onClick={() => setAllPacks(!allPacks)}>
+              {allPacks ? "Show fewer" : `Show all ${packs.length} packs`}
+            </Button>
+          )}
+        </section>
+      )}
+      {!q && !filtered && classics.length > 0 && (kind === "all" || kind === "chords") && (
         <section aria-labelledby="classics" className="flex flex-col gap-3">
           <div className="flex flex-col gap-1">
             <h2 id="classics" className="text-title">Classic progressions</h2>
@@ -953,7 +1081,13 @@ function AllMidi() {
           </FilterChip>
         ))}
       </div>
-      <MidiList label="MIDI" items={shown} />
+      <MidiList label="MIDI" items={shown.slice(0, limit)} />
+      {shown.length === 0 && <p className="text-body text-text-muted">Nothing matches. Clear a filter or the search.</p>}
+      {shown.length > limit && (
+        <Button variant="secondary" size="sm" className="self-start" onClick={() => setLimit(limit + PAGE)}>
+          {`Show ${Math.min(PAGE, shown.length - limit)} more of ${shown.length}`}
+        </Button>
+      )}
     </Page>
   );
 }

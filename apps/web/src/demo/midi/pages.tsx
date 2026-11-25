@@ -215,6 +215,40 @@ function ClassicChart({ c, items }: { c: Classic; items: MidiItem[] }) {
 }
 
 /** A song's progression as written in the source: chord, beats, then where it came from. */
+const RHYTHM_NAME: Record<NonNullable<MidiItem["pack"]>["rhythm"], string> = {
+  held: "Held chords",
+  roll: "Rolled chords",
+  push: "Pushed an eighth early",
+  stabs: "Syncopated stabs",
+  pulse: "Eighth-note pulse",
+  arp: "Arpeggiated",
+  bounce: "Bounce",
+};
+
+/** A chord pack's progression: the chords as written, the pack it is in, and how it is played. */
+function PackChart({ item }: { item: MidiItem }) {
+  const p = item.pack!;
+  return (
+    <section aria-labelledby="pack-title" className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-4">
+      <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <h2 id="pack-title" className="text-label text-label-caps text-text-muted">
+          {`Chords · ${p.name}`}
+        </h2>
+        <span className="font-mono text-numeric tabular text-text-muted">{[item.key ? formatKey(item.key) : "", `${Math.round(item.notes.bpm)} BPM`, RHYTHM_NAME[p.rhythm]].filter(Boolean).join(" · ")}</span>
+      </div>
+      <ol aria-label="Chords" className="flex flex-wrap gap-2">
+        {p.chords.map(([c, beats], i) => (
+          <li key={i} className="st-box flex flex-col rounded-control border border-border-strong bg-raised px-3 py-2">
+            <span className="font-mono text-body-strong text-text">{c}</span>
+            <span className="text-small text-text-muted">{beats === 4 ? "1 bar" : beats % 4 === 0 ? `${beats / 4} bars` : `${beats} beats`}</span>
+          </li>
+        ))}
+      </ol>
+      {p.description && <p className="text-small text-text-muted">{p.description} Written for Stash; free to use in your beats.</p>}
+    </section>
+  );
+}
+
 function ChordChart({ song }: { song: NonNullable<MidiItem["song"]> }) {
   return (
     <section aria-labelledby="chart-title" className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-4">
@@ -327,7 +361,7 @@ export function MidiPage({ publicId }: { publicId: string }) {
   const liveKey = transposedKey(item.key, current && !item.notes.drums ? s.transpose : 0);
   const bpb = (item.notes.timeSignature[0] * 4) / item.notes.timeSignature[1];
   const others = items.filter((m) => m.id !== item.id);
-  const sameArtist = item.song ? others.filter((m) => m.song?.artist === item.song!.artist) : [];
+  const sameArtist = item.song ? others.filter((m) => m.song?.artist === item.song!.artist) : item.pack ? others.filter((m) => m.pack?.name === item.pack!.name) : [];
   const more = sameArtist.length > 0 ? sameArtist : others.filter((m) => m.owner.id === item.owner.id);
 
   return (
@@ -411,6 +445,7 @@ export function MidiPage({ publicId }: { publicId: string }) {
           </section>
 
           {item.song && <ChordChart song={item.song} />}
+          {item.pack && <PackChart item={item} />}
           {item.classic && <ClassicChart c={item.classic} items={items} />}
           <Comments itemId={item.id} title={item.title} />
 
@@ -506,7 +541,7 @@ export function MidiPage({ publicId }: { publicId: string }) {
       {(more.length > 0 ? more : others).length > 0 && (
         <section aria-labelledby="more-title" className="flex flex-col gap-3">
           <h2 id="more-title" className="text-title text-text">
-            {more.length > 0 ? (sameArtist.length > 0 ? `More ${item.song!.artist} chords` : `More MIDI from ${item.owner.displayName}`) : "More MIDI"}
+            {more.length > 0 ? (sameArtist.length > 0 ? (item.song ? `More ${item.song.artist} chords` : `More from ${item.pack!.name}`) : `More MIDI from ${item.owner.displayName}`) : "More MIDI"}
           </h2>
           <MidiList label="More MIDI" items={(more.length > 0 ? more : others).slice(0, 4)} />
         </section>

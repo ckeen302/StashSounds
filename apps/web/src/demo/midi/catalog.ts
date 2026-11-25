@@ -6,6 +6,7 @@ import * as dl from "./drum-library";
 import { guessDrumPart, setDrumPart, type DrumPart } from "./drum-parts";
 import { CHORDS_OWNER, SONG_CHORDS, songKey, songNotes, type SongChords } from "./songs";
 import { CLASSICS, classicChart, type Classic } from "./classics";
+import { CHORD_PACKS, PACK_PROGRESSIONS, packKey, packNotes, type ChordPackRhythm } from "./chord-packs";
 
 /**
  * The demo's MIDI items: four patterns written for the demo, plus whatever this browser's viewer
@@ -39,6 +40,8 @@ export type MidiItem = {
   song?: SongChords;
   /** One of the classic progressions (the axis, ii–V–I, the blues), not a single song's. */
   classic?: Classic;
+  /** One of the chord packs' progressions: the pack, the chords as written and how they are struck. */
+  pack?: { name: string; style: string; description: string; rhythm: ChordPackRhythm; chords: [string, number][] };
   /** For drum MIDI: a full kit, or one part (hi-hats, kicks, snares, percussion) that plays on that sound. */
   part?: DrumPart;
 };
@@ -362,9 +365,39 @@ const classicItems: MidiItem[] = CLASSICS.flatMap((c, i) => {
   return [item];
 });
 
-/** Every MIDI item: the viewer's posts first, then the originals newest first, then the song chords, then the classics. */
+/** The chord packs' progressions as MIDI items, pack by pack, on an electric piano. */
+const packItems: MidiItem[] = PACK_PROGRESSIONS.map((p, i) => {
+  const publicId = `demopack${String(i + 1).padStart(3, "0")}`;
+  const slug = slugify(`${p.title} ${p.tags[0] ?? ""} chords`);
+  const pack = CHORD_PACKS.find((k) => k.name === p.pack);
+  return {
+    id: `pack-${publicId}`,
+    publicId,
+    slug,
+    title: p.title,
+    href: `/midi/${slug}-${publicId}`,
+    owner: producers.kilo,
+    kind: "chords",
+    sound: "keys",
+    key: packKey(p),
+    notes: packNotes(p),
+    tags: [...new Set([...p.tags, "chord pack"])],
+    description: p.description,
+    license: "royalty_free",
+    likes: 0,
+    downloads: 0,
+    publishedAt: "2026-11-25T18:00:00Z",
+    pack: { name: p.pack, style: pack?.style ?? p.tags[0] ?? "", description: pack?.description ?? "", rhythm: p.rhythm, chords: p.chords.map(([c, b]) => [c, b]) },
+  };
+});
+
+/** Every MIDI item: the viewer's posts first, then the originals newest first, the chord packs, the song chords, then the classics. */
 export function midiItems(): MidiItem[] {
-  return [...loadUploads(), ...[...built].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt)), ...songItems, ...classicItems];
+  return [...loadUploads(), ...[...built].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt)), ...packItems, ...songItems, ...classicItems];
+}
+
+export function packItemsList(): MidiItem[] {
+  return packItems;
 }
 
 export function classicItemsList(): MidiItem[] {
