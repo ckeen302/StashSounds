@@ -123,6 +123,8 @@ export function PlayerBar(props: PlayerBarProps) {
   return (
     <section
       aria-label={label}
+      data-ui="player"
+      data-idle={idle || undefined}
       className={cx(
         "relative flex h-14 shrink-0 items-center gap-3 border-t border-border bg-surface px-3",
         "tablet:h-16 tablet:gap-4 tablet:px-4 desktop:h-18 desktop:gap-6 desktop:px-6",

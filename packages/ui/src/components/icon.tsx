@@ -35,7 +35,21 @@ export function Icon({
 
 /** The icons the interface uses, re-exported so every screen draws from the same set. */
 export {
+  ArrowLeft,
+  ArrowRight,
+  ArrowUpRight,
+  AudioLines,
   AudioWaveform,
+  ChevronRight,
+  Disc3,
+  Drum,
+  Flame,
+  KeyboardMusic,
+  Layers,
+  Menu as MenuIcon,
+  Piano,
+  Sparkles,
+  Zap,
   Bell,
   ChevronDown,
   Check,

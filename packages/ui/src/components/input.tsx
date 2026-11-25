@@ -53,6 +53,8 @@ export function TextInput({
       </label>
       <div
         data-focus={dataFocus}
+        data-ui="field"
+        data-size={size}
         className={cx(
           "flex items-center gap-2 rounded-control border px-3",
           transition,
