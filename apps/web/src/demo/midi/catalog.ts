@@ -2,6 +2,8 @@ import type { LicenseKind, MidiKind, MidiNotesFile, MusicalKey } from "@stash/co
 import type { Timbre } from "./synth";
 import { extra, producers, type Producer } from "../data";
 import * as lib from "./library";
+import * as dl from "./drum-library";
+import { guessDrumPart, setDrumPart, type DrumPart } from "./drum-parts";
 import { CHORDS_OWNER, SONG_CHORDS, songKey, songNotes, type SongChords } from "./songs";
 import { CLASSICS, classicChart, type Classic } from "./classics";
 
@@ -37,6 +39,8 @@ export type MidiItem = {
   song?: SongChords;
   /** One of the classic progressions (the axis, ii–V–I, the blues), not a single song's. */
   classic?: Classic;
+  /** For drum MIDI: a full kit, or one part (hi-hats, kicks, snares, percussion) that plays on that sound. */
+  part?: DrumPart;
 };
 
 export { extra };
@@ -171,12 +175,28 @@ const built: MidiItem[] = [
     [16, "Lo-fi nines", "lo-fi-nines", "kilo", "chords", "keys", [9, "minor"], lib.lofiChords(), ["lo-fi", "chords", "jazzy"], "Am9, Dm9, Gmaj7, Cmaj7, lazy and swung. Lowpass it and add vinyl.", "royalty_free", 1980, 7260, "2026-11-19T09:00:00Z"],
     [17, "West Coast whistle", "west-coast-whistle", "marcus", "melody", "strings", [7, "minor"], lib.westCoastLead(), ["west coast", "g funk", "lead"], "A long, high lead over a bouncing G minor bass line. Play it on a sine lead with glide.", "royalty_free", 690, 2050, "2026-11-20T21:20:00Z"],
     [18, "Melodic trap arp", "melodic-trap-arp", "nova", "melody", "pluck", [4, "minor"], lib.trapArp(), ["melodic trap", "arp", "guitar"], "Em, C, G, D broken into eighths, the way a guitar loop would sit. Try it on pluck.", "royalty_free", 2875, 10400, "2026-11-23T16:00:00Z"],
+    [19, "Trap hi-hats with rolls", "trap-hi-hats-with-rolls", "dre", "drums", "drums", null, dl.trapHats(), ["trap", "hi-hats", "rolls"], "Sixteenths with 32nd rolls, a sixteenth-triplet run and a 64th flick at the end. Drop it on your hat.", "royalty_free", 0, 0, "2026-11-24T20:00:00Z"],
+    [20, "Triplet hi-hats", "triplet-hi-hats", "juno", "drums", "drums", null, dl.tripletHats(), ["trap", "hi-hats", "triplets"], "Eighth-note triplets all the way with doubles and a nine-hit run into the turnaround. 150.", "royalty_free", 0, 0, "2026-11-24T19:40:00Z"],
+    [21, "UK drill hi-hats", "uk-drill-hi-hats", "marcus", "drums", "drums", null, dl.ukDrillHats(), ["uk drill", "hi-hats", "skippy"], "The skippy drill pattern with triplet flicks into the snare. 142.", "royalty_free", 0, 0, "2026-11-24T19:20:00Z"],
+    [22, "NY drill hi-hats", "ny-drill-hi-hats", "marcus", "drums", "drums", null, dl.nyDrillHats(), ["ny drill", "hi-hats", "bounce"], "Bouncing triplet pairs that skip the three, with a 32nd roll every other bar. 144.", "royalty_free", 0, 0, "2026-11-24T19:00:00Z"],
+    [23, "Pluggnb hi-hats", "pluggnb-hi-hats", "nova", "drums", "drums", null, dl.pluggHats(), ["pluggnb", "hi-hats", "open hat"], "Laid-back eighths, a sixteenth double each bar and an open hat on the four-and. 150.", "royalty_free", 0, 0, "2026-11-24T18:40:00Z"],
+    [24, "Rage hi-hats", "rage-hi-hats", "dre", "drums", "drums", null, dl.rageHats(), ["rage", "hi-hats", "stutter"], "Hard sixteenths with 32nd stutters and a 64th buzz into the next bar. 160.", "royalty_free", 0, 0, "2026-11-24T18:20:00Z"],
+    [25, "Open hat accents", "open-hat-accents", "juno", "drums", "drums", null, dl.openHatAccents(), ["trap", "open hat", "hi-hats"], "Closed eighths with an open hat on the and of two and four. Layer it over any hat roll.", "royalty_free", 0, 0, "2026-11-24T18:00:00Z"],
+    [26, "Trap kick and clap", "trap-kick-and-clap", "dre", "drums", "drums", null, dl.trapKickClap(), ["trap", "kick", "clap"], "Half-time clap on three, kicks bouncing around it. Pair it with any of the hat MIDIs.", "royalty_free", 0, 0, "2026-11-24T17:40:00Z"],
+    [27, "Bouncy trap kicks", "bouncy-trap-kicks", "dre", "drums", "drums", null, dl.trapKicks(), ["trap", "kick", "808"], "A kick line with pickups into each bar. Copy it onto your 808 and set the notes.", "royalty_free", 0, 0, "2026-11-24T17:20:00Z"],
+    [28, "UK drill drums", "uk-drill-drums", "marcus", "drums", "drums", null, dl.ukDrillKit(), ["uk drill", "drums", "kit"], "Snare on three with a late ghost, sliding kicks and skippy hats. 142, General MIDI map.", "royalty_free", 0, 0, "2026-11-24T17:00:00Z"],
+    [29, "NY drill drums", "ny-drill-drums", "marcus", "drums", "drums", null, dl.nyDrillKit(), ["ny drill", "drums", "kit"], "Bouncing triplet hats, kicks that dodge the snare and a late snare every other bar. 144.", "royalty_free", 0, 0, "2026-11-24T16:40:00Z"],
+    [30, "Rage drums", "rage-drums", "dre", "drums", "drums", null, dl.rageKit(), ["rage", "drums", "kit"], "Four-on-the-floor kicks into a switch-up, stuttered hats on top. 160.", "royalty_free", 0, 0, "2026-11-24T16:20:00Z"],
+    [31, "Trap percussion", "trap-percussion", "nova", "drums", "drums", null, dl.trapPerc(), ["trap", "percussion", "rim"], "A rim line and a sixteenth shaker to sit under any trap hats. 140.", "royalty_free", 0, 0, "2026-11-24T16:00:00Z"],
+    [32, "Snare and clap fills", "snare-and-clap-fills", "kilo", "drums", "drums", null, dl.snareFills(), ["fills", "snare", "clap"], "Four one-bar fills, from a flam to a full 64th build. Drop one at the end of a section.", "royalty_free", 0, 0, "2026-11-24T15:40:00Z"],
   ] as const).map(([n, title, slug, who, kind, sound, key, notes, tags, description, license, , , publishedAt]) => ({
     n, title, slug, owner: { ...producers, ...extra }[who], kind, sound, key: key ? { root: key[0], mode: key[1] } : null, notes, tags: [...tags], description, license, likes: 0, downloads: 0, publishedAt,
   })),
 ].map(({ n, ...c }) => {
   const publicId = `demomidi${String(n).padStart(2, "0")}`;
-  return { ...c, id: `00000000-0000-4000-8000-0000000001${String(n).padStart(2, "0")}`, publicId, href: `/midi/${c.slug}-${publicId}` };
+  const part = c.kind === "drums" ? guessDrumPart(c.title, c.notes.notes) : undefined;
+  setDrumPart(c.notes, part);
+  return { ...c, part, id: `00000000-0000-4000-8000-0000000001${String(n).padStart(2, "0")}`, publicId, href: `/midi/${c.slug}-${publicId}` };
 });
 
 // ---------------------------------------------------------------------------------------------
@@ -190,7 +210,11 @@ let version = 0;
 function loadUploads(): MidiItem[] {
   try {
     const raw = window.localStorage.getItem(UPLOADS);
-    if (raw) return (JSON.parse(raw) as MidiItem[]).map((m) => ({ ...m, owner: VIEWER, mine: true }));
+    if (raw)
+      return (JSON.parse(raw) as MidiItem[]).map((m) => {
+        setDrumPart(m.notes, m.part);
+        return { ...m, owner: VIEWER, mine: true };
+      });
   } catch {
     // Blocked or malformed: this visit's memory copy stands.
   }
@@ -212,6 +236,7 @@ export function postUpload(item: Omit<MidiItem, "id" | "publicId" | "href" | "ow
     publishedAt: new Date().toISOString(),
     mine: true,
   };
+  setDrumPart(full.notes, full.part);
   const next = [full, ...loadUploads()];
   memory = next;
   try {

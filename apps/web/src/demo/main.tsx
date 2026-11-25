@@ -33,7 +33,7 @@ import { HashLink } from "./hash-link";
 import { navigate, startRouter, usePath } from "./router";
 import { has, set } from "./store";
 import { startLooks, useLook } from "./looks";
-import { midiItem } from "./midi/catalog";
+import { midiItem, type MidiItem } from "./midi/catalog";
 import { MidiList, MidiPage, useMidiItems } from "./midi/pages";
 import { progressionOf } from "./midi/songs";
 import { PresetsPage } from "./presets/page";
@@ -70,7 +70,6 @@ import { loopProfile, midiProfile } from "./search-index";
 import { match, moreLike } from "./smart-search";
 import { writeMidi } from "./midi/write";
 import { KitPage, KitsPage, KitUploadPage } from "./kits/pages";
-import type { MidiKind } from "@stash/contracts";
 import { Button, Download, FilterChip, SearchInput, UiLink } from "@stash/ui";
 
 /**
@@ -810,20 +809,25 @@ function NotFound() {
   );
 }
 
-const KINDS: (MidiKind | "all")[] = [
-  "all",
-  "chords",
-  "melody",
-  "bass",
-  "drums",
-];
-const KIND_NAME: Record<MidiKind | "all", string> = {
+type MidiFilter = "all" | "chords" | "melody" | "bass" | "hats" | "kit" | "kicksnare" | "perc";
+const KINDS: MidiFilter[] = ["all", "chords", "melody", "bass", "hats", "kit", "kicksnare", "perc"];
+const KIND_NAME: Record<MidiFilter, string> = {
   all: "All",
   chords: "Chords",
   melody: "Melody",
   bass: "Bass",
-  drums: "Drums",
+  hats: "Hi-hats",
+  kit: "Drum patterns",
+  kicksnare: "Kicks and snares",
+  perc: "Percussion",
 };
+function midiFilter(m: MidiItem, f: MidiFilter): boolean {
+  if (f === "all") return true;
+  if (f === "chords" || f === "melody" || f === "bass") return m.kind === f;
+  if (m.kind !== "drums") return false;
+  const part = m.part ?? "kit";
+  return f === "kicksnare" ? part === "kick" || part === "snare" : part === f;
+}
 
 type Origin = "all" | "songs" | "posts";
 const ORIGIN_NAME: Record<Origin, string> = {
@@ -835,7 +839,7 @@ const ORIGIN_NAME: Record<Origin, string> = {
 function AllMidi() {
   const all = useMidiItems();
   const [origin, setOrigin] = useState<Origin>("all");
-  const [kind, setKind] = useState<MidiKind | "all">("all");
+  const [kind, setKind] = useState<MidiFilter>("all");
   const [q, setQ] = useState("");
   const query = useQuery(q);
   const classics = all.filter((m) => m.classic);
@@ -859,7 +863,7 @@ function AllMidi() {
     }
     return [...groups.values()].filter((g) => g.songs.length >= 3).sort((a, b) => b.songs.length - a.songs.length).slice(0, 8);
   }, [all]);
-  const kinded = kind === "all" ? midi : midi.filter((m) => m.kind === kind);
+  const kinded = midi.filter((m) => midiFilter(m, kind));
   const shown = prog ? kinded.filter((m) => m.song && progressionOf(m.song)?.label === prog) : kinded;
   return (
     <Page>
@@ -891,7 +895,7 @@ function AllMidi() {
           ))}
         </div>
       </div>
-      {!q && classics.length > 0 && (
+      {!q && classics.length > 0 && (kind === "all" || kind === "chords") && (
         <section aria-labelledby="classics" className="flex flex-col gap-3">
           <div className="flex flex-col gap-1">
             <h2 id="classics" className="text-title">Classic progressions</h2>

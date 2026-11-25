@@ -30,6 +30,8 @@ export type PresetEntry = {
   /** Where the preset sits in the browser, when given. */
   path?: string;
   role: string;
+  /** The album the song is on, as the sheet it came from gave it ("Single" for a single). */
+  album?: string;
   confidence: Confidence;
   /** Short and verbatim, from the source. */
   quote?: string;

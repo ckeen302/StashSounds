@@ -1,4 +1,5 @@
 import COVERS from "./covers.json";
+import { PRESETS } from "./data";
 
 /**
  * The album cover beside a song. Real art comes from covers.json (the file is published next to the
@@ -28,8 +29,29 @@ for (const [k, row] of Object.entries(ROWS)) {
   if (!LOOSE.has(lk)) LOOSE.set(lk, row);
 }
 
+// Songs on the same album share its cover: one found cover covers every song on that album.
+const flatName = (x: string) => x.toLowerCase().replace(/\(.*?\)|deluxe|edition/g, "").replace(/[^a-z0-9]/g, "");
+const BY_ALBUM = new Map<string, CoverRow>();
+for (const [k, row] of Object.entries(ROWS)) {
+  const artist = k.split("|")[1] ?? "";
+  const ak = `${flatName(row.album)}|${loose("", artist).split("|")[1]}`;
+  if (row.album && !/^single$/i.test(row.album) && !BY_ALBUM.has(ak)) BY_ALBUM.set(ak, row);
+}
+
+// The album each song is on, from the preset rows that name one.
+const ALBUM_OF = new Map<string, string>();
+for (const p of PRESETS) if (p.album && !ALBUM_OF.has(loose(p.song, p.artist))) ALBUM_OF.set(loose(p.song, p.artist), p.album);
+
+export function albumOf(song: string, artist: string): string | null {
+  return coverFor(song, artist)?.album ?? ALBUM_OF.get(loose(song, artist)) ?? null;
+}
+
 export function coverFor(song: string, artist: string): CoverRow | null {
-  return ROWS[coverKey(song, artist)] ?? LOOSE.get(loose(song, artist)) ?? null;
+  const direct = ROWS[coverKey(song, artist)] ?? LOOSE.get(loose(song, artist));
+  if (direct) return direct;
+  const album = ALBUM_OF.get(loose(song, artist));
+  if (!album || /^single$/i.test(album)) return null;
+  return BY_ALBUM.get(`${flatName(album)}|${loose("", artist).split("|")[1]}`) ?? null;
 }
 
 export function Cover({

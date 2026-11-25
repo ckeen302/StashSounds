@@ -1,6 +1,6 @@
 import { Button, Check, ChevronDown, FilterChip, Menu, SearchInput, UiLink, type MenuEntry } from "@stash/ui";
 import { useMemo, useState } from "react";
-import { Cover, coverFor } from "./cover";
+import { albumOf, Cover, coverFor } from "./cover";
 import { CONFIDENCE, PRESETS, presetParts, type Confidence, type PresetEntry } from "./data";
 import { groupSongs, LEVEL, madeBy, songHref, TOP_PRODUCERS, type Song } from "./songs";
 
@@ -290,7 +290,7 @@ export function partOf(role: string): string {
  * card reads differently from the one next to it. One sound shows (the one with a named preset first).
  */
 function SongCard({ s }: { s: Song }) {
-  const album = coverFor(s.song, s.artist)?.album ?? "Album not listed";
+  const album = albumOf(s.song, s.artist) ?? "Album not listed";
   const producer = s.producer && !/^(unknown|not stated)$/i.test(s.producer) ? `prod. ${s.producer}` : "Producer not credited";
   const lead = s.entries.find((e) => e.preset) ?? s.entries[0]!;
   return (

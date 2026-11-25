@@ -1,4 +1,5 @@
 import type { MidiNotesFile, SoundId } from "@stash/contracts";
+import { drumMapper, drumPartOf } from "./drum-parts";
 import type { Patch } from "./patch";
 
 /**
@@ -30,7 +31,7 @@ export type MidiPlayerState = {
   volume: number;
 };
 
-type Track = { id: string; notes: MidiNotesFile; sound: Timbre; lengthBeats: number };
+type Track = { id: string; notes: MidiNotesFile; sound: Timbre; lengthBeats: number; drum: ((pitch: number, len: number) => number) | null };
 
 const LOOKAHEAD_S = 0.15;
 const TICK_MS = 25;
@@ -160,7 +161,9 @@ export class MidiPlayer {
     if (this.track?.id === id) return;
     this.stopAll();
     const bpb = (notes.timeSignature[0] * 4) / notes.timeSignature[1];
-    this.track = { id, notes, sound, lengthBeats: notes.bars * bpb };
+    // Drum files play on the drum voice through their part's map: a hi-hat line on C5 plays hi-hats.
+    const drum = notes.drums || sound === "drums" ? drumMapper(notes.notes, drumPartOf(notes)) : null;
+    this.track = { id, notes, sound, lengthBeats: notes.bars * bpb, drum };
     this.pausedBeat = 0;
     this.set({ currentId: id, status: "paused", sound, tempoRatio: 1, transpose: 0 });
   }
@@ -315,7 +318,7 @@ export class MidiPlayer {
       const base = cycle * L;
       const lo = a - base;
       const hi = Math.min(b - base, L);
-      const strum = t.notes.drums ? 0 : (STRUM_S[t.sound] ?? 0);
+      const strum = t.drum ? 0 : (STRUM_S[t.sound] ?? 0);
       let chordStart = -1;
       let inChord = 0;
       for (let i = lowerBound(notes, lo); i < notes.length && notes[i]![0] < hi; i++) {
@@ -328,7 +331,8 @@ export class MidiPlayer {
         // The chart already rolls chord notes by a hair; the strum is spread from the chord's first note.
         const when = this.anchorTime + (base + (strum ? chordStart : start) - this.anchorBeat) * spb + inChord * strum;
         if (when < ctx.currentTime - 0.01) continue;
-        this.voice(t.sound, t.notes.drums ? pitch : pitch + this.state.transpose, vel, Math.max(when, ctx.currentTime), len * spb, t.notes.drums);
+        if (t.drum) this.voice("drums", t.drum(pitch, len), vel, Math.max(when, ctx.currentTime), len * spb, true);
+        else this.voice(t.sound, pitch + this.state.transpose, vel, Math.max(when, ctx.currentTime), len * spb, false);
       }
       a = base + hi;
       if (hi >= L - 1e-9 && !this.state.loop) break;

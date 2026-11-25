@@ -4,7 +4,7 @@ import { PRESETS, type Confidence, type PresetEntry } from "./data";
 
 export const LEVEL: Record<Confidence, number> = { producer: 4, engineer: 3, press: 2, community: 1 };
 
-export type Song = { key: string; slug: string; song: string; artist: string; producer: string; entries: PresetEntry[]; best: number; named: number };
+export type Song = { key: string; slug: string; song: string; artist: string; producer: string; album?: string; entries: PresetEntry[]; best: number; named: number };
 
 export function slugify(s: string): string {
   return s
@@ -35,6 +35,7 @@ export function groupSongs(rows: PresetEntry[]): Song[] {
     const key = songKey(e.song, e.artist);
     const s = by.get(key) ?? { key, slug: songSlug(e.song, e.artist), song: e.song, artist: e.artist, producer: e.producer, entries: [], best: 0, named: 0 };
     if (e.artist.length > s.artist.length) s.artist = e.artist;
+    if (!s.album && e.album) s.album = e.album;
     s.entries.push(e);
     s.best = Math.max(s.best, LEVEL[e.confidence]);
     if (e.preset) s.named++;

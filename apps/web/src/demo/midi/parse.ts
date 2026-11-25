@@ -1,5 +1,6 @@
 import { limits, type MidiKind, type MidiNotesFile, type MusicalKey, type SoundId } from "@stash/contracts";
 import { parseKey } from "@stash/contracts/format";
+import { guessDrumPart, looksLikeHats, nameSaysDrums, type DrumPart } from "./drum-parts";
 
 /**
  * A standard MIDI file reader for the demo, run in the browser. It does what the worker's
@@ -17,6 +18,8 @@ export type MidiAnalysis = {
   /** Where the tempo came from, in words, for the upload screen. */
   bpmSource: "file" | "name" | "assumed";
   lengthBeats: number;
+  /** For drums: the kit or the one part it is, so a hi-hat file plays on hi-hats. */
+  part?: DrumPart;
 };
 
 export class MidiError extends Error {
@@ -132,7 +135,9 @@ export function parseMidi(bytes: Uint8Array, fileName = ""): MidiAnalysis {
   if ((lengthBeats * 60_000) / bpm > limits.midi.maxDurationMs) throw new MidiError("too_long", "That MIDI file runs over five minutes. Trim it to the part you want to share.");
 
   const pitches = out.map((n) => n[2]);
-  const drums = notes.filter((n) => n.ch === 9).length * 2 >= notes.length;
+  // Drums: written on channel 10, or named as drums (FL Studio exports hats on channel 1), or a
+  // short, dense line on one or two notes, which is a hi-hat however it was exported.
+  const drums = notes.filter((n) => n.ch === 9).length * 2 >= notes.length || nameSaysDrums(fileName) || looksLikeHats(out);
   const kind = guessKind(out, drums);
   const key = drums ? null : (keyFromName(fileName) ?? detectKey(out));
   return {
@@ -143,6 +148,7 @@ export function parseMidi(bytes: Uint8Array, fileName = ""): MidiAnalysis {
     tempoAssumed: bpmSource === "assumed",
     bpmSource,
     lengthBeats,
+    part: drums ? guessDrumPart(fileName, out) : undefined,
   };
 }
 

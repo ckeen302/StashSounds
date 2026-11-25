@@ -1,6 +1,6 @@
 import { ButtonLink, EmptyState, UiLink } from "@stash/ui";
 import { songChordItems } from "../midi/catalog";
-import { Cover, coverFor } from "./cover";
+import { albumOf, Cover, coverFor } from "./cover";
 import { CONFIDENCE, presetParts, type PresetEntry } from "./data";
 import { ConfidenceKey, familyOf, Meter, partOf, TONE_TEXT } from "./page";
 import {
@@ -56,7 +56,7 @@ export function PresetSongPage({ slug }: { slug: string }) {
   );
 
   const facts: [string, string][] = [
-    ["Album", cover?.album ?? "Not listed"],
+    ["Album", albumOf(s.song, s.artist) ?? "Not listed"],
     ["Produced by", who.length ? who.join(", ") : "Not credited"],
     ["Sounds", `${s.entries.length}`],
   ];

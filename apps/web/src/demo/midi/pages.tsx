@@ -30,6 +30,7 @@ import { navigate } from "../router";
 import { has, set } from "../store";
 import { midiItem, midiItems, midiVersion, postUpload, removeUpload, slugify, subscribeMidi, type MidiItem } from "./catalog";
 import { MidiError, parseMidi, SOUND_FOR, type MidiAnalysis } from "./parse";
+import { DRUM_PART_LABEL, guessDrumPart, setDrumPart, type DrumPart } from "./drum-parts";
 import { PianoRoll } from "./piano-roll";
 import { saveFiles } from "../save";
 import { writeMidi } from "./write";
@@ -133,7 +134,7 @@ export function MidiList({ label, items }: { label: string; items: MidiItem[] })
                 </UiLink>
                 <span className="truncate text-small text-text-muted">@{m.owner.handle}{m.mine ? " · posted from this browser" : ""}</span>
               </div>
-              <div className="hidden w-20 shrink-0 text-small text-text tablet:block">{KIND_LABEL[m.kind]}</div>
+              <div className="hidden w-20 shrink-0 text-small text-text tablet:block">{m.part ? DRUM_PART_LABEL[m.part] : KIND_LABEL[m.kind]}</div>
               <div className={`hidden w-14 shrink-0 tablet:block ${cell}`}>{m.key ? formatKey(m.key) : "—"}</div>
               <div className={`w-14 shrink-0 text-right ${cell}`}>{Math.round(m.notes.bpm)}</div>
               <div className={`hidden w-14 shrink-0 text-right desktop:block ${cell}`}>{m.notes.bars}</div>
@@ -336,7 +337,7 @@ export function MidiPage({ publicId }: { publicId: string }) {
           <header className="flex min-w-0 flex-col gap-3">
             <div className="flex items-center gap-3">
               <TypeChip type="midi" />
-              <span className="text-small text-text-muted">{KIND_LABEL[item.kind]} · {item.mine ? "Posted from this browser" : `Published ${new Date(item.publishedAt).toLocaleDateString("en", { month: "short", day: "numeric" })}`}</span>
+              <span className="text-small text-text-muted">{item.part ? DRUM_PART_LABEL[item.part] : KIND_LABEL[item.kind]} · {item.mine ? "Posted from this browser" : `Published ${new Date(item.publishedAt).toLocaleDateString("en", { month: "short", day: "numeric" })}`}</span>
             </div>
             <h1 id="item-title" className="text-display break-words text-text">
               {item.title}
@@ -530,7 +531,7 @@ const SAMPLES = [
   { file: "not_midi.mid", label: "A broken file" },
 ];
 
-type Draft = { analysis: MidiAnalysis; fileName: string; title: string; kind: MidiKind; sound: SoundId; bpm: string; tags: string };
+type Draft = { analysis: MidiAnalysis; fileName: string; title: string; kind: MidiKind; sound: SoundId; bpm: string; tags: string; part?: DrumPart };
 
 /** The demo's upload: pick or drop a .mid, check what was read from it, hear it, post it. */
 export function UploadPage({ embedded = false }: { embedded?: boolean } = {}) {
@@ -541,7 +542,7 @@ export function UploadPage({ embedded = false }: { embedded?: boolean } = {}) {
   const input = useRef<HTMLInputElement>(null);
   const s = useMidiPlayer();
   const toast = useToast();
-  const previewId = "upload-preview";
+  const previewId = `upload-preview-${draft?.kind ?? ""}-${draft?.part ?? ""}-${draft?.bpm ?? ""}`;
 
   useEffect(() => () => player.pause(), []);
 
@@ -569,7 +570,8 @@ export function UploadPage({ embedded = false }: { embedded?: boolean } = {}) {
         kind: analysis.kind,
         sound: analysis.sound,
         bpm: String(Math.round(analysis.notes.bpm)),
-        tags: analysis.kind,
+        tags: analysis.part && analysis.part !== "kit" ? DRUM_PART_LABEL[analysis.part].toLowerCase() : analysis.kind,
+        part: analysis.part,
       });
     } catch (e) {
       setDraft(null);
@@ -604,7 +606,11 @@ export function UploadPage({ embedded = false }: { embedded?: boolean } = {}) {
 
   const bpmNum = draft ? Number(draft.bpm) : 0;
   const bpmOk = draft ? Number.isFinite(bpmNum) && bpmNum >= 40 && bpmNum <= 300 : false;
-  const notes = draft ? { ...draft.analysis.notes, bpm: bpmOk ? bpmNum : draft.analysis.notes.bpm } : null;
+  const notes = useMemo(
+    () => (draft ? { ...draft.analysis.notes, bpm: bpmOk ? bpmNum : draft.analysis.notes.bpm, drums: draft.kind === "drums" } : null),
+    [draft, bpmOk, bpmNum],
+  );
+  if (notes && draft?.kind === "drums") setDrumPart(notes, draft.part ?? "kit");
   const titleOk = !!draft && draft.title.trim().length > 0 && draft.title.trim().length <= 80;
   const previewing = s.currentId === previewId;
 
@@ -718,7 +724,8 @@ export function UploadPage({ embedded = false }: { embedded?: boolean } = {}) {
                 slug: slugify(draft.title),
                 title: draft.title.trim(),
                 kind: draft.kind,
-                sound: draft.sound,
+                sound: draft.kind === "drums" ? "drums" : draft.sound,
+                part: draft.kind === "drums" ? (draft.part ?? "kit") : undefined,
                 key: draft.kind === "drums" ? null : draft.analysis.key,
                 notes,
                 tags,
@@ -746,12 +753,35 @@ export function UploadPage({ embedded = false }: { embedded?: boolean } = {}) {
               <span className="text-label text-label-caps text-text-muted">Kind</span>
               <div role="group" aria-label="Kind" className="flex flex-wrap gap-2">
                 {midiKindSchema.options.map((k) => (
-                  <FilterChip key={k} selected={draft.kind === k} onToggle={() => setDraft({ ...draft, kind: k, sound: k === "drums" ? "drums" : draft.sound === "drums" ? SOUND_FOR[k] : draft.sound })}>
+                  <FilterChip key={k} selected={draft.kind === k} onToggle={() => {
+                    player.pause();
+                    setDraft({ ...draft, kind: k, sound: k === "drums" ? "drums" : draft.sound === "drums" ? SOUND_FOR[k] : draft.sound, part: k === "drums" ? (draft.part ?? guessDrumPart(draft.fileName, draft.analysis.notes.notes)) : undefined });
+                  }}>
                     {KIND_LABEL[k]}
                   </FilterChip>
                 ))}
               </div>
             </div>
+            {draft.kind === "drums" && (
+              <div className="flex flex-col gap-2">
+                <span className="text-label text-label-caps text-text-muted">Drum part</span>
+                <div role="group" aria-label="Drum part" className="flex flex-wrap gap-2">
+                  {(Object.keys(DRUM_PART_LABEL) as DrumPart[]).map((k) => (
+                    <FilterChip
+                      key={k}
+                      selected={(draft.part ?? "kit") === k}
+                      onToggle={() => {
+                        player.pause();
+                        setDraft({ ...draft, part: k });
+                      }}
+                    >
+                      {DRUM_PART_LABEL[k]}
+                    </FilterChip>
+                  ))}
+                </div>
+                <span className="text-small text-text-muted">A part plays on that drum whatever notes it was written on. A drum pattern on General MIDI notes plays as written.</span>
+              </div>
+            )}
             <div className="flex flex-col gap-2">
               <span className="text-label text-label-caps text-text-muted">Plays on</span>
               <SoundPicker
