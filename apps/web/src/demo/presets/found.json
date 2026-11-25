@@ -9596,5 +9596,229 @@
    "url": "https://www.soundonsound.com/techniques/robopop-producing-lana-del-reys-videogames"
   },
   "quote": "I was using the 'Ambient Concert D' patch in Synthogy's Ivory plug-in."
+ },
+ {
+  "song": "Man in the Mirror",
+  "artist": "Michael Jackson",
+  "producer": "Quincy Jones",
+  "plugin": "Roland D-50 (hardware)",
+  "preset": "Afterthought",
+  "role": "main melody",
+  "confidence": "press",
+  "source": {
+   "label": "Roland Articles: Listening Guide: Sounds of the D-50",
+   "url": "https://articles.roland.com/listening-guide-sounds-of-the-d-50/"
+  },
+  "quote": "uses the “Afterthought” preset as its main melodic sound"
+ },
+ {
+  "song": "Faith",
+  "artist": "George Michael",
+  "producer": "George Michael",
+  "plugin": "Roland D-50 (hardware)",
+  "preset": "Pipe Organ",
+  "role": "organ",
+  "confidence": "press",
+  "source": {
+   "label": "Roland Articles: Listening Guide: Sounds of the D-50",
+   "url": "https://articles.roland.com/listening-guide-sounds-of-the-d-50/"
+  },
+  "quote": "the D-50 running the aptly named “Pipe Organ” patch"
+ },
+ {
+  "song": "Hazy Shade of Winter",
+  "artist": "The Bangles",
+  "producer": "Rick Rubin",
+  "plugin": "Roland D-50 (hardware)",
+  "preset": "Fantasia",
+  "role": "pad",
+  "confidence": "press",
+  "source": {
+   "label": "Roland Articles: Listening Guide: Sounds of the D-50",
+   "url": "https://articles.roland.com/listening-guide-sounds-of-the-d-50/"
+  },
+  "quote": "underpinned by one of the D-50’s most famous patches, “Fantasia.”"
+ },
+ {
+  "song": "Gun for Hire",
+  "artist": "Billy Ocean",
+  "producer": "Not stated",
+  "plugin": "Roland D-50 (hardware)",
+  "preset": "Horn Section",
+  "role": "horns",
+  "confidence": "press",
+  "source": {
+   "label": "Roland Articles: Listening Guide: Sounds of the D-50",
+   "url": "https://articles.roland.com/listening-guide-sounds-of-the-d-50/"
+  },
+  "quote": "uses the “Horn Section” patch along with other popular patches like “Fantasia” and “DigitalNativeDance.”"
+ },
+ {
+  "song": "Time After Time",
+  "artist": "Cyndi Lauper",
+  "producer": "Rick Chertoff",
+  "plugin": "Roland Juno-60 (hardware)",
+  "preset": "61",
+  "role": "pad",
+  "confidence": "producer",
+  "source": {
+   "label": "Roland Articles: Rob Hyman: The Hooters, Time After Time, and the JUNO-60",
+   "url": "https://articles.roland.com/rob-hyman-the-hooters-time-after-time-and-the-juno-60/"
+  },
+  "quote": "Number 61 on the JUNO. I've never forgotten that—I owe my life to that pad."
+ },
+ {
+  "song": "Girls Just Want to Have Fun",
+  "artist": "Cyndi Lauper",
+  "producer": "Rick Chertoff",
+  "plugin": "Roland Juno-60 (hardware)",
+  "preset": "Percussive Pad",
+  "role": "steel-drum solo",
+  "confidence": "press",
+  "source": {
+   "label": "Roland Articles: Rob Hyman: The Hooters, Time After Time, and the JUNO-60",
+   "url": "https://articles.roland.com/rob-hyman-the-hooters-time-after-time-and-the-juno-60/"
+  },
+  "quote": "The steel-drum-inspired solo on the anthemic \"Girls Just Want to Have Fun\" uses the synth's \"Percussive Pad\" patch"
+ },
+ {
+  "song": "Bust Down Cartier",
+  "artist": "Lil Mosey",
+  "producer": "Royce David",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Synth - Killer (JRHitmaker's Villain Omni bank)",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard: Royce David | Equipboard",
+   "url": "https://equipboard.com/pros/royce-david"
+  },
+  "quote": "the Synth - Killer preset from JRHitmaker's Villain Omni bank is featured"
+ },
+ {
+  "song": "G Walk",
+  "artist": "Lil Mosey",
+  "producer": "Royce David",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Redemption Piano",
+  "role": "piano",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard: Royce David | Equipboard",
+   "url": "https://equipboard.com/pros/royce-david"
+  },
+  "quote": "The Redemption Piano is used in \"G Walk\" by Lil Mosey"
+ },
+ {
+  "song": "Next Life",
+  "artist": "Isaacjacuzzi",
+  "producer": "Royce David",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Bell - Blaze (JRHitmaker's Summer Omni bank)",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard: Royce David | Equipboard",
+   "url": "https://equipboard.com/pros/royce-david"
+  },
+  "quote": "the Bell - Blaze preset from JRHitmaker's Summer Omni bank in isaacjacuzzi's \"Next Life,\""
+ },
+ {
+  "song": "RahRah",
+  "artist": "Isaacjacuzzi",
+  "producer": "Royce David",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "key - merk (Nick Mira's Shogun Omni bank)",
+  "role": "keys",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard: Royce David | Equipboard",
+   "url": "https://equipboard.com/pros/royce-david"
+  },
+  "quote": "isaacjacuzzi's \"RahRah\" (key - merk preset)"
+ },
+ {
+  "song": "Suicide DOORS",
+  "artist": "Isaacjacuzzi",
+  "producer": "Royce David",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "bell - lagoon (Nick Mira's Shogun Omni bank)",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard: Royce David | Equipboard",
+   "url": "https://equipboard.com/pros/royce-david"
+  },
+  "quote": "and \"Suicide DOORS\" (bell - lagoon preset)"
+ },
+ {
+  "song": "woke up",
+  "artist": "Isaacjacuzzi",
+  "producer": "Royce David",
+  "plugin": "Native Instruments Kontakt",
+  "preset": "Rapman Waw",
+  "role": "main melody",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard: Royce David | Equipboard",
+   "url": "https://equipboard.com/pros/royce-david"
+  },
+  "quote": "Royce used the Rapman Waw preset from Kontakt in woke up by isaacjacuzzi"
+ },
+ {
+  "song": "Ooh Lord",
+  "artist": "Isaacjacuzzi",
+  "producer": "Royce David",
+  "plugin": "AIR Music Technology Xpand!2",
+  "preset": "Synthetic Steeldrum",
+  "role": "steel drum",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard: Royce David | Equipboard",
+   "url": "https://equipboard.com/pros/royce-david"
+  },
+  "quote": "Royce used the Synthetic Steeldrum preset in Ooh Lord by isaacjacuzzi."
+ },
+ {
+  "song": "See No Evil",
+  "artist": "Isaacjacuzzi",
+  "producer": "Royce David",
+  "plugin": "Arturia Analog Lab",
+  "preset": "Arpenpad",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard: Royce David | Equipboard",
+   "url": "https://equipboard.com/pros/royce-david"
+  },
+  "quote": "Royce used the Arpenpad preset from Analog Lab in See No Evil by isaacjacuzzi."
+ },
+ {
+  "song": "Dreamin",
+  "artist": "Lil Mosey",
+  "producer": "Royce David",
+  "plugin": "Lennar Digital Sylenth1",
+  "preset": "LD Big Faith",
+  "role": "main melody",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard: Royce David | Equipboard",
+   "url": "https://equipboard.com/pros/royce-david"
+  },
+  "quote": "The main preset is a synth sound called LD Big Faith and and the background preset is PD MoonCloud."
+ },
+ {
+  "song": "Dreamin",
+  "artist": "Lil Mosey",
+  "producer": "Royce David",
+  "plugin": "Lennar Digital Sylenth1",
+  "preset": "PD MoonCloud",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "Equipboard: Royce David | Equipboard",
+   "url": "https://equipboard.com/pros/royce-david"
+  },
+  "quote": "The main preset is a synth sound called LD Big Faith and and the background preset is PD MoonCloud."
  }
 ]
