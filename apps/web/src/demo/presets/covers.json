@@ -1710,5 +1710,1269 @@
    "label": "Apple Music, 32 Levels (Deluxe) by Clams Casino",
    "url": "https://music.apple.com/us/album/thanks-to-you-instrumental/1120321991"
   }
+ },
+ "alright|kendrick lamar": {
+  "file": "covers/alright-kendrick-lamar.jpg",
+  "album": "To Pimp a Butterfly",
+  "source": {
+   "label": "Apple Music, To Pimp a Butterfly by Kendrick Lamar",
+   "url": "https://music.apple.com/us/album/alright/1440871877"
+  }
+ },
+ "attention|charlie puth": {
+  "file": "covers/attention-charlie-puth.jpg",
+  "album": "Voicenotes",
+  "source": {
+   "label": "Apple Music, Voicenotes by Charlie Puth",
+   "url": "https://music.apple.com/us/album/attention/1293229669"
+  }
+ },
+ "boyfriend|justin bieber": {
+  "file": "covers/boyfriend-justin-bieber.jpg",
+  "album": "Boyfriend (Remixes)",
+  "source": {
+   "label": "Apple Music, Boyfriend (Remixes) by Justin Bieber",
+   "url": "https://music.apple.com/us/album/boyfriend-oliver-twizt-instrumental/1444892037"
+  }
+ },
+ "bust down cartier|lil mosey": {
+  "file": "covers/bust-down-cartier-lil-mosey.jpg",
+  "album": "Northsbest (Extended)",
+  "source": {
+   "label": "Apple Music, Northsbest (Extended) by Lil Mosey",
+   "url": "https://music.apple.com/us/album/bust-down-cartier/1469639667"
+  }
+ },
+ "danger zone|kenny loggins": {
+  "file": "covers/danger-zone-kenny-loggins.jpg",
+  "album": "The Essential Kenny Loggins",
+  "source": {
+   "label": "Apple Music, The Essential Kenny Loggins by Kenny Loggins",
+   "url": "https://music.apple.com/us/album/danger-zone-from-top-gun-original-soundtrack/1058077856"
+  }
+ },
+ "dreamin|lil mosey": {
+  "file": "covers/dreamin-lil-mosey.jpg",
+  "album": "Certified Hitmaker",
+  "source": {
+   "label": "Apple Music, Certified Hitmaker by Lil Mosey",
+   "url": "https://music.apple.com/us/album/dreamin/1499709219"
+  }
+ },
+ "drunk in love|beyoncé": {
+  "file": "covers/drunk-in-love-beyonc.jpg",
+  "album": "Beyoncé (Deluxe)",
+  "source": {
+   "label": "Apple Music, Beyoncé (Deluxe) by Beyoncé",
+   "url": "https://music.apple.com/us/album/drunk-in-love-feat-ja%C3%BF-z/780519939"
+  }
+ },
+ "faith|george michael": {
+  "file": "covers/faith-george-michael.jpg",
+  "album": "Twenty Five",
+  "source": {
+   "label": "Apple Music, Twenty Five by George Michael",
+   "url": "https://music.apple.com/us/album/faith/282658449"
+  }
+ },
+ "g walk|lil mosey": {
+  "file": "covers/g-walk-lil-mosey.jpg",
+  "album": "Certified Hitmaker",
+  "source": {
+   "label": "Apple Music, Certified Hitmaker by Lil Mosey & Chris Brown",
+   "url": "https://music.apple.com/us/album/g-walk/1499709219"
+  }
+ },
+ "girls just want to have fun|cyndi lauper": {
+  "file": "covers/girls-just-want-to-have-fun-cyndi-lauper.jpg",
+  "album": "She's So Unusual",
+  "source": {
+   "label": "Apple Music, She's So Unusual by Cyndi Lauper",
+   "url": "https://music.apple.com/us/album/girls-just-want-to-have-fun/400603643"
+  }
+ },
+ "gun for hire|billy ocean": {
+  "file": "covers/gun-for-hire-billy-ocean.jpg",
+  "album": "Tear Down These Walls",
+  "source": {
+   "label": "Apple Music, Tear Down These Walls by Billy Ocean",
+   "url": "https://music.apple.com/us/album/gun-for-hire/1513970363"
+  }
+ },
+ "hazy shade of winter|the bangles": {
+  "file": "covers/hazy-shade-of-winter-the-bangles.jpg",
+  "album": "The Essential Bangles",
+  "source": {
+   "label": "Apple Music, The Essential Bangles by The Bangles",
+   "url": "https://music.apple.com/us/album/hazy-shade-of-winter/193605824"
+  }
+ },
+ "h•a•m|jay-z & kanye west": {
+  "file": "covers/h-a-m-jay-z-kanye-west.jpg",
+  "album": "Watch the Throne",
+  "source": {
+   "label": "Wikipedia, Watch the Throne",
+   "url": "https://en.wikipedia.org/wiki/Watch_the_Throne"
+  }
+ },
+ "i don't like|chief keef feat. lil reese": {
+  "file": "covers/i-don-t-like-chief-keef-feat-lil-reese.jpg",
+  "album": "Finally Rich",
+  "source": {
+   "label": "Apple Music, Finally Rich by Chief Keef",
+   "url": "https://music.apple.com/us/album/i-dont-like-feat-lil-reese-edited-version/1444005836"
+  }
+ },
+ "k for christmas|lil mosey": {
+  "file": "covers/k-for-christmas-lil-mosey.jpg",
+  "album": "K For Christmas - Single",
+  "source": {
+   "label": "Apple Music, K For Christmas - Single by Lil Mosey",
+   "url": "https://music.apple.com/us/album/k-for-christmas/1444914455"
+  }
+ },
+ "man in the mirror|michael jackson": {
+  "file": "covers/man-in-the-mirror-michael-jackson.jpg",
+  "album": "Number Ones",
+  "source": {
+   "label": "Apple Music, Number Ones by Michael Jackson",
+   "url": "https://music.apple.com/us/album/man-in-the-mirror-2003-edit/273598907"
+  }
+ },
+ "none of us are free|ray charles": {
+  "file": "covers/none-of-us-are-free-ray-charles.jpg",
+  "album": "True Genius",
+  "source": {
+   "label": "Apple Music, True Genius by Ray Charles",
+   "url": "https://music.apple.com/us/album/none-of-us-are-free-feat-eric-clapton/6796760741"
+  }
+ },
+ "surf|vince staples": {
+  "file": "covers/surf-vince-staples.jpg",
+  "album": "Summertime '06",
+  "source": {
+   "label": "Apple Music, Summertime '06 by Vince Staples",
+   "url": "https://music.apple.com/us/album/surf-feat-kilo-kish/1442881975"
+  }
+ },
+ "take my breath away|berlin": {
+  "file": "covers/take-my-breath-away-berlin.jpg",
+  "album": "Count Three & Pray",
+  "source": {
+   "label": "Apple Music, Count Three & Pray by Berlin",
+   "url": "https://music.apple.com/us/album/take-my-breath-away/1434879315"
+  }
+ },
+ "the hills|the weeknd": {
+  "file": "covers/the-hills-the-weeknd.jpg",
+  "album": "The Highlights",
+  "source": {
+   "label": "Apple Music, The Highlights by The Weeknd",
+   "url": "https://music.apple.com/us/album/the-hills/1550877895"
+  }
+ },
+ "the real slim shady|eminem": {
+  "file": "covers/the-real-slim-shady-eminem.jpg",
+  "album": "The Marshall Mathers LP",
+  "source": {
+   "label": "Apple Music, The Marshall Mathers LP by Eminem",
+   "url": "https://music.apple.com/us/album/the-real-slim-shady/1440906504"
+  }
+ },
+ "the way i are|timbaland feat. keri hilson & d.o.e.": {
+  "file": "covers/the-way-i-are-timbaland-feat-keri-hilson-d-o-e.jpg",
+  "album": "Shock Value",
+  "source": {
+   "label": "Apple Music, Shock Value by Timbaland",
+   "url": "https://music.apple.com/us/album/the-way-i-are-feat-keri-hilson-d-o-e/1440748593"
+  }
+ },
+ "these walls|kendrick lamar feat. bilal, anna wise & thundercat": {
+  "file": "covers/these-walls-kendrick-lamar-feat-bilal-anna-wise-thundercat.jpg",
+  "album": "To Pimp a Butterfly",
+  "source": {
+   "label": "Apple Music, To Pimp a Butterfly by Kendrick Lamar",
+   "url": "https://music.apple.com/us/album/these-walls-feat-bilal-anna-wise-thundercat/1440871877"
+  }
+ },
+ "they reminisce over you (t.r.o.y.)|pete rock & cl smooth": {
+  "file": "covers/they-reminisce-over-you-t-r-o-y-pete-rock-cl-smooth.jpg",
+  "album": "Mecca And The Soul Brother (Deluxe Edition)",
+  "source": {
+   "label": "Apple Music, Mecca And The Soul Brother (Deluxe Edition) by Pete Rock",
+   "url": "https://music.apple.com/us/album/they-reminisce-over-you-t-r-o-y-a-capella-version/1550619594"
+  }
+ },
+ "thinkin bout you|frank ocean": {
+  "file": "covers/thinkin-bout-you-frank-ocean.jpg",
+  "album": "channel ORANGE",
+  "source": {
+   "label": "Apple Music, channel ORANGE by Frank Ocean",
+   "url": "https://music.apple.com/us/album/thinkin-bout-you/1440765580"
+  }
+ },
+ "thursday|the weeknd": {
+  "file": "covers/thursday-the-weeknd.jpg",
+  "album": "Trilogy",
+  "source": {
+   "label": "Apple Music, Trilogy by The Weeknd",
+   "url": "https://music.apple.com/us/album/thursday/1714908584"
+  }
+ },
+ "time after time|cyndi lauper": {
+  "file": "covers/time-after-time-cyndi-lauper.jpg",
+  "album": "She's So Unusual",
+  "source": {
+   "label": "Apple Music, She's So Unusual by Cyndi Lauper",
+   "url": "https://music.apple.com/us/album/time-after-time/400603643"
+  }
+ },
+ "to die for|sam smith": {
+  "file": "covers/to-die-for-sam-smith.jpg",
+  "album": "Love Goes",
+  "source": {
+   "label": "Apple Music, Love Goes by Sam Smith",
+   "url": "https://music.apple.com/us/album/to-die-for-bonus-track/1531499128"
+  }
+ },
+ "tokyo drift (fast & furious)|teriyaki boyz": {
+  "file": "covers/tokyo-drift-fast-furious-teriyaki-boyz.jpg",
+  "album": "The Fast And The Furious: Tokyo Drift",
+  "source": {
+   "label": "Apple Music, The Fast And The Furious: Tokyo Drift by Teriyaki Boyz",
+   "url": "https://music.apple.com/us/album/tokyo-drift-fast-furious-from-the-fast-and-the/1434528061"
+  }
+ },
+ "too much|drake": {
+  "file": "covers/too-much-drake.jpg",
+  "album": "Nothing Was the Same (Deluxe)",
+  "source": {
+   "label": "Apple Music, Nothing Was the Same (Deluxe) by Drake",
+   "url": "https://music.apple.com/us/album/too-much/1440819797"
+  }
+ },
+ "top back|t.i.": {
+  "file": "covers/top-back-t-i.jpg",
+  "album": "King",
+  "source": {
+   "label": "Apple Music, King by T.I.",
+   "url": "https://music.apple.com/us/album/top-back/1258980136"
+  }
+ },
+ "traffic|lil reese": {
+  "file": "covers/traffic-lil-reese.jpg",
+  "album": "Traffic (feat. Chief Keef) - Single",
+  "source": {
+   "label": "Apple Music, Traffic (feat. Chief Keef) - Single by Lil Reese",
+   "url": "https://music.apple.com/us/album/traffic-feat-chief-keef/1445142829"
+  }
+ },
+ "trust issues|drake": {
+  "file": "covers/trust-issues-drake.jpg",
+  "album": "Care Package",
+  "source": {
+   "label": "Apple Music, Care Package by Drake",
+   "url": "https://music.apple.com/us/album/trust-issues/1475179452"
+  }
+ },
+ "tuesday|ilovemakonnen": {
+  "file": "covers/tuesday-ilovemakonnen.jpg",
+  "album": "I LOVE MAKONNEN",
+  "source": {
+   "label": "Apple Music, I LOVE MAKONNEN by iLoveMakonnen",
+   "url": "https://music.apple.com/us/album/tuesday-feat-drake/6814093672"
+  }
+ },
+ "tupac back|meek mill feat. rick ross": {
+  "file": "covers/tupac-back-meek-mill-feat-rick-ross.jpg",
+  "album": "Self Made, Vol. 1 (Deluxe Version)",
+  "source": {
+   "label": "Apple Music, Self Made, Vol. 1 (Deluxe Version) by Meek Mill",
+   "url": "https://music.apple.com/us/album/tupac-back-feat-rick-ross/435260904"
+  }
+ },
+ "twist & turn|popcaan feat. drake & partynextdoor": {
+  "file": "covers/twist-turn-popcaan-feat-drake-partynextdoor.jpg",
+  "album": "FIXTAPE",
+  "source": {
+   "label": "Apple Music, FIXTAPE by Popcaan",
+   "url": "https://music.apple.com/us/album/twist-turn-feat-drake-partynextdoor/6814093749"
+  }
+ },
+ "two can win|j dilla": {
+  "file": "covers/two-can-win-j-dilla.jpg",
+  "album": "Donuts",
+  "source": {
+   "label": "Apple Music, Donuts by J Dilla",
+   "url": "https://music.apple.com/us/album/two-can-win/108233171"
+  }
+ },
+ "u.o.e.n.o|rocko": {
+  "file": "covers/u-o-e-n-o-rocko.jpg",
+  "album": "U.O.E.N.O. (feat. Future & Rick Ross) - Single",
+  "source": {
+   "label": "Apple Music, U.O.E.N.O. (feat. Future & Rick Ross) - Single by Rocko",
+   "url": "https://music.apple.com/us/album/u-o-e-n-o-feat-future-rick-ross/890999026"
+  }
+ },
+ "umbrella|rihanna feat. jay-z": {
+  "file": "covers/umbrella-rihanna-feat-jay-z.jpg",
+  "album": "Umbrella (feat. JAŸ-Z) [Remixes]",
+  "source": {
+   "label": "Apple Music, Umbrella (feat. JAŸ-Z) [Remixes] by Rihanna",
+   "url": "https://music.apple.com/us/album/umbrella-feat-ja%C3%BF-z-the-lindbergh-palace-remix/1460177689"
+  }
+ },
+ "unlock the swag|rae sremmurd": {
+  "file": "covers/unlock-the-swag-rae-sremmurd.jpg",
+  "album": "SremmLife",
+  "source": {
+   "label": "Apple Music, SremmLife by Rae Sremmurd",
+   "url": "https://music.apple.com/us/album/unlock-the-swag-feat-jace-of-two-9/1440815258"
+  }
+ },
+ "up down (do this all day)|t-pain feat. b.o.b": {
+  "file": "covers/up-down-do-this-all-day-t-pain-feat-b-o-b.jpg",
+  "album": "T-Pain Presents Happy Hour: The Greatest Hits",
+  "source": {
+   "label": "Apple Music, T-Pain Presents Happy Hour: The Greatest Hits by T-Pain",
+   "url": "https://music.apple.com/us/album/up-down-do-this-all-day-feat-b-o-b/926945766"
+  }
+ },
+ "used 2|2 chainz": {
+  "file": "covers/used-2-2-chainz.jpg",
+  "album": "B.O.A.T.S. II #METIME (Deluxe Version)",
+  "source": {
+   "label": "Apple Music, B.O.A.T.S. II #METIME (Deluxe Version) by 2 Chainz",
+   "url": "https://music.apple.com/us/album/used-2/1443093045"
+  }
+ },
+ "used to this|future feat. drake": {
+  "file": "covers/used-to-this-future-feat-drake.jpg",
+  "album": "Used to This (feat. Drake) - Single",
+  "source": {
+   "label": "Apple Music, Used to This (feat. Drake) - Single by Future",
+   "url": "https://music.apple.com/us/album/used-to-this-feat-drake/1172598569"
+  }
+ },
+ "vertigo|khalid": {
+  "file": "covers/vertigo-khalid.jpg",
+  "album": "Suncity",
+  "source": {
+   "label": "Apple Music, Suncity by Khalid",
+   "url": "https://music.apple.com/us/album/vertigo/1438904068"
+  }
+ },
+ "video games|lana del rey": {
+  "file": "covers/video-games-lana-del-rey.jpg",
+  "album": "Born To Die",
+  "source": {
+   "label": "Apple Music, Born To Die by Lana Del Rey",
+   "url": "https://music.apple.com/us/album/video-games/1779781213"
+  }
+ },
+ "vivid dreams|kaytranada feat. river tiber": {
+  "file": "covers/vivid-dreams-kaytranada-feat-river-tiber.jpg",
+  "album": "99.9%",
+  "source": {
+   "label": "Apple Music, 99.9% by KAYTRANADA",
+   "url": "https://music.apple.com/us/album/vivid-dreams-feat-river-tiber/1092026376"
+  }
+ },
+ "vogue|madonna": {
+  "file": "covers/vogue-madonna.jpg",
+  "album": "I'm Breathless (Music from and Inspired By the Film Dick Tracy)",
+  "source": {
+   "label": "Apple Music, I'm Breathless (Music from and Inspired By the Film Dick Tracy) by Madonna",
+   "url": "https://music.apple.com/us/album/vogue-edit-version/83371916"
+  }
+ },
+ "wait for u|future feat. drake & tems": {
+  "file": "covers/wait-for-u-future-feat-drake-tems.jpg",
+  "album": "I NEVER LIKED YOU",
+  "source": {
+   "label": "Apple Music, I NEVER LIKED YOU by Future",
+   "url": "https://music.apple.com/us/album/wait-for-u-feat-drake-tems/1622286552"
+  }
+ },
+ "wanna move|diddy": {
+  "file": "covers/wanna-move-diddy.jpg",
+  "album": "Press Play",
+  "source": {
+   "label": "Apple Music, Press Play by Diddy featuring Big Boi, Ciara & Scar",
+   "url": "https://music.apple.com/us/album/wanna-move-feat-big-boi-ciara-scar/200919438"
+  }
+ },
+ "want some more|nicki minaj": {
+  "file": "covers/want-some-more-nicki-minaj.jpg",
+  "album": "The Pinkprint (Tenth Anniversary Edition)",
+  "source": {
+   "label": "Apple Music, The Pinkprint (Tenth Anniversary Edition) by Nicki Minaj",
+   "url": "https://music.apple.com/us/album/want-some-more/1781361306"
+  }
+ },
+ "wat u mean (aye, aye, aye)|dae dae": {
+  "file": "covers/wat-u-mean-aye-aye-aye-dae-dae.jpg",
+  "album": "Wat U Mean (Aye, Aye, Aye) - Single",
+  "source": {
+   "label": "Apple Music, Wat U Mean (Aye, Aye, Aye) - Single by Dae Dae",
+   "url": "https://music.apple.com/us/album/wat-u-mean-aye-aye-aye/1122253395"
+  }
+ },
+ "we in this|dj drama": {
+  "file": "covers/we-in-this-dj-drama.jpg",
+  "album": "We In This (feat. Young Jeezy, T.I., Ludacris & Future) - Single",
+  "source": {
+   "label": "Apple Music, We In This (feat. Young Jeezy, T.I., Ludacris & Future) - Single by DJ Drama",
+   "url": "https://music.apple.com/us/album/we-in-this-feat-young-jeezy-t-i-ludacris-future/520541551"
+  }
+ },
+ "we takin over|dj khaled": {
+  "file": "covers/we-takin-over-dj-khaled.jpg",
+  "album": "We the Best",
+  "source": {
+   "label": "Apple Music, We the Best by DJ Khaled",
+   "url": "https://music.apple.com/us/album/we-takin-over-feat-t-i-akon-birdman-lil-wayne-fat-joe-rick-ross/1347166322"
+  }
+ },
+ "what they want|schoolboy q": {
+  "file": "covers/what-they-want-schoolboy-q.jpg",
+  "album": "Oxymoron",
+  "source": {
+   "label": "Apple Music, Oxymoron by ScHoolboy Q",
+   "url": "https://music.apple.com/us/album/what-they-want-feat-2-chainz/1442249936"
+  }
+ },
+ "what they want|schoolboy q feat. 2 chainz": {
+  "file": "covers/what-they-want-schoolboy-q-feat-2-chainz.jpg",
+  "album": "Oxymoron",
+  "source": {
+   "label": "Apple Music, Oxymoron by ScHoolboy Q",
+   "url": "https://music.apple.com/us/album/what-they-want-feat-2-chainz/1442249936"
+  }
+ },
+ "what's the move|the kid laroi": {
+  "file": "covers/what-s-the-move-the-kid-laroi.jpg",
+  "album": "THE FIRST TIME",
+  "source": {
+   "label": "Apple Music, THE FIRST TIME by The Kid LAROI, Future & BabyDrill",
+   "url": "https://music.apple.com/us/album/whats-the-move/1895173348"
+  }
+ },
+ "when the party's over|billie eilish": {
+  "file": "covers/when-the-party-s-over-billie-eilish.jpg",
+  "album": "WHEN WE ALL FALL ASLEEP, WHERE DO WE GO?",
+  "source": {
+   "label": "Apple Music, WHEN WE ALL FALL ASLEEP, WHERE DO WE GO? by Billie Eilish",
+   "url": "https://music.apple.com/us/album/when-the-partys-over/1450695723"
+  }
+ },
+ "white ferrari|frank ocean": {
+  "file": "covers/white-ferrari-frank-ocean.jpg",
+  "album": "Blonde",
+  "source": {
+   "label": "Apple Music, Blonde by Frank Ocean",
+   "url": "https://music.apple.com/us/album/white-ferrari/1146195596"
+  }
+ },
+ "who want what|beanie sigel": {
+  "file": "covers/who-want-what-beanie-sigel.jpg",
+  "album": "The Truth",
+  "source": {
+   "label": "Apple Music, The Truth by Beanie Sigel",
+   "url": "https://music.apple.com/us/album/who-want-what/1452858649"
+  }
+ },
+ "who's next|ken carson": {
+  "file": "covers/who-s-next-ken-carson.jpg",
+  "album": "Project X",
+  "source": {
+   "label": "Apple Music, Project X by Ken Carson",
+   "url": "https://music.apple.com/us/album/whos-next/1679849306"
+  }
+ },
+ "winter|khalid": {
+  "file": "covers/winter-khalid.jpg",
+  "album": "American Teen",
+  "source": {
+   "label": "Apple Music, American Teen by Khalid",
+   "url": "https://music.apple.com/us/album/winter/1200868601"
+  }
+ },
+ "work|a$ap ferg": {
+  "file": "covers/work-a-ap-ferg.jpg",
+  "album": "Work - Single",
+  "source": {
+   "label": "Apple Music, Work - Single by A$AP Ferg",
+   "url": "https://music.apple.com/us/album/work/592906728"
+  }
+ },
+ "xo tour llif3|lil uzi vert": {
+  "file": "covers/xo-tour-llif3-lil-uzi-vert.jpg",
+  "album": "Luv Is Rage 2",
+  "source": {
+   "label": "Apple Music, Luv Is Rage 2 by Lil Uzi Vert",
+   "url": "https://music.apple.com/us/album/xo-tour-llif3/1274598012"
+  }
+ },
+ "yes indeed|lil baby & drake": {
+  "file": "covers/yes-indeed-lil-baby-drake.jpg",
+  "album": "Harder Than Ever",
+  "source": {
+   "label": "Apple Music, Harder Than Ever by Lil Baby & Drake",
+   "url": "https://music.apple.com/us/album/yes-indeed/1392815671"
+  }
+ },
+ "yosemite|travis scott": {
+  "file": "covers/yosemite-travis-scott.jpg",
+  "album": "ASTROWORLD",
+  "source": {
+   "label": "Apple Music, ASTROWORLD by Travis Scott",
+   "url": "https://music.apple.com/us/album/yosemite/1421658111"
+  }
+ },
+ "young'n (holla back)|fabolous": {
+  "file": "covers/young-n-holla-back-fabolous.jpg",
+  "album": "Ghetto Fabolous",
+  "source": {
+   "label": "Apple Music, Ghetto Fabolous by Fabolous",
+   "url": "https://music.apple.com/us/album/youngn/343405753"
+  }
+ },
+ "monster|future": {
+  "file": "covers/monster-future.jpg",
+  "album": "Monster",
+  "source": {
+   "label": "Wikipedia, Monster (mixtape)",
+   "url": "https://en.wikipedia.org/wiki/Monster_%28mixtape%29"
+  }
+ },
+ "same damn time|future": {
+  "file": "covers/same-damn-time-future.jpg",
+  "album": "Pluto",
+  "source": {
+   "label": "Wikipedia, Pluto (album)",
+   "url": "https://en.wikipedia.org/wiki/Pluto_%28album%29"
+  }
+ },
+ "56 nights|future": {
+  "file": "covers/56-nights-future.jpg",
+  "album": "56 Nights",
+  "source": {
+   "label": "Wikipedia, 56 Nights",
+   "url": "https://en.wikipedia.org/wiki/56_Nights"
+  }
+ },
+ "the box|roddy ricch": {
+  "file": "covers/the-box-roddy-ricch.jpg",
+  "album": "Please Excuse Me for Being Antisocial",
+  "source": {
+   "label": "Wikipedia, Please Excuse Me for Being Antisocial",
+   "url": "https://en.wikipedia.org/wiki/Please_Excuse_Me_for_Being_Antisocial"
+  }
+ },
+ "let it go|playboi carti": {
+  "file": "covers/let-it-go-playboi-carti.jpg",
+  "album": "Playboi Carti",
+  "source": {
+   "label": "Wikipedia, Playboi Carti (mixtape)",
+   "url": "https://en.wikipedia.org/wiki/Playboi_Carti_%28mixtape%29"
+  }
+ },
+ "magnolia|playboi carti": {
+  "file": "covers/magnolia-playboi-carti.jpg",
+  "album": "Playboi Carti",
+  "source": {
+   "label": "Wikipedia, Playboi Carti (mixtape)",
+   "url": "https://en.wikipedia.org/wiki/Playboi_Carti_%28mixtape%29"
+  }
+ },
+ "yah mean|playboi carti": {
+  "file": "covers/yah-mean-playboi-carti.jpg",
+  "album": "Playboi Carti",
+  "source": {
+   "label": "Wikipedia, Playboi Carti (mixtape)",
+   "url": "https://en.wikipedia.org/wiki/Playboi_Carti_%28mixtape%29"
+  }
+ },
+ "long time|playboi carti": {
+  "file": "covers/long-time-playboi-carti.jpg",
+  "album": "Die Lit",
+  "source": {
+   "label": "Wikipedia, Die Lit",
+   "url": "https://en.wikipedia.org/wiki/Die_Lit"
+  }
+ },
+ "fell in luv|playboi carti feat. bryson tiller": {
+  "file": "covers/fell-in-luv-playboi-carti-feat-bryson-tiller.jpg",
+  "album": "Die Lit",
+  "source": {
+   "label": "Wikipedia, Die Lit",
+   "url": "https://en.wikipedia.org/wiki/Die_Lit"
+  }
+ },
+ "r.i.p.|playboi carti": {
+  "file": "covers/r-i-p-playboi-carti.jpg",
+  "album": "Die Lit",
+  "source": {
+   "label": "Wikipedia, Die Lit",
+   "url": "https://en.wikipedia.org/wiki/Die_Lit"
+  }
+ },
+ "golden|tyler, the creator": {
+  "file": "covers/golden-tyler-the-creator.jpg",
+  "album": "Goblin",
+  "source": {
+   "label": "Wikipedia, Goblin (album)",
+   "url": "https://en.wikipedia.org/wiki/Goblin_%28album%29"
+  }
+ },
+ "move that dope|future": {
+  "file": "covers/move-that-dope-future.jpg",
+  "album": "Honest",
+  "source": {
+   "label": "Wikipedia, Honest (Future album)",
+   "url": "https://en.wikipedia.org/wiki/Honest_%28Future_album%29"
+  }
+ },
+ "move that dope|future feat. pharrell, pusha t & casino": {
+  "file": "covers/move-that-dope-future-feat-pharrell-pusha-t-casino.jpg",
+  "album": "Honest",
+  "source": {
+   "label": "Wikipedia, Honest (Future album)",
+   "url": "https://en.wikipedia.org/wiki/Honest_%28Future_album%29"
+  }
+ },
+ "how to be the man|riff raff": {
+  "file": "covers/how-to-be-the-man-riff-raff.jpg",
+  "album": "Neon Icon",
+  "source": {
+   "label": "Wikipedia, Neon Icon",
+   "url": "https://en.wikipedia.org/wiki/Neon_Icon"
+  }
+ },
+ "body language|kid ink feat. usher & tinashe": {
+  "file": "covers/body-language-kid-ink-feat-usher-tinashe.jpg",
+  "album": "Full Speed",
+  "source": {
+   "label": "Wikipedia, Full Speed (album)",
+   "url": "https://en.wikipedia.org/wiki/Full_Speed_%28album%29"
+  }
+ },
+ "inglorious|tyler, the creator": {
+  "file": "covers/inglorious-tyler-the-creator.jpg",
+  "album": "Bastard",
+  "source": {
+   "label": "Wikipedia, Bastard (Tyler, the Creator album)",
+   "url": "https://en.wikipedia.org/wiki/Bastard_%28Tyler%2C_the_Creator_album%29"
+  }
+ },
+ "earl|earl sweatshirt": {
+  "file": "covers/earl-earl-sweatshirt.jpg",
+  "album": "Earl",
+  "source": {
+   "label": "Wikipedia, Earl (mixtape)",
+   "url": "https://en.wikipedia.org/wiki/Earl_%28mixtape%29"
+  }
+ },
+ "epar|earl sweatshirt": {
+  "file": "covers/epar-earl-sweatshirt.jpg",
+  "album": "Earl",
+  "source": {
+   "label": "Wikipedia, Earl (mixtape)",
+   "url": "https://en.wikipedia.org/wiki/Earl_%28mixtape%29"
+  }
+ },
+ "whoa|earl sweatshirt feat. tyler, the creator": {
+  "file": "covers/whoa-earl-sweatshirt-feat-tyler-the-creator.jpg",
+  "album": "Doris",
+  "source": {
+   "label": "Wikipedia, Doris (album)",
+   "url": "https://en.wikipedia.org/wiki/Doris_%28album%29"
+  }
+ },
+ "rockstar made|playboi carti": {
+  "file": "covers/rockstar-made-playboi-carti.jpg",
+  "album": "Whole Lotta Red",
+  "source": {
+   "label": "Wikipedia, Whole Lotta Red",
+   "url": "https://en.wikipedia.org/wiki/Whole_Lotta_Red"
+  }
+ },
+ "higher|g.o.o.d. music": {
+  "file": "covers/higher-g-o-o-d-music.jpg",
+  "album": "Cruel Summer",
+  "source": {
+   "label": "Wikipedia, Cruel Summer (GOOD Music album)",
+   "url": "https://en.wikipedia.org/wiki/Cruel_Summer_%28GOOD_Music_album%29"
+  }
+ },
+ "anonymous|bobby valentino": {
+  "file": "covers/anonymous-bobby-valentino.jpg",
+  "album": "Special Occasion",
+  "source": {
+   "label": "Wikipedia, Special Occasion (Bobby Valentino album)",
+   "url": "https://en.wikipedia.org/wiki/Special_Occasion_%28Bobby_Valentino_album%29"
+  }
+ },
+ "ocho cinco|french montana": {
+  "file": "covers/ocho-cinco-french-montana.jpg",
+  "album": "Excuse My French",
+  "source": {
+   "label": "Wikipedia, Excuse My French (album)",
+   "url": "https://en.wikipedia.org/wiki/Excuse_My_French_%28album%29"
+  }
+ },
+ "scholar|gucci mane": {
+  "file": "covers/scholar-gucci-mane.jpg",
+  "album": "Trap God 2",
+  "source": {
+   "label": "Wikipedia, Trap God 2",
+   "url": "https://en.wikipedia.org/wiki/Trap_God_2"
+  }
+ },
+ "analog 2|odd future": {
+  "file": "covers/analog-2-odd-future.jpg",
+  "album": "The OF Tape Vol. 2",
+  "source": {
+   "label": "Wikipedia, The OF Tape Vol. 2",
+   "url": "https://en.wikipedia.org/wiki/The_OF_Tape_Vol._2"
+  }
+ },
+ "stripclub|mellowhype": {
+  "file": "covers/stripclub-mellowhype.jpg",
+  "album": "BlackenedWhite",
+  "source": {
+   "label": "Wikipedia, BlackenedWhite",
+   "url": "https://en.wikipedia.org/wiki/BlackenedWhite"
+  }
+ },
+ "rockin' that shit|the-dream": {
+  "file": "covers/rockin-that-shit-the-dream.jpg",
+  "album": "Love vs. Money",
+  "source": {
+   "label": "Wikipedia, Love vs. Money (The-Dream album)",
+   "url": "https://en.wikipedia.org/wiki/Love_vs._Money_%28The-Dream_album%29"
+  }
+ },
+ "turn on the lights|future": {
+  "file": "covers/turn-on-the-lights-future.jpg",
+  "album": "Pluto",
+  "source": {
+   "label": "Wikipedia, Pluto (album)",
+   "url": "https://en.wikipedia.org/wiki/Pluto_%28album%29"
+  }
+ },
+ "right now|playboi carti feat. pi'erre bourne": {
+  "file": "covers/right-now-playboi-carti-feat-pi-erre-bourne.jpg",
+  "album": "Die Lit",
+  "source": {
+   "label": "Wikipedia, Die Lit",
+   "url": "https://en.wikipedia.org/wiki/Die_Lit"
+  }
+ },
+ "look at me now|chris brown feat. lil wayne & busta rhymes": {
+  "file": "covers/look-at-me-now-chris-brown-feat-lil-wayne-busta-rhymes.jpg",
+  "album": "F.A.M.E.",
+  "source": {
+   "label": "Wikipedia, F.A.M.E. (Chris Brown album)",
+   "url": "https://en.wikipedia.org/wiki/F.A.M.E._%28Chris_Brown_album%29"
+  }
+ },
+ "yonkers|tyler, the creator": {
+  "file": "covers/yonkers-tyler-the-creator.jpg",
+  "album": "Goblin",
+  "source": {
+   "label": "Wikipedia, Goblin (album)",
+   "url": "https://en.wikipedia.org/wiki/Goblin_%28album%29"
+  }
+ },
+ "fish|tyler, the creator": {
+  "file": "covers/fish-tyler-the-creator.jpg",
+  "album": "Goblin",
+  "source": {
+   "label": "Wikipedia, Goblin (album)",
+   "url": "https://en.wikipedia.org/wiki/Goblin_%28album%29"
+  }
+ },
+ "her|tyler, the creator": {
+  "file": "covers/her-tyler-the-creator.jpg",
+  "album": "Goblin",
+  "source": {
+   "label": "Wikipedia, Goblin (album)",
+   "url": "https://en.wikipedia.org/wiki/Goblin_%28album%29"
+  }
+ },
+ "tron cat|tyler, the creator": {
+  "file": "covers/tron-cat-tyler-the-creator.jpg",
+  "album": "Goblin",
+  "source": {
+   "label": "Wikipedia, Goblin (album)",
+   "url": "https://en.wikipedia.org/wiki/Goblin_%28album%29"
+  }
+ },
+ "sandwitches|tyler, the creator feat. hodgy beats": {
+  "file": "covers/sandwitches-tyler-the-creator-feat-hodgy-beats.jpg",
+  "album": "Goblin",
+  "source": {
+   "label": "Wikipedia, Goblin (album)",
+   "url": "https://en.wikipedia.org/wiki/Goblin_%28album%29"
+  }
+ },
+ "shake that monkey|too short": {
+  "file": "covers/shake-that-monkey-too-short.jpg",
+  "album": "Married to the Game",
+  "source": {
+   "label": "Wikipedia, Married to the Game",
+   "url": "https://en.wikipedia.org/wiki/Married_to_the_Game"
+  }
+ },
+ "gang bang|wiz khalifa & big sean": {
+  "file": "covers/gang-bang-wiz-khalifa-big-sean.jpg",
+  "album": "Cabin Fever",
+  "source": {
+   "label": "Wikipedia, Cabin Fever (mixtape)",
+   "url": "https://en.wikipedia.org/wiki/Cabin_Fever_%28mixtape%29"
+  }
+ },
+ "cabin fever|wiz khalifa": {
+  "file": "covers/cabin-fever-wiz-khalifa.jpg",
+  "album": "Cabin Fever",
+  "source": {
+   "label": "Wikipedia, Cabin Fever (mixtape)",
+   "url": "https://en.wikipedia.org/wiki/Cabin_Fever_%28mixtape%29"
+  }
+ },
+ "tina|tyler, the creator": {
+  "file": "covers/tina-tyler-the-creator.jpg",
+  "album": "Bastard",
+  "source": {
+   "label": "Wikipedia, Bastard (Tyler, the Creator album)",
+   "url": "https://en.wikipedia.org/wiki/Bastard_%28Tyler%2C_the_Creator_album%29"
+  }
+ },
+ "parade|tyler, the creator": {
+  "file": "covers/parade-tyler-the-creator.jpg",
+  "album": "Bastard",
+  "source": {
+   "label": "Wikipedia, Bastard (Tyler, the Creator album)",
+   "url": "https://en.wikipedia.org/wiki/Bastard_%28Tyler%2C_the_Creator_album%29"
+  }
+ },
+ "buzzin|domo genesis": {
+  "file": "covers/buzzin-domo-genesis.jpg",
+  "album": "Rolling Papers",
+  "source": {
+   "label": "Wikipedia, Rolling Papers (mixtape)",
+   "url": "https://en.wikipedia.org/wiki/Rolling_Papers_%28mixtape%29"
+  }
+ },
+ "steamroller|domo genesis": {
+  "file": "covers/steamroller-domo-genesis.jpg",
+  "album": "Rolling Papers",
+  "source": {
+   "label": "Wikipedia, Rolling Papers (mixtape)",
+   "url": "https://en.wikipedia.org/wiki/Rolling_Papers_%28mixtape%29"
+  }
+ },
+ "jealous|fredo santana": {
+  "file": "covers/jealous-fredo-santana.jpg",
+  "album": "Trappin Ain't Dead",
+  "source": {
+   "label": "Wikipedia, Trappin Ain't Dead",
+   "url": "https://en.wikipedia.org/wiki/Trappin_Ain%27t_Dead"
+  }
+ },
+ "oh no|noreaga": {
+  "file": "covers/oh-no-noreaga.jpg",
+  "album": "Lyricist Lounge 2",
+  "source": {
+   "label": "Wikipedia, Lyricist Lounge 2",
+   "url": "https://en.wikipedia.org/wiki/Lyricist_Lounge_2"
+  }
+ },
+ "smoke a nigga|juicy j": {
+  "file": "covers/smoke-a-nigga-juicy-j.jpg",
+  "album": "Stay Trippy",
+  "source": {
+   "label": "Wikipedia, Stay Trippy",
+   "url": "https://en.wikipedia.org/wiki/Stay_Trippy"
+  }
+ },
+ "real|rich homie quan": {
+  "file": "covers/real-rich-homie-quan.jpg",
+  "album": "I Promise I Will Never Stop Going In",
+  "source": {
+   "label": "Wikipedia, I Promise I Will Never Stop Going In",
+   "url": "https://en.wikipedia.org/wiki/I_Promise_I_Will_Never_Stop_Going_In"
+  }
+ },
+ "trap back|gucci mane": {
+  "file": "covers/trap-back-gucci-mane.jpg",
+  "album": "Trap Back",
+  "source": {
+   "label": "Wikipedia, Trap Back",
+   "url": "https://en.wikipedia.org/wiki/Trap_Back"
+  }
+ },
+ "glowed up|kaytranada feat. anderson .paak": {
+  "file": "covers/glowed-up-kaytranada-feat-anderson-paak.jpg",
+  "album": "99.9%",
+  "source": {
+   "label": "Wikipedia, 99.9%",
+   "url": "https://en.wikipedia.org/wiki/99.9%25"
+  }
+ },
+ "radical|future": {
+  "file": "covers/radical-future.jpg",
+  "album": "Monster",
+  "source": {
+   "label": "Wikipedia, Monster (mixtape)",
+   "url": "https://en.wikipedia.org/wiki/Monster_%28mixtape%29"
+  }
+ },
+ "wesley presley|future": {
+  "file": "covers/wesley-presley-future.jpg",
+  "album": "Monster",
+  "source": {
+   "label": "Wikipedia, Monster (mixtape)",
+   "url": "https://en.wikipedia.org/wiki/Monster_%28mixtape%29"
+  }
+ },
+ "cash money|rich homie quan": {
+  "file": "covers/cash-money-rich-homie-quan.jpg",
+  "album": "I Promise I Will Never Stop Going In",
+  "source": {
+   "label": "Wikipedia, I Promise I Will Never Stop Going In",
+   "url": "https://en.wikipedia.org/wiki/I_Promise_I_Will_Never_Stop_Going_In"
+  }
+ },
+ "truth gonna hurt you|future": {
+  "file": "covers/truth-gonna-hurt-you-future.jpg",
+  "album": "Pluto",
+  "source": {
+   "label": "Wikipedia, Pluto (album)",
+   "url": "https://en.wikipedia.org/wiki/Pluto_%28album%29"
+  }
+ },
+ "vcr|tyler, the creator": {
+  "file": "covers/vcr-tyler-the-creator.jpg",
+  "album": "Bastard",
+  "source": {
+   "label": "Wikipedia, Bastard (Tyler, the Creator album)",
+   "url": "https://en.wikipedia.org/wiki/Bastard_%28Tyler%2C_the_Creator_album%29"
+  }
+ },
+ "old money|playboi carti": {
+  "file": "covers/old-money-playboi-carti.jpg",
+  "album": "Die Lit",
+  "source": {
+   "label": "Wikipedia, Die Lit",
+   "url": "https://en.wikipedia.org/wiki/Die_Lit"
+  }
+ },
+ "foreign|playboi carti": {
+  "file": "covers/foreign-playboi-carti.jpg",
+  "album": "Die Lit",
+  "source": {
+   "label": "Wikipedia, Die Lit",
+   "url": "https://en.wikipedia.org/wiki/Die_Lit"
+  }
+ },
+ "meh|playboi carti": {
+  "file": "covers/meh-playboi-carti.jpg",
+  "album": "Whole Lotta Red",
+  "source": {
+   "label": "Wikipedia, Whole Lotta Red",
+   "url": "https://en.wikipedia.org/wiki/Whole_Lotta_Red"
+  }
+ },
+ "money spread|lil uzi vert": {
+  "file": "covers/money-spread-lil-uzi-vert.jpg",
+  "album": "Lil Uzi Vert vs. the World 2",
+  "source": {
+   "label": "Wikipedia, Lil Uzi Vert vs. the World 2",
+   "url": "https://en.wikipedia.org/wiki/Lil_Uzi_Vert_vs._the_World_2"
+  }
+ },
+ "pull up|playboi carti": {
+  "file": "covers/pull-up-playboi-carti.jpg",
+  "album": "Die Lit",
+  "source": {
+   "label": "Wikipedia, Die Lit",
+   "url": "https://en.wikipedia.org/wiki/Die_Lit"
+  }
+ },
+ "place|playboi carti": {
+  "file": "covers/place-playboi-carti.jpg",
+  "album": "Whole Lotta Red",
+  "source": {
+   "label": "Wikipedia, Whole Lotta Red",
+   "url": "https://en.wikipedia.org/wiki/Whole_Lotta_Red"
+  }
+ },
+ "houstonfornication|travis scott": {
+  "file": "covers/houstonfornication-travis-scott.jpg",
+  "album": "Astroworld",
+  "source": {
+   "label": "Wikipedia, Astroworld (album)",
+   "url": "https://en.wikipedia.org/wiki/Astroworld_%28album%29"
+  }
+ },
+ "new tank|playboi carti": {
+  "file": "covers/new-tank-playboi-carti.jpg",
+  "album": "Whole Lotta Red",
+  "source": {
+   "label": "Wikipedia, Whole Lotta Red",
+   "url": "https://en.wikipedia.org/wiki/Whole_Lotta_Red"
+  }
+ },
+ "control|playboi carti": {
+  "file": "covers/control-playboi-carti.jpg",
+  "album": "Whole Lotta Red",
+  "source": {
+   "label": "Wikipedia, Whole Lotta Red",
+   "url": "https://en.wikipedia.org/wiki/Whole_Lotta_Red"
+  }
+ },
+ "king vamp|playboi carti": {
+  "file": "covers/king-vamp-playboi-carti.jpg",
+  "album": "Whole Lotta Red",
+  "source": {
+   "label": "Wikipedia, Whole Lotta Red",
+   "url": "https://en.wikipedia.org/wiki/Whole_Lotta_Red"
+  }
+ },
+ "sky|playboi carti": {
+  "file": "covers/sky-playboi-carti.jpg",
+  "album": "Whole Lotta Red",
+  "source": {
+   "label": "Wikipedia, Whole Lotta Red",
+   "url": "https://en.wikipedia.org/wiki/Whole_Lotta_Red"
+  }
+ },
+ "over|playboi carti": {
+  "file": "covers/over-playboi-carti.jpg",
+  "album": "Whole Lotta Red",
+  "source": {
+   "label": "Wikipedia, Whole Lotta Red",
+   "url": "https://en.wikipedia.org/wiki/Whole_Lotta_Red"
+  }
+ },
+ "not playing|playboi carti": {
+  "file": "covers/not-playing-playboi-carti.jpg",
+  "album": "Whole Lotta Red",
+  "source": {
+   "label": "Wikipedia, Whole Lotta Red",
+   "url": "https://en.wikipedia.org/wiki/Whole_Lotta_Red"
+  }
+ },
+ "flatbed freestyle|playboi carti": {
+  "file": "covers/flatbed-freestyle-playboi-carti.jpg",
+  "album": "Die Lit",
+  "source": {
+   "label": "Wikipedia, Die Lit",
+   "url": "https://en.wikipedia.org/wiki/Die_Lit"
+  }
+ },
+ "sossboy 2|pi'erre bourne": {
+  "file": "covers/sossboy-2-pi-erre-bourne.jpg",
+  "album": "The Life of Pi'erre 5",
+  "source": {
+   "label": "Wikipedia, The Life of Pi'erre 5",
+   "url": "https://en.wikipedia.org/wiki/The_Life_of_Pi%27erre_5"
+  }
+ },
+ "dispatch|young nudy & pi'erre bourne": {
+  "file": "covers/dispatch-young-nudy-pi-erre-bourne.jpg",
+  "album": "Sli'merre",
+  "source": {
+   "label": "Wikipedia, Sli'merre",
+   "url": "https://en.wikipedia.org/wiki/Sli%27merre"
+  }
+ },
+ "long time (intro)|playboi carti": {
+  "file": "covers/long-time-intro-playboi-carti.jpg",
+  "album": "Die Lit",
+  "source": {
+   "label": "Wikipedia, Die Lit",
+   "url": "https://en.wikipedia.org/wiki/Die_Lit"
+  }
+ },
+ "love hurts|playboi carti": {
+  "file": "covers/love-hurts-playboi-carti.jpg",
+  "album": "Die Lit",
+  "source": {
+   "label": "Wikipedia, Die Lit",
+   "url": "https://en.wikipedia.org/wiki/Die_Lit"
+  }
+ },
+ "shoota|playboi carti feat. lil uzi vert": {
+  "file": "covers/shoota-playboi-carti-feat-lil-uzi-vert.jpg",
+  "album": "Die Lit",
+  "source": {
+   "label": "Wikipedia, Die Lit",
+   "url": "https://en.wikipedia.org/wiki/Die_Lit"
+  }
+ },
+ "poke it out|playboi carti": {
+  "file": "covers/poke-it-out-playboi-carti.jpg",
+  "album": "Die Lit",
+  "source": {
+   "label": "Wikipedia, Die Lit",
+   "url": "https://en.wikipedia.org/wiki/Die_Lit"
+  }
+ },
+ "home (kod)|playboi carti": {
+  "file": "covers/home-kod-playboi-carti.jpg",
+  "album": "Die Lit",
+  "source": {
+   "label": "Wikipedia, Die Lit",
+   "url": "https://en.wikipedia.org/wiki/Die_Lit"
+  }
+ },
+ "mileage|playboi carti": {
+  "file": "covers/mileage-playboi-carti.jpg",
+  "album": "Die Lit",
+  "source": {
+   "label": "Wikipedia, Die Lit",
+   "url": "https://en.wikipedia.org/wiki/Die_Lit"
+  }
+ },
+ "r.i.p. fredo (notice me)|playboi carti": {
+  "file": "covers/r-i-p-fredo-notice-me-playboi-carti.jpg",
+  "album": "Die Lit",
+  "source": {
+   "label": "Wikipedia, Die Lit",
+   "url": "https://en.wikipedia.org/wiki/Die_Lit"
+  }
+ },
+ "wokeuplikethis*|playboi carti feat. lil uzi vert": {
+  "file": "covers/wokeuplikethis-playboi-carti-feat-lil-uzi-vert.jpg",
+  "album": "Playboi Carti",
+  "source": {
+   "label": "Wikipedia, Playboi Carti (mixtape)",
+   "url": "https://en.wikipedia.org/wiki/Playboi_Carti_%28mixtape%29"
+  }
+ },
+ "new choppa|playboi carti feat. a$ap rocky": {
+  "file": "covers/new-choppa-playboi-carti-feat-a-ap-rocky.jpg",
+  "album": "Playboi Carti",
+  "source": {
+   "label": "Wikipedia, Playboi Carti (mixtape)",
+   "url": "https://en.wikipedia.org/wiki/Playboi_Carti_%28mixtape%29"
+  }
+ },
+ "dothatshit!|playboi carti": {
+  "file": "covers/dothatshit-playboi-carti.jpg",
+  "album": "Playboi Carti",
+  "source": {
+   "label": "Wikipedia, Playboi Carti (mixtape)",
+   "url": "https://en.wikipedia.org/wiki/Playboi_Carti_%28mixtape%29"
+  }
+ },
+ "scholarships|drake & future": {
+  "file": "covers/scholarships-drake-future.jpg",
+  "album": "What a Time to Be Alive",
+  "source": {
+   "label": "Wikipedia, What a Time to Be Alive",
+   "url": "https://en.wikipedia.org/wiki/What_a_Time_to_Be_Alive"
+  }
+ },
+ "recognize|partynextdoor feat. drake": {
+  "file": "covers/recognize-partynextdoor-feat-drake.jpg",
+  "album": "PartyNextDoor Two",
+  "source": {
+   "label": "Wikipedia, PartyNextDoor Two",
+   "url": "https://en.wikipedia.org/wiki/PartyNextDoor_Two"
+  }
+ },
+ "money longer|lil uzi vert": {
+  "file": "covers/money-longer-lil-uzi-vert.jpg",
+  "album": "Lil Uzi Vert vs. the World",
+  "source": {
+   "label": "Wikipedia, Lil Uzi Vert vs. the World",
+   "url": "https://en.wikipedia.org/wiki/Lil_Uzi_Vert_vs._the_World"
+  }
+ },
+ "hi roller|lil uzi vert": {
+  "file": "covers/hi-roller-lil-uzi-vert.jpg",
+  "album": "Lil Uzi Vert vs. the World",
+  "source": {
+   "label": "Wikipedia, Lil Uzi Vert vs. the World",
+   "url": "https://en.wikipedia.org/wiki/Lil_Uzi_Vert_vs._the_World"
+  }
+ },
+ "erase your social|lil uzi vert": {
+  "file": "covers/erase-your-social-lil-uzi-vert.jpg",
+  "album": "The Perfect LUV Tape",
+  "source": {
+   "label": "Wikipedia, The Perfect LUV Tape",
+   "url": "https://en.wikipedia.org/wiki/The_Perfect_LUV_Tape"
+  }
+ },
+ "x|lil uzi vert": {
+  "file": "covers/x-lil-uzi-vert.jpg",
+  "album": "Luv Is Rage 2",
+  "source": {
+   "label": "Wikipedia, Luv Is Rage 2",
+   "url": "https://en.wikipedia.org/wiki/Luv_Is_Rage_2"
+  }
+ },
+ "i'm sorry|lil uzi vert": {
+  "file": "covers/i-m-sorry-lil-uzi-vert.jpg",
+  "album": "Lil Uzi Vert vs. the World 2",
+  "source": {
+   "label": "Wikipedia, Lil Uzi Vert vs. the World 2",
+   "url": "https://en.wikipedia.org/wiki/Lil_Uzi_Vert_vs._the_World_2"
+  }
+ },
+ "bean (kobe)|lil uzi vert feat. chief keef": {
+  "file": "covers/bean-kobe-lil-uzi-vert-feat-chief-keef.jpg",
+  "album": "Lil Uzi Vert vs. the World 2",
+  "source": {
+   "label": "Wikipedia, Lil Uzi Vert vs. the World 2",
+   "url": "https://en.wikipedia.org/wiki/Lil_Uzi_Vert_vs._the_World_2"
+  }
+ },
+ "green room|ken carson": {
+  "file": "covers/green-room-ken-carson.jpg",
+  "album": "A Great Chaos",
+  "source": {
+   "label": "Wikipedia, A Great Chaos",
+   "url": "https://en.wikipedia.org/wiki/A_Great_Chaos"
+  }
+ },
+ "run + ran|ken carson": {
+  "file": "covers/run-ran-ken-carson.jpg",
+  "album": "Project X",
+  "source": {
+   "label": "Wikipedia, Project X (Ken Carson album)",
+   "url": "https://en.wikipedia.org/wiki/Project_X_%28Ken_Carson_album%29"
+  }
+ },
+ "change|ken carson": {
+  "file": "covers/change-ken-carson.jpg",
+  "album": "Project X",
+  "source": {
+   "label": "Wikipedia, Project X (Ken Carson album)",
+   "url": "https://en.wikipedia.org/wiki/Project_X_%28Ken_Carson_album%29"
+  }
+ },
+ "clutch|ken carson": {
+  "file": "covers/clutch-ken-carson.jpg",
+  "album": "Project X",
+  "source": {
+   "label": "Wikipedia, Project X (Ken Carson album)",
+   "url": "https://en.wikipedia.org/wiki/Project_X_%28Ken_Carson_album%29"
+  }
+ },
+ "down in atlanta|pharrell & travis scott": {
+  "file": "covers/down-in-atlanta-pharrell-travis-scott.jpg",
+  "album": "Down In Atlanta - Single",
+  "source": {
+   "label": "Apple Music, Down In Atlanta - Single by Pharrell Williams & Travis Scott",
+   "url": "https://music.apple.com/us/album/down-in-atlanta-single/1652548046"
+  }
  }
 }
