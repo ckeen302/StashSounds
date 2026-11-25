@@ -325,7 +325,7 @@ function Home() {
   const types = [
     { href: "/loops", t: "loop", name: "Loops", count: rows.length },
     { href: "/one-shots", t: "oneshot", name: "One-shots", count: MELODIC.length },
-    { href: "/kits", t: "kit", name: "Drum kits", count: kits().length },
+    { href: "/kits", t: "kit", name: "Drums", count: kits().reduce((n, k) => n + k.sounds.length, 0) },
     { href: "/midi", t: "midi", name: "MIDI", count: midi.length },
     { href: "/presets", t: "preset", name: "Presets", count: PRESETS.length },
     { href: "/sfx", t: "oneshot", name: "SFX", count: SFX.length },
@@ -963,7 +963,7 @@ const TABS = [
   { href: "/browse", name: "Browse" },
   { href: "/loops", name: "Loops" },
   { href: "/midi", name: "MIDI" },
-  { href: "/kits", name: "Drum kits" },
+  { href: "/kits", name: "Drums" },
   { href: "/one-shots", name: "One-shots" },
   { href: "/sfx", name: "SFX" },
   { href: "/presets", name: "Presets" },

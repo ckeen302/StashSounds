@@ -5,6 +5,7 @@ import {
   EmptyState,
   FilterChip,
   Heart,
+  IconButton,
   Menu,
   PlayButton,
   SearchInput,
@@ -60,9 +61,64 @@ async function saveKit(k: Kit, toast: ReturnType<typeof useToast>) {
   else if (outcome === "failed") toast({ tone: "error", title: "The kit did not save", description: "Try again in a moment." });
 }
 
+/** The drum sound types the Drums page lists one by one, beside whole kits. */
+const SOUND_TYPES: Category[] = ["808", "kick", "snare", "clap", "hat", "open hat", "perc", "cymbal"];
+
+/** Single drum sounds of one type, from every kit and from posts of single sounds. */
+function DrumSounds({ type, needle }: { type: Category; needle: string }) {
+  const toast = useToast();
+  const all = useKits();
+  const sounds = allShots(all).filter(
+    (s) => s.category === type && (!needle || [s.name, s.kit?.name ?? "", s.owner.handle, s.genre].some((x) => x.toLowerCase().includes(needle))),
+  );
+  if (sounds.length === 0)
+    return (
+      <EmptyState icon={Upload} title="No sounds match" action={<ButtonLink href="/kit-upload" variant="secondary">Upload sounds</ButtonLink>}>
+        Clear the search, or post the first one.
+      </EmptyState>
+    );
+  return (
+    <div className="overflow-hidden rounded-panel border border-border bg-surface">
+      <ul aria-label={CATEGORIES.find((c) => c.id === type)!.plural}>
+        {sounds.map((s) => (
+          <li key={`${s.kit?.id ?? "mine"}-${s.id}`} className="flex h-16 items-center gap-3 border-b border-border px-3 last:border-b-0 ui-hover:bg-raised tablet:h-14">
+            <PlayButton title={s.name} state="paused" onClick={() => void play(s)} />
+            <span className="flex min-w-0 flex-1 flex-col">
+              <span className="truncate text-body-strong text-text">{s.name}</span>
+              <span className="truncate text-small text-text-muted">
+                @{s.owner.handle}
+                {s.kit ? (
+                  <>
+                    {" · from "}
+                    <UiLink href={`/kit/${s.kit.id}`} className="underline underline-offset-2 ui-hover:text-text">
+                      {s.kit.name}
+                    </UiLink>
+                  </>
+                ) : null}
+              </span>
+            </span>
+            <span className="hidden w-24 shrink-0 text-small text-text-muted tablet:block">{s.genre}</span>
+            <span className="hidden w-16 shrink-0 text-right font-mono text-numeric tabular text-text-muted tablet:block">{seconds(s.durationMs)}</span>
+            <IconButton
+              icon={Download}
+              label={`Download ${s.name}`}
+              onClick={async () => {
+                const { outcome } = await saveShots([s], s.name, 1).catch(() => ({ outcome: "failed" as const }));
+                if (outcome === "failed") toast({ tone: "error", title: "The sound did not save", description: "Try again in a moment." });
+                else if (outcome === "empty") toast({ tone: "error", title: "Nothing to save", description: "This sound's audio isn't in this browser anymore." });
+              }}
+            />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 export function KitsPage() {
   const toast = useToast();
   const all = useKits();
+  const [type, setType] = useState<Category | "kits">("kits");
   const [genre, setGenre] = useState("All");
   const [q, setQ] = useState("");
   const needle = q.trim().toLowerCase();
@@ -75,16 +131,27 @@ export function KitsPage() {
     <main className="mx-auto flex w-full max-w-content flex-col gap-6 px-3 py-8 tablet:px-4 desktop:px-6">
       <header className="flex flex-col gap-4 tablet:flex-row tablet:items-end tablet:justify-between">
         <div className="flex flex-col gap-1">
-          <h1 className="text-title">Drum kits</h1>
+          <h1 className="text-title">Drums</h1>
         </div>
         <ButtonLink href="/kit-upload" variant="secondary" icon={Upload} className="st-wide-only">
           Upload a kit
         </ButtonLink>
       </header>
 
+      <div role="group" aria-label="Drum type" className="flex flex-wrap gap-2">
+        <FilterChip selected={type === "kits"} onToggle={() => setType("kits")}>
+          Kits
+        </FilterChip>
+        {SOUND_TYPES.map((c) => (
+          <FilterChip key={c} selected={type === c} onToggle={() => setType(c)}>
+            {CATEGORIES.find((x) => x.id === c)!.plural}
+          </FilterChip>
+        ))}
+      </div>
+
       <div className="flex flex-col gap-3 tablet:flex-row tablet:items-center tablet:justify-between">
         <SearchInput label="Search kits, producers, sounds" hideLabel placeholder="Search kits, producers, sounds" shortcut="" value={q} onChange={(e) => setQ(e.target.value)} onClear={() => setQ("")} className="tablet:w-80" />
-        <div role="group" aria-label="Genre" className="flex flex-wrap gap-2">
+        <div role="group" aria-label="Genre" className="flex flex-wrap gap-2" hidden={type !== "kits"}>
           {genres.map((g) => (
             <FilterChip key={g} selected={genre === g} onToggle={() => setGenre(g)}>
               {g}
@@ -93,7 +160,8 @@ export function KitsPage() {
         </div>
       </div>
 
-      <ul aria-label="Kits" className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-3">
+      {type !== "kits" ? <DrumSounds type={type} needle={needle} /> : null}
+      <ul aria-label="Kits" hidden={type !== "kits"} className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-3">
         {shown.map((k) => (
           <li key={k.id} className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-4">
             <div className="flex items-start gap-3">
@@ -121,7 +189,7 @@ export function KitsPage() {
           </li>
         ))}
       </ul>
-      {shown.length === 0 && (
+      {type === "kits" && shown.length === 0 && (
         <EmptyState icon={Upload} title="No kits match" action={<ButtonLink href="/kit-upload" variant="secondary">Upload a kit</ButtonLink>}>
           Clear the search, or post the first one.
         </EmptyState>
