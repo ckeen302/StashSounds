@@ -10240,5 +10240,210 @@
    "label": "",
    "url": ""
   }
+ },
+ {
+  "song": "Long Time (Intro)",
+  "artist": "Playboi Carti",
+  "producer": "Art Dealer",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Broken Square Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Layered twice"
+ },
+ {
+  "song": "Long Time (Intro)",
+  "artist": "Playboi Carti",
+  "producer": "Art Dealer",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Dark and Unstable Square",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  }
+ },
+ {
+  "song": "Long Time (Intro)",
+  "artist": "Playboi Carti",
+  "producer": "Art Dealer",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Unstable Love Organ",
+  "role": "organ",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  }
+ },
+ {
+  "song": "Long Time (Intro)",
+  "artist": "Playboi Carti",
+  "producer": "Art Dealer",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Clipped Sine Bass",
+  "role": "bass",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Layered in two octaves"
+ },
+ {
+  "song": "Love Hurts",
+  "artist": "Playboi Carti",
+  "producer": "Pi'erre Bourne, Playboi Carti",
+  "plugin": "Rob Papen Predator 2",
+  "preset": "041 - Aysha JoMal",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "129 JoMal-bank 1"
+ },
+ {
+  "song": "Shoota",
+  "artist": "Playboi Carti",
+  "producer": "Maaly Raw",
+  "plugin": "Synapse Audio Dune 3",
+  "preset": "EP Low Body MK",
+  "role": "keys",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Keys"
+ },
+ {
+  "song": "Poke It Out",
+  "artist": "Playboi Carti",
+  "producer": "Pi'erre Bourne",
+  "plugin": "FabFilter Twin 2",
+  "preset": "First Strike 0",
+  "role": "keys",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Key > Modern"
+ },
+ {
+  "song": "Poke It Out",
+  "artist": "Playboi Carti",
+  "producer": "Pi'erre Bourne",
+  "plugin": "FabFilter Twin 2",
+  "preset": "Prophetish Bass Stab 01 bM",
+  "role": "bass",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Bass > Vintage"
+ },
+ {
+  "song": "Home (KOD)",
+  "artist": "Playboi Carti",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Luxonix Purity",
+  "preset": "Electric Piano 1",
+  "role": "keys",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Piano"
+ },
+ {
+  "song": "Home (KOD)",
+  "artist": "Playboi Carti",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Native Instruments FM8",
+  "preset": "Clean Organ",
+  "role": "organ",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  }
+ },
+ {
+  "song": "Foreign",
+  "artist": "Playboi Carti",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Luxonix Purity",
+  "preset": "Acoustic Grand",
+  "role": "piano",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  }
+ },
+ {
+  "song": "Foreign",
+  "artist": "Playboi Carti",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Native Instruments FM8",
+  "preset": "NewSound",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Startup default"
+ },
+ {
+  "song": "Mileage",
+  "artist": "Playboi Carti",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Tone2 ElectraX",
+  "preset": "HS Copper Minor",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  }
+ },
+ {
+  "song": "Mileage",
+  "artist": "Playboi Carti",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Tone2 ElectraX",
+  "preset": "eX Aliens Land",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Phaser off"
+ },
+ {
+  "song": "R.I.P. Fredo (Notice Me)",
+  "artist": "Playboi Carti",
+  "producer": "Pi'erre Bourne",
+  "plugin": "FabFilter Twin 2",
+  "preset": "HammondCheeze O",
+  "role": "organ",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Best of / Keys > Organ"
  }
 ]
