@@ -8830,5 +8830,509 @@
    "label": "Apple Music, Love Deluxe by Sade",
    "url": "https://music.apple.com/us/album/kiss-of-life/158796559"
   }
+ },
+ "dynamite|bts": {
+  "file": "covers/dynamite-bts.jpg",
+  "album": "BE",
+  "source": {
+   "label": "Apple Music, BE by BTS",
+   "url": "https://music.apple.com/us/album/dynamite/1596532185"
+  }
+ },
+ "boy with luv|bts feat. halsey": {
+  "file": "covers/boy-with-luv-bts-feat-halsey.jpg",
+  "album": "MAP OF THE SOUL : PERSONA",
+  "source": {
+   "label": "Apple Music, MAP OF THE SOUL : PERSONA by BTS feat. Halsey",
+   "url": "https://music.apple.com/us/album/boy-with-luv-feat-halsey/1599171924"
+  }
+ },
+ "dna|bts": {
+  "file": "covers/dna-bts.jpg",
+  "album": "LOVE YOURSELF 承 'Her'",
+  "source": {
+   "label": "Apple Music, LOVE YOURSELF 承 'Her' by BTS",
+   "url": "https://music.apple.com/us/album/dna/1596529064"
+  }
+ },
+ "butterfly|bts": {
+  "file": "covers/butterfly-bts.jpg",
+  "album": "The Most Beautiful Moment in Life, Pt. 2",
+  "source": {
+   "label": "Apple Music, The Most Beautiful Moment in Life, Pt. 2 by BTS",
+   "url": "https://music.apple.com/us/album/butterfly/1597019562"
+  }
+ },
+ "how you like that|blackpink": {
+  "file": "covers/how-you-like-that-blackpink.jpg",
+  "album": "THE ALBUM",
+  "source": {
+   "label": "Apple Music, THE ALBUM by BLACKPINK",
+   "url": "https://music.apple.com/us/album/how-you-like-that/1533894050"
+  }
+ },
+ "as if it's your last|blackpink": {
+  "file": "covers/as-if-it-s-your-last-blackpink.jpg",
+  "album": "AS IF IT'S YOUR LAST - Single",
+  "source": {
+   "label": "Apple Music, AS IF IT'S YOUR LAST - Single by BLACKPINK",
+   "url": "https://music.apple.com/us/album/as-if-its-your-last/1251249729"
+  }
+ },
+ "lovesick girls|blackpink": {
+  "file": "covers/lovesick-girls-blackpink.jpg",
+  "album": "THE ALBUM",
+  "source": {
+   "label": "Apple Music, THE ALBUM by BLACKPINK",
+   "url": "https://music.apple.com/us/album/lovesick-girls/1533894050"
+  }
+ },
+ "fancy|twice": {
+  "file": "covers/fancy-twice.jpg",
+  "album": "FANCY YOU - EP",
+  "source": {
+   "label": "Apple Music, FANCY YOU - EP by TWICE",
+   "url": "https://music.apple.com/us/album/fancy/1555390183"
+  }
+ },
+ "what is love?|twice": {
+  "file": "covers/what-is-love-twice.jpg",
+  "album": "What is Love? - EP",
+  "source": {
+   "label": "Apple Music, What is Love? - EP by TWICE",
+   "url": "https://music.apple.com/us/album/what-is-love/1555390082"
+  }
+ },
+ "feel special|twice": {
+  "file": "covers/feel-special-twice.jpg",
+  "album": "Feel Special",
+  "source": {
+   "label": "Apple Music, Feel Special by TWICE",
+   "url": "https://music.apple.com/us/album/feel-special/1556087002"
+  }
+ },
+ "likey|twice": {
+  "file": "covers/likey-twice.jpg",
+  "album": "Twicetagram",
+  "source": {
+   "label": "Apple Music, Twicetagram by TWICE",
+   "url": "https://music.apple.com/us/album/likey/1555405141"
+  }
+ },
+ "cheer up|twice": {
+  "file": "covers/cheer-up-twice.jpg",
+  "album": "Page Two - EP",
+  "source": {
+   "label": "Apple Music, Page Two - EP by TWICE",
+   "url": "https://music.apple.com/us/album/cheer-up/1555389971"
+  }
+ },
+ "psycho|red velvet": {
+  "file": "covers/psycho-red-velvet.jpg",
+  "album": "‘The ReVe Festival’ Finale - EP",
+  "source": {
+   "label": "Apple Music, ‘The ReVe Festival’ Finale - EP by Red Velvet",
+   "url": "https://music.apple.com/us/album/psycho/1491888504"
+  }
+ },
+ "red flavor|red velvet": {
+  "file": "covers/red-flavor-red-velvet.jpg",
+  "album": "The Red Summer - Summer Mini Album - EP",
+  "source": {
+   "label": "Apple Music, The Red Summer - Summer Mini Album - EP by Red Velvet",
+   "url": "https://music.apple.com/us/album/red-flavor/1256503505"
+  }
+ },
+ "bad boy|red velvet": {
+  "file": "covers/bad-boy-red-velvet.jpg",
+  "album": "The Perfect Red Velvet - The 2nd Album Repackage - EP",
+  "source": {
+   "label": "Apple Music, The Perfect Red Velvet - The 2nd Album Repackage - EP by Red Velvet",
+   "url": "https://music.apple.com/us/album/bad-boy/1341259280"
+  }
+ },
+ "loser|bigbang": {
+  "file": "covers/loser-bigbang.jpg",
+  "album": "M - Single",
+  "source": {
+   "label": "Apple Music, M - Single by BIGBANG",
+   "url": "https://music.apple.com/us/album/loser/1314235506"
+  }
+ },
+ "call me baby|exo": {
+  "file": "covers/call-me-baby-exo.jpg",
+  "album": "The 2nd Album ‘EXODUS’",
+  "source": {
+   "label": "Apple Music, The 2nd Album ‘EXODUS’ by EXO",
+   "url": "https://music.apple.com/us/album/call-me-baby/979878364"
+  }
+ },
+ "love dive|ive": {
+  "file": "covers/love-dive-ive.jpg",
+  "album": "LOVE DIVE - Single",
+  "source": {
+   "label": "Apple Music, LOVE DIVE - Single by IVE",
+   "url": "https://music.apple.com/us/album/love-dive/1616804151"
+  }
+ },
+ "easy|le sserafim": {
+  "file": "covers/easy-le-sserafim.jpg",
+  "album": "EASY - EP",
+  "source": {
+   "label": "Apple Music, EASY - EP by LE SSERAFIM",
+   "url": "https://music.apple.com/us/album/easy/1728928730"
+  }
+ },
+ "cupid|fifty fifty": {
+  "file": "covers/cupid-fifty-fifty.jpg",
+  "album": "The Beginning: Cupid - Single",
+  "source": {
+   "label": "Apple Music, The Beginning: Cupid - Single by FIFTY FIFTY",
+   "url": "https://music.apple.com/us/album/cupid/1762365314"
+  }
+ },
+ "mantra|jennie": {
+  "file": "covers/mantra-jennie.jpg",
+  "album": "Mantra - Single",
+  "source": {
+   "label": "Apple Music, Mantra - Single by JENNIE",
+   "url": "https://music.apple.com/us/album/mantra/1772760251"
+  }
+ },
+ "super shy|newjeans": {
+  "file": "covers/super-shy-newjeans.jpg",
+  "album": "NewJeans 'Super Shy' - Single",
+  "source": {
+   "label": "Apple Music, NewJeans 'Super Shy' - Single by NewJeans",
+   "url": "https://music.apple.com/us/album/super-shy/1692686264"
+  }
+ },
+ "thank u, next|ariana grande": {
+  "file": "covers/thank-u-next-ariana-grande.jpg",
+  "album": "thank u, next",
+  "source": {
+   "label": "Apple Music, thank u, next by Ariana Grande",
+   "url": "https://music.apple.com/us/album/thank-u-next/1450333975"
+  }
+ },
+ "watermelon sugar|harry styles": {
+  "file": "covers/watermelon-sugar-harry-styles.jpg",
+  "album": "Fine Line",
+  "source": {
+   "label": "Apple Music, Fine Line by Harry Styles",
+   "url": "https://music.apple.com/us/album/watermelon-sugar/1485802965"
+  }
+ },
+ "adore you|harry styles": {
+  "file": "covers/adore-you-harry-styles.jpg",
+  "album": "Fine Line",
+  "source": {
+   "label": "Apple Music, Fine Line by Harry Styles",
+   "url": "https://music.apple.com/us/album/adore-you/1485802965"
+  }
+ },
+ "vampire|olivia rodrigo": {
+  "file": "covers/vampire-olivia-rodrigo.jpg",
+  "album": "GUTS",
+  "source": {
+   "label": "Apple Music, GUTS by Olivia Rodrigo",
+   "url": "https://music.apple.com/us/album/vampire/1694767605"
+  }
+ },
+ "rolling in the deep|adele": {
+  "file": "covers/rolling-in-the-deep-adele.jpg",
+  "album": "21",
+  "source": {
+   "label": "Apple Music, 21 by Adele",
+   "url": "https://music.apple.com/us/album/rolling-in-the-deep/1544491232"
+  }
+ },
+ "hello|adele": {
+  "file": "covers/hello-adele.jpg",
+  "album": "25",
+  "source": {
+   "label": "Apple Music, 25 by Adele",
+   "url": "https://music.apple.com/us/album/hello/1544494115"
+  }
+ },
+ "set fire to the rain|adele": {
+  "file": "covers/set-fire-to-the-rain-adele.jpg",
+  "album": "21",
+  "source": {
+   "label": "Apple Music, 21 by Adele",
+   "url": "https://music.apple.com/us/album/set-fire-to-the-rain/1544491232"
+  }
+ },
+ "easy on me|adele": {
+  "file": "covers/easy-on-me-adele.jpg",
+  "album": "30",
+  "source": {
+   "label": "Apple Music, 30 by Adele",
+   "url": "https://music.apple.com/us/album/easy-on-me/1590035691"
+  }
+ },
+ "roar|katy perry": {
+  "file": "covers/roar-katy-perry.jpg",
+  "album": "PRISM",
+  "source": {
+   "label": "Apple Music, PRISM by Katy Perry",
+   "url": "https://music.apple.com/us/album/roar/1440871208"
+  }
+ },
+ "firework|katy perry": {
+  "file": "covers/firework-katy-perry.jpg",
+  "album": "Teenage Dream",
+  "source": {
+   "label": "Apple Music, Teenage Dream by Katy Perry",
+   "url": "https://music.apple.com/us/album/firework/716192216"
+  }
+ },
+ "hot n cold|katy perry": {
+  "file": "covers/hot-n-cold-katy-perry.jpg",
+  "album": "One of the Boys",
+  "source": {
+   "label": "Apple Music, One of the Boys by Katy Perry",
+   "url": "https://music.apple.com/us/album/hot-n-cold/715891425"
+  }
+ },
+ "california gurls|katy perry feat. snoop dogg": {
+  "file": "covers/california-gurls-katy-perry-feat-snoop-dogg.jpg",
+  "album": "Teenage Dream",
+  "source": {
+   "label": "Apple Music, Teenage Dream by Katy Perry feat. Snoop Dogg",
+   "url": "https://music.apple.com/us/album/california-gurls-feat-snoop-dogg/716153185"
+  }
+ },
+ "last friday night (t.g.i.f.)|katy perry": {
+  "file": "covers/last-friday-night-t-g-i-f-katy-perry.jpg",
+  "album": "Teenage Dream",
+  "source": {
+   "label": "Apple Music, Teenage Dream by Katy Perry",
+   "url": "https://music.apple.com/us/album/last-friday-night-t-g-i-f/716192216"
+  }
+ },
+ "wide awake|katy perry": {
+  "file": "covers/wide-awake-katy-perry.jpg",
+  "album": "Teenage Dream: The Complete Confection",
+  "source": {
+   "label": "Apple Music, Teenage Dream: The Complete Confection by Katy Perry",
+   "url": "https://music.apple.com/us/album/wide-awake/716084282"
+  }
+ },
+ "part of me|katy perry": {
+  "file": "covers/part-of-me-katy-perry.jpg",
+  "album": "Teenage Dream: The Complete Confection",
+  "source": {
+   "label": "Apple Music, Teenage Dream: The Complete Confection by Katy Perry",
+   "url": "https://music.apple.com/us/album/part-of-me/716084282"
+  }
+ },
+ "baby|justin bieber feat. ludacris": {
+  "file": "covers/baby-justin-bieber-feat-ludacris.jpg",
+  "album": "My World 2.0",
+  "source": {
+   "label": "Apple Music, My World 2.0 by Justin Bieber feat. Ludacris",
+   "url": "https://music.apple.com/us/album/baby-feat-ludacris/1472491692"
+  }
+ },
+ "what do you mean?|justin bieber": {
+  "file": "covers/what-do-you-mean-justin-bieber.jpg",
+  "album": "Purpose",
+  "source": {
+   "label": "Apple Music, Purpose by Justin Bieber",
+   "url": "https://music.apple.com/us/album/what-do-you-mean/1440825845"
+  }
+ },
+ "espresso|sabrina carpenter": {
+  "file": "covers/espresso-sabrina-carpenter.jpg",
+  "album": "Short n' Sweet",
+  "source": {
+   "label": "Apple Music, Short n' Sweet by Sabrina Carpenter",
+   "url": "https://music.apple.com/us/album/espresso/1752214909"
+  }
+ },
+ "good luck, babe!|chappell roan": {
+  "file": "covers/good-luck-babe-chappell-roan.jpg",
+  "album": "Good Luck, Babe! - Single",
+  "source": {
+   "label": "Apple Music, Good Luck, Babe! - Single by Chappell Roan",
+   "url": "https://music.apple.com/us/album/good-luck-babe/1737497078"
+  }
+ },
+ "pink pony club|chappell roan": {
+  "file": "covers/pink-pony-club-chappell-roan.jpg",
+  "album": "The Rise and Fall of a Midwest Princess",
+  "source": {
+   "label": "Apple Music, The Rise and Fall of a Midwest Princess by Chappell Roan",
+   "url": "https://music.apple.com/us/album/pink-pony-club/1698723205"
+  }
+ },
+ "cheap thrills|sia": {
+  "file": "covers/cheap-thrills-sia.jpg",
+  "album": "This Is Acting",
+  "source": {
+   "label": "Apple Music, This Is Acting by Sia",
+   "url": "https://music.apple.com/us/album/cheap-thrills/1055074478"
+  }
+ },
+ "elastic heart|sia": {
+  "file": "covers/elastic-heart-sia.jpg",
+  "album": "1000 Forms of Fear",
+  "source": {
+   "label": "Apple Music, 1000 Forms of Fear by Sia",
+   "url": "https://music.apple.com/us/album/elastic-heart/882945378"
+  }
+ },
+ "the greatest|sia feat. kendrick lamar": {
+  "file": "covers/the-greatest-sia-feat-kendrick-lamar.jpg",
+  "album": "This Is Acting (Deluxe Version)",
+  "source": {
+   "label": "Apple Music, This Is Acting (Deluxe Version) by Sia feat. Kendrick Lamar",
+   "url": "https://music.apple.com/us/album/the-greatest/1162482526"
+  }
+ },
+ "moves like jagger|maroon 5 feat. christina aguilera": {
+  "file": "covers/moves-like-jagger-maroon-5-feat-christina-aguilera.jpg",
+  "album": "Hands All Over",
+  "source": {
+   "label": "Apple Music, Hands All Over by Maroon 5 feat. Christina Aguilera",
+   "url": "https://music.apple.com/us/album/moves-like-jagger-feat-christina-aguilera/1440855974"
+  }
+ },
+ "sugar|maroon 5": {
+  "file": "covers/sugar-maroon-5.jpg",
+  "album": "V",
+  "source": {
+   "label": "Apple Music, V by Maroon 5",
+   "url": "https://music.apple.com/us/album/sugar/1440829092"
+  }
+ },
+ "payphone|maroon 5 feat. wiz khalifa": {
+  "file": "covers/payphone-maroon-5-feat-wiz-khalifa.jpg",
+  "album": "Overexposed (Deluxe Version)",
+  "source": {
+   "label": "Apple Music, Overexposed (Deluxe Version) by Maroon 5 feat. Wiz Khalifa",
+   "url": "https://music.apple.com/us/album/payphone-feat-wiz-khalifa/1422675688"
+  }
+ },
+ "girls like you|maroon 5 feat. cardi b": {
+  "file": "covers/girls-like-you-maroon-5-feat-cardi-b.jpg",
+  "album": "Red Pill Blues",
+  "source": {
+   "label": "Apple Music, Red Pill Blues by Maroon 5 feat. Cardi B",
+   "url": "https://music.apple.com/us/album/girls-like-you/1396133926"
+  }
+ },
+ "she will be loved|maroon 5": {
+  "file": "covers/she-will-be-loved-maroon-5.jpg",
+  "album": "Songs About Jane",
+  "source": {
+   "label": "Apple Music, Songs About Jane by Maroon 5",
+   "url": "https://music.apple.com/us/album/she-will-be-loved/1440851650"
+  }
+ },
+ "demons|imagine dragons": {
+  "file": "covers/demons-imagine-dragons.jpg",
+  "album": "Night Visions",
+  "source": {
+   "label": "Apple Music, Night Visions by Imagine Dragons",
+   "url": "https://music.apple.com/us/album/demons/1440873107"
+  }
+ },
+ "radioactive|imagine dragons": {
+  "file": "covers/radioactive-imagine-dragons.jpg",
+  "album": "Night Visions",
+  "source": {
+   "label": "Apple Music, Night Visions by Imagine Dragons",
+   "url": "https://music.apple.com/us/album/radioactive/1440873107"
+  }
+ },
+ "bad liar|imagine dragons": {
+  "file": "covers/bad-liar-imagine-dragons.jpg",
+  "album": "Origins",
+  "source": {
+   "label": "Apple Music, Origins by Imagine Dragons",
+   "url": "https://music.apple.com/us/album/bad-liar/1437948593"
+  }
+ },
+ "counting stars|onerepublic": {
+  "file": "covers/counting-stars-onerepublic.jpg",
+  "album": "Native",
+  "source": {
+   "label": "Apple Music, Native by OneRepublic",
+   "url": "https://music.apple.com/us/album/counting-stars/1440854614"
+  }
+ },
+ "apologize|onerepublic": {
+  "file": "covers/apologize-onerepublic.jpg",
+  "album": "Dreaming Out Loud",
+  "source": {
+   "label": "Apple Music, Dreaming Out Loud by OneRepublic",
+   "url": "https://music.apple.com/us/album/apologize/1440889649"
+  }
+ },
+ "good life|onerepublic": {
+  "file": "covers/good-life-onerepublic.jpg",
+  "album": "Waking Up",
+  "source": {
+   "label": "Apple Music, Waking Up by OneRepublic",
+   "url": "https://music.apple.com/us/album/good-life/1461280395"
+  }
+ },
+ "i ain't worried|onerepublic": {
+  "file": "covers/i-ain-t-worried-onerepublic.jpg",
+  "album": "Top Gun: Maverick (Music from the Motion Picture)",
+  "source": {
+   "label": "Apple Music, Top Gun: Maverick (Music from the Motion Picture) by OneRepublic",
+   "url": "https://music.apple.com/us/album/i-aint-worried/1621817793"
+  }
+ },
+ "flowers|miley cyrus": {
+  "file": "covers/flowers-miley-cyrus.jpg",
+  "album": "Endless Summer Vacation",
+  "source": {
+   "label": "Apple Music, Endless Summer Vacation by Miley Cyrus",
+   "url": "https://music.apple.com/us/album/flowers/1674691585"
+  }
+ },
+ "wrecking ball|miley cyrus": {
+  "file": "covers/wrecking-ball-miley-cyrus.jpg",
+  "album": "Bangerz (Deluxe Version)",
+  "source": {
+   "label": "Apple Music, Bangerz (Deluxe Version) by Miley Cyrus",
+   "url": "https://music.apple.com/us/album/wrecking-ball/1460315055"
+  }
+ },
+ "party in the u.s.a.|miley cyrus": {
+  "file": "covers/party-in-the-u-s-a-miley-cyrus.jpg",
+  "album": "Party In the U.S.A. - Single",
+  "source": {
+   "label": "Apple Music, Party In the U.S.A. - Single by Miley Cyrus",
+   "url": "https://music.apple.com/us/album/party-in-the-u-s-a/1445007710"
+  }
+ },
+ "call me maybe|carly rae jepsen": {
+  "file": "covers/call-me-maybe-carly-rae-jepsen.jpg",
+  "album": "Kiss",
+  "source": {
+   "label": "Apple Music, Kiss by Carly Rae Jepsen",
+   "url": "https://music.apple.com/us/album/call-me-maybe/1442997662"
+  }
+ },
+ "someone you loved|lewis capaldi": {
+  "file": "covers/someone-you-loved-lewis-capaldi.jpg",
+  "album": "Divinely Uninspired To A Hellish Extent",
+  "source": {
+   "label": "Apple Music, Divinely Uninspired To A Hellish Extent by Lewis Capaldi",
+   "url": "https://music.apple.com/us/album/someone-you-loved/1452618876"
+  }
+ },
+ "midnight sky|miley cyrus": {
+  "file": "covers/midnight-sky-miley-cyrus.jpg",
+  "album": "Plastic Hearts",
+  "source": {
+   "label": "Apple Music, Plastic Hearts by Miley Cyrus",
+   "url": "https://music.apple.com/us/album/midnight-sky/1536966025"
+  }
  }
 }
