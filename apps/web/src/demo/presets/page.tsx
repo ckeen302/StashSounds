@@ -350,7 +350,7 @@ export function PatchStrip({ e, detail = false }: { e: PresetEntry; detail?: boo
           <Meter c={e.confidence} />
           <span className={`text-label text-label-caps ${TONE_TEXT[e.confidence]}`}>{CONFIDENCE[e.confidence].label}</span>
         </span>
-        {e.source.url ? (
+        {!e.source.label ? null : e.source.url ? (
           <a href={e.source.url} target="_blank" rel="noreferrer" className="min-w-0 text-small break-words text-text-muted underline underline-offset-2 ui-hover:text-text">
             {e.source.label}
           </a>

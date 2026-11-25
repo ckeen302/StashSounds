@@ -150,7 +150,7 @@ function SoundRow({ e, n }: { e: PresetEntry; n: number }) {
           </span>
           <span className={`tablet:hidden ${TONE_TEXT[e.confidence]}`}>{short}</span>
           <span className="tablet:hidden" aria-hidden="true">·</span>
-          <span>Source</span>
+          <span>{e.source.label ? "Source" : "Details"}</span>
         </summary>
         <div className="flex flex-col gap-2 pt-2 pb-2">
           {e.path && <span className="text-small text-text-muted">{`Find it in: ${e.path.split(/\s*›\s*|\s*>\s*/).join(" › ")}`}</span>}
@@ -159,7 +159,7 @@ function SoundRow({ e, n }: { e: PresetEntry; n: number }) {
               “{e.quote}”{e.quoteBy && <span className="text-text-muted"> — {e.quoteBy}</span>}
             </blockquote>
           )}
-          {e.source.url ? (
+          {!e.source.label ? null : e.source.url ? (
             <a href={e.source.url} target="_blank" rel="noreferrer" className="self-start text-small break-words text-text-muted underline underline-offset-2 ui-hover:text-text">
               {e.source.label}
             </a>

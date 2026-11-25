@@ -9741,7 +9741,7 @@
   "role": "lead",
   "confidence": "community",
   "source": {
-   "label": "Sent in by Caden (Stash)",
+   "label": "",
    "url": ""
   },
   "path": "Ocean Veau Gucci Gang bank"
@@ -9755,7 +9755,7 @@
   "role": "flute",
   "confidence": "community",
   "source": {
-   "label": "Sent in by Caden (Stash)",
+   "label": "",
    "url": ""
   }
  },
@@ -9768,7 +9768,7 @@
   "role": "lead",
   "confidence": "community",
   "source": {
-   "label": "Sent in by Caden (Stash)",
+   "label": "",
    "url": ""
   }
  },
@@ -9781,9 +9781,228 @@
   "role": "choir",
   "confidence": "community",
   "source": {
-   "label": "Sent in by Caden (Stash)",
+   "label": "",
    "url": ""
   },
   "path": "Voices category"
+ },
+ {
+  "song": "New Tank",
+  "artist": "Playboi Carti",
+  "producer": "F1lthy, Jonah Abraham",
+  "plugin": "Synapse Audio Dune 3",
+  "preset": "Playwise EDT",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Dune 2 Factory > Synths"
+ },
+ {
+  "song": "Control",
+  "artist": "Playboi Carti",
+  "producer": "Art Dealer, Star Boy, Outtatown",
+  "plugin": "reFX Nexus 3",
+  "preset": "LD Energetic",
+  "role": "main synth",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  }
+ },
+ {
+  "song": "Control",
+  "artist": "Playboi Carti",
+  "producer": "Art Dealer, Star Boy, Outtatown",
+  "plugin": "reFX Nexus 3",
+  "preset": "LD Carry Chords",
+  "role": "pluck",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  }
+ },
+ {
+  "song": "Control",
+  "artist": "Playboi Carti",
+  "producer": "Art Dealer, Star Boy, Outtatown",
+  "plugin": "reFX Nexus 3",
+  "preset": "LD Lead 2",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  }
+ },
+ {
+  "song": "King Vamp",
+  "artist": "Playboi Carti",
+  "producer": "Art Dealer, Star Boy, Outtatown",
+  "plugin": "reFX Nexus",
+  "preset": "Assassin",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Trance Universe"
+ },
+ {
+  "song": "King Vamp",
+  "artist": "Playboi Carti",
+  "producer": "Art Dealer, Star Boy, Outtatown",
+  "plugin": "Luxonix Purity",
+  "preset": "Sine Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Lead Synth"
+ },
+ {
+  "song": "King Vamp",
+  "artist": "Playboi Carti",
+  "producer": "Art Dealer, Star Boy, Outtatown",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Broken Square Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  }
+ },
+ {
+  "song": "Place",
+  "artist": "Playboi Carti",
+  "producer": "Pi'erre Bourne",
+  "plugin": "FabFilter Twin 2",
+  "preset": "5th Synths O",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Lead > Dance A-M"
+ },
+ {
+  "song": "Place",
+  "artist": "Playboi Carti",
+  "producer": "Pi'erre Bourne",
+  "plugin": "FabFilter Twin 2",
+  "preset": "Ubiquitous O",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Lead > Soft"
+ },
+ {
+  "song": "Place",
+  "artist": "Playboi Carti",
+  "producer": "Pi'erre Bourne",
+  "plugin": "FabFilter Twin 2",
+  "preset": "Triangle",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Basic"
+ },
+ {
+  "song": "Sky",
+  "artist": "Playboi Carti",
+  "producer": "Art Dealer",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Triangle Toon",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  }
+ },
+ {
+  "song": "Sky",
+  "artist": "Playboi Carti",
+  "producer": "Art Dealer",
+  "plugin": "Luxonix Purity",
+  "preset": "Sam 5th",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Fast Synth"
+ },
+ {
+  "song": "Sky",
+  "artist": "Playboi Carti",
+  "producer": "Art Dealer",
+  "plugin": "Luxonix Purity",
+  "preset": "Need More Dist",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Lead Synth"
+ },
+ {
+  "song": "Sky",
+  "artist": "Playboi Carti",
+  "producer": "Art Dealer",
+  "plugin": "Luxonix Purity",
+  "preset": "Slow 5th",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Lead Synth"
+ },
+ {
+  "song": "Over",
+  "artist": "Playboi Carti",
+  "producer": "Art Dealer",
+  "plugin": "Lennar Digital Sylenth1",
+  "preset": "LD ChineseRock",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Bank 2, #178"
+ },
+ {
+  "song": "Not PLaying",
+  "artist": "Playboi Carti",
+  "producer": "Art Dealer",
+  "plugin": "FabFilter Twin 2",
+  "preset": "Only in Twin2",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Leads > Soft"
  }
 ]
