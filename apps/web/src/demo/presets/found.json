@@ -11060,5 +11060,156 @@
    "label": "",
    "url": ""
   }
+ },
+ {
+  "song": "Run + Ran",
+  "artist": "Ken Carson",
+  "producer": "Star Boy, Outtatown",
+  "plugin": "Native Instruments Kontakt",
+  "preset": "The Grandeur",
+  "role": "piano",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  }
+ },
+ {
+  "song": "Run + Ran",
+  "artist": "Ken Carson",
+  "producer": "Star Boy, Outtatown",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Triangle Toon",
+  "role": "flute",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  }
+ },
+ {
+  "song": "Change",
+  "artist": "Ken Carson",
+  "producer": "Outtatown, Star Boy",
+  "plugin": "Luxonix Purity",
+  "preset": "Sine Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Lead Synth"
+ },
+ {
+  "song": "Change",
+  "artist": "Ken Carson",
+  "producer": "Outtatown, Star Boy",
+  "plugin": "Luxonix Purity",
+  "preset": "Slow 5th",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Lead Synth"
+ },
+ {
+  "song": "Clutch",
+  "artist": "Ken Carson",
+  "producer": "Outtatown, Star Boy",
+  "plugin": "reFX Nexus 3",
+  "preset": "LD Lead 2",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Factory"
+ },
+ {
+  "song": "Clutch",
+  "artist": "Ken Carson",
+  "producer": "Outtatown, Star Boy",
+  "plugin": "reFX Nexus 3",
+  "preset": "BA No Name",
+  "role": "bass",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Minimal House"
+ },
+ {
+  "song": "High as Sh!t",
+  "artist": "Ken Carson",
+  "producer": "Outtatown, Star Boy",
+  "plugin": "Luxonix Purity",
+  "preset": "Filteron",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Slow Synth"
+ },
+ {
+  "song": "High as Sh!t",
+  "artist": "Ken Carson",
+  "producer": "Outtatown, Star Boy",
+  "plugin": "Luxonix Purity",
+  "preset": "Sam 5th",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Fast Synth"
+ },
+ {
+  "song": "Teenager Rager",
+  "artist": "Ken Carson",
+  "producer": "Star Boy, Outtatown",
+  "plugin": "Lennar Digital Sylenth1",
+  "preset": "LD ChineseRock",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Bank 2"
+ },
+ {
+  "song": "Meds",
+  "artist": "Ken Carson",
+  "producer": "Outtatown, Star Boy",
+  "plugin": "Luxonix Purity",
+  "preset": "8bit Sqr Solo",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Lead Synth"
+ },
+ {
+  "song": "Gold Medal",
+  "artist": "Ken Carson",
+  "producer": "Lil 88, Star Boy",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Sodastream Bells",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  }
  }
 ]
