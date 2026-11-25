@@ -63,8 +63,6 @@ export function Button({
       disabled={disabled}
       aria-busy={loading || undefined}
       data-ui="button"
-      data-variant={variant}
-      data-size={size}
       aria-disabled={loading || undefined}
       onClick={loading ? (e) => e.preventDefault() : onClick}
       className={cx(
@@ -99,8 +97,6 @@ export function ButtonLink({
     <UiLink
       href={href}
       data-ui="button"
-      data-variant={variant}
-      data-size={size}
       className={cx(
         "inline-flex shrink-0 select-none items-center justify-center whitespace-nowrap rounded-control border text-body-strong",
         transition,

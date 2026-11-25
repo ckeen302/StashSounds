@@ -39,8 +39,6 @@ export function PlayButton({ title, state = "paused", size = "row", className, t
       type={type}
       aria-label={labels[state](title)}
       aria-busy={state === "loading" || undefined}
-      data-ui="play"
-      data-size={size}
       data-play-state={state}
       className={cx(
         "relative inline-flex shrink-0 items-center justify-center border transition-colors duration-160 ease-out",

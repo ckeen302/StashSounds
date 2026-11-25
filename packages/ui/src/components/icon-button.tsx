@@ -42,8 +42,6 @@ export function IconButton({
       type={type}
       aria-label={label}
       aria-pressed={on}
-      data-ui="icon-button"
-      data-variant={variant}
       className={cx(
         "inline-flex shrink-0 items-center justify-center rounded-control border",
         transition,

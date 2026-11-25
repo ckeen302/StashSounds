@@ -48,7 +48,7 @@ function TagSpacer() {
 export function ResultHeader({ lengthLabel = "Bars", className }: { lengthLabel?: string; className?: string }) {
   const label = "text-label text-label-caps text-text-muted";
   return (
-    <div aria-hidden="true" data-ui="result-header" className={cx(rowGrid, "h-8 border-b border-border", className)}>
+    <div aria-hidden="true" className={cx(rowGrid, "h-8 border-b border-border", className)}>
       <span className={col.play} />
       <span className={cx(col.wave, label)}>Wave</span>
       <span className={cx(col.title, label)}>Title</span>
@@ -75,7 +75,7 @@ export function ResultList({
   className?: string;
 }) {
   return (
-    <div className={cx("@container/result-list overflow-hidden rounded-panel border border-border bg-surface", className)} data-ui="result-list">
+    <div className={cx("@container/result-list overflow-hidden rounded-panel border border-border bg-surface", className)}>
       <ResultHeader lengthLabel={lengthLabel} />
       <ul aria-label={label}>{children}</ul>
     </div>

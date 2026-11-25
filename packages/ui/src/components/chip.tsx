@@ -23,7 +23,7 @@ const typeTint: Record<ItemType, string> = {
 /** A content type chip. Static: the type color belongs to the sound and is never a button. */
 export function TypeChip({ type, className }: { type: ItemType; className?: string }) {
   return (
-    <span data-ui="type-chip" data-type={type} className={cx("inline-flex h-6 shrink-0 items-center rounded-control px-2 text-label text-label-caps", typeTint[type], className)}>
+    <span className={cx("inline-flex h-6 shrink-0 items-center rounded-control px-2 text-label text-label-caps", typeTint[type], className)}>
       {TYPE_LABEL[type]}
     </span>
   );
@@ -43,11 +43,10 @@ export function TagChip({
   ...rest
 }: ChipButtonProps & { children: string; onClick?: () => void; onRemove?: () => void }) {
   const face = "inline-flex h-6 min-w-0 shrink-0 items-center gap-1 rounded-control bg-bg px-2 text-small text-text-muted";
-  if (!onClick && !onRemove) return <span data-ui="tag" className={cx(face, className)}>{children}</span>;
+  if (!onClick && !onRemove) return <span className={cx(face, className)}>{children}</span>;
   return (
     <button
       type="button"
-      data-ui="tag"
       onClick={onRemove ?? onClick}
       aria-label={onRemove ? `Remove tag ${children}` : undefined}
       className={cx(face, transition, "ui-hover:bg-raised ui-hover:text-text ui-active:bg-surface", className)}
