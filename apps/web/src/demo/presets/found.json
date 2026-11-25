@@ -10004,5 +10004,241 @@
    "url": ""
   },
   "path": "Leads > Soft"
+ },
+ {
+  "song": "Flatbed Freestyle",
+  "artist": "Playboi Carti",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Luxonix Purity",
+  "preset": "Partial",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Fast Synth"
+ },
+ {
+  "song": "Poof",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Siegfried Kullmann SQ8L",
+  "preset": "013 Spacelab",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  }
+ },
+ {
+  "song": "Ballad",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Siegfried Kullmann SQ8L",
+  "preset": "003 Bottle",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  }
+ },
+ {
+  "song": "Racer",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Siegfried Kullmann SQ8L",
+  "preset": "018 Organ Pad",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  }
+ },
+ {
+  "song": "Lovers",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Native Instruments FM8",
+  "preset": "Razor Boy",
+  "role": "harp",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  }
+ },
+ {
+  "song": "Lovers",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Native Instruments FM8",
+  "preset": "Kuito",
+  "role": "harp",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  }
+ },
+ {
+  "song": "Lovers",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Native Instruments FM8",
+  "preset": "NewSound",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Startup default"
+ },
+ {
+  "song": "How High",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Native Instruments FM8",
+  "preset": "Boombax",
+  "role": "chords",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  }
+ },
+ {
+  "song": "How High",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Native Instruments FM8",
+  "preset": "303",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  }
+ },
+ {
+  "song": "How High",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Native Instruments FM8",
+  "preset": "Arctic Silver",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  }
+ },
+ {
+  "song": "Sossboy 2",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Siegfried Kullmann SQ8L",
+  "preset": "013 Spacelab",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  }
+ },
+ {
+  "song": "Sossboy 2",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Siegfried Kullmann SQ8L",
+  "preset": "007 Wah Ep",
+  "role": "keys",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  }
+ },
+ {
+  "song": "Hot Wings",
+  "artist": "Young Nudy & Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Siegfried Kullmann SQ8L",
+  "preset": "ANABAS",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  }
+ },
+ {
+  "song": "Dispatch",
+  "artist": "Young Nudy & Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Siegfried Kullmann SQ8L",
+  "preset": "SORROW",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  }
+ },
+ {
+  "song": "Action",
+  "artist": "Yung Mal feat. Pi'erre Bourne",
+  "producer": "",
+  "plugin": "Siegfried Kullmann SQ8L",
+  "preset": "012 Noise Pulse",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  }
+ },
+ {
+  "song": "Action",
+  "artist": "Yung Mal feat. Pi'erre Bourne",
+  "producer": "",
+  "plugin": "Siegfried Kullmann SQ8L",
+  "preset": "111 Jap-Koto",
+  "role": "pluck",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  }
+ },
+ {
+  "song": "IG",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "FabFilter Twin 2",
+  "preset": "Destabilized",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  }
+ },
+ {
+  "song": "IG",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "FabFilter Twin 2",
+  "preset": "Toylee",
+  "role": "keys",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  }
  }
 ]
