@@ -84,7 +84,7 @@ const POSTED_SOUNDS = soundIdSchema.options.filter((o) => o !== "drums");
 /** Saves the item as a .mid named "<title> <key> <bpm>bpm.mid". */
 export async function saveMidi(item: MidiItem, toast: ReturnType<typeof useToast>) {
   const name = `${item.title}${item.key ? ` ${formatKey(item.key)}` : ""} ${Math.round(item.notes.bpm)}bpm.mid`;
-  const out = await saveFiles(item.title, [{ name, data: new Blob([writeMidi(item.notes, item.title)]) }]).catch(() => "failed" as const);
+  const out = await saveFiles(item.title, [{ name, data: new Blob([writeMidi(item.notes, item.title)]) }], { title: item.title, by: item.owner.displayName, kind: "MIDI", license: item.license }).catch(() => "failed" as const);
   if (out === "saved") {
     set("downloads", item.id, true);
     toast({ tone: "success", title: "Saved the MIDI file", description: "Drop it on any instrument in your DAW." });

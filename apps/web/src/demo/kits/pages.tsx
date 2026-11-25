@@ -19,6 +19,7 @@ import {
   type MenuEntry,
 } from "@stash/ui";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { CrateMenu } from "../explore";
 import { navigate } from "../router";
 import { has, set } from "../store";
 import { allShots, saveShots } from "../oneshots/store";
@@ -108,6 +109,14 @@ function DrumSounds({ type, needle }: { type: Category; needle: string }) {
                 else if (outcome === "empty") toast({ tone: "error", title: "Nothing to save", description: "This sound's audio isn't in this browser anymore." });
               }}
             />
+            <CrateMenu
+              itemId={s.kit ? `kit:${s.kit.id}:${s.id}` : `kit:sound:${s.id}`}
+              title={s.name}
+              kind="Drum sound"
+              href={s.kit ? `/kit/${s.kit.id}` : "/kits"}
+              by={s.owner.displayName}
+              size="sm"
+            />
           </li>
         ))}
       </ul>
@@ -182,9 +191,12 @@ export function KitsPage() {
                 {`${k.sounds.length} sounds`}
                 {!k.mine && k.downloads > 0 ? ` · ${k.downloads.toLocaleString("en")} downloads` : ""}
               </span>
-              <Button size="sm" variant="secondary" icon={Download} aria-label={`Download ${k.name}`} onClick={() => void saveKit(k, toast)}>
-                Download
-              </Button>
+              <span className="flex items-center gap-2">
+                <CrateMenu itemId={`kit:${k.id}`} title={k.name} kind="Drum kit" href={`/kit/${k.id}`} by={k.owner.displayName} size="sm" />
+                <Button size="sm" variant="secondary" icon={Download} aria-label={`Download ${k.name}`} onClick={() => void saveKit(k, toast)}>
+                  Download
+                </Button>
+              </span>
             </div>
           </li>
         ))}
@@ -273,6 +285,7 @@ export function KitPage({ id }: { id: string }) {
             >
               Download kit
             </Button>
+            <CrateMenu itemId={`kit:${k.id}`} title={k.name} kind="Drum kit" href={`/kit/${k.id}`} by={k.owner.displayName} />
             <Button
               variant="secondary"
               icon={Heart}

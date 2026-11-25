@@ -5,11 +5,14 @@ import {
   Button,
   ButtonLink,
   Check,
+  Copy,
   Dialog,
+  Download,
   EmptyState,
   FilterChip,
   IconButton,
   Library as LibraryIcon,
+  LicenseBadge,
   Menu,
   Plus,
   SearchInput,
@@ -26,11 +29,12 @@ import {
 } from "@stash/ui";
 import { useMemo, useState, useSyncExternalStore, type ReactNode } from "react";
 import { CREATORS, producers, type Catalog, type Producer } from "./data";
-import { createCrate, deleteCrate, toggleInCrate, useCrates } from "./crates";
+import { createCrate, crateMeta, deleteCrate, rememberMeta, toggleInCrate, useCrates, type CrateMeta } from "./crates";
 import { extra, VIEWER, type MidiItem } from "./midi/catalog";
 import { MidiList, useMidiItems } from "./midi/pages";
 import { CHORDS_OWNER } from "./midi/songs";
 import { has, set } from "./store";
+import { creditTag, deleteReceipt, receiptText, useReceipts, type Receipt } from "./receipts";
 
 /**
  * The demo's discovery screens: one browse page over loops and MIDI with the filters producers
@@ -387,17 +391,17 @@ export function ProfilePage({ handle, catalog, rows, renderLoops }: { handle: st
 // ---------------------------------------------------------------------------------------------
 // Crates: a menu on every row and page, and one dialog for naming a new crate.
 
-let pendingItem: { id: string; title: string } | null = null;
+let pendingItem: { id: string; title: string; meta?: CrateMeta } | null = null;
 let pendingTick = 0;
 const pendingListeners = new Set<() => void>();
-function requestNewCrate(id: string, title: string) {
-  pendingItem = { id, title };
+function requestNewCrate(id: string, title: string, meta?: CrateMeta) {
+  pendingItem = { id, title, meta };
   pendingTick++;
   for (const l of pendingListeners) l();
 }
 
 /** Menu entries for putting a sound in a crate: one per crate (checked when it is in), then "New crate". */
-export function useCrateEntries(itemId: string, title: string): MenuEntry[] {
+export function useCrateEntries(itemId: string, title: string, meta?: Omit<CrateMeta, "title">): MenuEntry[] {
   const list = useCrates();
   const toast = useToast();
   return [
@@ -406,18 +410,25 @@ export function useCrateEntries(itemId: string, title: string): MenuEntry[] {
         label: `${c.items.includes(itemId) ? "In" : "Add to"} ${c.name}`,
         icon: c.items.includes(itemId) ? Check : Plus,
         onSelect: () => {
+          if (meta) rememberMeta(itemId, { title, ...meta });
           const added = toggleInCrate(c.id, itemId);
           toast({ tone: "success", title: added ? `Added to ${c.name}` : `Removed from ${c.name}`, description: title });
         },
       }),
     ),
     ...(list.length > 0 ? [{ separator: true } as MenuEntry] : []),
-    { label: "New crate…", icon: Plus, onSelect: () => requestNewCrate(itemId, title) },
+    { label: "New crate…", icon: Plus, onSelect: () => requestNewCrate(itemId, title, meta ? { title, ...meta } : undefined) },
   ];
 }
 
-export function CrateMenu({ itemId, title }: { itemId: string; title: string }) {
-  const entries = useCrateEntries(itemId, title);
+/**
+ * The crate button. Loops and MIDI items need only their id; anything else (a preset, one-shot,
+ * sample, kit, sound effect) passes `kind` and `href` so the library can list and link it.
+ */
+export function CrateMenu({ itemId, title, kind, href, by, size }: { itemId: string; title: string; kind?: string; href?: string; by?: string; size?: "sm" }) {
+  const entries = useCrateEntries(itemId, title, kind && href ? { kind, href, by } : undefined);
+  if (size === "sm")
+    return <Menu entries={entries} trigger={<Button size="sm" variant="ghost" icon={LibraryIcon} aria-label={`Add ${title} to a crate`}>Crate</Button>} />;
   return <Menu entries={entries} trigger={<Button variant="secondary" icon={LibraryIcon} aria-label={`Add ${title} to a crate`}>Crate</Button>} />;
 }
 
@@ -449,6 +460,7 @@ export function NewCrateHost() {
       confirmLabel="Create crate"
       onConfirm={() => {
         if (!pendingItem) return;
+        if (pendingItem.meta) rememberMeta(pendingItem.id, pendingItem.meta);
         const c = createCrate(name || "New crate", pendingItem.id);
         toast({ tone: "success", title: `Made ${c.name}`, description: `${pendingItem.title} is in it. Find it in your library.` });
         close();
@@ -456,6 +468,92 @@ export function NewCrateHost() {
     >
       <TextInput label="Name" value={name} maxLength={40} placeholder="Late night chops" onChange={(e) => setName(e.target.value)} />
     </Dialog>
+  );
+}
+
+// ---------------------------------------------------------------------------------------------
+// License receipts: one per download, for answering a Content ID claim.
+
+async function copyText(text: string): Promise<boolean> {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function ReceiptsSection({ receipts }: { receipts: Receipt[] }) {
+  const toast = useToast();
+  const [open, setOpen] = useState<string | null>(null);
+  const [doomed, setDoomed] = useState<Receipt | null>(null);
+  const copy = async (text: string, what: string) =>
+    toast((await copyText(text)) ? { tone: "success", title: `Copied the ${what}` } : { tone: "error", title: `Could not copy the ${what}`, description: "Your browser blocked the clipboard." });
+  const fmt = (iso: string) => new Date(iso).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
+  return (
+    <section id="lib-receipts" aria-labelledby="receipts-title" className="flex flex-col gap-3">
+      <div className="flex flex-col gap-1">
+        <h2 id="receipts-title" className="text-title">License receipts</h2>
+        <p className="max-w-prose text-body text-text-muted">
+          Every download gets a receipt: the sound, who made it, where it came from, the license and the date. If YouTube Content ID claims your beat, copy the
+          receipt into your dispute. Downloads also carry it inside the zip.
+        </p>
+      </div>
+      {receipts.length === 0 && <p className="text-body text-text-muted">No downloads yet. Grab any sound and its receipt shows up here.</p>}
+      {receipts.length > 0 && (
+        <ul aria-label="License receipts" className="flex flex-col gap-3">
+          {receipts.map((r) => (
+            <li key={r.id} className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-4">
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div className="flex min-w-0 flex-col gap-1">
+                  <span className="text-label text-label-caps text-text-muted">{`${r.kind} · ${fmt(r.createdAt)}`}</span>
+                  <span className="truncate text-body-strong text-text">{r.title}</span>
+                  <span className="text-small text-text-muted">{`By ${r.by} · Receipt ${r.id}`}</span>
+                </div>
+                <LicenseBadge kind={r.license} />
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                <Button size="sm" variant="secondary" icon={Copy} onClick={() => void copy(creditTag(r), "credit tag")}>
+                  Copy credit tag
+                </Button>
+                <Button size="sm" variant="secondary" icon={Copy} onClick={() => void copy(receiptText(r), "receipt")}>
+                  Copy receipt
+                </Button>
+                <Button size="sm" variant="ghost" icon={Download} onClick={() => {
+                  const a = document.createElement("a");
+                  const url = URL.createObjectURL(new Blob([receiptText(r)], { type: "text/plain" }));
+                  a.href = url;
+                  a.download = `Stash receipt ${r.id}.txt`;
+                  a.click();
+                  setTimeout(() => URL.revokeObjectURL(url), 10_000);
+                }}>
+                  Save .txt
+                </Button>
+                <Button size="sm" variant="ghost" onClick={() => setOpen(open === r.id ? null : r.id)}>
+                  {open === r.id ? "Hide details" : "Show details"}
+                </Button>
+                <IconButton icon={Trash} label={`Delete receipt for ${r.title}`} onClick={() => setDoomed(r)} />
+              </div>
+              <code className="rounded-control border border-border px-3 py-2 text-small text-text">{creditTag(r)}</code>
+              {open === r.id && <pre className="overflow-x-auto whitespace-pre-wrap rounded-control border border-border p-3 text-small text-text-muted">{receiptText(r)}</pre>}
+            </li>
+          ))}
+        </ul>
+      )}
+      <Dialog
+        open={!!doomed}
+        onOpenChange={(o) => !o && setDoomed(null)}
+        variant="confirm"
+        destructive
+        title="Delete this receipt?"
+        description="It is your proof of license if a claim comes in. Copy it somewhere first if you might need it."
+        confirmLabel="Delete receipt"
+        onConfirm={() => {
+          if (doomed) deleteReceipt(doomed.id);
+          setDoomed(null);
+        }}
+      />
+    </section>
   );
 }
 
@@ -475,6 +573,8 @@ export function LibraryPage({ catalog, rows, renderLoops }: { catalog: Catalog; 
   const likedSplit = split(liked);
   const byId = new Map(all.map((s) => [s.id, s]));
   const doomedCrate = list.find((c) => c.id === doomed);
+  const metas = crateMeta();
+  const slips = useReceipts();
 
   return (
     <main className="mx-auto flex w-full max-w-content flex-col gap-8 px-3 py-8 tablet:px-4 desktop:px-6">
@@ -486,6 +586,7 @@ export function LibraryPage({ catalog, rows, renderLoops }: { catalog: Catalog; 
         {[
           ["#lib-crates", `Crates ${list.length}`],
           ["#lib-likes", `Likes ${liked.length}`],
+          ["#lib-receipts", `Receipts ${slips.length}`],
           ["#lib-following", `Following ${followed.length}`],
           ["#lib-posts", `Your posts ${mine.length}`],
         ].map(([href, label]) => (
@@ -505,6 +606,7 @@ export function LibraryPage({ catalog, rows, renderLoops }: { catalog: Catalog; 
         )}
         {list.map((c) => {
           const contents = split(c.items.map((id) => byId.get(id)).filter((s): s is Sound => !!s));
+          const others = c.items.filter((id) => !byId.has(id) && metas[id]).map((id) => ({ id, ...metas[id]! }));
           return (
             <div key={c.id} className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-4">
               <div className="flex items-center justify-between gap-3">
@@ -516,6 +618,20 @@ export function LibraryPage({ catalog, rows, renderLoops }: { catalog: Catalog; 
               </div>
               {contents.loops.length > 0 && renderLoops(`Loops in ${c.name}`, contents.loops)}
               {contents.midi.length > 0 && <MidiList label={`MIDI in ${c.name}`} items={contents.midi} />}
+              {others.length > 0 && (
+                <ul aria-label={`More in ${c.name}`} className="flex flex-col divide-y divide-border rounded-panel border border-border">
+                  {others.map((o) => (
+                    <li key={o.id} className="flex items-center gap-3 px-3 py-2">
+                      <span className="w-24 shrink-0 text-label text-label-caps text-text-muted">{o.kind}</span>
+                      <UiLink href={o.href} className="min-w-0 flex-1 truncate text-body-strong text-text ui-hover:underline">
+                        {o.title}
+                      </UiLink>
+                      {o.by && <span className="hidden truncate text-small text-text-muted tablet:inline">{o.by}</span>}
+                      <IconButton icon={Trash} label={`Remove ${o.title} from ${c.name}`} onClick={() => { toggleInCrate(c.id, o.id); toast({ tone: "info", title: `Removed from ${c.name}`, description: o.title }); }} />
+                    </li>
+                  ))}
+                </ul>
+              )}
               {c.items.length === 0 && <p className="text-small text-text-muted">Empty. Add sounds from their menu.</p>}
             </div>
           );
@@ -528,6 +644,8 @@ export function LibraryPage({ catalog, rows, renderLoops }: { catalog: Catalog; 
         {likedSplit.loops.length > 0 && renderLoops("Liked loops", likedSplit.loops)}
         {likedSplit.midi.length > 0 && <MidiList label="Liked MIDI" items={likedSplit.midi} />}
       </section>
+
+      <ReceiptsSection receipts={slips} />
 
       <section id="lib-following" aria-labelledby="following-title" className="flex flex-col gap-3">
         <h2 id="following-title" className="text-title">Following</h2>

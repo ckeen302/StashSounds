@@ -160,5 +160,5 @@ export async function saveShots(list: OneShot[], zipName: string, max = 60): Pro
     files.push({ name, data });
   }
   if (files.length === 0) return { outcome: "empty", names: [] };
-  return { outcome: await saveFiles(zipName, files), names: files.map((f) => f.name) };
+  return { outcome: await saveFiles(zipName, files, { title: list.length === 1 ? zipName.replace(/_/g, " ") : `${zipName.replace(/_/g, " ")} (${list.length} sounds)`, kind: list.length === 1 ? "One-shot" : "One-shot pack", by: "Stash" }), names: files.map((f) => f.name) };
 }

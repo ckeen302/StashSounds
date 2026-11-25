@@ -1,6 +1,7 @@
 import type { ItemRow } from "@stash/contracts";
 import { formatKey } from "@stash/contracts/format";
 import { ORIGINALS } from "./data";
+import { draftReceipt, keepReceipt, receiptText, type ReceiptMeta } from "./receipts";
 /**
  * Saving a file from the demo. On the published page the browser's own download is blocked, so the
  * file goes through the page's `downloads` capability, whose allowlist has zip but no audio type
@@ -24,13 +25,28 @@ void downloads();
 
 export type SaveOutcome = "saved" | "declined" | "failed";
 
-/** Saves `files` (one audio file, or a whole kit) as `zipName`.zip on the published page. */
-export async function saveFiles(zipName: string, files: { name: string; data: Blob }[]): Promise<SaveOutcome> {
+let lastReceipt: { id: string; title: string } | null = null;
+/** The receipt the most recent save made, for a toast's "View receipt". */
+export function latestReceipt() {
+  return lastReceipt;
+}
+
+/**
+ * Saves `files` (one audio file, or a whole kit) as `zipName`.zip on the published page. Every save
+ * makes a license receipt (kept in the library); in a zip it also rides along as a text file.
+ */
+export async function saveFiles(zipName: string, files: { name: string; data: Blob }[], meta?: ReceiptMeta): Promise<SaveOutcome> {
+  const receipt = draftReceipt(zipName, files.map((f) => f.name.split("/").pop() ?? f.name), meta);
+  const keep = () => {
+    keepReceipt(receipt);
+    lastReceipt = { id: receipt.id, title: receipt.title };
+  };
   const d = await downloads();
   if (d) {
     try {
-      const zip = await makeZip(files);
+      const zip = await makeZip([...files, { name: "Stash license receipt.txt", data: new Blob([receiptText(receipt)], { type: "text/plain" }) }]);
       await d.save({ filename: `${zipName}.zip`, data: zip });
+      keep();
       return "saved";
     } catch (err) {
       return (err as { code?: string }).code === "declined" ? "declined" : "failed";
@@ -45,6 +61,7 @@ export async function saveFiles(zipName: string, files: { name: string; data: Bl
     a.click();
     setTimeout(() => URL.revokeObjectURL(url), 10_000);
   }
+  keep();
   return "saved";
 }
 
@@ -123,10 +140,10 @@ export async function makeZip(files: { name: string; data: Blob }[]): Promise<Bl
 }
 
 /** Fetches a published file and saves it under `fileName` (inside `<name>.zip` on the published page). */
-export async function saveFetched(url: string, fileName: string): Promise<SaveOutcome> {
+export async function saveFetched(url: string, fileName: string, meta?: ReceiptMeta): Promise<SaveOutcome> {
   const res = await fetch(url);
   if (!res.ok) return "failed";
-  return saveFiles(fileName.replace(/\.[^.]+$/, ""), [{ name: fileName, data: await res.blob() }]);
+  return saveFiles(fileName.replace(/\.[^.]+$/, ""), [{ name: fileName, data: await res.blob() }], meta);
 }
 
 /** 16-bit PCM wav. */
@@ -162,9 +179,10 @@ export function wav(buf: AudioBuffer): Blob {
 
 /** A loop row's file: the producer's own upload when there is one, else the preview as "<title> <bpm>bpm <key>.mp3". */
 export async function saveLoopRow(row: ItemRow): Promise<{ outcome: SaveOutcome | "none"; name: string }> {
+  const meta: ReceiptMeta = { title: row.title, by: row.owner.displayName, kind: "Loop", license: row.license };
   const own = ORIGINALS.get(row.id);
-  if (own) return { outcome: await saveFetched(own.url, own.name), name: own.name };
+  if (own) return { outcome: await saveFetched(own.url, own.name, meta), name: own.name };
   const name = `${row.title}${row.bpm ? ` ${row.bpm}bpm` : ""}${row.key ? ` ${formatKey(row.key)}` : ""}.mp3`;
   if (!("previewUrl" in row.playable)) return { outcome: "none", name };
-  return { outcome: await saveFetched(row.playable.previewUrl, name), name };
+  return { outcome: await saveFetched(row.playable.previewUrl, name, meta), name };
 }

@@ -657,7 +657,7 @@ function PackPage({ id }: { id: string }) {
           name: `MIDI/${m.title}.mid`,
           data: new Blob([writeMidi(m.notes, m.title)]),
         });
-      const out = await saveFiles(`${p.name} (Stash pack)`, files);
+      const out = await saveFiles(`${p.name} (Stash pack)`, files, { title: p.name, kind: "Pack", by: "Stash" });
       if (out === "saved")
         toast({
           tone: "success",
