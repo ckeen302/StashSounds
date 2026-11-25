@@ -206,8 +206,17 @@ export function LoopTools({ row }: { row: ItemRow }) {
             onSubmit={(e) => {
               e.preventDefault();
               const n = Number(bpmText);
-              if (Number.isFinite(n) && n >= 40 && n <= 300) setRatio(n / base);
-              else toast({ tone: "error", title: "Type a BPM from 40 to 300" });
+              if (!(Number.isFinite(n) && n >= 40 && n <= 300)) {
+                toast({ tone: "error", title: "Type a BPM from 40 to 300" });
+                return;
+              }
+              // Producers fit loops in half- or double-time: a 72 BPM loop goes in a 140 session at
+              // 70, not stretched to 140. Take whichever of n, n/2 and 2n needs the least stretch.
+              const fit = [n, n / 2, n * 2]
+                .filter((t) => t >= 40 && t <= 300)
+                .reduce((a, b) => (Math.abs(Math.log(b / base)) < Math.abs(Math.log(a / base)) ? b : a));
+              setRatio(fit / base);
+              if (fit !== n) toast({ tone: "success", title: `Fit at ${Math.round(fit)} BPM`, description: `${fit < n ? "Half" : "Double"}-time of your ${Math.round(n)} BPM session, so it barely stretches.` });
             }}
           >
             <TextInput label="Your project's BPM" inputMode="numeric" placeholder={String(Math.round(base))} value={bpmText} onChange={(e) => setBpmText(e.target.value.replace(/[^\d.]/g, ""))} className="min-w-0 flex-1" />

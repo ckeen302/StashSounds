@@ -64,7 +64,9 @@ let resolveMidi: (publicId: string) => string | null = () => null;
 
 function readHash(): string {
   try {
-    return decodeURIComponent(window.location.hash.slice(1));
+    const hash = decodeURIComponent(window.location.hash.slice(1));
+    // A pasted "#/samples" style link names a path, not a hash name: read it as that path.
+    return hash.startsWith("/") ? nameFor(hash) : hash;
   } catch {
     return "";
   }

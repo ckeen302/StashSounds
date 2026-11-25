@@ -38,7 +38,7 @@ const SOUND_ALIASES: [string, string[]][] = [
   ["Lead", ["lead", "leads", "whistle", "stab", "stabs"]],
   ["Synth", ["synth", "synths", "saw", "supersaw"]],
   ["808", ["808", "808s", "bass", "sub", "slide", "slides", "glide"]],
-  ["Drums", ["drums", "drum", "hats", "hat", "hi hats", "hihats", "snare", "kick", "perc", "percussion", "rolls"]],
+  ["Drums", ["drums", "drum", "hats", "hat", "hi hats", "hi hat", "hi-hat", "hi-hats", "hihat", "hihats", "hh", "open hat", "closed hat", "snare", "snares", "kick", "kicks", "clap", "claps", "rim", "rimshot", "tom", "toms", "crash", "cymbal", "ride", "perc", "percussion", "rolls", "hat rolls"]],
   ["Cowbell", ["cowbell", "cowbells"]],
   ["Choir", ["choir", "vocal", "vocals", "vox", "voice"]],
   ["Flute", ["flute", "flutes", "pan flute"]],
@@ -90,7 +90,63 @@ const STYLES: { name: string; aliases: string[]; genres: Genre[]; sounds: string
   { name: "Mustard", aliases: ["mustard", "dj mustard"], genres: ["West Coast"], sounds: ["Synth", "808"], moods: ["Bouncy"] },
   { name: "DJ Paul", aliases: ["dj paul", "three 6", "three six", "three 6 mafia"], genres: ["Phonk"], sounds: ["Cowbell", "808"], moods: ["Dark"] },
   { name: "Kordhell", aliases: ["kordhell"], genres: ["Phonk"], sounds: ["Cowbell", "808"], moods: ["Hard"] },
+  // Artists producers name when they mean "in the style of" ("carti type beat"). Their songs in the
+  // MIDI library rank first; loops of the same genre and sound follow.
+  { name: "Playboi Carti", aliases: ["playboi carti", "playboy carti", "carti", "whole lotta red"], genres: ["Rage", "Plugg"], sounds: ["Synth", "Lead", "808", "Bells"], moods: ["Hard", "Bouncy"] },
+  { name: "Ken Carson", aliases: ["ken carson", "opium"], genres: ["Rage"], sounds: ["Synth", "Lead", "808"], moods: ["Hard", "Dark"] },
+  { name: "Destroy Lonely", aliases: ["destroy lonely"], genres: ["Rage"], sounds: ["Synth", "Pad", "808"], moods: ["Dark", "Dreamy"] },
+  { name: "Gunna", aliases: ["gunna"], genres: ["Trap"], sounds: ["Guitar", "Pluck", "808"], moods: ["Bouncy", "Chill"] },
+  { name: "Yeat", aliases: ["yeat"], genres: ["Rage"], sounds: ["Bells", "Synth", "808"], moods: ["Hard"] },
+  { name: "Lil Uzi Vert", aliases: ["lil uzi vert", "lil uzi", "uzi"], genres: ["Rage", "Trap"], sounds: ["Synth", "Lead", "Bells"], moods: ["Bouncy", "Happy"] },
+  { name: "Travis Scott", aliases: ["travis scott", "travis", "la flame", "cactus jack"], genres: ["Trap"], sounds: ["Synth", "Pad", "808", "Bells"], moods: ["Dark", "Dreamy"] },
+  { name: "Future", aliases: ["future", "pluto"], genres: ["Trap"], sounds: ["808", "Bells", "Piano", "Synth"], moods: ["Dark"] },
+  { name: "21 Savage", aliases: ["21 savage"], genres: ["Trap"], sounds: ["808", "Piano", "Strings"], moods: ["Dark"] },
+  { name: "Young Thug", aliases: ["young thug", "thugger"], genres: ["Trap"], sounds: ["Guitar", "Pluck", "808"], moods: ["Bouncy"] },
+  { name: "Gucci Mane", aliases: ["gucci mane", "gucci"], genres: ["Trap"], sounds: ["Piano", "Keys", "808"], moods: ["Bouncy"] },
+  { name: "Chief Keef", aliases: ["chief keef", "sosa"], genres: ["Drill", "Trap"], sounds: ["Brass", "Strings", "Bells", "808"], moods: ["Hard", "Dark"] },
+  { name: "Pop Smoke", aliases: ["pop smoke"], genres: ["Drill"], sounds: ["808", "Choir", "Strings"], moods: ["Dark", "Hard"] },
+  { name: "Drake", aliases: ["drake", "drizzy", "ovo"], genres: ["R&B", "Trap"], sounds: ["Pad", "Keys", "Piano"], moods: ["Chill", "Dreamy", "Sad"] },
+  { name: "The Weeknd", aliases: ["the weeknd", "weeknd", "the weekend"], genres: ["R&B"], sounds: ["Synth", "Pad"], moods: ["Dark", "Dreamy"] },
+  { name: "Juice WRLD", aliases: ["juice wrld", "juice world"], genres: ["Trap"], sounds: ["Guitar", "Piano", "Melody"], moods: ["Sad"] },
+  { name: "Kanye West", aliases: ["kanye west", "kanye"], genres: ["Soul", "Boom bap"], sounds: ["Choir", "Keys", "Piano"], moods: ["Dusty"] },
+  { name: "Tyler, the Creator", aliases: ["tyler the creator", "tyler"], genres: ["Soul", "R&B"], sounds: ["Keys", "Synth", "Chords"], moods: ["Jazzy", "Bouncy"] },
+  { name: "Kendrick Lamar", aliases: ["kendrick lamar", "kendrick"], genres: ["West Coast", "Boom bap"], sounds: ["Keys", "Piano", "Drums"], moods: ["Jazzy", "Hard"] },
 ];
+
+// Every word in a named style ("metro", "boomin", "carti"), for forgiving one typo in a long one.
+const STYLE_WORDS = [...new Set(STYLES.flatMap((s) => s.aliases.flatMap((a) => a.split(" "))).filter((w) => w.length >= 5 && /^[a-z]+$/.test(w)))];
+
+function nearOne(a: string, b: string): boolean {
+  if (Math.abs(a.length - b.length) > 1 || a === b) return false;
+  let i = 0;
+  let j = 0;
+  let edits = 0;
+  while (i < a.length && j < b.length) {
+    if (a[i] === b[j]) {
+      i++;
+      j++;
+      continue;
+    }
+    if (++edits > 1) return false;
+    if (a.length > b.length) i++;
+    else if (b.length > a.length) j++;
+    else if (a[i + 1] === b[j] && a[i] === b[j + 1]) {
+      // A swap of two letters ("tarvis") counts as one typo.
+      i += 2;
+      j += 2;
+    } else {
+      i++;
+      j++;
+    }
+  }
+  return edits + (a.length - i) + (b.length - j) <= 1;
+}
+
+/** "trvis" -> "travis", "boomim" -> "boomin": a word one typo off a producer's or artist's name. */
+function styleSpelling(w: string): string | null {
+  if (w.length < 5 || STYLE_WORDS.includes(w)) return null;
+  return STYLE_WORDS.find((x) => nearOne(w, x)) ?? null;
+}
 
 // Words that say nothing about the sound.
 const STOP = new Set(["a", "an", "the", "and", "or", "with", "for", "in", "of", "to", "like", "type", "beat", "beats", "loop", "loops", "sample", "samples", "midi", "style", "vibe", "vibes", "some", "me", "give", "sound", "sounds", "kind", "that", "this", "bpm", "key"]);
@@ -138,7 +194,8 @@ export function parseQuery(input: string): Query {
   });
   take(/(?<![\w#])(\d{2,3})s(?!\w)/, (m) => {
     const a = Number(m[1]);
-    if (a < 40 || a > 240 || a % 10) return null;
+    // "140s" is a tempo; "90s" and "80s" are an era ("90s boom bap"), so those stay words.
+    if (a < 100 || a > 240 || a % 10) return null;
     bpm = { min: a, max: a + 9, exact: null };
     return { kind: "bpm", label: `${a} to ${a + 9} BPM`, raw: m[0].trim() };
   });
@@ -173,10 +230,20 @@ export function parseQuery(input: string): Query {
   // Longest first, so "uk drill" beats "drill" and "metro boomin" beats "metro"; styles before
   // sounds, so "808 melo" is a producer and not an 808.
   phrases.sort((a, b) => b.alias.length - a.alias.length || (a.kind === "style" ? -1 : b.kind === "style" ? 1 : 0));
+  // Fix a typo in a long word of a name ("trvis scott", "metro boomim"), keeping the typed word as
+  // the token's raw text so its chip can still remove it. Same-length swaps keep offsets in place.
+  const typed = new Map<string, string>();
+  rest = rest.replace(/[a-z]{5,}/g, (w) => {
+    const fix = styleSpelling(w);
+    if (!fix) return w;
+    typed.set(fix, w);
+    return fix;
+  });
+  const rawOf = (text: string) => text.replace(/[a-z]+/g, (w) => typed.get(w) ?? w);
   for (const p of phrases) {
     take(new RegExp(`(?<![\\w&'])${esc(p.alias)}(?![\\w&'])`), (m) => {
       const label = p.apply();
-      return tokens.some((t) => t.kind === p.kind && t.label === label) ? null : { kind: p.kind, label, raw: m[0].trim() };
+      return tokens.some((t) => t.kind === p.kind && t.label === label) ? null : { kind: p.kind, label, raw: rawOf(m[0].trim()) };
     });
   }
 

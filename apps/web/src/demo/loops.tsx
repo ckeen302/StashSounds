@@ -611,7 +611,9 @@ export function LoopsPage({
       ) : (
         <div className="flex flex-col items-start gap-3 rounded-panel border border-border bg-surface p-4">
           <p className="text-body text-text-muted">
-            No loops match all of that. Try another tempo or clear the filters.
+            {f.q.trim()
+              ? `Nothing here matches "${f.q.trim()}" yet. Try a sound, mood or tempo instead, like "dark piano 140", or clear the filters.`
+              : "No loops match all of that. Try another tempo or clear the filters."}
           </p>
           <Button size="sm" variant="secondary" onClick={() => update(DEFAULT)}>
             Clear filters

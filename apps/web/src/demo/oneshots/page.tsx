@@ -1,7 +1,7 @@
 import { Button, Download, EmptyState, IconButton, PlayButton, SearchInput, Trash, Upload, useToast } from "@stash/ui";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { categoryOf, cleanName, decode } from "../kits/store";
-import { fileName, INSTRUMENTS, instrumentOf, MELODIC, mineAsMelodic, NOTE_NAMES, peaksOf, playShot, saveMelodic, type InstrumentId, type MelodicShot } from "./melodic";
+import { fileName, INSTRUMENTS, instrumentOf, MELODIC, mineAsMelodic, NOTE_NAMES, peaksOf, playShot, saveMelodic, warmShots, type InstrumentId, type MelodicShot } from "./melodic";
 import { postShots, removeShot, useMineVersion, type ShotDraft } from "./store";
 
 /**
@@ -98,7 +98,13 @@ export function OneShotsPage() {
     setSelected(i);
     const s = shots[i];
     if (s) void playShot(s);
+    // Render the neighbours now, so arrowing to them plays without a wait.
+    warmShots([shots[i + 1], shots[i - 1]].filter((x): x is MelodicShot => !!x));
   };
+  // The first rows of whatever is showing are ready before the first tap.
+  useEffect(() => {
+    warmShots(shots.slice(0, 4));
+  });
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -278,7 +284,7 @@ export function OneShotsPage() {
               const ins = instrumentOf(s.instrument);
               return (
                 <li key={s.id} data-selected={s === current || undefined} className="os-row flex min-h-16 items-center gap-3 border-b border-border px-3 py-2 last:border-b-0 data-selected:bg-raised ui-hover:bg-raised">
-                  <PlayButton title={s.name} state="paused" onClick={() => hear(i)} />
+                  <PlayButton title={s.name} state="paused" onPointerDown={(e) => e.button === 0 && hear(i)} onClick={(e) => e.detail === 0 && hear(i)} />
                   <button type="button" onClick={() => hear(i)} className="flex min-w-0 flex-1 flex-col text-left" aria-label={`Hear ${s.name}${s.spoken ? `, ${s.spoken}` : ""}`}>
                     <span className="truncate text-body-strong text-text">{s.name}</span>
                     <span className="truncate text-small text-text-muted">{s.mine ? `${ins.label} · posted from this browser` : `${ins.label} · ${s.kind === "chord" ? `Chord, ${s.pitches.length} notes` : "Single note"}`}</span>

@@ -29,6 +29,7 @@ import { AppShell } from "../app/_shell/app-shell";
 import { nowPlaying } from "../app/_shell/now-playing";
 import { ItemView } from "../app/_item/item-view";
 import { buildCatalog, type Catalog } from "./data";
+import { LICENSE_LABELS } from "@stash/contracts/format";
 import { HashLink } from "./hash-link";
 import { navigate, startRouter, usePath } from "./router";
 import { OriginalPage, SampleArtistPage, SampleProducerPage, SampleSongPage, SamplesPage } from "./samples/page";
@@ -594,7 +595,7 @@ function SearchResults() {
             </ButtonLink>
           }
         >
-          Check the spelling, or search fewer words.
+          Check the spelling or search fewer words, like “dark piano 140” or “carti type beat”.
         </EmptyState>
       ) : active ? (
         <section className="flex flex-col gap-3">
@@ -739,6 +740,26 @@ function MoreLikeThis({ row }: { row: ItemRow }) {
   );
 }
 
+/** What each license badge means: every badge on a row and the item page links here. */
+function LicensesPage() {
+  return (
+    <Page>
+      <header className="flex flex-col gap-1">
+        <h1 className="text-title">Licenses</h1>
+        <p className="text-body text-text-muted">Every sound on Stash carries one of these. The badge on a sound says which.</p>
+      </header>
+      <ul className="flex flex-col gap-4">
+        {(Object.keys(LICENSE_LABELS) as (keyof typeof LICENSE_LABELS)[]).map((kind) => (
+          <li key={kind} id={kind} className="flex flex-col gap-1">
+            <h2 className="text-body-strong">{LICENSE_LABELS[kind].label}</h2>
+            <p className="text-body text-text-muted">{LICENSE_LABELS[kind].summary}</p>
+          </li>
+        ))}
+      </ul>
+    </Page>
+  );
+}
+
 function NotInDemo({
   title,
   icon,
@@ -799,14 +820,14 @@ function NotFound() {
     <Page>
       <EmptyState
         icon={Search}
-        title="That loop isn't here"
+        title="That page isn't here"
         action={
           <ButtonLink href="/" variant="secondary">
-            Back to the loops
+            Back home
           </ButtonLink>
         }
       >
-        The demo has five loops. This link points at something else.
+        This link points at something the demo does not have. Search above, or start from home.
       </EmptyState>
     </Page>
   );
@@ -1178,6 +1199,7 @@ function Route() {
   if (path === "/kit-upload") return <KitUploadPage />;
   if (path.startsWith("/pack/")) return <PackPage id={path.slice(6)} />;
   if (path === "/loops") return <LoopsRoute />;
+  if (path === "/licenses") return <LicensesPage />;
   if (path === "/notifications")
     return (
       <NotInDemo title="Notifications" icon={Bell}>

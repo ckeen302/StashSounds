@@ -219,7 +219,7 @@ export function SfxPage() {
                   onPointerEnter={() => warm(s)}
                   className="sfx-row flex min-h-16 items-center gap-3 border-b border-border px-3 py-2 last:border-b-0 data-selected:bg-raised ui-hover:bg-raised"
                 >
-                  <PlayButton title={s.name} state={state} onClick={() => hear(i)} />
+                  <PlayButton title={s.name} state={state} onPointerDown={(e) => e.button === 0 && hear(i)} onClick={(e) => e.detail === 0 && hear(i)} />
                   <button type="button" onClick={() => hear(i)} className="flex min-w-0 flex-1 flex-col text-left" aria-label={`Hear ${s.name}`}>
                     <span className="truncate text-body-strong text-text">{s.name}</span>
                     <span className="truncate text-small text-text-muted">
