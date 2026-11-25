@@ -69,7 +69,7 @@ function DrumSounds({ type, needle }: { type: Category; needle: string }) {
   const toast = useToast();
   const all = useKits();
   const sounds = allShots(all).filter(
-    (s) => s.category === type && (!needle || [s.name, s.kit?.name ?? "", s.owner.handle, s.genre].some((x) => x.toLowerCase().includes(needle))),
+    (s) => s.category === type && (!needle || [s.name, s.kit?.name ?? "", (s.kit?.name ?? "").replace(/['’]/g, ""), s.owner.handle, s.genre].some((x) => x.toLowerCase().includes(needle))),
   );
   if (sounds.length === 0)
     return (
@@ -123,7 +123,7 @@ export function KitsPage() {
   const [q, setQ] = useState("");
   const needle = q.trim().toLowerCase();
   const shown = all.filter(
-    (k) => (genre === "All" || k.genre === genre) && (!needle || [k.name, k.owner.displayName, k.owner.handle, k.genre, ...k.sounds.map((s) => s.name)].some((s) => s.toLowerCase().includes(needle))),
+    (k) => (genre === "All" || k.genre === genre) && (!needle || [k.name, k.name.replace(/['’]/g, ""), k.owner.displayName, k.owner.handle, k.genre, ...k.sounds.map((s) => s.name)].some((s) => s.toLowerCase().includes(needle))),
   );
   const genres = ["All", ...GENRES.filter((g) => all.some((k) => k.genre === g))];
 

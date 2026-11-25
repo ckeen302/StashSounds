@@ -1,12 +1,15 @@
 import { getEngine } from "@stash/audio";
 import { useSyncExternalStore } from "react";
-import { producers, type Producer } from "../data";
+import { HOUSE, producers, type Producer } from "../data";
 import { extra, VIEWER } from "../midi/catalog";
 import { midiPlayer } from "../midi/synth";
+import library from "./library.json";
 
 /**
  * Drum kits: folders of one-shots (kicks, snares, hats...) that producers post and others grab.
- * The demo's own kits are synthesized in the browser, so no one's samples are hosted here. Kits the
+ * The demo's own kits are synthesized in the browser, so no one's samples are hosted here. The
+ * "inspired by" kits are originals too: scripts/build-demo-kits.py synthesizes every hit in the style
+ * of a producer's records (none of it is their samples) into one mp3 per kit. Kits the
  * viewer uploads keep their audio in this browser's IndexedDB and their details in localStorage;
  * nothing leaves the page.
  */
@@ -43,7 +46,9 @@ export function cleanName(fileName: string): string {
 }
 
 export type Hit = { pitch: number; tune: number; stretch: number };
-export type KitSound = { id: string; name: string; category: Category; durationMs: number; hit?: Hit; fileKey?: string };
+/** A slice of a kit's sprite mp3 (seconds), for the "inspired by" kits. */
+export type Clip = { file: string; start: number; duration: number };
+export type KitSound = { id: string; name: string; category: Category; durationMs: number; hit?: Hit; fileKey?: string; clip?: Clip };
 export type Kit = {
   id: string;
   name: string;
@@ -55,6 +60,8 @@ export type Kit = {
   downloads: number;
   publishedAt: string;
   mine?: boolean;
+  /** The producer whose sound an original kit is made in the style of. Not made or endorsed by them. */
+  inspiredBy?: string;
 };
 
 // ---------------------------------------------------------------------------------------------
@@ -126,6 +133,64 @@ const DEMO_KITS: Kit[] = [
 ];
 
 // ---------------------------------------------------------------------------------------------
+// "Inspired by" kits: original hits in the style of well-known producers, sliced from one mp3 each.
+
+const INSPIRED_KITS: Kit[] = library.kits.map((k) => ({
+  id: `insp${k.id}`,
+  name: `${k.name} (inspired by ${k.inspiredBy})`,
+  owner: HOUSE,
+  genre: k.genre,
+  description: `${k.description} Original sounds made by Stash in this style. They are not ${k.inspiredBy}'s samples, and ${k.inspiredBy} did not make or endorse this kit.`,
+  likes: 0,
+  downloads: 0,
+  publishedAt: k.publishedAt,
+  inspiredBy: k.inspiredBy,
+  sounds: k.sounds.map((s, i) => ({
+    id: `insp${k.id}-${i}`,
+    name: s.name,
+    category: s.category as Category,
+    durationMs: Math.round(s.duration * 1000),
+    clip: { file: k.file, start: s.start, duration: s.duration },
+  })),
+}));
+
+const sprites = new Map<string, Promise<AudioBuffer>>();
+const clips = new Map<string, Promise<AudioBuffer>>();
+
+function sprite(file: string): Promise<AudioBuffer> {
+  let p = sprites.get(file);
+  if (!p) {
+    p = fetch(new URL(`demo/kits/${file}`, document.baseURI).href, { credentials: "same-origin" })
+      .then((r) => {
+        if (!r.ok) throw new Error(`kit sprite ${file}: ${r.status}`);
+        return r.arrayBuffer();
+      })
+      .then((b) => decode(b));
+    p.catch(() => sprites.delete(file));
+    sprites.set(file, p);
+  }
+  return p;
+}
+
+/** One sound cut from its kit's sprite, as its own buffer (for playing, the waveform and the wav). */
+export function clipBuffer(clip: Clip): Promise<AudioBuffer> {
+  const key = `${clip.file}@${clip.start}`;
+  let p = clips.get(key);
+  if (!p) {
+    p = sprite(clip.file).then((src) => {
+      const from = Math.floor(clip.start * src.sampleRate);
+      const len = Math.max(1, Math.min(src.length - from, Math.round(clip.duration * src.sampleRate)));
+      const out = audioContext().createBuffer(src.numberOfChannels, len, src.sampleRate);
+      for (let c = 0; c < src.numberOfChannels; c++) out.copyToChannel(src.getChannelData(c).subarray(from, from + len), c);
+      return out;
+    });
+    p.catch(() => clips.delete(key));
+    clips.set(key, p);
+  }
+  return p;
+}
+
+// ---------------------------------------------------------------------------------------------
 // The viewer's kits: details in localStorage, audio in IndexedDB.
 
 const KEY = "stash.demo.kits";
@@ -155,7 +220,7 @@ function saveMine(next: Kit[]) {
 }
 
 export function kits(): Kit[] {
-  return [...loadMine(), ...[...DEMO_KITS].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))];
+  return [...loadMine(), ...[...INSPIRED_KITS, ...DEMO_KITS].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))];
 }
 
 export function kit(id: string): Kit | null {
@@ -269,6 +334,11 @@ export async function play(sound: KitSound | Draft, key?: string) {
   stopOthers();
   if ("hit" in sound && sound.hit) {
     midiPlayer().hit(sound.hit.pitch, 112, sound.hit.tune, sound.hit.stretch);
+    return;
+  }
+  if ("clip" in sound && sound.clip) {
+    const buf = await clipBuffer(sound.clip).catch(() => null);
+    if (buf) playBuffer(buf, false);
     return;
   }
   const id = key ?? ("fileKey" in sound ? sound.fileKey : undefined);
