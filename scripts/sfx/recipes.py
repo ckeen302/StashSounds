@@ -1689,3 +1689,241 @@ SOUNDS: list[tuple] = [
     _v("foley", "footsteps", "Footsteps, gravel", footsteps, {"surface": "gravel"}, ["footsteps", "gravel"]),
     _v("foley", "footsteps", "Running footsteps", footsteps, {"rate": 3.4}, ["footsteps", "running"]),
 ]
+
+
+# =============================================================================================
+# Producer FX: the sounds producers actually drop on a beat. Synthesis is at its best here.
+
+NOTE = {"C": 0, "C#": 1, "D": 2, "D#": 3, "E": 4, "F": 5, "F#": 6, "G": 7, "G#": 8, "A": 9, "A#": 10, "B": 11}
+
+
+def hz(note: str, octave: int) -> float:
+    return 440.0 * 2 ** ((NOTE[note] + 12 * (octave + 1) - 69) / 12)
+
+
+def tape_echo(x: np.ndarray, time: float, feedback: float = 0.5, repeats: int = 8, tone: float = 2500.0, wobble: float = 0.0, rng=None) -> np.ndarray:
+    """A tape delay: each repeat darker than the last, a touch of saturation, optional wow."""
+    x = to_mono(x)
+    d = n_of(time)
+    out = np.zeros(len(x) + d * repeats + n_of(0.2))
+    out[: len(x)] += x
+    rep = x.copy()
+    for k in range(1, repeats + 1):
+        rep = drive(lp(rep, tone), 1.2) * feedback
+        if wobble and rng is not None:
+            sh = int(wobble * SR * rng.uniform(-1, 1) * 0.001)
+            rep = np.roll(rep, sh)
+        s = d * k
+        out[s : s + len(rep)] += rep[: len(out) - s]
+    return out
+
+
+def dj_air_horn(rng, root=440.0, pattern=(0.13, 0.13, 0.6), gap=0.05, echo=False, dip=0.9):
+    """The dancehall/DJ air horn: a reedy brass chord, a pitch scoop into each blast, heavily driven."""
+    total = sum(pattern) + gap * len(pattern) + 0.3
+    out = np.zeros(n_of(total))
+    t0 = 0.02
+    for blast in pattern:
+        n = n_of(blast)
+        tt = np.arange(n) / SR
+        scoop = dip + (1 - dip) * np.clip(tt / 0.035, 0, 1)
+        chord = np.zeros(n)
+        for r, g in ((1, 1.0), (1.498, 0.8), (2.0, 0.6), (2.52, 0.35)):
+            for det in (-0.004, 0.0, 0.005):
+                chord += saw(root * r * (1 + det) * scoop, harmonics=40) * g
+        chord = peak(bp(chord, 1400, 0.35), 2600, 1.2, 6)
+        chord = drive(chord * 0.6, 4.0) * env_adsr(n, 0.004, 0.02, 0.9, 0.02)
+        at(out, chord, t0)
+        t0 += blast + gap
+    if echo:
+        out = tape_echo(out, 0.27, 0.45, 6, 3000)
+    return reverb(out, rng, 0.9, 0.18)
+
+
+def dub_siren(rng, kind="rise", base=420.0, sec=2.4, echo_time=0.3):
+    """The reggae/dub siren box: an oscillator swept by an LFO into a tape echo."""
+    n = n_of(sec)
+    t = np.arange(n) / SR
+    if kind == "rise":
+        f = base * 2 ** (2.2 * (t / sec) ** 1.5)
+        osc = square(f, harmonics=10) * 0.5 + sine(f) * 0.5
+    elif kind == "warble":
+        f = base * (1 + 0.35 * np.sin(2 * np.pi * 7 * t)) * (1 + 0.3 * t / sec)
+        osc = sine(f) * 0.7 + square(f, harmonics=6) * 0.3
+    elif kind == "fall":
+        f = base * 2.5 * 2 ** (-2.5 * t / sec)
+        osc = square(f, harmonics=8) * 0.6 + sine(f) * 0.4
+    else:  # "pew": quick laser drops, repeated
+        ph = (t * 4) % 1
+        f = base * 3 * 2 ** (-3 * ph)
+        osc = sine(f) * 0.7 + square(f, harmonics=5) * 0.3
+    x = osc * env_adsr(n, 0.01, 0.05, 0.9, 0.08)
+    return reverb(tape_echo(x, echo_time, 0.55, 10, 2200, 0.6, rng), rng, 1.2, 0.2)
+
+
+def snare_hit(rng, tone=190.0, dur=0.18, bright=1.0):
+    n = n_of(dur)
+    body = sine(curve([(0, tone * 1.6), (0.03, tone), (dur, tone * 0.95)], dur)) * env_perc(n, 0.001, 0.04)
+    wires = bp(noise(n, rng), 4500 * bright, 0.6) * env_perc(n, 0.001, 0.07) + hp(noise(n, rng), 2000) * env_perc(n, 0.001, 0.03) * 0.5
+    return body * 0.8 + wires
+
+
+def snare_roll(rng, bars=2, bpm=140.0, pitch_up=True):
+    """The build-up roll: quarters, eighths, sixteenths, thirty-seconds, rising in pitch and level."""
+    beat = 60 / bpm
+    sec = bars * 4 * beat
+    out = np.zeros(n_of(sec + 0.4))
+    t = 0.0
+    while t < sec - 1e-6:
+        prog = t / sec
+        step = beat / (1 if prog < 0.25 else 2 if prog < 0.5 else 4 if prog < 0.75 else 8)
+        s = snare_hit(rng, 180 * (2 ** (prog * 0.8) if pitch_up else 1), bright=1 + prog * 0.5)
+        at(out, s * (0.35 + 0.65 * prog), t)
+        t += step
+    return reverb(out, rng, 1.2, 0.25)
+
+
+def uplifter(rng, sec=4.0):
+    n = n_of(sec)
+    t = np.arange(n) / SR
+    rise = (t / sec) ** 2.2
+    noise_part = blockfilter(noise(n, rng), 200 + 12000 * rise, "hp") * (0.1 + rise)
+    f = curve([(0, 200), (sec, 3200)], sec, "exp")
+    tone = sum(saw(f * r, harmonics=20) for r in (1, 1.005, 0.995)) / 3 * (0.05 + 0.5 * rise)
+    tone = blockfilter(tone, 300 + 6000 * rise, "lp")
+    return reverb(pan(noise_part + tone, np.sin(2 * np.pi * 0.7 * t) * 0.5 * rise), rng, 2.0, 0.35)
+
+
+def beat_bar(rng, bpm=90.0, bars=1):
+    """A short synthesized drum and chord bar, the source for spinbacks and rewinds."""
+    beat = 60 / bpm
+    sec = bars * 4 * beat
+    out = np.zeros(n_of(sec + 0.5))
+    for b in range(bars * 4):
+        k = sine(curve([(0, 120), (0.3, 45)], 0.3, "exp")) * env_perc(n_of(0.3), 0.002, 0.12)
+        if b % 2 == 0:
+            at(out, k, b * beat)
+        else:
+            at(out, snare_hit(rng), b * beat, 0.8)
+        for h in range(2):
+            at(out, hp(noise(n_of(0.05), rng), 7000) * env_perc(n_of(0.05), 0.001, 0.012) * 0.4, b * beat + h * beat / 2)
+    chord = sum(saw(hz(nt, 3), n_of(sec), harmonics=20) for nt in ("A", "C", "E")) / 3
+    out[: len(chord)] += lp(chord, 1500) * 0.25
+    return out
+
+
+def spinback(rng, bpm=90.0, sec=1.6, kind="spin"):
+    """A DJ spinback or rewind: the bar plays, then the record is dragged backwards."""
+    src = beat_bar(rng, bpm, 2)
+    n_src = len(src)
+    n = n_of(sec)
+    t = np.arange(n) / SR
+    if kind == "spin":  # a hand flicks the platter back: fast reverse that slows to a stop
+        speed = -4.0 * np.exp(-t / (sec * 0.35))
+    else:  # rewind: forward, a stutter, then a long accelerating backwards drag
+        speed = np.where(t < 0.25, 1.0, -0.5 - 3.5 * np.clip((t - 0.25) / (sec - 0.25), 0, 1) ** 0.7)
+    pos = n_src * 0.6 + np.cumsum(speed)
+    pos = np.clip(pos, 0, n_src - 1)
+    y = np.interp(pos, np.arange(n_src), src)
+    y = blockfilter(y, 600 + 5000 * np.clip(np.abs(speed) / 4, 0, 1), "lp")
+    return y * env_adsr(n, 0.002, 0.0, 1, 0.15)
+
+
+def vinyl_stop(rng, bpm=90.0):
+    src = beat_bar(rng, bpm, 1)
+    sec = 1.8
+    n = n_of(sec)
+    speed = np.clip(1 - (np.arange(n) / SR) / sec, 0, 1) ** 1.6
+    pos = np.clip(np.cumsum(speed), 0, len(src) - 1)
+    y = np.interp(pos, np.arange(len(src)), src)
+    return blockfilter(y, 300 + 6000 * speed, "lp")
+
+
+def gunshot_echo(rng, kind="pistol"):
+    shot = to_mono(gunshot(rng, kind))[: n_of(0.6)]
+    return reverb(tape_echo(shot, 0.32, 0.5, 6, 2200), rng, 1.5, 0.3)
+
+
+def bomb_drop(rng):
+    out = np.zeros(n_of(6.5))
+    whistle = sine(curve([(0, 2400), (2.2, 500)], 2.2)) * env_adsr(n_of(2.2), 0.2, 0.0, 1, 0.02) * 0.4
+    at(out, whistle, 0.0)
+    at(out, to_mono(explosion(rng, 4.0, 1.3)), 2.2)
+    return out
+
+
+def laser_riser(rng, sec=2.0):
+    n = n_of(sec)
+    t = np.arange(n) / SR
+    f = curve([(0, 300), (sec, 4000)], sec, "exp") * (1 + 0.04 * np.sin(2 * np.pi * (6 + 20 * t / sec) * t))
+    x = (square(f, harmonics=8) * 0.4 + sine(f) * 0.6) * (0.2 + 0.8 * (t / sec))
+    return reverb(tape_echo(x, 0.18, 0.35, 4, 4000), rng, 1.0, 0.2)
+
+
+def impact_tail(rng, note="C", octave=1, sec=4.0):
+    """An 808-style boom tuned to a key, with a sub tail that holds the note."""
+    f = hz(note, octave)
+    n = n_of(sec)
+    body = sine(curve([(0, f * 4), (0.06, f * 1.15), (0.3, f), (sec, f * 0.985)], sec, "exp")) * env_adsr(n, 0.002, 0.4, 0.55, sec * 0.5)
+    click = lp(noise(n_of(0.03), rng), 6000) * env_perc(n_of(0.03), 0.0005, 0.006)
+    x = body.copy()
+    at(x, click, 0, 0.5)
+    x = drive(x * 1.6, 1.8)
+    hit = to_mono(cinematic_hit(rng, 2.5, metal=False))
+    out = mix(x, hit[: n] * 0.35)
+    return reverb(out, rng, 2.0, 0.2, damp=3000)
+
+
+def sub_drop_key(rng, note="C", octave=1, sec=2.5):
+    f = hz(note, octave)
+    n = n_of(sec)
+    x = sine(curve([(0, f * 4), (sec * 0.7, f), (sec, f * 0.98)], sec, "exp")) * env_adsr(n, 0.005, 0.2, 0.85, 0.5)
+    return drive(x * 1.4, 1.5)
+
+
+def cash_echo(rng):
+    return reverb(tape_echo(to_mono(cash_register(rng))[: n_of(1.6)], 0.25, 0.4, 5, 3500), rng, 1.0, 0.2)
+
+
+DROP = {
+    "Car passing by", "Car passing fast", "Four cylinder idle", "Motorcycle revs", "Dirt bike passing", "Jet flyover",
+    "Helicopter passing", "Helicopter hovering", "Crowd murmur, room", "Busy crowd, excited", "Small group talking",
+    "Breathing", "Heavy breathing", "Light rain", "Heavy rain", "Rain on a roof", "Thunder clap, close",
+    "Thunder, distant rumble", "Campfire", "Ocean waves", "Stream", "Crickets at night", "Glass break", "Window smash",
+    "Door creak", "Typewriter", "Zipper", "Soda can open", "Lighter flick", "Footsteps, concrete", "Footsteps, wood floor",
+    "Footsteps, gravel", "Running footsteps", "Robot talking, low", "Gibberish, kid", "Glitch, long", "Car door open",
+    "Woman yelling (gibberish)", "Short shout, guy", "Phone call voice, woman (gibberish)", "Clock ticking",
+}
+SOUNDS[:] = [s for s in SOUNDS if s[2] not in DROP]
+
+KEYS = ["C", "D", "E", "F", "G", "A"]
+SOUNDS += [
+    _v("producer", "air-horns", "DJ air horn, classic three", dj_air_horn, {}, ["air horn", "dancehall", "dj", "tag", "drill"]),
+    _v("producer", "air-horns", "DJ air horn, one long blast", dj_air_horn, {"pattern": (0.9,)}, ["air horn", "dj"]),
+    _v("producer", "air-horns", "DJ air horn, rapid fire", dj_air_horn, {"pattern": (0.09,) * 6 + (0.5,), "gap": 0.04}, ["air horn", "dj", "hype"]),
+    _v("producer", "air-horns", "DJ air horn with echo", dj_air_horn, {"echo": True}, ["air horn", "echo", "dub"]),
+    _v("producer", "air-horns", "Air horn, low", dj_air_horn, {"root": 294.0}, ["air horn", "low"]),
+    _v("producer", "air-horns", "Air horn, high", dj_air_horn, {"root": 587.0, "pattern": (0.12, 0.5)}, ["air horn", "high"]),
+    _v("producer", "dub-sirens", "Dub siren, rising", dub_siren, {"kind": "rise"}, ["dub siren", "reggae", "dancehall", "echo"]),
+    _v("producer", "dub-sirens", "Dub siren, warble", dub_siren, {"kind": "warble", "sec": 2.0}, ["dub siren", "warble"]),
+    _v("producer", "dub-sirens", "Dub siren, falling", dub_siren, {"kind": "fall", "sec": 1.6}, ["dub siren", "fall"]),
+    _v("producer", "dub-sirens", "Dub siren, laser pews", dub_siren, {"kind": "pew", "sec": 1.5, "echo_time": 0.22}, ["dub siren", "laser", "pew"]),
+    _v("producer", "dub-sirens", "Dub siren, high rise", dub_siren, {"kind": "rise", "base": 700, "sec": 1.8}, ["dub siren", "high"]),
+    _v("producer", "rewinds", "Spinback", spinback, {}, ["spinback", "dj", "transition"]),
+    _v("producer", "rewinds", "Rewind, pull up", spinback, {"kind": "rewind", "sec": 2.4}, ["rewind", "pull up", "dj", "selecta"]),
+    _v("producer", "rewinds", "Spinback, 140 BPM", spinback, {"bpm": 140}, ["spinback", "trap"]),
+    _v("producer", "rewinds", "Vinyl stop", vinyl_stop, {}, ["vinyl stop", "power down", "transition"]),
+    _v("producer", "tag-fx", "Gunshot with dub echo", gunshot_echo, {}, ["gunshot", "echo", "tag", "drill"]),
+    _v("producer", "tag-fx", "Shotgun with dub echo", gunshot_echo, {"kind": "shotgun"}, ["shotgun", "echo", "tag"]),
+    _v("producer", "tag-fx", "Bomb drop", bomb_drop, {}, ["bomb", "drop", "whistle", "explosion"]),
+    _v("producer", "tag-fx", "Laser riser", laser_riser, {}, ["laser", "riser", "tag"]),
+    _v("producer", "tag-fx", "Cash register with echo", cash_echo, {}, ["cash", "money", "echo", "tag"]),
+    _v("transitions", "risers", "Snare roll build, 140", snare_roll, {}, ["snare roll", "build up", "riser", "edm"]),
+    _v("transitions", "risers", "Snare roll build, 4 bars", snare_roll, {"bars": 4, "bpm": 128}, ["snare roll", "build up"]),
+    _v("transitions", "risers", "Uplifter", uplifter, {}, ["uplifter", "riser", "sweep"]),
+    _v("transitions", "risers", "Uplifter, 8 seconds", uplifter, {"sec": 8.0}, ["uplifter", "long"]),
+] + [
+    _v("impacts", "booms", f"808 impact in {k}", impact_tail, {"note": k, "octave": 1 if k in "CDE" else 0}, ["808", "impact", "boom", f"key {k}"]) for k in KEYS
+] + [
+    _v("impacts", "sub-drops", f"Sub drop in {k}", sub_drop_key, {"note": k, "octave": 1 if k in "CDE" else 0}, ["sub drop", "808", f"key {k}"]) for k in KEYS
+]

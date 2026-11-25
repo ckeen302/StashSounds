@@ -46,6 +46,7 @@ PEAKS = 72
 MAX_LEN = 20.0
 
 CATEGORIES = [
+    ("producer", "Producer FX", [("air-horns", "Air horns"), ("dub-sirens", "Dub sirens"), ("rewinds", "Rewinds and spinbacks"), ("tag-fx", "Tag effects")]),
     ("animals", "Animals", [("big-cats", "Big cats"), ("dogs-wolves", "Dogs and wolves"), ("pets", "Cats"), ("birds", "Birds"), ("farm", "Farm"), ("wild", "Wild animals"), ("insects", "Insects and frogs")]),
     ("vehicles", "Vehicles", [("supercars", "Supercars"), ("cars", "Cars"), ("horns", "Horns"), ("trains", "Trains"), ("aircraft", "Aircraft"), ("motorcycles", "Motorcycles"), ("boats", "Boats")]),
     ("sirens", "Sirens and alarms", [("police", "Police"), ("ambulance-fire", "Ambulance and fire"), ("air-raid", "Air raid and warning"), ("alarm-clocks", "Alarm clocks and bells"), ("buzzers", "Buzzers and beeps"), ("car-alarms", "Car alarms")]),
