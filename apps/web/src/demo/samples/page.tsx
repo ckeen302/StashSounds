@@ -6,11 +6,17 @@ import {
   SearchInput,
   UiLink,
 } from "@stash/ui";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { songChordItems } from "../midi/catalog";
 import { albumOf, Cover, coverFor, tileStyle } from "../presets/cover";
 import { ALL_SONGS, songHref } from "../presets/songs";
 import {
+  ARTISTS,
+  artistBySlug,
+  artistHref,
+  artistOf,
+  asOriginal,
+  asSong,
   decadeOf,
   GENRES,
   listenHref,
@@ -18,23 +24,36 @@ import {
   originalBySlug,
   originalHref,
   originalOf,
+  producerBySlug,
+  producerHref,
+  producerOf,
+  PRODUCERS,
   SAMPLE_SONGS,
   sampleHref,
   sampleSongBySlug,
   type Original,
+  type SampleArtist,
+  type SampleProducer,
   type SampleSong,
   type SampleUse,
 } from "./data";
 
 /**
- * The Samples tab: which songs sample which records, and where each record came from. Two ways in:
- * by song (newest first) or by sampled record (most sampled first). A song's page lists every record
- * it samples with a way to hear the original; a record's page lists every song here that used it.
+ * The Samples tab: which songs sample which records, both ways. Four ways in: by song, by most
+ * sampled record, by artist (most sampled first) and by producer. A song's page pairs it with each
+ * record it samples, side by side with a way to hear both, and lists the songs that sampled it in
+ * turn; record, artist and producer pages hang off those links.
  */
 
 const PAGE = 48;
 const DECADES = ["1950s", "1960s", "1970s", "1980s", "1990s", "2000s", "2010s"];
-type View = "songs" | "records";
+type View = "songs" | "records" | "artists" | "producers";
+const VIEWS: [View, string][] = [
+  ["songs", "Songs"],
+  ["records", "Most sampled"],
+  ["artists", "Artists"],
+  ["producers", "Producers"],
+];
 
 // Songs with their album cover first, then newest, so the tab opens on art.
 const ORDERED = [...SAMPLE_SONGS].sort(
@@ -42,12 +61,17 @@ const ORDERED = [...SAMPLE_SONGS].sort(
     Number(!!coverFor(b.song, b.artist)) -
       Number(!!coverFor(a.song, a.artist)) || (b.year ?? 0) - (a.year ?? 0),
 );
+const CONNECTIONS = SAMPLE_SONGS.reduce((n, s) => n + s.samples.length, 0);
 
 const flat = (s: string) =>
   s.toLowerCase().normalize("NFKD").replace(/[̀-ͯ]/g, "");
 const known = (g: string) => g !== "Other";
+const plural = (n: number, one: string, many = `${one}s`) =>
+  `${n.toLocaleString("en-US")} ${n === 1 ? one : many}`;
+const line = (...parts: (string | number | null | undefined | false)[]) =>
+  parts.filter(Boolean).join(" · ");
 
-function useFilters() {
+export function SamplesPage() {
   const [q, setQ] = useState("");
   const [genre, setGenre] = useState<string | null>(null);
   const [decade, setDecade] = useState<string | null>(null);
@@ -57,52 +81,54 @@ function useFilters() {
     f();
     setLimit(PAGE);
   };
-  return {
-    q,
-    setQ,
-    genre,
-    setGenre,
-    decade,
-    setDecade,
-    view,
-    setView,
-    limit,
-    setLimit,
-    reset,
-  };
-}
-
-export function SamplesPage() {
-  const f = useFilters();
-  const needle = flat(f.q.trim());
+  const needle = flat(q.trim());
+  const has = (...xs: string[]) =>
+    !needle || xs.some((x) => flat(x).includes(needle));
   const fits = (u: { genre: string; year: number | null }) =>
-    (!f.genre || u.genre === f.genre) &&
-    (!f.decade || decadeOf(u.year) === f.decade);
+    (!genre || u.genre === genre) && (!decade || decadeOf(u.year) === decade);
 
-  const songs = ORDERED.filter(
-    (s) =>
-      s.samples.some(fits) &&
-      (!needle ||
-        [
-          s.song,
-          s.artist,
-          s.album ?? "",
-          ...s.producers,
-          ...s.samples.flatMap((u) => [u.title, u.artist]),
-        ].some((x) => flat(x).includes(needle))),
-  );
-  const records = ORIGINALS.filter(
-    (o) =>
-      fits(o) &&
-      (!needle ||
-        [
-          o.title,
-          o.artist,
-          ...o.uses.flatMap((x) => [x.song.song, x.song.artist]),
-        ].some((x) => flat(x).includes(needle))),
-  );
-  const shown = f.view === "songs" ? songs.length : records.length;
-  const touched = !!(needle || f.genre || f.decade);
+  const songs =
+    view === "songs"
+      ? ORDERED.filter(
+          (s) =>
+            s.samples.some(fits) &&
+            has(
+              s.song,
+              s.artist,
+              s.album ?? "",
+              ...s.producers,
+              ...s.samples.flatMap((u) => [u.title, u.artist]),
+            ),
+        )
+      : [];
+  const records =
+    view === "records"
+      ? ORIGINALS.filter(
+          (o) =>
+            fits(o) &&
+            has(o.title, o.artist, ...o.uses.map((x) => x.song.song)),
+        )
+      : [];
+  const artists =
+    view === "artists"
+      ? ARTISTS.filter((a) => a.sampledTimes > 0 && has(a.name))
+      : [];
+  const producers =
+    view === "producers" ? PRODUCERS.filter((p) => has(p.name)) : [];
+  const shown = {
+    songs: songs.length,
+    records: records.length,
+    artists: artists.length,
+    producers: producers.length,
+  }[view];
+  const unit = {
+    songs: "song",
+    records: "record",
+    artists: "artist",
+    producers: "producer",
+  }[view];
+  const filtered = view === "songs" || view === "records";
+  const touched = !!(needle || (filtered && (genre || decade)));
 
   return (
     <main className="mx-auto flex w-full max-w-content flex-col gap-4 px-3 py-5 tablet:px-4 desktop:px-6">
@@ -110,7 +136,7 @@ export function SamplesPage() {
         <div className="flex flex-col gap-1">
           <h1 className="text-title">Samples</h1>
           <p className="text-body text-text-muted">
-            {`What ${SAMPLE_SONGS.length} hip-hop songs sample, and the ${ORIGINALS.length} records they came from. Credits from each album's liner notes.`}
+            {`${plural(SAMPLE_SONGS.length, "hip-hop song")}, the ${plural(ORIGINALS.length, "record")} they sample, ${plural(CONNECTIONS, "connection")}. From each album's liner-note credits.`}
           </p>
         </div>
         <SearchInput
@@ -118,88 +144,81 @@ export function SamplesPage() {
           hideLabel
           placeholder="Song, artist, producer or the record it samples"
           shortcut=""
-          value={f.q}
-          onChange={(e) => f.reset(() => f.setQ(e.target.value))}
-          onClear={() => f.reset(() => f.setQ(""))}
+          value={q}
+          onChange={(e) => reset(() => setQ(e.target.value))}
+          onClear={() => reset(() => setQ(""))}
         />
       </header>
 
       <div
         role="tablist"
         aria-label="Browse by"
-        className="flex gap-1 border-b border-border"
+        className="-mx-3 flex gap-1 overflow-x-auto border-b border-border px-3 tablet:mx-0 tablet:px-0"
       >
-        {(
-          [
-            ["songs", "By song"],
-            ["records", "Most sampled"],
-          ] as [View, string][]
-        ).map(([v, label]) => (
+        {VIEWS.map(([v, label]) => (
           <button
             key={v}
             type="button"
             role="tab"
-            aria-selected={f.view === v}
-            onClick={() => f.reset(() => f.setView(v))}
-            className={`-mb-px flex h-11 items-center border-b-2 px-3 text-body-strong ${f.view === v ? "border-accent text-text" : "border-transparent text-text-muted ui-hover:text-text"}`}
+            aria-selected={view === v}
+            onClick={() => reset(() => setView(v))}
+            className={`-mb-px flex h-11 shrink-0 items-center border-b-2 px-3 text-body-strong ${view === v ? "border-accent text-text" : "border-transparent text-text-muted ui-hover:text-text"}`}
           >
             {label}
           </button>
         ))}
       </div>
 
-      <section aria-label="Filters" className="flex flex-col gap-2">
-        <span className="text-label text-label-caps text-text-muted">
-          Sampled from
-        </span>
-        <ul className="-mx-3 flex gap-2 overflow-x-auto px-3 pb-1 tablet:mx-0 tablet:flex-wrap tablet:px-0">
-          {GENRES.filter(([g]) => known(g)).map(([g, n]) => (
-            <li key={g} className="shrink-0">
-              <FilterChip
-                selected={f.genre === g}
-                onToggle={() =>
-                  f.reset(() => f.setGenre(f.genre === g ? null : g))
-                }
-              >
-                {`${g} · ${n}`}
-              </FilterChip>
-            </li>
-          ))}
-        </ul>
-        <ul className="-mx-3 flex gap-2 overflow-x-auto px-3 pb-1 tablet:mx-0 tablet:px-0">
-          {DECADES.map((d) => (
-            <li key={d} className="shrink-0">
-              <FilterChip
-                selected={f.decade === d}
-                onToggle={() =>
-                  f.reset(() => f.setDecade(f.decade === d ? null : d))
-                }
-              >
-                {d}
-              </FilterChip>
-            </li>
-          ))}
-        </ul>
-      </section>
+      {filtered && (
+        <section aria-label="Filters" className="flex flex-col gap-2">
+          <span className="text-label text-label-caps text-text-muted">
+            Sampled from
+          </span>
+          <ul className="-mx-3 flex gap-2 overflow-x-auto px-3 pb-1 tablet:mx-0 tablet:flex-wrap tablet:px-0">
+            {GENRES.filter(([g]) => known(g)).map(([g, n]) => (
+              <li key={g} className="shrink-0">
+                <FilterChip
+                  selected={genre === g}
+                  onToggle={() => reset(() => setGenre(genre === g ? null : g))}
+                >
+                  {`${g} · ${n.toLocaleString("en-US")}`}
+                </FilterChip>
+              </li>
+            ))}
+          </ul>
+          <ul className="-mx-3 flex gap-2 overflow-x-auto px-3 pb-1 tablet:mx-0 tablet:px-0">
+            {DECADES.map((d) => (
+              <li key={d} className="shrink-0">
+                <FilterChip
+                  selected={decade === d}
+                  onToggle={() =>
+                    reset(() => setDecade(decade === d ? null : d))
+                  }
+                >
+                  {d}
+                </FilterChip>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <div className="flex items-center gap-2">
         <span
           aria-live="polite"
           className="font-mono text-numeric tabular text-text-muted"
         >
-          {f.view === "songs"
-            ? `${shown} ${shown === 1 ? "song" : "songs"}`
-            : `${shown} ${shown === 1 ? "record" : "records"}`}
+          {plural(shown, unit)}
         </span>
         {touched && (
           <Button
             size="sm"
             variant="ghost"
             onClick={() =>
-              f.reset(() => {
-                f.setQ("");
-                f.setGenre(null);
-                f.setDecade(null);
+              reset(() => {
+                setQ("");
+                setGenre(null);
+                setDecade(null);
               })
             }
           >
@@ -208,29 +227,74 @@ export function SamplesPage() {
         )}
       </div>
 
-      {f.view === "songs" ? (
+      {view === "songs" && (
         <ul
           aria-label="Songs and what they sample"
           className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-3"
         >
-          {songs.slice(0, f.limit).map((s) => (
+          {songs.slice(0, limit).map((s) => (
             <SongCard key={s.key} s={s} />
           ))}
         </ul>
-      ) : (
+      )}
+      {view === "records" && (
         <ol aria-label="Most sampled records" className="flex flex-col gap-2">
-          {records.slice(0, f.limit).map((o, i) => (
+          {records.slice(0, limit).map((o, i) => (
             <RecordRow key={o.key} o={o} n={i + 1} />
           ))}
         </ol>
       )}
-      {shown > f.limit && (
+      {view === "artists" && (
+        <ol
+          aria-label="Most sampled artists"
+          className="grid grid-cols-1 gap-2 tablet:grid-cols-2"
+        >
+          {artists.slice(0, limit).map((a, i) => (
+            <RankRow
+              key={a.slug}
+              href={artistHref(a)}
+              n={i + 1}
+              title={a.name}
+              sub={line(
+                plural(a.records.length, "record") + " sampled",
+                a.songs.length > 0 &&
+                  `${plural(a.songs.length, "song")} of theirs here`,
+              )}
+              detail={`Biggest: ${a.records[0]?.title ?? ""}`}
+              count={a.sampledTimes}
+              countLabel={a.sampledTimes === 1 ? "time" : "times"}
+            />
+          ))}
+        </ol>
+      )}
+      {view === "producers" && (
+        <ol
+          aria-label="Producers who sample"
+          className="grid grid-cols-1 gap-2 tablet:grid-cols-2"
+        >
+          {producers.slice(0, limit).map((p, i) => (
+            <RankRow
+              key={p.slug}
+              href={producerHref(p)}
+              n={i + 1}
+              title={p.name}
+              sub={line(
+                ...[...new Set(p.songs.map((s) => s.artist))].slice(0, 3),
+              )}
+              detail={`Flipped ${topArtists(p.songs, 3).join(", ")}`}
+              count={p.songs.length}
+              countLabel={p.songs.length === 1 ? "song" : "songs"}
+            />
+          ))}
+        </ol>
+      )}
+      {shown > limit && (
         <Button
           variant="secondary"
           className="self-center"
-          onClick={() => f.setLimit(f.limit + PAGE)}
+          onClick={() => setLimit(limit + PAGE)}
         >
-          {`Show ${Math.min(PAGE, shown - f.limit)} more of ${shown - f.limit}`}
+          {`Show ${Math.min(PAGE, shown - limit)} more of ${(shown - limit).toLocaleString("en-US")}`}
         </Button>
       )}
       {shown === 0 && (
@@ -248,7 +312,7 @@ const EXT = {
   ghost: "border-transparent text-text ui-hover:bg-raised",
 };
 
-/** A link that leaves the demo (a search for the original, its article): opens in a new tab, styled as a small button. */
+/** A link that leaves the demo (YouTube, an article): opens in a new tab, styled as a small button. */
 function ExtLink({
   href,
   variant,
@@ -270,6 +334,18 @@ function ExtLink({
   );
 }
 
+/** The artists a set of songs samples most, most first. */
+function topArtists(songs: SampleSong[], n: number): string[] {
+  const counts = new Map<string, number>();
+  for (const s of songs)
+    for (const u of s.samples)
+      counts.set(u.artist, (counts.get(u.artist) ?? 0) + 1);
+  return [...counts.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, n)
+    .map(([a]) => a);
+}
+
 function UseBadge({ u }: { u: SampleUse }) {
   return (
     <span className="shrink-0 rounded-control border border-border-strong px-2 py-0.5 text-label text-label-caps text-text">
@@ -279,9 +355,7 @@ function UseBadge({ u }: { u: SampleUse }) {
 }
 
 function SongCard({ s }: { s: SampleSong }) {
-  const meta = [s.year ? String(s.year) : null, s.album]
-    .filter(Boolean)
-    .join(" · ");
+  const sampledIn = asOriginal(s)?.uses.length ?? 0;
   return (
     <li className="h-full">
       <UiLink
@@ -297,7 +371,9 @@ function SongCard({ s }: { s: SampleSong }) {
             <span className="truncate text-body-strong text-text">
               {s.artist}
             </span>
-            <span className="truncate text-small text-text-muted">{meta}</span>
+            <span className="truncate text-small text-text-muted">
+              {line(s.year, s.album)}
+            </span>
             {s.producers.length > 0 && (
               <span className="truncate text-small text-text-muted">{`prod. ${s.producers.join(", ")}`}</span>
             )}
@@ -320,9 +396,7 @@ function SongCard({ s }: { s: SampleSong }) {
                   {u.title}
                 </span>
                 <span className="truncate text-small text-text-muted">
-                  {[u.artist, u.year, known(u.genre) ? u.genre : null]
-                    .filter(Boolean)
-                    .join(" · ")}
+                  {line(u.artist, u.year, known(u.genre) && u.genre)}
                 </span>
               </span>
               <UseBadge u={u} />
@@ -331,7 +405,60 @@ function SongCard({ s }: { s: SampleSong }) {
           {s.samples.length > 3 && (
             <li className="text-small text-text-muted">{`and ${s.samples.length - 3} more`}</li>
           )}
+          {sampledIn > 0 && (
+            <li className="text-small text-accent">{`Sampled in ${plural(sampledIn, "song")} here`}</li>
+          )}
         </ul>
+      </UiLink>
+    </li>
+  );
+}
+
+function RankRow({
+  href,
+  n,
+  title,
+  sub,
+  detail,
+  count,
+  countLabel,
+}: {
+  href: string;
+  n: number;
+  title: string;
+  sub: string;
+  detail?: string;
+  count: number;
+  countLabel: string;
+}) {
+  return (
+    <li>
+      <UiLink
+        href={href}
+        className="group flex items-center gap-4 rounded-panel border border-border bg-surface p-4 ui-hover:border-border-strong"
+      >
+        <span className="hidden w-10 shrink-0 font-mono text-numeric tabular text-text-muted tablet:block">
+          {String(n).padStart(2, "0")}
+        </span>
+        <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+          <span className="truncate text-title text-text group-hover:underline">
+            {title}
+          </span>
+          <span className="truncate text-small text-text-muted">{sub}</span>
+          {detail && (
+            <span className="truncate text-small text-text-muted">
+              {detail}
+            </span>
+          )}
+        </span>
+        <span className="flex shrink-0 flex-col items-end">
+          <span className="font-mono text-title tabular text-accent">
+            {count}
+          </span>
+          <span className="text-label text-label-caps text-text-muted">
+            {countLabel}
+          </span>
+        </span>
       </UiLink>
     </li>
   );
@@ -339,35 +466,15 @@ function SongCard({ s }: { s: SampleSong }) {
 
 function RecordRow({ o, n }: { o: Original; n: number }) {
   return (
-    <li>
-      <UiLink
-        href={originalHref(o)}
-        className="group flex items-center gap-4 rounded-panel border border-border bg-surface p-4 ui-hover:border-border-strong"
-      >
-        <span className="hidden w-8 shrink-0 font-mono text-numeric tabular text-text-muted tablet:block">
-          {String(n).padStart(2, "0")}
-        </span>
-        <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-          <span className="truncate text-title text-text group-hover:underline">
-            {o.title}
-          </span>
-          <span className="truncate text-small text-text-muted">
-            {[o.artist, o.year, known(o.genre) ? o.genre : null]
-              .filter(Boolean)
-              .join(" · ")}
-          </span>
-          <span className="truncate text-small text-text-muted">{`In ${o.uses.map((x) => x.song.song).join(", ")}`}</span>
-        </span>
-        <span className="flex shrink-0 flex-col items-end">
-          <span className="font-mono text-title tabular text-accent">
-            {o.uses.length}
-          </span>
-          <span className="text-label text-label-caps text-text-muted">
-            {o.uses.length === 1 ? "song" : "songs"}
-          </span>
-        </span>
-      </UiLink>
-    </li>
+    <RankRow
+      href={originalHref(o)}
+      n={n}
+      title={o.title}
+      sub={line(o.artist, o.year, known(o.genre) && o.genre)}
+      detail={`In ${o.uses.map((x) => x.song.song).join(", ")}`}
+      count={o.uses.length}
+      countLabel={o.uses.length === 1 ? "song" : "songs"}
+    />
   );
 }
 
@@ -388,13 +495,96 @@ function Missing({ what }: { what: string }) {
           </ButtonLink>
         }
       >
-        Search the Samples tab by song, artist or the record it samples.
+        Search the Samples tab by song, artist, producer or the record it
+        samples.
       </EmptyState>
     </main>
   );
 }
 
-/** One song: the cover over a blurred copy, the facts, and every record it samples. */
+function Facts({ facts }: { facts: [string, ReactNode][] }) {
+  return (
+    <dl className="flex flex-wrap gap-x-8 gap-y-3 pt-1">
+      {facts.map(([k, v]) => (
+        <div key={k} className="flex min-w-0 flex-col gap-0.5">
+          <dt className="text-label text-label-caps text-text-muted">{k}</dt>
+          <dd className="text-body-strong text-text">{v}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
+/** An artist's name that links to their page when they have one. */
+function ArtistLink({
+  name,
+  className = "",
+}: {
+  name: string;
+  className?: string;
+}) {
+  const a = artistOf(name);
+  return a ? (
+    <UiLink href={artistHref(a)} className={`ui-hover:underline ${className}`}>
+      {name}
+    </UiLink>
+  ) : (
+    <span className={className}>{name}</span>
+  );
+}
+
+function ProducerList({ names }: { names: string[] }) {
+  if (!names.length) return <>Not credited</>;
+  return (
+    <>
+      {names.map((n, i) => {
+        const p = producerOf(n);
+        return (
+          <span key={n}>
+            {i > 0 && ", "}
+            {p ? (
+              <UiLink href={producerHref(p)} className="ui-hover:underline">
+                {n}
+              </UiLink>
+            ) : (
+              n
+            )}
+          </span>
+        );
+      })}
+    </>
+  );
+}
+
+function Section({
+  id,
+  title,
+  count,
+  children,
+}: {
+  id: string;
+  title: string;
+  count?: number;
+  children: ReactNode;
+}) {
+  return (
+    <section aria-labelledby={id} className="flex flex-col gap-3">
+      <div className="flex items-baseline gap-2">
+        <h2 id={id} className="text-title text-text">
+          {title}
+        </h2>
+        {count !== undefined && (
+          <span className="font-mono text-numeric tabular text-text-muted">
+            {count}
+          </span>
+        )}
+      </div>
+      {children}
+    </section>
+  );
+}
+
+/** One song: the cover over a blurred copy, the facts, each record it samples side by side with it, and who sampled it. */
 export function SampleSongPage({ slug }: { slug: string }) {
   const s = sampleSongBySlug(slug);
   if (!s) return <Missing what="song" />;
@@ -406,16 +596,9 @@ export function SampleSongPage({ slug }: { slug: string }) {
       m.song.song.toLowerCase() === s.song.toLowerCase() &&
       lead(m.song.artist) === lead(s.artist),
   );
-  const facts: [string, string][] = [
-    ["Album", s.album ?? albumOf(s.song, s.artist) ?? "Not listed"],
-    ["Year", s.year ? String(s.year) : "Not listed"],
-    [
-      "Produced by",
-      s.producers.length ? s.producers.join(", ") : "Not credited",
-    ],
-  ];
+  const sampledBy = asOriginal(s)?.uses ?? [];
   const more = SAMPLE_SONGS.filter(
-    (x) => x !== s && x.album === s.album && x.artist === s.artist,
+    (x) => x !== s && x.album && x.album === s.album && x.artist === s.artist,
   );
 
   return (
@@ -443,197 +626,449 @@ export function SampleSongPage({ slug }: { slug: string }) {
               <h1 className="st-hero-title st-song-title text-balance break-words text-text">
                 {s.song}
               </h1>
-              <p className="text-title text-text">{s.artist}</p>
-              <dl className="flex flex-wrap gap-x-8 gap-y-3 pt-1">
-                {facts.map(([k, v]) => (
-                  <div key={k} className="flex min-w-0 flex-col gap-0.5">
-                    <dt className="text-label text-label-caps text-text-muted">
-                      {k}
-                    </dt>
-                    <dd className="text-body-strong text-text">{v}</dd>
-                  </div>
-                ))}
-              </dl>
-              {(preset || chords) && (
-                <div className="mt-2 flex flex-wrap gap-2">
-                  {preset && (
-                    <ButtonLink
-                      href={songHref(preset.song, preset.artist)}
-                      variant="primary"
-                      size="sm"
-                    >
-                      The presets
-                    </ButtonLink>
-                  )}
-                  {chords && (
-                    <ButtonLink
-                      href={chords.href}
-                      variant="secondary"
-                      size="sm"
-                    >
-                      Play the chords
-                    </ButtonLink>
-                  )}
-                </div>
-              )}
+              <ArtistLink name={s.artist} className="text-title text-text" />
+              <Facts
+                facts={[
+                  [
+                    "Album",
+                    s.album ?? albumOf(s.song, s.artist) ?? "Not listed",
+                  ],
+                  ["Year", s.year ? String(s.year) : "Not listed"],
+                  ["Produced by", <ProducerList key="p" names={s.producers} />],
+                  ["Samples", String(s.samples.length)],
+                  ...(sampledBy.length
+                    ? ([["Sampled in", String(sampledBy.length)]] as [
+                        string,
+                        string,
+                      ][])
+                    : []),
+                ]}
+              />
+              <div className="mt-2 flex flex-wrap gap-2">
+                <ExtLink href={listenHref(s.song, s.artist)} variant="primary">
+                  Play on YouTube
+                </ExtLink>
+                {preset && (
+                  <ButtonLink
+                    href={songHref(preset.song, preset.artist)}
+                    variant="secondary"
+                    size="sm"
+                  >
+                    The presets
+                  </ButtonLink>
+                )}
+                {chords && (
+                  <ButtonLink href={chords.href} variant="secondary" size="sm">
+                    Play the chords
+                  </ButtonLink>
+                )}
+              </div>
             </div>
           </div>
         </div>
       </header>
 
       <div className="mx-auto flex w-full max-w-content flex-col gap-10 px-3 py-8 tablet:px-4 desktop:px-6">
-        <section aria-labelledby="samples" className="flex flex-col gap-3">
-          <h2 id="samples" className="text-title text-text">
-            {s.samples.length === 1
-              ? "What it samples"
-              : `What it samples · ${s.samples.length}`}
-          </h2>
-          <ol className="flex flex-col gap-3">
-            {s.samples.map((u, i) => (
-              <UseRow key={`${u.title}|${u.artist}`} u={u} n={i + 1} song={s} />
+        <Section
+          id="contains"
+          title="Contains samples of"
+          count={s.samples.length}
+        >
+          <ol className="flex flex-col gap-4">
+            {s.samples.map((u) => (
+              <Pair key={`${u.title}|${u.artist}`} u={u} song={s} />
             ))}
           </ol>
-        </section>
+        </Section>
+
+        {sampledBy.length > 0 && (
+          <Section
+            id="sampled-in"
+            title="Was sampled in"
+            count={sampledBy.length}
+          >
+            <ul className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-3">
+              {sampledBy.map((x) => (
+                <SongCard key={x.song.key} s={x.song} />
+              ))}
+            </ul>
+          </Section>
+        )}
 
         {more.length > 0 && (
           <SongShelf title={`More samples on ${s.album}`} songs={more} />
         )}
 
-        <section aria-label="Source" className="flex flex-col gap-1">
-          <span className="text-label text-label-caps text-text-muted">
-            Source
-          </span>
-          {s.sources.map((src) => (
-            <a
-              key={src.url}
-              href={src.url}
-              target="_blank"
-              rel="noreferrer"
-              className="self-start text-small break-words text-text-muted underline underline-offset-2 ui-hover:text-text"
-            >
-              {src.label}
-            </a>
-          ))}
-        </section>
+        <Sources sources={s.sources} />
       </div>
     </main>
   );
 }
 
-/** One sampled record on a song's page: what it is, a way to hear it, and the other songs that used it. */
-function UseRow({ u, n, song }: { u: SampleUse; n: number; song: SampleSong }) {
+/**
+ * The song and one record it samples, side by side, each with a way to hear it: play one, then the
+ * other, and listen for the part that carried over. YouTube can't be framed inside the demo's host page,
+ * so each side opens the recording on YouTube; the credits name no timestamps, so neither side jumps.
+ */
+function Pair({ u, song }: { u: SampleUse; song: SampleSong }) {
   const o = originalOf(u);
   const others = o.uses.filter((x) => x.song !== song);
+  const deeper = asSong(o);
   return (
     <li className="flex flex-col rounded-panel border border-border bg-surface">
-      <div className="flex items-start gap-4 p-4">
-        <span className="hidden w-6 shrink-0 pt-1 font-mono text-numeric tabular text-text-muted tablet:block">
-          {String(n).padStart(2, "0")}
-        </span>
-        <span className="flex min-w-0 flex-1 flex-col gap-1">
-          <span className="flex flex-wrap items-center gap-2">
-            <UseBadge u={u} />
-            {known(u.genre) && (
-              <span className="text-small text-text-muted">{u.genre}</span>
-            )}
-          </span>
-          <UiLink
-            href={originalHref(o)}
-            className="st-hero-title text-title break-words text-accent ui-hover:underline"
-          >
-            {u.title}
-          </UiLink>
-          <span className="text-body-strong text-text">
-            {[u.artist, u.year].filter(Boolean).join(" · ")}
-          </span>
-          <span className="flex flex-wrap gap-2 pt-2">
-            <ExtLink href={listenHref(u.title, u.artist)} variant="secondary">
-              Hear the original
-            </ExtLink>
-            {u.page && (
-              <ExtLink href={u.page} variant="ghost">
-                About the record
-              </ExtLink>
-            )}
-          </span>
+      <div className="flex items-center gap-2 border-b border-border px-4 py-2">
+        <UseBadge u={u} />
+        <span className="text-small text-text-muted">
+          {u.type === "sample"
+            ? "The recording itself is used"
+            : "Re-played or re-sung, not the recording"}
         </span>
       </div>
-      {others.length > 0 && (
+      <div className="grid grid-cols-1 tablet:grid-cols-[1fr_auto_1fr]">
+        <Side
+          label="This song"
+          cover={
+            <Cover
+              song={song.song}
+              artist={song.artist}
+              size="sm"
+              placeholder
+            />
+          }
+          title={song.song}
+          meta={line(song.artist, song.year)}
+          listen={listenHref(song.song, song.artist)}
+        />
+        <span
+          aria-hidden="true"
+          className="flex items-center justify-center px-4 py-1 font-mono text-title text-accent tablet:py-0"
+        >
+          <span className="tablet:hidden">↓</span>
+          <span className="hidden tablet:inline">←</span>
+        </span>
+        <Side
+          label="The original"
+          cover={
+            <Cover song={o.title} artist={o.artist} size="sm" placeholder />
+          }
+          title={u.title}
+          href={originalHref(o)}
+          meta={line(u.artist, u.year, known(u.genre) && u.genre)}
+          listen={listenHref(u.title, u.artist)}
+          extra={u.page ? { href: u.page, label: "About it" } : undefined}
+        />
+      </div>
+      {(others.length > 0 || deeper) && (
         <div className="flex flex-col gap-2 border-t border-border px-4 py-3">
-          <span className="text-label text-label-caps text-text-muted">{`Also sampled in ${others.length} ${others.length === 1 ? "song" : "songs"}`}</span>
-          <ul className="flex flex-wrap gap-2">
-            {others.map((x) => (
-              <li key={x.song.key}>
-                <UiLink
-                  href={sampleHref(x.song)}
-                  className="inline-flex items-center rounded-control border border-border px-2 py-1 text-small text-text ui-hover:border-border-strong"
-                >
-                  {`${x.song.song} · ${x.song.artist}`}
-                </UiLink>
-              </li>
-            ))}
-          </ul>
+          {deeper && (
+            <UiLink
+              href={sampleHref(deeper)}
+              className="self-start text-small text-accent ui-hover:underline"
+            >
+              {`The original samples ${plural(deeper.samples.length, "record")} itself →`}
+            </UiLink>
+          )}
+          {others.length > 0 && (
+            <>
+              <span className="text-label text-label-caps text-text-muted">{`Also sampled in ${plural(others.length, "song")}`}</span>
+              <ul className="flex flex-wrap gap-2">
+                {others.slice(0, 12).map((x) => (
+                  <li key={x.song.key}>
+                    <UiLink
+                      href={sampleHref(x.song)}
+                      className="inline-flex items-center rounded-control border border-border px-2 py-1 text-small text-text ui-hover:border-border-strong"
+                    >
+                      {`${x.song.song} · ${x.song.artist}`}
+                    </UiLink>
+                  </li>
+                ))}
+                {others.length > 12 && (
+                  <li>
+                    <UiLink
+                      href={originalHref(o)}
+                      className="inline-flex items-center px-2 py-1 text-small text-text-muted ui-hover:text-text"
+                    >
+                      {`all ${others.length + 1}`}
+                    </UiLink>
+                  </li>
+                )}
+              </ul>
+            </>
+          )}
         </div>
       )}
     </li>
   );
 }
 
-/** One sampled record: what it is, and every song here that used it, oldest first. */
+function Side({
+  label,
+  cover,
+  title,
+  href,
+  meta,
+  listen,
+  extra,
+}: {
+  label: string;
+  cover: ReactNode;
+  title: string;
+  href?: string;
+  meta: string;
+  listen: string;
+  extra?: { href: string; label: string };
+}) {
+  return (
+    <div className="flex min-w-0 flex-col gap-3 p-4">
+      <span className="text-label text-label-caps text-text-muted">
+        {label}
+      </span>
+      <span className="flex items-center gap-3">
+        {cover}
+        <span className="flex min-w-0 flex-col">
+          {href ? (
+            <UiLink
+              href={href}
+              className="st-hero-title text-title break-words text-accent ui-hover:underline"
+            >
+              {title}
+            </UiLink>
+          ) : (
+            <span className="st-hero-title text-title break-words text-text">
+              {title}
+            </span>
+          )}
+          <span className="text-small text-text-muted">{meta}</span>
+        </span>
+      </span>
+      <span className="flex flex-wrap gap-2">
+        <ExtLink href={listen} variant="secondary">
+          Play on YouTube
+        </ExtLink>
+        {extra && (
+          <ExtLink href={extra.href} variant="ghost">
+            {extra.label}
+          </ExtLink>
+        )}
+      </span>
+    </div>
+  );
+}
+
+function Sources({ sources }: { sources: { label: string; url: string }[] }) {
+  return (
+    <section aria-label="Source" className="flex flex-col gap-1">
+      <span className="text-label text-label-caps text-text-muted">Source</span>
+      {sources.map((src) => (
+        <a
+          key={src.url}
+          href={src.url}
+          target="_blank"
+          rel="noreferrer"
+          className="self-start text-small break-words text-text-muted underline underline-offset-2 ui-hover:text-text"
+        >
+          {src.label}
+        </a>
+      ))}
+    </section>
+  );
+}
+
+function PlainHero({
+  eyebrow,
+  title,
+  children,
+}: {
+  eyebrow: string;
+  title: string;
+  children: ReactNode;
+}) {
+  return (
+    <header className="border-b border-border">
+      <div className="mx-auto flex w-full max-w-content flex-col gap-4 px-3 pt-6 pb-8 tablet:px-4 tablet:pt-8 desktop:px-6">
+        <UiLink
+          href="/samples"
+          className="self-start text-small text-text-muted ui-hover:text-text"
+        >
+          ← Samples
+        </UiLink>
+        <span className="text-label text-label-caps text-text-muted">
+          {eyebrow}
+        </span>
+        <h1 className="st-hero-title st-song-title text-balance break-words text-text">
+          {title}
+        </h1>
+        {children}
+      </div>
+    </header>
+  );
+}
+
+/** One sampled record: what it is, what it samples itself, and every song here that used it. */
 export function OriginalPage({ slug }: { slug: string }) {
   const o = originalBySlug(slug);
   if (!o) return <Missing what="record" />;
   const page = o.uses.find((x) => x.use.page)?.use.page;
-  const facts: [string, string][] = [
-    ["Artist", o.artist],
-    ["Year", o.year ? String(o.year) : "Not listed"],
-    ["Genre", known(o.genre) ? o.genre : "Not listed"],
-  ];
+  const deeper = asSong(o);
+  const replayed = o.uses.filter((x) => x.use.type === "interpolation").length;
   return (
     <main className="flex w-full flex-col">
-      <header className="border-b border-border">
-        <div className="mx-auto flex w-full max-w-content flex-col gap-4 px-3 pt-6 pb-8 tablet:px-4 tablet:pt-8 desktop:px-6">
-          <UiLink
-            href="/samples"
-            className="self-start text-small text-text-muted ui-hover:text-text"
-          >
-            ← Samples
-          </UiLink>
-          <span className="text-label text-label-caps text-text-muted">
-            The original
-          </span>
-          <h1 className="st-hero-title st-song-title text-balance break-words text-text">
-            {o.title}
-          </h1>
-          <dl className="flex flex-wrap gap-x-8 gap-y-3">
-            {facts.map(([k, v]) => (
-              <div key={k} className="flex min-w-0 flex-col gap-0.5">
-                <dt className="text-label text-label-caps text-text-muted">
-                  {k}
-                </dt>
-                <dd className="text-body-strong text-text">{v}</dd>
-              </div>
-            ))}
-          </dl>
-          <span className="flex flex-wrap gap-2">
-            <ExtLink href={listenHref(o.title, o.artist)} variant="primary">
-              Hear the original
+      <PlainHero eyebrow="Sampled record" title={o.title}>
+        <Facts
+          facts={[
+            ["Artist", <ArtistLink key="a" name={o.artist} />],
+            ["Year", o.year ? String(o.year) : "Not listed"],
+            ["Genre", known(o.genre) ? o.genre : "Not listed"],
+            ["Sampled in", String(o.uses.length)],
+            ["Replayed in", String(replayed)],
+          ]}
+        />
+        <span className="flex flex-wrap gap-2">
+          <ExtLink href={listenHref(o.title, o.artist)} variant="primary">
+            Play on YouTube
+          </ExtLink>
+          {page && (
+            <ExtLink href={page} variant="secondary">
+              About it
             </ExtLink>
-            {page && (
-              <ExtLink href={page} variant="secondary">
-                About the record
-              </ExtLink>
-            )}
-          </span>
-        </div>
-      </header>
+          )}
+          {deeper && (
+            <ButtonLink href={sampleHref(deeper)} variant="secondary" size="sm">
+              {`What it samples · ${deeper.samples.length}`}
+            </ButtonLink>
+          )}
+        </span>
+      </PlainHero>
       <div className="mx-auto flex w-full max-w-content flex-col gap-3 px-3 py-8 tablet:px-4 desktop:px-6">
-        <h2 className="text-title text-text">{`Sampled in ${o.uses.length} ${o.uses.length === 1 ? "song" : "songs"}`}</h2>
-        <ul className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-3">
-          {o.uses.map((x) => (
-            <SongCard key={x.song.key} s={x.song} />
-          ))}
-        </ul>
+        <Section id="used-in" title="Was sampled in" count={o.uses.length}>
+          <ul className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-3">
+            {o.uses.map((x) => (
+              <SongCard key={x.song.key} s={x.song} />
+            ))}
+          </ul>
+        </Section>
+      </div>
+    </main>
+  );
+}
+
+/** One artist on both sides: their records that were sampled, and their songs here that sample. */
+export function SampleArtistPage({ slug }: { slug: string }) {
+  const a = artistBySlug(slug);
+  if (!a) return <Missing what="artist" />;
+  return <ArtistBody a={a} />;
+}
+
+function ArtistBody({ a }: { a: SampleArtist }) {
+  const flipped = new Set(
+    a.songs.flatMap((s) => s.samples.map((u) => u.artist)),
+  ).size;
+  return (
+    <main className="flex w-full flex-col">
+      <PlainHero eyebrow="Artist" title={a.name}>
+        <Facts
+          facts={[
+            ["Sampled", `${plural(a.sampledTimes, "time")}`],
+            ["Records sampled", String(a.records.length)],
+            ["Their songs here", String(a.songs.length)],
+            ["Artists they sampled", String(flipped)],
+          ]}
+        />
+      </PlainHero>
+      <div className="mx-auto flex w-full max-w-content flex-col gap-10 px-3 py-8 tablet:px-4 desktop:px-6">
+        {a.records.length > 0 && (
+          <Section
+            id="records"
+            title="Their records that were sampled"
+            count={a.records.length}
+          >
+            <ol className="flex flex-col gap-2">
+              {a.records.slice(0, 60).map((o, i) => (
+                <RecordRow key={o.key} o={o} n={i + 1} />
+              ))}
+            </ol>
+          </Section>
+        )}
+        {a.songs.length > 0 && (
+          <Section
+            id="songs"
+            title="Their songs and what they sample"
+            count={a.songs.length}
+          >
+            <ul className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-3">
+              {a.songs.slice(0, 60).map((s) => (
+                <SongCard key={s.key} s={s} />
+              ))}
+            </ul>
+          </Section>
+        )}
+      </div>
+    </main>
+  );
+}
+
+/** One producer: the songs they made from samples, and the artists they flip most. */
+export function SampleProducerPage({ slug }: { slug: string }) {
+  const p = producerBySlug(slug);
+  if (!p) return <Missing what="producer" />;
+  return <ProducerBody p={p} />;
+}
+
+function ProducerBody({ p }: { p: SampleProducer }) {
+  const counts = new Map<string, number>();
+  for (const s of p.songs)
+    for (const u of s.samples)
+      counts.set(u.artist, (counts.get(u.artist) ?? 0) + 1);
+  const top = [...counts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8);
+  const genres = new Map<string, number>();
+  for (const s of p.songs)
+    for (const u of s.samples)
+      if (known(u.genre)) genres.set(u.genre, (genres.get(u.genre) ?? 0) + 1);
+  const topGenre = [...genres.entries()].sort((a, b) => b[1] - a[1])[0]?.[0];
+  return (
+    <main className="flex w-full flex-col">
+      <PlainHero eyebrow="Producer" title={p.name}>
+        <Facts
+          facts={[
+            ["Songs with samples", String(p.songs.length)],
+            [
+              "Records flipped",
+              String(p.songs.reduce((n, s) => n + s.samples.length, 0)),
+            ],
+            ["Digs mostly in", topGenre ?? "Not listed"],
+          ]}
+        />
+        {top.length > 0 && (
+          <div className="flex flex-col gap-2">
+            <span className="text-label text-label-caps text-text-muted">
+              Flips most
+            </span>
+            <ul className="flex flex-wrap gap-2">
+              {top.map(([name, n]) => (
+                <li
+                  key={name}
+                  className="inline-flex items-center rounded-control border border-border px-2 py-1 text-small text-text"
+                >
+                  <ArtistLink name={name} />
+                  <span className="pl-1 text-text-muted">{`· ${n}`}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </PlainHero>
+      <div className="mx-auto flex w-full max-w-content flex-col gap-3 px-3 py-8 tablet:px-4 desktop:px-6">
+        <Section
+          id="produced"
+          title="Songs and what they sample"
+          count={p.songs.length}
+        >
+          <ul className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-3">
+            {p.songs.map((s) => (
+              <SongCard key={s.key} s={s} />
+            ))}
+          </ul>
+        </Section>
       </div>
     </main>
   );
