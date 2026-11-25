@@ -126,6 +126,8 @@ const QUALITY: [RegExp, number[]][] = [
   [/^6$/, [0, 4, 7, 9]],
   [/^add9$|^add2$/, [0, 4, 7, 14]],
   [/^sus2$/, [0, 2, 7]],
+  [/^6sus2$/, [0, 2, 7, 9]],
+  [/^6sus4?$/, [0, 5, 7, 9]],
   [/^sus4?$/, [0, 5, 7]],
   [/^5$/, [0, 7]],
   [/^$/, [0, 4, 7]],
@@ -150,7 +152,7 @@ export function parseChord(symbol: string): ParsedChord | null {
   if (root === null) return null;
   // Drop extensions in parentheses and trailing alterations the voicing does not need: "7(b9)", "m9(11)".
   const quality = m[2]!.replace(/\(.*\)$/, "");
-  const plain = quality.replace(/(b9|#9|#11|b13|#5)$/, "");
+  const plain = quality.replace(/(b9|#9|#11|b13|#5|b5)+$/, "");
   const found = [quality, plain, plain.replace(/\d+$/, "")].map((q) => QUALITY.find(([re]) => re.test(q))).find(Boolean);
   if (!found) return null;
   const bass = m[3] ? pitchClass(m[3]) : root;

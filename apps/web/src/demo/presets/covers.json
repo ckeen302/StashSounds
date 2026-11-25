@@ -5390,5 +5390,1549 @@
    "label": "Deezer, Flower Boy",
    "url": "https://www.deezer.com/album/44730061"
   }
+ },
+ "billie jean|michael jackson": {
+  "file": "covers/billie-jean-michael-jackson.jpg",
+  "album": "Thriller",
+  "source": {
+   "label": "Apple Music, Thriller by Michael Jackson",
+   "url": "https://music.apple.com/us/album/billie-jean/269572838"
+  }
+ },
+ "beat it|michael jackson": {
+  "file": "covers/beat-it-michael-jackson.jpg",
+  "album": "Thriller",
+  "source": {
+   "label": "Apple Music, Thriller by Michael Jackson",
+   "url": "https://music.apple.com/us/album/beat-it/269572838"
+  }
+ },
+ "thriller|michael jackson": {
+  "file": "covers/thriller-michael-jackson.jpg",
+  "album": "Thriller",
+  "source": {
+   "label": "Apple Music, Thriller by Michael Jackson",
+   "url": "https://music.apple.com/us/album/thriller/269572838"
+  }
+ },
+ "human nature|michael jackson": {
+  "file": "covers/human-nature-michael-jackson.jpg",
+  "album": "Thriller",
+  "source": {
+   "label": "Apple Music, Thriller by Michael Jackson",
+   "url": "https://music.apple.com/us/album/human-nature/269572838"
+  }
+ },
+ "smooth criminal|michael jackson": {
+  "file": "covers/smooth-criminal-michael-jackson.jpg",
+  "album": "Bad",
+  "source": {
+   "label": "Apple Music, Bad by Michael Jackson",
+   "url": "https://music.apple.com/us/album/smooth-criminal/655260476"
+  }
+ },
+ "bad|michael jackson": {
+  "file": "covers/bad-michael-jackson.jpg",
+  "album": "Bad",
+  "source": {
+   "label": "Apple Music, Bad by Michael Jackson",
+   "url": "https://music.apple.com/us/album/bad/655260476"
+  }
+ },
+ "black or white|michael jackson": {
+  "file": "covers/black-or-white-michael-jackson.jpg",
+  "album": "Dangerous",
+  "source": {
+   "label": "Apple Music, Dangerous by Michael Jackson",
+   "url": "https://music.apple.com/us/album/black-or-white/322847038"
+  }
+ },
+ "like a prayer|madonna": {
+  "file": "covers/like-a-prayer-madonna.jpg",
+  "album": "Like a Prayer",
+  "source": {
+   "label": "Apple Music, Like a Prayer by Madonna",
+   "url": "https://music.apple.com/us/album/like-a-prayer/83448003"
+  }
+ },
+ "papa don't preach|madonna": {
+  "file": "covers/papa-don-t-preach-madonna.jpg",
+  "album": "True Blue",
+  "source": {
+   "label": "Apple Music, True Blue by Madonna",
+   "url": "https://music.apple.com/us/album/papa-dont-preach/80815611"
+  }
+ },
+ "frozen|madonna": {
+  "file": "covers/frozen-madonna.jpg",
+  "album": "Ray of Light",
+  "source": {
+   "label": "Apple Music, Ray of Light by Madonna",
+   "url": "https://music.apple.com/us/album/frozen/952887"
+  }
+ },
+ "take on me|a-ha": {
+  "file": "covers/take-on-me-a-ha.jpg",
+  "album": "Hunting High and Low (Deluxe Edition)",
+  "source": {
+   "label": "Apple Music, Hunting High and Low (Deluxe Edition) by a-ha",
+   "url": "https://music.apple.com/us/album/take-on-me/380907762"
+  }
+ },
+ "everybody wants to rule the world|tears for fears": {
+  "file": "covers/everybody-wants-to-rule-the-world-tears-for-fears.jpg",
+  "album": "Songs from the Big Chair",
+  "source": {
+   "label": "Apple Music, Songs from the Big Chair by Tears for Fears",
+   "url": "https://music.apple.com/us/album/everybody-wants-to-rule-the-world/1440813508"
+  }
+ },
+ "sweet dreams (are made of this)|eurythmics": {
+  "file": "covers/sweet-dreams-are-made-of-this-eurythmics.jpg",
+  "album": "Sweet Dreams (Are Made of This)",
+  "source": {
+   "label": "Apple Music, Sweet Dreams (Are Made of This) by Eurythmics",
+   "url": "https://music.apple.com/us/album/sweet-dreams-are-made-of-this/255965840"
+  }
+ },
+ "africa|toto": {
+  "file": "covers/africa-toto.jpg",
+  "album": "Toto IV",
+  "source": {
+   "label": "Apple Music, Toto IV by Toto",
+   "url": "https://music.apple.com/us/album/africa/185716551"
+  }
+ },
+ "careless whisper|george michael": {
+  "file": "covers/careless-whisper-george-michael.jpg",
+  "album": "Make It Big",
+  "source": {
+   "label": "Apple Music, Make It Big by George Michael",
+   "url": "https://music.apple.com/us/album/careless-whisper/193084944"
+  }
+ },
+ "last christmas|wham!": {
+  "file": "covers/last-christmas-wham.jpg",
+  "album": "Last Christmas - Single",
+  "source": {
+   "label": "Apple Music, Last Christmas - Single by Wham!",
+   "url": "https://music.apple.com/us/album/last-christmas-single-version/202117886"
+  }
+ },
+ "wake me up before you go-go|wham!": {
+  "file": "covers/wake-me-up-before-you-go-go-wham.jpg",
+  "album": "Make It Big",
+  "source": {
+   "label": "Apple Music, Make It Big by Wham!",
+   "url": "https://music.apple.com/us/album/wake-me-up-before-you-go-go/193084944"
+  }
+ },
+ "i want it that way|backstreet boys": {
+  "file": "covers/i-want-it-that-way-backstreet-boys.jpg",
+  "album": "Millennium",
+  "source": {
+   "label": "Apple Music, Millennium by Backstreet Boys",
+   "url": "https://music.apple.com/us/album/i-want-it-that-way/283567119"
+  }
+ },
+ "...baby one more time|britney spears": {
+  "file": "covers/baby-one-more-time-britney-spears.jpg",
+  "album": "...Baby One More Time",
+  "source": {
+   "label": "Apple Music, ...Baby One More Time by Britney Spears",
+   "url": "https://music.apple.com/us/album/baby-one-more-time/268284599"
+  }
+ },
+ "the winner takes it all|abba": {
+  "file": "covers/the-winner-takes-it-all-abba.jpg",
+  "album": "Super Trouper (Bonus Track Version)",
+  "source": {
+   "label": "Apple Music, Super Trouper (Bonus Track Version) by ABBA",
+   "url": "https://music.apple.com/us/album/the-winner-takes-it-all/1440823811"
+  }
+ },
+ "dancing queen|abba": {
+  "file": "covers/dancing-queen-abba.jpg",
+  "album": "Arrival (Bonus Track Version)",
+  "source": {
+   "label": "Apple Music, Arrival (Bonus Track Version) by ABBA",
+   "url": "https://music.apple.com/us/album/dancing-queen/1440820126"
+  }
+ },
+ "super trouper|abba": {
+  "file": "covers/super-trouper-abba.jpg",
+  "album": "Super Trouper (Bonus Track Version)",
+  "source": {
+   "label": "Apple Music, Super Trouper (Bonus Track Version) by ABBA",
+   "url": "https://music.apple.com/us/album/super-trouper/1440823811"
+  }
+ },
+ "wannabe|spice girls": {
+  "file": "covers/wannabe-spice-girls.jpg",
+  "album": "Spice",
+  "source": {
+   "label": "Apple Music, Spice by Spice Girls",
+   "url": "https://music.apple.com/us/album/wannabe-radio-edit/723398173"
+  }
+ },
+ "levels|avicii": {
+  "file": "covers/levels-avicii.jpg",
+  "album": "Levels - EP",
+  "source": {
+   "label": "Apple Music, Levels - EP by Avicii",
+   "url": "https://music.apple.com/us/album/levels/1440787344"
+  }
+ },
+ "wake me up|avicii": {
+  "file": "covers/wake-me-up-avicii.jpg",
+  "album": "True",
+  "source": {
+   "label": "Apple Music, True by Avicii",
+   "url": "https://music.apple.com/us/album/wake-me-up/1440872730"
+  }
+ },
+ "hey brother|avicii": {
+  "file": "covers/hey-brother-avicii.jpg",
+  "album": "True",
+  "source": {
+   "label": "Apple Music, True by Avicii",
+   "url": "https://music.apple.com/us/album/hey-brother/1440872730"
+  }
+ },
+ "the nights|avicii": {
+  "file": "covers/the-nights-avicii.jpg",
+  "album": "The Days / Nights - EP",
+  "source": {
+   "label": "Apple Music, The Days / Nights - EP by Avicii",
+   "url": "https://music.apple.com/us/album/the-nights/1440829274"
+  }
+ },
+ "waiting for love|avicii": {
+  "file": "covers/waiting-for-love-avicii.jpg",
+  "album": "Stories",
+  "source": {
+   "label": "Apple Music, Stories by Avicii",
+   "url": "https://music.apple.com/us/album/waiting-for-love/1440834059"
+  }
+ },
+ "sos|avicii feat. aloe blacc": {
+  "file": "covers/sos-avicii-feat-aloe-blacc.jpg",
+  "album": "TIM",
+  "source": {
+   "label": "Apple Music, TIM by Avicii feat. Aloe Blacc",
+   "url": "https://music.apple.com/us/album/sos-feat-aloe-blacc/1462628887"
+  }
+ },
+ "get lucky|daft punk feat. pharrell williams & nile rodgers": {
+  "file": "covers/get-lucky-daft-punk-feat-pharrell-williams-nile-rodgers.jpg",
+  "album": "Random Access Memories",
+  "source": {
+   "label": "Apple Music, Random Access Memories by Daft Punk feat. Pharrell Williams & Nile Rodgers",
+   "url": "https://music.apple.com/us/album/get-lucky/617154241"
+  }
+ },
+ "digital love|daft punk": {
+  "file": "covers/digital-love-daft-punk.jpg",
+  "album": "Discovery",
+  "source": {
+   "label": "Apple Music, Discovery by Daft Punk",
+   "url": "https://music.apple.com/us/album/digital-love/697194953"
+  }
+ },
+ "something about us|daft punk": {
+  "file": "covers/something-about-us-daft-punk.jpg",
+  "album": "Discovery",
+  "source": {
+   "label": "Apple Music, Discovery by Daft Punk",
+   "url": "https://music.apple.com/us/album/something-about-us/697194953"
+  }
+ },
+ "one more time|daft punk": {
+  "file": "covers/one-more-time-daft-punk.jpg",
+  "album": "Discovery",
+  "source": {
+   "label": "Apple Music, Discovery by Daft Punk",
+   "url": "https://music.apple.com/us/album/one-more-time/697194953"
+  }
+ },
+ "feel so close|calvin harris": {
+  "file": "covers/feel-so-close-calvin-harris.jpg",
+  "album": "Feel So Close",
+  "source": {
+   "label": "Apple Music, Feel So Close by Calvin Harris",
+   "url": "https://music.apple.com/us/album/feel-so-close-radio-edit/450132718"
+  }
+ },
+ "sweet nothing|calvin harris feat. florence welch": {
+  "file": "covers/sweet-nothing-calvin-harris-feat-florence-welch.jpg",
+  "album": "18 Months",
+  "source": {
+   "label": "Apple Music, 18 Months by Calvin Harris feat. Florence Welch",
+   "url": "https://music.apple.com/us/album/sweet-nothing-feat-florence-welch/1713469222"
+  }
+ },
+ "i need your love|calvin harris feat. ellie goulding": {
+  "file": "covers/i-need-your-love-calvin-harris-feat-ellie-goulding.jpg",
+  "album": "18 Months",
+  "source": {
+   "label": "Apple Music, 18 Months by Calvin Harris feat. Ellie Goulding",
+   "url": "https://music.apple.com/us/album/i-need-your-love-feat-ellie-goulding/1713469222"
+  }
+ },
+ "this is what you came for|calvin harris feat. rihanna": {
+  "file": "covers/this-is-what-you-came-for-calvin-harris-feat-rihanna.jpg",
+  "album": "This Is What You Came For - Single",
+  "source": {
+   "label": "Apple Music, This Is What You Came For - Single by Calvin Harris feat. Rihanna",
+   "url": "https://music.apple.com/us/album/this-is-what-you-came-for/1108212521"
+  }
+ },
+ "titanium|david guetta feat. sia": {
+  "file": "covers/titanium-david-guetta-feat-sia.jpg",
+  "album": "Nothing But the Beat",
+  "source": {
+   "label": "Apple Music, Nothing But the Beat by David Guetta feat. Sia",
+   "url": "https://music.apple.com/us/album/titanium-feat-sia/693225996"
+  }
+ },
+ "faded|alan walker": {
+  "file": "covers/faded-alan-walker.jpg",
+  "album": "Faded - EP",
+  "source": {
+   "label": "Apple Music, Faded - EP by Alan Walker",
+   "url": "https://music.apple.com/us/album/faded/1196294554"
+  }
+ },
+ "firestone|kygo feat. conrad sewell": {
+  "file": "covers/firestone-kygo-feat-conrad-sewell.jpg",
+  "album": "Cloud Nine",
+  "source": {
+   "label": "Apple Music, Cloud Nine by Kygo feat. Conrad Sewell",
+   "url": "https://music.apple.com/us/album/firestone-feat-conrad-sewell/1713785270"
+  }
+ },
+ "call on me|eric prydz": {
+  "file": "covers/call-on-me-eric-prydz.jpg",
+  "album": "Call On Me (Remixes) - EP",
+  "source": {
+   "label": "Apple Music, Call On Me (Remixes) - EP by Eric Prydz",
+   "url": "https://music.apple.com/us/album/call-on-me/1216950866"
+  }
+ },
+ "don't let me down|the chainsmokers feat. daya": {
+  "file": "covers/don-t-let-me-down-the-chainsmokers-feat-daya.jpg",
+  "album": "Collage - EP",
+  "source": {
+   "label": "Apple Music, Collage - EP by The Chainsmokers feat. Daya",
+   "url": "https://music.apple.com/us/album/dont-let-me-down-feat-daya/1170699510"
+  }
+ },
+ "scared to be lonely|martin garrix & dua lipa": {
+  "file": "covers/scared-to-be-lonely-martin-garrix-dua-lipa.jpg",
+  "album": "Scared To Be Lonely - Single",
+  "source": {
+   "label": "Apple Music, Scared To Be Lonely - Single by Martin Garrix & Dua Lipa",
+   "url": "https://music.apple.com/us/album/scared-to-be-lonely/1196786247"
+  }
+ },
+ "stay the night|zedd feat. hayley williams": {
+  "file": "covers/stay-the-night-zedd-feat-hayley-williams.jpg",
+  "album": "Clarity (Deluxe Edition)",
+  "source": {
+   "label": "Apple Music, Clarity (Deluxe Edition) by Zedd feat. Hayley Williams",
+   "url": "https://music.apple.com/us/album/stay-the-night-feat-hayley-williams/1440818485"
+  }
+ },
+ "rather be|clean bandit feat. jess glynne": {
+  "file": "covers/rather-be-clean-bandit-feat-jess-glynne.jpg",
+  "album": "New Eyes",
+  "source": {
+   "label": "Apple Music, New Eyes by Clean Bandit feat. Jess Glynne",
+   "url": "https://music.apple.com/us/album/rather-be-feat-jess-glynne/992093742"
+  }
+ },
+ "sugar|robin schulz feat. francesco yates": {
+  "file": "covers/sugar-robin-schulz-feat-francesco-yates.jpg",
+  "album": "Sugar",
+  "source": {
+   "label": "Apple Music, Sugar by Robin Schulz feat. Francesco Yates",
+   "url": "https://music.apple.com/us/album/sugar-feat-francesco-yates/1017003795"
+  }
+ },
+ "alone|alan walker": {
+  "file": "covers/alone-alan-walker.jpg",
+  "album": "Alone - Single",
+  "source": {
+   "label": "Apple Music, Alone - Single by Alan Walker",
+   "url": "https://music.apple.com/us/album/alone/1202263583"
+  }
+ },
+ "spectre|alan walker": {
+  "file": "covers/spectre-alan-walker.jpg",
+  "album": "Origins - Single",
+  "source": {
+   "label": "Apple Music, Origins - Single by Alan Walker",
+   "url": "https://music.apple.com/us/album/spectre/1869661179"
+  }
+ },
+ "red lights|tiësto": {
+  "file": "covers/red-lights-ti-sto.jpg",
+  "album": "A Town Called Paradise",
+  "source": {
+   "label": "Apple Music, A Town Called Paradise by Tiësto",
+   "url": "https://music.apple.com/us/album/red-lights/1443117262"
+  }
+ },
+ "sun goes down|robin schulz feat. jasmine thompson": {
+  "file": "covers/sun-goes-down-robin-schulz-feat-jasmine-thompson.jpg",
+  "album": "Prayer",
+  "source": {
+   "label": "Apple Music, Prayer by Robin Schulz feat. Jasmine Thompson",
+   "url": "https://music.apple.com/us/album/sun-goes-down-feat-jasmine-thompson-radio-mix/1565371953"
+  }
+ },
+ "paris|the chainsmokers": {
+  "file": "covers/paris-the-chainsmokers.jpg",
+  "album": "Memories...Do Not Open",
+  "source": {
+   "label": "Apple Music, Memories...Do Not Open by The Chainsmokers",
+   "url": "https://music.apple.com/us/album/paris/1207120422"
+  }
+ },
+ "sick boy|the chainsmokers": {
+  "file": "covers/sick-boy-the-chainsmokers.jpg",
+  "album": "Sick Boy",
+  "source": {
+   "label": "Apple Music, Sick Boy by The Chainsmokers",
+   "url": "https://music.apple.com/us/album/sick-boy/1445725433"
+  }
+ },
+ "beautiful now|zedd feat. jon bellion": {
+  "file": "covers/beautiful-now-zedd-feat-jon-bellion.jpg",
+  "album": "True Colors",
+  "source": {
+   "label": "Apple Music, True Colors by Zedd feat. Jon Bellion",
+   "url": "https://music.apple.com/us/album/beautiful-now-feat-jon-bellion/1470706630"
+  }
+ },
+ "hey mama|david guetta feat. nicki minaj, bebe rexha & afrojack": {
+  "file": "covers/hey-mama-david-guetta-feat-nicki-minaj-bebe-rexha-afrojack.jpg",
+  "album": "Listen",
+  "source": {
+   "label": "Apple Music, Listen by David Guetta feat. Nicki Minaj, Bebe Rexha & Afrojack",
+   "url": "https://music.apple.com/us/album/hey-mama-feat-nicki-minaj-bebe-rexha-afrojack/924562828"
+  }
+ },
+ "it ain't me|kygo & selena gomez": {
+  "file": "covers/it-ain-t-me-kygo-selena-gomez.jpg",
+  "album": "It Ain't Me - Single",
+  "source": {
+   "label": "Apple Music, It Ain't Me - Single by Kygo & Selena Gomez",
+   "url": "https://music.apple.com/us/album/it-aint-me/1444631463"
+  }
+ },
+ "born to be yours|kygo & imagine dragons": {
+  "file": "covers/born-to-be-yours-kygo-imagine-dragons.jpg",
+  "album": "Born to Be Yours - Single",
+  "source": {
+   "label": "Apple Music, Born to Be Yours - Single by Kygo & Imagine Dragons",
+   "url": "https://music.apple.com/us/album/born-to-be-yours/1396826749"
+  }
+ },
+ "carry me|kygo feat. julia michaels": {
+  "file": "covers/carry-me-kygo-feat-julia-michaels.jpg",
+  "album": "Cloud Nine",
+  "source": {
+   "label": "Apple Music, Cloud Nine by Kygo feat. Julia Michaels",
+   "url": "https://music.apple.com/us/album/carry-me-feat-julia-michaels/1713785270"
+  }
+ },
+ "one|swedish house mafia": {
+  "file": "covers/one-swedish-house-mafia.jpg",
+  "album": "One (Your Name)",
+  "source": {
+   "label": "Apple Music, One (Your Name) by Swedish House Mafia",
+   "url": "https://music.apple.com/us/album/one/6798739692"
+  }
+ },
+ "without you|avicii feat. sandro cavazza": {
+  "file": "covers/without-you-avicii-feat-sandro-cavazza.jpg",
+  "album": "AVĪCI (01) - EP",
+  "source": {
+   "label": "Apple Music, AVĪCI (01) - EP by Avicii feat. Sandro Cavazza",
+   "url": "https://music.apple.com/us/album/lonely-together-feat-rita-ora/1440899018"
+  }
+ },
+ "the days|avicii": {
+  "file": "covers/the-days-avicii.jpg",
+  "album": "The Days / Nights - EP",
+  "source": {
+   "label": "Apple Music, The Days / Nights - EP by Avicii",
+   "url": "https://music.apple.com/us/album/the-days/1440829274"
+  }
+ },
+ "lonely together|avicii feat. rita ora": {
+  "file": "covers/lonely-together-avicii-feat-rita-ora.jpg",
+  "album": "AVĪCI (01) - EP",
+  "source": {
+   "label": "Apple Music, AVĪCI (01) - EP by Avicii feat. Rita Ora",
+   "url": "https://music.apple.com/us/album/lonely-together-feat-rita-ora/1440899018"
+  }
+ },
+ "you make me|avicii": {
+  "file": "covers/you-make-me-avicii.jpg",
+  "album": "True",
+  "source": {
+   "label": "Apple Music, True by Avicii",
+   "url": "https://music.apple.com/us/album/you-make-me/1440872730"
+  }
+ },
+ "outside|calvin harris feat. ellie goulding": {
+  "file": "covers/outside-calvin-harris-feat-ellie-goulding.jpg",
+  "album": "Motion",
+  "source": {
+   "label": "Apple Music, Motion by Calvin Harris feat. Ellie Goulding",
+   "url": "https://music.apple.com/us/album/outside-feat-ellie-goulding/922876176"
+  }
+ },
+ "my way|calvin harris": {
+  "file": "covers/my-way-calvin-harris.jpg",
+  "album": "My Way - Single",
+  "source": {
+   "label": "Apple Music, My Way - Single by Calvin Harris",
+   "url": "https://music.apple.com/us/album/my-way/1153704473"
+  }
+ },
+ "we'll be coming back|calvin harris feat. example": {
+  "file": "covers/we-ll-be-coming-back-calvin-harris-feat-example.jpg",
+  "album": "18 Months",
+  "source": {
+   "label": "Apple Music, 18 Months by Calvin Harris feat. Example",
+   "url": "https://music.apple.com/us/album/well-be-coming-back-feat-example/1713469222"
+  }
+ },
+ "heroes (we could be)|alesso feat. tove lo": {
+  "file": "covers/heroes-we-could-be-alesso-feat-tove-lo.jpg",
+  "album": "Forever",
+  "source": {
+   "label": "Apple Music, Forever by Alesso feat. Tove Lo",
+   "url": "https://music.apple.com/us/album/heroes-we-could-be-feat-tove-lo/1440859007"
+  }
+ },
+ "say my name|odesza feat. zyra": {
+  "file": "covers/say-my-name-odesza-feat-zyra.jpg",
+  "album": "In Return",
+  "source": {
+   "label": "Apple Music, In Return by ODESZA feat. Zyra",
+   "url": "https://music.apple.com/us/album/say-my-name-feat-zyra/897564246"
+  }
+ },
+ "a moment apart|odesza": {
+  "file": "covers/a-moment-apart-odesza.jpg",
+  "album": "A Moment Apart",
+  "source": {
+   "label": "Apple Music, A Moment Apart by ODESZA",
+   "url": "https://music.apple.com/us/album/a-moment-apart/1240361817"
+  }
+ },
+ "2 of amerikaz most wanted|2pac feat. snoop doggy dogg": {
+  "file": "covers/2-of-amerikaz-most-wanted-2pac-feat-snoop-doggy-dogg.jpg",
+  "album": "All Eyez On Me",
+  "source": {
+   "label": "Apple Music, All Eyez On Me by 2Pac feat. Snoop Doggy Dogg",
+   "url": "https://music.apple.com/us/album/2-of-amerikaz-most-wanted-feat-snoop-dogg/1588492978"
+  }
+ },
+ "can't c me|2pac feat. george clinton": {
+  "file": "covers/can-t-c-me-2pac-feat-george-clinton.jpg",
+  "album": "All Eyez On Me",
+  "source": {
+   "label": "Apple Music, All Eyez On Me by 2Pac feat. George Clinton",
+   "url": "https://music.apple.com/us/album/cant-c-me/1588492978"
+  }
+ },
+ "gangsta's paradise|coolio feat. l.v.": {
+  "file": "covers/gangsta-s-paradise-coolio-feat-l-v.jpg",
+  "album": "Gangsta's Paradise",
+  "source": {
+   "label": "Apple Music, Gangsta's Paradise by Coolio feat. L.V.",
+   "url": "https://music.apple.com/us/album/gangstas-paradise-feat-l-v/1604646668"
+  }
+ },
+ "you know how we do it|ice cube": {
+  "file": "covers/you-know-how-we-do-it-ice-cube.jpg",
+  "album": "Lethal Injection",
+  "source": {
+   "label": "Apple Music, Lethal Injection by Ice Cube",
+   "url": "https://music.apple.com/us/album/you-know-how-we-do-it/724570142"
+  }
+ },
+ "you got me|the roots feat. erykah badu": {
+  "file": "covers/you-got-me-the-roots-feat-erykah-badu.jpg",
+  "album": "Things Fall Apart",
+  "source": {
+   "label": "Apple Music, Things Fall Apart by The Roots feat. Erykah Badu",
+   "url": "https://music.apple.com/us/album/you-got-me-feat-erykah-badu-eve/1479929235"
+  }
+ },
+ "ready or not|fugees": {
+  "file": "covers/ready-or-not-fugees.jpg",
+  "album": "The Score",
+  "source": {
+   "label": "Apple Music, The Score by Fugees",
+   "url": "https://music.apple.com/us/album/ready-or-not/1054461239"
+  }
+ },
+ "intergalactic|beastie boys": {
+  "file": "covers/intergalactic-beastie-boys.jpg",
+  "album": "Hello Nasty",
+  "source": {
+   "label": "Apple Music, Hello Nasty by Beastie Boys",
+   "url": "https://music.apple.com/us/album/intergalactic/778831487"
+  }
+ },
+ "ride wit me|nelly feat. city spud": {
+  "file": "covers/ride-wit-me-nelly-feat-city-spud.jpg",
+  "album": "Country Grammar",
+  "source": {
+   "label": "Apple Music, Country Grammar by Nelly feat. City Spud",
+   "url": "https://music.apple.com/us/album/ride-wit-me-feat-city-spud/1440782396"
+  }
+ },
+ "show me what you got|jay-z": {
+  "file": "covers/show-me-what-you-got-jay-z.jpg",
+  "album": "Kingdom Come",
+  "source": {
+   "label": "Apple Music, Kingdom Come by Jay-Z",
+   "url": "https://music.apple.com/us/album/show-me-what-you-got/1442217602"
+  }
+ },
+ "so ambitious|jay-z feat. pharrell": {
+  "file": "covers/so-ambitious-jay-z-feat-pharrell.jpg",
+  "album": "The Blueprint 3",
+  "source": {
+   "label": "Apple Music, The Blueprint 3 by Jay-Z feat. Pharrell",
+   "url": "https://music.apple.com/us/album/so-ambitious-feat-pharrell-williams/1440932009"
+  }
+ },
+ "whatever you like|t.i.": {
+  "file": "covers/whatever-you-like-t-i.jpg",
+  "album": "Paper Trail",
+  "source": {
+   "label": "Apple Music, Paper Trail by T.I.",
+   "url": "https://music.apple.com/us/album/whatever-you-like/1258981660"
+  }
+ },
+ "dead and gone|t.i. feat. justin timberlake": {
+  "file": "covers/dead-and-gone-t-i-feat-justin-timberlake.jpg",
+  "album": "Paper Trail",
+  "source": {
+   "label": "Apple Music, Paper Trail by T.I. feat. Justin Timberlake",
+   "url": "https://music.apple.com/us/album/dead-and-gone-feat-justin-timberlake/1258981660"
+  }
+ },
+ "hate it or love it|the game feat. 50 cent": {
+  "file": "covers/hate-it-or-love-it-the-game-feat-50-cent.jpg",
+  "album": "The Documentary (Edited Version)",
+  "source": {
+   "label": "Apple Music, The Documentary (Edited Version) by The Game feat. 50 Cent",
+   "url": "https://music.apple.com/us/album/hate-it-or-love-it-feat-50-cent/1443202876"
+  }
+ },
+ "everything i am|kanye west": {
+  "file": "covers/everything-i-am-kanye-west.jpg",
+  "album": "Graduation",
+  "source": {
+   "label": "Apple Music, Graduation by Kanye West",
+   "url": "https://music.apple.com/us/album/everything-i-am-feat-dj-premier/1442845779"
+  }
+ },
+ "family business|kanye west": {
+  "file": "covers/family-business-kanye-west.jpg",
+  "album": "The College Dropout",
+  "source": {
+   "label": "Apple Music, The College Dropout by Kanye West",
+   "url": "https://music.apple.com/us/album/family-business/1437467864"
+  }
+ },
+ "welcome to heartbreak|kanye west feat. kid cudi": {
+  "file": "covers/welcome-to-heartbreak-kanye-west-feat-kid-cudi.jpg",
+  "album": "808s & Heartbreak",
+  "source": {
+   "label": "Apple Music, 808s & Heartbreak by Kanye West feat. Kid Cudi",
+   "url": "https://music.apple.com/us/album/welcome-to-heartbreak-feat-kid-cudi/1441410287"
+  }
+ },
+ "say you will|kanye west": {
+  "file": "covers/say-you-will-kanye-west.jpg",
+  "album": "808s & Heartbreak",
+  "source": {
+   "label": "Apple Music, 808s & Heartbreak by Kanye West",
+   "url": "https://music.apple.com/us/album/say-you-will/1441410287"
+  }
+ },
+ "chameleon|herbie hancock": {
+  "file": "covers/chameleon-herbie-hancock.jpg",
+  "album": "Head Hunters",
+  "source": {
+   "label": "Apple Music, Head Hunters by Herbie Hancock",
+   "url": "https://music.apple.com/us/album/chameleon/158571524"
+  }
+ },
+ "watermelon man|herbie hancock": {
+  "file": "covers/watermelon-man-herbie-hancock.jpg",
+  "album": "Takin' Off",
+  "source": {
+   "label": "Apple Music, Takin' Off by Herbie Hancock",
+   "url": "https://music.apple.com/us/album/watermelon-man/1443302878"
+  }
+ },
+ "moanin'|art blakey & the jazz messengers": {
+  "file": "covers/moanin-art-blakey-the-jazz-messengers.jpg",
+  "album": "Moanin' (Remastered)",
+  "source": {
+   "label": "Apple Music, Moanin' (Remastered) by Art Blakey & The Jazz Messengers",
+   "url": "https://music.apple.com/us/album/moanin/725816184"
+  }
+ },
+ "don't know why|norah jones": {
+  "file": "covers/don-t-know-why-norah-jones.jpg",
+  "album": "Come Away with Me (Remastered)",
+  "source": {
+   "label": "Apple Music, Come Away with Me (Remastered) by Norah Jones",
+   "url": "https://music.apple.com/us/album/dont-know-why/1624173298"
+  }
+ },
+ "haven't met you yet|michael bublé": {
+  "file": "covers/haven-t-met-you-yet-michael-bubl.jpg",
+  "album": "Crazy Love",
+  "source": {
+   "label": "Apple Music, Crazy Love by Michael Bublé",
+   "url": "https://music.apple.com/us/album/havent-met-you-yet/668403656"
+  }
+ },
+ "everything|michael bublé": {
+  "file": "covers/everything-michael-bubl.jpg",
+  "album": "Call Me Irresponsible",
+  "source": {
+   "label": "Apple Music, Call Me Irresponsible by Michael Bublé",
+   "url": "https://music.apple.com/us/album/everything/668403779"
+  }
+ },
+ "rehab|amy winehouse": {
+  "file": "covers/rehab-amy-winehouse.jpg",
+  "album": "Back to Black",
+  "source": {
+   "label": "Apple Music, Back to Black by Amy Winehouse",
+   "url": "https://music.apple.com/us/album/rehab/1440856219"
+  }
+ },
+ "you know i'm no good|amy winehouse": {
+  "file": "covers/you-know-i-m-no-good-amy-winehouse.jpg",
+  "album": "Back to Black",
+  "source": {
+   "label": "Apple Music, Back to Black by Amy Winehouse",
+   "url": "https://music.apple.com/us/album/you-know-im-no-good/1440856219"
+  }
+ },
+ "tears dry on their own|amy winehouse": {
+  "file": "covers/tears-dry-on-their-own-amy-winehouse.jpg",
+  "album": "Back to Black",
+  "source": {
+   "label": "Apple Music, Back to Black by Amy Winehouse",
+   "url": "https://music.apple.com/us/album/tears-dry-on-their-own/1440856219"
+  }
+ },
+ "valerie|mark ronson feat. amy winehouse": {
+  "file": "covers/valerie-mark-ronson-feat-amy-winehouse.jpg",
+  "album": "Version",
+  "source": {
+   "label": "Apple Music, Version by Mark Ronson feat. Amy Winehouse",
+   "url": "https://music.apple.com/us/album/valerie-feat-amy-winehouse/259214420"
+  }
+ },
+ "back to black|amy winehouse": {
+  "file": "covers/back-to-black-amy-winehouse.jpg",
+  "album": "Back to Black",
+  "source": {
+   "label": "Apple Music, Back to Black by Amy Winehouse",
+   "url": "https://music.apple.com/us/album/rehab/1440856219"
+  }
+ },
+ "i get a kick out of you|frank sinatra": {
+  "file": "covers/i-get-a-kick-out-of-you-frank-sinatra.jpg",
+  "album": "Songs for Young Lovers",
+  "source": {
+   "label": "Apple Music, Songs for Young Lovers by Frank Sinatra",
+   "url": "https://music.apple.com/us/album/i-get-a-kick-out-of-you/1443221101"
+  }
+ },
+ "what a wonderful world|louis armstrong": {
+  "file": "covers/what-a-wonderful-world-louis-armstrong.jpg",
+  "album": "What a Wonderful World",
+  "source": {
+   "label": "Apple Music, What a Wonderful World by Louis Armstrong",
+   "url": "https://music.apple.com/us/album/what-a-wonderful-world/1440787250"
+  }
+ },
+ "beyond the sea|bobby darin": {
+  "file": "covers/beyond-the-sea-bobby-darin.jpg",
+  "album": "That's All",
+  "source": {
+   "label": "Apple Music, That's All by Bobby Darin",
+   "url": "https://music.apple.com/us/album/beyond-the-sea/30393091"
+  }
+ },
+ "l-o-v-e|nat king cole": {
+  "file": "covers/l-o-v-e-nat-king-cole.jpg",
+  "album": "L-O-V-E",
+  "source": {
+   "label": "Apple Music, L-O-V-E by Nat King Cole",
+   "url": "https://music.apple.com/us/album/l-o-v-e/715747860"
+  }
+ },
+ "it's only a paper moon|nat king cole": {
+  "file": "covers/it-s-only-a-paper-moon-nat-king-cole.jpg",
+  "album": "After Midnight (Remastered)",
+  "source": {
+   "label": "Apple Music, After Midnight (Remastered) by Nat King Cole",
+   "url": "https://music.apple.com/us/album/its-only-a-paper-moon-remastered/1443200111"
+  }
+ },
+ "from the start|laufey": {
+  "file": "covers/from-the-start-laufey.jpg",
+  "album": "Bewitched",
+  "source": {
+   "label": "Apple Music, Bewitched by Laufey",
+   "url": "https://music.apple.com/us/album/from-the-start/1690607869"
+  }
+ },
+ "falling behind|laufey": {
+  "file": "covers/falling-behind-laufey.jpg",
+  "album": "Everything I Know About Love",
+  "source": {
+   "label": "Apple Music, Everything I Know About Love by Laufey",
+   "url": "https://music.apple.com/us/album/falling-behind/1641539616"
+  }
+ },
+ "lovesick|laufey": {
+  "file": "covers/lovesick-laufey.jpg",
+  "album": "Bewitched",
+  "source": {
+   "label": "Apple Music, Bewitched by Laufey",
+   "url": "https://music.apple.com/us/album/lovesick/1690607869"
+  }
+ },
+ "i wish i knew how it would feel to be free|nina simone": {
+  "file": "covers/i-wish-i-knew-how-it-would-feel-to-be-free-nina-simone.jpg",
+  "album": "Silk & Soul",
+  "source": {
+   "label": "Apple Music, Silk & Soul by Nina Simone",
+   "url": "https://music.apple.com/us/album/i-wish-i-knew-how-it-would-feel-to-be-free/209415965"
+  }
+ },
+ "don't let me be misunderstood|nina simone": {
+  "file": "covers/don-t-let-me-be-misunderstood-nina-simone.jpg",
+  "album": "Broadway-Blues-Ballads",
+  "source": {
+   "label": "Apple Music, Broadway-Blues-Ballads by Nina Simone",
+   "url": "https://music.apple.com/us/album/dont-let-me-be-misunderstood/1469616451"
+  }
+ },
+ "black gold|esperanza spalding": {
+  "file": "covers/black-gold-esperanza-spalding.jpg",
+  "album": "Radio Music Society",
+  "source": {
+   "label": "Apple Music, Radio Music Society by Esperanza Spalding",
+   "url": "https://music.apple.com/us/album/black-gold-feat-algebra-blessett/1440952016"
+  }
+ },
+ "anti-hero|taylor swift": {
+  "file": "covers/anti-hero-taylor-swift.jpg",
+  "album": "Midnights",
+  "source": {
+   "label": "Apple Music, Midnights by Taylor Swift",
+   "url": "https://music.apple.com/us/album/anti-hero/1649434004"
+  }
+ },
+ "cruel summer|taylor swift": {
+  "file": "covers/cruel-summer-taylor-swift.jpg",
+  "album": "Lover",
+  "source": {
+   "label": "Apple Music, Lover by Taylor Swift",
+   "url": "https://music.apple.com/us/album/cruel-summer/1468058165"
+  }
+ },
+ "love story|taylor swift": {
+  "file": "covers/love-story-taylor-swift.jpg",
+  "album": "Fearless",
+  "source": {
+   "label": "Apple Music, Fearless by Taylor Swift",
+   "url": "https://music.apple.com/us/album/love-story/1440924803"
+  }
+ },
+ "you belong with me|taylor swift": {
+  "file": "covers/you-belong-with-me-taylor-swift.jpg",
+  "album": "Fearless",
+  "source": {
+   "label": "Apple Music, Fearless by Taylor Swift",
+   "url": "https://music.apple.com/us/album/you-belong-with-me/1440924803"
+  }
+ },
+ "we are never ever getting back together|taylor swift": {
+  "file": "covers/we-are-never-ever-getting-back-together-taylor-swift.jpg",
+  "album": "Red",
+  "source": {
+   "label": "Apple Music, Red by Taylor Swift",
+   "url": "https://music.apple.com/us/album/we-are-never-ever-getting-back-together/1440935340"
+  }
+ },
+ "delicate|taylor swift": {
+  "file": "covers/delicate-taylor-swift.jpg",
+  "album": "reputation",
+  "source": {
+   "label": "Apple Music, reputation by Taylor Swift",
+   "url": "https://music.apple.com/us/album/delicate/1440933849"
+  }
+ },
+ "cardigan|taylor swift": {
+  "file": "covers/cardigan-taylor-swift.jpg",
+  "album": "folklore",
+  "source": {
+   "label": "Apple Music, folklore by Taylor Swift",
+   "url": "https://music.apple.com/us/album/cardigan/1524801260"
+  }
+ },
+ "levitating|dua lipa": {
+  "file": "covers/levitating-dua-lipa.jpg",
+  "album": "Future Nostalgia",
+  "source": {
+   "label": "Apple Music, Future Nostalgia by Dua Lipa",
+   "url": "https://music.apple.com/us/album/levitating/1538003494"
+  }
+ },
+ "physical|dua lipa": {
+  "file": "covers/physical-dua-lipa.jpg",
+  "album": "Future Nostalgia",
+  "source": {
+   "label": "Apple Music, Future Nostalgia by Dua Lipa",
+   "url": "https://music.apple.com/us/album/physical/1538003494"
+  }
+ },
+ "dance the night|dua lipa": {
+  "file": "covers/dance-the-night-dua-lipa.jpg",
+  "album": "Barbie The Album",
+  "source": {
+   "label": "Apple Music, Barbie The Album by Dua Lipa",
+   "url": "https://music.apple.com/us/album/dance-the-night/1689238301"
+  }
+ },
+ "houdini|dua lipa": {
+  "file": "covers/houdini-dua-lipa.jpg",
+  "album": "Radical Optimism",
+  "source": {
+   "label": "Apple Music, Radical Optimism by Dua Lipa",
+   "url": "https://music.apple.com/us/album/houdini/1745741774"
+  }
+ },
+ "shape of you|ed sheeran": {
+  "file": "covers/shape-of-you-ed-sheeran.jpg",
+  "album": "÷",
+  "source": {
+   "label": "Apple Music, ÷ by Ed Sheeran",
+   "url": "https://music.apple.com/us/album/shape-of-you/1193700601"
+  }
+ },
+ "photograph|ed sheeran": {
+  "file": "covers/photograph-ed-sheeran.jpg",
+  "album": "x",
+  "source": {
+   "label": "Apple Music, x by Ed Sheeran",
+   "url": "https://music.apple.com/us/album/photograph/858518077"
+  }
+ },
+ "bad habits|ed sheeran": {
+  "file": "covers/bad-habits-ed-sheeran.jpg",
+  "album": "=",
+  "source": {
+   "label": "Apple Music, = by Ed Sheeran",
+   "url": "https://music.apple.com/us/album/bad-habits/1581087024"
+  }
+ },
+ "castle on the hill|ed sheeran": {
+  "file": "covers/castle-on-the-hill-ed-sheeran.jpg",
+  "album": "÷",
+  "source": {
+   "label": "Apple Music, ÷ by Ed Sheeran",
+   "url": "https://music.apple.com/us/album/castle-on-the-hill/1193700601"
+  }
+ },
+ "the a team|ed sheeran": {
+  "file": "covers/the-a-team-ed-sheeran.jpg",
+  "album": "+",
+  "source": {
+   "label": "Apple Music, + by Ed Sheeran",
+   "url": "https://music.apple.com/us/album/the-a-team/448214084"
+  }
+ },
+ "galway girl|ed sheeran": {
+  "file": "covers/galway-girl-ed-sheeran.jpg",
+  "album": "÷",
+  "source": {
+   "label": "Apple Music, ÷ by Ed Sheeran",
+   "url": "https://music.apple.com/us/album/galway-girl/1193700601"
+  }
+ },
+ "bad guy|billie eilish": {
+  "file": "covers/bad-guy-billie-eilish.jpg",
+  "album": "WHEN WE ALL FALL ASLEEP, WHERE DO WE GO?",
+  "source": {
+   "label": "Apple Music, WHEN WE ALL FALL ASLEEP, WHERE DO WE GO? by Billie Eilish",
+   "url": "https://music.apple.com/us/album/bad-guy/1450695723"
+  }
+ },
+ "birds of a feather|billie eilish": {
+  "file": "covers/birds-of-a-feather-billie-eilish.jpg",
+  "album": "HIT ME HARD AND SOFT",
+  "source": {
+   "label": "Apple Music, HIT ME HARD AND SOFT by Billie Eilish",
+   "url": "https://music.apple.com/us/album/birds-of-a-feather/1739659134"
+  }
+ },
+ "just the way you are|bruno mars": {
+  "file": "covers/just-the-way-you-are-bruno-mars.jpg",
+  "album": "Doo-Wops & Hooligans",
+  "source": {
+   "label": "Apple Music, Doo-Wops & Hooligans by Bruno Mars",
+   "url": "https://music.apple.com/us/album/just-the-way-you-are/576654788"
+  }
+ },
+ "grenade|bruno mars": {
+  "file": "covers/grenade-bruno-mars.jpg",
+  "album": "Doo-Wops & Hooligans",
+  "source": {
+   "label": "Apple Music, Doo-Wops & Hooligans by Bruno Mars",
+   "url": "https://music.apple.com/us/album/grenade/576654788"
+  }
+ },
+ "locked out of heaven|bruno mars": {
+  "file": "covers/locked-out-of-heaven-bruno-mars.jpg",
+  "album": "Unorthodox Jukebox",
+  "source": {
+   "label": "Apple Music, Unorthodox Jukebox by Bruno Mars",
+   "url": "https://music.apple.com/us/album/locked-out-of-heaven/573962245"
+  }
+ },
+ "uptown funk|mark ronson feat. bruno mars": {
+  "file": "covers/uptown-funk-mark-ronson-feat-bruno-mars.jpg",
+  "album": "Uptown Special",
+  "source": {
+   "label": "Apple Music, Uptown Special by Mark Ronson feat. Bruno Mars",
+   "url": "https://music.apple.com/us/album/uptown-funk-feat-bruno-mars/943946661"
+  }
+ },
+ "let it be|the beatles": {
+  "file": "covers/let-it-be-the-beatles.jpg",
+  "album": "Let It Be",
+  "source": {
+   "label": "Apple Music, Let It Be by The Beatles",
+   "url": "https://music.apple.com/us/album/let-it-be/1441164495"
+  }
+ },
+ "wonderwall|oasis": {
+  "file": "covers/wonderwall-oasis.jpg",
+  "album": "(What's the Story) Morning Glory?",
+  "source": {
+   "label": "Apple Music, (What's the Story) Morning Glory? by Oasis",
+   "url": "https://music.apple.com/us/album/wonderwall/1517447039"
+  }
+ },
+ "live forever|oasis": {
+  "file": "covers/live-forever-oasis.jpg",
+  "album": "Definitely Maybe",
+  "source": {
+   "label": "Apple Music, Definitely Maybe by Oasis",
+   "url": "https://music.apple.com/us/album/live-forever/1517506402"
+  }
+ },
+ "karma police|radiohead": {
+  "file": "covers/karma-police-radiohead.jpg",
+  "album": "OK Computer",
+  "source": {
+   "label": "Apple Music, OK Computer by Radiohead",
+   "url": "https://music.apple.com/us/album/karma-police/1097861387"
+  }
+ },
+ "no surprises|radiohead": {
+  "file": "covers/no-surprises-radiohead.jpg",
+  "album": "OK Computer",
+  "source": {
+   "label": "Apple Music, OK Computer by Radiohead",
+   "url": "https://music.apple.com/us/album/no-surprises/1097861387"
+  }
+ },
+ "high and dry|radiohead": {
+  "file": "covers/high-and-dry-radiohead.jpg",
+  "album": "The Bends",
+  "source": {
+   "label": "Apple Music, The Bends by Radiohead",
+   "url": "https://music.apple.com/us/album/high-and-dry/1097862703"
+  }
+ },
+ "smells like teen spirit|nirvana": {
+  "file": "covers/smells-like-teen-spirit-nirvana.jpg",
+  "album": "Nevermind",
+  "source": {
+   "label": "Apple Music, Nevermind by Nirvana",
+   "url": "https://music.apple.com/us/album/smells-like-teen-spirit/1440783617"
+  }
+ },
+ "lithium|nirvana": {
+  "file": "covers/lithium-nirvana.jpg",
+  "album": "Nevermind",
+  "source": {
+   "label": "Apple Music, Nevermind by Nirvana",
+   "url": "https://music.apple.com/us/album/lithium/1440783617"
+  }
+ },
+ "viva la vida|coldplay": {
+  "file": "covers/viva-la-vida-coldplay.jpg",
+  "album": "Viva La Vida or Death and All His Friends",
+  "source": {
+   "label": "Apple Music, Viva La Vida or Death and All His Friends by Coldplay",
+   "url": "https://music.apple.com/us/album/viva-la-vida/1122773394"
+  }
+ },
+ "yellow|coldplay": {
+  "file": "covers/yellow-coldplay.jpg",
+  "album": "Parachutes",
+  "source": {
+   "label": "Apple Music, Parachutes by Coldplay",
+   "url": "https://music.apple.com/us/album/yellow/1122782080"
+  }
+ },
+ "the scientist|coldplay": {
+  "file": "covers/the-scientist-coldplay.jpg",
+  "album": "A Rush of Blood to the Head",
+  "source": {
+   "label": "Apple Music, A Rush of Blood to the Head by Coldplay",
+   "url": "https://music.apple.com/us/album/the-scientist/1122775993"
+  }
+ },
+ "clocks|coldplay": {
+  "file": "covers/clocks-coldplay.jpg",
+  "album": "A Rush of Blood to the Head",
+  "source": {
+   "label": "Apple Music, A Rush of Blood to the Head by Coldplay",
+   "url": "https://music.apple.com/us/album/clocks/1122775993"
+  }
+ },
+ "fix you|coldplay": {
+  "file": "covers/fix-you-coldplay.jpg",
+  "album": "X&Y",
+  "source": {
+   "label": "Apple Music, X&Y by Coldplay",
+   "url": "https://music.apple.com/us/album/fix-you/1123076757"
+  }
+ },
+ "paradise|coldplay": {
+  "file": "covers/paradise-coldplay.jpg",
+  "album": "Mylo Xyloto",
+  "source": {
+   "label": "Apple Music, Mylo Xyloto by Coldplay",
+   "url": "https://music.apple.com/us/album/paradise/726372830"
+  }
+ },
+ "don't stop me now|queen": {
+  "file": "covers/don-t-stop-me-now-queen.jpg",
+  "album": "Jazz",
+  "source": {
+   "label": "Apple Music, Jazz by Queen",
+   "url": "https://music.apple.com/us/album/dont-stop-me-now/6781076099"
+  }
+ },
+ "crazy little thing called love|queen": {
+  "file": "covers/crazy-little-thing-called-love-queen.jpg",
+  "album": "The Game",
+  "source": {
+   "label": "Apple Music, The Game by Queen",
+   "url": "https://music.apple.com/us/album/crazy-little-thing-called-love/6781074926"
+  }
+ },
+ "do i wanna know?|arctic monkeys": {
+  "file": "covers/do-i-wanna-know-arctic-monkeys.jpg",
+  "album": "AM",
+  "source": {
+   "label": "Apple Music, AM by Arctic Monkeys",
+   "url": "https://music.apple.com/us/album/do-i-wanna-know/663097964"
+  }
+ },
+ "505|arctic monkeys": {
+  "file": "covers/505-arctic-monkeys.jpg",
+  "album": "Favourite Worst Nightmare",
+  "source": {
+   "label": "Apple Music, Favourite Worst Nightmare by Arctic Monkeys",
+   "url": "https://music.apple.com/us/album/505/251499221"
+  }
+ },
+ "mr. brightside|the killers": {
+  "file": "covers/mr-brightside-the-killers.jpg",
+  "album": "Hot Fuss",
+  "source": {
+   "label": "Apple Music, Hot Fuss by The Killers",
+   "url": "https://music.apple.com/us/album/mr-brightside/1526194184"
+  }
+ },
+ "somebody told me|the killers": {
+  "file": "covers/somebody-told-me-the-killers.jpg",
+  "album": "Hot Fuss",
+  "source": {
+   "label": "Apple Music, Hot Fuss by The Killers",
+   "url": "https://music.apple.com/us/album/somebody-told-me/1526194184"
+  }
+ },
+ "when you were young|the killers": {
+  "file": "covers/when-you-were-young-the-killers.jpg",
+  "album": "Sam's Town",
+  "source": {
+   "label": "Apple Music, Sam's Town by The Killers",
+   "url": "https://music.apple.com/us/album/when-you-were-young/1440891236"
+  }
+ },
+ "sir duke|stevie wonder": {
+  "file": "covers/sir-duke-stevie-wonder.jpg",
+  "album": "Songs In The Key Of Life",
+  "source": {
+   "label": "Apple Music, Songs In The Key Of Life by Stevie Wonder",
+   "url": "https://music.apple.com/us/album/sir-duke/6829015491"
+  }
+ },
+ "signed, sealed, delivered (i'm yours)|stevie wonder": {
+  "file": "covers/signed-sealed-delivered-i-m-yours-stevie-wonder.jpg",
+  "album": "Signed Sealed and Delivered",
+  "source": {
+   "label": "Apple Music, Signed Sealed and Delivered by Stevie Wonder",
+   "url": "https://music.apple.com/us/album/signed-sealed-delivered-im-yours/1469582082"
+  }
+ },
+ "my cherie amour|stevie wonder": {
+  "file": "covers/my-cherie-amour-stevie-wonder.jpg",
+  "album": "My Cherie Amour",
+  "source": {
+   "label": "Apple Music, My Cherie Amour by Stevie Wonder",
+   "url": "https://music.apple.com/us/album/my-cherie-amour/1442985614"
+  }
+ },
+ "part-time lover|stevie wonder": {
+  "file": "covers/part-time-lover-stevie-wonder.jpg",
+  "album": "In Square Circle",
+  "source": {
+   "label": "Apple Music, In Square Circle by Stevie Wonder",
+   "url": "https://music.apple.com/us/album/part-time-lover/1443168466"
+  }
+ },
+ "pastime paradise|stevie wonder": {
+  "file": "covers/pastime-paradise-stevie-wonder.jpg",
+  "album": "Songs In The Key Of Life",
+  "source": {
+   "label": "Apple Music, Songs In The Key Of Life by Stevie Wonder",
+   "url": "https://music.apple.com/us/album/pastime-paradise/6829015491"
+  }
+ },
+ "let's get it on|marvin gaye": {
+  "file": "covers/let-s-get-it-on-marvin-gaye.jpg",
+  "album": "Let's Get It On (Deluxe Edition)",
+  "source": {
+   "label": "Apple Music, Let's Get It On (Deluxe Edition) by Marvin Gaye",
+   "url": "https://music.apple.com/us/album/lets-get-it-on/1701654441"
+  }
+ },
+ "what's going on|marvin gaye": {
+  "file": "covers/what-s-going-on-marvin-gaye.jpg",
+  "album": "What's Going On",
+  "source": {
+   "label": "Apple Music, What's Going On by Marvin Gaye",
+   "url": "https://music.apple.com/us/album/whats-going-on/1538081586"
+  }
+ },
+ "i heard it through the grapevine|marvin gaye": {
+  "file": "covers/i-heard-it-through-the-grapevine-marvin-gaye.jpg",
+  "album": "In the Groove",
+  "source": {
+   "label": "Apple Music, In the Groove by Marvin Gaye",
+   "url": "https://music.apple.com/us/album/i-heard-it-through-the-grapevine/1444106058"
+  }
+ },
+ "got to give it up|marvin gaye": {
+  "file": "covers/got-to-give-it-up-marvin-gaye.jpg",
+  "album": "Live at the London Palladium",
+  "source": {
+   "label": "Apple Music, Live at the London Palladium by Marvin Gaye",
+   "url": "https://music.apple.com/us/album/got-to-give-it-up/1442948444"
+  }
+ },
+ "let's stay together|al green": {
+  "file": "covers/let-s-stay-together-al-green.jpg",
+  "album": "Let's Stay Together",
+  "source": {
+   "label": "Apple Music, Let's Stay Together by Al Green",
+   "url": "https://music.apple.com/us/album/lets-stay-together/976362815"
+  }
+ },
+ "september|earth, wind & fire": {
+  "file": "covers/september-earth-wind-fire.jpg",
+  "album": "The Best Of Earth, Wind & Fire Vol. 1",
+  "source": {
+   "label": "Apple Music, The Best Of Earth, Wind & Fire Vol. 1 by Earth, Wind & Fire",
+   "url": "https://music.apple.com/us/album/september/1456623332"
+  }
+ },
+ "let's groove|earth, wind & fire": {
+  "file": "covers/let-s-groove-earth-wind-fire.jpg",
+  "album": "Raise!",
+  "source": {
+   "label": "Apple Music, Raise! by Earth, Wind & Fire",
+   "url": "https://music.apple.com/us/album/lets-groove/523229261"
+  }
+ },
+ "boogie wonderland|earth, wind & fire feat. the emotions": {
+  "file": "covers/boogie-wonderland-earth-wind-fire-feat-the-emotions.jpg",
+  "album": "I Am",
+  "source": {
+   "label": "Apple Music, I Am by Earth, Wind & Fire feat. The Emotions",
+   "url": "https://music.apple.com/us/album/boogie-wonderland-feat-the-emotions/523223720"
+  }
+ },
+ "ain't no sunshine|bill withers": {
+  "file": "covers/ain-t-no-sunshine-bill-withers.jpg",
+  "album": "Just As I Am",
+  "source": {
+   "label": "Apple Music, Just As I Am by Bill Withers",
+   "url": "https://music.apple.com/us/album/aint-no-sunshine/293521570"
+  }
+ },
+ "lean on me|bill withers": {
+  "file": "covers/lean-on-me-bill-withers.jpg",
+  "album": "Still Bill",
+  "source": {
+   "label": "Apple Music, Still Bill by Bill Withers",
+   "url": "https://music.apple.com/us/album/lean-on-me/989376986"
+  }
+ },
+ "my girl|the temptations": {
+  "file": "covers/my-girl-the-temptations.jpg",
+  "album": "The Temptations Sing Smokey",
+  "source": {
+   "label": "Apple Music, The Temptations Sing Smokey by The Temptations",
+   "url": "https://music.apple.com/us/album/my-girl/1423301162"
+  }
+ },
+ "(sittin' on) the dock of the bay|otis redding": {
+  "file": "covers/sittin-on-the-dock-of-the-bay-otis-redding.jpg",
+  "album": "The Dock of the Bay",
+  "source": {
+   "label": "Apple Music, The Dock of the Bay by Otis Redding",
+   "url": "https://music.apple.com/us/album/sittin-on-the-dock-of-the-bay/995809797"
+  }
+ },
+ "stand by me|ben e. king": {
+  "file": "covers/stand-by-me-ben-e-king.jpg",
+  "album": "Don't Play That Song!",
+  "source": {
+   "label": "Apple Music, Don't Play That Song! by Ben E. King",
+   "url": "https://music.apple.com/us/album/stand-by-me/68211636"
+  }
+ },
+ "move on up|curtis mayfield": {
+  "file": "covers/move-on-up-curtis-mayfield.jpg",
+  "album": "Curtis (Expanded Edition)",
+  "source": {
+   "label": "Apple Music, Curtis (Expanded Edition) by Curtis Mayfield",
+   "url": "https://music.apple.com/us/album/move-on-up-extended-version/29168201"
+  }
+ },
+ "easy|commodores": {
+  "file": "covers/easy-commodores.jpg",
+  "album": "Commodores",
+  "source": {
+   "label": "Apple Music, Commodores by Commodores",
+   "url": "https://music.apple.com/us/album/easy/1442972066"
+  }
+ },
+ "brick house|commodores": {
+  "file": "covers/brick-house-commodores.jpg",
+  "album": "Commodores",
+  "source": {
+   "label": "Apple Music, Commodores by Commodores",
+   "url": "https://music.apple.com/us/album/brick-house/1442972066"
+  }
+ },
+ "flash light|parliament": {
+  "file": "covers/flash-light-parliament.jpg",
+  "album": "Funkentelechy vs. The Placebo Syndrome",
+  "source": {
+   "label": "Apple Music, Funkentelechy vs. The Placebo Syndrome by Parliament",
+   "url": "https://music.apple.com/us/album/flash-light/1434913911"
+  }
+ },
+ "good times|chic": {
+  "file": "covers/good-times-chic.jpg",
+  "album": "Risqué",
+  "source": {
+   "label": "Apple Music, Risqué by Chic",
+   "url": "https://music.apple.com/us/album/good-times/734291580"
+  }
+ },
+ "le freak|chic": {
+  "file": "covers/le-freak-chic.jpg",
+  "album": "C'est Chic (2018 Remaster)",
+  "source": {
+   "label": "Apple Music, C'est Chic (2018 Remaster) by Chic",
+   "url": "https://music.apple.com/us/album/le-freak-2018-remaster/1442990558"
+  }
+ },
+ "everybody dance|chic": {
+  "file": "covers/everybody-dance-chic.jpg",
+  "album": "Chic (Remastered)",
+  "source": {
+   "label": "Apple Music, Chic (Remastered) by Chic",
+   "url": "https://music.apple.com/us/album/everybody-dance/1442989342"
+  }
+ },
+ "i want your love|chic": {
+  "file": "covers/i-want-your-love-chic.jpg",
+  "album": "C'est Chic (2018 Remaster)",
+  "source": {
+   "label": "Apple Music, C'est Chic (2018 Remaster) by Chic",
+   "url": "https://music.apple.com/us/album/i-want-your-love-2018-remaster/1442990558"
+  }
+ },
+ "stayin' alive|bee gees": {
+  "file": "covers/stayin-alive-bee-gees.jpg",
+  "album": "Saturday Night Fever (The Original Movie Soundtrack)",
+  "source": {
+   "label": "Apple Music, Saturday Night Fever (The Original Movie Soundtrack) by Bee Gees",
+   "url": "https://music.apple.com/us/album/stayin-alive-from-saturday-night-fever-soundtrack/1445668458"
+  }
+ },
+ "night fever|bee gees": {
+  "file": "covers/night-fever-bee-gees.jpg",
+  "album": "Saturday Night Fever (The Original Movie Soundtrack)",
+  "source": {
+   "label": "Apple Music, Saturday Night Fever (The Original Movie Soundtrack) by Bee Gees",
+   "url": "https://music.apple.com/us/album/night-fever-from-saturday-night-fever-soundtrack/1445668458"
+  }
+ },
+ "how deep is your love|bee gees": {
+  "file": "covers/how-deep-is-your-love-bee-gees.jpg",
+  "album": "Saturday Night Fever (The Original Movie Soundtrack)",
+  "source": {
+   "label": "Apple Music, Saturday Night Fever (The Original Movie Soundtrack) by Bee Gees",
+   "url": "https://music.apple.com/us/album/how-deep-is-your-love-from-saturday-night-fever-soundtrack/1445668458"
+  }
+ },
+ "hot stuff|donna summer": {
+  "file": "covers/hot-stuff-donna-summer.jpg",
+  "album": "Bad Girls",
+  "source": {
+   "label": "Apple Music, Bad Girls by Donna Summer",
+   "url": "https://music.apple.com/us/album/hot-stuff/6793735689"
+  }
+ },
+ "bad girls|donna summer": {
+  "file": "covers/bad-girls-donna-summer.jpg",
+  "album": "Bad Girls",
+  "source": {
+   "label": "Apple Music, Bad Girls by Donna Summer",
+   "url": "https://music.apple.com/us/album/bad-girls/6793735689"
+  }
+ },
+ "i feel love|donna summer": {
+  "file": "covers/i-feel-love-donna-summer.jpg",
+  "album": "I Remember Yesterday",
+  "source": {
+   "label": "Apple Music, I Remember Yesterday by Donna Summer",
+   "url": "https://music.apple.com/us/album/i-feel-love/1442959303"
+  }
+ },
+ "we are family|sister sledge": {
+  "file": "covers/we-are-family-sister-sledge.jpg",
+  "album": "We Are Family (1995 Remaster)",
+  "source": {
+   "label": "Apple Music, We Are Family (1995 Remaster) by Sister Sledge",
+   "url": "https://music.apple.com/us/album/we-are-family-sure-is-pure-remix-1995-remaster-bonus-track/333589490"
+  }
+ },
+ "lost in music|sister sledge": {
+  "file": "covers/lost-in-music-sister-sledge.jpg",
+  "album": "We Are Family",
+  "source": {
+   "label": "Apple Music, We Are Family by Sister Sledge",
+   "url": "https://music.apple.com/us/album/lost-in-music/1691509912"
+  }
+ },
+ "celebration|kool & the gang": {
+  "file": "covers/celebration-kool-the-gang.jpg",
+  "album": "Celebrate!",
+  "source": {
+   "label": "Apple Music, Celebrate! by Kool & The Gang",
+   "url": "https://music.apple.com/us/album/celebration-single-version/1444107292"
+  }
+ },
+ "get down on it|kool & the gang": {
+  "file": "covers/get-down-on-it-kool-the-gang.jpg",
+  "album": "Something Special",
+  "source": {
+   "label": "Apple Music, Something Special by Kool & The Gang",
+   "url": "https://music.apple.com/us/album/get-down-on-it/1444080670"
+  }
+ },
+ "too hot|kool & the gang": {
+  "file": "covers/too-hot-kool-the-gang.jpg",
+  "album": "Ladies' Night",
+  "source": {
+   "label": "Apple Music, Ladies' Night by Kool & The Gang",
+   "url": "https://music.apple.com/us/album/too-hot/1426967393"
+  }
+ },
+ "got to be real|cheryl lynn": {
+  "file": "covers/got-to-be-real-cheryl-lynn.jpg",
+  "album": "Cheryl Lynn (Expanded Edition)",
+  "source": {
+   "label": "Apple Music, Cheryl Lynn (Expanded Edition) by Cheryl Lynn",
+   "url": "https://music.apple.com/us/album/got-to-be-real/410731494"
+  }
+ },
+ "cosmic girl|jamiroquai": {
+  "file": "covers/cosmic-girl-jamiroquai.jpg",
+  "album": "Travelling Without Moving (20th Anniversary Edition) [2016 Remaster]",
+  "source": {
+   "label": "Apple Music, Travelling Without Moving (20th Anniversary Edition) [2016 Remaster] by Jamiroquai",
+   "url": "https://music.apple.com/us/album/cosmic-girl/1479062290"
+  }
+ },
+ "super freak|rick james": {
+  "file": "covers/super-freak-rick-james.jpg",
+  "album": "Street Songs",
+  "source": {
+   "label": "Apple Music, Street Songs by Rick James",
+   "url": "https://music.apple.com/us/album/super-freak/1440805214"
+  }
+ },
+ "give it to me baby|rick james": {
+  "file": "covers/give-it-to-me-baby-rick-james.jpg",
+  "album": "Street Songs",
+  "source": {
+   "label": "Apple Music, Street Songs by Rick James",
+   "url": "https://music.apple.com/us/album/give-it-to-me-baby/1440805214"
+  }
+ },
+ "rock with you|michael jackson": {
+  "file": "covers/rock-with-you-michael-jackson.jpg",
+  "album": "Off the Wall",
+  "source": {
+   "label": "Apple Music, Off the Wall by Michael Jackson",
+   "url": "https://music.apple.com/us/album/rock-with-you-single-version/186166282"
+  }
  }
 }
