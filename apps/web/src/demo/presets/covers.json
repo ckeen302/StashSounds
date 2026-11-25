@@ -2974,5 +2974,53 @@
    "label": "Apple Music, Down In Atlanta - Single by Pharrell Williams & Travis Scott",
    "url": "https://music.apple.com/us/album/down-in-atlanta-single/1652548046"
   }
+ },
+ "crazy|kid ink": {
+  "file": "covers/crazy-kid-ink.jpg",
+  "album": "Up & Away",
+  "source": {
+   "label": "Wikipedia, Up & Away (Kid Ink album)",
+   "url": "https://en.wikipedia.org/wiki/Up_%26_Away_%28Kid_Ink_album%29"
+  }
+ },
+ "astrothunder|travis scott": {
+  "file": "covers/astrothunder-travis-scott.jpg",
+  "album": "Astroworld",
+  "source": {
+   "label": "Wikipedia, Astroworld (album)",
+   "url": "https://en.wikipedia.org/wiki/Astroworld_%28album%29"
+  }
+ },
+ "butterfly effect|travis scott": {
+  "file": "covers/butterfly-effect-travis-scott.jpg",
+  "album": "Astroworld",
+  "source": {
+   "label": "Wikipedia, Astroworld (album)",
+   "url": "https://en.wikipedia.org/wiki/Astroworld_%28album%29"
+  }
+ },
+ "hot wings|young nudy & pi'erre bourne": {
+  "file": "covers/hot-wings-young-nudy-pi-erre-bourne.jpg",
+  "album": "Sli'merre",
+  "source": {
+   "label": "Wikipedia, Sli'merre",
+   "url": "https://en.wikipedia.org/wiki/Sli%27merre"
+  }
+ },
+ "shit on you|travis scott": {
+  "file": "covers/shit-on-you-travis-scott.jpg",
+  "album": "Owl Pharaoh",
+  "source": {
+   "label": "Wikipedia, Owl Pharaoh",
+   "url": "https://en.wikipedia.org/wiki/Owl_Pharaoh"
+  }
+ },
+ "space cadet|metro boomin feat. gunna": {
+  "file": "covers/space-cadet-metro-boomin-feat-gunna.jpg",
+  "album": "Not All Heroes Wear Capes",
+  "source": {
+   "label": "Wikipedia, Not All Heroes Wear Capes",
+   "url": "https://en.wikipedia.org/wiki/Not_All_Heroes_Wear_Capes"
+  }
  }
 }
