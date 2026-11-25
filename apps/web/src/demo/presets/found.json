@@ -9756,9 +9756,11 @@
   "role": "flute",
   "confidence": "community",
   "source": {
-   "label": "",
-   "url": ""
-  }
+   "label": "AudioSex — The Official 'Famous Presets' Thread (p.2)",
+   "url": "https://audiosex.pro/threads/the-official-famous-presets-thread.69991/page-2"
+  },
+  "quote": "YOSEMITE by Travis Scott - Lotus Flute in Omnisphere",
+  "quoteBy": "BlossomwoodsCollection"
  },
  {
   "song": "BUTTERFLY EFFECT",
@@ -9769,9 +9771,11 @@
   "role": "lead",
   "confidence": "community",
   "source": {
-   "label": "",
-   "url": ""
-  }
+   "label": "PresetShare — Butterflies (Vital remake)",
+   "url": "https://presetshare.com/p9995"
+  },
+  "quote": "A Vital remake of the popular Preset \"Butterflies\" from Analog Lab Used in songs like \"BUTTERFLY EFFECT\" By Travis Scott.",
+  "quoteBy": "jayprogaming09"
  },
  {
   "song": "HOUSTONFORNICATION",
@@ -10559,5 +10563,128 @@
   },
   "quote": "Black Swamp (instrumental): Roboter under DX7 in Sytrus",
   "path": "DX7"
+ },
+ {
+  "song": "Illamerica",
+  "artist": "Travis Scott",
+  "producer": "",
+  "plugin": "Synapse Audio DUNE",
+  "preset": "023: Cyber Pulse",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "AudioSex — The Official 'Famous Presets' Thread",
+   "url": "https://audiosex.pro/threads/the-official-famous-presets-thread.69991/"
+  },
+  "quote": "Illamerica - Travi$ Scott: 023: Cyber Pulse, under Bank B RL in Dune",
+  "quoteBy": "theunknownpurple",
+  "path": "Bank B RL"
+ },
+ {
+  "song": "Shit On You",
+  "artist": "Travis Scott",
+  "producer": "",
+  "plugin": "Tone2 ElectraX",
+  "preset": "Imposter EDT",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "AudioSex — The Official 'Famous Presets' Thread",
+   "url": "https://audiosex.pro/threads/the-official-famous-presets-thread.69991/"
+  },
+  "quote": "shit On You - Travi$ Scott: Imposter EDT, under Morph Atmo Pad in ElectraX",
+  "quoteBy": "theunknownpurple",
+  "path": "Morph Atmo Pad"
+ },
+ {
+  "song": "Space Cadet",
+  "artist": "Metro Boomin feat. Gunna",
+  "producer": "Metro Boomin, Wheezy (add. Allen Ritter)",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Valve Radio Rhodes Phasewind",
+  "role": "keys",
+  "confidence": "community",
+  "source": {
+   "label": "AudioSex — The Official 'Famous Presets' Thread",
+   "url": "https://audiosex.pro/threads/the-official-famous-presets-thread.69991/"
+  },
+  "quote": "Metro Boomin - Space Cadet (feat. Gunna) = Omnisphere - Valve Radio Rhodes Phasewind",
+  "quoteBy": "BlackHaze1986"
+ },
+ {
+  "song": "Scholarships",
+  "artist": "Drake & Future",
+  "producer": "",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Disturbing the West",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "AudioSex — The Official 'Famous Presets' Thread",
+   "url": "https://audiosex.pro/threads/the-official-famous-presets-thread.69991/"
+  },
+  "quote": "Drake & Future - Scholarships = Omnisphere —> Disturbing the West",
+  "quoteBy": "BlackHaze1986"
+ },
+ {
+  "song": "Shotgun",
+  "artist": "Future",
+  "producer": "",
+  "plugin": "reFX Nexus",
+  "preset": "PN Arena Ambience",
+  "role": "keys",
+  "confidence": "community",
+  "source": {
+   "label": "AudioSex — The Official 'Famous Presets' Thread",
+   "url": "https://audiosex.pro/threads/the-official-famous-presets-thread.69991/"
+  },
+  "quote": "Future - Shotgun = reFX Nexus ---> Piano ---> PN Arena Ambience",
+  "quoteBy": "BlackHaze1986",
+  "path": "Piano"
+ },
+ {
+  "song": "Recognize",
+  "artist": "PARTYNEXTDOOR feat. Drake",
+  "producer": "",
+  "plugin": "u-he TyrellN6",
+  "preset": "PAD retrox SM",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "AudioSex — The Official 'Famous Presets' Thread",
+   "url": "https://audiosex.pro/threads/the-official-famous-presets-thread.69991/"
+  },
+  "quote": "PARTYNEXTDOOR Ft. Drake - Recognize = u-he TyrellN6 ---> PAD retrox SM",
+  "quoteBy": "BlackHaze1986"
+ },
+ {
+  "song": "Down in Atlanta",
+  "artist": "Pharrell & Travis Scott",
+  "producer": "",
+  "plugin": "Apple Logic Pro X (stock instrument patch)",
+  "preset": "Antarctic Sun",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "AudioSex — The Official 'Famous Presets' Thread",
+   "url": "https://audiosex.pro/threads/the-official-famous-presets-thread.69991/"
+  },
+  "quote": "Pharrell & Travis Scott - DOWN IN ATLANTA = Logic Pro X - Antarctic Sun & Logic Pro X - 80s FM Bass Attack",
+  "quoteBy": "BlackHaze1986"
+ },
+ {
+  "song": "Down in Atlanta",
+  "artist": "Pharrell & Travis Scott",
+  "producer": "",
+  "plugin": "Apple Logic Pro X (stock instrument patch)",
+  "preset": "80s FM Bass Attack",
+  "role": "bass",
+  "confidence": "community",
+  "source": {
+   "label": "AudioSex — The Official 'Famous Presets' Thread",
+   "url": "https://audiosex.pro/threads/the-official-famous-presets-thread.69991/"
+  },
+  "quote": "Pharrell & Travis Scott - DOWN IN ATLANTA = Logic Pro X - Antarctic Sun & Logic Pro X - 80s FM Bass Attack",
+  "quoteBy": "BlackHaze1986"
  }
 ]
