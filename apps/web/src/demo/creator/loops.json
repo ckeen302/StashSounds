@@ -40,6 +40,46 @@
     "name": "Monclair - 154bpm.wav",
     "bytes": 9575248
    }
+  },
+  {
+   "slug": "myers-144",
+   "bpm": 144,
+   "bars": 16,
+   "key": {
+    "root": 1,
+    "mode": "minor"
+   },
+   "loopSamples": 1176000,
+   "sampleRate": 44100,
+   "durationMs": 26667,
+   "preview": {
+    "path": "demo/media/myers-144.mp3",
+    "bytes": 427616,
+    "sha256": "5ceddde12e0158bb7e715faccbd718e18fa8f8964a0905891c5fd8d90e44b5ef",
+    "kbps": 128
+   },
+   "peaks": "X11kbWVqWFNSQEFBSFtsZYWBhnt+mHSTlJq1hpmQjYV/fouSmpaZfYeMb2hsbGVya3R7ZFRPUFNUVWBiZm51XmBRQkE9SEk8XGtvbXqAg4F3e5SOlpWPfHl5emtcX1tlZWVkXYRoWGNeY2t+gWh+YXFlcnNRe2J9e3N5b3Byb2RiWE5PSUk8SkE0Ozc2QU9gVnBmgYh8h3aCf2Z4bG54b3h2dXBtbW52eWV2a25hYV1JUEY8OywxMTE5PzM7RztXaVVzbH9wi4+mmpG2p4+WjoeAe3F/a4WEfIeYqZGokH97b3RlcVVjVGNbX11ea2iDgYGAnGyRe2Voe7ChlnR0n6agh356oKOahW9iUlZVUlVpaWdpX1NPX1dLRENTVF9nY1xXWGBebXKHjY2EdlNbd16Kh4CChYCQhn9tbm5oYGhdRUw5RDtHPUxOUU5eUFVJPzcuJiInJzE4OkhTcF6Kk3STlIGjgJyKY29aXVdcVV9NVlhYTldfa15scWh6YXpxY2hbbnJzcVRrX1hlZGRaX3yFdox9f2p+XltwX3B2cG5weX2FhJCAlZOIipKImKWTpI6FeW9yd2pkZ2BmTWFjfoqY2Jx2g4KDg5WPcXlwfXiDeXNtdGlwbYN/anVsZ3x8eGl0eHiDh4F/hZR+fmxlX1RKTk+XlY99poCOc3hvXGBUUE5MREA7P0A9QkpTVVRnXlBRV0dRRkVMVWJXdGtkdIFve3Z7gYJ6dXJialZjXU1ZWmNcWl1gXFhbY2xagHqDjYmRgpSQf4uLgHprc2xRWFJOU0hKR09KcmFNYklVYFlSZGVhfot8jWp4hm6NXqOCcoOJcmVrcGFlWmNfbltrWk5VaXuEh4y4mMjBonZ5aXRrX2NgaHJpaGx6WllGRkM/OjZAP0A6QE1maXNkaWp7iZB+bnl1cWx2foR2jYt+XlVkUGpbZXJVXVpRRVlZYGtgdHtld2lwaFliVE5OVmBRWFBXYmRrcGh3cnd6fntpgXN2enFpeHl3fHlzeHJuZX16Y3ZwenR9cn9wX2dcT0ZERT8/OUE8TkJdYWN0jWCTkXI=",
+   "copy": {
+    "title": "Myers",
+    "owner": {
+     "handle": "caden",
+     "displayName": "Caden"
+    },
+    "tags": [
+     "dark",
+     "trap",
+     "melody"
+    ],
+    "genre": "Trap",
+    "description": "A dark 16-bar melody at 144, rocking between C#m and Dmaj7. From the founder's own folder.",
+    "license": "royalty_free",
+    "publishedAt": "2026-11-25T01:45:00Z"
+   },
+   "original": {
+    "path": "demo/media/myers-144.wav",
+    "name": "Myers - 144bpm.wav",
+    "bytes": 10240184
+   }
   }
  ]
 }
