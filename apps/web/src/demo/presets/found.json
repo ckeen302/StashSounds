@@ -10529,5 +10529,35 @@
    "url": ""
   },
   "path": "FM7 Legacy"
+ },
+ {
+  "song": "The Blanguage",
+  "artist": "Young Thug",
+  "producer": "Metro Boomin",
+  "plugin": "reFX Nexus",
+  "preset": "Chill House Lounge 3",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets Used in Popular Songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "The Blanguage - Young Thug: Chill House Lounge 3, under XP House Vol.1 in Nexus",
+  "path": "XP House Vol.1"
+ },
+ {
+  "song": "Black Swamp (instrumental)",
+  "artist": "SpaceGhostPurrp",
+  "producer": "SpaceGhostPurrp",
+  "plugin": "Image-Line Sytrus",
+  "preset": "Roboter",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: Presets Used in Popular Songs",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "quote": "Black Swamp (instrumental): Roboter under DX7 in Sytrus",
+  "path": "DX7"
  }
 ]
