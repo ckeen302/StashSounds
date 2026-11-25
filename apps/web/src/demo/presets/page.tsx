@@ -239,7 +239,6 @@ export function PresetsPage() {
         </Button>
       )}
       {songs.length === 0 && <p className="text-body text-text-muted">Nothing matches. Clear the search or pick another plugin.</p>}
-      {!touched && <FromTheProducer />}
     </main>
   );
 }
@@ -361,38 +360,6 @@ export function PatchStrip({ e, detail = false }: { e: PresetEntry; detail?: boo
         </blockquote>
       )}
     </li>
-  );
-}
-
-/** The surest rows first: presets the song's own producer named, as a sideways shelf. */
-function FromTheProducer() {
-  const rows = PRESETS.filter((p) => p.confidence === "producer" && p.preset);
-  if (!rows.length) return null;
-  return (
-    <section aria-label="Straight from the producer" className="flex flex-col gap-2">
-      <div className="flex items-center gap-2">
-        <Meter c="producer" />
-        <span className="text-label text-label-caps text-accent">Straight from the producer</span>
-      </div>
-      <ul className="-mx-3 flex gap-2 overflow-x-auto px-3 pb-1 tablet:mx-0 tablet:px-0">
-        {rows.map((e, i) => (
-          <li key={`${e.song}-${e.preset}-${i}`} className="flex w-64 shrink-0 flex-col gap-2 rounded-panel border border-accent bg-surface p-3">
-            <div className="flex items-center gap-3">
-              <div className="flex min-w-0 flex-col">
-                <UiLink href={songHref(e.song, e.artist)} className="truncate text-body-strong text-text ui-hover:underline">
-                  {e.song}
-                </UiLink>
-                <span className="truncate text-small text-text-muted">{`${e.artist} · ${e.role}`}</span>
-              </div>
-            </div>
-            <div className="st-box flex flex-col gap-1 rounded-control border border-border-strong bg-bg px-3 py-2">
-              <span className="truncate font-mono text-small text-text-muted">{e.plugin}</span>
-              <span className="font-mono text-body-strong break-words text-accent">{presetParts(e.preset).name}</span>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </section>
   );
 }
 
