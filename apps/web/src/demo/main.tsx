@@ -36,7 +36,7 @@ import { has, set } from "./store";
 import { startLooks, useLook } from "./looks";
 import { midiItem, type MidiItem } from "./midi/catalog";
 import { MidiList, MidiPage, useMidiItems } from "./midi/pages";
-import { progressionOf } from "./midi/songs";
+import { BATCH_SONGS, progressionOf } from "./midi/songs";
 import { CHORD_PACKS, PACK_PROGRESSIONS, TEMPO_BANDS } from "./midi/chord-packs";
 import { Dropdown } from "./presets/page";
 import { PresetsPage } from "./presets/page";
@@ -843,10 +843,11 @@ function originOf(m: MidiItem): Origin {
   return m.pack ? "packs" : m.song ? "songs" : "posts";
 }
 const KEY_ROOTS = ["C", "C#", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"];
-/** The styles the chord packs come in (each progression's first tag), most progressions first. */
+/** The styles the chord packs and the songs come in (a progression's first tag, a song's genre), most first. */
 const PACK_STYLES = (() => {
   const n = new Map<string, number>();
   for (const p of PACK_PROGRESSIONS) n.set(p.tags[0]!, (n.get(p.tags[0]!) ?? 0) + 1);
+  for (const s of BATCH_SONGS) if (s.genre) n.set(s.genre, (n.get(s.genre) ?? 0) + 1);
   return [...n.entries()].sort((a, b) => b[1] - a[1]).map(([t]) => t);
 })();
 /** The packs that hold at least one progression in a style. */
