@@ -41,6 +41,8 @@ type Copy = {
   likes: number;
   downloads: number;
   publishedAt: string;
+  /** Ten characters like every public id; set when "demoloop" + n would not fit (the loop library). */
+  publicId?: string;
 };
 
 const copy: Record<string, Copy> = {
@@ -106,7 +108,8 @@ const libraryCopy: Record<string, Copy> = Object.fromEntries(
     return [
       l.slug,
       {
-        n: 6 + more.loops.length + creator.loops.length + i,
+        n: 1000 + i,
+        publicId: `demolib${String(i).padStart(3, "0")}`,
         title: c.title,
         slug: l.slug,
         owner: HOUSE,
@@ -130,7 +133,7 @@ export const LOOP_BYTES = new Map<string, number>();
 export const ORIGINALS = new Map<string, { url: string; name: string }>();
 
 function rowFor(e: Entry, c: Copy, base: string): ItemRow {
-  const publicId = `demoloop${String(c.n).padStart(2, "0")}`;
+  const publicId = c.publicId ?? `demoloop${String(c.n).padStart(2, "0")}`;
   const id = `00000000-0000-4000-8000-${String(c.n).padStart(12, "0")}`;
   const original = (e as { original?: { path: string; name: string; bytes: number } }).original;
   LOOP_BYTES.set(id, original?.bytes ?? e.preview.bytes);

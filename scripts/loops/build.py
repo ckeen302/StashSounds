@@ -33,7 +33,8 @@ MEDIA = LIB / "media"
 NOTE = ["C", "C#", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"]
 
 # How many loops each family gets, and how many of those are full beats (melody, 808 and drums).
-PLAN = {"trap": (30, 8), "drill": (18, 5), "plugg": (20, 5), "rage": (16, 5), "phonk": (8, 3), "rnb": (18, 3), "soul": (10, 1), "lofi": (8, 2), "boombap": (8, 2)}
+# Full beats are off: the site posts loops to build on, never finished beats (Caden, 2026-11-25).
+PLAN = {"trap": (30, 0), "drill": (18, 0), "plugg": (20, 0), "rage": (16, 0), "phonk": (8, 0), "rnb": (18, 0), "soul": (10, 0), "lofi": (8, 0), "boombap": (8, 0)}
 
 # Drum-only loops: (style, bpm, bars, title)
 DRUM_LOOPS = [
