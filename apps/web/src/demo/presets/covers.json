@@ -1,1 +1,1714 @@
-{}
+{
+ "23|mike will made-it feat. miley cyrus, wiz khalifa & juicy j": {
+  "file": "covers/23-mike-will-made-it-feat-miley-cyrus-wiz-khalifa-juicy-j.jpg",
+  "album": "23 (feat. Miley Cyrus, Wiz Khalifa & Juicy J) - Single",
+  "source": {
+   "label": "Apple Music, 23 (feat. Miley Cyrus, Wiz Khalifa & Juicy J) - Single by Mike WiLL Made-It",
+   "url": "https://music.apple.com/us/album/23-feat-miley-cyrus-wiz-khalifa-juicy-j/1444899578"
+  }
+ },
+ "3500|travis scott feat. future & 2 chainz": {
+  "file": "covers/3500-travis-scott-feat-future-2-chainz.jpg",
+  "album": "Rodeo",
+  "source": {
+   "label": "Apple Music, Rodeo by Travis Scott",
+   "url": "https://music.apple.com/us/album/3500-feat-future-2-chainz/1456179762"
+  }
+ },
+ "4 minutes|madonna feat. justin timberlake & timbaland": {
+  "file": "covers/4-minutes-madonna-feat-justin-timberlake-timbaland.jpg",
+  "album": "Hard Candy (Deluxe Version)",
+  "source": {
+   "label": "Apple Music, Hard Candy (Deluxe Version) by Madonna",
+   "url": "https://music.apple.com/us/album/4-minutes-feat-justin-timberlake-timbaland/278674439"
+  }
+ },
+ "4u|pi'erre bourne": {
+  "file": "covers/4u-pi-erre-bourne.jpg",
+  "album": "The Life Of Pi'erre 5",
+  "source": {
+   "label": "Apple Music, The Life Of Pi'erre 5 by Pi’erre Bourne",
+   "url": "https://music.apple.com/us/album/4u/1570684882"
+  }
+ },
+ "5am in toronto|drake": {
+  "file": "covers/5am-in-toronto-drake.jpg",
+  "album": "Care Package",
+  "source": {
+   "label": "Apple Music, Care Package by Drake",
+   "url": "https://music.apple.com/us/album/5-am-in-toronto/1475179452"
+  }
+ },
+ "7 rings|ariana grande": {
+  "file": "covers/7-rings-ariana-grande.jpg",
+  "album": "thank u, next",
+  "source": {
+   "label": "Apple Music, thank u, next by Ariana Grande",
+   "url": "https://music.apple.com/us/album/7-rings/1450333975"
+  }
+ },
+ "9am in dallas|drake": {
+  "file": "covers/9am-in-dallas-drake.jpg",
+  "album": "9AM In Dallas - Single",
+  "source": {
+   "label": "Apple Music, 9AM In Dallas - Single by Drake",
+   "url": "https://music.apple.com/us/album/9am-in-dallas/1444877851"
+  }
+ },
+ "a lot|21 savage feat. j. cole": {
+  "file": "covers/a-lot-21-savage-feat-j-cole.jpg",
+  "album": "i am > i was",
+  "source": {
+   "label": "Apple Music, i am > i was by 21 Savage",
+   "url": "https://music.apple.com/us/album/a-lot/1447452167"
+  }
+ },
+ "ain't worried about nothin'|french montana": {
+  "file": "covers/ain-t-worried-about-nothin-french-montana.jpg",
+  "album": "Excuse My French",
+  "source": {
+   "label": "Apple Music, Excuse My French by French Montana",
+   "url": "https://music.apple.com/us/album/aint-worried-about-nothin/1443066924"
+  }
+ },
+ "all girls are the same|juice wrld": {
+  "file": "covers/all-girls-are-the-same-juice-wrld.jpg",
+  "album": "Goodbye & Good Riddance (Anniversary)",
+  "source": {
+   "label": "Apple Music, Goodbye & Good Riddance (Anniversary) by Juice WRLD",
+   "url": "https://music.apple.com/us/album/all-girls-are-the-same/1618089374"
+  }
+ },
+ "all the stars|kendrick lamar & sza": {
+  "file": "covers/all-the-stars-kendrick-lamar-sza.jpg",
+  "album": "Black Panther: The Album",
+  "source": {
+   "label": "Apple Music, Black Panther: The Album by Kendrick Lamar, SZA",
+   "url": "https://music.apple.com/us/album/all-the-stars/1440903005"
+  }
+ },
+ "alright (super bowl lix performance)|kendrick lamar": {
+  "file": "covers/alright-super-bowl-lix-performance-kendrick-lamar.jpg",
+  "album": "To Pimp a Butterfly",
+  "source": {
+   "label": "Apple Music, To Pimp a Butterfly by Kendrick Lamar",
+   "url": "https://music.apple.com/us/album/alright/1440871877"
+  }
+ },
+ "ambition|wale": {
+  "file": "covers/ambition-wale.jpg",
+  "album": "Ambition",
+  "source": {
+   "label": "Apple Music, Ambition by Wale",
+   "url": "https://music.apple.com/us/album/ambition-feat-meek-mill-rick-ross/473448038"
+  }
+ },
+ "anaconda|nicki minaj": {
+  "file": "covers/anaconda-nicki-minaj.jpg",
+  "album": "The Pinkprint (Deluxe Version)",
+  "source": {
+   "label": "Apple Music, The Pinkprint (Deluxe Version) by Nicki Minaj",
+   "url": "https://music.apple.com/us/album/anaconda/1440956379"
+  }
+ },
+ "answer|tyler, the creator": {
+  "file": "covers/answer-tyler-the-creator.jpg",
+  "album": "Wolf + Instrumentals",
+  "source": {
+   "label": "Apple Music, Wolf + Instrumentals by Tyler, The Creator",
+   "url": "https://music.apple.com/us/album/answer-instrumental/1679029373"
+  }
+ },
+ "are we in this together|day 26": {
+  "file": "covers/are-we-in-this-together-day-26.jpg",
+  "album": "Day26",
+  "source": {
+   "label": "Apple Music, Day26 by Day26",
+   "url": "https://music.apple.com/us/album/are-we-in-this-together/275965858"
+  }
+ },
+ "auto pilot|migos": {
+  "file": "covers/auto-pilot-migos.jpg",
+  "album": "Culture II",
+  "source": {
+   "label": "Apple Music, Culture II by Migos",
+   "url": "https://music.apple.com/us/album/auto-pilot/1440914594"
+  }
+ },
+ "back that azz up|juvenile feat. mannie fresh & lil wayne": {
+  "file": "covers/back-that-azz-up-juvenile-feat-mannie-fresh-lil-wayne.jpg",
+  "album": "400 Degreez",
+  "source": {
+   "label": "Apple Music, 400 Degreez by Juvenile",
+   "url": "https://music.apple.com/us/album/back-that-azz-up-feat-mannie-fresh-lil-wayne/1379047877"
+  }
+ },
+ "banana split|murda beatz & ynw melly feat. lil durk": {
+  "file": "covers/banana-split-murda-beatz-ynw-melly-feat-lil-durk.jpg",
+  "album": "Banana Split (feat. Lil Durk) - Single",
+  "source": {
+   "label": "Apple Music, Banana Split (feat. Lil Durk) - Single by Murda Beatz & YNW Melly",
+   "url": "https://music.apple.com/us/album/banana-split-feat-lil-durk/1503724290"
+  }
+ },
+ "basement freestyle|travis scott": {
+  "file": "covers/basement-freestyle-travis-scott.jpg",
+  "album": "DAYS BEFORE RODEO",
+  "source": {
+   "label": "Apple Music, DAYS BEFORE RODEO by Travis Scott",
+   "url": "https://music.apple.com/us/album/basement-freestyle/1764164178"
+  }
+ },
+ "bedrock|young money": {
+  "file": "covers/bedrock-young-money.jpg",
+  "album": "We Are Young Money",
+  "source": {
+   "label": "Apple Music, We Are Young Money by Young Money",
+   "url": "https://music.apple.com/us/album/bedrock-feat-lloyd/1443646454"
+  }
+ },
+ "beez|kid cudi": {
+  "file": "covers/beez-kid-cudi.jpg",
+  "album": "Indicud",
+  "source": {
+   "label": "Apple Music, Indicud by Kid Cudi",
+   "url": "https://music.apple.com/us/album/beez-feat-rza/1443748505"
+  }
+ },
+ "beibs in the trap|travis scott feat. nav": {
+  "file": "covers/beibs-in-the-trap-travis-scott-feat-nav.jpg",
+  "album": "Birds In The Trap Sing McKnight",
+  "source": {
+   "label": "Apple Music, Birds In The Trap Sing McKnight by Travis Scott",
+   "url": "https://music.apple.com/us/album/beibs-in-the-trap/1151481435"
+  }
+ },
+ "bicken back being bool|yg": {
+  "file": "covers/bicken-back-being-bool-yg.jpg",
+  "album": "My Krazy Life (Deluxe)",
+  "source": {
+   "label": "Apple Music, My Krazy Life (Deluxe) by YG",
+   "url": "https://music.apple.com/us/album/bicken-back-being-bool/1561734128"
+  }
+ },
+ "big shot|kendrick lamar & travis scott": {
+  "file": "covers/big-shot-kendrick-lamar-travis-scott.jpg",
+  "album": "Black Panther: The Album",
+  "source": {
+   "label": "Apple Music, Black Panther: The Album by Kendrick Lamar, Travis Scott",
+   "url": "https://music.apple.com/us/album/big-shot/1440903005"
+  }
+ },
+ "birthday song|2 chainz feat. kanye west": {
+  "file": "covers/birthday-song-2-chainz-feat-kanye-west.jpg",
+  "album": "Based On a T.R.U. Story (Deluxe Version)",
+  "source": {
+   "label": "Apple Music, Based On a T.R.U. Story (Deluxe Version) by 2 Chainz",
+   "url": "https://music.apple.com/us/album/birthday-song-feat-kanye-west/1443737114"
+  }
+ },
+ "black beatles|rae sremmurd feat. gucci mane": {
+  "file": "covers/black-beatles-rae-sremmurd-feat-gucci-mane.jpg",
+  "album": "SremmLife 2 (Deluxe)",
+  "source": {
+   "label": "Apple Music, SremmLife 2 (Deluxe) by Rae Sremmurd",
+   "url": "https://music.apple.com/us/album/black-beatles-feat-gucci-mane/1440842514"
+  }
+ },
+ "blinding lights|the weeknd": {
+  "file": "covers/blinding-lights-the-weeknd.jpg",
+  "album": "After Hours",
+  "source": {
+   "label": "Apple Music, After Hours by The Weeknd",
+   "url": "https://music.apple.com/us/album/blinding-lights/1499378108"
+  }
+ },
+ "blue benz|nas": {
+  "file": "covers/blue-benz-nas.jpg",
+  "album": "King's Disease",
+  "source": {
+   "label": "Apple Music, King's Disease by Nas",
+   "url": "https://music.apple.com/us/album/blue-benz/1528607117"
+  }
+ },
+ "blue suede|vince staples": {
+  "file": "covers/blue-suede-vince-staples.jpg",
+  "album": "Hell Can Wait - EP",
+  "source": {
+   "label": "Apple Music, Hell Can Wait - EP by Vince Staples",
+   "url": "https://music.apple.com/us/album/blue-suede/1443924449"
+  }
+ },
+ "bpt|yg": {
+  "file": "covers/bpt-yg.jpg",
+  "album": "My Krazy Life",
+  "source": {
+   "label": "Apple Music, My Krazy Life by YG",
+   "url": "https://music.apple.com/us/album/bpt/1561704608"
+  }
+ },
+ "brain|mellowhype": {
+  "file": "covers/brain-mellowhype.jpg",
+  "album": "Blackenedwhite",
+  "source": {
+   "label": "Apple Music, Blackenedwhite by MellowHype",
+   "url": "https://music.apple.com/us/album/brain-feat-domo-genesis/970861275"
+  }
+ },
+ "break up|mario feat. gucci mane & sean garrett": {
+  "file": "covers/break-up-mario-feat-gucci-mane-sean-garrett.jpg",
+  "album": "D.N.A.",
+  "source": {
+   "label": "Apple Music, D.N.A. by Mario",
+   "url": "https://music.apple.com/us/album/break-up-feat-gucci-mane-sean-garrett/332103394"
+  }
+ },
+ "brothers|kid cudi": {
+  "file": "covers/brothers-kid-cudi.jpg",
+  "album": "Indicud",
+  "source": {
+   "label": "Apple Music, Indicud by Kid Cudi",
+   "url": "https://music.apple.com/us/album/brothers-feat-king-chip-a%24ap-rocky/1443748505"
+  }
+ },
+ "chanel vintage|metro boomin": {
+  "file": "covers/chanel-vintage-metro-boomin.jpg",
+  "album": "Chanel Vintage (feat. Future & Young Thug) - Single",
+  "source": {
+   "label": "Apple Music, Chanel Vintage (feat. Future & Young Thug) - Single by Metro Boomin",
+   "url": "https://music.apple.com/us/album/chanel-vintage-feat-future-young-thug/904091554"
+  }
+ },
+ "charcoal baby|blood orange": {
+  "file": "covers/charcoal-baby-blood-orange.jpg",
+  "album": "Negro Swan",
+  "source": {
+   "label": "Apple Music, Negro Swan by Blood Orange",
+   "url": "https://music.apple.com/us/album/charcoal-baby/1413298173"
+  }
+ },
+ "clint eastwood|gorillaz feat. del the funky homosapien": {
+  "file": "covers/clint-eastwood-gorillaz-feat-del-the-funky-homosapien.jpg",
+  "album": "G Sides",
+  "source": {
+   "label": "Apple Music, G Sides by Gorillaz",
+   "url": "https://music.apple.com/us/album/clint-eastwood-phi-life-cypher-version/884147414"
+  }
+ },
+ "clique|kanye west feat. jay-z & big sean": {
+  "file": "covers/clique-kanye-west-feat-jay-z-big-sean.jpg",
+  "album": "Kanye West Presents Good Music Cruel Summer",
+  "source": {
+   "label": "Apple Music, Kanye West Presents Good Music Cruel Summer by Kanye West, JAŸ-Z & Big Sean",
+   "url": "https://music.apple.com/us/album/clique/1443478391"
+  }
+ },
+ "coming of age (da sequel)|jay-z feat. memphis bleek": {
+  "file": "covers/coming-of-age-da-sequel-jay-z-feat-memphis-bleek.jpg",
+  "album": "Vol.2... Hard Knock Life",
+  "source": {
+   "label": "Apple Music, Vol.2... Hard Knock Life by JAŸ-Z",
+   "url": "https://music.apple.com/us/album/coming-of-age-da-sequel-feat-memphis-bleek/1440913253"
+  }
+ },
+ "cot damn|clipse": {
+  "file": "covers/cot-damn-clipse.jpg",
+  "album": "Lord Willin'",
+  "source": {
+   "label": "Apple Music, Lord Willin' by Clipse",
+   "url": "https://music.apple.com/us/album/cot-damn/389140434"
+  }
+ },
+ "cowboy|tyler, the creator": {
+  "file": "covers/cowboy-tyler-the-creator.jpg",
+  "album": "Wolf + Instrumentals",
+  "source": {
+   "label": "Apple Music, Wolf + Instrumentals by Tyler, The Creator",
+   "url": "https://music.apple.com/us/album/cowboy-instrumental/1679029373"
+  }
+ },
+ "crank that (soulja boy)|soulja boy tell 'em": {
+  "file": "covers/crank-that-soulja-boy-soulja-boy-tell-em.jpg",
+  "album": "souljaboytellem.com",
+  "source": {
+   "label": "Apple Music, souljaboytellem.com by Soulja Boy Tell 'Em",
+   "url": "https://music.apple.com/us/album/crank-that-soulja-boy-clean/1443917916"
+  }
+ },
+ "cry me a river|justin timberlake": {
+  "file": "covers/cry-me-a-river-justin-timberlake.jpg",
+  "album": "Justified",
+  "source": {
+   "label": "Apple Music, Justified by Justin Timberlake",
+   "url": "https://music.apple.com/us/album/cry-me-a-river/252606580"
+  }
+ },
+ "d.o.a. (death of auto-tune)|jay-z": {
+  "file": "covers/d-o-a-death-of-auto-tune-jay-z.jpg",
+  "album": "The Blueprint 3",
+  "source": {
+   "label": "Apple Music, The Blueprint 3 by JAŸ-Z",
+   "url": "https://music.apple.com/us/album/d-o-a-death-of-auto-tune/1440932009"
+  }
+ },
+ "dancing with a stranger|sam smith & normani": {
+  "file": "covers/dancing-with-a-stranger-sam-smith-normani.jpg",
+  "album": "Love Goes",
+  "source": {
+   "label": "Apple Music, Love Goes by Sam Smith & Normani",
+   "url": "https://music.apple.com/us/album/dancing-with-a-stranger-bonus-track/1531509367"
+  }
+ },
+ "day 'n' nite|kid cudi": {
+  "file": "covers/day-n-nite-kid-cudi.jpg",
+  "album": "Man on the Moon: The End of Day (Deluxe)",
+  "source": {
+   "label": "Apple Music, Man on the Moon: The End of Day (Deluxe) by Kid Cudi",
+   "url": "https://music.apple.com/us/album/day-n-nite-nightmare/1472484829"
+  }
+ },
+ "deja vu|pi'erre bourne": {
+  "file": "covers/deja-vu-pi-erre-bourne.jpg",
+  "album": "The Life Of Pi'erre 4 (Deluxe)",
+  "source": {
+   "label": "Apple Music, The Life Of Pi'erre 4 (Deluxe) by Pi’erre Bourne",
+   "url": "https://music.apple.com/us/album/deja-vu/1521742174"
+  }
+ },
+ "diamonds dancing|drake & future": {
+  "file": "covers/diamonds-dancing-drake-future.jpg",
+  "album": "What a Time To Be Alive",
+  "source": {
+   "label": "Apple Music, What a Time To Be Alive by Drake & Future",
+   "url": "https://music.apple.com/us/album/diamonds-dancing/1440848548"
+  }
+ },
+ "diddy rock|diddy": {
+  "file": "covers/diddy-rock-diddy.jpg",
+  "album": "Press Play",
+  "source": {
+   "label": "Apple Music, Press Play by Diddy featuring Timbaland, Twista & Shawnna",
+   "url": "https://music.apple.com/us/album/diddy-rock-feat-shawnna-timbaland-twista/200919438"
+  }
+ },
+ "dirt off your shoulder|jay-z": {
+  "file": "covers/dirt-off-your-shoulder-jay-z.jpg",
+  "album": "The Black Album",
+  "source": {
+   "label": "Apple Music, The Black Album by JAŸ-Z",
+   "url": "https://music.apple.com/us/album/dirt-off-your-shoulder/1440632265"
+  }
+ },
+ "dmd|famous dex": {
+  "file": "covers/dmd-famous-dex.jpg",
+  "album": "Dex Meets Dexter",
+  "source": {
+   "label": "Apple Music, Dex Meets Dexter by Famous Dex",
+   "url": "https://music.apple.com/us/album/dmd/1380909869"
+  }
+ },
+ "domo23|tyler, the creator": {
+  "file": "covers/domo23-tyler-the-creator.jpg",
+  "album": "Wolf + Instrumentals",
+  "source": {
+   "label": "Apple Music, Wolf + Instrumentals by Tyler, The Creator",
+   "url": "https://music.apple.com/us/album/domo23-instrumental/1679029373"
+  }
+ },
+ "don't panic|french montana": {
+  "file": "covers/don-t-panic-french-montana.jpg",
+  "album": "Don't Panic - Single",
+  "source": {
+   "label": "Apple Music, Don't Panic - Single by French Montana",
+   "url": "https://music.apple.com/us/album/dont-panic/1445153210"
+  }
+ },
+ "don't wanna know|maroon 5 feat. kendrick lamar": {
+  "file": "covers/don-t-wanna-know-maroon-5-feat-kendrick-lamar.jpg",
+  "album": "Red Pill Blues (Deluxe)",
+  "source": {
+   "label": "Apple Music, Red Pill Blues (Deluxe) by Maroon 5",
+   "url": "https://music.apple.com/us/album/dont-wanna-know-feat-kendrick-lamar/1396139711"
+  }
+ },
+ "down bottom|ruff ryders": {
+  "file": "covers/down-bottom-ruff-ryders.jpg",
+  "album": "Ryde Or Die, Vol. 1",
+  "source": {
+   "label": "Apple Music, Ryde Or Die, Vol. 1 by Ruff Ryders",
+   "url": "https://music.apple.com/us/album/down-bottom-feat-drag-on-juvenile/1443595526"
+  }
+ },
+ "drew barrymore|sza": {
+  "file": "covers/drew-barrymore-sza.jpg",
+  "album": "Ctrl",
+  "source": {
+   "label": "Apple Music, Ctrl by SZA",
+   "url": "https://music.apple.com/us/album/drew-barrymore/1239977075"
+  }
+ },
+ "drop it like it's hot|snoop dogg feat. pharrell": {
+  "file": "covers/drop-it-like-it-s-hot-snoop-dogg-feat-pharrell.jpg",
+  "album": "R&G (Rhythm & Gangsta) - The Masterpiece",
+  "source": {
+   "label": "Apple Music, R&G (Rhythm & Gangsta) - The Masterpiece by Snoop Dogg",
+   "url": "https://music.apple.com/us/album/drop-it-like-its-hot-feat-pharrell-williams/1443395920"
+  }
+ },
+ "drop the world|lil wayne feat. eminem": {
+  "file": "covers/drop-the-world-lil-wayne-feat-eminem.jpg",
+  "album": "Rebirth",
+  "source": {
+   "label": "Apple Music, Rebirth by Lil Wayne",
+   "url": "https://music.apple.com/us/album/drop-the-world-feat-eminem/1443517425"
+  }
+ },
+ "drunk and nasty|pi'erre bourne": {
+  "file": "covers/drunk-and-nasty-pi-erre-bourne.jpg",
+  "album": "The Life Of Pi'erre 5",
+  "source": {
+   "label": "Apple Music, The Life Of Pi'erre 5 by Pi’erre Bourne",
+   "url": "https://music.apple.com/us/album/drunk-and-nasty-feat-sharc/1570684882"
+  }
+ },
+ "drunk in love|beyoncé feat. jay-z": {
+  "file": "covers/drunk-in-love-beyonc-feat-jay-z.jpg",
+  "album": "Beyoncé (Deluxe)",
+  "source": {
+   "label": "Apple Music, Beyoncé (Deluxe) by Beyoncé",
+   "url": "https://music.apple.com/us/album/drunk-in-love-feat-ja%C3%BF-z/780519939"
+  }
+ },
+ "dta|casey veggies": {
+  "file": "covers/dta-casey-veggies.jpg",
+  "album": "Sleeping in Class (Deluxe)",
+  "source": {
+   "label": "Apple Music, Sleeping in Class (Deluxe) by Casey Veggies",
+   "url": "https://music.apple.com/us/album/dta-feat-tyler-the-creator/6783552206"
+  }
+ },
+ "elevator|flo rida": {
+  "file": "covers/elevator-flo-rida.jpg",
+  "album": "Mail On Sunday",
+  "source": {
+   "label": "Apple Music, Mail On Sunday by Flo Rida",
+   "url": "https://music.apple.com/us/album/elevator-feat-timbaland/275591327"
+  }
+ },
+ "end of discussion|rich the kid": {
+  "file": "covers/end-of-discussion-rich-the-kid.jpg",
+  "album": "The World Is Yours",
+  "source": {
+   "label": "Apple Music, The World Is Yours by Rich The Kid",
+   "url": "https://music.apple.com/us/album/end-of-discussion-feat-lil-wayne/1416314564"
+  }
+ },
+ "eskimo|wiley": {
+  "file": "covers/eskimo-wiley.jpg",
+  "album": "Treddin' on Thin Ice",
+  "source": {
+   "label": "Apple Music, Treddin' on Thin Ice by Wiley",
+   "url": "https://music.apple.com/us/album/eskimo-interlude/1136792572"
+  }
+ },
+ "excuse me miss|jay-z": {
+  "file": "covers/excuse-me-miss-jay-z.jpg",
+  "album": "The Blueprint 2: The Gift & the Curse",
+  "source": {
+   "label": "Apple Music, The Blueprint 2: The Gift & the Curse by JAŸ-Z",
+   "url": "https://music.apple.com/us/album/excuse-me-miss/1440934685"
+  }
+ },
+ "f*ckwithmeyouknowigotit|jay-z feat. rick ross": {
+  "file": "covers/f-ckwithmeyouknowigotit-jay-z-feat-rick-ross.jpg",
+  "album": "Magna Carta... Holy Grail",
+  "source": {
+   "label": "Apple Music, Magna Carta... Holy Grail by JAŸ-Z",
+   "url": "https://music.apple.com/us/album/f-ckwithmeyouknowigotit-feat-rick-ross/1443062740"
+  }
+ },
+ "faithful|drake feat. pimp c & dvsn": {
+  "file": "covers/faithful-drake-feat-pimp-c-dvsn.jpg",
+  "album": "Views",
+  "source": {
+   "label": "Apple Music, Views by Drake",
+   "url": "https://music.apple.com/us/album/faithful-feat-pimp-c-dvsn/1440842556"
+  }
+ },
+ "family affair|mary j. blige": {
+  "file": "covers/family-affair-mary-j-blige.jpg",
+  "album": "No More Drama (Version 1)",
+  "source": {
+   "label": "Apple Music, No More Drama (Version 1) by Mary J. Blige",
+   "url": "https://music.apple.com/us/album/family-affair/1440817211"
+  }
+ },
+ "feel.|kendrick lamar": {
+  "file": "covers/feel-kendrick-lamar.jpg",
+  "album": "DAMN. COLLECTORS EDITION.",
+  "source": {
+   "label": "Apple Music, DAMN. COLLECTORS EDITION. by Kendrick Lamar",
+   "url": "https://music.apple.com/us/album/feel/1440907513"
+  }
+ },
+ "first class|jack harlow": {
+  "file": "covers/first-class-jack-harlow.jpg",
+  "album": "Come Home The Kids Miss You",
+  "source": {
+   "label": "Apple Music, Come Home The Kids Miss You by Jack Harlow",
+   "url": "https://music.apple.com/us/album/first-class/1622624421"
+  }
+ },
+ "flap your wings|nelly": {
+  "file": "covers/flap-your-wings-nelly.jpg",
+  "album": "Sweat",
+  "source": {
+   "label": "Apple Music, Sweat by Nelly",
+   "url": "https://music.apple.com/us/album/flap-your-wings/1442782591"
+  }
+ },
+ "frisky|tinie tempah feat. labrinth": {
+  "file": "covers/frisky-tinie-tempah-feat-labrinth.jpg",
+  "album": "Frisky (feat. Labrinth) [Craze & Hoax Remix] - Single",
+  "source": {
+   "label": "Apple Music, Frisky (feat. Labrinth) [Craze & Hoax Remix] - Single by Tinie Tempah",
+   "url": "https://music.apple.com/us/album/frisky-feat-labrinth-craze-hoax-remix/734780772"
+  }
+ },
+ "gangsta gangsta|n.w.a": {
+  "file": "covers/gangsta-gangsta-n-w-a.jpg",
+  "album": "Straight Outta Compton",
+  "source": {
+   "label": "Apple Music, Straight Outta Compton by N.W.A",
+   "url": "https://music.apple.com/us/album/gangsta-gangsta/1478946356"
+  }
+ },
+ "gassed up|nebu kiniza": {
+  "file": "covers/gassed-up-nebu-kiniza.jpg",
+  "album": "Gassed Up - Single",
+  "source": {
+   "label": "Apple Music, Gassed Up - Single by Nebu Kiniza",
+   "url": "https://music.apple.com/us/album/gassed-up/1146967484"
+  }
+ },
+ "go n' get it|ace hood": {
+  "file": "covers/go-n-get-it-ace-hood.jpg",
+  "album": "Blood Sweat & Tears",
+  "source": {
+   "label": "Apple Music, Blood Sweat & Tears by Ace Hood",
+   "url": "https://music.apple.com/us/album/go-n-get-it/1443636239"
+  }
+ },
+ "god's plan|drake": {
+  "file": "covers/god-s-plan-drake.jpg",
+  "album": "Scorpion",
+  "source": {
+   "label": "Apple Music, Scorpion by Drake",
+   "url": "https://music.apple.com/us/album/gods-plan/1406109769"
+  }
+ },
+ "gonorrhea|lil wayne feat. drake": {
+  "file": "covers/gonorrhea-lil-wayne-feat-drake.jpg",
+  "album": "I Am Not a Human Being",
+  "source": {
+   "label": "Apple Music, I Am Not a Human Being by Lil Wayne & Drake",
+   "url": "https://music.apple.com/us/album/gonorrhea-feat-drake/1443110837"
+  }
+ },
+ "good girl|vanessa marquez": {
+  "file": "covers/good-girl-vanessa-marquez.jpg",
+  "album": "The Neptunes Present... Clones",
+  "source": {
+   "label": "Apple Music, The Neptunes Present... Clones by Vanessa Marquez",
+   "url": "https://music.apple.com/us/album/good-girl/819130514"
+  }
+ },
+ "good guy|frank ocean": {
+  "file": "covers/good-guy-frank-ocean.jpg",
+  "album": "Blonde",
+  "source": {
+   "label": "Apple Music, Blonde by Frank Ocean",
+   "url": "https://music.apple.com/us/album/good-guy/1146195596"
+  }
+ },
+ "good life|kanye west feat. t-pain": {
+  "file": "covers/good-life-kanye-west-feat-t-pain.jpg",
+  "album": "Graduation",
+  "source": {
+   "label": "Apple Music, Graduation by Kanye West",
+   "url": "https://music.apple.com/us/album/good-life-feat-t-pain/1442845779"
+  }
+ },
+ "good morning|kanye west": {
+  "file": "covers/good-morning-kanye-west.jpg",
+  "album": "Graduation",
+  "source": {
+   "label": "Apple Music, Graduation by Kanye West",
+   "url": "https://music.apple.com/us/album/good-morning/1442845779"
+  }
+ },
+ "goosebumps|travis scott feat. kendrick lamar": {
+  "file": "covers/goosebumps-travis-scott-feat-kendrick-lamar.jpg",
+  "album": "Birds In The Trap Sing McKnight",
+  "source": {
+   "label": "Apple Music, Birds In The Trap Sing McKnight by Travis Scott",
+   "url": "https://music.apple.com/us/album/goosebumps/1151481435"
+  }
+ },
+ "grindin'|clipse": {
+  "file": "covers/grindin-clipse.jpg",
+  "album": "Lord Willin'",
+  "source": {
+   "label": "Apple Music, Lord Willin' by Clipse",
+   "url": "https://music.apple.com/us/album/grindin-remix/389140434"
+  }
+ },
+ "group home|future feat. young thug": {
+  "file": "covers/group-home-future-feat-young-thug.jpg",
+  "album": "SUPER SLIMEY",
+  "source": {
+   "label": "Apple Music, SUPER SLIMEY by Future & Young Thug",
+   "url": "https://music.apple.com/us/album/group-home/1298532904"
+  }
+ },
+ "growin' up in the gutter|yelawolf": {
+  "file": "covers/growin-up-in-the-gutter-yelawolf.jpg",
+  "album": "Radioactive",
+  "source": {
+   "label": "Apple Music, Radioactive by Yelawolf",
+   "url": "https://music.apple.com/us/album/growin-up-in-the-gutter-feat-rittz/1443105233"
+  }
+ },
+ "guard your heart|big sean": {
+  "file": "covers/guard-your-heart-big-sean.jpg",
+  "album": "Detroit 2 (Deluxe)",
+  "source": {
+   "label": "Apple Music, Detroit 2 (Deluxe) by Big Sean",
+   "url": "https://music.apple.com/us/album/guard-your-heart-feat-anderson-paak-earlly-mac-wale/1645895228"
+  }
+ },
+ "gucci gang|lil pump": {
+  "file": "covers/gucci-gang-lil-pump.jpg",
+  "album": "Gucci Gang - Single",
+  "source": {
+   "label": "Apple Music, Gucci Gang - Single by Lil Pump",
+   "url": "https://music.apple.com/us/album/gucci-gang/1312807647"
+  }
+ },
+ "hacked my instagram|pi'erre bourne": {
+  "file": "covers/hacked-my-instagram-pi-erre-bourne.jpg",
+  "album": "Hacked My Instagram - Single",
+  "source": {
+   "label": "Apple Music, Hacked My Instagram - Single by Pi’erre Bourne",
+   "url": "https://music.apple.com/us/album/hacked-my-instagram/1444878777"
+  }
+ },
+ "hallelujah|chief keef": {
+  "file": "covers/hallelujah-chief-keef.jpg",
+  "album": "Finally Rich",
+  "source": {
+   "label": "Apple Music, Finally Rich by Chief Keef",
+   "url": "https://music.apple.com/us/album/hallelujah/1444005836"
+  }
+ },
+ "hallelujah|t.i.": {
+  "file": "covers/hallelujah-t-i.jpg",
+  "album": "Trouble Man: Heavy is the Head (Deluxe Version)",
+  "source": {
+   "label": "Apple Music, Trouble Man: Heavy is the Head (Deluxe Version) by T.I.",
+   "url": "https://music.apple.com/us/album/hallelujah/1437479958"
+  }
+ },
+ "happy|pharrell williams": {
+  "file": "covers/happy-pharrell-williams.jpg",
+  "album": "G I R L",
+  "source": {
+   "label": "Apple Music, G I R L by Pharrell Williams",
+   "url": "https://music.apple.com/us/album/happy-from-despicable-me-2/863835302"
+  }
+ },
+ "have mercy|ace hood": {
+  "file": "covers/have-mercy-ace-hood.jpg",
+  "album": "Trials & Tribulations (Deluxe Version)",
+  "source": {
+   "label": "Apple Music, Trials & Tribulations (Deluxe Version) by Ace Hood",
+   "url": "https://music.apple.com/us/album/have-mercy/1442861792"
+  }
+ },
+ "ha|juvenile": {
+  "file": "covers/ha-juvenile.jpg",
+  "album": "400 Degreez",
+  "source": {
+   "label": "Apple Music, 400 Degreez by Juvenile",
+   "url": "https://music.apple.com/us/album/ha/1379047877"
+  }
+ },
+ "headlines|drake": {
+  "file": "covers/headlines-drake.jpg",
+  "album": "Take Care (Deluxe Version)",
+  "source": {
+   "label": "Apple Music, Take Care (Deluxe Version) by Drake",
+   "url": "https://music.apple.com/us/album/headlines/1440745498"
+  }
+ },
+ "hero|nas": {
+  "file": "covers/hero-nas.jpg",
+  "album": "Nas",
+  "source": {
+   "label": "Apple Music, Nas by Nas",
+   "url": "https://music.apple.com/us/album/hero-feat-keri-hilson/1443166414"
+  }
+ },
+ "honest|future": {
+  "file": "covers/honest-future.jpg",
+  "album": "Honest (Deluxe)",
+  "source": {
+   "label": "Apple Music, Honest (Deluxe) by Future",
+   "url": "https://music.apple.com/us/album/honest/834629124"
+  }
+ },
+ "hopes & dreams|wiz khalifa": {
+  "file": "covers/hopes-dreams-wiz-khalifa.jpg",
+  "album": "Rolling Papers (Deluxe Version)",
+  "source": {
+   "label": "Apple Music, Rolling Papers (Deluxe Version) by Wiz Khalifa",
+   "url": "https://music.apple.com/us/album/hopes-dreams/426754280"
+  }
+ },
+ "house party|meek mill": {
+  "file": "covers/house-party-meek-mill.jpg",
+  "album": "House Party (feat. Young Chris) - Single",
+  "source": {
+   "label": "Apple Music, House Party (feat. Young Chris) - Single by Meek Mill",
+   "url": "https://music.apple.com/us/album/house-party-feat-young-chris/473148913"
+  }
+ },
+ "how can i not|future": {
+  "file": "covers/how-can-i-not-future.jpg",
+  "album": "Honest (Deluxe)",
+  "source": {
+   "label": "Apple Music, Honest (Deluxe) by Future",
+   "url": "https://music.apple.com/us/album/how-can-i-not-feat-young-scooter/834629124"
+  }
+ },
+ "how to talk|lil uzi vert": {
+  "file": "covers/how-to-talk-lil-uzi-vert.jpg",
+  "album": "Luv Is Rage 2",
+  "source": {
+   "label": "Apple Music, Luv Is Rage 2 by Lil Uzi Vert",
+   "url": "https://music.apple.com/us/album/how-to-talk/1274598012"
+  }
+ },
+ "humble.|kendrick lamar": {
+  "file": "covers/humble-kendrick-lamar.jpg",
+  "album": "DAMN.",
+  "source": {
+   "label": "Apple Music, DAMN. by Kendrick Lamar",
+   "url": "https://music.apple.com/us/album/humble/1440881722"
+  }
+ },
+ "hurt|t.i. feat. alfamega & busta rhymes": {
+  "file": "covers/hurt-t-i-feat-alfamega-busta-rhymes.jpg",
+  "album": "T.I. vs. T.I.P. (Instrumental)",
+  "source": {
+   "label": "Apple Music, T.I. vs. T.I.P. (Instrumental) by T.I.",
+   "url": "https://music.apple.com/us/album/hurt-instrumental-feat-alfa-mega-busta-rhymes/1258981320"
+  }
+ },
+ "hyfr|drake": {
+  "file": "covers/hyfr-drake.jpg",
+  "album": "Take Care (Deluxe Version)",
+  "source": {
+   "label": "Apple Music, Take Care (Deluxe Version) by Drake",
+   "url": "https://music.apple.com/us/album/hyfr-hell-ya-f-ing-right-feat-lil-wayne/1440745498"
+  }
+ },
+ "i be u|future": {
+  "file": "covers/i-be-u-future.jpg",
+  "album": "Honest (Deluxe)",
+  "source": {
+   "label": "Apple Music, Honest (Deluxe) by Future",
+   "url": "https://music.apple.com/us/album/i-be-u/834629124"
+  }
+ },
+ "i don't like|chief keef": {
+  "file": "covers/i-don-t-like-chief-keef.jpg",
+  "album": "Finally Rich",
+  "source": {
+   "label": "Apple Music, Finally Rich by Chief Keef",
+   "url": "https://music.apple.com/us/album/i-dont-like-feat-lil-reese-edited-version/1444005836"
+  }
+ },
+ "i don't sell molly no more|ilovemakonnen": {
+  "file": "covers/i-don-t-sell-molly-no-more-ilovemakonnen.jpg",
+  "album": "I LOVE MAKONNEN",
+  "source": {
+   "label": "Apple Music, I LOVE MAKONNEN by iLoveMakonnen",
+   "url": "https://music.apple.com/us/album/i-dont-sell-molly-no-more/6814093672"
+  }
+ },
+ "i feel it coming|the weeknd feat. daft punk": {
+  "file": "covers/i-feel-it-coming-the-weeknd-feat-daft-punk.jpg",
+  "album": "The Highlights",
+  "source": {
+   "label": "Apple Music, The Highlights by The Weeknd",
+   "url": "https://music.apple.com/us/album/i-feel-it-coming-feat-daft-punk/1550877895"
+  }
+ },
+ "i just wanna love u (give it 2 me)|jay-z": {
+  "file": "covers/i-just-wanna-love-u-give-it-2-me-jay-z.jpg",
+  "album": "The Dynasty - Roc La Familia 2000",
+  "source": {
+   "label": "Apple Music, The Dynasty - Roc La Familia 2000 by JAŸ-Z",
+   "url": "https://music.apple.com/us/album/i-just-wanna-love-u-give-it-2-me/1443262052"
+  }
+ },
+ "i lied|nicki minaj": {
+  "file": "covers/i-lied-nicki-minaj.jpg",
+  "album": "The Pinkprint (Deluxe Version)",
+  "source": {
+   "label": "Apple Music, The Pinkprint (Deluxe Version) by Nicki Minaj",
+   "url": "https://music.apple.com/us/album/i-lied/1440956379"
+  }
+ },
+ "i still love you|702": {
+  "file": "covers/i-still-love-you-702.jpg",
+  "album": "Star",
+  "source": {
+   "label": "Apple Music, Star by 702",
+   "url": "https://music.apple.com/us/album/i-still-love-you/1443388297"
+  }
+ },
+ "i'm a g|n.o.r.e.": {
+  "file": "covers/i-m-a-g-n-o-r-e.jpg",
+  "album": "I'm a G - Single",
+  "source": {
+   "label": "Apple Music, I'm a G - Single by N.O.R.E.",
+   "url": "https://music.apple.com/us/album/im-a-g-radio-edit/1445134365"
+  }
+ },
+ "i'm not you|clipse": {
+  "file": "covers/i-m-not-you-clipse.jpg",
+  "album": "Lord Willin'",
+  "source": {
+   "label": "Apple Music, Lord Willin' by Clipse",
+   "url": "https://music.apple.com/us/album/im-not-you-feat-jadakiss-styles-p-rosco-p-coldchain/309071685"
+  }
+ },
+ "i'm on one|dj khaled feat. drake, rick ross & lil wayne": {
+  "file": "covers/i-m-on-one-dj-khaled-feat-drake-rick-ross-lil-wayne.jpg",
+  "album": "We the Best Forever (Bonus Version)",
+  "source": {
+   "label": "Apple Music, We the Best Forever (Bonus Version) by DJ Khaled",
+   "url": "https://music.apple.com/us/album/im-on-one-feat-drake-rick-ross-lil-wayne/1444194558"
+  }
+ },
+ "i'm so fly|lloyd banks": {
+  "file": "covers/i-m-so-fly-lloyd-banks.jpg",
+  "album": "The Hunger for More",
+  "source": {
+   "label": "Apple Music, The Hunger for More by Lloyd Banks",
+   "url": "https://music.apple.com/us/album/im-so-fly/1444170014"
+  }
+ },
+ "if i should die|jay-z": {
+  "file": "covers/if-i-should-die-jay-z.jpg",
+  "album": "Vol.2... Hard Knock Life",
+  "source": {
+   "label": "Apple Music, Vol.2... Hard Knock Life by JAŸ-Z",
+   "url": "https://music.apple.com/us/album/if-i-should-die-feat-da-ranjahz/1440913253"
+  }
+ },
+ "ifhy|tyler, the creator feat. pharrell": {
+  "file": "covers/ifhy-tyler-the-creator-feat-pharrell.jpg",
+  "album": "Wolf + Instrumentals",
+  "source": {
+   "label": "Apple Music, Wolf + Instrumentals by Tyler, The Creator",
+   "url": "https://music.apple.com/us/album/ifhy-instrumental/1679029373"
+  }
+ },
+ "igor's theme|tyler, the creator": {
+  "file": "covers/igor-s-theme-tyler-the-creator.jpg",
+  "album": "IGOR",
+  "source": {
+   "label": "Apple Music, IGOR by Tyler, The Creator",
+   "url": "https://music.apple.com/us/album/igors-theme/1463409338"
+  }
+ },
+ "ig|pi'erre bourne": {
+  "file": "covers/ig-pi-erre-bourne.jpg",
+  "album": "Grails",
+  "source": {
+   "label": "Apple Music, Grails by Pi’erre Bourne",
+   "url": "https://music.apple.com/us/album/ig/1680616882"
+  }
+ },
+ "john|lil wayne": {
+  "file": "covers/john-lil-wayne.jpg",
+  "album": "Tha Carter IV",
+  "source": {
+   "label": "Apple Music, Tha Carter IV by Lil Wayne",
+   "url": "https://music.apple.com/us/album/john-feat-rick-ross/1443260996"
+  }
+ },
+ "just lose it|eminem": {
+  "file": "covers/just-lose-it-eminem.jpg",
+  "album": "Encore (Deluxe Version)",
+  "source": {
+   "label": "Apple Music, Encore (Deluxe Version) by Eminem",
+   "url": "https://music.apple.com/us/album/just-lose-it/1425129724"
+  }
+ },
+ "karate chop|future": {
+  "file": "covers/karate-chop-future.jpg",
+  "album": "Honest (Deluxe)",
+  "source": {
+   "label": "Apple Music, Honest (Deluxe) by Future",
+   "url": "https://music.apple.com/us/album/karate-chop-remix-feat-lil-wayne/834629124"
+  }
+ },
+ "keep it trill|kirko bangz": {
+  "file": "covers/keep-it-trill-kirko-bangz.jpg",
+  "album": "Keep It Trill - Single",
+  "source": {
+   "label": "Apple Music, Keep It Trill - Single by Kirko Bangz",
+   "url": "https://music.apple.com/us/album/keep-it-trill/580014277"
+  }
+ },
+ "kill bill|sza": {
+  "file": "covers/kill-bill-sza.jpg",
+  "album": "SOS Deluxe: LANA",
+  "source": {
+   "label": "Apple Music, SOS Deluxe: LANA by SZA",
+   "url": "https://music.apple.com/us/album/kill-bill/1794644675"
+  }
+ },
+ "kinda like a big deal|clipse feat. kanye west": {
+  "file": "covers/kinda-like-a-big-deal-clipse-feat-kanye-west.jpg",
+  "album": "Til the Casket Drops",
+  "source": {
+   "label": "Apple Music, Til the Casket Drops by Clipse",
+   "url": "https://music.apple.com/us/album/kinda-like-a-big-deal-feat-kanye-west/339557362"
+  }
+ },
+ "king wizard|kid cudi": {
+  "file": "covers/king-wizard-kid-cudi.jpg",
+  "album": "Indicud",
+  "source": {
+   "label": "Apple Music, Indicud by Kid Cudi",
+   "url": "https://music.apple.com/us/album/king-wizard/1443748505"
+  }
+ },
+ "last donut of the night|j dilla": {
+  "file": "covers/last-donut-of-the-night-j-dilla.jpg",
+  "album": "Donuts",
+  "source": {
+   "label": "Apple Music, Donuts by J Dilla",
+   "url": "https://music.apple.com/us/album/last-donut-of-the-night/108233171"
+  }
+ },
+ "left, right|yg": {
+  "file": "covers/left-right-yg.jpg",
+  "album": "My Krazy Life",
+  "source": {
+   "label": "Apple Music, My Krazy Life by YG",
+   "url": "https://music.apple.com/us/album/left-right-feat-mustard/1561704608"
+  }
+ },
+ "light your ass on fire|busta rhymes feat. pharrell": {
+  "file": "covers/light-your-ass-on-fire-busta-rhymes-feat-pharrell.jpg",
+  "album": "The Neptunes Present... Clones (Clean Version)",
+  "source": {
+   "label": "Apple Music, The Neptunes Present... Clones (Clean Version) by Busta Rhymes",
+   "url": "https://music.apple.com/us/album/light-your-ass-on-fire-feat-pharrell-williams-radio-mix/1770843101"
+  }
+ },
+ "long ride|young nudy": {
+  "file": "covers/long-ride-young-nudy.jpg",
+  "album": "Sli'merre",
+  "source": {
+   "label": "Apple Music, Sli'merre by Young Nudy & Pi’erre Bourne",
+   "url": "https://music.apple.com/us/album/long-ride/1460608477"
+  }
+ },
+ "look alive|blocboy jb feat. drake": {
+  "file": "covers/look-alive-blocboy-jb-feat-drake.jpg",
+  "album": "Simi",
+  "source": {
+   "label": "Apple Music, Simi by BlocBoy JB",
+   "url": "https://music.apple.com/us/album/look-alive-feat-drake/1381580616"
+  }
+ },
+ "lord forgive me|tobe nwigwe, fat nwigwe, pharrell williams & earthgang": {
+  "file": "covers/lord-forgive-me-tobe-nwigwe-fat-nwigwe-pharrell-williams-earthgang.jpg",
+  "album": "moMINTs",
+  "source": {
+   "label": "Apple Music, moMINTs by Tobe Nwigwe, Pharrell Williams & EARTHGANG",
+   "url": "https://music.apple.com/us/album/lord-forgive-me-feat-fat-nwigwe/1637487477"
+  }
+ },
+ "lost in the sauce|kid ink": {
+  "file": "covers/lost-in-the-sauce-kid-ink.jpg",
+  "album": "Up & Away",
+  "source": {
+   "label": "Apple Music, Up & Away by Kid Ink",
+   "url": "https://music.apple.com/us/album/lost-in-the-sauce/1448598375"
+  }
+ },
+ "love galore|sza feat. travis scott": {
+  "file": "covers/love-galore-sza-feat-travis-scott.jpg",
+  "album": "Ctrl",
+  "source": {
+   "label": "Apple Music, Ctrl by SZA",
+   "url": "https://music.apple.com/us/album/love-galore-feat-travis-scott/1239977075"
+  }
+ },
+ "love in this club|usher feat. young jeezy": {
+  "file": "covers/love-in-this-club-usher-feat-young-jeezy.jpg",
+  "album": "Here I Stand",
+  "source": {
+   "label": "Apple Music, Here I Stand by USHER",
+   "url": "https://music.apple.com/us/album/love-in-this-club-feat-young-jeezy/281698028"
+  }
+ },
+ "love lockdown|kanye west": {
+  "file": "covers/love-lockdown-kanye-west.jpg",
+  "album": "808s & Heartbreak",
+  "source": {
+   "label": "Apple Music, 808s & Heartbreak by Kanye West",
+   "url": "https://music.apple.com/us/album/love-lockdown/1441410287"
+  }
+ },
+ "love sosa|chief keef": {
+  "file": "covers/love-sosa-chief-keef.jpg",
+  "album": "Finally Rich",
+  "source": {
+   "label": "Apple Music, Finally Rich by Chief Keef",
+   "url": "https://music.apple.com/us/album/love-sosa/1444005836"
+  }
+ },
+ "lovin on me|jack harlow": {
+  "file": "covers/lovin-on-me-jack-harlow.jpg",
+  "album": "Lovin On Me - Single",
+  "source": {
+   "label": "Apple Music, Lovin On Me - Single by Jack Harlow",
+   "url": "https://music.apple.com/us/album/lovin-on-me/1715920030"
+  }
+ },
+ "lucid dreams|juice wrld": {
+  "file": "covers/lucid-dreams-juice-wrld.jpg",
+  "album": "Goodbye & Good Riddance (Anniversary)",
+  "source": {
+   "label": "Apple Music, Goodbye & Good Riddance (Anniversary) by Juice WRLD",
+   "url": "https://music.apple.com/us/album/lucid-dreams/1618089374"
+  }
+ },
+ "lust for life|drake": {
+  "file": "covers/lust-for-life-drake.jpg",
+  "album": "So Far Gone",
+  "source": {
+   "label": "Apple Music, So Far Gone by Drake",
+   "url": "https://music.apple.com/us/album/lust-for-life/1453336206"
+  }
+ },
+ "m.i.a.|omarion feat. wale": {
+  "file": "covers/m-i-a-omarion-feat-wale.jpg",
+  "album": "Self Made, Vol. 2 (Deluxe Version)",
+  "source": {
+   "label": "Apple Music, Self Made, Vol. 2 (Deluxe Version) by Omarion & Wale",
+   "url": "https://music.apple.com/us/album/m-i-a/532325666"
+  }
+ },
+ "maneuvering|ilovemakonnen": {
+  "file": "covers/maneuvering-ilovemakonnen.jpg",
+  "album": "I LOVE MAKONNEN",
+  "source": {
+   "label": "Apple Music, I LOVE MAKONNEN by iLoveMakonnen",
+   "url": "https://music.apple.com/us/album/maneuvering/6814093672"
+  }
+ },
+ "march madness|future": {
+  "file": "covers/march-madness-future.jpg",
+  "album": "March Madness - Single",
+  "source": {
+   "label": "Apple Music, March Madness - Single by Future",
+   "url": "https://music.apple.com/us/album/march-madness/1034561334"
+  }
+ },
+ "maybe|kid cudi": {
+  "file": "covers/maybe-kid-cudi.jpg",
+  "album": "Man On the Moon, Vol. II: The Legend of Mr. Rager (Bonus Track Version)",
+  "source": {
+   "label": "Apple Music, Man On the Moon, Vol. II: The Legend of Mr. Rager (Bonus Track Version) by Kid Cudi",
+   "url": "https://music.apple.com/us/album/maybe/1440796408"
+  }
+ },
+ "mc hammer|rick ross": {
+  "file": "covers/mc-hammer-rick-ross.jpg",
+  "album": "Teflon Don (Exclusive Edition)",
+  "source": {
+   "label": "Apple Music, Teflon Don (Exclusive Edition) by Rick Ross",
+   "url": "https://music.apple.com/us/album/mc-hammer-feat-gucci-mane/1445837465"
+  }
+ },
+ "milkshake|kelis": {
+  "file": "covers/milkshake-kelis.jpg",
+  "album": "Tasty",
+  "source": {
+   "label": "Apple Music, Tasty by Kelis",
+   "url": "https://music.apple.com/us/album/milkshake-radio-mix/304761879"
+  }
+ },
+ "mob ties|drake": {
+  "file": "covers/mob-ties-drake.jpg",
+  "album": "Scorpion",
+  "source": {
+   "label": "Apple Music, Scorpion by Drake",
+   "url": "https://music.apple.com/us/album/mob-ties/1406109769"
+  }
+ },
+ "money trees|kendrick lamar feat. jay rock": {
+  "file": "covers/money-trees-kendrick-lamar-feat-jay-rock.jpg",
+  "album": "good kid, m.A.A.d city (Deluxe Version)",
+  "source": {
+   "label": "Apple Music, good kid, m.A.A.d city (Deluxe Version) by Kendrick Lamar",
+   "url": "https://music.apple.com/us/album/money-trees-feat-jay-rock/1440860389"
+  }
+ },
+ "money, cash, hoes|jay-z feat. dmx": {
+  "file": "covers/money-cash-hoes-jay-z-feat-dmx.jpg",
+  "album": "Hard Knock Life - Single",
+  "source": {
+   "label": "Apple Music, Hard Knock Life - Single by JAŸ-Z",
+   "url": "https://music.apple.com/us/album/money-cash-hoes-feat-dmx-memphis-bleek-beanie-sigel-remix/1444999652"
+  }
+ },
+ "moonlight|xxxtentacion": {
+  "file": "covers/moonlight-xxxtentacion.jpg",
+  "album": "? (Deluxe)",
+  "source": {
+   "label": "Apple Music, ? (Deluxe) by XXXTENTACION",
+   "url": "https://music.apple.com/us/album/moonlight-instrumental/1474891456"
+  }
+ },
+ "more than a woman|aaliyah": {
+  "file": "covers/more-than-a-woman-aaliyah.jpg",
+  "album": "Ultimate Aaliyah",
+  "source": {
+   "label": "Apple Music, Ultimate Aaliyah by Aaliyah",
+   "url": "https://music.apple.com/us/album/more-than-a-woman/1816082814"
+  }
+ },
+ "morning light|justin timberlake feat. alicia keys": {
+  "file": "covers/morning-light-justin-timberlake-feat-alicia-keys.jpg",
+  "album": "Man of the Woods",
+  "source": {
+   "label": "Apple Music, Man of the Woods by Justin Timberlake",
+   "url": "https://music.apple.com/us/album/morning-light-feat-alicia-keys/1330759954"
+  }
+ },
+ "motorsport|migos, nicki minaj & cardi b": {
+  "file": "covers/motorsport-migos-nicki-minaj-cardi-b.jpg",
+  "album": "Culture II",
+  "source": {
+   "label": "Apple Music, Culture II by Migos, Nicki Minaj & Cardi B",
+   "url": "https://music.apple.com/us/album/motorsport/1440914594"
+  }
+ },
+ "mula|big sean": {
+  "file": "covers/mula-big-sean.jpg",
+  "album": "Detroit",
+  "source": {
+   "label": "Apple Music, Detroit by Big Sean",
+   "url": "https://music.apple.com/us/album/mula-feat-french-montana/1642993713"
+  }
+ },
+ "my wrist|yeat feat. young thug": {
+  "file": "covers/my-wrist-yeat-feat-young-thug.jpg",
+  "album": "My wrist - Single",
+  "source": {
+   "label": "Apple Music, My wrist - Single by Yeat & Young Thug",
+   "url": "https://music.apple.com/us/album/my-wrist/1689151693"
+  }
+ },
+ "needed me|rihanna": {
+  "file": "covers/needed-me-rihanna.jpg",
+  "album": "ANTI (Deluxe)",
+  "source": {
+   "label": "Apple Music, ANTI (Deluxe) by Rihanna",
+   "url": "https://music.apple.com/us/album/needed-me/1440924615"
+  }
+ },
+ "never recover|lil baby & gunna feat. drake": {
+  "file": "covers/never-recover-lil-baby-gunna-feat-drake.jpg",
+  "album": "Drip Harder",
+  "source": {
+   "label": "Apple Music, Drip Harder by Lil Baby, Gunna & Drake",
+   "url": "https://music.apple.com/us/album/never-recover/1437958608"
+  }
+ },
+ "nitrous|joji": {
+  "file": "covers/nitrous-joji.jpg",
+  "album": "Nectar",
+  "source": {
+   "label": "Apple Music, Nectar by Joji",
+   "url": "https://music.apple.com/us/album/nitrous/1724881021"
+  }
+ },
+ "no lie|2 chainz feat. drake": {
+  "file": "covers/no-lie-2-chainz-feat-drake.jpg",
+  "album": "Based On a T.R.U. Story (Deluxe Version)",
+  "source": {
+   "label": "Apple Music, Based On a T.R.U. Story (Deluxe Version) by 2 Chainz",
+   "url": "https://music.apple.com/us/album/no-lie-feat-drake/1443737114"
+  }
+ },
+ "no mediocre|t.i. feat. iggy azalea": {
+  "file": "covers/no-mediocre-t-i-feat-iggy-azalea.jpg",
+  "album": "Paperwork (Deluxe)",
+  "source": {
+   "label": "Apple Music, Paperwork (Deluxe) by T.I.",
+   "url": "https://music.apple.com/us/album/no-mediocre-feat-iggy-azalea/6769170187"
+  }
+ },
+ "no tomorrow|chief keef": {
+  "file": "covers/no-tomorrow-chief-keef.jpg",
+  "album": "Finally Rich",
+  "source": {
+   "label": "Apple Music, Finally Rich by Chief Keef",
+   "url": "https://music.apple.com/us/album/no-tomorrow/1444005836"
+  }
+ },
+ "no type|rae sremmurd": {
+  "file": "covers/no-type-rae-sremmurd.jpg",
+  "album": "SremmLife",
+  "source": {
+   "label": "Apple Music, SremmLife by Rae Sremmurd",
+   "url": "https://music.apple.com/us/album/no-type/1440815258"
+  }
+ },
+ "not afraid|eminem": {
+  "file": "covers/not-afraid-eminem.jpg",
+  "album": "Recovery",
+  "source": {
+   "label": "Apple Music, Recovery by Eminem",
+   "url": "https://music.apple.com/us/album/not-afraid/1440781199"
+  }
+ },
+ "nothin'|n.o.r.e.": {
+  "file": "covers/nothin-n-o-r-e.jpg",
+  "album": "God's Favorite",
+  "source": {
+   "label": "Apple Music, God's Favorite by N.O.R.E.",
+   "url": "https://music.apple.com/us/album/nothin/1452862939"
+  }
+ },
+ "nuthin' but a 'g' thang|dr. dre feat. snoop doggy dogg": {
+  "file": "covers/nuthin-but-a-g-thang-dr-dre-feat-snoop-doggy-dogg.jpg",
+  "album": "Straight Outta Compton (Music from the Motion Picture)",
+  "source": {
+   "label": "Apple Music, Straight Outta Compton (Music from the Motion Picture) by Dr. Dre",
+   "url": "https://music.apple.com/us/album/nuthin-but-a-g-thang-feat-snoop-dogg/1440835794"
+  }
+ },
+ "off that|jay-z feat. drake": {
+  "file": "covers/off-that-jay-z-feat-drake.jpg",
+  "album": "The Blueprint 3",
+  "source": {
+   "label": "Apple Music, The Blueprint 3 by JAŸ-Z",
+   "url": "https://music.apple.com/us/album/off-that-feat-drake/1440932009"
+  }
+ },
+ "okay|jt": {
+  "file": "covers/okay-jt.jpg",
+  "album": "City Cinderella",
+  "source": {
+   "label": "Apple Music, City Cinderella by JT",
+   "url": "https://music.apple.com/us/album/okay/1757742408"
+  }
+ },
+ "p.i.m.p.|50 cent": {
+  "file": "covers/p-i-m-p-50-cent.jpg",
+  "album": "Get Rich Or Die Tryin",
+  "source": {
+   "label": "Apple Music, Get Rich Or Die Tryin by 50 Cent",
+   "url": "https://music.apple.com/us/album/p-i-m-p-feat-snoop-dogg-snoop-dog-remix-edited/6811474787"
+  }
+ },
+ "p.t. 2001|tonéx": {
+  "file": "covers/p-t-2001-ton-x.jpg",
+  "album": "Pronounced Toe-Nay",
+  "source": {
+   "label": "Apple Music, Pronounced Toe-Nay by Tonéx",
+   "url": "https://music.apple.com/us/album/p-t-2001/299596026"
+  }
+ },
+ "panini|lil nas x": {
+  "file": "covers/panini-lil-nas-x.jpg",
+  "album": "7",
+  "source": {
+   "label": "Apple Music, 7 by Lil Nas X",
+   "url": "https://music.apple.com/us/album/panini/1468166325"
+  }
+ },
+ "paperbond|wiz khalifa": {
+  "file": "covers/paperbond-wiz-khalifa.jpg",
+  "album": "O.N.I.F.C. (Deluxe Version)",
+  "source": {
+   "label": "Apple Music, O.N.I.F.C. (Deluxe Version) by Wiz Khalifa",
+   "url": "https://music.apple.com/us/album/paperbond/562648487"
+  }
+ },
+ "paradise|big sean": {
+  "file": "covers/paradise-big-sean.jpg",
+  "album": "Dark Sky Paradise",
+  "source": {
+   "label": "Apple Music, Dark Sky Paradise by Big Sean",
+   "url": "https://music.apple.com/us/album/paradise-extended/1442857082"
+  }
+ },
+ "paranoid|ty dolla $ign feat. b.o.b": {
+  "file": "covers/paranoid-ty-dolla-ign-feat-b-o-b.jpg",
+  "album": "Beach House - EP",
+  "source": {
+   "label": "Apple Music, Beach House - EP by Ty Dolla $ign",
+   "url": "https://music.apple.com/us/album/paranoid-feat-b-o-b/784311759"
+  }
+ },
+ "persuasive|doechii & sza": {
+  "file": "covers/persuasive-doechii-sza.jpg",
+  "album": "Persuasive - Single",
+  "source": {
+   "label": "Apple Music, Persuasive - Single by Doechii",
+   "url": "https://music.apple.com/us/album/persuasive/1613658036"
+  }
+ },
+ "pillz|gucci mane": {
+  "file": "covers/pillz-gucci-mane.jpg",
+  "album": "Hard to Kill",
+  "source": {
+   "label": "Apple Music, Hard to Kill by Gucci Mane",
+   "url": "https://music.apple.com/us/album/pillz/577682200"
+  }
+ },
+ "planet rock|afrika bambaataa & the soulsonic force": {
+  "file": "covers/planet-rock-afrika-bambaataa-the-soulsonic-force.jpg",
+  "album": "Planet Rock",
+  "source": {
+   "label": "Apple Music, Planet Rock by Afrika Bambaataa & The Soulsonic Force",
+   "url": "https://music.apple.com/us/album/planet-rock/1604623461"
+  }
+ },
+ "presidential|rick ross": {
+  "file": "covers/presidential-rick-ross.jpg",
+  "album": "God Forgives, I Don't (Deluxe Edition)",
+  "source": {
+   "label": "Apple Music, God Forgives, I Don't (Deluxe Edition) by Rick Ross",
+   "url": "https://music.apple.com/us/album/presidential-feat-elijah-blake/1442944116"
+  }
+ },
+ "presidential|rick ross feat. elijah blake": {
+  "file": "covers/presidential-rick-ross-feat-elijah-blake.jpg",
+  "album": "God Forgives, I Don't (Deluxe Edition)",
+  "source": {
+   "label": "Apple Music, God Forgives, I Don't (Deluxe Edition) by Rick Ross",
+   "url": "https://music.apple.com/us/album/presidential-feat-elijah-blake/1442944116"
+  }
+ },
+ "raf|a$ap mob": {
+  "file": "covers/raf-a-ap-mob.jpg",
+  "album": "Cozy Tapes, Vol. 2: Too Cozy",
+  "source": {
+   "label": "Apple Music, Cozy Tapes, Vol. 2: Too Cozy by A$AP Mob",
+   "url": "https://music.apple.com/us/album/raf-feat-a%24ap-rocky-playboi-carti-quavo-lil-uzi-vert/1271974442"
+  }
+ },
+ "ransom|lil tecca": {
+  "file": "covers/ransom-lil-tecca.jpg",
+  "album": "We Love You Tecca",
+  "source": {
+   "label": "Apple Music, We Love You Tecca by Lil Tecca",
+   "url": "https://music.apple.com/us/album/ransom/1481535790"
+  }
+ },
+ "red moon|lil uzi vert": {
+  "file": "covers/red-moon-lil-uzi-vert.jpg",
+  "album": "Red Moon - Single",
+  "source": {
+   "label": "Apple Music, Red Moon - Single by Lil Uzi Vert",
+   "url": "https://music.apple.com/us/album/red-moon/1723221465"
+  }
+ },
+ "retroville|pi'erre bourne": {
+  "file": "covers/retroville-pi-erre-bourne.jpg",
+  "album": "The Life Of Pi'erre 5",
+  "source": {
+   "label": "Apple Music, The Life Of Pi'erre 5 by Pi’erre Bourne",
+   "url": "https://music.apple.com/us/album/retroville/1570684882"
+  }
+ },
+ "return the favor|keri hilson feat. timbaland": {
+  "file": "covers/return-the-favor-keri-hilson-feat-timbaland.jpg",
+  "album": "In a Perfect World...",
+  "source": {
+   "label": "Apple Music, In a Perfect World... by Keri Hilson & Timbaland",
+   "url": "https://music.apple.com/us/album/return-the-favor/1442422053"
+  }
+ },
+ "ring|cardi b feat. kehlani": {
+  "file": "covers/ring-cardi-b-feat-kehlani.jpg",
+  "album": "Invasion of Privacy",
+  "source": {
+   "label": "Apple Music, Invasion of Privacy by Cardi B",
+   "url": "https://music.apple.com/us/album/ring-feat-kehlani/1368105671"
+  }
+ },
+ "rock your body|justin timberlake": {
+  "file": "covers/rock-your-body-justin-timberlake.jpg",
+  "album": "Justified",
+  "source": {
+   "label": "Apple Music, Justified by Justin Timberlake",
+   "url": "https://music.apple.com/us/album/rock-your-body/252606580"
+  }
+ },
+ "rockstar|dababy feat. roddy ricch": {
+  "file": "covers/rockstar-dababy-feat-roddy-ricch.jpg",
+  "album": "BLAME IT ON BABY (DELUXE)",
+  "source": {
+   "label": "Apple Music, BLAME IT ON BABY (DELUXE) by DaBaby",
+   "url": "https://music.apple.com/us/album/rockstar-feat-roddy-ricch/1527828146"
+  }
+ },
+ "rubber band man|t.i.": {
+  "file": "covers/rubber-band-man-t-i.jpg",
+  "album": "Trap Muzik (Deluxe Version)",
+  "source": {
+   "label": "Apple Music, Trap Muzik (Deluxe Version) by T.I.",
+   "url": "https://music.apple.com/us/album/rubber-band-man/1260772249"
+  }
+ },
+ "run this town|jay-z feat. rihanna & kanye west": {
+  "file": "covers/run-this-town-jay-z-feat-rihanna-kanye-west.jpg",
+  "album": "The Blueprint 3",
+  "source": {
+   "label": "Apple Music, The Blueprint 3 by JAŸ-Z",
+   "url": "https://music.apple.com/us/album/run-this-town-feat-rihanna-kanye-west/1440932009"
+  }
+ },
+ "rusty|tyler, the creator feat. domo genesis & earl sweatshirt": {
+  "file": "covers/rusty-tyler-the-creator-feat-domo-genesis-earl-sweatshirt.jpg",
+  "album": "Wolf + Instrumentals",
+  "source": {
+   "label": "Apple Music, Wolf + Instrumentals by Tyler, The Creator",
+   "url": "https://music.apple.com/us/album/rusty-instrumental/1679029373"
+  }
+ },
+ "sexyback|justin timberlake": {
+  "file": "covers/sexyback-justin-timberlake.jpg",
+  "album": "FutureSex/LoveSounds (Deluxe Edition)",
+  "source": {
+   "label": "Apple Music, FutureSex/LoveSounds (Deluxe Edition) by Justin Timberlake",
+   "url": "https://music.apple.com/us/album/sexyback-feat-timbaland/400946401"
+  }
+ },
+ "she will|lil wayne feat. drake": {
+  "file": "covers/she-will-lil-wayne-feat-drake.jpg",
+  "album": "I Am Music",
+  "source": {
+   "label": "Apple Music, I Am Music by Lil Wayne & Drake",
+   "url": "https://music.apple.com/us/album/she-will/1679821720"
+  }
+ },
+ "sicko mode|travis scott feat. drake": {
+  "file": "covers/sicko-mode-travis-scott-feat-drake.jpg",
+  "album": "ASTROWORLD",
+  "source": {
+   "label": "Apple Music, ASTROWORLD by Travis Scott",
+   "url": "https://music.apple.com/us/album/sicko-mode/1421658111"
+  }
+ },
+ "simon says|pi'erre bourne": {
+  "file": "covers/simon-says-pi-erre-bourne.jpg",
+  "album": "The Life Of Pi'erre 4 (Deluxe)",
+  "source": {
+   "label": "Apple Music, The Life Of Pi'erre 4 (Deluxe) by Pi’erre Bourne",
+   "url": "https://music.apple.com/us/album/simon-says/1521742174"
+  }
+ },
+ "slater|tyler, the creator feat. frank ocean": {
+  "file": "covers/slater-tyler-the-creator-feat-frank-ocean.jpg",
+  "album": "Wolf + Instrumentals",
+  "source": {
+   "label": "Apple Music, Wolf + Instrumentals by Tyler, The Creator",
+   "url": "https://music.apple.com/us/album/slater-instrumental/1679029373"
+  }
+ },
+ "slow down|vanjess feat. lucky daye": {
+  "file": "covers/slow-down-vanjess-feat-lucky-daye.jpg",
+  "album": "Homegrown",
+  "source": {
+   "label": "Apple Music, Homegrown by VanJess",
+   "url": "https://music.apple.com/us/album/slow-down/1550632070"
+  }
+ },
+ "smuckers|tyler, the creator feat. kanye west & lil wayne": {
+  "file": "covers/smuckers-tyler-the-creator-feat-kanye-west-lil-wayne.jpg",
+  "album": "Cherry Bomb + Instrumentals",
+  "source": {
+   "label": "Apple Music, Cherry Bomb + Instrumentals by Tyler, The Creator",
+   "url": "https://music.apple.com/us/album/smuckers-instrumental/1438243813"
+  }
+ },
+ "so sophisticated|rick ross feat. meek mill": {
+  "file": "covers/so-sophisticated-rick-ross-feat-meek-mill.jpg",
+  "album": "God Forgives, I Don't (Deluxe Edition)",
+  "source": {
+   "label": "Apple Music, God Forgives, I Don't (Deluxe Edition) by Rick Ross",
+   "url": "https://music.apple.com/us/album/so-sophisticated-feat-meek-mill/1442944116"
+  }
+ },
+ "sossboy|pi'erre bourne": {
+  "file": "covers/sossboy-pi-erre-bourne.jpg",
+  "album": "The Life Of Pi'erre 4 (Deluxe)",
+  "source": {
+   "label": "Apple Music, The Life Of Pi'erre 4 (Deluxe) by Pi’erre Bourne",
+   "url": "https://music.apple.com/us/album/sossboy/1521742174"
+  }
+ },
+ "sossgirl|pi'erre bourne": {
+  "file": "covers/sossgirl-pi-erre-bourne.jpg",
+  "album": "The Life Of Pi'erre 4 (Deluxe)",
+  "source": {
+   "label": "Apple Music, The Life Of Pi'erre 4 (Deluxe) by Pi’erre Bourne",
+   "url": "https://music.apple.com/us/album/sossgirl/1521742174"
+  }
+ },
+ "special|future": {
+  "file": "covers/special-future.jpg",
+  "album": "Honest (Deluxe)",
+  "source": {
+   "label": "Apple Music, Honest (Deluxe) by Future",
+   "url": "https://music.apple.com/us/album/special-feat-young-scooter/834629124"
+  }
+ },
+ "start it up|lloyd banks": {
+  "file": "covers/start-it-up-lloyd-banks.jpg",
+  "album": "H.F.M. 2 (Hunger for More 2)",
+  "source": {
+   "label": "Apple Music, H.F.M. 2 (Hunger for More 2) by Lloyd Banks",
+   "url": "https://music.apple.com/us/album/start-it-up-feat-kanye-west-swizz-beatz-ryan-leslie-fabolous/714596430"
+  }
+ },
+ "start over|beyoncé": {
+  "file": "covers/start-over-beyonc.jpg",
+  "album": "4 (Expanded Edition)",
+  "source": {
+   "label": "Apple Music, 4 (Expanded Edition) by Beyoncé",
+   "url": "https://music.apple.com/us/album/start-over/626204707"
+  }
+ },
+ "stay schemin'|rick ross": {
+  "file": "covers/stay-schemin-rick-ross.jpg",
+  "album": "Stay Schemin' (feat. Drake & French Montana) - Single",
+  "source": {
+   "label": "Apple Music, Stay Schemin' (feat. Drake & French Montana) - Single by Rick Ross",
+   "url": "https://music.apple.com/us/album/stay-schemin-feat-drake-french-montana/1445175738"
+  }
+ },
+ "still d.r.e.|dr. dre feat. snoop dogg": {
+  "file": "covers/still-d-r-e-dr-dre-feat-snoop-dogg.jpg",
+  "album": "2001",
+  "source": {
+   "label": "Apple Music, 2001 by Dr. Dre",
+   "url": "https://music.apple.com/us/album/still-d-r-e-feat-snoop-dogg/1444156266"
+  }
+ },
+ "streets is talking|jay-z feat. beanie sigel": {
+  "file": "covers/streets-is-talking-jay-z-feat-beanie-sigel.jpg",
+  "album": "The Dynasty - Roc La Familia 2000",
+  "source": {
+   "label": "Apple Music, The Dynasty - Roc La Familia 2000 by JAŸ-Z & Beanie Sigel",
+   "url": "https://music.apple.com/us/album/streets-is-talking/1443262052"
+  }
+ },
+ "stronger|kanye west": {
+  "file": "covers/stronger-kanye-west.jpg",
+  "album": "Graduation",
+  "source": {
+   "label": "Apple Music, Graduation by Kanye West",
+   "url": "https://music.apple.com/us/album/stronger/1442845779"
+  }
+ },
+ "successful|drake": {
+  "file": "covers/successful-drake.jpg",
+  "album": "So Far Gone",
+  "source": {
+   "label": "Apple Music, So Far Gone by Drake",
+   "url": "https://music.apple.com/us/album/successful-feat-trey-songz-lil-wayne/1453336206"
+  }
+ },
+ "suge|dababy": {
+  "file": "covers/suge-dababy.jpg",
+  "album": "Baby on Baby",
+  "source": {
+   "label": "Apple Music, Baby on Baby by DaBaby",
+   "url": "https://music.apple.com/us/album/suge/1454072817"
+  }
+ },
+ "superpower|beyoncé feat. frank ocean": {
+  "file": "covers/superpower-beyonc-feat-frank-ocean.jpg",
+  "album": "BEYONCÉ (Platinum Edition)",
+  "source": {
+   "label": "Apple Music, BEYONCÉ (Platinum Edition) by Beyoncé",
+   "url": "https://music.apple.com/us/album/superpower-feat-frank-ocean/939775882"
+  }
+ },
+ "superthug|noreaga": {
+  "file": "covers/superthug-noreaga.jpg",
+  "album": "Entourage (Original Motion Picture Soundtrack)",
+  "source": {
+   "label": "Apple Music, Entourage (Original Motion Picture Soundtrack) by Noreaga",
+   "url": "https://music.apple.com/us/album/superthug/1455293078"
+  }
+ },
+ "talk|yeat": {
+  "file": "covers/talk-yeat.jpg",
+  "album": "Lyfë",
+  "source": {
+   "label": "Apple Music, Lyfë by Yeat",
+   "url": "https://music.apple.com/us/album/talk/1645618711"
+  }
+ },
+ "teflon don|future": {
+  "file": "covers/teflon-don-future.jpg",
+  "album": "MIXTAPE PLUTO",
+  "source": {
+   "label": "Apple Music, MIXTAPE PLUTO by Future",
+   "url": "https://music.apple.com/us/album/teflon-don/1769285041"
+  }
+ },
+ "tell him the truth|keri hilson": {
+  "file": "covers/tell-him-the-truth-keri-hilson.jpg",
+  "album": "In a Perfect World...",
+  "source": {
+   "label": "Apple Music, In a Perfect World... by Keri Hilson",
+   "url": "https://music.apple.com/us/album/tell-him-the-truth/1442422053"
+  }
+ },
+ "thank god i found you (make it last remix)|mariah carey": {
+  "file": "covers/thank-god-i-found-you-make-it-last-remix-mariah-carey.jpg",
+  "album": "The Remixes",
+  "source": {
+   "label": "Apple Music, The Remixes by Mariah Carey",
+   "url": "https://music.apple.com/us/album/thank-god-i-found-you-make-it-last-remix-feat-joe-nas/186214441"
+  }
+ },
+ "thanks to you|clams casino": {
+  "file": "covers/thanks-to-you-clams-casino.jpg",
+  "album": "32 Levels (Deluxe)",
+  "source": {
+   "label": "Apple Music, 32 Levels (Deluxe) by Clams Casino",
+   "url": "https://music.apple.com/us/album/thanks-to-you-instrumental/1120321991"
+  }
+ }
+}
