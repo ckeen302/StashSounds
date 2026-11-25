@@ -31,6 +31,7 @@ import { ItemView } from "../app/_item/item-view";
 import { buildCatalog, type Catalog } from "./data";
 import { HashLink } from "./hash-link";
 import { navigate, startRouter, usePath } from "./router";
+import { OriginalPage, SampleSongPage, SamplesPage } from "./samples/page";
 import { has, set } from "./store";
 import { startLooks, useLook } from "./looks";
 import { midiItem, type MidiItem } from "./midi/catalog";
@@ -1101,6 +1102,7 @@ const TABS = [
   { href: "/one-shots", name: "One-shots" },
   { href: "/sfx", name: "SFX" },
   { href: "/presets", name: "Presets" },
+  { href: "/samples", name: "Samples" },
   { href: "/library", name: "Library" },
   { href: "/upload", name: "Upload" },
 ];
@@ -1114,6 +1116,7 @@ function DemoTabs() {
       : path === href ||
         (href === "/midi" && path.startsWith("/midi")) ||
         (href === "/presets" && path.startsWith("/presets/")) ||
+        (href === "/samples" && (path.startsWith("/samples/") || path.startsWith("/sampled/"))) ||
         (href === "/kits" &&
           (path.startsWith("/kit/") || path === "/kit-upload"));
   return (
@@ -1162,6 +1165,9 @@ function Route() {
   if (path === "/presets") return <PresetsPage />;
   if (path.startsWith("/presets/"))
     return <PresetSongPage key={path} slug={path.slice(9)} />;
+  if (path === "/samples") return <SamplesPage />;
+  if (path.startsWith("/samples/")) return <SampleSongPage key={path} slug={path.slice(9)} />;
+  if (path.startsWith("/sampled/")) return <OriginalPage key={path} slug={path.slice(9)} />;
   if (path === "/library") return <LibraryRoute />;
   if (path === "/kits") return <KitsPage />;
   const kitPage = /^\/kit\/([a-z0-9]+)$/.exec(path);
