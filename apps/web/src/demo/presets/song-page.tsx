@@ -1,6 +1,6 @@
 import { ButtonLink, EmptyState, UiLink } from "@stash/ui";
 import { songChordItems } from "../midi/catalog";
-import { albumOf, Cover, coverFor } from "./cover";
+import { albumOf, Cover, coverFor, tileStyle } from "./cover";
 import { CONFIDENCE, presetParts, type PresetEntry } from "./data";
 import { ConfidenceKey, familyOf, Meter, partOf, TONE_TEXT } from "./page";
 import {
@@ -64,7 +64,7 @@ export function PresetSongPage({ slug }: { slug: string }) {
   return (
     <main className="flex w-full flex-col">
       <header className="st-song-hero relative overflow-hidden border-b border-border">
-        {cover && <span aria-hidden="true" className="st-song-backdrop" style={{ backgroundImage: `url("${cover.file}")` }} />}
+        {cover && <span aria-hidden="true" className="st-song-backdrop" style={tileStyle(cover.file)} />}
         <div className="relative mx-auto flex w-full max-w-content flex-col gap-6 px-3 pt-6 pb-8 tablet:px-4 tablet:pt-8 desktop:px-6 desktop:pb-10">
           <UiLink href="/presets" className="self-start text-small text-text-muted ui-hover:text-text">
             ← Presets

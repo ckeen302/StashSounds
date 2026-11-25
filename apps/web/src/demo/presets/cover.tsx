@@ -1,4 +1,6 @@
+import type { CSSProperties } from "react";
 import COVERS from "./covers.json";
+import SHEETS from "./cover-sheets.json";
 import { PRESETS } from "./data";
 
 /**
@@ -54,6 +56,17 @@ export function coverFor(song: string, artist: string): CoverRow | null {
   return BY_ALBUM.get(`${flatName(album)}|${loose("", artist).split("|")[1]}`) ?? null;
 }
 
+// Covers are packed onto sprite sheets (scripts/pack-demo-covers.py): each file is a tile on one.
+const SHEET = SHEETS as unknown as { grid: number; sheets: string[]; tiles: Record<string, [number, number, number]> };
+
+export function tileStyle(file: string): CSSProperties {
+  const t = SHEET.tiles[file];
+  if (!t) return { backgroundImage: `url("${file}")`, backgroundSize: "cover", backgroundPosition: "center" };
+  const [sheet, col, row] = t;
+  const step = 100 / (SHEET.grid - 1);
+  return { backgroundImage: `url("${SHEET.sheets[sheet]}")`, backgroundSize: `${SHEET.grid * 100}% ${SHEET.grid * 100}%`, backgroundPosition: `${col * step}% ${row * step}%` };
+}
+
 export function Cover({
   song,
   artist,
@@ -81,8 +94,8 @@ export function Cover({
       <span
         role="img"
         aria-label={`${row.album} cover`}
-        style={{ backgroundImage: `url("${row.file}")` }}
-        className={`${box} st-cover shrink-0 rounded-control border border-border bg-raised bg-cover bg-center shadow-lg`}
+        style={tileStyle(row.file)}
+        className={`${box} st-cover shrink-0 rounded-control border border-border bg-raised shadow-lg`}
       />
     );
   }
