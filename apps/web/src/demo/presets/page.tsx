@@ -286,36 +286,29 @@ export function partOf(role: string): string {
 }
 
 /**
- * One song, always in the same shape: cover, title, artist, album, producer, sound count, then its
- * lead sound (part, plugin, preset), then a link to the rest. Missing facts keep their line, so no
+ * One song, always in the same shape: cover, title, artist, album, producer, then its
+ * lead sound (part, plugin, preset). The whole card opens the song. Missing facts keep their line, so no
  * card reads differently from the one next to it. One sound shows (the one with a named preset first).
  */
 function SongCard({ s }: { s: Song }) {
   const album = coverFor(s.song, s.artist)?.album ?? "Album not listed";
   const producer = s.producer && !/^(unknown|not stated)$/i.test(s.producer) ? `prod. ${s.producer}` : "Producer not credited";
-  const shown = [s.entries.find((e) => e.preset) ?? s.entries[0]!];
-  const more = s.entries.length - shown.length;
-  const href = songHref(s.song, s.artist);
+  const lead = s.entries.find((e) => e.preset) ?? s.entries[0]!;
   return (
-    <li className="flex h-full flex-col gap-4 rounded-panel border border-border bg-surface p-4">
-      <div className="flex items-start gap-4">
-        <Cover song={s.song} artist={s.artist} placeholder />
-        <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-          <UiLink href={href} className="truncate text-title text-text ui-hover:underline">
-            {s.song}
-          </UiLink>
-          <span className="truncate text-body-strong text-text">{s.artist}</span>
-          <span className="truncate text-small text-text-muted">{album}</span>
-          <span className="truncate text-small text-text-muted">{producer}</span>
-        </div>
-      </div>
-      <ul className="flex flex-col gap-2">
-        {shown.map((e, i) => (
-          <PatchStrip key={`${e.plugin}-${e.preset}-${e.role}-${i}`} e={e} />
-        ))}
-      </ul>
-      <UiLink href={href} className="mt-auto font-mono text-numeric tabular text-text-muted ui-hover:text-text">
-        {more > 0 ? `+${more} more ${more === 1 ? "sound" : "sounds"} · see all` : "1 sound · see the source"}
+    <li className="h-full">
+      <UiLink href={songHref(s.song, s.artist)} className="group flex h-full flex-col gap-4 rounded-panel border border-border bg-surface p-4 ui-hover:border-border-strong">
+        <span className="flex items-start gap-4">
+          <Cover song={s.song} artist={s.artist} placeholder />
+          <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+            <span className="truncate text-title text-text group-hover:underline">{s.song}</span>
+            <span className="truncate text-body-strong text-text">{s.artist}</span>
+            <span className="truncate text-small text-text-muted">{album}</span>
+            <span className="truncate text-small text-text-muted">{producer}</span>
+          </span>
+        </span>
+        <ul className="flex flex-col">
+          <PatchStrip e={lead} />
+        </ul>
       </UiLink>
     </li>
   );
