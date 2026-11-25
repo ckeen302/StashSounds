@@ -21,12 +21,20 @@ export function songSlug(song: string, artist: string): string {
   return slugify(`${song} ${artist.split(/ feat\.? | ft\.? | x |,| & /i)[0] ?? artist}`);
 }
 
+/** One key per song however its title is cased or punctuated, by its lead artist. */
+export function songKey(song: string, artist: string): string {
+  const flat = (x: string) => x.toLowerCase().replace(/[^a-z0-9]/g, "");
+  return `${flat(song)}|${flat(artist.split(/ feat\.? | ft\.? | x |,| & | \(/i)[0] ?? artist)}`;
+}
+
 /** Groups rows into songs, surest sound first inside each song. */
 export function groupSongs(rows: PresetEntry[]): Song[] {
   const by = new Map<string, Song>();
   for (const e of rows) {
-    const key = `${e.song.toLowerCase()}|${e.artist.toLowerCase()}`;
+    // "Drunk In Love | Beyoncé" and "Drunk in Love | Beyoncé feat. Jay-Z" are one song.
+    const key = songKey(e.song, e.artist);
     const s = by.get(key) ?? { key, slug: songSlug(e.song, e.artist), song: e.song, artist: e.artist, producer: e.producer, entries: [], best: 0, named: 0 };
+    if (e.artist.length > s.artist.length) s.artist = e.artist;
     s.entries.push(e);
     s.best = Math.max(s.best, LEVEL[e.confidence]);
     if (e.preset) s.named++;

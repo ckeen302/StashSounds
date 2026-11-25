@@ -470,20 +470,6 @@
   "quote": "Kendrick Lamar's FEEL (2017) uses two of the company's off-the-peg samples."
  },
  {
-  "song": "Love in This Club",
-  "artist": "Usher feat. Young Jeezy",
-  "producer": "Polow Da Don",
-  "plugin": "Apple GarageBand Jam Pack: Remix Tools",
-  "preset": "Euro Hero Synth",
-  "role": "Main synth riff",
-  "confidence": "press",
-  "source": {
-   "label": "Microchop (Substack), Royalty-Free Loops and Stock Sounds",
-   "url": "https://microchop.substack.com/p/royalty-free-loops-and-stock-sounds"
-  },
-  "quote": "by using large chunks of \"Euro Hero Synth\" samples from Apple Remix Tools Jam Pack for GarageBand."
- },
- {
   "song": "Break Up",
   "artist": "Mario feat. Gucci Mane & Sean Garrett",
   "producer": "Bangladesh, Sean Garrett",
@@ -541,7 +527,7 @@
  },
  {
   "song": "I Just Wanna Love U (Give It 2 Me)",
-  "artist": "JAY-Z",
+  "artist": "Jay-Z",
   "producer": "The Neptunes",
   "plugin": "Korg Triton (hardware workstation)",
   "preset": "C021 Nu Strat",
@@ -583,7 +569,7 @@
  },
  {
   "song": "Down Bottom",
-  "artist": "Ruff Ryders",
+  "artist": "Ruff Ryders (Drag-On & Juvenile)",
   "producer": "Swizz Beatz",
   "plugin": "Korg Triton (hardware workstation)",
   "preset": "A009 Fat Brass",
@@ -9104,7 +9090,7 @@
   "quote": "Sneakin N Geekin - Pee Wee Longway: LD Crying Female, under XP Psytrance in Nexus"
  },
  {
-  "song": "Mink On The Floor",
+  "song": "Mink on the Floor",
   "artist": "Curren$y",
   "producer": "Metro Boomin",
   "plugin": "reFX Nexus",
@@ -11709,19 +11695,6 @@
   "plugin": "FabFilter Twin 2",
   "preset": "Harpsicord FS",
   "role": "keys",
-  "confidence": "community",
-  "source": {
-   "label": "r/FindThePreset (Reddit)",
-   "url": "https://www.reddit.com/r/findthepreset/"
-  }
- },
- {
-  "song": "Woah",
-  "artist": "Playboi Carti",
-  "producer": "Pi'erre Bourne",
-  "plugin": "Siegfried Kullmann SQ8L",
-  "preset": "012 Spacelab",
-  "role": "synth",
   "confidence": "community",
   "source": {
    "label": "r/FindThePreset (Reddit)",

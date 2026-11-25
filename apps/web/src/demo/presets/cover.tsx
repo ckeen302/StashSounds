@@ -16,8 +16,20 @@ export function coverKey(song: string, artist: string): string {
   return `${song}|${artist}`.toLowerCase();
 }
 
+// A song merged from rows that spell it differently still finds its cover: by title and lead artist.
+const loose = (song: string, artist: string) => {
+  const flat = (x: string) => x.toLowerCase().replace(/[^a-z0-9]/g, "");
+  return `${flat(song)}|${flat(artist.split(/ feat\.? | ft\.? | x |,| & | \(/i)[0] ?? artist)}`;
+};
+const LOOSE = new Map<string, CoverRow>();
+for (const [k, row] of Object.entries(ROWS)) {
+  const [song = "", artist = ""] = k.split("|");
+  const lk = loose(song, artist);
+  if (!LOOSE.has(lk)) LOOSE.set(lk, row);
+}
+
 export function coverFor(song: string, artist: string): CoverRow | null {
-  return ROWS[coverKey(song, artist)] ?? null;
+  return ROWS[coverKey(song, artist)] ?? LOOSE.get(loose(song, artist)) ?? null;
 }
 
 export function Cover({
