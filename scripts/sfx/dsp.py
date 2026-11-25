@@ -316,5 +316,30 @@ def finish(x: np.ndarray, peak_db: float = -1.0, fin: float = 0.002, fout: float
         if len(idx):
             x = x[max(0, idx[0] - 40) : min(len(x), idx[-1] + n_of(0.05))]
     x = fade(x, fin, fout)
-    m = np.max(np.abs(x)) + 1e-12
-    return x * (10 ** (peak_db / 20) / m)
+    return level_match(x, peak_db)
+
+
+def level_match(x: np.ndarray, peak_db: float = -1.0, target_db: float = -13.0) -> np.ndarray:
+    """Every sound at a similar loudness: its loudest 400 ms sits at `target_db` RMS, and any peak
+    that would pass `peak_db` is rounded off by a soft limiter instead of turning the sound down."""
+    ceiling = 10 ** (peak_db / 20)
+    x = x / (np.max(np.abs(x)) + 1e-12)
+    win = n_of(0.4)
+    e = np.mean(x**2, axis=1)
+    if len(e) > win:
+        rms = np.sqrt(np.max(np.convolve(e, np.ones(win) / win, "valid")))
+    else:
+        rms = np.sqrt(np.mean(e))
+    gain = min(10 ** (target_db / 20) / (rms + 1e-9), 10 ** (14 / 20))  # never more than +14 dB
+    y = x * gain
+    knee = ceiling * 0.7
+    a = np.abs(y)
+    over = a > knee
+    y[over] = np.sign(y[over]) * (knee + (ceiling - knee) * np.tanh((a[over] - knee) / (ceiling - knee)))
+    # Short hits (a gunshot, a click) stay under the RMS target: bring their peak up to the ceiling,
+    # as long as that keeps them within 3 dB of the target.
+    peak = np.max(np.abs(y)) + 1e-12
+    loud = rms * gain
+    if peak < ceiling:
+        y *= min(ceiling / peak, 10 ** ((target_db + 3) / 20) / (loud + 1e-9))
+    return y
