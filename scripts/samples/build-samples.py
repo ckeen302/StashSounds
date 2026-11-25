@@ -93,7 +93,12 @@ for page, album, artist, year, tracks in raw:
         songs.append({"song": title, "artist": artist, "year": year, "album": album, "producers": producers(prod),
                       "samples": uses, "sources": [{"label": f"Wikipedia: {album}, sample credits", "url": wiki(page)}]})
 
-json.dump(songs, open(out_path, "w"), ensure_ascii=False, separators=(",", ":"))
+# Compact rows (the file ships inside the demo bundle):
+# [song, artist, year, album, producers, album article, [[title, artist, year, genre, replayed, article]]]
+WIKI = "https://en.wikipedia.org/wiki/"
+rows = [[x["song"], x["artist"], x["year"], x["album"], x["producers"], x["sources"][0]["url"].removeprefix(WIKI),
+         [[u["title"], u["artist"], u["year"], u["genre"], 0 if u["type"] == "sample" else 1, (u["page"] or "").removeprefix(WIKI)] for u in x["samples"]]]
+        for x in songs]
+json.dump(rows, open(out_path, "w"), ensure_ascii=False, separators=(",", ":"))
 from collections import Counter
-print(len(songs), "songs,", sum(len(s["samples"]) for s in songs), "samples,", dropped, "dropped")
-print(Counter(u["genre"] for s in songs for u in s["samples"]).most_common())
+print(len(songs), "songs,", sum(len(x["samples"]) for x in songs), "samples,", dropped, "dropped")

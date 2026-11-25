@@ -23,6 +23,10 @@ export function nameFor(path: string): string {
   if (ps) return `preset-${ps[1]}`;
   const sm = /^\/samples\/([a-z0-9-]+)$/.exec(clean);
   if (sm) return `sample-${sm[1]}`;
+  const sa = /^\/samples-artist\/([a-z0-9-]+)$/.exec(clean);
+  if (sa) return `sartist-${sa[1]}`;
+  const sp = /^\/samples-producer\/([a-z0-9-]+)$/.exec(clean);
+  if (sp) return `sprod-${sp[1]}`;
   const og = /^\/sampled\/([a-z0-9-]+)$/.exec(clean);
   if (og) return `sampled-${og[1]}`;
   const pk = /^\/pack\/([a-z0-9-]+)$/.exec(clean);
@@ -46,6 +50,8 @@ export function pathFor(name: string, loopHref: (publicId: string) => string | n
   if (name.startsWith("kit-")) return `/kit/${name.slice(4)}`;
   if (name.startsWith("preset-")) return `/presets/${name.slice(7)}`;
   if (name.startsWith("sample-")) return `/samples/${name.slice(7)}`;
+  if (name.startsWith("sartist-")) return `/samples-artist/${name.slice(8)}`;
+  if (name.startsWith("sprod-")) return `/samples-producer/${name.slice(6)}`;
   if (name.startsWith("sampled-")) return `/sampled/${name.slice(8)}`;
   if (name.startsWith("pack-")) return `/pack/${name.slice(5)}`;
   if (name === "profile") return "/login";
