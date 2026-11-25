@@ -24,10 +24,13 @@ export function Cover({
   song,
   artist,
   size = "md",
+  placeholder = false,
 }: {
   song: string;
   artist: string;
   size?: "sm" | "md" | "lg" | "fill";
+  /** Keep the cover's space with a plain record tile while the real art is still being found. */
+  placeholder?: boolean;
 }) {
   const row = coverFor(song, artist);
   const box =
@@ -49,6 +52,11 @@ export function Cover({
       />
     );
   }
-  // No stand-in art: until the real cover is in, the entry shows none.
-  return null;
+  // No made-up art: a plain record tile holds the space until the real cover is in.
+  if (!placeholder) return null;
+  return (
+    <span aria-hidden="true" className={`${box} st-cover st-cover-empty shrink-0 rounded-control border border-border`}>
+      <span className="st-cover-disc" />
+    </span>
+  );
 }

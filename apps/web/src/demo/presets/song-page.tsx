@@ -67,7 +67,7 @@ export function PresetSongPage({ slug }: { slug: string }) {
       </UiLink>
 
       <header className="flex flex-col gap-5 tablet:flex-row tablet:items-end">
-        <Cover song={s.song} artist={s.artist} size="lg" />
+        <Cover song={s.song} artist={s.artist} size="lg" placeholder />
         <div className="flex min-w-0 flex-col gap-2">
           <span className="text-label text-label-caps text-text-muted">
             The presets behind

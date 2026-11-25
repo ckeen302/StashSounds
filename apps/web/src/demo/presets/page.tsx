@@ -71,7 +71,7 @@ function soundsOf(role: string): string[] {
 }
 
 const SORTS = {
-  sure: { label: "Best sourced first", by: (a: Song, b: Song) => b.best - a.best || b.named - a.named || a.artist.localeCompare(b.artist) },
+  sure: { label: "Best sourced first", by: (a: Song, b: Song) => Number(!!coverFor(b.song, b.artist)) - Number(!!coverFor(a.song, a.artist)) || b.best - a.best || b.named - a.named || a.artist.localeCompare(b.artist) },
   artist: { label: "Artist A to Z", by: (a: Song, b: Song) => a.artist.localeCompare(b.artist) || a.song.localeCompare(b.song) },
   sounds: { label: "Most sounds", by: (a: Song, b: Song) => b.entries.length - a.entries.length || a.artist.localeCompare(b.artist) },
   named: { label: "Exact presets first", by: (a: Song, b: Song) => b.named - a.named || b.best - a.best || a.artist.localeCompare(b.artist) },
@@ -228,7 +228,7 @@ export function PresetsPage() {
         </span>
       )}
 
-      <ul aria-label="Songs and their presets" className="grid grid-cols-1 items-start gap-3 desktop:grid-cols-2">
+      <ul aria-label="Songs and their presets" className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-3">
         {songs.slice(0, limit).map((s) => (
           <SongCard key={s.key} s={s} />
         ))}
@@ -260,27 +260,63 @@ export function Dropdown({ name, value, options, selected, onPick, active = valu
   );
 }
 
+/** The short name of the part a preset plays, so every card labels its sounds the same way. */
+const PART: [string, RegExp][] = [
+  ["808", /808/i],
+  ["Bass", /bass|sub\b|low end/i],
+  ["Bells", /bell|glock|celesta|music box|chime|xylophone|vibraphone/i],
+  ["Piano", /piano/i],
+  ["Organ", /organ/i],
+  ["Keys", /key|rhodes|\bep\b|electric piano|harpsichord|clav|wurli/i],
+  ["Pad", /pad|atmos|ambient|texture|drone/i],
+  ["Strings", /string|violin|cello|pizz|orchestra|harp\b/i],
+  ["Brass", /brass|horn|trumpet/i],
+  ["Flute", /flute|wind|pan ?flute|ocarina|piccolo|bottle/i],
+  ["Vocal", /vocal|vox|choir|voice|aa+h/i],
+  ["Guitar", /guitar/i],
+  ["Pluck", /pluck|kalimba|marimba|koto|steel ?drum/i],
+  ["Arp", /arp/i],
+  ["Lead", /lead|melody|whistle|hook|riff|solo|saw|sine/i],
+  ["Drums", /drum|kit|snare|hat|kick|clap|percussion|conga|toms?\b|beat/i],
+  ["FX", /fx|effect|riser|swish|scratch|sweep|stab|hit/i],
+  ["Synth", /synth|sequence|sound|layer/i],
+];
+export function partOf(role: string): string {
+  return PART.find(([, re]) => re.test(role))?.[0] ?? "Sound";
+}
+
+/**
+ * One song, always in the same shape: cover, title, artist, album, producer, sound count, then its
+ * lead sound (part, plugin, preset), then a link to the rest. Missing facts keep their line, so no
+ * card reads differently from the one next to it. One sound shows (the one with a named preset first).
+ */
 function SongCard({ s }: { s: Song }) {
+  const album = coverFor(s.song, s.artist)?.album ?? "Album not listed";
+  const producer = s.producer && !/^(unknown|not stated)$/i.test(s.producer) ? `prod. ${s.producer}` : "Producer not credited";
+  const shown = [s.entries.find((e) => e.preset) ?? s.entries[0]!];
+  const more = s.entries.length - shown.length;
+  const href = songHref(s.song, s.artist);
   return (
-    <li className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-4">
-      <div className="flex items-center gap-4">
-        <Cover song={s.song} artist={s.artist} />
+    <li className="flex h-full flex-col gap-4 rounded-panel border border-border bg-surface p-4">
+      <div className="flex items-start gap-4">
+        <Cover song={s.song} artist={s.artist} placeholder />
         <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-          <UiLink href={songHref(s.song, s.artist)} className="text-title break-words text-text ui-hover:underline">
+          <UiLink href={href} className="truncate text-title text-text ui-hover:underline">
             {s.song}
           </UiLink>
-          <span className="text-small text-text">{s.artist}</span>
-          <span className="text-small text-text-muted">
-            {[coverFor(s.song, s.artist)?.album, s.producer && s.producer !== "Unknown" ? `prod. ${s.producer}` : null].filter(Boolean).join(" · ")}
-          </span>
-          <span className="font-mono text-numeric tabular text-text-muted">{`${s.entries.length} ${s.entries.length === 1 ? "sound" : "sounds"}`}</span>
+          <span className="truncate text-body-strong text-text">{s.artist}</span>
+          <span className="truncate text-small text-text-muted">{album}</span>
+          <span className="truncate text-small text-text-muted">{producer}</span>
         </div>
       </div>
-      <ul className="flex flex-col gap-4">
-        {s.entries.map((e, i) => (
+      <ul className="flex flex-col gap-2">
+        {shown.map((e, i) => (
           <PatchStrip key={`${e.plugin}-${e.preset}-${e.role}-${i}`} e={e} />
         ))}
       </ul>
+      <UiLink href={href} className="mt-auto font-mono text-numeric tabular text-text-muted ui-hover:text-text">
+        {more > 0 ? `+${more} more ${more === 1 ? "sound" : "sounds"} · see all` : "1 sound · see the source"}
+      </UiLink>
     </li>
   );
 }
@@ -298,13 +334,24 @@ export function Meter({ c }: { c: Confidence }) {
 /** One sound, shown the way a synth's preset display shows it: plugin and bank above, the name big. */
 /** One preset. The browse list shows only the sound, the VST and the preset; `detail` adds how sure it is, the source and the quote. */
 export function PatchStrip({ e, detail = false }: { e: PresetEntry; detail?: boolean }) {
+  const { name, note } = presetParts(e.preset);
+  if (!detail)
+    return (
+      <li className="st-box flex items-center gap-3 rounded-control border border-border-strong bg-bg px-3 py-2">
+        <span className="w-16 shrink-0 text-label text-label-caps text-text-muted">{partOf(e.role)}</span>
+        <span className="flex min-w-0 flex-1 flex-col">
+          <span className="truncate font-mono text-small text-text-muted">{e.plugin}</span>
+          <span className="truncate font-mono text-body-strong text-accent">{name}</span>
+        </span>
+      </li>
+    );
   return (
     <li className="flex flex-col gap-2">
       <span className="text-label text-label-caps text-text-muted">{/^not stated/i.test(e.role) ? "Sound not stated" : e.role}</span>
       <div className="st-box flex flex-col gap-1 rounded-control border border-border-strong bg-bg px-3 py-2">
         <span className="font-mono text-small break-words text-text-muted">{[e.plugin, e.path].filter(Boolean).join(" › ")}</span>
-        <span className="font-mono text-body-strong break-words text-accent">{presetParts(e.preset).name}</span>
-        {presetParts(e.preset).note && <span className="text-small text-text-muted">{presetParts(e.preset).note}</span>}
+        <span className="font-mono text-body-strong break-words text-accent">{name}</span>
+        {note && <span className="text-small text-text-muted">{note}</span>}
       </div>
       {detail && <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
         <span className="flex items-center gap-2" title={CONFIDENCE[e.confidence].blurb}>

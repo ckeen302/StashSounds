@@ -59,6 +59,7 @@ import { LoopsPage } from "./loops";
 import { pack, PACK_WEEK } from "./packs";
 import { ALL_SONGS, madeBy, songHref, TOP_PRODUCERS } from "./presets/songs";
 import { PRESETS, type Confidence } from "./presets/data";
+import { Cover, coverFor } from "./presets/cover";
 import { kits } from "./kits/store";
 import { saveFiles, saveLoopRow } from "./save";
 import { SmartSearch, useQuery } from "./search-ui";
@@ -257,7 +258,7 @@ const BY_LEVEL: Confidence[] = ["community", "community", "press", "engineer", "
 
 /** Best-sourced songs first, shuffled a little each day so the shelf moves. */
 const SHELF = [...ALL_SONGS]
-  .map((s, i) => ({ s, k: s.best * 10000 + ((i * 7919 + TODAY * 104729) % 9973) }))
+  .map((s, i) => ({ s, k: (coverFor(s.song, s.artist) ? 100000 : 0) + s.best * 10000 + ((i * 7919 + TODAY * 104729) % 9973) }))
   .sort((a, b) => b.k - a.k)
   .slice(0, 14)
   .map((x) => x.s);
@@ -424,8 +425,8 @@ function Home() {
               const r = RARITY[BY_LEVEL[s.best] ?? "community"];
               return (
                 <li key={s.slug} className="w-40 shrink-0 tablet:w-44">
-                  <UiLink href={songHref(s.song, s.artist)} className="group flex h-full flex-col justify-between gap-6 rounded-panel border border-border bg-surface p-4 ui-hover:border-border-strong">
-                    <span className="st-box line-clamp-2 rounded-control text-small text-text-muted">{s.entries.find((e) => e.preset)?.plugin ?? s.entries[0]?.plugin}</span>
+                  <UiLink href={songHref(s.song, s.artist)} className="group flex h-full flex-col gap-3 rounded-panel border border-border bg-surface p-3 ui-hover:border-border-strong">
+                    <Cover song={s.song} artist={s.artist} size="fill" placeholder />
                     <span className="flex min-w-0 flex-col">
                       <span className="truncate text-body-strong text-text group-hover:underline">{s.song}</span>
                       <span className="truncate text-small text-text-muted">{s.artist}</span>

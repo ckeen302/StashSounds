@@ -435,3 +435,7 @@ html[data-look] main h1.st-home-h1 { font-size: clamp(42px, 7.4vw, 92px); line-h
 .st-ticker-item { white-space: nowrap; background: var(--color-surface); }
 @keyframes st-ticker { to { transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) { .st-ticker-track { animation: none; } .st-ticker { overflow-x: auto; } }
+
+/* Preset cards: a plain record tile where the album cover isn't found yet, the same size as a cover. */
+.st-cover-empty { display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--color-raised), var(--color-surface)); }
+.st-cover-disc { width: 62%; aspect-ratio: 1; border-radius: 9999px; background: radial-gradient(circle, var(--color-accent) 0 12%, var(--color-bg) 13% 16%, var(--color-border-strong) 17% 19%, var(--color-bg) 20% 100%); box-shadow: 0 0 0 1px var(--color-border); opacity: 0.85; }
