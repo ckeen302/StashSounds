@@ -1,5 +1,6 @@
 import { Button, Download, EmptyState, IconButton, PlayButton, SearchInput, Trash, Upload, useToast } from "@stash/ui";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { CrateMenu } from "../explore";
 import { categoryOf, cleanName, decode } from "../kits/store";
 import { fileName, INSTRUMENTS, instrumentOf, MELODIC, mineAsMelodic, NOTE_NAMES, peaksOf, playShot, saveMelodic, type InstrumentId, type MelodicShot } from "./melodic";
 import { postShots, removeShot, useMineVersion, type ShotDraft } from "./store";
@@ -287,6 +288,7 @@ export function OneShotsPage() {
                   <Wave shot={s} />
                   <span className="hidden w-14 shrink-0 text-right font-mono text-numeric tabular text-text-muted desktop:block">{seconds(s.durationMs)}</span>
                   <IconButton icon={Download} label={`Download ${s.name}`} size="md" disabled={busy !== null} onClick={() => void grab([s], fileName(s).replace(/\.\w+$/, ""))} />
+                  <CrateMenu itemId={`oneshot:${s.id}`} title={s.name} kind="One-shot" href="/one-shots" size="sm" />
                   {s.mine && (
                     <IconButton
                       icon={Trash}

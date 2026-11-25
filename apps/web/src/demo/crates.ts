@@ -58,6 +58,34 @@ export function deleteCrate(crateId: string) {
   save(load().filter((c) => c.id !== crateId));
 }
 
+/**
+ * What a crate needs to show an entry that is not a loop row or a MIDI item (a preset, one-shot,
+ * sample, kit or sound effect): its title, kind and the page it lives on. Kept beside the crates.
+ */
+export type CrateMeta = { title: string; kind: string; href: string; by?: string };
+const META_KEY = "stash.demo.crate-meta";
+let metaMemory: Record<string, CrateMeta> = {};
+
+export function crateMeta(): Record<string, CrateMeta> {
+  try {
+    const raw = window.localStorage.getItem(META_KEY);
+    if (raw) return JSON.parse(raw) as Record<string, CrateMeta>;
+  } catch {
+    // Memory copy.
+  }
+  return metaMemory;
+}
+
+export function rememberMeta(itemId: string, meta: CrateMeta) {
+  const next = { ...crateMeta(), [itemId]: meta };
+  metaMemory = next;
+  try {
+    window.localStorage.setItem(META_KEY, JSON.stringify(next));
+  } catch {
+    // This visit only.
+  }
+}
+
 export function useCrates(): Crate[] {
   const v = useSyncExternalStore(
     (l) => {

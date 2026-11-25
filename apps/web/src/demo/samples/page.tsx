@@ -7,6 +7,7 @@ import {
   UiLink,
 } from "@stash/ui";
 import { useState, type ReactNode } from "react";
+import { CrateMenu } from "../explore";
 import { songChordItems } from "../midi/catalog";
 import { albumOf, Cover, coverFor, tileStyle } from "../presets/cover";
 import { ALL_SONGS, songHref } from "../presets/songs";
@@ -662,6 +663,7 @@ export function SampleSongPage({ slug }: { slug: string }) {
                     Play the chords
                   </ButtonLink>
                 )}
+                <CrateMenu itemId={`sample:${s.slug}`} title={s.song} kind="Sample" href={sampleHref(s)} by={s.artist} size="sm" />
               </div>
             </div>
           </div>
@@ -937,6 +939,7 @@ export function OriginalPage({ slug }: { slug: string }) {
               {`What it samples · ${deeper.samples.length}`}
             </ButtonLink>
           )}
+          <CrateMenu itemId={`sample:original:${o.slug}`} title={o.title} kind="Sampled record" href={originalHref(o)} by={o.artist} size="sm" />
         </span>
       </PlainHero>
       <div className="mx-auto flex w-full max-w-content flex-col gap-3 px-3 py-8 tablet:px-4 desktop:px-6">

@@ -219,5 +219,5 @@ export async function downloadSfx(list: Sfx[], zipName: string): Promise<SaveOut
   }
   if (files.length === 0) return "empty";
   files.push({ name: "LICENSE.txt", data: new Blob([notes.join("\n")], { type: "text/plain" }) });
-  return saveFiles(zipName, files);
+  return saveFiles(zipName, files, { title: list.length === 1 ? zipName.replace(/_/g, " ") : `${zipName.replace(/_/g, " ")} (${list.length} sounds)`, kind: list.length === 1 ? "Sound effect" : "Sound effect pack", by: "Stash" });
 }

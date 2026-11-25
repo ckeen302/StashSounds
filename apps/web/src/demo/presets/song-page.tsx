@@ -1,4 +1,5 @@
 import { ButtonLink, EmptyState, UiLink } from "@stash/ui";
+import { CrateMenu } from "../explore";
 import { songChordItems } from "../midi/catalog";
 import { albumOf, Cover, coverFor, tileStyle } from "./cover";
 import { CONFIDENCE, presetParts, type PresetEntry } from "./data";
@@ -8,6 +9,7 @@ import {
   madeBy,
   producersOf,
   songBySlug,
+  slugify,
   songHref,
   type Song,
 } from "./songs";
@@ -99,7 +101,7 @@ export function PresetSongPage({ slug }: { slug: string }) {
           <h2 id="sounds" className="text-title text-text">The sounds</h2>
           <ol className="flex flex-col gap-3">
             {s.entries.map((e, i) => (
-              <SoundRow key={`${e.plugin}-${e.preset}-${e.role}-${i}`} e={e} n={i + 1} />
+              <SoundRow key={`${e.plugin}-${e.preset}-${e.role}-${i}`} e={e} n={i + 1} song={s} />
             ))}
           </ol>
         </section>
@@ -123,7 +125,7 @@ export function PresetSongPage({ slug }: { slug: string }) {
 }
 
 /** One sound: what part it plays, the plugin, the preset in big type, how sure, and the source behind a tap. */
-function SoundRow({ e, n }: { e: PresetEntry; n: number }) {
+function SoundRow({ e, n, song }: { e: PresetEntry; n: number; song: Song }) {
   const { name, note } = presetParts(e.preset);
   const short = CONFIDENCE[e.confidence].label.split(" · ")[1] ?? CONFIDENCE[e.confidence].label;
   return (
@@ -142,6 +144,14 @@ function SoundRow({ e, n }: { e: PresetEntry; n: number }) {
           <Meter c={e.confidence} />
           <span className={`text-small ${TONE_TEXT[e.confidence]}`}>{short}</span>
         </span>
+        <CrateMenu
+          itemId={`preset:${song.slug}:${slugify(`${e.plugin} ${e.preset ?? e.role}`)}`}
+          title={`${name} · ${song.song}`}
+          kind="Preset"
+          href={`/presets/${song.slug}`}
+          by={e.plugin}
+          size="sm"
+        />
       </div>
       <details className="st-details border-t border-border px-4 py-2">
         <summary className="flex cursor-pointer items-center gap-2 text-small text-text-muted ui-hover:text-text">
