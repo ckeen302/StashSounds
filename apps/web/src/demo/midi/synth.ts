@@ -96,6 +96,22 @@ export class MidiPlayer {
     return off.startRendering();
   }
 
+  /**
+   * Renders a melodic one-shot (one note, or a chord) to a buffer through the same voices as the
+   * player, on its own offline context: `hold` seconds held, then the voice's own release.
+   */
+  static async renderNotes(sound: Timbre, pitches: number[], hold: number, seconds: number): Promise<AudioBuffer> {
+    const rate = 44100;
+    const off = new OfflineAudioContext(2, Math.ceil(rate * Math.max(0.3, seconds)), rate);
+    const p = new MidiPlayer();
+    p.wire(off as unknown as AudioContext);
+    p.reverb.gain.value = 0.18;
+    // A chord's notes share the headroom, so a stacked pad is no louder than one note.
+    const vel = pitches.length > 1 ? Math.round(104 / Math.sqrt(pitches.length / 1.6)) : 104;
+    for (const pitch of pitches) p.voice(sound, pitch, Math.min(110, vel), 0.01, hold, false);
+    return off.startRendering();
+  }
+
   private wire(ctx: AudioContext): AudioContext {
     const comp = ctx.createDynamicsCompressor();
     comp.threshold.value = -14;

@@ -22,14 +22,14 @@ export type OneShot = KitSound & {
   postedAt: string;
 };
 
-type Stored = { id: string; name: string; category: Category; durationMs: number; fileKey: string; ext: string; postedAt: string };
+export type Stored = { id: string; name: string; category: Category; durationMs: number; fileKey: string; ext: string; postedAt: string };
 
 const KEY = "stash.demo.oneshots";
 let memory: Stored[] = [];
 let version = 0;
 const listeners = new Set<() => void>();
 
-function loadMine(): Stored[] {
+export function loadMine(): Stored[] {
   try {
     const raw = window.localStorage.getItem(KEY);
     if (raw) return JSON.parse(raw) as Stored[];

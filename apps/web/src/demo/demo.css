@@ -288,6 +288,14 @@ header > a[aria-label="Stash"] {
 .os-type[data-cat="perc"] { --os-c: var(--px-lav); }
 .os-type[data-cat="cymbal"] { --os-c: var(--px-pink); }
 .os-type[data-cat="fx"] { --os-c: var(--px-white); }
+.os-type[data-cat="keys"], .os-type[data-cat="piano"] { --os-c: var(--px-blue); }
+.os-type[data-cat="bells"], .os-type[data-cat="pluck"] { --os-c: var(--px-yellow); }
+.os-type[data-cat="pad"], .os-type[data-cat="strings"], .os-type[data-cat="choir"] { --os-c: var(--px-lav); }
+.os-type[data-cat="lead"], .os-type[data-cat="flute"] { --os-c: var(--px-pink); }
+.os-type[data-cat="bass"] { --os-c: var(--px-orange); }
+.os-type[data-cat="guitar"], .os-type[data-cat="acoustic"] { --os-c: var(--px-peach); }
+.os-type[data-cat="organ"] { --os-c: var(--px-green); }
+.os-key { min-width: 2.75rem; }
 html[data-look="console"] .os-type { border-width: 2px; border-radius: 0; }
 html[data-look="console"] .os-type[aria-pressed="true"] { box-shadow: 4px 4px 0 0 var(--px-k); transform: translate(-2px, -2px); }
 html[data-look="console"] .os-type-count { font-family: var(--font-pixel); font-size: 40px; line-height: 1; }

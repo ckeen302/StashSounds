@@ -40,6 +40,7 @@ import { PresetsPage } from "./presets/page";
 import { PresetSongPage } from "./presets/song-page";
 import { SoundDesign } from "./sound-design";
 import { OneShotsPage } from "./oneshots/page";
+import { MELODIC } from "./oneshots/melodic";
 import { SfxPage } from "./sfx/page";
 import { SFX } from "./sfx/library";
 import { UploadHub } from "./upload/page";
@@ -322,10 +323,9 @@ function Home() {
       .sort((a, b) => a.k - b.k)
       .map((x) => x.m);
   }, [midi]);
-  const hits = kits().reduce((n, k) => n + k.sounds.length, 0);
   const types = [
     { href: "/loops", t: "loop", name: "Loops", count: rows.length },
-    { href: "/one-shots", t: "oneshot", name: "One-shots", count: hits },
+    { href: "/one-shots", t: "oneshot", name: "One-shots", count: MELODIC.length },
     { href: "/kits", t: "kit", name: "Drum kits", count: kits().length },
     { href: "/midi", t: "midi", name: "MIDI", count: midi.length },
     { href: "/presets", t: "preset", name: "Presets", count: PRESETS.length },

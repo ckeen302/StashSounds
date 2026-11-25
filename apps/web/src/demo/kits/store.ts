@@ -279,6 +279,12 @@ export async function play(sound: KitSound | Draft, key?: string) {
     buf = await decode(data);
     if (id) decoded.set(id, buf);
   }
+  playBuffer(buf, false);
+}
+
+/** Plays a buffer now, cutting off whatever one-shot played before it. */
+export function playBuffer(buf: AudioBuffer, stop = true) {
+  if (stop) stopOthers();
   const c = audioContext();
   playingNode?.stop();
   const src = c.createBufferSource();

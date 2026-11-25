@@ -1,8 +1,9 @@
 import { Avatar, Download, IconButton, PlayButton, UiLink, useToast } from "@stash/ui";
 import { useMemo } from "react";
 import { ALL_PRODUCERS } from "./explore";
-import { labelOf, play, useKits, type Kit } from "./kits/store";
-import { allShots, saveShots, useMineVersion, type OneShot } from "./oneshots/store";
+import { labelOf, useKits, type Kit } from "./kits/store";
+import { instrumentOf, MELODIC, mineAsMelodic, playShot, saveMelodic, type MelodicShot } from "./oneshots/melodic";
+import { useMineVersion } from "./oneshots/store";
 import { ALL_SONGS, songHref, type Song } from "./presets/songs";
 import { categoryName, downloadSfx, playSfx, SFX, subName, usePlaying, type Sfx } from "./sfx/library";
 import { queryWords, textMatch, type Field } from "./text-match";
@@ -45,10 +46,10 @@ const kitFields = (k: Kit): Field[] => [
   { text: `${k.genre} ${k.owner.displayName} ${k.owner.handle}`, weight: 2 },
   { text: `${k.description} ${[...new Set(k.sounds.map((s) => labelOf(s.category)))].join(" ")}`, weight: 1 },
 ];
-const shotFields = (s: OneShot): Field[] => [
+const shotFields = (s: MelodicShot): Field[] => [
   { text: s.name, weight: 4 },
-  { text: `${labelOf(s.category)} ${s.category}`, weight: 3 },
-  { text: `${s.genre} ${s.kit?.name ?? ""} ${s.owner.displayName}`, weight: 1 },
+  { text: `${instrumentOf(s.instrument).label} ${s.label} ${s.kind === "chord" ? "chord" : "note"}`, weight: 3 },
+  { text: `${s.spoken} ${instrumentOf(s.instrument).sound}`, weight: 1 },
 ];
 const producerFields = (p: Producer): Field[] => [
   { text: p.displayName, weight: 4 },
@@ -59,7 +60,7 @@ export type OtherHits = {
   presets: Ranked<Song>;
   sfx: Ranked<Sfx>;
   kits: Ranked<Kit>;
-  shots: Ranked<OneShot>;
+  shots: Ranked<MelodicShot>;
   producers: Ranked<Producer>;
 };
 
@@ -74,7 +75,7 @@ export function useOtherHits(query: string): OtherHits {
       presets: rank(ALL_SONGS, songFields, words),
       sfx: rank(SFX, sfxFields, words),
       kits: rank(kits, kitFields, words),
-      shots: rank(allShots(kits), shotFields, words),
+      shots: rank([...mineAsMelodic(), ...MELODIC], shotFields, words),
       producers: rank(ALL_PRODUCERS, producerFields, words),
     };
     // `mine` changes when the viewer posts one-shots.
@@ -148,22 +149,22 @@ export function KitHits({ list }: { list: Kit[] }) {
   );
 }
 
-export function ShotHits({ list }: { list: OneShot[] }) {
+export function ShotHits({ list }: { list: MelodicShot[] }) {
   const toast = useToast();
   return (
     <ul aria-label="One-shot results" className={LIST}>
       {list.map((s) => (
         <li key={s.id} className={ROW}>
-          <PlayButton title={s.name} state="paused" onClick={() => void play(s, s.id)} />
+          <PlayButton title={s.name} state="paused" onClick={() => void playShot(s)} />
           <span className="flex min-w-0 flex-1 flex-col">
             <span className="truncate text-body-strong text-text">{s.name}</span>
-            <span className="truncate text-small text-text-muted">{[labelOf(s.category), s.kit?.name].filter(Boolean).join(" · ")}</span>
+            <span className="truncate text-small text-text-muted">{[instrumentOf(s.instrument).label, s.label, s.kind === "chord" ? "Chord" : "Note"].filter(Boolean).join(" · ")}</span>
           </span>
           <IconButton
             icon={Download}
             label={`Download ${s.name}`}
             onClick={() =>
-              void saveShots([s], s.name).then(({ outcome }) => {
+              void saveMelodic([s], s.name).then(({ outcome }) => {
                 if (outcome === "saved") toast({ tone: "success", title: "Downloaded", description: s.name });
               })
             }
