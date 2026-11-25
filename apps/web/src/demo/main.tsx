@@ -1036,7 +1036,7 @@ function AllMidi() {
           )}
         </section>
       )}
-      {progressions.length > 0 && (
+      {progressions.length > 0 && !filtered && (
         <section aria-labelledby="progressions" className="flex flex-col gap-3">
           <div className="flex items-end justify-between gap-3">
             <div className="flex flex-col gap-1">
