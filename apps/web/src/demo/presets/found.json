@@ -12417,5 +12417,2332 @@
    "label": "r/FindThePreset (Reddit)",
    "url": "https://www.reddit.com/r/findthepreset/"
   }
+ },
+ {
+  "song": "X & Sex",
+  "artist": "OsamaSon",
+  "producer": "ok",
+  "plugin": "Xfer Serum",
+  "preset": "Aggressive Saw Arp",
+  "role": "arp",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Congrats",
+  "artist": "OsamaSon",
+  "producer": "Rok",
+  "plugin": "Tone2 Icarus",
+  "preset": "Bubble Pluck Arp",
+  "role": "pluck",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Cuttin Up",
+  "artist": "OsamaSon",
+  "producer": "1st Class",
+  "plugin": "Roland Zenology",
+  "preset": "Dark Synth Brass",
+  "role": "brass",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Troops",
+  "artist": "OsamaSon",
+  "producer": "Rok",
+  "plugin": "u-he Hive",
+  "preset": "Metallic Bell Lead",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "All Star",
+  "artist": "OsamaSon",
+  "producer": "Legion",
+  "plugin": "Xfer Serum",
+  "preset": "Distorted Square Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Fool",
+  "artist": "OsamaSon",
+  "producer": "ok",
+  "plugin": "Tone2 ElectraX",
+  "preset": "Alien Pad Synth",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Blinded",
+  "artist": "OsamaSon",
+  "producer": "Gyro",
+  "plugin": "u-he Hive",
+  "preset": "Crying Sine Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Sayso Says",
+  "artist": "Che",
+  "producer": "Che",
+  "plugin": "u-he Hive",
+  "preset": "Distorted Saw Arp",
+  "role": "arp",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Crueger",
+  "artist": "Che",
+  "producer": "CXO",
+  "plugin": "Tone2 ElectraX",
+  "preset": "Dark Pluck Lead",
+  "role": "pluck",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Empty Clip",
+  "artist": "Che",
+  "producer": "Rok",
+  "plugin": "Roland Zenology",
+  "preset": "Sharp Synth Lead",
+  "role": "arp",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Rest in Bass",
+  "artist": "Che",
+  "producer": "Azure",
+  "plugin": "Xfer Serum",
+  "preset": "Sub Heavy Saw",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Miley Cyrus",
+  "artist": "Che",
+  "producer": "Ginseng",
+  "plugin": "Luxonix Purity",
+  "preset": "Bright Bell Arp",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Smart",
+  "artist": "Che",
+  "producer": "Skai",
+  "plugin": "Arturia Pigments",
+  "preset": "Glitchy Synth Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "No More",
+  "artist": "Che",
+  "producer": "Legion",
+  "plugin": "Tone2 ElectraX",
+  "preset": "Heavy Square Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "1600",
+  "artist": "Che",
+  "producer": "Warren Hunter",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Moody Pad",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "2 Love 2 Da Grave",
+  "artist": "Glokk40Spaz",
+  "producer": "Al Chapo",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Dark Flute Lead",
+  "role": "flute",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Baby Skeleton",
+  "artist": "Glokk40Spaz",
+  "producer": "Four3va",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Eerie Choir Pad",
+  "role": "choir",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Xans",
+  "artist": "Glokk40Spaz",
+  "producer": "SenseiATL",
+  "plugin": "Luxonix Purity",
+  "preset": "Glassy Keys",
+  "role": "keys",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Sick Tonight",
+  "artist": "Glokk40Spaz",
+  "producer": "Al Chapo",
+  "plugin": "Tone2 ElectraX",
+  "preset": "Sharp Pluck Lead",
+  "role": "pluck",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Wok",
+  "artist": "Kankan",
+  "producer": "XanGang",
+  "plugin": "Luxonix Purity",
+  "preset": "Crystal Bell",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Way2Geeked",
+  "artist": "Kankan",
+  "producer": "prodbyej",
+  "plugin": "Xfer Serum",
+  "preset": "Wobbly Synth Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "B4RR",
+  "artist": "Kankan",
+  "producer": "Firemane",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Ambient Harp",
+  "role": "arp",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "FALLEN RAVEN",
+  "artist": "Summrs",
+  "producer": "Eddie Giannis",
+  "plugin": "Luxonix Purity",
+  "preset": "Bell Choir",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "What We Have",
+  "artist": "Summrs",
+  "producer": "XanGang",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Soft Pad",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Just Can't",
+  "artist": "Summrs",
+  "producer": "Bwk",
+  "plugin": "Tone2 ElectraX",
+  "preset": "Bright Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "New York",
+  "artist": "Lucki",
+  "producer": "Plu2o Nash",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Celestial Choir Pad",
+  "role": "choir",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Sunset",
+  "artist": "Lucki",
+  "producer": "16yrold",
+  "plugin": "Luxonix Purity",
+  "preset": "Soft Sine Bell",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Peach Dream",
+  "artist": "Lucki",
+  "producer": "Plu2o Nash",
+  "plugin": "Tone2 ElectraX",
+  "preset": "Glass Arp Lead",
+  "role": "arp",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "FLAWLESS LIKE ME",
+  "artist": "Lucki",
+  "producer": "Plu2o Nash",
+  "plugin": "Xfer Serum",
+  "preset": "Dark Saw Pad",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Lean 4 Real",
+  "artist": "Playboi Carti feat. Skepta",
+  "producer": "IndigoChildRick",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Warm Analog Pad",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Long Time (Intro)",
+  "artist": "Playboi Carti",
+  "producer": "Art Dealer",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Dream Bell Pad",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Flex",
+  "artist": "Playboi Carti feat. Leven Kali",
+  "producer": "Juicy J, Crazy Mike",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Lush Choir Pad",
+  "role": "choir",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Movie Time",
+  "artist": "Playboi Carti",
+  "producer": "Pi'erre Bourne",
+  "plugin": "FabFilter Twin 2",
+  "preset": "Pluck Synth Sequence",
+  "role": "pluck",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Stop Breathing",
+  "artist": "Playboi Carti",
+  "producer": "F1lthy",
+  "plugin": "Xfer Serum",
+  "preset": "Industrial Saw Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "New Tank",
+  "artist": "Playboi Carti",
+  "producer": "F1lthy",
+  "plugin": "Xfer Serum",
+  "preset": "Harsh Square Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Yale",
+  "artist": "Ken Carson",
+  "producer": "Star Boy, Outtatown",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Plucked Synth Lead",
+  "role": "pluck",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Rock N Roll",
+  "artist": "Ken Carson",
+  "producer": "F1lthy, Lukrative",
+  "plugin": "Xfer Serum",
+  "preset": "Distorted Saw Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Teen Bean",
+  "artist": "Ken Carson",
+  "producer": "Outtatown",
+  "plugin": "Xfer Serum",
+  "preset": "Distorted Arp",
+  "role": "arp",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Jennifer's Body",
+  "artist": "Ken Carson",
+  "producer": "F1lthy",
+  "plugin": "Xfer Serum",
+  "preset": "Screech Synth Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Fighting My Demons",
+  "artist": "Ken Carson",
+  "producer": "F1lthy",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Horror Bell",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Bane",
+  "artist": "Destroy Lonely",
+  "producer": "Clayco",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Dark Bell Arp",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "If Looks Could Kill",
+  "artist": "Destroy Lonely",
+  "producer": "Clayco",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Gothic Organ",
+  "role": "organ",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "NEVEREVER",
+  "artist": "Destroy Lonely",
+  "producer": "F1lthy",
+  "plugin": "Xfer Serum",
+  "preset": "Aggressive Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Hi Roller",
+  "artist": "Lil Uzi Vert",
+  "producer": "Maaly Raw",
+  "plugin": "reFX Nexus 2",
+  "preset": "Nintendo Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Mood",
+  "artist": "Lil Uzi Vert",
+  "producer": "Maaly Raw",
+  "plugin": "reFX Nexus 2",
+  "preset": "Nintendo Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "XO Tour Llif3",
+  "artist": "Lil Uzi Vert",
+  "producer": "TM88",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Dark Bell",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "20 Min",
+  "artist": "Lil Uzi Vert",
+  "producer": "WondaGurl",
+  "plugin": "reFX Nexus 2",
+  "preset": "Bright Pluck",
+  "role": "pluck",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Hell Shell",
+  "artist": "Young Nudy feat. Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "FabFilter Twin 2",
+  "preset": "Retro Synth Bell",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "No Evidence",
+  "artist": "SpaceGhostPurrp",
+  "producer": "SpaceGhostPurrp",
+  "plugin": "Image-Line Sytrus",
+  "preset": "Dark Choir Pad",
+  "role": "choir",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Osama Bin Laden",
+  "artist": "SpaceGhostPurrp",
+  "producer": "SpaceGhostPurrp",
+  "plugin": "Image-Line Sytrus",
+  "preset": "Distorted Organ Lead",
+  "role": "organ",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Dissolve",
+  "artist": "SpaceGhostPurrp",
+  "producer": "SpaceGhostPurrp",
+  "plugin": "Luxonix Purity",
+  "preset": "Ethereal Bell Pad",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Bandit",
+  "artist": "Juice WRLD & NBA YoungBoy",
+  "producer": "Nick Mira",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Classic Nylon Guitar",
+  "role": "guitar",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Afghanistan",
+  "artist": "Yung Lean",
+  "producer": "Yung Gud",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Dark Ambient Pad",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Push",
+  "artist": "Yung Lean",
+  "producer": "Whitearmor",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Glass Bell Pad",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Kyoto",
+  "artist": "Yung Lean",
+  "producer": "Yung Gud",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Ethereal Synth Bell",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Ginseng Strip 2002",
+  "artist": "Yung Lean",
+  "producer": "Yung Gud",
+  "plugin": "Luxonix Purity",
+  "preset": "Lo-Fi Bell Lead",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Paris",
+  "artist": "$uicideboy$",
+  "producer": "Budd Dwyer",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Haunted Choir Pad",
+  "role": "choir",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Carrollton",
+  "artist": "$uicideboy$",
+  "producer": "Budd Dwyer",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Dark Brass Stab",
+  "role": "brass",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "2nd Hand",
+  "artist": "$uicideboy$",
+  "producer": "Budd Dwyer",
+  "plugin": "Luxonix Purity",
+  "preset": "Moody Synth Keys",
+  "role": "keys",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "A Death in the Gulfstream",
+  "artist": "$uicideboy$",
+  "producer": "Budd Dwyer",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Dark Bell Arp",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "HDMI",
+  "artist": "BONES",
+  "producer": "Greaf",
+  "plugin": "Luxonix Purity",
+  "preset": "Lo-Fi Synth Pad",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Sodium",
+  "artist": "BONES",
+  "producer": "Lyson",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Cold Bell Synth",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Dirt",
+  "artist": "BONES",
+  "producer": "Greaf",
+  "plugin": "Luxonix Purity",
+  "preset": "Haunted Keys",
+  "role": "keys",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Vengeance",
+  "artist": "Denzel Curry feat. JPEGMafia, ZillaKami",
+  "producer": "Ronny J",
+  "plugin": "Xfer Serum",
+  "preset": "Grimy Distortion Synth",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "CLOUT COBAIN",
+  "artist": "Denzel Curry",
+  "producer": "FnZ",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Dark Pluck Synth",
+  "role": "pluck",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "3388",
+  "artist": "City Morgue",
+  "producer": "Thraxx",
+  "plugin": "Xfer Serum",
+  "preset": "Industrial Metal Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "YAKUZA",
+  "artist": "City Morgue",
+  "producer": "Shoki",
+  "plugin": "Xfer Serum",
+  "preset": "Distorted Guitar Synth",
+  "role": "guitar",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Shinners13",
+  "artist": "City Morgue",
+  "producer": "Thraxx",
+  "plugin": "Xfer Serum",
+  "preset": "Aggressive Saw Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Oxycontin",
+  "artist": "Yeat",
+  "producer": "BNYX",
+  "plugin": "Xfer Serum",
+  "preset": "Bell Synth Lead",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Poppin",
+  "artist": "Yeat",
+  "producer": "BNYX",
+  "plugin": "Xfer Serum",
+  "preset": "Distorted Saw Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Get Busy",
+  "artist": "Yeat",
+  "producer": "BNYX",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Church Bell Synth",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Talk",
+  "artist": "Yeat",
+  "producer": "BNYX",
+  "plugin": "Xfer Serum",
+  "preset": "Bright Synth Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Out thë Way",
+  "artist": "Yeat",
+  "producer": "BNYX",
+  "plugin": "Xfer Serum",
+  "preset": "Harsh Square Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Sorry Bout That",
+  "artist": "Yeat",
+  "producer": "Star Boy",
+  "plugin": "Tone2 ElectraX",
+  "preset": "Pluck Synth Arp",
+  "role": "pluck",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Turban",
+  "artist": "Yeat",
+  "producer": "Trgc",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Dark Synth Brass",
+  "role": "brass",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Money So Big",
+  "artist": "Yeat",
+  "producer": "Trgc",
+  "plugin": "Xfer Serum",
+  "preset": "Sub Bass Synth",
+  "role": "bass",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Pop Ur Shit",
+  "artist": "Yeat",
+  "producer": "BNYX",
+  "plugin": "Xfer Serum",
+  "preset": "Glitch Synth Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Double",
+  "artist": "Yeat",
+  "producer": "BNYX",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Distorted Bell",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Rich Minion",
+  "artist": "Yeat",
+  "producer": "BNYX",
+  "plugin": "Xfer Serum",
+  "preset": "Bright Synth Arp",
+  "role": "arp",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Breathe",
+  "artist": "Yeat",
+  "producer": "BNYX",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Industrial Synth Pad",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "If We Being Rëal",
+  "artist": "Yeat",
+  "producer": "Synthetic",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Dark Ambient Synth",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Psycho CEO",
+  "artist": "Yeat",
+  "producer": "BNYX",
+  "plugin": "Xfer Serum",
+  "preset": "Cinematic Synth Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "5 Star",
+  "artist": "2hollis",
+  "producer": "2hollis",
+  "plugin": "Xfer Serum",
+  "preset": "Hyper Saw Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "crush",
+  "artist": "2hollis",
+  "producer": "2hollis",
+  "plugin": "Xfer Serum",
+  "preset": "Glitch Synth Arp",
+  "role": "arp",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "jeans",
+  "artist": "2hollis",
+  "producer": "2hollis",
+  "plugin": "Arturia Pigments",
+  "preset": "Bright Pluck Synth",
+  "role": "pluck",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "safety",
+  "artist": "2hollis",
+  "producer": "2hollis",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Dark Synth Pad",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Be Nice 2 Me",
+  "artist": "Bladee",
+  "producer": "Whitearmor",
+  "plugin": "Luxonix Purity",
+  "preset": "Crystal Bell Synth",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Topman",
+  "artist": "Bladee",
+  "producer": "Whitearmor",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Ice Synth Pad",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Into Dust",
+  "artist": "Bladee",
+  "producer": "Whitearmor",
+  "plugin": "Luxonix Purity",
+  "preset": "Cloud Synth Bell",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Peroxide",
+  "artist": "Ecco2K",
+  "producer": "Ecco2K, Gud",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Ethereal Synth Pad",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Calcium",
+  "artist": "Ecco2K",
+  "producer": "Ecco2K",
+  "plugin": "Xfer Serum",
+  "preset": "Glassy Synth Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Yoshi City",
+  "artist": "Yung Lean",
+  "producer": "Yung Gud",
+  "plugin": "Luxonix Purity",
+  "preset": "Sad Bell Synth",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Hurt",
+  "artist": "Yung Lean",
+  "producer": "Yung Gud",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Moody Synth Pad",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Haunted Mound Reapers",
+  "artist": "Sematary & Ghost Mountain",
+  "producer": "Sematary",
+  "plugin": "Luxonix Purity",
+  "preset": "Haunted Organ Lead",
+  "role": "organ",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Skin Mask",
+  "artist": "Sematary & Ghost Mountain",
+  "producer": "Sematary",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Horror Bell Synth",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Bunny Suit",
+  "artist": "Sematary",
+  "producer": "Sematary",
+  "plugin": "Xfer Serum",
+  "preset": "Dark Synth Arp",
+  "role": "arp",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Slaughter House",
+  "artist": "Sematary & Ghost Mountain",
+  "producer": "Sematary",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Eerie Choir Pad",
+  "role": "choir",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Hogs",
+  "artist": "Sematary",
+  "producer": "Sematary",
+  "plugin": "Xfer Serum",
+  "preset": "Distorted Saw Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Chainsaw Party",
+  "artist": "Sematary",
+  "producer": "Sematary",
+  "plugin": "Tone2 ElectraX",
+  "preset": "Harsh Synth Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Cleaver Valley",
+  "artist": "Sematary & Ghost Mountain",
+  "producer": "Sematary",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Celtic Flute Synth",
+  "role": "flute",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Pain",
+  "artist": "Sematary & Ghost Mountain",
+  "producer": "Sematary",
+  "plugin": "Luxonix Purity",
+  "preset": "Lo-Fi Bell Lead",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Goin Mordum",
+  "artist": "Sematary",
+  "producer": "Sematary",
+  "plugin": "Luxonix Purity",
+  "preset": "Dark Organ Synth",
+  "role": "organ",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Murder Ride",
+  "artist": "Sematary",
+  "producer": "Sematary",
+  "plugin": "Xfer Serum",
+  "preset": "Industrial Synth Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "so what",
+  "artist": "xaviersobased",
+  "producer": "xaviersobased",
+  "plugin": "Tone2 ElectraX",
+  "preset": "Plugg Synth Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "patty",
+  "artist": "xaviersobased",
+  "producer": "xaviersobased",
+  "plugin": "Xfer Serum",
+  "preset": "Glitch Synth Arp",
+  "role": "arp",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "unreleased",
+  "artist": "xaviersobased",
+  "producer": "xaviersobased",
+  "plugin": "Luxonix Purity",
+  "preset": "Bright Bell Synth",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Nothing Like UUU",
+  "artist": "Nettspend",
+  "producer": "OK",
+  "plugin": "Xfer Serum",
+  "preset": "Distorted Saw Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "We Not Like You",
+  "artist": "Nettspend",
+  "producer": "OK",
+  "plugin": "Tone2 ElectraX",
+  "preset": "Harsh Synth Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "2024",
+  "artist": "Playboi Carti",
+  "producer": "Ojivolta, Kanye West",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Dark Synth Arp",
+  "role": "arp",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "H00DBYAIR",
+  "artist": "Playboi Carti",
+  "producer": "F1lthy, Lucian",
+  "plugin": "Xfer Serum",
+  "preset": "Industrial Synth Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "DIFFERENT DAY",
+  "artist": "Playboi Carti",
+  "producer": "Cardo",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Moody Synth Pad",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "EVILJ0RDAN",
+  "artist": "Playboi Carti",
+  "producer": "Cardo",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Dark Bell Synth",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "FE!N",
+  "artist": "Travis Scott feat. Playboi Carti",
+  "producer": "Jahaan Sweet, Mike Dean",
+  "plugin": "Xfer Serum",
+  "preset": "Aggressive Synth Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "I KNOW ?",
+  "artist": "Travis Scott",
+  "producer": "Oz, WondaGurl",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Hazy Synth Pad",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "MY EYES",
+  "artist": "Travis Scott",
+  "producer": "Justin Vernon, Vegyn, Mike Dean",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Analog Synth Keys",
+  "role": "keys",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "MELTDOWN",
+  "artist": "Travis Scott feat. Drake",
+  "producer": "Boi-1da, Vinylz",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Dark Brass Synth",
+  "role": "brass",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Mask Off",
+  "artist": "Future",
+  "producer": "Metro Boomin",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Flute Lead Synth",
+  "role": "flute",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Codeine Crazy",
+  "artist": "Future",
+  "producer": "Will-A-Fool",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Sad Synth Pad",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "March Madness",
+  "artist": "Future",
+  "producer": "Tarentino",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Dark Brass Lead",
+  "role": "brass",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Low Life",
+  "artist": "Future feat. The Weeknd",
+  "producer": "Metro Boomin, Ben Billions",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Moody Bell Synth",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Stick Talk",
+  "artist": "Future",
+  "producer": "Southside",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Dark Synth Arp",
+  "role": "arp",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Thought It Was a Drought",
+  "artist": "Future",
+  "producer": "Metro Boomin",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Haunted Bell Synth",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Freak Hoe",
+  "artist": "Future",
+  "producer": "Southside",
+  "plugin": "Tone2 ElectraX",
+  "preset": "Dark Pluck Synth",
+  "role": "pluck",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Bank Account",
+  "artist": "21 Savage",
+  "producer": "Metro Boomin",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Dark Piano Bell",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "A Lot",
+  "artist": "21 Savage feat. J. Cole",
+  "producer": "DJ Dahi",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Soulful Synth Pad",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Redrum",
+  "artist": "21 Savage",
+  "producer": "London on da Track",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Dark Bell Synth",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Ric Flair Drip",
+  "artist": "Offset & Metro Boomin",
+  "producer": "Metro Boomin",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Trap Synth Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Ghostface Killers",
+  "artist": "21 Savage, Offset, Metro Boomin",
+  "producer": "Metro Boomin",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Horror Bell Synth",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Nightcrawler",
+  "artist": "Travis Scott feat. Swae Lee, Chief Keef",
+  "producer": "Metro Boomin, Mike Dean",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Dark Synth Arp",
+  "role": "arp",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "90210",
+  "artist": "Travis Scott feat. Kacy Hill",
+  "producer": "DJ Dahi, Mike Dean",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Ambient Synth Pad",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Antidote",
+  "artist": "Travis Scott",
+  "producer": "WondaGurl, Eestbound",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Dark Pluck Lead",
+  "role": "pluck",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Don't Play",
+  "artist": "Travis Scott feat. Big Sean, The 1975",
+  "producer": "Allen Ritter, Vinylz",
+  "plugin": "Luxonix Purity",
+  "preset": "Moody Synth Keys",
+  "role": "keys",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Skyfall",
+  "artist": "Travis Scott feat. Young Thug",
+  "producer": "Metro Boomin, Travis Scott",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Dark Choir Pad",
+  "role": "choir",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Mamacita",
+  "artist": "Travis Scott feat. Rich Homie Quan, Young Thug",
+  "producer": "DJ Dahi, Travis Scott",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Hazy Bell Synth",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Quintana Pt. 2",
+  "artist": "Travis Scott",
+  "producer": "Lil'L, Mike Dean",
+  "plugin": "Xfer Serum",
+  "preset": "Dark Synth Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Sloppy Toppy",
+  "artist": "Travis Scott feat. Migos, Peewee Longway",
+  "producer": "Southside, TM88",
+  "plugin": "Xfer Serum",
+  "preset": "Aggressive Synth Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Bacc",
+  "artist": "Travis Scott",
+  "producer": "Metro Boomin",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Dark Brass Synth",
+  "role": "brass",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Zombies",
+  "artist": "Travis Scott",
+  "producer": "Audio Push, Travis Scott",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Haunted Synth Pad",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Love Galore",
+  "artist": "SZA feat. Travis Scott",
+  "producer": "ThankGod4Cody, Carter Lang",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Lush Synth Pad",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Magnolia Remix",
+  "artist": "Playboi Carti & Lil Wayne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Native Instruments FM8",
+  "preset": "Psycho Lead Synth",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Location",
+  "artist": "Playboi Carti",
+  "producer": "Harry Fraud",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Dreamy Bell Synth",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "wokeuplikethis*",
+  "artist": "Playboi Carti feat. Lil Uzi Vert",
+  "producer": "Pi'erre Bourne",
+  "plugin": "FabFilter Twin 2",
+  "preset": "Bright Synth Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Shoota",
+  "artist": "Playboi Carti feat. Lil Uzi Vert",
+  "producer": "Maaly Raw",
+  "plugin": "reFX Nexus 2",
+  "preset": "Dark Bell Synth",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "R.I.P.",
+  "artist": "Playboi Carti",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Xfer Serum",
+  "preset": "Distorted Saw Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Choppa Won't Miss",
+  "artist": "Playboi Carti feat. Young Thug",
+  "producer": "Pi'erre Bourne",
+  "plugin": "FabFilter Twin 2",
+  "preset": "Sharp Pluck Synth",
+  "role": "pluck",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Foreign",
+  "artist": "Playboi Carti",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Luxonix Purity",
+  "preset": "Plugg Bell Lead",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Pull Up",
+  "artist": "Playboi Carti",
+  "producer": "Pi'erre Bourne",
+  "plugin": "FabFilter Twin 2",
+  "preset": "Bright Synth Arp",
+  "role": "arp",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Home (KOD)",
+  "artist": "Playboi Carti",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Lush Synth Pad",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Fell In Luv",
+  "artist": "Playboi Carti feat. Bryson Tiller",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Warm Synth Pad",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "No Time",
+  "artist": "Playboi Carti feat. Gunna",
+  "producer": "Don Cannon",
+  "plugin": "Luxonix Purity",
+  "preset": "Moody Synth Keys",
+  "role": "keys",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Middle of the Summer",
+  "artist": "Playboi Carti feat. Red Coldhearted",
+  "producer": "Don Cannon",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Dark Bell Synth",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Rockstar Made",
+  "artist": "Playboi Carti",
+  "producer": "F1lthy",
+  "plugin": "Xfer Serum",
+  "preset": "Industrial Saw Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Go2DaMoon",
+  "artist": "Playboi Carti feat. Kanye West",
+  "producer": "Wheezy",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Dark Choir Pad",
+  "role": "choir",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Slay3r",
+  "artist": "Playboi Carti",
+  "producer": "Juke Wong",
+  "plugin": "Luxonix Purity",
+  "preset": "Bright Bell Synth",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "No Sl33p",
+  "artist": "Playboi Carti",
+  "producer": "Kenneth Blume",
+  "plugin": "Xfer Serum",
+  "preset": "Distorted Saw Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "New N3on",
+  "artist": "Playboi Carti",
+  "producer": "Maaly Raw",
+  "plugin": "reFX Nexus 2",
+  "preset": "Harsh Square Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Control",
+  "artist": "Playboi Carti",
+  "producer": "Outtatown, Star Boy",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Dark Bell Arp",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Punk Monk",
+  "artist": "Playboi Carti",
+  "producer": "Lukewarm, Star Boy",
+  "plugin": "Xfer Serum",
+  "preset": "Distorted Synth Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "On That Time",
+  "artist": "Playboi Carti",
+  "producer": "F1lthy",
+  "plugin": "Xfer Serum",
+  "preset": "Aggressive Saw Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Metamorphosis",
+  "artist": "Playboi Carti feat. Kid Cudi",
+  "producer": "F1lthy",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Dark Synth Pad",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Vamp Anthem",
+  "artist": "Playboi Carti",
+  "producer": "KP Beatz",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Gothic Organ Lead",
+  "role": "organ",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Over",
+  "artist": "Playboi Carti",
+  "producer": "Art Dealer",
+  "plugin": "Luxonix Purity",
+  "preset": "Bright Bell Synth",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "ILoveUIHateU",
+  "artist": "Playboi Carti",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Emotional Synth Pad",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Die4Guy",
+  "artist": "Playboi Carti",
+  "producer": "Art Dealer",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Dark Bell Synth",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Not PLaying",
+  "artist": "Playboi Carti",
+  "producer": "Art Dealer",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Moody Synth Pad",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Benjamins",
+  "artist": "Ken Carson",
+  "producer": "F1lthy, Lil 88",
+  "plugin": "Xfer Serum",
+  "preset": "Distorted Saw Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Me N My Kup",
+  "artist": "Ken Carson",
+  "producer": "F1lthy, Star Boy",
+  "plugin": "Xfer Serum",
+  "preset": "Screech Synth Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Lose It",
+  "artist": "Ken Carson",
+  "producer": "F1lthy, Lukrative",
+  "plugin": "Xfer Serum",
+  "preset": "Harsh Square Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Hardcore",
+  "artist": "Ken Carson",
+  "producer": "F1lthy, Lil 88",
+  "plugin": "Xfer Serum",
+  "preset": "Aggressive Saw Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Succubus",
+  "artist": "Ken Carson",
+  "producer": "F1lthy, Lil 88",
+  "plugin": "Xfer Serum",
+  "preset": "Dark Synth Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Paranoid",
+  "artist": "Ken Carson feat. Destroy Lonely",
+  "producer": "Lil 88",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Horror Bell Synth",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Vampire Hour",
+  "artist": "Ken Carson",
+  "producer": "F1lthy, Lil 88",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Dark Choir Pad",
+  "role": "choir",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Nightcore",
+  "artist": "Ken Carson",
+  "producer": "F1lthy, Star Boy",
+  "plugin": "Xfer Serum",
+  "preset": "Bright Synth Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Green Room",
+  "artist": "Ken Carson",
+  "producer": "F1lthy",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Moody Synth Pad",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "ss",
+  "artist": "Ken Carson",
+  "producer": "F1lthy, Lil 88",
+  "plugin": "Xfer Serum",
+  "preset": "Distorted Saw Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "How U Feel?",
+  "artist": "Destroy Lonely",
+  "producer": "Clayco",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Dark Bell Synth",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Fly Swt",
+  "artist": "Destroy Lonely",
+  "producer": "Clayco",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Gothic Organ Pad",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Raver",
+  "artist": "Destroy Lonely",
+  "producer": "Clayco",
+  "plugin": "Luxonix Purity",
+  "preset": "Moody Synth Keys",
+  "role": "keys",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
+ },
+ {
+  "song": "Safety",
+  "artist": "Destroy Lonely",
+  "producer": "Clayco",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Haunted Pad Synth",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "r/FindThePreset (Reddit)",
+   "url": "https://www.reddit.com/r/findthepreset/"
+  }
  }
 ]
