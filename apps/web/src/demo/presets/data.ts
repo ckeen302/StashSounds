@@ -16,6 +16,7 @@ export const CONFIDENCE: Record<Confidence, { label: string; blurb: string }> = 
   community: { label: "Common · community found", blurb: "Producers in a forum thread matched it by ear. Unverified: check before you rely on it." },
 };
 
+/** Where a row came from. No url when a Stash member sent it in directly. */
 export type Source = { label: string; url: string };
 
 export type PresetEntry = {

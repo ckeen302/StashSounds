@@ -159,9 +159,13 @@ function SoundRow({ e, n }: { e: PresetEntry; n: number }) {
               “{e.quote}”{e.quoteBy && <span className="text-text-muted"> — {e.quoteBy}</span>}
             </blockquote>
           )}
-          <a href={e.source.url} target="_blank" rel="noreferrer" className="self-start text-small break-words text-text-muted underline underline-offset-2 ui-hover:text-text">
-            {e.source.label}
-          </a>
+          {e.source.url ? (
+            <a href={e.source.url} target="_blank" rel="noreferrer" className="self-start text-small break-words text-text-muted underline underline-offset-2 ui-hover:text-text">
+              {e.source.label}
+            </a>
+          ) : (
+            <span className="text-small break-words text-text-muted">{e.source.label}</span>
+          )}
           <span className="text-small text-text-muted">{CONFIDENCE[e.confidence].blurb}</span>
         </div>
       </details>

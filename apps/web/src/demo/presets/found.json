@@ -9731,5 +9731,59 @@
    "url": "https://equipboard.com/pros/royce-david"
   },
   "quote": "The main preset is a synth sound called LD Big Faith and and the background preset is PD MoonCloud."
+ },
+ {
+  "song": "ASTROTHUNDER",
+  "artist": "Travis Scott",
+  "producer": "Frank Dukes, John Mayer, Travis Scott, Thundercat, River Tiber",
+  "plugin": "Tone2 ElectraX",
+  "preset": "VRP - Alicia",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "Sent in by Caden (Stash)",
+   "url": ""
+  },
+  "path": "Ocean Veau Gucci Gang bank"
+ },
+ {
+  "song": "Yosemite",
+  "artist": "Travis Scott",
+  "producer": "June James, Turbo, Ramy",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Lotus Flute",
+  "role": "flute",
+  "confidence": "community",
+  "source": {
+   "label": "Sent in by Caden (Stash)",
+   "url": ""
+  }
+ },
+ {
+  "song": "BUTTERFLY EFFECT",
+  "artist": "Travis Scott",
+  "producer": "Murda Beatz, Felix Leone",
+  "plugin": "Arturia Analog Lab",
+  "preset": "Butterflies",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "Sent in by Caden (Stash)",
+   "url": ""
+  }
+ },
+ {
+  "song": "HOUSTONFORNICATION",
+  "artist": "Travis Scott",
+  "producer": "Sevn Thomas, Wallis Lane",
+  "plugin": "reFX Nexus",
+  "preset": "Jupiter",
+  "role": "choir",
+  "confidence": "community",
+  "source": {
+   "label": "Sent in by Caden (Stash)",
+   "url": ""
+  },
+  "path": "Voices category"
  }
 ]
