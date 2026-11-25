@@ -163,7 +163,7 @@
  {
   "song": "3500",
   "artist": "Travis Scott feat. Future & 2 Chainz",
-  "producer": "Unknown",
+  "producer": "Travis Scott, Metro Boomin, Dean, Mano, Ritter, Zaytoven",
   "plugin": "Roland M-DC1 sound module (hardware)",
   "preset": "Aaaah! (169)",
   "role": "Vocal 'aaah' stab",
@@ -191,7 +191,7 @@
  {
   "song": "End of Discussion",
   "artist": "Rich the Kid",
-  "producer": "Unknown",
+  "producer": "Power",
   "plugin": "Roland M-DC1 sound module (hardware)",
   "preset": "Aaaah! (169)",
   "role": "Vocal 'aaah' stab",
@@ -331,7 +331,7 @@
  {
   "song": "Hero",
   "artist": "Nas",
-  "producer": "Unknown",
+  "producer": "Polow da Don",
   "plugin": "Native Instruments Massive",
   "preset": "Butterfly Stance",
   "role": "Synth (role not specified)",
@@ -415,7 +415,7 @@
  {
   "song": "Umbrella",
   "artist": "Rihanna feat. Jay-Z",
-  "producer": "Unknown",
+  "producer": "Tricky Stewart",
   "plugin": "Apple GarageBand (Apple Loops)",
   "preset": "Vintage Funk Kit 03",
   "role": "Drum loop",
@@ -429,7 +429,7 @@
  {
   "song": "Anaconda",
   "artist": "Nicki Minaj",
-  "producer": "Unknown",
+  "producer": "Polow da Don, AnonXmous, Da Internz",
   "plugin": "E-mu sampler factory library",
   "preset": "Wind-chimes, Birds and Streams (Loop Garden)",
   "role": "Keyboard sound",
@@ -443,7 +443,7 @@
  {
   "song": "Clique",
   "artist": "Kanye West feat. Jay-Z & Big Sean",
-  "producer": "Unknown",
+  "producer": "Hit-Boy",
   "plugin": "Zero-G Africa (sample library, 1991)",
   "preset": "Africa voice 161",
   "role": "Vocal sample",
@@ -457,7 +457,7 @@
  {
   "song": "Big Shot",
   "artist": "Kendrick Lamar & Travis Scott",
-  "producer": "Unknown",
+  "producer": "Matt Schaeffer, Sounwave, CuBeatz, Cardo",
   "plugin": "Zero-G Africa (sample library)",
   "preset": "Africa 13 111",
   "role": "Vocal sample",
@@ -471,7 +471,7 @@
  {
   "song": "FEEL.",
   "artist": "Kendrick Lamar",
-  "producer": "Unknown",
+  "producer": "Sounwave",
   "plugin": "Loopmasters (Sample Boutique) sample library",
   "preset": "COF_125_Am_LaidOut_Underwater / COF_134_B_Changed_Dopey",
   "role": "Melodic loops",
@@ -499,7 +499,7 @@
  {
   "song": "Break Up",
   "artist": "Mario feat. Gucci Mane & Sean Garrett",
-  "producer": "Unknown",
+  "producer": "Bangladesh, Sean Garrett",
   "plugin": "Image-Line FL Studio stock content",
   "preset": null,
   "role": "Main melody",
@@ -527,7 +527,7 @@
  {
   "song": "P.I.M.P.",
   "artist": "50 Cent",
-  "producer": "Unknown",
+  "producer": "Mr. Porter",
   "plugin": "Korg Triton (hardware workstation)",
   "preset": "B121 Steel Pan Band combi",
   "role": "Featured Triton sound (part not specified by source)",
@@ -541,7 +541,7 @@
  {
   "song": "Tokyo Drift (Fast & Furious)",
   "artist": "Teriyaki Boyz",
-  "producer": "Unknown",
+  "producer": "The Neptunes",
   "plugin": "Korg Triton (hardware workstation)",
   "preset": "A111 Bali Gamelon",
   "role": "Featured Triton sound (part not specified by source)",
@@ -555,7 +555,7 @@
  {
   "song": "I Just Wanna Love U (Give It 2 Me)",
   "artist": "JAY-Z",
-  "producer": "Unknown",
+  "producer": "The Neptunes",
   "plugin": "Korg Triton (hardware workstation)",
   "preset": "C021 Nu Strat",
   "role": "Featured Triton sound (part not specified by source)",
@@ -569,7 +569,7 @@
  {
   "song": "Nothin'",
   "artist": "N.O.R.E.",
-  "producer": "Unknown",
+  "producer": "The Neptunes",
   "plugin": "Korg Triton (hardware workstation)",
   "preset": "B045 BambuSilverFlute",
   "role": "Featured Triton sound (part not specified by source)",
@@ -583,7 +583,7 @@
  {
   "song": "Rubber Band Man",
   "artist": "T.I.",
-  "producer": "Unknown",
+  "producer": "David Banner",
   "plugin": "Korg Triton (hardware workstation)",
   "preset": "C055 Jazz Organ 2",
   "role": "Featured Triton sound (part not specified by source)",
@@ -597,7 +597,7 @@
  {
   "song": "Down Bottom",
   "artist": "Ruff Ryders",
-  "producer": "Unknown",
+  "producer": "Swizz Beatz",
   "plugin": "Korg Triton (hardware workstation)",
   "preset": "A009 Fat Brass",
   "role": "Featured Triton sound (part not specified by source)",
@@ -611,7 +611,7 @@
  {
   "song": "Excuse Me Miss",
   "artist": "JAY-Z",
-  "producer": "Unknown",
+  "producer": "The Neptunes",
   "plugin": "Korg Triton (hardware workstation)",
   "preset": "A096 Digital PolySix",
   "role": "Featured Triton sound (part not specified by source)",
@@ -625,7 +625,7 @@
  {
   "song": "Shake That Monkey",
   "artist": "Too Short",
-  "producer": "Unknown",
+  "producer": "Lil Jon",
   "plugin": "Korg Triton (hardware workstation)",
   "preset": "G013 Marimba",
   "role": "Featured Triton sound (part not specified by source)",
@@ -639,7 +639,7 @@
  {
   "song": "Cot Damn",
   "artist": "Clipse",
-  "producer": "Unknown",
+  "producer": "The Neptunes",
   "plugin": "Korg Triton (hardware workstation)",
   "preset": "A001 Acoustic Piano",
   "role": "Featured Triton sound (part not specified by source)",
@@ -667,7 +667,7 @@
  {
   "song": "Dirt Off Your Shoulder",
   "artist": "JAY-Z",
-  "producer": "Unknown",
+  "producer": "Timbaland",
   "plugin": "Korg Triton (hardware workstation)",
   "preset": "C062 Stereo Rez Sweep",
   "role": "Featured Triton sound (part not specified by source)",
@@ -681,7 +681,7 @@
  {
   "song": "Flap Your Wings",
   "artist": "Nelly",
-  "producer": "Unknown",
+  "producer": "The Neptunes",
   "plugin": "Korg Triton (hardware workstation)",
   "preset": "A096 Digital PolySix",
   "role": "Featured Triton sound (part not specified by source)",
@@ -723,7 +723,7 @@
  {
   "song": "Needed Me",
   "artist": "Rihanna",
-  "producer": "Unknown",
+  "producer": "DJ Mustard",
   "plugin": "Output Exhale",
   "preset": null,
   "role": "Vocal textures under the beat",
@@ -737,7 +737,7 @@
  {
   "song": "Faithful",
   "artist": "Drake feat. Pimp C & dvsn",
-  "producer": "Unknown",
+  "producer": "40, Boi-1da, Nineteen85",
   "plugin": "Output Exhale",
   "preset": null,
   "role": "Filtered keys, bass and pitched vocals",
@@ -751,7 +751,7 @@
  {
   "song": "Group Home",
   "artist": "Future feat. Young Thug",
-  "producer": "Unknown",
+  "producer": "Fuse, TM88",
   "plugin": "Output Exhale",
   "preset": null,
   "role": "Vocal chops",
@@ -2846,7 +2846,7 @@
  {
   "song": "Moonlight",
   "artist": "XXXTentacion",
-  "producer": "Unknown",
+  "producer": "John Cunningham",
   "plugin": "Spectrasonics Omnisphere",
   "preset": null,
   "role": "Main melody (preset shown in video)",
@@ -3185,7 +3185,7 @@
  {
   "song": "Clint Eastwood",
   "artist": "Gorillaz feat. Del the Funky Homosapien",
-  "producer": "Unknown",
+  "producer": "Gorillaz, Dan the Automator, Jason Cox, Tom Girling",
   "plugin": "Suzuki Omnichord (hardware)",
   "preset": "Rock 1",
   "role": "Beat/rhythm loop",
@@ -3200,7 +3200,7 @@
  {
   "song": "Kinda Like a Big Deal",
   "artist": "Clipse feat. Kanye West",
-  "producer": "Unknown",
+  "producer": "DJ Khalil, Chin Injeti",
   "plugin": "Native Instruments Guitar Rig (effect)",
   "preset": null,
   "role": "Distortion on the guitar riffs",
@@ -3230,7 +3230,7 @@
  {
   "song": "So Into You",
   "artist": "Fabolous feat. Tamia",
-  "producer": "Unknown",
+  "producer": "DJ Clue, DURO",
   "plugin": "Roland JV-1080 (hardware module)",
   "preset": null,
   "role": "Wind-chime/string sound placed throughout the song",
@@ -3245,7 +3245,7 @@
  {
   "song": "Thank God I Found You (Make It Last Remix)",
   "artist": "Mariah Carey",
-  "producer": "Unknown",
+  "producer": "DJ Clue",
   "plugin": "Roland Juno-106, JV-1080 and JV-2080 (hardware)",
   "preset": null,
   "role": "All non-live sounds in the recreated sample",
@@ -3415,7 +3415,7 @@
  {
   "song": "Still D.R.E.",
   "artist": "Dr. Dre feat. Snoop Dogg",
-  "producer": "Unknown",
+  "producer": "Dr. Dre, Mel-Man",
   "plugin": "Korg Triton (hardware workstation)",
   "preset": "Harp",
   "role": "Not stated (Harp program)",
@@ -3431,7 +3431,7 @@
  {
   "song": "Milkshake",
   "artist": "Kelis",
-  "producer": "Unknown",
+  "producer": "The Neptunes",
   "plugin": "Korg Triton (hardware workstation)",
   "preset": "Indian Ocean",
   "role": "Most of the beat",
@@ -3447,7 +3447,7 @@
  {
   "song": "March Madness",
   "artist": "Future",
-  "producer": "Unknown",
+  "producer": "Tarentino",
   "plugin": "Image-Line Purity",
   "preset": "Sky Walker 3",
   "role": "Main synth (with Gross Beat slow triplet)",
@@ -3495,7 +3495,7 @@
  {
   "song": "Goosebumps",
   "artist": "Travis Scott feat. Kendrick Lamar",
-  "producer": "Unknown",
+  "producer": "Cardo, Cubeatz, Yung Exclusive",
   "plugin": "Spectrasonics Omnisphere",
   "preset": null,
   "role": "Not stated",
@@ -3510,7 +3510,7 @@
  {
   "song": "Fell In Luv",
   "artist": "Playboi Carti feat. Bryson Tiller",
-  "producer": "Unknown",
+  "producer": "Pi'erre Bourne",
   "plugin": "Native Instruments FM8",
   "preset": "Classic Flute",
   "role": "Flute",
@@ -3525,7 +3525,7 @@
  {
   "song": "Old Money",
   "artist": "Playboi Carti",
-  "producer": "Unknown",
+  "producer": "Pi'erre Bourne",
   "plugin": "Xfer Serum",
   "preset": "PD Quasar [LT]",
   "role": "Pad (also Lead with Osc A off)",
@@ -3541,7 +3541,7 @@
  {
   "song": "Old Money",
   "artist": "Playboi Carti",
-  "producer": "Unknown",
+  "producer": "Pi'erre Bourne",
   "plugin": "Xfer Serum",
   "preset": "BA Downsampler [FN]",
   "role": "Bass",
@@ -3636,7 +3636,7 @@
  {
   "song": "Foreign",
   "artist": "Playboi Carti",
-  "producer": "Unknown",
+  "producer": "Pi'erre Bourne",
   "plugin": "Image-Line FL Keys",
   "preset": "Default",
   "role": "Piano",
@@ -3651,7 +3651,7 @@
  {
   "song": "Foreign",
   "artist": "Playboi Carti",
-  "producer": "Unknown",
+  "producer": "Pi'erre Bourne",
   "plugin": "Image-Line Purity",
   "preset": "Steel Drums",
   "role": "Steel drum",
@@ -3667,7 +3667,7 @@
  {
   "song": "Foreign",
   "artist": "Playboi Carti",
-  "producer": "Unknown",
+  "producer": "Pi'erre Bourne",
   "plugin": "u-he Diva",
   "preset": "MK Symphonic Thunder",
   "role": "Guitar",
@@ -3683,7 +3683,7 @@
  {
   "song": "Foreign",
   "artist": "Playboi Carti",
-  "producer": "Unknown",
+  "producer": "Pi'erre Bourne",
   "plugin": "FabFilter Twin 2",
   "preset": "Classic Flute DJM",
   "role": "Flute",
@@ -3779,7 +3779,7 @@
  {
   "song": "Right Now",
   "artist": "Playboi Carti feat. Pi'erre Bourne",
-  "producer": "Unknown",
+  "producer": "Pi'erre Bourne",
   "plugin": "Arturia ARP 2600 V",
   "preset": "Pad Sound",
   "role": "Not stated (one of three presets listed)",
@@ -3794,7 +3794,7 @@
  {
   "song": "Right Now",
   "artist": "Playboi Carti feat. Pi'erre Bourne",
-  "producer": "Unknown",
+  "producer": "Pi'erre Bourne",
   "plugin": "Arturia ARP 2600 V",
   "preset": "Square Pad",
   "role": "Not stated (one of three presets listed)",
@@ -3809,7 +3809,7 @@
  {
   "song": "Right Now",
   "artist": "Playboi Carti feat. Pi'erre Bourne",
-  "producer": "Unknown",
+  "producer": "Pi'erre Bourne",
   "plugin": "Arturia ARP 2600 V",
   "preset": "Turbulence",
   "role": "Not stated (one of three presets listed)",
@@ -3824,7 +3824,7 @@
  {
   "song": "Rockstar Made",
   "artist": "Playboi Carti",
-  "producer": "Unknown",
+  "producer": "F1lthy, Abraham",
   "plugin": "Synapse Audio DUNE",
   "preset": "Eddies Car Denim ARK",
   "role": "Not stated",
@@ -3839,7 +3839,7 @@
  {
   "song": "Meh",
   "artist": "Playboi Carti",
-  "producer": "Unknown",
+  "producer": "Outtatown, Art Dealer, Star Boy",
   "plugin": "Spectrasonics Omnisphere",
   "preset": "Intimate Glass Celeste",
   "role": "Not stated (one of two presets listed)",
@@ -3854,7 +3854,7 @@
  {
   "song": "Meh",
   "artist": "Playboi Carti",
-  "producer": "Unknown",
+  "producer": "Outtatown, Art Dealer, Star Boy",
   "plugin": "Spectrasonics Omnisphere",
   "preset": "Gritt Lead",
   "role": "Lead (per preset name; not stated)",
@@ -3900,7 +3900,7 @@
  {
   "song": "XO Tour Llif3",
   "artist": "Lil Uzi Vert",
-  "producer": "Unknown",
+  "producer": "TM88, JW Lucas",
   "plugin": "reFX Nexus",
   "preset": "Origin 1",
   "role": "Not stated",
@@ -3975,7 +3975,7 @@
  {
   "song": "Superpower",
   "artist": "Beyoncé feat. Frank Ocean",
-  "producer": "Unknown",
+  "producer": "Pharrell Williams",
   "plugin": "Spectrasonics Omnisphere",
   "preset": null,
   "role": "Not stated",
@@ -4050,7 +4050,7 @@
  {
   "song": "God's Plan",
   "artist": "Drake",
-  "producer": "Unknown",
+  "producer": "Cardo, Yung Exclusive, Boi-1da, 40",
   "plugin": "Tone2 ElectraX",
   "preset": null,
   "role": "Not stated (remake chapter)",
@@ -4065,7 +4065,7 @@
  {
   "song": "Codeine Crazy",
   "artist": "Future",
-  "producer": "Unknown",
+  "producer": "TM88",
   "plugin": "Tone2 ElectraX",
   "preset": null,
   "role": "Not stated (remake chapter)",
@@ -4080,7 +4080,7 @@
  {
   "song": "Beibs in the Trap",
   "artist": "Travis Scott feat. NAV",
-  "producer": "Unknown",
+  "producer": "Nav",
   "plugin": "Tone2 ElectraX",
   "preset": null,
   "role": "Not stated (remake chapter)",
@@ -4095,7 +4095,7 @@
  {
   "song": "Never Recover",
   "artist": "Lil Baby & Gunna feat. Drake",
-  "producer": "Unknown",
+  "producer": "Tay Keith, Turbo",
   "plugin": "Tone2 ElectraX",
   "preset": null,
   "role": "Not stated (remake chapter)",
@@ -4140,7 +4140,7 @@
  {
   "song": "Shoota",
   "artist": "Playboi Carti feat. Lil Uzi Vert",
-  "producer": "Unknown",
+  "producer": "Maaly Raw",
   "plugin": "Tone2 ElectraX",
   "preset": null,
   "role": "Not stated (remake chapter)",
@@ -4266,7 +4266,7 @@
  {
   "song": "Drunk and Nasty",
   "artist": "Pi'erre Bourne",
-  "producer": "Unknown",
+  "producer": "Pi'erre Bourne",
   "plugin": "Spectrasonics Omnisphere",
   "preset": "Backwards Masking",
   "role": "Not stated",
@@ -4281,7 +4281,7 @@
  {
   "song": "Drunk and Nasty",
   "artist": "Pi'erre Bourne",
-  "producer": "Unknown",
+  "producer": "Pi'erre Bourne",
   "plugin": "Spectrasonics Omnisphere",
   "preset": "Bowed Balaphones",
   "role": "Not stated",
@@ -4296,7 +4296,7 @@
  {
   "song": "Drunk and Nasty",
   "artist": "Pi'erre Bourne",
-  "producer": "Unknown",
+  "producer": "Pi'erre Bourne",
   "plugin": "Image-Line Purity",
   "preset": "Trace sqr",
   "role": "Lead",
@@ -4344,7 +4344,7 @@
  {
   "song": "Yah Mean",
   "artist": "Playboi Carti",
-  "producer": "Unknown",
+  "producer": "Pi'erre Bourne",
   "plugin": "Native Instruments FM8",
   "preset": "Wheelrocker",
   "role": "Organ",
@@ -4360,7 +4360,7 @@
  {
   "song": "Yah Mean",
   "artist": "Playboi Carti",
-  "producer": "Unknown",
+  "producer": "Pi'erre Bourne",
   "plugin": "Native Instruments FM8",
   "preset": "Floating Intro",
   "role": "Melodic sequence",
@@ -4376,7 +4376,7 @@
  {
   "song": "Domo23",
   "artist": "Tyler, the Creator",
-  "producer": "Unknown",
+  "producer": "Tyler, the Creator",
   "plugin": "Apple Logic Pro Ultrabeat",
   "preset": "Asian Kit",
   "role": "Not stated (Drums by preset type)",
@@ -4391,7 +4391,7 @@
  {
   "song": "Domo23",
   "artist": "Tyler, the Creator",
-  "producer": "Unknown",
+  "producer": "Tyler, the Creator",
   "plugin": "Apple Logic Pro EXS24",
   "preset": "Vocal Shouts",
   "role": "Not stated (Vocal shouts by preset type)",
@@ -4406,7 +4406,7 @@
  {
   "song": "Domo23",
   "artist": "Tyler, the Creator",
-  "producer": "Unknown",
+  "producer": "Tyler, the Creator",
   "plugin": "Apple Logic Pro EXS24",
   "preset": "Full Brass Staccato",
   "role": "Not stated (Brass by preset type)",
@@ -4421,7 +4421,7 @@
  {
   "song": "Domo23",
   "artist": "Tyler, the Creator",
-  "producer": "Unknown",
+  "producer": "Tyler, the Creator",
   "plugin": "Apple Logic Pro ES2",
   "preset": "Sync Start",
   "role": "Not stated (Synth by preset type)",
@@ -4436,7 +4436,7 @@
  {
   "song": "My Wrist",
   "artist": "Yeat feat. Young Thug",
-  "producer": "Unknown",
+  "producer": "Pi'erre Bourne, Yeat",
   "plugin": "GForce Oddity",
   "preset": "Academic Lead",
   "role": "Lead (per preset name; not stated)",
@@ -4451,7 +4451,7 @@
  {
   "song": "Pull Up",
   "artist": "Playboi Carti",
-  "producer": "Unknown",
+  "producer": "Pi'erre Bourne",
   "plugin": "FabFilter Twin 2",
   "preset": "Steiner DJM",
   "role": "All pads",
@@ -4482,7 +4482,7 @@
  {
   "song": "Rockstar",
   "artist": "DaBaby feat. Roddy Ricch",
-  "producer": "Unknown",
+  "producer": "SethInTheKitchen",
   "plugin": "Spectrasonics Omnisphere 2",
   "preset": null,
   "role": "Synth",
@@ -4497,7 +4497,7 @@
  {
   "song": "Retroville",
   "artist": "Pi'erre Bourne",
-  "producer": "Unknown",
+  "producer": "Pi'erre Bourne",
   "plugin": "u-he ACE",
   "preset": "HS High Five",
   "role": "Pad",
@@ -4512,7 +4512,7 @@
  {
   "song": "Retroville",
   "artist": "Pi'erre Bourne",
-  "producer": "Unknown",
+  "producer": "Pi'erre Bourne",
   "plugin": "u-he ACE",
   "preset": "HS Cepheids",
   "role": "Bell",
@@ -4654,7 +4654,7 @@
  {
   "song": "Place",
   "artist": "Playboi Carti",
-  "producer": "Unknown",
+  "producer": "Pi'erre Bourne",
   "plugin": "FabFilter Twin 2",
   "preset": "5th Synths O",
   "role": "Pad",
@@ -4670,7 +4670,7 @@
  {
   "song": "Place",
   "artist": "Playboi Carti",
-  "producer": "Unknown",
+  "producer": "Pi'erre Bourne",
   "plugin": "FabFilter Twin 2",
   "preset": "Ubiquitous O",
   "role": "Pluck",
@@ -4686,7 +4686,7 @@
  {
   "song": "Place",
   "artist": "Playboi Carti",
-  "producer": "Unknown",
+  "producer": "Pi'erre Bourne",
   "plugin": "FabFilter Twin 2",
   "preset": "Classic Flute DJM",
   "role": "Flute",
@@ -4795,7 +4795,7 @@
  {
   "song": "Work",
   "artist": "A$AP Ferg",
-  "producer": "Unknown",
+  "producer": "Chinza, Fly",
   "plugin": "reFX Nexus 2",
   "preset": "Karate Kid",
   "role": "Not stated",
@@ -4826,7 +4826,7 @@
  {
   "song": "4U",
   "artist": "Pi'erre Bourne",
-  "producer": "Unknown",
+  "producer": "Pi'erre Bourne",
   "plugin": "u-he TyrellN6 or Native Instruments FM8 (source lists both plugins without mapping)",
   "preset": "HS Norgan",
   "role": "Not stated",
@@ -4841,7 +4841,7 @@
  {
   "song": "4U",
   "artist": "Pi'erre Bourne",
-  "producer": "Unknown",
+  "producer": "Pi'erre Bourne",
   "plugin": "u-he TyrellN6 or Native Instruments FM8 (source lists both plugins without mapping)",
   "preset": "Dazzle Synth",
   "role": "Not stated",
@@ -4886,7 +4886,7 @@
  {
   "song": "RAF",
   "artist": "A$AP Mob",
-  "producer": "Unknown",
+  "producer": "Dun Deal, Vegyn, Michael Uzowuru",
   "plugin": "Spectrasonics Omnisphere",
   "preset": "In Memorium 1",
   "role": "Not stated",
@@ -4901,7 +4901,7 @@
  {
   "song": "Blue Suede",
   "artist": "Vince Staples",
-  "producer": "Unknown",
+  "producer": "Hagler",
   "plugin": "LennarDigital Sylenth1",
   "preset": null,
   "role": "Synth sound",
@@ -4916,7 +4916,7 @@
  {
   "song": "7 Rings",
   "artist": "Ariana Grande",
-  "producer": "Unknown",
+  "producer": "Tommy Brown, Charles Anderson, Michael Foster",
   "plugin": "Spectrasonics Omnisphere",
   "preset": "Spooky Piano",
   "role": "Not stated",
@@ -4992,7 +4992,7 @@
  {
   "song": "Wanna Move",
   "artist": "Diddy",
-  "producer": "Unknown",
+  "producer": "Danja, Big Boi",
   "plugin": "reFX Vanguard",
   "preset": "FX Tek Helicopter",
   "role": "Opening \"swish\" effect",
@@ -5007,7 +5007,7 @@
  {
   "song": "Diddy Rock",
   "artist": "Diddy",
-  "producer": "Unknown",
+  "producer": "Danja",
   "plugin": "reFX Vanguard",
   "preset": "FX Tek Helicopter",
   "role": "Opening \"swish\" effect",
@@ -5022,7 +5022,7 @@
  {
   "song": "Elevator",
   "artist": "Flo Rida",
-  "producer": "Unknown",
+  "producer": "Hannon Lane, Timbaland",
   "plugin": "ARP (plugin not further specified)",
   "preset": "Finger Cascade",
   "role": "Not stated (given as one example of many songs)",
@@ -8444,7 +8444,7 @@
  {
   "song": "How To Talk",
   "artist": "Lil Uzi Vert",
-  "producer": "Unknown",
+  "producer": "WondaGurl",
   "plugin": "Waves OneKnob",
   "preset": null,
   "role": "Taking highs out of the telephone-style intro voice note",
@@ -8836,7 +8836,7 @@
  {
   "song": "Persuasive",
   "artist": "Doechii & SZA",
-  "producer": "Unknown",
+  "producer": "Kal Banx",
   "plugin": "DECAP Drums That Knock Vol. 3 (sample pack)",
   "preset": null,
   "role": "shaker loop (first half)",
@@ -9474,7 +9474,7 @@
  {
   "song": "Analog 2",
   "artist": "Odd Future",
-  "producer": "Unknown",
+  "producer": "Tyler, the Creator",
   "plugin": "Reason Redrum",
   "preset": "Electronic 2 Kit",
   "role": "other",
@@ -9530,7 +9530,7 @@
  {
   "song": "Yosemite",
   "artist": "Travis Scott",
-  "producer": "Unknown",
+  "producer": "June James",
   "plugin": "Spectrasonics Omnisphere",
   "preset": "Old School Air Flute",
   "role": "flute",
