@@ -123,4 +123,5 @@ def main():
     print(f"{n} progressions in {len(files)} files, {len(errs)} problems")
     sys.exit(1 if errs else 0)
 
-main()
+if __name__ == "__main__":
+    main()
