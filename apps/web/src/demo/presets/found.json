@@ -312,7 +312,8 @@
    "label": "Native Instruments Blog, 25 for 25",
    "url": "https://blog.native-instruments.com/25-for-25/"
   },
-  "quote": "The preset in question is \"Classic Flute\"."
+  "quote": "The preset in question is \"Classic Flute\".",
+  "path": "FM7 Legacy"
  },
  {
   "song": "Auto Pilot",
@@ -10172,8 +10173,8 @@
   "role": "synth",
   "confidence": "community",
   "source": {
-   "label": "",
-   "url": ""
+   "label": "Equipboard, Pi'erre Bourne's gear page (user-submitted)",
+   "url": "https://equipboard.com/pierre-bourne"
   }
  },
  {
@@ -10185,8 +10186,8 @@
   "role": "synth",
   "confidence": "community",
   "source": {
-   "label": "",
-   "url": ""
+   "label": "Equipboard, Pi'erre Bourne's gear page (user-submitted)",
+   "url": "https://equipboard.com/pierre-bourne"
   }
  },
  {
@@ -10445,5 +10446,88 @@
    "url": ""
   },
   "path": "Best of / Keys > Organ"
+ },
+ {
+  "song": "wokeuplikethis*",
+  "artist": "Playboi Carti feat. Lil Uzi Vert",
+  "producer": "Pi'erre Bourne",
+  "plugin": "reFX Nexus 2",
+  "preset": "LD King of Buzz 2",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Single Layer Leads"
+ },
+ {
+  "song": "Let It Go",
+  "artist": "Playboi Carti",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Walk Of Fame Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum, \"Presets used in popular songs\" thread",
+   "url": "https://www.ktt2.com/presets-used-in-popular-songs-74935"
+  },
+  "path": "Synth Mono"
+ },
+ {
+  "song": "New Choppa",
+  "artist": "Playboi Carti feat. A$AP Rocky",
+  "producer": "Ricci Riera",
+  "plugin": "Native Instruments Massive",
+  "preset": "Slim Singer",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Expansion Vol. 1"
+ },
+ {
+  "song": "New Choppa",
+  "artist": "Playboi Carti feat. A$AP Rocky",
+  "producer": "Ricci Riera",
+  "plugin": "Luxonix Purity",
+  "preset": "8bit Sqr Solo",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Lead Synth"
+ },
+ {
+  "song": "Yah Mean",
+  "artist": "Playboi Carti",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Native Instruments FM8",
+  "preset": "Lost And Found",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  }
+ },
+ {
+  "song": "dothatshit!",
+  "artist": "Playboi Carti",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Native Instruments FM8",
+  "preset": "Classic Flute",
+  "role": "flute",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "FM7 Legacy"
  }
 ]
