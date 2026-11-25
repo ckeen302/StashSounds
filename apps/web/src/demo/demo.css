@@ -353,6 +353,8 @@ html[data-look="stash"] header .text-title { font-size: 22px; }
 /* Tabs as pills, the way social apps switch feeds. */
 html[data-look="stash"] nav[aria-label="Demo sections"] { background: transparent; border-bottom: 0; }
 html[data-look="stash"] nav[aria-label="Demo sections"] ul { gap: 8px; padding-block: 12px; }
+/* The tabs sit centered under the search bar; on a narrow screen they scroll from the first tab. */
+nav[aria-label="Demo sections"] ul { justify-content: safe center; }
 html[data-look="stash"] nav[aria-label="Demo sections"] a {
   height: 34px; border: 0; border-radius: 9999px; padding-inline: 14px; font-weight: 500;
   background: transparent; color: var(--color-text-muted);
