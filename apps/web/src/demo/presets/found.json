@@ -10879,5 +10879,186 @@
    "label": "",
    "url": ""
   }
+ },
+ {
+  "song": "Green Room",
+  "artist": "Ken Carson",
+  "producer": "F1lthy, Lucian, Lukrative",
+  "plugin": "FabFilter Twin 2",
+  "preset": "Webber BM",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Lead > Vintage"
+ },
+ {
+  "song": "Yale",
+  "artist": "Ken Carson",
+  "producer": "Outtatown, Star Boy",
+  "plugin": "reFX Nexus 3",
+  "preset": "LD Energetic",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Trance Universe > LD Lead"
+ },
+ {
+  "song": "Yale",
+  "artist": "Ken Carson",
+  "producer": "Outtatown, Star Boy",
+  "plugin": "reFX Nexus 3",
+  "preset": "SY Plain",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Minimal House > SY Synth"
+ },
+ {
+  "song": "Yale",
+  "artist": "Ken Carson",
+  "producer": "Outtatown, Star Boy",
+  "plugin": "reFX Nexus 3",
+  "preset": "WW Panflute",
+  "role": "flute",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Factory Presets > WW Woodwind"
+ },
+ {
+  "song": "Yale",
+  "artist": "Ken Carson",
+  "producer": "Outtatown, Star Boy",
+  "plugin": "reFX Nexus 3",
+  "preset": "BA No Name",
+  "role": "bass",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Minimal House > BA Bass"
+ },
+ {
+  "song": "Butterfly",
+  "artist": "Ken Carson",
+  "producer": "Star Boy, Outtatown, Art Dealer",
+  "plugin": "reFX Nexus",
+  "preset": "PL Bella",
+  "role": "pluck",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Reggaeton expansion"
+ },
+ {
+  "song": "Butterfly",
+  "artist": "Ken Carson",
+  "producer": "Star Boy, Outtatown, Art Dealer",
+  "plugin": "reFX Nexus",
+  "preset": "PL Moorea",
+  "role": "pluck",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Tropical House 3 expansion"
+ },
+ {
+  "song": "Butterfly",
+  "artist": "Ken Carson",
+  "producer": "Star Boy, Outtatown, Art Dealer",
+  "plugin": "reFX Nexus",
+  "preset": "PL Romance",
+  "role": "pluck",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Tropical House 2 expansion"
+ },
+ {
+  "song": "Butterfly",
+  "artist": "Ken Carson",
+  "producer": "Star Boy, Outtatown, Art Dealer",
+  "plugin": "Luxonix Purity",
+  "preset": "Nymph",
+  "role": "vocal",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "VOX, loaded into Osc 1 of Simple Sine"
+ },
+ {
+  "song": "Pissed Off",
+  "artist": "Ken Carson",
+  "producer": "Outtatown, Star Boy",
+  "plugin": "Luxonix Purity",
+  "preset": "Filteron",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Slow Synth"
+ },
+ {
+  "song": "Glock 19",
+  "artist": "Ken Carson",
+  "producer": "Juberlee, Roark Bailey",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Mysterious Tron Flute Lead",
+  "role": "flute",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Trons"
+ },
+ {
+  "song": "Glock 19",
+  "artist": "Ken Carson",
+  "producer": "Juberlee, Roark Bailey",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Tron Flute Granulation",
+  "role": "flute",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Trons"
+ },
+ {
+  "song": "Glock 19",
+  "artist": "Ken Carson",
+  "producer": "Juberlee, Roark Bailey",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Optigan Marimba",
+  "role": "marimba",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  }
  }
 ]
