@@ -294,6 +294,21 @@ function SectionHead({ title, sub, href, more }: { title: string; sub?: string; 
   );
 }
 
+const GENRES = ["Trap", "Drill", "Pluggnb", "Boom bap", "Rage", "Phonk", "Jersey club", "R&B", "Detroit", "Lo-fi", "Afrobeats", "Memphis"];
+
+/** The hero's equalizer: resting low, moving while anything plays. Decoration only. */
+const EQ = Array.from({ length: 48 }, (_, i) => 16 + Math.round(76 * Math.abs(Math.sin(i * 0.55) * Math.cos(i * 0.21))));
+function HeroEq() {
+  const status = usePlayerState((s) => s.status);
+  return (
+    <div className="st-eq" data-on={status === "playing" || undefined} aria-hidden="true">
+      {EQ.map((h, i) => (
+        <span key={i} style={{ ["--h" as string]: h, ["--d" as string]: `${(i % 7) * 90}ms` }} />
+      ))}
+    </div>
+  );
+}
+
 function Home() {
   const [rows, refresh] = useRows();
   const midi = useMidiItems();
@@ -308,12 +323,12 @@ function Home() {
   }, [midi]);
   const hits = kits().reduce((n, k) => n + k.sounds.length, 0);
   const types = [
-    { href: "/loops", t: "loop", name: "Loops", blurb: "Change tempo and key while it plays", count: rows.length },
-    { href: "/one-shots", t: "oneshot", name: "One-shots", blurb: "Every single hit, sorted by type", count: hits },
-    { href: "/kits", t: "kit", name: "Drum kits", blurb: "Kicks, 808s, snares and hats", count: kits().length },
-    { href: "/midi", t: "midi", name: "MIDI", blurb: "Real progressions from the songs", count: midi.length },
-    { href: "/presets", t: "preset", name: "Presets", blurb: "The synth patch on the record", count: PRESETS.length },
-    { href: "/sfx", t: "oneshot", name: "SFX", blurb: "Roars, revs, sirens and voicemail", count: SFX.length },
+    { href: "/loops", t: "loop", name: "Loops", count: rows.length },
+    { href: "/one-shots", t: "oneshot", name: "One-shots", count: hits },
+    { href: "/kits", t: "kit", name: "Drum kits", count: kits().length },
+    { href: "/midi", t: "midi", name: "MIDI", count: midi.length },
+    { href: "/presets", t: "preset", name: "Presets", count: PRESETS.length },
+    { href: "/sfx", t: "oneshot", name: "SFX", count: SFX.length },
   ];
   const search = (text: string) => {
     setSearchQuery(text);
@@ -321,76 +336,88 @@ function Home() {
   };
   return (
     <div className="flex flex-col">
-      <section className="mx-auto flex w-full max-w-content flex-col gap-6 px-3 pt-10 pb-6 tablet:px-4 desktop:px-6 desktop:pt-16">
-        <span className="inline-flex w-fit items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-small text-text-muted">
-          <span className="st-dot size-2 rounded-full" aria-hidden="true" />
-          The sound network for producers
-        </span>
-        <h1 className="st-hero-title st-hero-xl text-display max-w-4xl text-balance">
-          Find the sound. Hear it now. <span className="st-grad">Follow who made it.</span>
-        </h1>
-        <p className="max-w-prose text-body text-text-muted">Loops, kits, MIDI, SFX and the presets behind the records. Tap to hear, one click to grab.</p>
-        <form
-          role="search"
-          className="flex w-full max-w-2xl gap-2"
-          onSubmit={(e) => {
-            e.preventDefault();
-            search(q);
-          }}
-        >
-          <SearchInput
-            label="Search sounds"
-            hideLabel
-            shortcut=""
-            placeholder="Try “dark piano 140 like metro”"
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-            onClear={() => setQ("")}
-            className="min-w-0 flex-1"
-          />
-          <Button type="submit" variant="primary">
-            Search
-          </Button>
-        </form>
-        <div className="flex flex-wrap gap-2" aria-label="Searches to try">
-          {["pluggnb bells", "drill 142", "boom bap 90", "c minor", "phonk cowbell"].map((x) => (
-            <FilterChip key={x} onToggle={() => search(x)}>
-              {x}
-            </FilterChip>
-          ))}
+      <section className="st-home-hero relative overflow-hidden">
+        <HeroEq />
+        <div className="relative mx-auto flex w-full max-w-content flex-col gap-5 px-3 pt-6 pb-6 tablet:px-4 tablet:pt-12 desktop:px-6 desktop:pt-14">
+          <h1 className="st-hero-title st-home-h1 max-w-4xl text-balance">
+            Free sounds that <span className="st-grad">actually hit.</span>
+          </h1>
+          <ul aria-label="The deal" className="flex flex-wrap gap-x-5 gap-y-1 text-small text-text-muted">
+            {["Free. No credits, no trials", "Plays on first click", "Original files"].map((x) => (
+              <li key={x} className="inline-flex items-center gap-2">
+                <span className="st-check" aria-hidden="true" />
+                {x}
+              </li>
+            ))}
+          </ul>
+          <form
+            role="search"
+            className="flex w-full max-w-2xl gap-2"
+            onSubmit={(e) => {
+              e.preventDefault();
+              search(q);
+            }}
+          >
+            <SearchInput
+              label="Search sounds"
+              hideLabel
+              shortcut=""
+              placeholder="Try dark piano 140 like metro"
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+              onClear={() => setQ("")}
+              className="min-w-0 flex-1"
+            />
+            <Button type="submit" variant="primary">
+              Search
+            </Button>
+          </form>
+          <ul aria-label="Sound types" className="st-shelf -mx-3 flex gap-2 overflow-x-auto px-3 tablet:mx-0 tablet:flex-wrap tablet:px-0">
+            {types.map((t) => (
+              <li key={t.href} className="shrink-0">
+                <UiLink
+                  href={t.href}
+                  data-t={t.t}
+                  className="st-type flex h-11 items-center gap-2.5 rounded-control border border-border bg-surface px-4 ui-hover:border-border-strong"
+                >
+                  <span className="st-dot size-2.5 rounded-full" aria-hidden="true" />
+                  <span className="text-body-strong text-text">{t.name}</span>
+                  <span className="font-mono text-numeric tabular text-text-muted">{t.count.toLocaleString("en")}</span>
+                </UiLink>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
       <Page>
-        <ul aria-label="Sound types" className="grid grid-cols-2 gap-3 tablet:grid-cols-3 desktop:grid-cols-6">
-          {types.map((t) => (
-            <li key={t.href} className={t.t === "loop" ? "col-span-2 tablet:col-span-1" : undefined}>
-              <UiLink
-                href={t.href}
-                data-t={t.t}
-                className="st-type flex h-full flex-col gap-3 rounded-panel border border-border bg-surface p-4 ui-hover:border-border-strong"
-              >
-                <span className="flex items-center gap-2">
-                  <span className="st-dot size-2.5 rounded-full" aria-hidden="true" />
-                  <span className="text-body-strong text-text">{t.name}</span>
-                </span>
-                <span className="st-hero-title text-title text-text">{t.count.toLocaleString("en")}</span>
-                <span className="text-small text-text-muted">{t.blurb}</span>
-              </UiLink>
-            </li>
-          ))}
-        </ul>
-
-        <section aria-labelledby="trending" className="flex flex-col gap-3">
+        <section aria-labelledby="trending" className="-mt-6 flex flex-col gap-3">
           <div id="trending">
-            <SectionHead title="Trending now" sub="What producers are playing, liking and grabbing, with new sounds lifted. Tap to hear." href="/loops" more={`All ${rows.length} loops`} />
+            <SectionHead title="Trending now" href="/loops" more={`All ${rows.length} loops`} />
           </div>
           <LoopList label="Trending now" rows={trending(rows).slice(0, 6)} onChange={refresh} />
         </section>
 
+        <nav aria-label="Genres" className="st-ticker -mx-3 overflow-hidden tablet:mx-0">
+          <ul className="st-ticker-track flex w-max gap-2">
+            {[...GENRES, ...GENRES].map((g, i) => (
+              <li key={`${g}-${i}`} aria-hidden={i >= GENRES.length || undefined}>
+                <button
+                  type="button"
+                  tabIndex={i >= GENRES.length ? -1 : undefined}
+                  onClick={() => search(g)}
+                  className="st-hero-title st-ticker-item rounded-control border border-border px-5 py-2 text-title text-text-muted ui-hover:border-border-strong ui-hover:text-text"
+                >
+                  {g}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
         <section aria-labelledby="songs-shelf" className="flex flex-col gap-3">
           <div id="songs-shelf">
-            <SectionHead title="Presets behind the songs" sub="The synth and patch on the record, graded by who said so." href="/presets" more={`All ${ALL_SONGS.length} songs`} />
+            <SectionHead title="Presets behind the songs" href="/presets" more={`All ${ALL_SONGS.length} songs`} />
           </div>
           <ul className="st-shelf -mx-3 flex gap-4 overflow-x-auto px-3 pb-2 tablet:mx-0 tablet:px-0">
             {SHELF.map((s) => {
@@ -413,7 +440,7 @@ function Home() {
 
         <section aria-labelledby="producers" className="flex flex-col gap-3">
           <div id="producers">
-            <SectionHead title="Producers behind the songs" sub="Whose sound you can find here, by the songs we've sourced." href="/presets" more="See their presets" />
+            <SectionHead title="Producers behind the songs" href="/presets" more="All presets" />
           </div>
           <ul className="st-shelf -mx-3 flex gap-5 overflow-x-auto px-3 pb-2 tablet:mx-0 tablet:px-0">
             {TOP_PRODUCERS.slice(0, 12).map(([name, n]) => {
@@ -435,15 +462,15 @@ function Home() {
 
         {songs.length > 0 && (
           <section className="flex flex-col gap-3">
-            <SectionHead title="Chords from the songs" sub="Real progressions at their key and tempo, in a piano roll." href="/midi" more={`All ${songs.length} songs`} />
+            <SectionHead title="Chords from the songs" href="/midi" more={`All ${songs.length} songs`} />
             <MidiList label="Song chords" items={songs.slice(0, 6)} />
           </section>
         )}
 
         <section aria-labelledby="post" className="st-cta flex flex-col gap-4 rounded-panel p-6 tablet:flex-row tablet:items-center tablet:justify-between tablet:p-10">
           <div className="flex flex-col gap-2">
-            <h2 id="post" className="st-hero-title text-display">Post a sound. Build a following.</h2>
-            <p className="max-w-prose text-body">Producers who post here get heard in one tap, credited on every download, and followed by the people who use their sounds.</p>
+            <h2 id="post" className="st-hero-title text-display">Post a sound. Get followed.</h2>
+            <p className="max-w-prose text-body">Heard in one tap. Credited on every download.</p>
           </div>
           <div className="flex flex-wrap gap-2">
             {[
