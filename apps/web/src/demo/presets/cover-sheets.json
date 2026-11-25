@@ -1,2262 +1,2954 @@
 {
 "grid": 8,
 "sheets": [
-"covers/sheet-0-7838d47a.jpg",
-"covers/sheet-1-eea4def2.jpg",
-"covers/sheet-2-ed4a8c2c.jpg",
-"covers/sheet-3-aaccf99d.jpg",
-"covers/sheet-4-d17a3f89.jpg"
+"covers/sheet-0-fd170a5b.jpg",
+"covers/sheet-1-3f7451ad.jpg",
+"covers/sheet-2-96335f65.jpg",
+"covers/sheet-3-da7ac5ef.jpg",
+"covers/sheet-4-7a85f56f.jpg",
+"covers/sheet-5-c7e62672.jpg",
+"covers/sheet-6-9360b759.jpg"
 ],
 "tiles": {
+"covers/1600-che.jpg": [
+0,
+0,
+0
+],
+"covers/2-love-2-da-grave-glokk40spaz.jpg": [
+0,
+1,
+0
+],
 "covers/20-min-lil-uzi-vert.jpg": [
 0,
+2,
+0
+],
+"covers/2024-playboi-carti.jpg": [
 0,
+3,
 0
 ],
 "covers/23-mike-will-made-it-feat-miley-cyrus-wiz-khalifa-juicy-j.jpg": [
 0,
-1,
+4,
+0
+],
+"covers/2nd-hand-suicideboys.jpg": [
+0,
+5,
 0
 ],
 "covers/3500-travis-scott-feat-future-2-chainz.jpg": [
 0,
-2,
+6,
 0
 ],
 "covers/4-minutes-madonna-feat-justin-timberlake-timbaland.jpg": [
 0,
-3,
+7,
 0
 ],
 "covers/4u-pi-erre-bourne.jpg": [
 0,
-4,
-0
+0,
+1
 ],
 "covers/56-nights-future.jpg": [
 0,
-5,
-0
+1,
+1
 ],
 "covers/5am-in-toronto-drake.jpg": [
 0,
-6,
-0
+2,
+1
+],
+"covers/7-eleven-krondon.jpg": [
+0,
+3,
+1
 ],
 "covers/7-rings-ariana-grande.jpg": [
 0,
-7,
-0
+4,
+1
 ],
 "covers/9am-in-dallas-drake.jpg": [
 0,
+5,
+1
+],
+"covers/a-death-in-the-gulfstream-suicideboys.jpg": [
 0,
+6,
 1
 ],
 "covers/a-lot-21-savage-feat-j-cole.jpg": [
 0,
-1,
+7,
 1
+],
+"covers/a-zip-a-double-cup-juicy-j.jpg": [
+0,
+0,
+2
+],
+"covers/action-yung-mal-feat-pi-erre-bourne.jpg": [
+0,
+1,
+2
 ],
 "covers/add-it-up-migos.jpg": [
 0,
 2,
-1
+2
+],
+"covers/afghanistan-yung-lean.jpg": [
+0,
+3,
+2
 ],
 "covers/ain-t-worried-about-nothin-french-montana.jpg": [
 0,
-3,
-1
+4,
+2
 ],
 "covers/all-girls-are-the-same-juice-wrld.jpg": [
 0,
-4,
-1
+5,
+2
 ],
 "covers/all-star-osamason.jpg": [
 0,
-5,
-1
+6,
+2
 ],
 "covers/all-the-stars-kendrick-lamar-sza.jpg": [
 0,
-6,
-1
+7,
+2
 ],
 "covers/alright-kendrick-lamar.jpg": [
 0,
-7,
-1
+0,
+3
 ],
 "covers/alright-super-bowl-lix-performance-kendrick-lamar.jpg": [
 0,
-7,
-1
+0,
+3
 ],
 "covers/ambition-wale.jpg": [
 0,
-0,
-2
+1,
+3
 ],
 "covers/anaconda-nicki-minaj.jpg": [
 0,
-1,
-2
+2,
+3
 ],
 "covers/analog-2-odd-future.jpg": [
 0,
-2,
-2
+3,
+3
 ],
 "covers/anonymous-bobby-valentino.jpg": [
 0,
-3,
-2
+4,
+3
 ],
 "covers/answer-tyler-the-creator.jpg": [
 0,
-4,
-2
+5,
+3
 ],
 "covers/are-we-in-this-together-day-26.jpg": [
 0,
-5,
-2
+6,
+3
 ],
 "covers/astrothunder-travis-scott.jpg": [
 0,
-6,
-2
+7,
+3
 ],
 "covers/attention-charlie-puth.jpg": [
 0,
-7,
-2
+0,
+4
 ],
 "covers/auto-pilot-migos.jpg": [
 0,
+1,
+4
+],
+"covers/b4rr-kankan.jpg": [
 0,
-3
+2,
+4
+],
+"covers/baby-skeleton-glokk40spaz.jpg": [
+0,
+1,
+0
 ],
 "covers/back-that-azz-up-juvenile-feat-mannie-fresh-lil-wayne.jpg": [
 0,
-1,
-3
+3,
+4
 ],
 "covers/ballad-pi-erre-bourne.jpg": [
 0,
-2,
-3
+4,
+4
 ],
 "covers/banana-split-murda-beatz-ynw-melly-feat-lil-durk.jpg": [
 0,
-3,
-3
+5,
+4
+],
+"covers/bandit-juice-wrld-nba-youngboy.jpg": [
+0,
+6,
+4
+],
+"covers/bane-destroy-lonely.jpg": [
+0,
+7,
+4
+],
+"covers/bank-account-21-savage.jpg": [
+0,
+0,
+5
 ],
 "covers/basement-freestyle-travis-scott.jpg": [
 0,
-4,
-3
+1,
+5
+],
+"covers/be-nice-2-me-bladee.jpg": [
+0,
+2,
+5
 ],
 "covers/bean-kobe-lil-uzi-vert-feat-chief-keef.jpg": [
 0,
-5,
-3
+3,
+5
 ],
 "covers/bedrock-young-money.jpg": [
 0,
-6,
-3
+4,
+5
 ],
 "covers/been-fweago-spaceghostpurrp.jpg": [
 0,
-7,
-3
+5,
+5
 ],
 "covers/beez-kid-cudi.jpg": [
 0,
-0,
-4
+6,
+5
 ],
 "covers/beibs-in-the-trap-travis-scott-feat-nav.jpg": [
 0,
-1,
-4
+7,
+5
 ],
 "covers/bicken-back-being-bool-yg.jpg": [
 0,
-2,
-4
+0,
+6
 ],
 "covers/big-shot-kendrick-lamar-travis-scott.jpg": [
 0,
-6,
-1
+7,
+2
 ],
 "covers/birthday-song-2-chainz-feat-kanye-west.jpg": [
 0,
-3,
-4
+1,
+6
 ],
 "covers/blacc-friday-mellowhype.jpg": [
 0,
-4,
-4
+2,
+6
 ],
 "covers/black-beatles-rae-sremmurd-feat-gucci-mane.jpg": [
 0,
-5,
-4
+3,
+6
+],
+"covers/black-money-world-spaceghostpurrp.jpg": [
+0,
+4,
+6
 ],
 "covers/blinding-lights-the-weeknd.jpg": [
 0,
-6,
-4
+5,
+6
 ],
 "covers/blown-away-curren-y.jpg": [
 0,
-7,
-4
+6,
+6
 ],
 "covers/blue-benz-nas.jpg": [
 0,
-0,
-5
+7,
+6
 ],
 "covers/blue-suede-vince-staples.jpg": [
 0,
-1,
-5
+0,
+7
 ],
 "covers/body-language-kid-ink-feat-usher-tinashe.jpg": [
 0,
-2,
-5
+1,
+7
 ],
 "covers/boss-up-osamason.jpg": [
 0,
-5,
-1
+6,
+2
 ],
 "covers/both-sides-nav-metro-boomin-feat-21-savage.jpg": [
 0,
-3,
-5
+2,
+7
 ],
 "covers/boyfriend-justin-bieber.jpg": [
 0,
-4,
-5
+3,
+7
 ],
 "covers/bpt-yg.jpg": [
 0,
-5,
-5
+4,
+7
 ],
 "covers/brain-mellowhype.jpg": [
 0,
-6,
-5
+5,
+7
 ],
 "covers/break-up-mario-feat-gucci-mane-sean-garrett.jpg": [
 0,
+6,
+7
+],
+"covers/breathe-yeat.jpg": [
+0,
 7,
-5
+7
+],
+"covers/bring-em-out-clyde-carson.jpg": [
+1,
+0,
+0
+],
+"covers/broke-boi-playboi-carti.jpg": [
+1,
+1,
+0
 ],
 "covers/brothers-kid-cudi.jpg": [
 0,
-0,
-4
+6,
+5
+],
+"covers/bunny-suit-sematary.jpg": [
+1,
+2,
+0
 ],
 "covers/bust-down-cartier-lil-mosey.jpg": [
-0,
-0,
-6
+1,
+3,
+0
 ],
 "covers/butterfly-effect-travis-scott.jpg": [
 0,
+7,
+3
+],
+"covers/butterfly-ken-carson.jpg": [
+1,
+4,
+0
+],
+"covers/buzzin-domo-genesis.jpg": [
+1,
+5,
+0
+],
+"covers/cabin-fever-wiz-khalifa.jpg": [
+1,
+6,
+0
+],
+"covers/calcium-ecco2k.jpg": [
+1,
+7,
+0
+],
+"covers/capeesh-maxo-kream.jpg": [
+1,
+0,
+1
+],
+"covers/carrollton-uicideboy.jpg": [
+1,
+1,
+1
+],
+"covers/cash-money-rich-homie-quan.jpg": [
+1,
+2,
+1
+],
+"covers/catfish-billy-yelawolf.jpg": [
+1,
+3,
+1
+],
+"covers/chainsaw-party-sematary.jpg": [
+1,
+4,
+1
+],
+"covers/chanel-vintage-metro-boomin.jpg": [
+1,
+5,
+1
+],
+"covers/change-ken-carson.jpg": [
+1,
+6,
+1
+],
+"covers/charcoal-baby-blood-orange.jpg": [
+1,
+7,
+1
+],
+"covers/cheers-2-u-playa.jpg": [
+1,
+0,
+2
+],
+"covers/claustroflowbic-hodgy-beats.jpg": [
+1,
+1,
+2
+],
+"covers/clint-eastwood-gorillaz-feat-del-the-funky-homosapien.jpg": [
+1,
+2,
+2
+],
+"covers/clique-kanye-west-feat-jay-z-big-sean.jpg": [
+1,
+3,
+2
+],
+"covers/clout-cobain-denzel-curry.jpg": [
+1,
+4,
+2
+],
+"covers/club-paradise-drake.jpg": [
+1,
+5,
+2
+],
+"covers/clutch-ken-carson.jpg": [
+1,
+6,
+1
+],
+"covers/codeine-crazy-future.jpg": [
+1,
 6,
 2
 ],
-"covers/butterfly-ken-carson.jpg": [
-0,
-1,
-6
-],
-"covers/buzzin-domo-genesis.jpg": [
-0,
-2,
-6
-],
-"covers/cabin-fever-wiz-khalifa.jpg": [
-0,
-3,
-6
-],
-"covers/capeesh-maxo-kream.jpg": [
-0,
-4,
-6
-],
-"covers/cash-money-rich-homie-quan.jpg": [
-0,
-5,
-6
-],
-"covers/catfish-billy-yelawolf.jpg": [
-0,
-6,
-6
-],
-"covers/chanel-vintage-metro-boomin.jpg": [
-0,
-7,
-6
-],
-"covers/change-ken-carson.jpg": [
-0,
-0,
-7
-],
-"covers/charcoal-baby-blood-orange.jpg": [
-0,
-1,
-7
-],
-"covers/cheers-2-u-playa.jpg": [
-0,
-2,
-7
-],
-"covers/claustroflowbic-hodgy-beats.jpg": [
-0,
-3,
-7
-],
-"covers/clint-eastwood-gorillaz-feat-del-the-funky-homosapien.jpg": [
-0,
-4,
-7
-],
-"covers/clique-kanye-west-feat-jay-z-big-sean.jpg": [
-0,
-5,
-7
-],
-"covers/club-paradise-drake.jpg": [
-0,
-6,
-7
-],
-"covers/clutch-ken-carson.jpg": [
-0,
-0,
-7
-],
 "covers/coming-of-age-da-sequel-jay-z-feat-memphis-bleek.jpg": [
-0,
+1,
 7,
-7
+2
+],
+"covers/confusing-1oneam.jpg": [
+1,
+0,
+3
 ],
 "covers/congrats-osamason.jpg": [
 0,
-5,
-1
+6,
+2
 ],
 "covers/control-playboi-carti.jpg": [
 1,
-0,
-0
+1,
+3
+],
+"covers/convinced-chavo.jpg": [
+1,
+2,
+3
 ],
 "covers/cops-chief-keef.jpg": [
 1,
-1,
-0
+3,
+3
 ],
 "covers/cot-damn-clipse.jpg": [
 1,
-2,
-0
+4,
+3
 ],
 "covers/count-me-in-lil-yachty.jpg": [
 1,
-3,
-0
+5,
+3
 ],
 "covers/cowboy-tyler-the-creator.jpg": [
 1,
-4,
-0
+6,
+3
 ],
 "covers/crank-that-soulja-boy-soulja-boy-tell-em.jpg": [
 1,
-5,
-0
+7,
+3
 ],
 "covers/crazy-kid-ink.jpg": [
 1,
-6,
+0,
+4
+],
+"covers/crueger-che.jpg": [
+0,
+0,
 0
+],
+"covers/crush-2hollis.jpg": [
+1,
+1,
+4
 ],
 "covers/cry-me-a-river-justin-timberlake.jpg": [
 1,
-7,
-0
+2,
+4
 ],
 "covers/d-o-a-death-of-auto-tune-jay-z.jpg": [
 1,
-0,
-1
+3,
+4
 ],
 "covers/dance-move-french-montana.jpg": [
 1,
-1,
-1
+4,
+4
 ],
 "covers/dancing-with-a-stranger-sam-smith-normani.jpg": [
 1,
-2,
-1
+5,
+4
 ],
 "covers/danger-zone-kenny-loggins.jpg": [
 1,
-3,
-1
+6,
+4
+],
+"covers/danny-glover-young-thug.jpg": [
+1,
+7,
+4
 ],
 "covers/dark-knight-dummo-trippie-redd-feat-travis-scott.jpg": [
 1,
-4,
-1
+0,
+5
 ],
 "covers/darker-gucci-mane.jpg": [
 1,
-5,
-1
+1,
+5
 ],
 "covers/day-n-nite-kid-cudi.jpg": [
 1,
-6,
-1
+2,
+5
 ],
 "covers/deja-vu-pi-erre-bourne.jpg": [
 1,
-7,
-1
+3,
+5
 ],
 "covers/diamonds-dancing-drake-future.jpg": [
 1,
-0,
-2
+4,
+5
 ],
 "covers/diddy-rock-diddy.jpg": [
 1,
+5,
+5
+],
+"covers/different-day-playboi-carti.jpg": [
+0,
+3,
+0
+],
+"covers/dirt-bones.jpg": [
 1,
-2
+6,
+5
 ],
 "covers/dirt-off-your-shoulder-jay-z.jpg": [
 1,
-2,
-2
+7,
+5
 ],
 "covers/disloyal-ace-hood.jpg": [
 1,
-3,
-2
+0,
+6
 ],
 "covers/dispatch-young-nudy-pi-erre-bourne.jpg": [
 1,
+1,
+6
+],
+"covers/dissolve-spaceghostpurrp.jpg": [
+0,
 4,
-2
+6
 ],
 "covers/dmd-famous-dex.jpg": [
 1,
-5,
-2
+2,
+6
 ],
 "covers/domo23-tyler-the-creator.jpg": [
 0,
-4,
-2
+5,
+3
+],
+"covers/don-t-deserve-it-gucci-mane.jpg": [
+1,
+3,
+6
 ],
 "covers/don-t-panic-french-montana.jpg": [
 1,
-6,
-2
+4,
+6
 ],
 "covers/don-t-wanna-know-maroon-5-feat-kendrick-lamar.jpg": [
 1,
-7,
-2
+5,
+6
 ],
 "covers/dothatshit-playboi-carti.jpg": [
 1,
-0,
-3
+6,
+6
+],
+"covers/double-yeat.jpg": [
+1,
+7,
+6
 ],
 "covers/doublemint-horoscopes-pi-erre-bourne.jpg": [
 0,
-2,
-3
+4,
+4
+],
+"covers/down-bottom-ruff-ryders-drag-on-juvenile.jpg": [
+1,
+0,
+7
 ],
 "covers/down-bottom-ruff-ryders.jpg": [
 1,
-1,
-3
+0,
+7
 ],
 "covers/down-in-atlanta-pharrell-travis-scott.jpg": [
 1,
-2,
-3
+1,
+7
 ],
 "covers/down-on-me-dj-mustard.jpg": [
 1,
-3,
-3
+2,
+7
 ],
 "covers/dreamin-lil-mosey.jpg": [
 1,
-4,
-3
+3,
+7
 ],
 "covers/drew-barrymore-sza.jpg": [
 1,
-5,
-3
+4,
+7
 ],
 "covers/drop-it-like-it-s-hot-snoop-dogg-feat-pharrell.jpg": [
 1,
-6,
-3
+5,
+7
 ],
 "covers/drop-the-world-lil-wayne-feat-eminem.jpg": [
 1,
-7,
-3
+6,
+7
 ],
 "covers/drunk-and-nasty-pi-erre-bourne.jpg": [
 0,
-4,
-0
+0,
+1
 ],
 "covers/drunk-in-love-beyonc-feat-jay-z.jpg": [
 1,
-0,
-4
+7,
+7
 ],
 "covers/drunk-in-love-beyonc.jpg": [
 1,
-0,
-4
+7,
+7
 ],
 "covers/dta-casey-veggies.jpg": [
-1,
-1,
-4
+2,
+0,
+0
 ],
 "covers/earl-earl-sweatshirt.jpg": [
-1,
 2,
-4
+1,
+0
 ],
 "covers/elevator-flo-rida.jpg": [
-1,
+2,
+2,
+0
+],
+"covers/empty-clip-che.jpg": [
+2,
 3,
-4
+0
 ],
 "covers/end-of-discussion-rich-the-kid.jpg": [
-1,
+2,
 4,
-4
+0
 ],
 "covers/epar-earl-sweatshirt.jpg": [
-1,
 2,
-4
+1,
+0
 ],
 "covers/erase-your-social-lil-uzi-vert.jpg": [
-1,
+2,
 5,
-4
+0
 ],
 "covers/eskimo-wiley.jpg": [
-1,
+2,
 6,
-4
+0
 ],
 "covers/everyday-chief-keef.jpg": [
-1,
+2,
 7,
-4
+0
+],
+"covers/evilj0rdan-playboi-carti.jpg": [
+0,
+3,
+0
 ],
 "covers/excuse-me-miss-jay-z.jpg": [
-1,
+2,
 0,
-5
+1
 ],
 "covers/f-ckwithmeyouknowigotit-jay-z-feat-rick-ross.jpg": [
+2,
 1,
-1,
-5
+1
 ],
 "covers/faith-george-michael.jpg": [
-1,
 2,
-5
+2,
+1
 ],
 "covers/faithful-drake-feat-pimp-c-dvsn.jpg": [
-1,
+2,
 3,
-5
+1
+],
+"covers/fallen-raven-summrs.jpg": [
+2,
+4,
+1
 ],
 "covers/family-affair-mary-j-blige.jpg": [
-1,
-4,
-5
+2,
+5,
+1
+],
+"covers/fe-n-travis-scott-feat-playboi-carti.jpg": [
+2,
+6,
+1
 ],
 "covers/feel-kendrick-lamar.jpg": [
-1,
-5,
-5
+2,
+7,
+1
 ],
 "covers/fell-in-luv-playboi-carti-feat-bryson-tiller.jpg": [
-1,
-6,
-5
+2,
+0,
+2
 ],
 "covers/fighting-my-demons-ken-carson.jpg": [
+2,
 1,
-7,
-5
+2
 ],
 "covers/first-class-jack-harlow.jpg": [
-1,
-0,
-6
+2,
+2,
+2
 ],
 "covers/fish-tyler-the-creator.jpg": [
-1,
-1,
-6
+2,
+3,
+2
 ],
 "covers/flap-your-wings-nelly.jpg": [
-1,
 2,
-6
+4,
+2
 ],
 "covers/flatbed-freestyle-playboi-carti.jpg": [
-1,
-6,
-5
+2,
+0,
+2
+],
+"covers/flawless-like-me-lucki.jpg": [
+2,
+5,
+2
 ],
 "covers/flex-playboi-carti-feat-leven-kali.jpg": [
 1,
+6,
+6
+],
+"covers/flexing-the-underachievers.jpg": [
+2,
+6,
+2
+],
+"covers/fool-osamason.jpg": [
+2,
+7,
+2
+],
+"covers/foreign-playboi-carti.jpg": [
+2,
+0,
+2
+],
+"covers/freak-hoe-future.jpg": [
+2,
 0,
 3
 ],
-"covers/flexing-the-underachievers.jpg": [
-1,
-3,
-6
-],
-"covers/fool-osamason.jpg": [
-1,
-4,
-6
-],
-"covers/foreign-playboi-carti.jpg": [
-1,
-6,
-5
-],
 "covers/frisky-tinie-tempah-feat-labrinth.jpg": [
+2,
 1,
-5,
-6
+3
 ],
 "covers/frontin-osamason.jpg": [
-1,
-4,
-6
+2,
+7,
+2
 ],
 "covers/g-walk-lil-mosey.jpg": [
 1,
+3,
+7
+],
+"covers/gang-bang-wiz-khalifa-big-sean.jpg": [
+1,
+6,
+0
+],
+"covers/gangsta-gangsta-n-w-a.jpg": [
+2,
+2,
+3
+],
+"covers/garbage-tyler-the-creator.jpg": [
+2,
+3,
+3
+],
+"covers/gassed-up-nebu-kiniza.jpg": [
+2,
 4,
 3
 ],
-"covers/gang-bang-wiz-khalifa-big-sean.jpg": [
-0,
-3,
-6
+"covers/get-busy-yeat.jpg": [
+2,
+5,
+3
 ],
-"covers/gangsta-gangsta-n-w-a.jpg": [
-1,
+"covers/ghostface-killers-21-savage-offset-metro-boomin.jpg": [
+2,
 6,
-6
+3
 ],
-"covers/gassed-up-nebu-kiniza.jpg": [
-1,
+"covers/ginseng-strip-2002-yung-lean.jpg": [
+2,
 7,
-6
+3
 ],
 "covers/girls-just-want-to-have-fun-cyndi-lauper.jpg": [
-1,
+2,
 0,
-7
+4
 ],
 "covers/glowed-up-kaytranada-feat-anderson-paak.jpg": [
+2,
 1,
-1,
-7
+4
 ],
 "covers/go-n-get-it-ace-hood.jpg": [
-1,
 2,
-7
+2,
+4
 ],
 "covers/god-s-plan-drake.jpg": [
-1,
+2,
 3,
-7
+4
+],
+"covers/goin-mordum-sematary.jpg": [
+2,
+4,
+4
+],
+"covers/gold-medal-ken-carson.jpg": [
+2,
+5,
+4
 ],
 "covers/golden-tyler-the-creator.jpg": [
-1,
-1,
-6
+2,
+3,
+2
 ],
 "covers/gonorrhea-lil-wayne-feat-drake.jpg": [
-1,
-4,
-7
+2,
+6,
+4
 ],
 "covers/good-girl-vanessa-marquez.jpg": [
-1,
-5,
-7
+2,
+7,
+4
 ],
 "covers/good-guy-frank-ocean.jpg": [
-1,
-6,
-7
+2,
+0,
+5
 ],
 "covers/good-life-kanye-west-feat-t-pain.jpg": [
+2,
 1,
-7,
-7
+5
 ],
 "covers/good-morning-kanye-west.jpg": [
+2,
 1,
-7,
-7
+5
 ],
 "covers/goosebumps-travis-scott-feat-kendrick-lamar.jpg": [
 2,
-0,
-0
+2,
+5
 ],
 "covers/green-room-ken-carson.jpg": [
+2,
 1,
-7,
-5
+2
 ],
 "covers/grindin-clipse.jpg": [
 1,
-2,
-0
+4,
+3
 ],
 "covers/group-home-future-feat-young-thug.jpg": [
 2,
-1,
-0
+3,
+5
 ],
 "covers/growin-up-in-the-gutter-yelawolf.jpg": [
 2,
-2,
-0
+4,
+5
 ],
 "covers/guard-your-heart-big-sean.jpg": [
 2,
-3,
-0
+5,
+5
 ],
 "covers/gucci-gang-lil-pump.jpg": [
 2,
-4,
-0
+6,
+5
 ],
 "covers/gun-for-hire-billy-ocean.jpg": [
 2,
-5,
-0
+7,
+5
 ],
 "covers/h-a-m-jay-z-kanye-west.jpg": [
 2,
-6,
-0
+0,
+6
 ],
 "covers/ha-juvenile.jpg": [
 0,
-1,
-3
+3,
+4
 ],
 "covers/hacked-my-instagram-pi-erre-bourne.jpg": [
 2,
-7,
-0
+1,
+6
 ],
 "covers/hallelujah-chief-keef.jpg": [
 2,
-0,
-1
+2,
+6
 ],
 "covers/hallelujah-t-i.jpg": [
 2,
-1,
-1
+3,
+6
 ],
 "covers/happy-pharrell-williams.jpg": [
 2,
+4,
+6
+],
+"covers/haunted-mound-reapers-sematary-ghost-mountain.jpg": [
 2,
-1
+5,
+6
 ],
 "covers/have-mercy-ace-hood.jpg": [
 2,
-3,
-1
+6,
+6
 ],
 "covers/hazy-shade-of-winter-the-bangles.jpg": [
 2,
-4,
-1
+7,
+6
+],
+"covers/hdmi-bones.jpg": [
+2,
+0,
+7
 ],
 "covers/headlines-drake.jpg": [
 2,
-5,
-1
+1,
+7
+],
+"covers/hell-shell-young-nudy-feat-pi-erre-bourne.jpg": [
+2,
+2,
+7
 ],
 "covers/her-tyler-the-creator.jpg": [
-1,
-1,
-6
+2,
+3,
+2
 ],
 "covers/hero-nas.jpg": [
 2,
-6,
-1
+3,
+7
 ],
 "covers/hi-roller-lil-uzi-vert.jpg": [
 2,
-7,
-1
+4,
+7
+],
+"covers/high-as-sh-t-ken-carson.jpg": [
+2,
+5,
+7
 ],
 "covers/higher-g-o-o-d-music.jpg": [
 2,
+6,
+7
+],
+"covers/hogs-sematary.jpg": [
+2,
+7,
+7
+],
+"covers/home-kod-playboi-carti.jpg": [
+2,
 0,
 2
 ],
-"covers/home-kod-playboi-carti.jpg": [
-1,
-6,
-5
-],
 "covers/honest-future.jpg": [
-2,
-1,
-2
+3,
+0,
+0
 ],
 "covers/hope-xxxtentacion.jpg": [
-2,
-2,
-2
+3,
+1,
+0
 ],
 "covers/hopes-dreams-wiz-khalifa.jpg": [
-2,
 3,
-2
+2,
+0
 ],
 "covers/hot-wings-young-nudy-pi-erre-bourne.jpg": [
 1,
-4,
-2
+1,
+6
 ],
 "covers/house-party-meek-mill.jpg": [
-2,
-4,
-2
+3,
+3,
+0
 ],
 "covers/houstonfornication-travis-scott.jpg": [
 0,
-6,
-2
+7,
+3
 ],
 "covers/how-can-i-not-future.jpg": [
-2,
-1,
-2
+3,
+0,
+0
 ],
 "covers/how-high-pi-erre-bourne.jpg": [
 0,
-2,
-3
+4,
+4
 ],
 "covers/how-to-be-the-man-riff-raff.jpg": [
-2,
-5,
-2
+3,
+4,
+0
 ],
 "covers/how-to-talk-lil-uzi-vert.jpg": [
-2,
-6,
-2
+3,
+5,
+0
 ],
 "covers/humble-kendrick-lamar.jpg": [
-2,
-7,
-2
+3,
+6,
+0
 ],
 "covers/hurt-t-i-feat-alfamega-busta-rhymes.jpg": [
-2,
+3,
+7,
+0
+],
+"covers/hurt-yung-lean.jpg": [
+3,
 0,
-3
+1
 ],
 "covers/hyfr-drake.jpg": [
 2,
-5,
-1
+1,
+7
 ],
 "covers/i-be-u-future.jpg": [
-2,
-1,
-2
+3,
+0,
+0
 ],
 "covers/i-don-t-like-chief-keef-feat-lil-reese.jpg": [
 2,
-0,
-1
+2,
+6
 ],
 "covers/i-don-t-like-chief-keef.jpg": [
 2,
-0,
-1
+2,
+6
 ],
 "covers/i-don-t-sell-molly-no-more-ilovemakonnen.jpg": [
-2,
+3,
 1,
-3
+1
 ],
 "covers/i-feel-it-coming-the-weeknd-feat-daft-punk.jpg": [
+3,
 2,
-2,
-3
+1
 ],
 "covers/i-just-wanna-love-u-give-it-2-me-jay-z.jpg": [
-2,
 3,
-3
+3,
+1
+],
+"covers/i-know-travis-scott.jpg": [
+3,
+4,
+1
 ],
 "covers/i-lied-nicki-minaj.jpg": [
 0,
-1,
-2
+2,
+3
+],
+"covers/i-m-100-juicy-j.jpg": [
+3,
+5,
+1
 ],
 "covers/i-m-a-g-n-o-r-e.jpg": [
-2,
-4,
-3
+3,
+6,
+1
 ],
 "covers/i-m-not-you-clipse.jpg": [
-2,
-5,
-3
+3,
+7,
+1
 ],
 "covers/i-m-on-one-dj-khaled-feat-drake-rick-ross-lil-wayne.jpg": [
-2,
-6,
-3
+3,
+0,
+2
 ],
 "covers/i-m-so-fly-lloyd-banks.jpg": [
-2,
-7,
-3
+3,
+1,
+2
 ],
 "covers/i-m-sorry-lil-uzi-vert.jpg": [
 0,
-5,
-3
+3,
+5
 ],
 "covers/i-still-love-you-702.jpg": [
+3,
 2,
-0,
-4
+2
 ],
 "covers/if-i-should-die-jay-z.jpg": [
+1,
+7,
+2
+],
+"covers/if-looks-could-kill-destroy-lonely.jpg": [
+3,
+3,
+2
+],
+"covers/if-we-being-r-al-yeat.jpg": [
 0,
 7,
 7
-],
-"covers/if-looks-could-kill-destroy-lonely.jpg": [
-2,
-1,
-4
 ],
 "covers/ifhy-tyler-the-creator-feat-pharrell.jpg": [
 0,
-4,
-2
+5,
+3
 ],
 "covers/ig-pi-erre-bourne.jpg": [
-2,
-2,
-4
+3,
+4,
+2
 ],
 "covers/igor-s-theme-tyler-the-creator.jpg": [
-2,
 3,
-4
+5,
+2
 ],
 "covers/inglorious-tyler-the-creator.jpg": [
-2,
-4,
-4
+3,
+6,
+2
+],
+"covers/into-dust-bladee.jpg": [
+3,
+7,
+2
 ],
 "covers/intro-gmb-pac-div.jpg": [
-2,
-5,
-4
+3,
+0,
+3
 ],
 "covers/itchin-future.jpg": [
-2,
-6,
-4
+3,
+1,
+3
 ],
 "covers/jealous-fredo-santana.jpg": [
+3,
 2,
-7,
-4
+3
+],
+"covers/jeans-2hollis.jpg": [
+3,
+3,
+3
 ],
 "covers/jennifer-s-body-ken-carson.jpg": [
-1,
-7,
-5
-],
-"covers/john-lil-wayne.jpg": [
-2,
-0,
-5
-],
-"covers/just-lose-it-eminem.jpg": [
-2,
-1,
-5
-],
-"covers/k-for-christmas-lil-mosey.jpg": [
-2,
-2,
-5
-],
-"covers/karate-chop-future.jpg": [
 2,
 1,
 2
 ],
-"covers/keep-it-trill-kirko-bangz.jpg": [
-2,
+"covers/john-lil-wayne.jpg": [
 3,
-5
+4,
+3
+],
+"covers/just-can-t-summrs.jpg": [
+3,
+5,
+3
+],
+"covers/just-lose-it-eminem.jpg": [
+3,
+6,
+3
+],
+"covers/k-for-christmas-lil-mosey.jpg": [
+3,
+7,
+3
+],
+"covers/karate-chop-future.jpg": [
+3,
+0,
+0
+],
+"covers/keep-it-trill-kirko-bangz.jpg": [
+3,
+0,
+4
 ],
 "covers/kill-bill-sza.jpg": [
+3,
+1,
+4
+],
+"covers/kill-you-fredo-santana.jpg": [
+3,
 2,
-4,
-5
+4
 ],
 "covers/kinda-like-a-big-deal-clipse-feat-kanye-west.jpg": [
-2,
-5,
-5
+3,
+3,
+4
 ],
 "covers/king-vamp-playboi-carti.jpg": [
 1,
-0,
-0
+1,
+3
 ],
 "covers/king-wizard-kid-cudi.jpg": [
 0,
-0,
+6,
+5
+],
+"covers/kyoto-yung-lean.jpg": [
+3,
+4,
+4
+],
+"covers/lambtruck-osamason.jpg": [
+3,
+5,
 4
 ],
 "covers/last-donut-of-the-night-j-dilla.jpg": [
-2,
+3,
 6,
-5
+4
 ],
 "covers/lean-4-real-playboi-carti-feat-skepta.jpg": [
-1,
-6,
-5
+2,
+0,
+2
 ],
 "covers/left-right-yg.jpg": [
 0,
-5,
-5
+4,
+7
 ],
 "covers/let-it-go-playboi-carti.jpg": [
 1,
-0,
-3
+6,
+6
 ],
 "covers/light-your-ass-on-fire-busta-rhymes-feat-pharrell.jpg": [
-2,
+3,
 7,
-5
+4
 ],
 "covers/long-ride-young-nudy.jpg": [
-2,
+3,
 0,
-6
+5
 ],
 "covers/long-time-intro-playboi-carti.jpg": [
-1,
-6,
-5
+2,
+0,
+2
 ],
 "covers/long-time-playboi-carti.jpg": [
-1,
-6,
-5
+2,
+0,
+2
 ],
 "covers/look-alive-blocboy-jb-feat-drake.jpg": [
-2,
+3,
 1,
-6
+5
 ],
 "covers/look-at-me-now-chris-brown-feat-lil-wayne-busta-rhymes.jpg": [
+3,
 2,
-2,
-6
+5
 ],
 "covers/look-at-me-now-chris-brown.jpg": [
-2,
 3,
-6
+3,
+5
 ],
 "covers/lord-forgive-me-tobe-nwigwe-fat-nwigwe-pharrell-williams-earthgang.jpg": [
-2,
+3,
 4,
-6
+5
 ],
 "covers/lost-in-the-sauce-kid-ink.jpg": [
-2,
+3,
 5,
-6
+5
 ],
 "covers/loud-mac-miller.jpg": [
-2,
+3,
 6,
-6
+5
 ],
 "covers/love-galore-sza-feat-travis-scott.jpg": [
 1,
-5,
-3
+4,
+7
 ],
 "covers/love-hurts-playboi-carti.jpg": [
-1,
-6,
-5
-],
-"covers/love-in-this-club-usher-feat-young-jeezy.jpg": [
-2,
-7,
-6
-],
-"covers/love-lockdown-kanye-west.jpg": [
 2,
 0,
-7
+2
+],
+"covers/love-in-this-club-usher-feat-young-jeezy.jpg": [
+3,
+7,
+5
+],
+"covers/love-lockdown-kanye-west.jpg": [
+3,
+0,
+6
 ],
 "covers/love-sosa-chief-keef.jpg": [
 2,
-0,
-1
+2,
+6
 ],
 "covers/lovers-pi-erre-bourne.jpg": [
 0,
-2,
-3
+4,
+4
 ],
 "covers/lovin-on-me-jack-harlow.jpg": [
-2,
-1,
-7
-],
-"covers/lucid-dreams-juice-wrld.jpg": [
-0,
-4,
-1
-],
-"covers/lust-for-life-drake.jpg": [
-2,
-2,
-7
-],
-"covers/m-i-a-omarion-feat-wale.jpg": [
-2,
 3,
-7
-],
-"covers/magnolia-playboi-carti.jpg": [
-1,
-0,
-3
-],
-"covers/man-in-the-mirror-michael-jackson.jpg": [
-2,
-4,
-7
-],
-"covers/maneuvering-ilovemakonnen.jpg": [
-2,
-1,
-3
-],
-"covers/march-madness-future.jpg": [
-2,
-5,
-7
-],
-"covers/maybe-kid-cudi.jpg": [
-2,
-6,
-7
-],
-"covers/mc-hammer-rick-ross.jpg": [
-2,
-7,
-7
-],
-"covers/meds-ken-carson.jpg": [
-0,
 1,
 6
 ],
-"covers/meh-playboi-carti.jpg": [
-1,
-0,
-0
-],
-"covers/mileage-playboi-carti.jpg": [
-1,
-6,
-5
-],
-"covers/milkshake-kelis.jpg": [
+"covers/low-life-future-feat-the-weeknd.jpg": [
 3,
-0,
-0
-],
-"covers/mob-ties-drake.jpg": [
-1,
-3,
-7
-],
-"covers/money-cash-hoes-jay-z-feat-dmx.jpg": [
-3,
-1,
-0
-],
-"covers/money-longer-lil-uzi-vert.jpg": [
 2,
-7,
-1
+6
 ],
-"covers/money-spread-lil-uzi-vert.jpg": [
+"covers/lucid-dreams-juice-wrld.jpg": [
 0,
 5,
-3
+2
 ],
-"covers/money-trees-kendrick-lamar-feat-jay-rock.jpg": [
+"covers/lust-for-life-drake.jpg": [
+3,
+3,
+6
+],
+"covers/m-i-a-omarion-feat-wale.jpg": [
+3,
+4,
+6
+],
+"covers/macaroni-time-chief-keef.jpg": [
+3,
+5,
+6
+],
+"covers/magnolia-playboi-carti.jpg": [
+1,
+6,
+6
+],
+"covers/man-in-the-mirror-michael-jackson.jpg": [
+3,
+6,
+6
+],
+"covers/maneuvering-ilovemakonnen.jpg": [
+3,
+1,
+1
+],
+"covers/march-madness-future.jpg": [
+3,
+7,
+6
+],
+"covers/mask-off-future.jpg": [
+3,
+0,
+7
+],
+"covers/maybe-kid-cudi.jpg": [
+3,
+1,
+7
+],
+"covers/mc-hammer-rick-ross.jpg": [
 3,
 2,
-0
+7
 ],
-"covers/monster-future.jpg": [
-3,
-3,
-0
-],
-"covers/moonlight-xxxtentacion.jpg": [
-3,
+"covers/meds-ken-carson.jpg": [
+1,
 4,
 0
 ],
-"covers/more-than-a-woman-aaliyah.jpg": [
+"covers/meh-playboi-carti.jpg": [
+1,
+1,
+3
+],
+"covers/meltdown-travis-scott-feat-drake.jpg": [
+3,
+4,
+1
+],
+"covers/midget-oj-da-juiceman.jpg": [
+3,
+3,
+7
+],
+"covers/mileage-playboi-carti.jpg": [
+2,
+0,
+2
+],
+"covers/miley-cyrus-che.jpg": [
+3,
+4,
+7
+],
+"covers/milkshake-kelis.jpg": [
 3,
 5,
+7
+],
+"covers/mob-ties-drake.jpg": [
+2,
+3,
+4
+],
+"covers/money-cash-hoes-jay-z-feat-dmx.jpg": [
+3,
+6,
+7
+],
+"covers/money-keep-tellin-me-fredo-santana.jpg": [
+3,
+2,
+4
+],
+"covers/money-longer-lil-uzi-vert.jpg": [
+2,
+4,
+7
+],
+"covers/money-so-big-yeat.jpg": [
+2,
+5,
+3
+],
+"covers/money-spread-lil-uzi-vert.jpg": [
+0,
+3,
+5
+],
+"covers/money-trees-kendrick-lamar-feat-jay-rock.jpg": [
+3,
+7,
+7
+],
+"covers/monster-future.jpg": [
+1,
+6,
+2
+],
+"covers/moonlight-xxxtentacion.jpg": [
+4,
+0,
+0
+],
+"covers/more-than-a-woman-aaliyah.jpg": [
+4,
+1,
 0
 ],
 "covers/more-than-ever-lucki.jpg": [
-3,
-6,
+4,
+2,
 0
 ],
 "covers/morning-light-justin-timberlake-feat-alicia-keys.jpg": [
+4,
 3,
-7,
 0
 ],
 "covers/motorsport-migos-nicki-minaj-cardi-b.jpg": [
 0,
-0,
-3
+1,
+4
 ],
 "covers/move-that-dope-future-feat-pharrell-pusha-t-casino.jpg": [
-3,
-0,
-1
+4,
+4,
+0
 ],
 "covers/move-that-dope-future.jpg": [
-3,
-0,
-1
+4,
+4,
+0
 ],
 "covers/mrs-clean-amin.jpg": [
-3,
-1,
-1
+4,
+5,
+0
+],
+"covers/mrs-green-killa-kyleon.jpg": [
+4,
+6,
+0
 ],
 "covers/mula-big-sean.jpg": [
-3,
+4,
+7,
+0
+],
+"covers/murder-ride-sematary.jpg": [
 2,
-1
+4,
+4
 ],
-"covers/my-wrist-yeat-feat-young-thug.jpg": [
-3,
-3,
-1
-],
-"covers/needed-me-rihanna.jpg": [
+"covers/my-eyes-travis-scott.jpg": [
 3,
 4,
 1
 ],
+"covers/my-wrist-yeat-feat-young-thug.jpg": [
+4,
+0,
+1
+],
+"covers/needed-me-rihanna.jpg": [
+4,
+1,
+1
+],
 "covers/never-recover-lil-baby-gunna-feat-drake.jpg": [
-3,
-5,
+4,
+2,
 1
 ],
 "covers/neverever-destroy-lonely.jpg": [
+4,
 3,
-6,
 1
 ],
 "covers/new-choppa-playboi-carti-feat-a-ap-rocky.jpg": [
 1,
-0,
-3
+6,
+6
 ],
 "covers/new-tank-playboi-carti.jpg": [
 1,
-0,
-0
+1,
+3
 ],
 "covers/new-york-lucki.jpg": [
-3,
-7,
+4,
+4,
+1
+],
+"covers/next-life-isaacjacuzzi.jpg": [
+4,
+5,
 1
 ],
 "covers/nigga-please-jay-z.jpg": [
-3,
-0,
-2
-],
-"covers/nightcore-2-ken-carson.jpg": [
-1,
-7,
-5
-],
-"covers/nitrous-joji.jpg": [
-3,
-1,
-2
-],
-"covers/no-evidence-spaceghostpurrp.jpg": [
-0,
-7,
-3
-],
-"covers/no-lie-2-chainz-feat-drake.jpg": [
-0,
-3,
-4
-],
-"covers/no-mediocre-t-i-feat-iggy-azalea.jpg": [
-3,
-2,
-2
-],
-"covers/no-stylist-destroy-lonely.jpg": [
-3,
+4,
 6,
 1
 ],
+"covers/nightcore-2-ken-carson.jpg": [
+2,
+1,
+2
+],
+"covers/nitrous-joji.jpg": [
+4,
+7,
+1
+],
+"covers/no-evidence-spaceghostpurrp.jpg": [
+0,
+5,
+5
+],
+"covers/no-lie-2-chainz-feat-drake.jpg": [
+0,
+1,
+6
+],
+"covers/no-mediocre-t-i-feat-iggy-azalea.jpg": [
+4,
+0,
+2
+],
+"covers/no-more-che.jpg": [
+4,
+1,
+2
+],
+"covers/no-stylist-destroy-lonely.jpg": [
+4,
+3,
+1
+],
 "covers/no-tomorrow-chief-keef.jpg": [
-3,
-3,
+4,
+2,
 2
 ],
 "covers/no-type-rae-sremmurd.jpg": [
+4,
 3,
+2
+],
+"covers/no-way-rich-homie-quan.jpg": [
+4,
 4,
 2
 ],
 "covers/none-of-us-are-free-ray-charles.jpg": [
-3,
+4,
 5,
 2
 ],
 "covers/not-afraid-eminem.jpg": [
-3,
+4,
 6,
 2
 ],
 "covers/not-playing-playboi-carti.jpg": [
 1,
-0,
-0
+1,
+3
 ],
 "covers/nothin-n-o-r-e.jpg": [
-3,
+4,
 7,
 2
 ],
-"covers/nuthin-but-a-g-thang-dr-dre-feat-snoop-doggy-dogg.jpg": [
-3,
+"covers/nothing-like-uuu-nettspend.jpg": [
+4,
 0,
 3
 ],
-"covers/ocho-cinco-french-montana.jpg": [
-3,
+"covers/nuthin-but-a-g-thang-dr-dre-feat-snoop-doggy-dogg.jpg": [
+4,
 1,
+3
+],
+"covers/ocho-cinco-french-montana.jpg": [
+4,
+2,
 3
 ],
 "covers/off-that-jay-z-feat-drake.jpg": [
 1,
-0,
-1
+3,
+4
+],
+"covers/off-that-osamason.jpg": [
+4,
+3,
+3
+],
+"covers/og-kid-ink.jpg": [
+4,
+4,
+3
 ],
 "covers/oh-no-noreaga.jpg": [
-3,
-2,
+4,
+5,
 3
 ],
 "covers/okay-jt.jpg": [
-3,
-3,
+4,
+6,
 3
 ],
 "covers/old-money-playboi-carti.jpg": [
-1,
-6,
-5
+2,
+0,
+2
 ],
 "covers/one-dolla-young-nudy.jpg": [
-3,
 4,
+7,
 3
 ],
-"covers/outside-the-weeknd.jpg": [
-3,
+"covers/ooh-lord-isaacjacuzzi.jpg": [
+4,
 5,
-3
+1
+],
+"covers/out-th-way-yeat.jpg": [
+4,
+0,
+4
+],
+"covers/outside-the-weeknd.jpg": [
+4,
+1,
+4
 ],
 "covers/over-playboi-carti.jpg": [
 1,
-0,
-0
+1,
+3
 ],
 "covers/oxy-music-schoolboy-q.jpg": [
-3,
-6,
-3
+4,
+2,
+4
 ],
 "covers/p-i-m-p-50-cent.jpg": [
+4,
 3,
-7,
-3
+4
+],
+"covers/p-odd-future.jpg": [
+4,
+4,
+4
 ],
 "covers/p-t-2001-ton-x.jpg": [
-3,
-0,
+4,
+5,
 4
 ],
 "covers/panini-lil-nas-x.jpg": [
-3,
-1,
+4,
+6,
 4
 ],
 "covers/paperbond-wiz-khalifa.jpg": [
-3,
-2,
+4,
+7,
 4
 ],
 "covers/parade-tyler-the-creator.jpg": [
-2,
-4,
-4
-],
-"covers/paradise-big-sean.jpg": [
-3,
-3,
-4
-],
-"covers/paranoid-ty-dolla-ign-feat-b-o-b.jpg": [
-3,
-4,
-4
-],
-"covers/peach-dream-lucki.jpg": [
 3,
 6,
+2
+],
+"covers/paradise-big-sean.jpg": [
+4,
+0,
+5
+],
+"covers/paranoid-ty-dolla-ign-feat-b-o-b.jpg": [
+4,
+1,
+5
+],
+"covers/paris-suicideboys.jpg": [
+4,
+2,
+5
+],
+"covers/pass-around-gucci-mane-young-scooter.jpg": [
+4,
+3,
+5
+],
+"covers/patty-xaviersobased.jpg": [
+4,
+4,
+5
+],
+"covers/peach-dream-lucki.jpg": [
+4,
+2,
+0
+],
+"covers/peroxide-ecco2k.jpg": [
+1,
+7,
 0
 ],
 "covers/persuasive-doechii-sza.jpg": [
-3,
+4,
 5,
-4
+5
 ],
 "covers/pillz-gucci-mane.jpg": [
-3,
+4,
 6,
-4
+5
 ],
 "covers/pissed-off-ken-carson.jpg": [
-0,
 1,
-6
+4,
+0
 ],
 "covers/place-playboi-carti.jpg": [
 1,
-0,
-0
+1,
+3
 ],
 "covers/planet-rock-afrika-bambaataa-the-soulsonic-force.jpg": [
-3,
+4,
 7,
-4
+5
 ],
 "covers/poke-it-out-playboi-carti.jpg": [
-1,
-6,
-5
+2,
+0,
+2
 ],
 "covers/poof-pi-erre-bourne.jpg": [
 0,
-2,
-3
+4,
+4
 ],
 "covers/pop-osamason.jpg": [
 0,
-5,
-1
+6,
+2
 ],
 "covers/pop-out-playboi-carti.jpg": [
-3,
 0,
-5
+3,
+0
+],
+"covers/poppin-yeat.jpg": [
+1,
+7,
+6
 ],
 "covers/presidential-rick-ross-feat-elijah-blake.jpg": [
-3,
-1,
-5
+4,
+0,
+6
 ],
 "covers/presidential-rick-ross.jpg": [
-3,
-1,
-5
+4,
+0,
+6
+],
+"covers/psycho-ceo-yeat.jpg": [
+0,
+7,
+7
 ],
 "covers/pull-up-playboi-carti.jpg": [
+2,
+0,
+2
+],
+"covers/push-yung-lean.jpg": [
+4,
 1,
-6,
-5
+6
 ],
 "covers/r-i-p-fredo-notice-me-playboi-carti.jpg": [
-1,
-6,
-5
+2,
+0,
+2
 ],
 "covers/r-i-p-playboi-carti.jpg": [
-1,
-6,
-5
+2,
+0,
+2
 ],
 "covers/racer-pi-erre-bourne.jpg": [
 0,
-2,
-3
+4,
+4
 ],
 "covers/radical-future.jpg": [
-3,
-3,
-0
+1,
+6,
+2
 ],
 "covers/raf-a-ap-mob.jpg": [
-3,
+4,
 2,
-5
+6
+],
+"covers/rahrah-isaacjacuzzi.jpg": [
+4,
+3,
+6
 ],
 "covers/ransom-lil-tecca.jpg": [
-3,
-3,
-5
+4,
+4,
+6
 ],
 "covers/real-rich-homie-quan.jpg": [
-0,
-5,
-6
+1,
+2,
+1
 ],
 "covers/recognize-partynextdoor-feat-drake.jpg": [
-3,
 4,
-5
+5,
+6
 ],
 "covers/red-moon-lil-uzi-vert.jpg": [
-3,
-5,
-5
+4,
+6,
+6
+],
+"covers/redrum-21-savage.jpg": [
+4,
+7,
+6
 ],
 "covers/ref-osamason.jpg": [
-1,
+2,
+7,
+2
+],
+"covers/remember-me-glokk40spaz.jpg": [
 4,
-6
+0,
+7
+],
+"covers/rest-in-bass-che.jpg": [
+4,
+1,
+2
 ],
 "covers/retroville-pi-erre-bourne.jpg": [
 0,
-4,
-0
+0,
+1
 ],
 "covers/return-the-favor-keri-hilson-feat-timbaland.jpg": [
-3,
-6,
-5
+4,
+1,
+7
+],
+"covers/rich-minion-yeat.jpg": [
+4,
+2,
+7
 ],
 "covers/right-now-playboi-carti-feat-pi-erre-bourne.jpg": [
-1,
-6,
-5
+2,
+0,
+2
 ],
 "covers/ring-cardi-b-feat-kehlani.jpg": [
+4,
 3,
-7,
-5
+7
+],
+"covers/roccsan-skooly.jpg": [
+4,
+4,
+7
 ],
 "covers/rock-n-roll-ken-carson.jpg": [
-0,
-0,
-7
+1,
+6,
+1
 ],
 "covers/rock-your-body-justin-timberlake.jpg": [
 1,
-7,
-0
+2,
+4
 ],
 "covers/rockin-that-shit-the-dream.jpg": [
-3,
-0,
-6
+4,
+5,
+7
 ],
 "covers/rockstar-dababy-feat-roddy-ricch.jpg": [
-3,
-1,
-6
+4,
+6,
+7
 ],
 "covers/rockstar-made-playboi-carti.jpg": [
 1,
-0,
-0
+1,
+3
 ],
 "covers/rolex-hodgy-beats.jpg": [
-0,
-3,
-7
+1,
+1,
+2
 ],
 "covers/rubber-band-man-t-i.jpg": [
-3,
-2,
-6
+4,
+7,
+7
 ],
 "covers/run-ran-ken-carson.jpg": [
-0,
-0,
-7
+1,
+6,
+1
 ],
 "covers/run-this-town-jay-z-feat-rihanna-kanye-west.jpg": [
 1,
-0,
-1
+3,
+4
 ],
 "covers/rusty-tyler-the-creator-feat-domo-genesis-earl-sweatshirt.jpg": [
 0,
+5,
+3
+],
+"covers/safety-2hollis.jpg": [
+5,
+0,
+0
+],
+"covers/sam-is-dead-odd-future.jpg": [
 4,
-2
+4,
+4
 ],
 "covers/same-damn-time-future.jpg": [
-3,
-3,
-6
+5,
+1,
+0
 ],
 "covers/sandwitches-tyler-the-creator-feat-hodgy-beats.jpg": [
-1,
-1,
-6
+2,
+3,
+2
+],
+"covers/sayso-says-che.jpg": [
+0,
+0,
+0
 ],
 "covers/scholar-gucci-mane.jpg": [
-3,
-4,
-6
+5,
+2,
+0
 ],
 "covers/scholarships-drake-future.jpg": [
-3,
 5,
-6
+3,
+0
+],
+"covers/see-no-evil-isaacjacuzzi.jpg": [
+5,
+4,
+0
 ],
 "covers/sexyback-justin-timberlake.jpg": [
-3,
-6,
-6
+5,
+5,
+0
 ],
 "covers/shake-that-monkey-too-short.jpg": [
-3,
-7,
-6
+5,
+6,
+0
 ],
 "covers/she-will-lil-wayne-feat-drake.jpg": [
-3,
+5,
+7,
+0
+],
+"covers/shinners13-city-morgue.jpg": [
+5,
 0,
-7
+1
 ],
 "covers/shit-on-you-travis-scott.jpg": [
-3,
+5,
 1,
-7
+1
 ],
 "covers/shoota-playboi-carti-feat-lil-uzi-vert.jpg": [
-1,
-6,
-5
+2,
+0,
+2
 ],
 "covers/shotgun-future.jpg": [
-3,
+5,
 2,
-7
+1
+],
+"covers/sick-tonight-glokk40spaz.jpg": [
+0,
+1,
+0
 ],
 "covers/sicko-mode-travis-scott-feat-drake.jpg": [
+5,
 3,
-3,
-7
+1
 ],
 "covers/simon-says-pi-erre-bourne.jpg": [
 1,
-7,
-1
+3,
+5
 ],
 "covers/sky-playboi-carti.jpg": [
 1,
-0,
-0
+1,
+3
 ],
 "covers/slater-tyler-the-creator-feat-frank-ocean.jpg": [
 0,
-4,
-2
+5,
+3
+],
+"covers/slaughter-house-sematary-ghost-mountain.jpg": [
+1,
+2,
+0
 ],
 "covers/slow-down-vanjess-feat-lucky-daye.jpg": [
-3,
+5,
 4,
-7
+1
+],
+"covers/smart-che.jpg": [
+4,
+1,
+2
 ],
 "covers/smoke-a-nigga-juicy-j.jpg": [
+5,
+5,
+1
+],
+"covers/smokin-sippin-juicy-j.jpg": [
 3,
 5,
-7
+1
 ],
 "covers/smuckers-tyler-the-creator-feat-kanye-west-lil-wayne.jpg": [
-3,
+5,
 6,
-7
+1
 ],
 "covers/sneakin-n-geekin-pee-wee-longway.jpg": [
-3,
+5,
 7,
-7
+1
 ],
 "covers/so-sophisticated-rick-ross-feat-meek-mill.jpg": [
-3,
-1,
-5
-],
-"covers/sossboy-2-pi-erre-bourne.jpg": [
 4,
 0,
-0
+6
+],
+"covers/sodium-bones.jpg": [
+5,
+0,
+2
+],
+"covers/sorry-bout-that-yeat.jpg": [
+5,
+1,
+2
+],
+"covers/sossboy-2-pi-erre-bourne.jpg": [
+5,
+2,
+2
 ],
 "covers/sossboy-pi-erre-bourne.jpg": [
 1,
-7,
-1
+3,
+5
 ],
 "covers/sossgirl-pi-erre-bourne.jpg": [
 1,
-7,
-1
+3,
+5
 ],
 "covers/space-cadet-metro-boomin-feat-gunna.jpg": [
-4,
-1,
-0
+5,
+3,
+2
 ],
 "covers/special-future.jpg": [
-2,
-1,
+3,
+0,
+0
+],
+"covers/standout-que.jpg": [
+5,
+4,
 2
 ],
 "covers/start-it-up-lloyd-banks.jpg": [
-4,
-2,
-0
+5,
+5,
+2
 ],
 "covers/start-over-beyonc.jpg": [
-4,
-3,
-0
+5,
+6,
+2
 ],
 "covers/stay-schemin-rick-ross.jpg": [
-4,
-4,
-0
+5,
+7,
+2
 ],
 "covers/steamroller-domo-genesis.jpg": [
-0,
-2,
-6
-],
-"covers/still-d-r-e-dr-dre-feat-snoop-dogg.jpg": [
-4,
+1,
 5,
 0
+],
+"covers/stick-talk-future.jpg": [
+2,
+0,
+3
+],
+"covers/still-d-r-e-dr-dre-feat-snoop-dogg.jpg": [
+5,
+0,
+3
 ],
 "covers/stop-breathing-playboi-carti.jpg": [
 1,
-0,
-0
+1,
+3
 ],
 "covers/streets-is-talking-jay-z-feat-beanie-sigel.jpg": [
+3,
+3,
+1
+],
+"covers/stripclub-mellowhype.jpg": [
+5,
+1,
+3
+],
+"covers/stronger-kanye-west.jpg": [
 2,
+1,
+5
+],
+"covers/studio-young-nudy.jpg": [
+5,
+2,
+3
+],
+"covers/stylin-on-em-spaceghostpurrp.jpg": [
+0,
+4,
+6
+],
+"covers/successful-drake.jpg": [
+3,
+3,
+6
+],
+"covers/suge-dababy.jpg": [
+5,
 3,
 3
 ],
-"covers/stripclub-mellowhype.jpg": [
+"covers/sunset-lucki.jpg": [
+5,
 4,
-6,
-0
-],
-"covers/stronger-kanye-west.jpg": [
-1,
-7,
-7
-],
-"covers/successful-drake.jpg": [
-2,
-2,
-7
-],
-"covers/suge-dababy.jpg": [
-4,
-7,
-0
+3
 ],
 "covers/superpower-beyonc-feat-frank-ocean.jpg": [
-4,
-0,
-1
+5,
+5,
+3
 ],
 "covers/superthug-noreaga.jpg": [
-4,
-1,
-1
+5,
+6,
+3
 ],
 "covers/surf-vince-staples.jpg": [
-4,
-2,
-1
+5,
+7,
+3
+],
+"covers/swk-freestyle-summrs.jpg": [
+3,
+5,
+3
 ],
 "covers/take-my-breath-away-berlin.jpg": [
-4,
-3,
-1
+5,
+0,
+4
 ],
 "covers/talk-yeat.jpg": [
 4,
-4,
-1
+0,
+4
+],
+"covers/teen-bean-ken-carson.jpg": [
+5,
+1,
+4
 ],
 "covers/teenager-rager-ken-carson.jpg": [
-0,
 1,
-6
+4,
+0
 ],
 "covers/teflon-don-future.jpg": [
-4,
 5,
-1
+2,
+4
 ],
 "covers/tell-him-the-truth-keri-hilson.jpg": [
-4,
-6,
-1
+5,
+3,
+4
 ],
 "covers/thank-god-i-found-you-make-it-last-remix-mariah-carey.jpg": [
+5,
 4,
-7,
-1
+4
 ],
 "covers/thanks-to-you-clams-casino.jpg": [
-4,
-0,
-2
+5,
+5,
+4
+],
+"covers/that-s-what-love-is-what-s-love-che.jpg": [
+5,
+6,
+4
 ],
 "covers/the-box-roddy-ricch.jpg": [
-4,
-1,
-2
+5,
+7,
+4
 ],
 "covers/the-hills-the-weeknd.jpg": [
-4,
-2,
-2
+5,
+0,
+5
+],
+"covers/the-only-way-celly-cel.jpg": [
+5,
+1,
+5
 ],
 "covers/the-real-slim-shady-eminem.jpg": [
-4,
+5,
+2,
+5
+],
+"covers/the-truth-spaceghostpurrp.jpg": [
+5,
 3,
-2
+5
 ],
 "covers/the-way-i-are-timbaland-feat-keri-hilson-d-o-e.jpg": [
+5,
 4,
-4,
-2
+5
 ],
 "covers/these-walls-kendrick-lamar-feat-bilal-anna-wise-thundercat.jpg": [
 0,
-7,
-1
+0,
+3
 ],
 "covers/they-reminisce-over-you-t-r-o-y-pete-rock-cl-smooth.jpg": [
-4,
 5,
-2
+5,
+5
 ],
 "covers/thinkin-bout-you-frank-ocean.jpg": [
-4,
-6,
-2
-],
-"covers/thursday-the-weeknd.jpg": [
-4,
-7,
-2
-],
-"covers/time-after-time-cyndi-lauper.jpg": [
-1,
-0,
-7
-],
-"covers/tina-tyler-the-creator.jpg": [
-2,
-4,
-4
-],
-"covers/to-die-for-sam-smith.jpg": [
-4,
-0,
-3
-],
-"covers/tokyo-drift-fast-furious-teriyaki-boyz.jpg": [
-4,
-1,
-3
-],
-"covers/too-much-drake.jpg": [
-4,
-2,
-3
-],
-"covers/top-back-t-i.jpg": [
-4,
-3,
-3
-],
-"covers/top-playboi-carti.jpg": [
-1,
+5,
 6,
 5
 ],
-"covers/traffic-lil-reese.jpg": [
-4,
-4,
+"covers/thought-it-was-a-drought-future.jpg": [
+2,
+0,
 3
 ],
-"covers/trap-back-gucci-mane.jpg": [
-4,
+"covers/thuggin-jay-305.jpg": [
 5,
-3
+7,
+5
 ],
-"covers/tron-cat-tyler-the-creator.jpg": [
-1,
+"covers/thursday-the-weeknd.jpg": [
+5,
+0,
+6
+],
+"covers/till-it-s-over-isaacjacuzzi.jpg": [
+5,
 1,
 6
+],
+"covers/time-after-time-cyndi-lauper.jpg": [
+2,
+0,
+4
+],
+"covers/tina-tyler-the-creator.jpg": [
+3,
+6,
+2
+],
+"covers/to-die-for-sam-smith.jpg": [
+5,
+2,
+6
+],
+"covers/tokyo-drift-fast-furious-teriyaki-boyz.jpg": [
+5,
+3,
+6
+],
+"covers/too-much-drake.jpg": [
+5,
+4,
+6
+],
+"covers/top-back-t-i.jpg": [
+5,
+5,
+6
+],
+"covers/top-playboi-carti.jpg": [
+2,
+0,
+2
+],
+"covers/topman-bladee.jpg": [
+5,
+6,
+6
+],
+"covers/traffic-lil-reese.jpg": [
+5,
+7,
+6
+],
+"covers/trap-back-gucci-mane.jpg": [
+5,
+0,
+7
+],
+"covers/tron-cat-tyler-the-creator.jpg": [
+2,
+3,
+2
+],
+"covers/troops-osamason.jpg": [
+5,
+1,
+7
 ],
 "covers/trust-issues-drake.jpg": [
 0,
-6,
-0
+2,
+1
 ],
 "covers/truth-gonna-hurt-you-future.jpg": [
-3,
-3,
-6
+5,
+1,
+0
 ],
 "covers/tuesday-ilovemakonnen.jpg": [
-2,
+3,
 1,
-3
+1
 ],
 "covers/tupac-back-meek-mill-feat-rick-ross.jpg": [
-4,
-6,
-3
+5,
+2,
+7
 ],
 "covers/turban-yeat.jpg": [
-4,
-7,
+2,
+5,
 3
 ],
 "covers/turn-on-the-lights-future.jpg": [
-3,
-3,
-6
+5,
+1,
+0
 ],
 "covers/tweakin-waka-flocka-flame.jpg": [
-4,
-0,
-4
+5,
+3,
+7
 ],
 "covers/twist-turn-popcaan-feat-drake-partynextdoor.jpg": [
+5,
 4,
-1,
-4
+7
 ],
 "covers/two-can-win-j-dilla.jpg": [
-2,
+3,
 6,
-5
+4
 ],
 "covers/type-shit-future-metro-boomin-travis-scott-playboi-carti.jpg": [
-4,
-2,
-4
+5,
+5,
+7
+],
+"covers/u-o-e-n-o-nine-vicious-feat-ndo-dee.jpg": [
+5,
+6,
+7
 ],
 "covers/u-o-e-n-o-rocko.jpg": [
-4,
-3,
-4
+5,
+7,
+7
+],
+"covers/uh-huh-kankan.jpg": [
+6,
+0,
+0
 ],
 "covers/umbrella-rihanna-feat-jay-z.jpg": [
-4,
-4,
-4
+6,
+1,
+0
 ],
 "covers/unlock-the-swag-rae-sremmurd.jpg": [
+4,
 3,
+2
+],
+"covers/unreleased-xaviersobased.jpg": [
+6,
+2,
+0
+],
+"covers/up-down-do-this-all-day-t-pain-feat-b-o-b.jpg": [
+6,
+3,
+0
+],
+"covers/used-2-2-chainz.jpg": [
+6,
+4,
+0
+],
+"covers/used-to-this-future-feat-drake.jpg": [
+6,
+5,
+0
+],
+"covers/vcr-tyler-the-creator.jpg": [
+3,
+6,
+2
+],
+"covers/vengeance-denzel-curry-feat-jpegmafia-zillakami.jpg": [
+1,
 4,
 2
 ],
-"covers/up-down-do-this-all-day-t-pain-feat-b-o-b.jpg": [
-4,
-5,
-4
-],
-"covers/used-2-2-chainz.jpg": [
-4,
-6,
-4
-],
-"covers/used-to-this-future-feat-drake.jpg": [
-4,
-7,
-4
-],
-"covers/vcr-tyler-the-creator.jpg": [
-2,
-4,
-4
-],
 "covers/vertigo-khalid.jpg": [
-4,
-0,
-5
+6,
+6,
+0
 ],
 "covers/video-games-lana-del-rey.jpg": [
-4,
-1,
-5
+6,
+7,
+0
 ],
 "covers/vivid-dreams-kaytranada-feat-river-tiber.jpg": [
-4,
-2,
-5
+6,
+0,
+1
 ],
 "covers/vogue-madonna.jpg": [
-4,
-3,
-5
+6,
+1,
+1
 ],
 "covers/wait-for-u-future-feat-drake-tems.jpg": [
-4,
-4,
-5
+6,
+2,
+1
 ],
 "covers/wanna-move-diddy.jpg": [
 1,
+5,
+5
+],
+"covers/want-some-more-nicki-minaj.jpg": [
+6,
+3,
+1
+],
+"covers/wat-u-mean-aye-aye-aye-dae-dae.jpg": [
+6,
+4,
+1
+],
+"covers/way2geeked-kankan.jpg": [
+6,
+5,
+1
+],
+"covers/we-in-this-dj-drama.jpg": [
+6,
+6,
+1
+],
+"covers/we-not-like-you-nettspend.jpg": [
+6,
+7,
+1
+],
+"covers/we-takin-over-dj-khaled.jpg": [
+6,
+0,
+2
+],
+"covers/wesley-presley-future.jpg": [
+1,
+6,
+2
+],
+"covers/what-s-the-move-the-kid-laroi.jpg": [
+6,
 1,
 2
 ],
-"covers/want-some-more-nicki-minaj.jpg": [
-4,
-5,
-5
-],
-"covers/wat-u-mean-aye-aye-aye-dae-dae.jpg": [
-4,
-6,
-5
-],
-"covers/we-in-this-dj-drama.jpg": [
-4,
-7,
-5
-],
-"covers/we-takin-over-dj-khaled.jpg": [
-4,
-0,
-6
-],
-"covers/wesley-presley-future.jpg": [
-3,
-3,
-0
-],
-"covers/what-s-the-move-the-kid-laroi.jpg": [
-4,
-1,
-6
-],
 "covers/what-they-want-schoolboy-q-feat-2-chainz.jpg": [
-4,
+6,
 2,
-6
+2
 ],
 "covers/what-they-want-schoolboy-q.jpg": [
-4,
+6,
 3,
-6
+2
+],
+"covers/what-we-have-summrs.jpg": [
+6,
+4,
+2
 ],
 "covers/when-i-think-about-it-future.jpg": [
-4,
-4,
-6
+6,
+5,
+2
 ],
 "covers/when-the-party-s-over-billie-eilish.jpg": [
-4,
-5,
-6
+6,
+6,
+2
 ],
 "covers/white-ferrari-frank-ocean.jpg": [
-1,
+2,
+0,
+5
+],
+"covers/who-i-be-spaceghostpurrp.jpg": [
 6,
-7
+7,
+2
 ],
 "covers/who-s-next-ken-carson.jpg": [
-4,
 6,
-6
+0,
+3
 ],
 "covers/who-want-what-beanie-sigel.jpg": [
-4,
-7,
-6
+6,
+1,
+3
 ],
 "covers/whoa-earl-sweatshirt-feat-tyler-the-creator.jpg": [
-4,
-0,
-7
+6,
+2,
+3
+],
+"covers/whole-thang-juicy-j.jpg": [
+6,
+3,
+3
 ],
 "covers/winter-khalid.jpg": [
+6,
 4,
-1,
-7
+3
+],
+"covers/wok-kankan.jpg": [
+0,
+2,
+4
+],
+"covers/woke-up-isaacjacuzzi.jpg": [
+6,
+5,
+3
 ],
 "covers/wokeuplikethis-playboi-carti-feat-lil-uzi-vert.jpg": [
 1,
-0,
-3
+6,
+6
 ],
 "covers/work-a-ap-ferg.jpg": [
-4,
-2,
-7
+6,
+6,
+3
 ],
 "covers/x-21-savage-feat-future.jpg": [
-4,
-3,
-7
+6,
+7,
+3
 ],
 "covers/x-lil-uzi-vert.jpg": [
 0,
-0,
+2,
 0
 ],
-"covers/xo-tour-llif3-lil-uzi-vert.jpg": [
-2,
+"covers/x-sex-osamason.jpg": [
+3,
+5,
+4
+],
+"covers/xans-glokk40spaz.jpg": [
 6,
-2
+0,
+4
+],
+"covers/xo-tour-llif3-lil-uzi-vert.jpg": [
+3,
+5,
+0
 ],
 "covers/yah-mean-playboi-carti.jpg": [
 1,
-0,
-3
+6,
+6
+],
+"covers/yakuza-city-morgue.jpg": [
+6,
+1,
+4
 ],
 "covers/yale-ken-carson.jpg": [
-0,
 1,
-6
+4,
+0
 ],
 "covers/yes-indeed-lil-baby-drake.jpg": [
-4,
-4,
-7
+6,
+2,
+4
 ],
 "covers/yonkers-tyler-the-creator.jpg": [
-1,
-1,
-6
+2,
+3,
+2
 ],
 "covers/yosemite-travis-scott.jpg": [
+5,
 3,
+1
+],
+"covers/yoshi-city-yung-lean.jpg": [
+6,
 3,
-7
+4
 ],
 "covers/young-n-holla-back-fabolous.jpg": [
+6,
 4,
+4
+],
+"covers/ziplock-oj-da-juiceman.jpg": [
+6,
 5,
-7
+4
 ]
 }
 }
