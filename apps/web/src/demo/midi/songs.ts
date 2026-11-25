@@ -2,6 +2,9 @@ import type { MidiNotesFile, MusicalKey } from "@stash/contracts";
 import { parseKey } from "@stash/contracts/format";
 import type { Producer } from "../data";
 import raw from "./song-chords.json" with { type: "json" };
+import { BATCHES } from "./song-batches/index";
+import { arrangeNotes, PRESET_HITS, type Arrangement } from "./arrange";
+import type { Timbre } from "./synth";
 
 /**
  * Chord progressions of popular songs, as MIDI: researched chord symbols (song-chords.json, each
@@ -24,9 +27,67 @@ export type SongChords = {
   rhythm?: "verified";
   /** What plays the chords on the record, with where that is said. */
   instrument?: { name: string; quote: string; source: { label: string; url: string } };
+  /** From the song batches: the record's arrangement, played on the instrument closest to the record. */
+  arrangement?: Arrangement & { rhythm?: string };
+  timbre?: Timbre;
+  /** What carries the chords on the record, by ear (batch songs); `instrument` is the sourced version. */
+  heard?: string;
+  album?: string;
+  year?: number;
+  genre?: string;
+  cover?: { album: string; albumUrl: string; artwork: string } | null;
 };
 
-export const SONG_CHORDS: SongChords[] = raw as unknown as SongChords[];
+/** A batch song (song-batches/*.json, audited by scripts/check-song-batches.py) as a chord chart with its arrangement. */
+type BatchSong = {
+  song: string;
+  artist: string;
+  producer: string | null;
+  album: string;
+  year: number;
+  genre: string;
+  key: string;
+  bpm: number;
+  section: string;
+  chordSource: { label: string; url: string };
+  keyBpmSource: { label: string; url: string } | null;
+  timbre: Timbre;
+  instrument: string;
+  cover: SongChords["cover"];
+  swing?: number;
+  chords: [string, number, number[]][];
+  hits?: [number, number][];
+  rhythm?: string;
+  bass: [number, number, number][];
+  top?: [number, number, number][];
+  notes: string;
+};
+
+function fromBatch(b: BatchSong): SongChords {
+  return {
+    song: b.song,
+    artist: b.artist,
+    producer: b.producer,
+    key: b.key,
+    bpm: b.bpm,
+    chords: b.chords.map(([c, beats]) => [c, beats]),
+    section: b.section,
+    chordSource: b.chordSource,
+    keyBpmSource: b.keyBpmSource,
+    notes: b.notes,
+    arrangement: { bpm: b.bpm, chords: b.chords, hits: b.hits ?? PRESET_HITS[b.rhythm ?? "held"] ?? PRESET_HITS.held!, bass: b.bass, swing: b.swing, top: b.top, rhythm: b.hits ? undefined : b.rhythm },
+    timbre: b.timbre,
+    heard: b.instrument,
+    album: b.album,
+    year: b.year,
+    genre: b.genre,
+    cover: b.cover,
+  };
+}
+
+export const BATCH_SONGS: SongChords[] = (BATCHES.flat() as BatchSong[]).map(fromBatch);
+
+export const SONG_CHORDS: SongChords[] = [...(raw as unknown as SongChords[]), ...BATCH_SONGS];
 
 export const CHORDS_OWNER: Producer = { id: "00000000-0000-4000-8000-0000000000c0", handle: "stash_chords", displayName: "Stash chord charts", followers: 0 };
 
@@ -134,6 +195,7 @@ export function voice(chords: ParsedChord[]): { upper: number[]; bass: number }[
 
 /** The progression as a notes file: held chords with a bass note, looped to at least four bars. */
 export function songNotes(s: SongChords): MidiNotesFile | null {
+  if (s.arrangement) return arrangeNotes(s.arrangement, s.arrangement.rhythm);
   const parsed = s.chords.map(([sym]) => parseChord(sym));
   if (parsed.some((p) => p === null) || parsed.length === 0) return null;
   const voiced = voice(parsed as ParsedChord[]);

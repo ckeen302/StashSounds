@@ -37,6 +37,7 @@ import { writeMidi } from "./write";
 import { classicLabel, type Classic } from "./classics";
 import { progressionOf } from "./songs";
 import { Comments } from "../social";
+import { Cover } from "../presets/cover";
 import { midiPlayer, TIMBRES, type MidiPlayerState, type Timbre } from "./synth";
 
 const player = midiPlayer();
@@ -258,6 +259,15 @@ function ChordChart({ song }: { song: NonNullable<MidiItem["song"]> }) {
         </h2>
         <span className="font-mono text-numeric tabular text-text-muted">{`${song.key} · ${song.bpm} BPM`}</span>
       </div>
+      {song.album && (
+        <div className="flex items-center gap-3">
+          <Cover song={song.song} artist={song.artist} size="sm" />
+          <div className="flex min-w-0 flex-col">
+            <span className="truncate text-body-strong text-text">{song.album}</span>
+            <span className="truncate text-small text-text-muted">{[song.artist, song.year, song.genre].filter(Boolean).join(" · ")}</span>
+          </div>
+        </div>
+      )}
       <ol aria-label="Chords" className="flex flex-wrap gap-2">
         {song.chords.map(([c, beats], i) => (
           <li key={i} className="st-box flex flex-col rounded-control border border-border-strong bg-raised px-3 py-2">
@@ -268,12 +278,16 @@ function ChordChart({ song }: { song: NonNullable<MidiItem["song"]> }) {
       </ol>
       <ul className="flex flex-col gap-1 text-small text-text-muted">
         <li className="text-text">
-          {song.rhythm === "verified"
+          {song.arrangement
+            ? "Arranged from the record by ear: how long each chord lasts, the rhythm it's played in, the bass line and the swing. Chords and groove only, no melody."
+            : song.rhythm === "verified"
             ? "Rhythm: each chord's length is from the song's chart."
             : "Rhythm not verified: the source gives the chords but not how long each lasts, so each plays for one bar. The chords are right; the timing may not match the record."}
         </li>
         <li>
-          {song.instrument ? (
+          {song.heard ? (
+            `On the record: ${song.heard}. Played here on the closest sound.`
+          ) : song.instrument ? (
             <>
               {`On the record: ${song.instrument.name}. `}
               <a href={song.instrument.source.url} target="_blank" rel="noreferrer" className="text-text underline underline-offset-2">

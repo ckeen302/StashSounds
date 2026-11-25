@@ -322,11 +322,13 @@ const songItems: MidiItem[] = SONG_CHORDS.flatMap((s, i) => {
     href: `/midi/${slug}-${publicId}`,
     owner: CHORDS_OWNER,
     kind: "chords",
-    sound: BY_EAR[`${s.song}|${s.artist}`.toLowerCase()] ?? soundForInstrument(s.instrument?.name),
+    sound: s.timbre ?? BY_EAR[`${s.song}|${s.artist}`.toLowerCase()] ?? soundForInstrument(s.instrument?.name),
     key: songKey(s),
     notes,
-    tags: ["song chords", s.artist.toLowerCase()],
-    description: `The ${s.section ? s.section.toLowerCase() : "main"} progression of ${s.song} by ${s.artist}: ${s.chords.map(([c]) => c).join(", ")}. Voiced here as held chords with the root in the bass, at the song's key and tempo. Chords only, for learning and reference.`,
+    tags: ["song chords", s.artist.toLowerCase(), ...(s.genre ? [s.genre] : [])],
+    description: s.arrangement
+      ? `The ${s.section ? s.section.toLowerCase() : "main"} progression of ${s.song} by ${s.artist}${s.year ? ` (${s.year})` : ""}: ${s.chords.map(([c]) => c).join(", ")}. Played the way the record plays it: the chord rhythm, the bass line and the instrument, at the song's key and tempo. Chords and groove only, no melody, for learning and reference.`
+      : `The ${s.section ? s.section.toLowerCase() : "main"} progression of ${s.song} by ${s.artist}: ${s.chords.map(([c]) => c).join(", ")}. Voiced here as held chords with the root in the bass, at the song's key and tempo. Chords only, for learning and reference.`,
     license: "credit_required",
     likes: 0,
     downloads: 0,
