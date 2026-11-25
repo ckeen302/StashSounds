@@ -10316,7 +10316,7 @@
  },
  {
   "song": "Shoota",
-  "artist": "Playboi Carti",
+  "artist": "Playboi Carti feat. Lil Uzi Vert",
   "producer": "Maaly Raw",
   "plugin": "Synapse Audio Dune 3",
   "preset": "EP Low Body MK",
@@ -10686,5 +10686,198 @@
   },
   "quote": "Pharrell & Travis Scott - DOWN IN ATLANTA = Logic Pro X - Antarctic Sun & Logic Pro X - 80s FM Bass Attack",
   "quoteBy": "BlackHaze1986"
+ },
+ {
+  "song": "Money Longer",
+  "artist": "Lil Uzi Vert",
+  "producer": "Don Cannon, Maaly Raw",
+  "plugin": "reFX Nexus 2",
+  "preset": "Nintendo Lead",
+  "role": "lead",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Trap or Die expansion"
+ },
+ {
+  "song": "Hi Roller",
+  "artist": "Lil Uzi Vert",
+  "producer": "Maaly Raw",
+  "plugin": "reFX Nexus 2",
+  "preset": "Hands Up Bells 1",
+  "role": "bells",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Hands Up Electro Bass"
+ },
+ {
+  "song": "Erase Your Social",
+  "artist": "Lil Uzi Vert",
+  "producer": "Don Cannon, Lyle LeDuff",
+  "plugin": "u-he Zebra2",
+  "preset": "HS Pocket Love",
+  "role": "keys",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Pianoids"
+ },
+ {
+  "song": "XO Tour Llif3",
+  "artist": "Lil Uzi Vert",
+  "producer": "TM88, JW Lucas",
+  "plugin": "reFX Nexus 2",
+  "preset": "Origin 1",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Factory"
+ },
+ {
+  "song": "XO Tour Llif3",
+  "artist": "Lil Uzi Vert",
+  "producer": "TM88, JW Lucas",
+  "plugin": "reFX Nexus 2",
+  "preset": "DX Era",
+  "role": "synth",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Factory"
+ },
+ {
+  "song": "XO Tour Llif3",
+  "artist": "Lil Uzi Vert",
+  "producer": "TM88, JW Lucas",
+  "plugin": "reFX Nexus 2",
+  "preset": "808 Mafia Piccolo",
+  "role": "flute",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "808 Mafia expansion"
+ },
+ {
+  "song": "X",
+  "artist": "Lil Uzi Vert",
+  "producer": "Pi'erre Bourne, Maaly Raw, Metro Boomin",
+  "plugin": "LinPlug Albino 3",
+  "preset": "Breeze Pad",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Demo Sounds 1"
+ },
+ {
+  "song": "X",
+  "artist": "Lil Uzi Vert",
+  "producer": "Pi'erre Bourne, Maaly Raw, Metro Boomin",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "The Whistlers",
+  "role": "whistle",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Layered whistle"
+ },
+ {
+  "song": "I'm Sorry",
+  "artist": "Lil Uzi Vert",
+  "producer": "Brandon Finessin, Bugz Ronin",
+  "plugin": "Tone2 ElectraX",
+  "preset": "Aglass Morph BT",
+  "role": "arp",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Arp Singleplayer"
+ },
+ {
+  "song": "I'm Sorry",
+  "artist": "Lil Uzi Vert",
+  "producer": "Brandon Finessin, Bugz Ronin",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Intimate Glass Celeste",
+  "role": "pad",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Osc B off for the pad, Osc A off for the pluck"
+ },
+ {
+  "song": "Bean (Kobe)",
+  "artist": "Lil Uzi Vert feat. Chief Keef",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Native Instruments FM8",
+  "preset": "Brass Pad",
+  "role": "chords",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  }
+ },
+ {
+  "song": "Bean (Kobe)",
+  "artist": "Lil Uzi Vert feat. Chief Keef",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Native Instruments FM8",
+  "preset": "Tronflute",
+  "role": "flute",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  }
+ },
+ {
+  "song": "Money Spread",
+  "artist": "Lil Uzi Vert",
+  "producer": "Pi'erre Bourne",
+  "plugin": "AIR Music Technology Hybrid 3",
+  "preset": "18 PW Mini Bass",
+  "role": "bass",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  },
+  "path": "Basic Basses"
+ },
+ {
+  "song": "Money Spread",
+  "artist": "Lil Uzi Vert",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Synapse Audio Dune",
+  "preset": "Sweet Arp RL",
+  "role": "arp",
+  "confidence": "community",
+  "source": {
+   "label": "",
+   "url": ""
+  }
  }
 ]
