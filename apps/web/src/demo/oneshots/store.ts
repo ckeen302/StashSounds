@@ -3,7 +3,7 @@ import type { Producer } from "../data";
 import { VIEWER } from "../midi/catalog";
 import { MidiPlayer } from "../midi/synth";
 import { saveFiles, wav, type SaveOutcome } from "../save";
-import { decode, deleteFile, getFile, putFile, type Category, type Kit, type KitSound } from "../kits/store";
+import { clipBuffer, decode, deleteFile, getFile, putFile, type Category, type Kit, type KitSound } from "../kits/store";
 
 /**
  * One-shots: every single hit on Stash in one place, whichever kit it came in, plus the loose hits
@@ -100,7 +100,9 @@ export function bufferOf(s: OneShot): Promise<AudioBuffer | null> {
   if (!p) {
     p = s.hit
       ? MidiPlayer.renderHit(s.hit.pitch, s.hit.tune, s.hit.stretch, s.durationMs / 1000 + 0.25).catch(() => null)
-      : s.fileKey
+      : s.clip
+        ? clipBuffer(s.clip).catch(() => null)
+        : s.fileKey
         ? getFile(s.fileKey).then((d) => (d ? decode(d) : null)).catch(() => null)
         : Promise.resolve(null);
     buffers.set(s.id, p);

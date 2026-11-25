@@ -1,0 +1,712 @@
+{
+ "kits": [
+  {
+   "id": "pinksky",
+   "name": "Pink Sky kit",
+   "inspiredBy": "Pi'erre Bourne",
+   "genre": "Plugg",
+   "publishedAt": "2026-11-25T18:00:00Z",
+   "description": "Bouncy short 808s, airy snares, bright crispy hats, laser zaps and little bells, the plugg-era sound Pierre Bourne made famous.",
+   "file": "pinksky.mp3",
+   "sounds": [
+    {
+     "name": "808 bounce F",
+     "category": "808",
+     "start": 0.1,
+     "duration": 0.9
+    },
+    {
+     "name": "808 bounce G",
+     "category": "808",
+     "start": 1.5,
+     "duration": 0.9
+    },
+    {
+     "name": "808 bounce A#",
+     "category": "808",
+     "start": 2.9,
+     "duration": 0.8
+    },
+    {
+     "name": "808 glide D#",
+     "category": "808",
+     "start": 4.2,
+     "duration": 1.4
+    },
+    {
+     "name": "808 long C",
+     "category": "808",
+     "start": 6.1,
+     "duration": 1.8
+    },
+    {
+     "name": "Kick soft",
+     "category": "kick",
+     "start": 8.4,
+     "duration": 0.45
+    },
+    {
+     "name": "Kick knock",
+     "category": "kick",
+     "start": 9.35,
+     "duration": 0.35
+    },
+    {
+     "name": "Snare air",
+     "category": "snare",
+     "start": 10.2,
+     "duration": 1.1361
+    },
+    {
+     "name": "Snare thin",
+     "category": "snare",
+     "start": 11.836,
+     "duration": 0.4
+    },
+    {
+     "name": "Clap pop",
+     "category": "clap",
+     "start": 12.736,
+     "duration": 0.9429
+    },
+    {
+     "name": "Snap",
+     "category": "clap",
+     "start": 14.1789,
+     "duration": 0.25
+    },
+    {
+     "name": "Hat crisp",
+     "category": "hat",
+     "start": 14.9289,
+     "duration": 0.2153
+    },
+    {
+     "name": "Hat tick",
+     "category": "hat",
+     "start": 15.6442,
+     "duration": 0.1288
+    },
+    {
+     "name": "Hat soft",
+     "category": "hat",
+     "start": 16.273,
+     "duration": 0.25
+    },
+    {
+     "name": "Open hat",
+     "category": "open hat",
+     "start": 17.023,
+     "duration": 0.9
+    },
+    {
+     "name": "Laser zap",
+     "category": "perc",
+     "start": 18.423,
+     "duration": 0.35
+    },
+    {
+     "name": "Laser zap low",
+     "category": "perc",
+     "start": 19.2729,
+     "duration": 0.35
+    },
+    {
+     "name": "Bell C",
+     "category": "perc",
+     "start": 20.1229,
+     "duration": 1.8644
+    },
+    {
+     "name": "Bell G",
+     "category": "perc",
+     "start": 22.4873,
+     "duration": 1.6183
+    },
+    {
+     "name": "Crash bright",
+     "category": "cymbal",
+     "start": 24.6056,
+     "duration": 3.169
+    },
+    {
+     "name": "Riser",
+     "category": "fx",
+     "start": 28.2747,
+     "duration": 2.461
+    }
+   ]
+  },
+  {
+   "id": "redroom",
+   "name": "Red Room kit",
+   "inspiredBy": "F1lthy",
+   "genre": "Rage",
+   "publishedAt": "2026-11-25T17:30:00Z",
+   "description": "Blown-out 808s, crushed kicks, crunchy snares, glitches and reversed cymbals for rage and Opium-style beats in the spirit of F1lthy.",
+   "file": "redroom.mp3",
+   "sounds": [
+    {
+     "name": "808 blown C#",
+     "category": "808",
+     "start": 0.1,
+     "duration": 1.6
+    },
+    {
+     "name": "808 blown F",
+     "category": "808",
+     "start": 2.2,
+     "duration": 1.4
+    },
+    {
+     "name": "808 fuzz G#",
+     "category": "808",
+     "start": 4.1,
+     "duration": 1.2
+    },
+    {
+     "name": "808 dive",
+     "category": "808",
+     "start": 5.8,
+     "duration": 1.8
+    },
+    {
+     "name": "Kick crushed",
+     "category": "kick",
+     "start": 8.1,
+     "duration": 0.5
+    },
+    {
+     "name": "Kick clipped",
+     "category": "kick",
+     "start": 9.1,
+     "duration": 0.55
+    },
+    {
+     "name": "Snare crunch",
+     "category": "snare",
+     "start": 10.15,
+     "duration": 0.45
+    },
+    {
+     "name": "Snare static",
+     "category": "snare",
+     "start": 11.1,
+     "duration": 1.1153
+    },
+    {
+     "name": "Clap distorted",
+     "category": "clap",
+     "start": 12.7153,
+     "duration": 1.2229
+    },
+    {
+     "name": "Clap wide",
+     "category": "clap",
+     "start": 14.4381,
+     "duration": 1.4656
+    },
+    {
+     "name": "Hat bitcrushed",
+     "category": "hat",
+     "start": 16.4037,
+     "duration": 0.2232
+    },
+    {
+     "name": "Hat glass",
+     "category": "hat",
+     "start": 17.1269,
+     "duration": 0.1839
+    },
+    {
+     "name": "Open hat dirty",
+     "category": "open hat",
+     "start": 17.8108,
+     "duration": 0.9
+    },
+    {
+     "name": "Metal perc",
+     "category": "perc",
+     "start": 19.2108,
+     "duration": 1.1317
+    },
+    {
+     "name": "Glitch",
+     "category": "fx",
+     "start": 20.8425,
+     "duration": 0.5
+    },
+    {
+     "name": "Glitch fast",
+     "category": "fx",
+     "start": 21.8425,
+     "duration": 0.35
+    },
+    {
+     "name": "Reverse crash",
+     "category": "fx",
+     "start": 22.6925,
+     "duration": 2.4986
+    },
+    {
+     "name": "Impact",
+     "category": "fx",
+     "start": 25.691,
+     "duration": 3.3347
+    }
+   ]
+  },
+  {
+   "id": "midnightscore",
+   "name": "Midnight Score kit",
+   "inspiredBy": "Metro Boomin",
+   "genre": "Trap",
+   "publishedAt": "2026-11-25T17:00:00Z",
+   "description": "Deep long 808s, a hard clap and snare, crisp hats for rolls, dark crashes and cinematic stabs for the dark, orchestral trap Metro Boomin is known for.",
+   "file": "midnightscore.mp3",
+   "sounds": [
+    {
+     "name": "808 long C",
+     "category": "808",
+     "start": 0.1,
+     "duration": 2.4
+    },
+    {
+     "name": "808 long D#",
+     "category": "808",
+     "start": 3.0,
+     "duration": 2.4
+    },
+    {
+     "name": "808 long F",
+     "category": "808",
+     "start": 5.9,
+     "duration": 2.2
+    },
+    {
+     "name": "808 long G",
+     "category": "808",
+     "start": 8.6,
+     "duration": 2.2
+    },
+    {
+     "name": "808 slide A#",
+     "category": "808",
+     "start": 11.3,
+     "duration": 2.2
+    },
+    {
+     "name": "Kick punch",
+     "category": "kick",
+     "start": 14.0,
+     "duration": 0.5
+    },
+    {
+     "name": "Kick sub",
+     "category": "kick",
+     "start": 15.0,
+     "duration": 0.8
+    },
+    {
+     "name": "Clap hard",
+     "category": "clap",
+     "start": 16.3,
+     "duration": 1.1046
+    },
+    {
+     "name": "Clap stacked",
+     "category": "clap",
+     "start": 17.9046,
+     "duration": 1.3521
+    },
+    {
+     "name": "Snare hard",
+     "category": "snare",
+     "start": 19.7567,
+     "duration": 0.5
+    },
+    {
+     "name": "Snare dark",
+     "category": "snare",
+     "start": 20.7567,
+     "duration": 1.0261
+    },
+    {
+     "name": "Hat roll",
+     "category": "hat",
+     "start": 22.2828,
+     "duration": 0.1695
+    },
+    {
+     "name": "Hat crisp",
+     "category": "hat",
+     "start": 22.9523,
+     "duration": 0.2495
+    },
+    {
+     "name": "Hat dark",
+     "category": "hat",
+     "start": 23.7018,
+     "duration": 0.25
+    },
+    {
+     "name": "Open hat",
+     "category": "open hat",
+     "start": 24.4518,
+     "duration": 0.9
+    },
+    {
+     "name": "Rim",
+     "category": "snare",
+     "start": 25.8518,
+     "duration": 0.15
+    },
+    {
+     "name": "Crash dark",
+     "category": "cymbal",
+     "start": 26.5018,
+     "duration": 3.7807
+    },
+    {
+     "name": "Stab C minor",
+     "category": "fx",
+     "start": 30.7825,
+     "duration": 2.5037
+    },
+    {
+     "name": "Brass hit G",
+     "category": "fx",
+     "start": 33.7862,
+     "duration": 2.7182
+    },
+    {
+     "name": "Reverse cymbal",
+     "category": "fx",
+     "start": 37.0044,
+     "duration": 3.0226
+    },
+    {
+     "name": "Impact low",
+     "category": "fx",
+     "start": 40.527,
+     "duration": 3.4498
+    }
+   ]
+  },
+  {
+   "id": "bouncetheory",
+   "name": "Bounce Theory kit",
+   "inspiredBy": "Wheezy",
+   "genre": "Trap",
+   "publishedAt": "2026-11-25T16:30:00Z",
+   "description": "Punchy 808s with slides, snappy rims, toms and shakers for the bouncy, melodic trap Wheezy is known for.",
+   "file": "bouncetheory.mp3",
+   "sounds": [
+    {
+     "name": "808 punch E",
+     "category": "808",
+     "start": 0.1,
+     "duration": 1.3
+    },
+    {
+     "name": "808 punch G#",
+     "category": "808",
+     "start": 1.9,
+     "duration": 1.2
+    },
+    {
+     "name": "808 slide up B",
+     "category": "808",
+     "start": 3.6,
+     "duration": 1.6
+    },
+    {
+     "name": "Kick bounce",
+     "category": "kick",
+     "start": 5.7,
+     "duration": 0.4
+    },
+    {
+     "name": "Snare snappy",
+     "category": "snare",
+     "start": 6.6,
+     "duration": 0.4
+    },
+    {
+     "name": "Rim click",
+     "category": "snare",
+     "start": 7.5,
+     "duration": 0.15
+    },
+    {
+     "name": "Rim low",
+     "category": "snare",
+     "start": 8.15,
+     "duration": 0.15
+    },
+    {
+     "name": "Clap",
+     "category": "clap",
+     "start": 8.8,
+     "duration": 0.9665
+    },
+    {
+     "name": "Snap",
+     "category": "clap",
+     "start": 10.2665,
+     "duration": 0.25
+    },
+    {
+     "name": "Hat",
+     "category": "hat",
+     "start": 11.0165,
+     "duration": 0.2427
+    },
+    {
+     "name": "Hat short",
+     "category": "hat",
+     "start": 11.7592,
+     "duration": 0.1422
+    },
+    {
+     "name": "Shaker",
+     "category": "hat",
+     "start": 12.4014,
+     "duration": 0.18
+    },
+    {
+     "name": "Open hat",
+     "category": "open hat",
+     "start": 13.0814,
+     "duration": 0.9
+    },
+    {
+     "name": "Tom high",
+     "category": "perc",
+     "start": 14.4814,
+     "duration": 0.7
+    },
+    {
+     "name": "Tom low",
+     "category": "perc",
+     "start": 15.6814,
+     "duration": 0.7
+    },
+    {
+     "name": "Wood block",
+     "category": "perc",
+     "start": 16.8814,
+     "duration": 0.15
+    },
+    {
+     "name": "Crash",
+     "category": "cymbal",
+     "start": 17.5314,
+     "duration": 3.2451
+    }
+   ]
+  },
+  {
+   "id": "basement",
+   "name": "Basement kit",
+   "inspiredBy": "Southside",
+   "genre": "Trap",
+   "publishedAt": "2026-11-25T16:00:00Z",
+   "description": "Hard, distorted 808s, big snares and stacked claps for loud Atlanta trap in the 808 Mafia tradition Southside built.",
+   "file": "basement.mp3",
+   "sounds": [
+    {
+     "name": "808 hard C",
+     "category": "808",
+     "start": 0.1,
+     "duration": 1.9
+    },
+    {
+     "name": "808 hard D",
+     "category": "808",
+     "start": 2.5,
+     "duration": 1.9
+    },
+    {
+     "name": "808 hard F#",
+     "category": "808",
+     "start": 4.9,
+     "duration": 1.7
+    },
+    {
+     "name": "808 grit A",
+     "category": "808",
+     "start": 7.1,
+     "duration": 2.0
+    },
+    {
+     "name": "Kick hard",
+     "category": "kick",
+     "start": 9.6,
+     "duration": 0.55
+    },
+    {
+     "name": "Snare big",
+     "category": "snare",
+     "start": 10.65,
+     "duration": 1.0514
+    },
+    {
+     "name": "Snare crack",
+     "category": "snare",
+     "start": 12.2014,
+     "duration": 0.45
+    },
+    {
+     "name": "Clap stack",
+     "category": "clap",
+     "start": 13.1514,
+     "duration": 1.2977
+    },
+    {
+     "name": "Clap tight",
+     "category": "clap",
+     "start": 14.9491,
+     "duration": 0.7759
+    },
+    {
+     "name": "Hat",
+     "category": "hat",
+     "start": 16.225,
+     "duration": 0.25
+    },
+    {
+     "name": "Hat bright",
+     "category": "hat",
+     "start": 16.975,
+     "duration": 0.2008
+    },
+    {
+     "name": "Open hat",
+     "category": "open hat",
+     "start": 17.6758,
+     "duration": 0.9
+    },
+    {
+     "name": "Perc knock",
+     "category": "perc",
+     "start": 19.0758,
+     "duration": 0.35
+    },
+    {
+     "name": "Crash",
+     "category": "cymbal",
+     "start": 19.9258,
+     "duration": 3.3086
+    },
+    {
+     "name": "Riser",
+     "category": "fx",
+     "start": 23.7344,
+     "duration": 2.7003
+    }
+   ]
+  },
+  {
+   "id": "memphisbounce",
+   "name": "Memphis Bounce kit",
+   "inspiredBy": "Tay Keith",
+   "genre": "Trap",
+   "publishedAt": "2026-11-25T15:30:00Z",
+   "description": "Knocking kicks, Memphis cowbells, sharp snares and busy hats for hard, bouncy Memphis trap in the style of Tay Keith.",
+   "file": "memphisbounce.mp3",
+   "sounds": [
+    {
+     "name": "808 knock D#",
+     "category": "808",
+     "start": 0.1,
+     "duration": 1.4
+    },
+    {
+     "name": "808 knock G",
+     "category": "808",
+     "start": 2.0,
+     "duration": 1.3
+    },
+    {
+     "name": "808 long A#",
+     "category": "808",
+     "start": 3.8,
+     "duration": 2.0
+    },
+    {
+     "name": "Kick knock",
+     "category": "kick",
+     "start": 6.3,
+     "duration": 0.45
+    },
+    {
+     "name": "Kick deep",
+     "category": "kick",
+     "start": 7.25,
+     "duration": 0.6
+    },
+    {
+     "name": "Snare sharp",
+     "category": "snare",
+     "start": 8.35,
+     "duration": 0.4
+    },
+    {
+     "name": "Clap Memphis",
+     "category": "clap",
+     "start": 9.25,
+     "duration": 1.148
+    },
+    {
+     "name": "Cowbell",
+     "category": "perc",
+     "start": 10.8979,
+     "duration": 0.6
+    },
+    {
+     "name": "Cowbell low",
+     "category": "perc",
+     "start": 11.9979,
+     "duration": 0.7
+    },
+    {
+     "name": "Hat",
+     "category": "hat",
+     "start": 13.1979,
+     "duration": 0.2144
+    },
+    {
+     "name": "Hat tight",
+     "category": "hat",
+     "start": 13.9123,
+     "duration": 0.1267
+    },
+    {
+     "name": "Shaker",
+     "category": "hat",
+     "start": 14.539,
+     "duration": 0.15
+    },
+    {
+     "name": "Open hat",
+     "category": "open hat",
+     "start": 15.189,
+     "duration": 0.9
+    },
+    {
+     "name": "Rim",
+     "category": "snare",
+     "start": 16.589,
+     "duration": 0.15
+    },
+    {
+     "name": "Crash",
+     "category": "cymbal",
+     "start": 17.239,
+     "duration": 3.271
+    }
+   ]
+  }
+ ]
+}

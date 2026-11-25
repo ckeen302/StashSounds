@@ -169,6 +169,9 @@ writeFileSync(
 // The SFX tab's sprites (scripts/build-demo-sfx.py makes them; they are committed).
 mkdirSync(join(out, "demo/sfx"), { recursive: true });
 for (const f of readdirSync(join(demoSrc, "sfx/media"))) if (f.endsWith(".mp3")) copyFileSync(join(demoSrc, "sfx/media", f), join(out, "demo/sfx", f));
+// The "inspired by" drum kits' sprites (scripts/build-demo-kits.py makes them; they are committed).
+mkdirSync(join(out, "demo/kits"), { recursive: true });
+for (const f of readdirSync(join(demoSrc, "kits/media"))) if (f.endsWith(".mp3")) copyFileSync(join(demoSrc, "kits/media", f), join(out, "demo/kits", f));
 const worklet = await import(pathToFileURL(webRequire.resolve("@stash/audio/stretch-worklet-file")).href);
 // Album covers for the preset songs, packed onto sprite sheets (scripts/pack-demo-covers.py makes
 // them; they are committed): one file per 64 covers keeps the published page under its file limit.
