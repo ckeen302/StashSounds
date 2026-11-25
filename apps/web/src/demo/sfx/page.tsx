@@ -1,5 +1,6 @@
 import { Button, Download, EmptyState, FilterChip, IconButton, PlayButton, Search, SearchInput, TagChip, useToast } from "@stash/ui";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { PageHeader, RailItem, Segmented } from "../layout";
 import {
   categoryName, downloadSfx, fileName, haystack, licenseLabel, playSfx, position, SFX, SFX_CATEGORIES, sourceLine, stop, subName, usePlaying, warm, type Sfx,
 } from "./library";
@@ -137,77 +138,106 @@ export function SfxPage() {
   const subCount = (id: string) => inCat.filter((s) => s.sub === id).length;
   const zipName = `stash-sfx-${(cat ?? "all") + (sub ? `-${sub}` : "")}`;
 
-  return (
-    <main className="mx-auto flex w-full max-w-content flex-col gap-3 px-3 py-4 tablet:px-4 desktop:px-6">
-      <div className="flex flex-col gap-3 tablet:flex-row tablet:items-center tablet:justify-between">
-        <h1 className="text-title">Sound effects</h1>
-        <SearchInput
-          label="Search sound effects"
-          hideLabel
-          placeholder="Search: lion, siren, voicemail, lambo..."
-          shortcut=""
-          value={q}
-          onChange={(e) => {
-            setQ(e.target.value);
-            setShown(PAGE);
-            setSelected(0);
-          }}
-          onClear={() => setQ("")}
-          className="tablet:w-96"
-        />
-      </div>
+  const subs = cat ? SFX_CATEGORIES.find((c) => c.id === cat)!.subs.filter((x) => subCount(x.id) > 0) : [];
 
-      <div className="flex flex-col gap-2">
-        <nav aria-label="SFX categories" className="-mx-3 flex gap-2 overflow-x-auto px-3 tablet:mx-0 tablet:flex-wrap tablet:px-0">
-          <FilterChip selected={cat === null} onToggle={() => pick(null)}>
-            {`All · ${matching.length}`}
-          </FilterChip>
-          {SFX_CATEGORIES.filter((c) => catCount(c.id) > 0).map((c) => (
-            <FilterChip key={c.id} selected={cat === c.id} onToggle={() => pick(c.id)}>
-              {`${c.name} · ${catCount(c.id)}`}
-            </FilterChip>
-          ))}
-        </nav>
-        {cat && (
-          <div role="group" aria-label={`${categoryName(cat)} subcategories`} className="-mx-3 flex gap-2 overflow-x-auto px-3 tablet:mx-0 tablet:flex-wrap tablet:px-0">
-            <FilterChip selected={sub === null} onToggle={() => pick(cat)}>
-              {`All ${categoryName(cat).toLowerCase()}`}
-            </FilterChip>
-            {SFX_CATEGORIES.find((c) => c.id === cat)!
-              .subs.filter((s) => subCount(s.id) > 0)
-              .map((s) => (
-                <FilterChip key={s.id} selected={sub === s.id} onToggle={() => pick(cat, s.id)}>
-                  {`${s.name} · ${subCount(s.id)}`}
+  return (
+    <main className="ds-page !gap-8">
+      <PageHeader
+        eyebrow="Sounds"
+        title="Sound effects"
+        lede="Sirens, air horns, risers, phones, crowds and cars. Free to use in your music, each with its license."
+        count={
+          <span>
+            <b>{SFX.length}</b> sounds · <b>{SFX_CATEGORIES.length}</b> categories
+          </span>
+        }
+      />
+
+      <div className="ds-split">
+        <aside className="ds-rail" aria-label="SFX categories">
+          <span className="ds-eyebrow px-3">Category</span>
+          <nav aria-label="Categories" className="ds-rail-list -mt-4">
+            <RailItem on={cat === null} onClick={() => pick(null)} name="All sound effects" n={matching.length} />
+            {SFX_CATEGORIES.filter((c) => catCount(c.id) > 0).map((c) => (
+              <div key={c.id} className="flex flex-col gap-0.5">
+                <RailItem on={cat === c.id && sub === null} onClick={() => pick(c.id)} name={c.name} n={catCount(c.id)} />
+                {cat === c.id && (
+                  <div className="ml-3 flex flex-col gap-0.5 border-l border-hairline pl-2">
+                    {subs.map((x) => (
+                      <RailItem key={x.id} on={sub === x.id} onClick={() => pick(c.id, x.id)} name={x.name} n={subCount(x.id)} />
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </nav>
+        </aside>
+
+        <div className="flex min-w-0 flex-col gap-4">
+          <div className="ds-toolbar flex-col !items-stretch gap-3">
+            <SearchInput
+              label="Search sound effects"
+              hideLabel
+              placeholder="Search: lion, siren, voicemail, lambo..."
+              shortcut=""
+              value={q}
+              onChange={(e) => {
+                setQ(e.target.value);
+                setShown(PAGE);
+                setSelected(0);
+              }}
+              onClear={() => setQ("")}
+            />
+            <nav aria-label="SFX categories" className="ds-rail-only-phone ds-scroll-x">
+              <FilterChip selected={cat === null} onToggle={() => pick(null)}>
+                {`All ${matching.length}`}
+              </FilterChip>
+              {SFX_CATEGORIES.filter((c) => catCount(c.id) > 0).map((c) => (
+                <FilterChip key={c.id} selected={cat === c.id} onToggle={() => pick(c.id)}>
+                  {`${c.name} ${catCount(c.id)}`}
                 </FilterChip>
               ))}
+            </nav>
+            {cat && (
+              <div role="group" aria-label={`${categoryName(cat)} subcategories`} className="ds-rail-only-phone ds-scroll-x">
+                <FilterChip selected={sub === null} onToggle={() => pick(cat)}>
+                  {`All ${categoryName(cat).toLowerCase()}`}
+                </FilterChip>
+                {subs.map((x) => (
+                  <FilterChip key={x.id} selected={sub === x.id} onToggle={() => pick(cat, x.id)}>
+                    {`${x.name} ${subCount(x.id)}`}
+                  </FilterChip>
+                ))}
+              </div>
+            )}
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <span className="ds-count min-w-0 truncate">
+                <b>{where}</b>
+                <span>{`· ${list.length} ${list.length === 1 ? "sound" : "sounds"}`}</span>
+              </span>
+              <div className="flex flex-wrap items-center gap-2">
+                <Segmented
+                  label="Sort"
+                  value={sort}
+                  options={[
+                    ["featured", "Featured"],
+                    ["short", "Shortest"],
+                    ["long", "Longest"],
+                  ]}
+                  onChange={(v) => setSort(v as Sort)}
+                />
+                {list.length > 1 && (cat || needle) && (
+                  <Button variant="secondary" size="sm" icon={Download} loading={busy === "zip"} disabled={busy !== null && busy !== "zip"} onClick={() => void grab(list, zipName, "zip")}>
+                    {list.length > MAX_ZIP ? `Grab ${MAX_ZIP}` : `Grab all`}
+                  </Button>
+                )}
+              </div>
+            </div>
           </div>
-        )}
-      </div>
-
-      <div className="flex items-center justify-between gap-2">
-        <span className="text-small text-text-muted">{`${where} · ${list.length} ${list.length === 1 ? "sound" : "sounds"}`}</span>
-        <div className="flex items-center gap-2">
-          <select
-            aria-label="Sort"
-            value={sort}
-            onChange={(e) => setSort(e.target.value as Sort)}
-            className="h-8 rounded-control border border-border-strong bg-bg px-2 text-small text-text"
-          >
-            <option value="featured">Featured</option>
-            <option value="short">Shortest</option>
-            <option value="long">Longest</option>
-          </select>
-          {list.length > 1 && (cat || needle) && (
-            <Button variant="secondary" size="sm" icon={Download} loading={busy === "zip"} disabled={busy !== null && busy !== "zip"} onClick={() => void grab(list, zipName, "zip")}>
-              {list.length > MAX_ZIP ? `Grab ${MAX_ZIP}` : `Grab all`}
-            </Button>
-          )}
-        </div>
-      </div>
 
       {list.length > 0 ? (
-        <div className="overflow-hidden rounded-panel border border-border bg-surface">
-          <ul ref={listRef} aria-label="Sound effects">
+        <div className="ds-panel p-1.5">
+          <ul ref={listRef} aria-label="Sound effects" className="ds-list">
             {visible.map((s, i) => {
               const isPlaying = playing.id === s.id;
               const state = playing.loading === s.id ? "loading" : isPlaying ? "playing" : playing.error === s.id ? "error" : "paused";
@@ -217,7 +247,7 @@ export function SfxPage() {
                   data-selected={s === current || undefined}
                   data-playing={isPlaying || undefined}
                   onPointerEnter={() => warm(s)}
-                  className="sfx-row flex min-h-16 items-center gap-3 border-b border-border px-3 py-2 last:border-b-0 data-selected:bg-raised ui-hover:bg-raised"
+                  className="sfx-row ds-row"
                 >
                   <PlayButton title={s.name} state={state} onClick={() => hear(i)} />
                   <button type="button" onClick={() => hear(i)} className="flex min-w-0 flex-1 flex-col text-left" aria-label={`Hear ${s.name}`}>
@@ -234,7 +264,7 @@ export function SfxPage() {
                     ))}
                   </span>
                   <Wave s={s} playing={isPlaying} onSeek={(f) => hear(i, f * s.duration)} />
-                  <span className="hidden w-14 shrink-0 text-right font-mono text-numeric tabular text-text-muted tablet:block">{seconds(s.duration)}</span>
+                  <span className="hidden w-14 shrink-0 text-right text-small font-medium tabular text-text-muted tablet:block">{seconds(s.duration)}</span>
                   {s.source.kind === "recording" ? (
                     <a
                       href={s.source.page}
@@ -254,7 +284,7 @@ export function SfxPage() {
             })}
           </ul>
           {list.length > shown && (
-            <div className="flex justify-center border-t border-border p-3">
+            <div className="flex justify-center border-t border-hairline p-3">
               <Button variant="ghost" onClick={() => setShown((n) => n + PAGE)}>{`Show more (${list.length - shown} left)`}</Button>
             </div>
           )}
@@ -265,11 +295,13 @@ export function SfxPage() {
         </EmptyState>
       )}
 
-      <p className="text-small text-text-muted">
+      <p className="text-small text-text-subtle">
         {
           "Free to use in your music: Stash originals and public-domain or CC0 recordings. Each download includes its license. Keys: arrows play, D downloads."
         }
       </p>
+        </div>
+      </div>
     </main>
   );
 }

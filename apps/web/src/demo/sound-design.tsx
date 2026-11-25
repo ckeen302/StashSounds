@@ -269,7 +269,7 @@ export function SoundDesign() {
   const looping = !!loopItem && s.currentId === `sd-${loopItem.id}` && s.status === "playing";
 
   return (
-    <main className="mx-auto flex w-full max-w-content flex-col gap-6 px-3 py-8 tablet:px-4 desktop:px-6">
+    <main className="ds-page">
       <header className="flex flex-col gap-1">
         <h1 className="text-title">Shape a sound</h1>
         <p className="max-w-prose text-body text-text-muted">

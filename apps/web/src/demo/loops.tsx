@@ -1,8 +1,11 @@
+import { PageHeader } from "./layout";
 import { getEngine, usePlayerState } from "@stash/audio";
 import type { ItemRow, MusicalKey } from "@stash/contracts";
 import { formatKey } from "@stash/contracts/format";
 import {
   Avatar,
+  SlidersHorizontal,
+  Upload,
   Button,
   ButtonLink,
   Download,
@@ -374,21 +377,26 @@ export function LoopsPage({
   };
 
   return (
-    <main className="mx-auto flex w-full max-w-content flex-col gap-3 px-3 py-5 tablet:px-4 desktop:px-6">
-      {/* Title, one row of controls, then the loops: everything else waits behind Filters. */}
-      <header className="flex flex-col gap-3">
-        <h1 className="text-title">Free loops</h1>
-        <div className="flex flex-wrap items-start gap-2">
+    <main className="ds-page !gap-6">
+      {/* Title, one sticky row of controls, then the loops: everything else waits behind Filters. */}
+      <PageHeader
+        eyebrow="Sounds"
+        title="Loops"
+        lede="Melodies, drums and 808s from producers. They follow the tempo and key you set, while you listen."
+        actions={
+          <ButtonLink href="/upload" variant="secondary" icon={Upload} className="st-wide-only">
+            Upload a loop
+          </ButtonLink>
+        }
+      />
+      <header className="ds-toolbar">
+        <div className="flex w-full flex-wrap items-start gap-2">
           <div className="min-w-0 flex-1 basis-64">
             <SmartSearch value={f.q} onChange={(v) => update({ q: v, like: null })} examples={[]} placeholder="Search loops: dark piano 140" />
           </div>
-          <Button size="md" variant={filtersOpen ? "primary" : "secondary"} aria-expanded={filtersOpen} onClick={() => setFiltersOpen(!filtersOpen)}>
+          <Button size="md" icon={SlidersHorizontal} variant={filtersOpen || applied.length ? "primary" : "secondary"} aria-expanded={filtersOpen} onClick={() => setFiltersOpen(!filtersOpen)}>
             {applied.length ? `Filters · ${applied.length}` : "Filters"}
           </Button>
-          {/* The Upload tab is one tap away in the nav on a phone. */}
-          <ButtonLink href="/upload" variant="secondary" size="md" className="st-wide-only">
-            Upload
-          </ButtonLink>
         </div>
       </header>
 

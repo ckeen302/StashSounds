@@ -1,3 +1,4 @@
+import { Empty, PageHeader } from "./layout";
 import type { ItemRow, MusicalKey } from "@stash/contracts";
 import { compatibleKeys, formatKey } from "@stash/contracts/format";
 import {
@@ -10,6 +11,7 @@ import {
   FilterChip,
   IconButton,
   Library as LibraryIcon,
+  Heart,
   Menu,
   Plus,
   SearchInput,
@@ -180,11 +182,12 @@ export function BrowsePage({ catalog, rows, renderLoops, only }: { catalog: Cata
   const touched = JSON.stringify(f) !== JSON.stringify(DEFAULT);
 
   return (
-    <main className="mx-auto flex w-full max-w-content flex-col gap-6 px-3 py-8 tablet:px-4 desktop:px-6">
-      <header className="flex flex-col gap-1">
-        <span className="text-label text-label-caps text-text-muted">{only ? "Loops" : "Browse"}</span>
-        <h1 className="text-title">{only ? "Loops, filtered the way you search" : "Every sound, filtered the way you search"}</h1>
-      </header>
+    <main className="ds-page !gap-8">
+      <PageHeader
+        eyebrow={only ? "Loops" : "Discover"}
+        title={only ? "Loops, filtered the way you search" : "Browse"}
+        lede={only ? undefined : "Every sound in one place, filtered by type, genre, tempo and key."}
+      />
 
       <section aria-label="Filters" className="flex flex-col gap-4 rounded-panel border border-border bg-surface p-4">
         <div className="flex flex-col gap-3 tablet:flex-row tablet:items-center tablet:justify-between">
@@ -312,7 +315,7 @@ export function ProfilePage({ handle, catalog, rows, renderLoops }: { handle: st
   const all = useSounds(catalog, rows).filter((s) => s.handle === handle);
   if (!p) {
     return (
-      <main className="mx-auto flex w-full max-w-content flex-col gap-6 px-3 py-8 tablet:px-4 desktop:px-6">
+      <main className="ds-page">
         <EmptyState icon={User} title="No producer by that name" action={<ButtonLink href="/browse" variant="secondary">Browse sounds</ButtonLink>}>
           {`The demo has no one called @${handle}.`}
         </EmptyState>
@@ -329,7 +332,7 @@ export function ProfilePage({ handle, catalog, rows, renderLoops }: { handle: st
   const bpms = all.map((s) => s.bpm).filter((b): b is number => b !== null);
 
   return (
-    <main className="mx-auto flex w-full max-w-content flex-col gap-6 px-3 py-8 tablet:px-4 desktop:px-6">
+    <main className="ds-page">
       <section aria-label="Producer" className="flex flex-col gap-4 rounded-panel border border-border bg-surface p-6">
         <div className="flex flex-col gap-4 tablet:flex-row tablet:items-center tablet:justify-between">
           <div className="flex items-center gap-4">
@@ -477,31 +480,40 @@ export function LibraryPage({ catalog, rows, renderLoops }: { catalog: Catalog; 
   const doomedCrate = list.find((c) => c.id === doomed);
 
   return (
-    <main className="mx-auto flex w-full max-w-content flex-col gap-8 px-3 py-8 tablet:px-4 desktop:px-6">
-      <header className="flex flex-col gap-1">
-        <h1 className="text-title">Your stash</h1>
-      </header>
+    <main className="ds-page">
+      <PageHeader eyebrow="You" title="Your stash" lede="Crates, likes, the producers you follow and what you've posted. Kept in this browser." />
 
-      <nav aria-label="Library sections" className="flex flex-wrap gap-2">
-        {[
-          ["#lib-crates", `Crates ${list.length}`],
-          ["#lib-likes", `Likes ${liked.length}`],
-          ["#lib-following", `Following ${followed.length}`],
-          ["#lib-posts", `Your posts ${mine.length}`],
-        ].map(([href, label]) => (
-          <a key={href} href={href} onClick={(e) => { e.preventDefault(); document.querySelector(href!)?.scrollIntoView({ behavior: "smooth" }); }} className="rounded-control border border-border px-3 py-2 text-small text-text ui-hover:border-border-strong">
-            {label}
+      <nav aria-label="Library sections" className="lib-stats">
+        {(
+          [
+            ["#lib-crates", "Crates", list.length],
+            ["#lib-likes", "Likes", liked.length],
+            ["#lib-following", "Following", followed.length],
+            ["#lib-posts", "Your posts", mine.length],
+          ] as const
+        ).map(([href, label, n]) => (
+          <a
+            key={href}
+            href={href}
+            onClick={(e) => {
+              e.preventDefault();
+              document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="ds-card lib-stat"
+          >
+            <span className="font-display text-h1 tabular text-text">{n}</span>
+            <span className="text-small font-medium text-text-muted">{label}</span>
           </a>
         ))}
       </nav>
 
-      <section id="lib-crates" aria-labelledby="crates-title" className="flex flex-col gap-4">
+      <div className="lib-grid">
+      <section id="lib-crates" aria-labelledby="crates-title" className="lib-wide flex flex-col gap-4">
         <h2 id="crates-title" className="text-title">Crates</h2>
         {list.length === 0 && (
-          <p className="max-w-prose text-body text-text-muted">
-            No crates yet. Open the menu on any loop, or the crate button on any MIDI page, and pick “New crate…”. Crates are how you keep sounds for one beat or one
-            artist together.
-          </p>
+          <Empty icon={LibraryIcon} title="No crates yet">
+            Open the menu on any loop, or the crate button on any MIDI page, and pick “New crate…”. Crates keep the sounds for one beat or one artist together.
+          </Empty>
         )}
         {list.map((c) => {
           const contents = split(c.items.map((id) => byId.get(id)).filter((s): s is Sound => !!s));
@@ -524,14 +536,22 @@ export function LibraryPage({ catalog, rows, renderLoops }: { catalog: Catalog; 
 
       <section id="lib-likes" aria-labelledby="likes-title" className="flex flex-col gap-3">
         <h2 id="likes-title" className="text-title">Likes</h2>
-        {liked.length === 0 && <p className="text-body text-text-muted">Nothing liked yet. Tap the heart on any sound.</p>}
+        {liked.length === 0 && (
+          <Empty icon={Heart} title="Nothing liked yet" action={<ButtonLink href="/loops" variant="secondary" size="sm">Find loops</ButtonLink>}>
+            Tap the heart on any sound and it lands here.
+          </Empty>
+        )}
         {likedSplit.loops.length > 0 && renderLoops("Liked loops", likedSplit.loops)}
         {likedSplit.midi.length > 0 && <MidiList label="Liked MIDI" items={likedSplit.midi} />}
       </section>
 
       <section id="lib-following" aria-labelledby="following-title" className="flex flex-col gap-3">
         <h2 id="following-title" className="text-title">Following</h2>
-        {followed.length === 0 && <p className="text-body text-text-muted">You follow no one yet. Open a producer and press Follow.</p>}
+        {followed.length === 0 && (
+          <Empty icon={UserPlus} title="You follow no one yet" action={<ButtonLink href="/loops" variant="secondary" size="sm">Meet producers</ButtonLink>}>
+            Open any sound, then Follow the person who made it.
+          </Empty>
+        )}
         <ul className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-3">
           {followed.map((p) => (
             <li key={p.id} className="flex items-center gap-3 rounded-panel border border-border bg-surface p-3">
@@ -547,15 +567,22 @@ export function LibraryPage({ catalog, rows, renderLoops }: { catalog: Catalog; 
         </ul>
       </section>
 
-      <section id="lib-posts" aria-labelledby="posts-title" className="flex flex-col gap-3">
+      <section id="lib-posts" aria-labelledby="posts-title" className="lib-wide flex flex-col gap-3">
         <div className="flex items-end justify-between gap-3">
           <h2 id="posts-title" className="text-title">Your posts</h2>
           <ButtonLink href="/upload" variant="ghost" size="sm" icon={Upload}>
             Post a MIDI file
           </ButtonLink>
         </div>
-        {mine.length === 0 ? <p className="text-body text-text-muted">Nothing posted from this browser yet.</p> : <MidiList label="Your posts" items={mine} />}
+        {mine.length === 0 ? (
+          <Empty icon={Upload} title="Nothing posted yet" action={<ButtonLink href="/upload" variant="primary" size="sm" icon={Upload}>Upload</ButtonLink>}>
+            Post a loop, a kit or a MIDI file. Every download credits you.
+          </Empty>
+        ) : (
+          <MidiList label="Your posts" items={mine} />
+        )}
       </section>
+      </div>
 
       <Dialog
         open={!!doomedCrate}

@@ -310,7 +310,7 @@ export function MidiPage({ publicId }: { publicId: string }) {
 
   if (!item) {
     return (
-      <main className="mx-auto flex max-w-content flex-col gap-8 px-3 py-8 tablet:px-4 desktop:px-6">
+      <main className="ds-page">
         <EmptyState icon={Upload} title="That MIDI isn't here" action={<ButtonLink href="/" variant="secondary">Back to the sounds</ButtonLink>}>
           It may have been posted from another browser. Posts in the demo stay on the device that made them.
         </EmptyState>
@@ -616,7 +616,7 @@ export function UploadPage({ embedded = false }: { embedded?: boolean } = {}) {
 
   const Wrap = embedded ? "div" : "main";
   return (
-    <Wrap className={embedded ? "flex w-full flex-col gap-6" : "mx-auto flex w-full max-w-content flex-col gap-6 px-3 py-8 tablet:px-4 desktop:px-6"}>
+    <Wrap className={embedded ? "flex w-full flex-col gap-6" : "ds-page"}>
       <header className={embedded ? "sr-only" : "flex flex-col gap-1"}>
         <h1 className="text-title">Post a MIDI file</h1>
       </header>

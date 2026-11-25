@@ -3,7 +3,6 @@ import {
   useEffect,
   useMemo,
   useState,
-  useSyncExternalStore,
   type ReactNode,
 } from "react";
 import { createRoot } from "react-dom/client";
@@ -25,12 +24,14 @@ import {
   type PlayState,
   type ResultRowProps,
 } from "@stash/ui";
-import { AppShell } from "../app/_shell/app-shell";
+import { DemoShell } from "./shell";
+import { BRAND } from "./brand";
 import { nowPlaying } from "../app/_shell/now-playing";
 import { ItemView } from "../app/_item/item-view";
 import { buildCatalog, type Catalog } from "./data";
 import { HashLink } from "./hash-link";
 import { navigate, startRouter, usePath } from "./router";
+import { setSearchQuery, useSearchQuery } from "./search-store";
 import { has, set } from "./store";
 import { startLooks, useLook } from "./looks";
 import { midiItem, type MidiItem } from "./midi/catalog";
@@ -70,7 +71,28 @@ import { loopProfile, midiProfile } from "./search-index";
 import { match, moreLike } from "./smart-search";
 import { writeMidi } from "./midi/write";
 import { KitPage, KitsPage, KitUploadPage } from "./kits/pages";
-import { Button, Download, FilterChip, SearchInput, UiLink } from "@stash/ui";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  AudioLines,
+  Button,
+  Disc3,
+  Download,
+  Drum,
+  FilterChip,
+  Flame,
+  Icon,
+  KeyboardMusic,
+  Piano,
+  PlayButton,
+  SearchInput,
+  TypeChip,
+  UiLink,
+  Waveform,
+  describeRow,
+} from "@stash/ui";
+import { formatKey } from "@stash/contracts/format";
+import { PageFrame, PageHeader, SectionTitle } from "./layout";
 
 /**
  * The browser-only demo (ticket 137): the real shell, player bar, result rows, loop page and audio
@@ -105,23 +127,6 @@ function pageForViewer(page: ItemPage): ItemPage {
     moreFromOwner: page.moreFromOwner.map(withViewer),
     similar: page.similar.map(withViewer),
   };
-}
-
-let searchQuery = "";
-const searchListeners = new Set<() => void>();
-function setSearchQuery(q: string) {
-  searchQuery = q;
-  for (const l of searchListeners) l();
-}
-function useSearchQuery(): string {
-  return useSyncExternalStore(
-    (l) => {
-      searchListeners.add(l);
-      return () => searchListeners.delete(l);
-    },
-    () => searchQuery,
-    () => "",
-  );
 }
 
 function useRows(): [ItemRow[], () => void] {
@@ -239,20 +244,16 @@ const renderLoops: RenderLoops = (label, rows) => (
 );
 
 function Page({ children }: { children: ReactNode }) {
-  return (
-    <main className="mx-auto flex w-full max-w-content flex-col gap-8 px-3 py-8 tablet:px-4 desktop:px-6">
-      {children}
-    </main>
-  );
+  return <PageFrame>{children}</PageFrame>;
 }
 
 const TODAY = Math.floor(Date.now() / 86_400_000);
 
 const RARITY: Record<Confidence, { name: string; text: string }> = {
-  producer: { name: "Legendary", text: "text-type-oneshot" },
-  engineer: { name: "Epic", text: "text-type-midi" },
-  press: { name: "Rare", text: "text-type-loop" },
-  community: { name: "Common", text: "text-text-muted" },
+  producer: { name: "Producer confirmed", text: "text-accent" },
+  engineer: { name: "Engineer confirmed", text: "text-type-midi" },
+  press: { name: "From an interview", text: "text-type-loop" },
+  community: { name: "Community found", text: "text-text-muted" },
 };
 const BY_LEVEL: Confidence[] = ["community", "community", "press", "engineer", "producer"];
 
@@ -279,26 +280,28 @@ function initialsOf(name: string): string {
     .join("");
 }
 
-function SectionHead({ title, sub, href, more }: { title: string; sub?: string; href?: string; more?: string }) {
+function SectionHead({ title, sub, href, more, id }: { title: string; sub?: string; href?: string; more?: string; id?: string }) {
   return (
-    <div className="flex items-end justify-between gap-3">
-      <div className="flex min-w-0 flex-col gap-1">
-        <h2 className="text-title">{title}</h2>
-        {sub && <p className="text-small text-text-muted">{sub}</p>}
-      </div>
-      {href && more && (
-        <ButtonLink href={href} variant="ghost" size="sm">
-          {more}
-        </ButtonLink>
-      )}
-    </div>
+    <SectionTitle
+      id={id}
+      title={title}
+      sub={sub}
+      action={
+        href && more ? (
+          <UiLink href={href} className="group inline-flex shrink-0 items-center gap-1 text-small font-semibold text-text-muted ui-hover:text-text">
+            {more}
+            <Icon icon={ArrowRight} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+          </UiLink>
+        ) : undefined
+      }
+    />
   );
 }
 
-const GENRES = ["Trap", "Drill", "Pluggnb", "Boom bap", "Rage", "Phonk", "Jersey club", "R&B", "Detroit", "Lo-fi", "Afrobeats", "Memphis"];
+const GENRES = ["Trap", "Rage", "Pluggnb", "Drill", "Jersey club", "Boom bap", "Phonk", "R&B", "Detroit", "Lo-fi", "Afrobeats", "Memphis"];
 
 /** The hero's equalizer: resting low, moving while anything plays. Decoration only. */
-const EQ = Array.from({ length: 48 }, (_, i) => 16 + Math.round(76 * Math.abs(Math.sin(i * 0.55) * Math.cos(i * 0.21))));
+const EQ = Array.from({ length: 40 }, (_, i) => 16 + Math.round(76 * Math.abs(Math.sin(i * 0.55) * Math.cos(i * 0.21))));
 function HeroEq() {
   const status = usePlayerState((s) => s.status);
   return (
@@ -307,6 +310,77 @@ function HeroEq() {
         <span key={i} style={{ ["--h" as string]: h, ["--d" as string]: `${(i % 7) * 90}ms` }} />
       ))}
     </div>
+  );
+}
+
+/** The bento's right card: the loop most played this week, ready on one press. */
+function FeaturedLoop({ list }: { list: ItemRow[] }) {
+  const engine = getEngine();
+  const status = usePlayerState((s) => s.status);
+  const currentId = usePlayerState((s) => s.current?.id ?? null);
+  const toast = useToast();
+  const row = list[0];
+  if (!row) return null;
+  const on = currentId === row.playable.id && status !== "idle";
+  const state: PlayState = on ? status : "paused";
+  const key = row.key ? formatKey(row.key) : "—";
+  return (
+    <aside aria-label="Featured loop" className="hm-feature" data-on={(on && status === "playing") || undefined}>
+      <span className="hm-feature-glow" aria-hidden="true" />
+      <div className="relative flex items-center justify-between gap-3">
+        <span className="ds-eyebrow inline-flex items-center gap-2">
+          <Icon icon={Flame} className="text-accent" />
+          Most played this week
+        </span>
+        <TypeChip type="loop" />
+      </div>
+      <div className="relative flex items-center gap-4">
+        <PlayButton size="hero" title={row.title} state={state} onClick={() => void nowPlaying().playFrom(engine, list, 0)} />
+        <div className="flex min-w-0 flex-col">
+          <UiLink href={row.href} className="truncate font-display text-h2 text-text ui-hover:underline">
+            {row.title}
+          </UiLink>
+          <UiLink href={`/u/${row.owner.handle}`} className="truncate text-small text-text-muted ui-hover:text-text">
+            {`@${row.owner.handle}`}
+          </UiLink>
+        </div>
+      </div>
+      <div className="ds-wave-fill ds-wave-tall relative my-auto">
+        <Waveform peaks={row.peaks} type={row.type} label={describeRow(row)} durationMs={row.durationMs} />
+      </div>
+      <dl className="relative grid grid-cols-3 gap-2">
+        {[
+          ["BPM", String(row.bpm ?? "—")],
+          ["Key", key],
+          ["Bars", String(row.length?.value ?? "—")],
+        ].map(([k, v]) => (
+          <div key={k} className="flex flex-col gap-0.5 rounded-tile bg-surface-2/60 px-3 py-2">
+            <dt className="ds-eyebrow">{k}</dt>
+            <dd className="text-h3 tabular text-text">{v}</dd>
+          </div>
+        ))}
+      </dl>
+      <div className="relative flex gap-2">
+        <Button
+          variant="secondary"
+          icon={Download}
+          className="flex-1"
+          onClick={() =>
+            void saveLoopRow(row)
+              .then(({ outcome, name }) => {
+                if (outcome === "saved") toast({ tone: "success", title: "Downloaded", description: name });
+                else if (outcome === "failed") throw new Error(name);
+              })
+              .catch(() => toast({ tone: "error", title: "The download did not start", description: "Try again in a moment." }))
+          }
+        >
+          Download
+        </Button>
+        <ButtonLink href={row.href} variant="ghost" icon={ArrowUpRight}>
+          Open
+        </ButtonLink>
+      </div>
+    </aside>
   );
 }
 
@@ -322,170 +396,204 @@ function Home() {
       .sort((a, b) => a.k - b.k)
       .map((x) => x.m);
   }, [midi]);
-  const types = [
-    { href: "/loops", t: "loop", name: "Loops", count: rows.length },
-    { href: "/one-shots", t: "oneshot", name: "One-shots", count: MELODIC.length },
-    { href: "/kits", t: "kit", name: "Drums", count: kits().reduce((n, k) => n + k.sounds.length, 0) },
-    { href: "/midi", t: "midi", name: "MIDI", count: midi.length },
-    { href: "/presets", t: "preset", name: "Presets", count: PRESETS.length },
-    { href: "/sfx", t: "oneshot", name: "SFX", count: SFX.length },
+  const hot = trending(rows);
+  const collage = SHELF.filter((s) => coverFor(s.song, s.artist)).slice(0, 3);
+  const tiles: { href: string; t: string; name: string; count: number; blurb: string; icon: IconComponent; big?: boolean; wide?: boolean }[] = [
+    { href: "/presets", t: "preset", name: "Presets", count: PRESETS.length, blurb: `The exact synth patches behind ${ALL_SONGS.length} songs.`, icon: Disc3, big: true },
+    { href: "/kits", t: "kit", name: "Drums", count: kits().reduce((n, k) => n + k.sounds.length, 0), blurb: "Full kits and single hits, ready to drag in.", icon: Drum, wide: true },
+    { href: "/midi", t: "midi", name: "MIDI", count: midi.length, blurb: "Chords from the songs, played on real drums.", icon: KeyboardMusic, wide: true },
+    { href: "/loops", t: "loop", name: "Loops", count: rows.length, blurb: "Tempo-synced and key-shifted as you listen.", icon: AudioLines, wide: true },
+    { href: "/one-shots", t: "oneshot", name: "One-shots", count: MELODIC.length, blurb: "Every note, all 12 keys.", icon: Piano },
+    { href: "/sfx", t: "sfx", name: "SFX", count: SFX.length, blurb: "Sirens, horns, risers.", icon: Flame },
   ];
   const search = (text: string) => {
     setSearchQuery(text);
     navigate("/search");
   };
   return (
-    <div className="flex flex-col">
-      <section className="st-home-hero relative overflow-hidden">
-        <HeroEq />
-        <div className="relative mx-auto flex w-full max-w-content flex-col gap-5 px-3 pt-6 pb-6 tablet:px-4 tablet:pt-12 desktop:px-6 desktop:pt-14">
-          <h1 className="st-hero-title st-home-h1 max-w-4xl text-balance">
-            Free sounds that <span className="st-grad">actually hit.</span>
-          </h1>
-          <ul aria-label="The deal" className="flex flex-wrap gap-x-5 gap-y-1 text-small text-text-muted">
-            {["Free. No credits, no trials", "Plays on first click", "Original files"].map((x) => (
-              <li key={x} className="inline-flex items-center gap-2">
-                <span className="st-check" aria-hidden="true" />
-                {x}
-              </li>
-            ))}
-          </ul>
-          <form
-            role="search"
-            className="flex w-full max-w-2xl gap-2"
-            onSubmit={(e) => {
-              e.preventDefault();
-              search(q);
-            }}
-          >
-            <SearchInput
-              label="Search sounds"
-              hideLabel
-              shortcut=""
-              placeholder="Try dark piano 140 like metro"
-              value={q}
-              onChange={(e) => setQ(e.target.value)}
-              onClear={() => setQ("")}
-              className="min-w-0 flex-1"
-            />
-            <Button type="submit" variant="primary">
-              Search
-            </Button>
-          </form>
-          <ul aria-label="Sound types" className="st-shelf -mx-3 flex gap-2 overflow-x-auto px-3 tablet:mx-0 tablet:flex-wrap tablet:px-0">
-            {types.map((t) => (
-              <li key={t.href} className="shrink-0">
-                <UiLink
-                  href={t.href}
-                  data-t={t.t}
-                  className="st-type flex h-11 items-center gap-2.5 rounded-control border border-border bg-surface px-4 ui-hover:border-border-strong"
-                >
-                  <span className="st-dot size-2.5 rounded-full" aria-hidden="true" />
-                  <span className="text-body-strong text-text">{t.name}</span>
-                  <span className="font-mono text-numeric tabular text-text-muted">{t.count.toLocaleString("en")}</span>
-                </UiLink>
-              </li>
-            ))}
-          </ul>
-        </div>
+    <PageFrame>
+      <div className="hm-bento">
+        <section aria-labelledby="hero-title" className="hm-hero">
+          <HeroEq />
+          <div className="relative flex flex-col gap-5">
+            <ul aria-label="The deal" className="flex flex-wrap gap-x-5 gap-y-1 text-small text-text-muted">
+              {["Free. No credits, no trials", "Plays on first click", "Original files"].map((x) => (
+                <li key={x} className="inline-flex items-center gap-2">
+                  <span className="st-check" aria-hidden="true" />
+                  {x}
+                </li>
+              ))}
+            </ul>
+            <h1 id="hero-title" className="max-w-3xl">
+              Free sounds that <span className="st-grad">actually hit.</span>
+            </h1>
+            <form
+              role="search"
+              className="flex w-full max-w-2xl gap-2"
+              onSubmit={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                search(q);
+              }}
+            >
+              <SearchInput
+                label="Search sounds"
+                hideLabel
+                shortcut=""
+                placeholder="Try “dark piano 140 like metro”"
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
+                onClear={() => setQ("")}
+                className="min-w-0 flex-1"
+              />
+              <Button type="submit" variant="primary">
+                Search
+              </Button>
+            </form>
+            <div role="group" aria-label="Genres" className="hm-chips">
+              {GENRES.slice(0, 8).map((g) => (
+                <FilterChip key={g} onToggle={() => search(g)}>
+                  {g}
+                </FilterChip>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <FeaturedLoop list={hot.slice(0, 6)} />
+
+        <ul aria-label="Sound types" className="hm-tiles">
+          {tiles.map((t) => (
+            <li key={t.href} className={t.big ? "hm-tile-big" : undefined} data-span={t.wide ? 2 : undefined}>
+              <UiLink href={t.href} data-t={t.t} className={`hm-tile h-full ${t.big ? "hm-tile-big" : ""}`}>
+                {t.big && (
+                  <span className="hm-collage" aria-hidden="true">
+                    {collage.map((s, i) => (
+                      <span key={s.slug} style={{ ["--r" as string]: `${(i - 1) * 7}deg` }}>
+                        <Cover song={s.song} artist={s.artist} size="fill" />
+                      </span>
+                    ))}
+                  </span>
+                )}
+                <span className="hm-tile-icon">
+                  <Icon icon={t.icon} size={20} />
+                </span>
+                <span className="relative flex flex-col gap-1">
+                  <span className="flex items-baseline gap-2">
+                    <span className={`font-display ${t.big ? "text-h1" : "text-h2"} text-text`}>{t.name}</span>
+                    <span className="text-small font-medium tabular text-text-muted">{t.count.toLocaleString("en")}</span>
+                  </span>
+                  <span className="text-small text-text-muted">{t.blurb}</span>
+                </span>
+              </UiLink>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <section aria-labelledby="trending" className="ds-section">
+        <SectionHead id="trending" title="Trending now" sub="What producers are pulling this week." href="/loops" more={`All ${rows.length} loops`} />
+        <LoopList label="Trending now" rows={hot.slice(0, 6)} onChange={refresh} />
       </section>
 
-      <Page>
-        <section aria-labelledby="trending" className="-mt-6 flex flex-col gap-3">
-          <div id="trending">
-            <SectionHead title="Trending now" href="/loops" more={`All ${rows.length} loops`} />
-          </div>
-          <LoopList label="Trending now" rows={trending(rows).slice(0, 6)} onChange={refresh} />
-        </section>
-
-        <nav aria-label="Genres" className="st-ticker -mx-3 overflow-hidden tablet:mx-0">
-          <ul className="st-ticker-track flex w-max gap-2">
-            {[...GENRES, ...GENRES].map((g, i) => (
-              <li key={`${g}-${i}`} aria-hidden={i >= GENRES.length || undefined}>
-                <button
-                  type="button"
-                  tabIndex={i >= GENRES.length ? -1 : undefined}
-                  onClick={() => search(g)}
-                  className="st-hero-title st-ticker-item rounded-control border border-border px-5 py-2 text-title text-text-muted ui-hover:border-border-strong ui-hover:text-text"
-                >
-                  {g}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        <section aria-labelledby="songs-shelf" className="flex flex-col gap-3">
-          <div id="songs-shelf">
-            <SectionHead title="Presets behind the songs" href="/presets" more={`All ${ALL_SONGS.length} songs`} />
-          </div>
-          <ul className="st-shelf -mx-3 flex gap-4 overflow-x-auto px-3 pb-2 tablet:mx-0 tablet:px-0">
-            {SHELF.map((s) => {
-              const r = RARITY[BY_LEVEL[s.best] ?? "community"];
-              return (
-                <li key={s.slug} className="w-40 shrink-0 tablet:w-44">
-                  <UiLink href={songHref(s.song, s.artist)} className="group flex h-full flex-col gap-3 rounded-panel border border-border bg-surface p-3 ui-hover:border-border-strong">
+      <section aria-labelledby="songs-shelf" className="ds-section">
+        <SectionHead id="songs-shelf" title="Presets behind the songs" sub="The synth, the bank, the patch name. Sourced." href="/presets" more={`All ${ALL_SONGS.length} songs`} />
+        <ul className="st-shelf ds-scroll-x gap-4 pb-2">
+          {SHELF.map((s) => {
+            const r = RARITY[BY_LEVEL[s.best] ?? "community"];
+            return (
+              <li key={s.slug} className="w-40 tablet:w-48">
+                <UiLink href={songHref(s.song, s.artist)} className="ds-card ps-card h-full">
+                  <span className="ds-art">
                     <Cover song={s.song} artist={s.artist} size="fill" placeholder />
-                    <span className="flex min-w-0 flex-col">
-                      <span className="truncate text-body-strong text-text group-hover:underline">{s.song}</span>
-                      <span className="truncate text-small text-text-muted">{s.artist}</span>
-                      <span className={`text-small ${r.text}`}>{`${r.name} · ${s.entries.length} ${s.entries.length === 1 ? "sound" : "sounds"}`}</span>
-                    </span>
-                  </UiLink>
-                </li>
-              );
-            })}
-          </ul>
-        </section>
+                  </span>
+                  <span className="flex min-w-0 flex-col gap-0.5 px-1">
+                    <span className="truncate text-body-strong text-text">{s.song}</span>
+                    <span className="truncate text-small text-text-muted">{s.artist}</span>
+                    <span className={`truncate text-small ${r.text}`}>{`${s.entries.length} ${s.entries.length === 1 ? "sound" : "sounds"} · ${r.name}`}</span>
+                  </span>
+                </UiLink>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
 
-        <section aria-labelledby="producers" className="flex flex-col gap-3">
-          <div id="producers">
-            <SectionHead title="Producers behind the songs" href="/presets" more="All presets" />
-          </div>
-          <ul className="st-shelf -mx-3 flex gap-5 overflow-x-auto px-3 pb-2 tablet:mx-0 tablet:px-0">
-            {TOP_PRODUCERS.slice(0, 12).map(([name, n]) => {
-              const first = ALL_SONGS.find((s) => madeBy(s, name));
-              return (
-                <li key={name} className="w-24 shrink-0 tablet:w-28">
-                  <UiLink href={first ? songHref(first.song, first.artist) : "/presets"} className="group flex flex-col items-center gap-2 text-center">
-                    <span data-hue={hueOf(name)} className="st-avatar st-hero-title flex size-24 items-center justify-center rounded-full text-title tablet:size-28" aria-hidden="true">
-                      {initialsOf(name)}
-                    </span>
-                    <span className="w-full truncate text-body-strong text-text group-hover:underline">{name}</span>
-                    <span className="text-small text-text-muted">{`${n} songs`}</span>
-                  </UiLink>
-                </li>
-              );
-            })}
-          </ul>
-        </section>
+      <section aria-labelledby="producers" className="ds-section">
+        <SectionHead id="producers" title="Producers behind the songs" href="/presets" more="All presets" />
+        <ul className="st-shelf ds-scroll-x gap-5 pb-2">
+          {TOP_PRODUCERS.slice(0, 12).map(([name, n]) => {
+            const first = ALL_SONGS.find((s) => madeBy(s, name));
+            return (
+              <li key={name} className="w-24 tablet:w-28">
+                <UiLink href={first ? songHref(first.song, first.artist) : "/presets"} className="group flex flex-col items-center gap-2 text-center">
+                  <span
+                    data-hue={hueOf(name)}
+                    className="st-avatar flex size-24 items-center justify-center rounded-full font-display text-h2 transition-transform duration-300 ease-spring group-hover:scale-105 tablet:size-28"
+                    aria-hidden="true"
+                  >
+                    {initialsOf(name)}
+                  </span>
+                  <span className="w-full truncate text-body-strong text-text">{name}</span>
+                  <span className="text-small tabular text-text-muted">{`${n} songs`}</span>
+                </UiLink>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
 
-        {songs.length > 0 && (
-          <section className="flex flex-col gap-3">
-            <SectionHead title="Chords from the songs" href="/midi" more={`All ${songs.length} songs`} />
-            <MidiList label="Song chords" items={songs.slice(0, 6)} />
-          </section>
-        )}
-
-        <section aria-labelledby="post" className="st-cta flex flex-col gap-4 rounded-panel p-6 tablet:flex-row tablet:items-center tablet:justify-between tablet:p-10">
-          <div className="flex flex-col gap-2">
-            <h2 id="post" className="st-hero-title text-display">Post a sound. Get followed.</h2>
-            <p className="max-w-prose text-body">Heard in one tap. Credited on every download.</p>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {[
-              ["/upload", "Upload a loop"],
-              ["/kit-upload", "Post a kit"],
-              ["/one-shots", "Post one-shots"],
-            ].map(([href, label]) => (
-              <UiLink key={href} href={href!} className="inline-flex h-10 items-center rounded-control bg-bg px-4 text-body-strong text-text ui-hover:bg-raised">
-                {label}
-              </UiLink>
-            ))}
-          </div>
+      {songs.length > 0 && (
+        <section aria-labelledby="chords" className="ds-section">
+          <SectionHead id="chords" title="Chords from the songs" sub="Play them on the real drum sounds, drag the MIDI into your DAW." href="/midi" more={`All ${songs.length} songs`} />
+          <MidiList label="Song chords" items={songs.slice(0, 6)} />
         </section>
-      </Page>
-    </div>
+      )}
+
+      <nav aria-label="More genres" className="st-ticker -mx-3 overflow-hidden tablet:mx-0">
+        <ul className="st-ticker-track flex w-max gap-3">
+          {[...GENRES, ...GENRES].map((g, i) => (
+            <li key={`${g}-${i}`} aria-hidden={i >= GENRES.length || undefined}>
+              <button
+                type="button"
+                tabIndex={i >= GENRES.length ? -1 : undefined}
+                onClick={() => search(g)}
+                className="st-ticker-item font-display text-h1 text-text-subtle transition-colors duration-200 ui-hover:text-text"
+              >
+                {g}
+                <span aria-hidden="true" className="ml-3 text-accent">✦</span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <section aria-labelledby="post" className="st-cta flex flex-col gap-6 p-8 tablet:flex-row tablet:items-end tablet:justify-between tablet:p-12">
+        <div className="relative flex flex-col gap-3">
+          <h2 id="post">
+            Post a sound.
+            <br />
+            Get followed.
+          </h2>
+          <p className="max-w-prose text-body font-medium">Heard in one tap. Credited on every download.</p>
+        </div>
+        <div className="relative flex flex-wrap gap-2">
+          {[
+            ["/upload", "Upload a loop"],
+            ["/kit-upload", "Post a kit"],
+            ["/one-shots", "Post one-shots"],
+          ].map(([href, label]) => (
+            <UiLink
+              key={href}
+              href={href!}
+              className="inline-flex h-11 items-center rounded-pill bg-bg px-5 text-body-strong text-text transition-transform duration-200 ease-spring ui-hover:-translate-y-0.5 ui-active:scale-95"
+            >
+              {label}
+            </UiLink>
+          ))}
+        </div>
+      </section>
+    </PageFrame>
   );
 }
 
@@ -867,10 +975,17 @@ function AllMidi() {
   const shown = prog ? kinded.filter((m) => m.song && progressionOf(m.song)?.label === prog) : kinded;
   return (
     <Page>
-      <header className="flex flex-col gap-1">
-        <h1 className="text-title">MIDI</h1>
-      </header>
-      <div className="flex flex-col gap-3 tablet:flex-row tablet:items-center tablet:justify-between">
+      <PageHeader
+        eyebrow="Ideas"
+        title="MIDI"
+        lede="Chord progressions from the songs and producers' patterns. Every preview plays on real drum sounds; drag the file straight into your DAW."
+        count={
+          <span>
+            <b>{all.length.toLocaleString("en")}</b> MIDI files
+          </span>
+        }
+      />
+      <div className="ds-toolbar flex-col !items-stretch gap-3 tablet:flex-row tablet:!items-center tablet:justify-between">
         <div className="min-w-0 flex-1">
           <SmartSearch
             value={q}
@@ -932,10 +1047,10 @@ function AllMidi() {
                     setProg(prog === g.label ? null : g.label);
                     setOrigin("all");
                   }}
-                  className="st-type flex h-full w-full flex-col items-start gap-2 rounded-panel border border-border bg-surface p-4 text-left ui-hover:border-border-strong aria-pressed:border-accent aria-pressed:bg-raised"
+                  className="ds-pick flex h-full w-full flex-col items-start gap-2 p-4 text-left"
                 >
                   <span className="flex w-full items-baseline justify-between gap-2">
-                    <span className="st-hero-title text-title text-text">{g.label}</span>
+                    <span className="font-display text-h2 text-text">{g.label}</span>
                     <span className="shrink-0 text-small text-text-muted">{g.minor ? "Minor" : "Major"}</span>
                   </span>
                   <span className="text-small text-text">{`${g.songs.length} songs`}</span>
@@ -946,7 +1061,7 @@ function AllMidi() {
           </ul>
         </section>
       )}
-      <div role="group" aria-label="Kind" className="flex flex-wrap gap-2">
+      <div role="group" aria-label="Kind" className="ds-scroll-x tablet:mx-0 tablet:flex-wrap tablet:px-0">
         {KINDS.map((k) => (
           <FilterChip key={k} selected={kind === k} onToggle={() => setKind(k)}>
             {KIND_NAME[k]}
@@ -955,49 +1070,6 @@ function AllMidi() {
       </div>
       <MidiList label="MIDI" items={shown} />
     </Page>
-  );
-}
-
-const TABS = [
-  { href: "/", name: "Home" },
-  { href: "/browse", name: "Browse" },
-  { href: "/loops", name: "Loops" },
-  { href: "/midi", name: "MIDI" },
-  { href: "/kits", name: "Drums" },
-  { href: "/one-shots", name: "One-shots" },
-  { href: "/sfx", name: "SFX" },
-  { href: "/presets", name: "Presets" },
-  { href: "/library", name: "Library" },
-  { href: "/upload", name: "Upload" },
-];
-
-/** The demo's own tabs across the top of every page, for the screens the app's rail does not list yet. */
-function DemoTabs() {
-  const path = usePath();
-  const current = (href: string) =>
-    href === "/"
-      ? path === "/"
-      : path === href ||
-        (href === "/midi" && path.startsWith("/midi")) ||
-        (href === "/presets" && path.startsWith("/presets/")) ||
-        (href === "/kits" &&
-          (path.startsWith("/kit/") || path === "/kit-upload"));
-  return (
-    <nav aria-label="Demo sections" className="border-b border-border bg-bg">
-      <ul className="mx-auto flex max-w-content gap-1 overflow-x-auto px-3 tablet:px-4 desktop:px-6">
-        {TABS.map((t) => (
-          <li key={t.href} className="shrink-0">
-            <UiLink
-              href={t.href}
-              aria-current={current(t.href) ? "page" : undefined}
-              className={`flex h-11 items-center border-b-2 px-3 text-body-strong ${current(t.href) ? "border-accent text-text" : "border-transparent text-text-muted ui-hover:text-text"}`}
-            >
-              {t.name}
-            </UiLink>
-          </li>
-        ))}
-      </ul>
-    </nav>
   );
 }
 
@@ -1011,7 +1083,7 @@ function Route() {
       : midiPage
         ? midiItem(midiPage[1]!)?.title
         : null;
-    document.title = title ? `${title} · Stash demo` : "Stash demo";
+    document.title = title ? `${title} · ${BRAND.name}` : `${BRAND.name} · ${BRAND.tagline}`;
   }, [path]);
   const loop = /^\/loop\/(?:.*-)?([a-z0-9]+)$/.exec(path);
   if (loop) return <LoopPage publicId={loop[1]!} />;
@@ -1061,11 +1133,10 @@ function App() {
     <LinkProvider component={HashLink}>
       <TooltipProvider>
         <ToastProvider viewport={false}>
-          <AppShell>
-            <DemoTabs />
+          <DemoShell>
             <Route key={look} />
             <NewCrateHost />
-          </AppShell>
+          </DemoShell>
         </ToastProvider>
       </TooltipProvider>
     </LinkProvider>

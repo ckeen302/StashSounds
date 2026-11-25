@@ -1,4 +1,4 @@
-import { ButtonLink, EmptyState, UiLink } from "@stash/ui";
+import { ArrowLeft, ButtonLink, EmptyState, Icon, Play, UiLink } from "@stash/ui";
 import { songChordItems } from "../midi/catalog";
 import { albumOf, Cover, coverFor, tileStyle } from "./cover";
 import { CONFIDENCE, presetParts, type PresetEntry } from "./data";
@@ -29,7 +29,7 @@ export function PresetSongPage({ slug }: { slug: string }) {
   const s = songBySlug(slug);
   if (!s) {
     return (
-      <main className="mx-auto flex w-full max-w-content flex-col gap-5 px-3 py-8 tablet:px-4 desktop:px-6">
+      <main className="ds-page">
         <EmptyState
           title="That song isn't in the presets yet"
           action={
@@ -62,61 +62,66 @@ export function PresetSongPage({ slug }: { slug: string }) {
   ];
 
   return (
-    <main className="flex w-full flex-col">
-      <header className="st-song-hero relative overflow-hidden border-b border-border">
-        {cover && <span aria-hidden="true" className="st-song-backdrop" style={tileStyle(cover.file)} />}
-        <div className="relative mx-auto flex w-full max-w-content flex-col gap-6 px-3 pt-6 pb-8 tablet:px-4 tablet:pt-8 desktop:px-6 desktop:pb-10">
-          <UiLink href="/presets" className="self-start text-small text-text-muted ui-hover:text-text">
-            ← Presets
-          </UiLink>
-          <div className="flex flex-col gap-6 tablet:flex-row tablet:items-end tablet:gap-8">
-            <span className="st-song-cover block w-48 shrink-0 tablet:w-56 desktop:w-64">
+    <main className="relative isolate flex w-full flex-col">
+      <div aria-hidden="true" className="st-song-hero pointer-events-none absolute inset-x-0 top-0 -z-10 h-130 overflow-hidden">
+        {cover && <span className="st-song-backdrop" style={tileStyle(cover.file)} />}
+      </div>
+      <div className="ds-page !gap-8">
+        <UiLink href="/presets" className="group inline-flex items-center gap-1.5 self-start text-small font-medium text-text-muted ui-hover:text-text">
+          <Icon icon={ArrowLeft} className="transition-transform duration-200 group-hover:-translate-x-0.5" />
+          Presets
+        </UiLink>
+        <div className="sg-layout">
+          <aside className="sg-aside flex flex-col gap-5">
+            <span className="st-song-cover block w-56 max-w-full desktop:w-full">
               <Cover song={s.song} artist={s.artist} size="fill" placeholder />
             </span>
-            <div className="flex min-w-0 flex-col gap-3">
-              <h1 className="st-hero-title st-song-title text-balance break-words text-text">{s.song}</h1>
-              <p className="text-title text-text">{s.artist}</p>
-              <dl className="flex flex-wrap gap-x-8 gap-y-3 pt-1">
-                {facts.map(([k, v]) => (
-                  <div key={k} className="flex min-w-0 flex-col gap-0.5">
-                    <dt className="text-label text-label-caps text-text-muted">{k}</dt>
-                    <dd className="text-body-strong text-text">{v}</dd>
-                  </div>
+            {chords && (
+              <ButtonLink href={chords.href} variant="primary" icon={Play} className="desktop:w-full">
+                Play the chords
+              </ButtonLink>
+            )}
+            <dl className="ds-panel flex flex-col px-4 py-1">
+              {facts.map(([k, v]) => (
+                <div key={k} className="flex items-baseline justify-between gap-4 border-b border-hairline py-3 last:border-b-0">
+                  <dt className="shrink-0 text-small text-text-muted">{k}</dt>
+                  <dd className="min-w-0 text-right text-body-strong break-words text-text">{v}</dd>
+                </div>
+              ))}
+            </dl>
+          </aside>
+
+          <div className="flex min-w-0 flex-col gap-12">
+            <header className="flex flex-col gap-3">
+              <span className="ds-eyebrow">{`Presets · ${s.entries.length} ${s.entries.length === 1 ? "sound" : "sounds"}`}</span>
+              <h1 className="sg-title break-words text-text">{s.song}</h1>
+              <p className="font-display text-h2 text-text-muted">{s.artist}</p>
+            </header>
+
+            <section aria-labelledby="sounds" className="ds-section">
+              <h2 id="sounds" className="text-title text-text">The sounds</h2>
+              <ol className="flex flex-col gap-3">
+                {s.entries.map((e, i) => (
+                  <SoundRow key={`${e.plugin}-${e.preset}-${e.role}-${i}`} e={e} n={i + 1} />
                 ))}
-              </dl>
-              {chords && (
-                <ButtonLink href={chords.href} variant="primary" size="sm" className="mt-2 self-start">
-                  Play the chords
-                </ButtonLink>
-              )}
-            </div>
+              </ol>
+            </section>
+
+            {who.slice(0, 2).map((p) => (
+              <Shelf key={p} title={`More from ${p}`} songs={ALL_SONGS.filter((x) => x !== s && madeBy(x, p))} />
+            ))}
+            {plugins.slice(0, 1).map((f) => (
+              <Shelf key={f} title={`More on ${f}`} songs={ALL_SONGS.filter((x) => x !== s && x.entries.some((e) => familyOf(e.plugin) === f))} />
+            ))}
+
+            <details className="st-details ds-panel px-5 py-4">
+              <summary className="flex cursor-pointer items-center text-small font-medium text-text-muted ui-hover:text-text">How sure is each source?</summary>
+              <div className="pt-3">
+                <ConfidenceKey />
+              </div>
+            </details>
           </div>
         </div>
-      </header>
-
-      <div className="mx-auto flex w-full max-w-content flex-col gap-10 px-3 py-8 tablet:px-4 desktop:px-6">
-        <section aria-labelledby="sounds" className="flex flex-col gap-3">
-          <h2 id="sounds" className="text-title text-text">The sounds</h2>
-          <ol className="flex flex-col gap-3">
-            {s.entries.map((e, i) => (
-              <SoundRow key={`${e.plugin}-${e.preset}-${e.role}-${i}`} e={e} n={i + 1} />
-            ))}
-          </ol>
-        </section>
-
-        {who.slice(0, 2).map((p) => (
-          <Shelf key={p} title={`More from ${p}`} songs={ALL_SONGS.filter((x) => x !== s && madeBy(x, p))} />
-        ))}
-        {plugins.slice(0, 1).map((f) => (
-          <Shelf key={f} title={`More on ${f}`} songs={ALL_SONGS.filter((x) => x !== s && x.entries.some((e) => familyOf(e.plugin) === f))} />
-        ))}
-
-        <details className="st-details group rounded-panel border border-border bg-surface px-4 py-3">
-          <summary className="flex cursor-pointer items-center text-small text-text-muted ui-hover:text-text">How sure is each source?</summary>
-          <div className="pt-3">
-            <ConfidenceKey />
-          </div>
-        </details>
       </div>
     </main>
   );
@@ -127,24 +132,24 @@ function SoundRow({ e, n }: { e: PresetEntry; n: number }) {
   const { name, note } = presetParts(e.preset);
   const short = CONFIDENCE[e.confidence].label.split(" · ")[1] ?? CONFIDENCE[e.confidence].label;
   return (
-    <li className="flex flex-col rounded-panel border border-border bg-surface">
-      <div className="flex items-center gap-4 p-4">
-        <span className="hidden w-6 shrink-0 font-mono text-numeric tabular text-text-muted tablet:block">{String(n).padStart(2, "0")}</span>
-        <span className="flex min-w-0 flex-1 flex-col gap-1">
+    <li className="ds-card sg-sound">
+      <div className="flex items-start gap-4 p-5">
+        <span className="hidden w-7 shrink-0 pt-1 text-small font-semibold tabular text-text-subtle tablet:block">{String(n).padStart(2, "0")}</span>
+        <span className="flex min-w-0 flex-1 flex-col gap-2">
           <span className="flex flex-wrap items-center gap-2">
-            <span className="rounded-control border border-border-strong px-2 py-0.5 text-label text-label-caps text-text">{partOf(e.role)}</span>
+            <span className="ps-chip-part">{partOf(e.role)}</span>
             <span className="min-w-0 truncate text-small text-text-muted">{e.plugin}</span>
           </span>
-          <span className="st-hero-title text-title break-words text-accent">{name}</span>
+          <span className="font-display text-h2 break-words text-text">{name}</span>
           {note && <span className="text-small text-text-muted">{note}</span>}
         </span>
-        <span className="hidden shrink-0 items-center gap-2 tablet:flex" title={CONFIDENCE[e.confidence].blurb}>
+        <span className="hidden shrink-0 items-center gap-2 rounded-pill bg-surface-2/70 px-3 py-1.5 tablet:flex" title={CONFIDENCE[e.confidence].blurb}>
           <Meter c={e.confidence} />
-          <span className={`text-small ${TONE_TEXT[e.confidence]}`}>{short}</span>
+          <span className={`text-small font-medium ${TONE_TEXT[e.confidence]}`}>{short}</span>
         </span>
       </div>
-      <details className="st-details border-t border-border px-4 py-2">
-        <summary className="flex cursor-pointer items-center gap-2 text-small text-text-muted ui-hover:text-text">
+      <details className="st-details">
+        <summary className="flex cursor-pointer items-center gap-2 text-small font-medium text-text-muted ui-hover:text-text">
           <span className="tablet:hidden">
             <Meter c={e.confidence} />
           </span>
@@ -152,7 +157,7 @@ function SoundRow({ e, n }: { e: PresetEntry; n: number }) {
           <span className="tablet:hidden" aria-hidden="true">·</span>
           <span>{e.source.label ? "Source" : "Details"}</span>
         </summary>
-        <div className="flex flex-col gap-2 pt-2 pb-2">
+        <div className="flex flex-col gap-2 px-5 pt-1 pb-4">
           {e.path && <span className="text-small text-text-muted">{`Find it in: ${e.path.split(/\s*›\s*|\s*>\s*/).join(" › ")}`}</span>}
           {e.quote && (
             <blockquote className="border-l-2 border-accent pl-3 text-body text-text">
@@ -180,23 +185,22 @@ function Shelf({ title, songs }: { title: string; songs: Song[] }) {
     .sort((a, b) => Number(!!coverFor(b.song, b.artist)) - Number(!!coverFor(a.song, a.artist)) || b.best - a.best || b.named - a.named)
     .slice(0, 12);
   return (
-    <section aria-label={title} className="flex flex-col gap-2">
+    <section aria-label={title} className="ds-section">
       <div className="flex items-baseline gap-2">
         <h2 className="text-title text-text">{title}</h2>
-        <span className="font-mono text-numeric tabular text-text-muted">
+        <span className="text-small font-medium tabular text-text-subtle">
           {songs.length}
         </span>
       </div>
-      <ul className="-mx-3 flex gap-3 overflow-x-auto px-3 pb-1 tablet:mx-0 tablet:px-0">
+      <ul className="st-shelf flex gap-3 overflow-x-auto pb-2">
         {top.map((x) => (
           <li key={x.key} className="w-36 shrink-0 tablet:w-40">
-            <UiLink
-              href={songHref(x.song, x.artist)}
-              className="group flex h-full flex-col gap-2 rounded-panel border border-border bg-surface p-2 ui-hover:border-border-strong"
-            >
-              <Cover song={x.song} artist={x.artist} size="fill" placeholder />
-              <span className="flex min-w-0 flex-col px-1 pb-1">
-                <span className="truncate text-small text-text group-hover:underline">
+            <UiLink href={songHref(x.song, x.artist)} className="ds-card ps-card h-full">
+              <span className="ds-art">
+                <Cover song={x.song} artist={x.artist} size="fill" placeholder />
+              </span>
+              <span className="flex min-w-0 flex-col px-1">
+                <span className="truncate text-small font-semibold text-text">
                   {x.song}
                 </span>
                 <span className="truncate text-small text-text-muted">

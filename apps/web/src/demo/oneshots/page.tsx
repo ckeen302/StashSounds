@@ -1,4 +1,5 @@
-import { Button, Download, EmptyState, IconButton, PlayButton, SearchInput, Trash, Upload, useToast } from "@stash/ui";
+import { Button, Download, EmptyState, FilterChip, IconButton, PlayButton, SearchInput, Trash, Upload, useToast } from "@stash/ui";
+import { PageHeader, RailItem, Segmented } from "../layout";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { categoryOf, cleanName, decode } from "../kits/store";
 import { fileName, INSTRUMENTS, instrumentOf, MELODIC, mineAsMelodic, NOTE_NAMES, peaksOf, playShot, saveMelodic, type InstrumentId, type MelodicShot } from "./melodic";
@@ -48,7 +49,6 @@ function Wave({ shot }: { shot: MelodicShot }) {
   );
 }
 
-const PILL = "os-key inline-flex h-9 shrink-0 items-center justify-center rounded-control border border-border bg-surface px-3 text-small text-text-muted ui-hover:border-border-strong ui-hover:text-text aria-pressed:border-accent aria-pressed:bg-raised aria-pressed:text-text";
 
 export function OneShotsPage() {
   const mineVersion = useMineVersion();
@@ -159,9 +159,14 @@ export function OneShotsPage() {
 
   const instName = inst === "all" ? "one-shots" : instrumentOf(inst).label.toLowerCase();
 
+  const pickInst = (id: InstrumentId | "all") => {
+    setInst(id);
+    reset();
+  };
+
   return (
     <main
-      className="mx-auto flex w-full max-w-content flex-col gap-6 px-3 py-8 tablet:px-4 desktop:px-6"
+      className="ds-page !gap-8"
       onDragOver={(e) => {
         if ([...e.dataTransfer.types].includes("Files")) {
           e.preventDefault();
@@ -177,115 +182,111 @@ export function OneShotsPage() {
         void add([...e.dataTransfer.files]);
       }}
     >
-      <header className="flex flex-col gap-4 tablet:flex-row tablet:items-end tablet:justify-between">
-        <div className="flex flex-col gap-1">
-          <h1 className="text-title">One-shots</h1>
-          <p className="text-body text-text-muted">{`Single notes and chords from keys, bells, plucks, pads, leads, guitars and 808s, in all 12 keys. Drop them in your sampler and play a melody without loading a heavy synth. ${MELODIC.length} sounds.`}</p>
-        </div>
-        <label className="os-upload st-wide-only inline-flex h-10 shrink-0 cursor-pointer items-center gap-2 rounded-control bg-accent px-4 text-body-strong text-bg focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-accent">
-          <Upload className="size-4" aria-hidden="true" />
-          Post your one-shots
-          <input type="file" accept="audio/*,.wav,.mp3,.aif,.aiff,.flac,.ogg" multiple className="sr-only" onChange={(e) => void add([...(e.target.files ?? [])])} />
-        </label>
-      </header>
+      <PageHeader
+        eyebrow="Sounds"
+        title="One-shots"
+        lede="Single notes and chords from keys, bells, plucks, pads, leads, guitars and 808s, in all 12 keys. Drop them in your sampler and play a melody without loading a heavy synth."
+        count={
+          <span>
+            <b>{MELODIC.length}</b> sounds · <b>{INSTRUMENTS.length}</b> instruments
+          </span>
+        }
+        actions={
+          <label className="os-upload st-wide-only inline-flex h-10 shrink-0 cursor-pointer items-center gap-2 rounded-pill px-4 text-body-strong focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-accent">
+            <Upload className="size-4" aria-hidden="true" />
+            Post your one-shots
+            <input type="file" accept="audio/*,.wav,.mp3,.aif,.aiff,.flac,.ogg" multiple className="sr-only" onChange={(e) => void add([...(e.target.files ?? [])])} />
+          </label>
+        }
+      />
 
-      <div role="group" aria-label="Instrument" className="os-types -mx-3 flex gap-2 overflow-x-auto px-3 pb-1 tablet:mx-0 tablet:grid tablet:grid-cols-5 tablet:overflow-visible tablet:px-0 tablet:pb-0 desktop:grid-cols-8">
-        {INSTRUMENTS.map((i) => (
-          <button
-            key={i.id}
-            type="button"
-            aria-pressed={inst === i.id}
-            data-cat={i.id}
-            onClick={() => {
-              setInst(i.id);
-              reset();
-            }}
-            className="os-type flex w-24 shrink-0 flex-col items-start gap-1 rounded-control border border-border bg-surface p-3 text-left tablet:w-auto ui-hover:border-border-strong aria-pressed:border-accent aria-pressed:bg-raised"
-          >
-            <span className="os-type-count font-mono text-title tabular text-text">{count(i.id)}</span>
-            <span className="text-label text-label-caps text-text-muted">{i.label}</span>
-          </button>
-        ))}
-        <button
-          type="button"
-          aria-pressed={inst === "all"}
-          onClick={() => {
-            setInst("all");
-            reset();
-          }}
-          className="os-type flex w-24 shrink-0 flex-col items-start gap-1 rounded-control border border-border bg-surface p-3 text-left tablet:w-auto ui-hover:border-border-strong aria-pressed:border-accent aria-pressed:bg-raised"
-        >
-          <span className="os-type-count font-mono text-title tabular text-text">{matching.length}</span>
-          <span className="text-label text-label-caps text-text-muted">All</span>
-        </button>
-      </div>
+      <div className="ds-split">
+        <aside className="ds-rail" aria-label="Instrument">
+          <span className="ds-eyebrow px-3">Instrument</span>
+          <div className="ds-rail-list -mt-4">
+            <RailItem on={inst === "all"} onClick={() => pickInst("all")} name="All instruments" n={matching.length} cat="" />
+            {INSTRUMENTS.map((i) => (
+              <RailItem key={i.id} on={inst === i.id} onClick={() => pickInst(i.id)} name={i.label} n={count(i.id)} cat={i.id} />
+            ))}
+          </div>
+        </aside>
 
-      <div className="flex flex-col gap-3">
-        <div role="group" aria-label="Key" className="-mx-3 flex gap-1 overflow-x-auto px-3 pb-1 tablet:mx-0 tablet:flex-wrap tablet:overflow-visible tablet:px-0">
-          <button type="button" aria-pressed={root === "all"} className={PILL} onClick={() => {
-            setRoot("all");
-            reset();
-          }}>
-            Any key
-          </button>
-          {NOTE_NAMES.map((n, r) => (
-            <button key={n} type="button" aria-pressed={root === r} className={`${PILL} font-mono`} onClick={() => {
-            setRoot(r);
-            reset();
-          }} aria-label={n.length > 1 ? `${n[0]} sharp` : n}>
-              {n}
-            </button>
-          ))}
-        </div>
-        <div className="flex flex-col gap-3 tablet:flex-row tablet:items-center tablet:justify-between">
-          <div className="flex flex-col gap-3 tablet:flex-row tablet:items-center">
-            <div role="group" aria-label="Notes or chords" className="flex gap-1">
-              {KINDS.map((k) => (
-                <button key={k.id} type="button" aria-pressed={kind === k.id} className={PILL} onClick={() => {
-            setKind(k.id);
-            reset();
-          }}>
-                  {k.label}
+        <div className="flex min-w-0 flex-col gap-4">
+          <div className="ds-toolbar flex-col !items-stretch gap-3">
+            <div role="group" aria-label="Instrument" className="ds-rail-only-phone ds-scroll-x">
+              <FilterChip selected={inst === "all"} onToggle={() => pickInst("all")}>
+                {`All ${matching.length}`}
+              </FilterChip>
+              {INSTRUMENTS.map((i) => (
+                <FilterChip key={i.id} selected={inst === i.id} onToggle={() => pickInst(i.id)}>
+                  {`${i.label} ${count(i.id)}`}
+                </FilterChip>
+              ))}
+            </div>
+            <div className="flex flex-col gap-3 tablet:flex-row tablet:items-center">
+              <SearchInput
+                label="Search one-shots"
+                hideLabel
+                placeholder="Search: rhodes, F#m7, bell..."
+                shortcut=""
+                value={q}
+                onChange={(e) => {
+                  setQ(e.target.value);
+                  reset();
+                }}
+                onClear={() => setQ("")}
+                className="min-w-0 flex-1"
+              />
+              <div className="flex items-center gap-2">
+                <Segmented
+                  label="Notes or chords"
+                  value={kind}
+                  options={KINDS.map((k) => [k.id, k.id === "all" ? "Both" : k.label] as [Kind, string])}
+                  onChange={(k) => {
+                    setKind(k);
+                    reset();
+                  }}
+                />
+                {shots.length > 1 && (
+                  <Button variant="secondary" size="sm" icon={Download} loading={busy === "zip"} onClick={() => void grab(shots, `stash-${instName.replace(/\s+/g, "-")}`)}>
+                    {shots.length > MAX_ZIP ? `Grab ${MAX_ZIP}` : `Grab all ${shots.length}`}
+                  </Button>
+                )}
+              </div>
+            </div>
+            <div role="group" aria-label="Key" className="os-keys ds-scroll-x">
+              <button type="button" aria-pressed={root === "all"} className="os-keypill os-keypill-any" onClick={() => {
+                setRoot("all");
+                reset();
+              }}>
+                Any key
+              </button>
+              {NOTE_NAMES.map((n, r) => (
+                <button key={n} type="button" aria-pressed={root === r} className="os-keypill" onClick={() => {
+                  setRoot(r);
+                  reset();
+                }} aria-label={n.length > 1 ? `${n[0]} sharp` : n}>
+                  {n}
                 </button>
               ))}
             </div>
-            <SearchInput
-              label="Search one-shots"
-              hideLabel
-              placeholder="Search: rhodes, F#m7, bell..."
-              shortcut=""
-              value={q}
-              onChange={(e) => {
-                setQ(e.target.value);
-                reset();
-              }}
-              onClear={() => setQ("")}
-              className="tablet:w-72"
-            />
           </div>
-          {shots.length > 1 && (
-            <Button variant="secondary" icon={Download} loading={busy === "zip"} onClick={() => void grab(shots, `stash-${instName.replace(/\s+/g, "-")}`)}>
-              {shots.length > MAX_ZIP ? `Grab the first ${MAX_ZIP}` : `Grab all ${shots.length}`}
-            </Button>
-          )}
-        </div>
-      </div>
 
       {shots.length > 0 ? (
-        <div className="overflow-hidden rounded-panel border border-border bg-surface">
-          <ul ref={listRef} aria-label="One-shots">
+        <div className="ds-panel p-1.5">
+          <ul ref={listRef} aria-label="One-shots" className="ds-list">
             {shots.map((s, i) => {
               const ins = instrumentOf(s.instrument);
               return (
-                <li key={s.id} data-selected={s === current || undefined} className="os-row flex min-h-16 items-center gap-3 border-b border-border px-3 py-2 last:border-b-0 data-selected:bg-raised ui-hover:bg-raised">
+                <li key={s.id} data-selected={s === current || undefined} className="os-row ds-row">
                   <PlayButton title={s.name} state="paused" onClick={() => hear(i)} />
                   <button type="button" onClick={() => hear(i)} className="flex min-w-0 flex-1 flex-col text-left" aria-label={`Hear ${s.name}${s.spoken ? `, ${s.spoken}` : ""}`}>
                     <span className="truncate text-body-strong text-text">{s.name}</span>
                     <span className="truncate text-small text-text-muted">{s.mine ? `${ins.label} · posted from this browser` : `${ins.label} · ${s.kind === "chord" ? `Chord, ${s.pitches.length} notes` : "Single note"}`}</span>
                   </button>
-                  {s.label && <span className="os-key inline-flex h-7 shrink-0 items-center justify-center rounded-control border border-border-strong px-2 font-mono text-small text-text">{s.label}</span>}
+                  {s.label && <span className="os-key inline-flex h-7 shrink-0 items-center justify-center rounded-md bg-surface-2 px-2 text-small font-semibold tabular text-text">{s.label}</span>}
                   <Wave shot={s} />
-                  <span className="hidden w-14 shrink-0 text-right font-mono text-numeric tabular text-text-muted desktop:block">{seconds(s.durationMs)}</span>
+                  <span className="hidden w-14 shrink-0 text-right text-small font-medium tabular text-text-muted desktop:block">{seconds(s.durationMs)}</span>
                   <IconButton icon={Download} label={`Download ${s.name}`} size="md" disabled={busy !== null} onClick={() => void grab([s], fileName(s).replace(/\.\w+$/, ""))} />
                   {s.mine && (
                     <IconButton
@@ -310,20 +311,22 @@ export function OneShotsPage() {
       )}
 
       {problems.length > 0 && (
-        <ul role="alert" aria-label="Files left out" className="flex flex-col gap-1 rounded-panel border border-border bg-surface p-4 text-small text-text">
+        <ul role="alert" aria-label="Files left out" className="ds-panel flex flex-col gap-1 p-4 text-small text-text">
           {problems.map((p) => (
             <li key={p}>{p}</li>
           ))}
         </ul>
       )}
 
-      <section aria-label="Post your one-shots" data-over={over || undefined} className="flex flex-col items-center gap-2 rounded-panel border-2 border-dashed border-border-strong p-6 text-center data-over:border-accent data-over:bg-raised">
+      <section aria-label="Post your one-shots" data-over={over || undefined} className="ds-drop flex flex-col items-center gap-2 p-8 text-center">
         <Upload className="size-6 text-text-muted" aria-hidden="true" />
         <p className="text-body-strong text-text">Drop wav, mp3 or aiff one-shots anywhere on this page to post them</p>
         <p className="text-small text-text-muted">Name them with the instrument and note, like Bell_F#4 or Rhodes Cm7, and they get sorted for you. Up to 8 MB and 15 seconds each. In the demo they stay in this browser. Drum hits go in a drum kit.</p>
       </section>
 
-      <p className="text-small text-text-muted">Arrow keys move and play, Space plays again, D downloads the selected sound.</p>
+      <p className="text-small text-text-subtle">Arrow keys move and play, Space plays again, D downloads the selected sound.</p>
+        </div>
+      </div>
     </main>
   );
 }

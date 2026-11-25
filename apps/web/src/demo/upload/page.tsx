@@ -1,3 +1,4 @@
+import { PageHeader } from "../layout";
 import { limits } from "@stash/contracts";
 import {
   Button,
@@ -263,8 +264,8 @@ export function UploadHub() {
   };
 
   return (
-    <main className="mx-auto flex w-full max-w-prose flex-col gap-5 px-3 py-8 tablet:px-4">
-      <h1 className="text-title">Upload</h1>
+    <main className="ds-page !max-w-3xl !gap-8">
+      <PageHeader eyebrow="You" title="Upload" lede="Post loops, kits, one-shots or MIDI. Every download credits you, and people can follow you from any of your sounds." />
 
       <div className="flex flex-col gap-2">
         <div role="radiogroup" aria-label="What are you posting?" className="flex flex-wrap gap-2">

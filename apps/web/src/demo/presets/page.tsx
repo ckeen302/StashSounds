@@ -1,6 +1,7 @@
-import { Button, Check, ChevronDown, FilterChip, Menu, SearchInput, UiLink, type MenuEntry } from "@stash/ui";
+import { Button, Check, ChevronDown, EmptyState, FilterChip, Menu, Search, SearchInput, SlidersHorizontal, UiLink, type MenuEntry } from "@stash/ui";
+import { PageFrame, PageHeader } from "../layout";
 import { useMemo, useState } from "react";
-import { albumOf, Cover, coverFor } from "./cover";
+import { Cover, coverFor } from "./cover";
 import { CONFIDENCE, PRESETS, presetParts, type Confidence, type PresetEntry } from "./data";
 import { groupSongs, LEVEL, madeBy, songHref, TOP_PRODUCERS, type Song } from "./songs";
 
@@ -119,11 +120,20 @@ export function PresetsPage() {
   const touched = conf !== "all" || family !== "All" || sound !== "All" || named || needle !== "" || who !== "All";
 
   return (
-    <main className="mx-auto flex w-full max-w-content flex-col gap-3 px-3 py-5 tablet:px-4 desktop:px-6">
-      {/* Title, one row of controls, then the songs: plugins, producers and sorting wait behind Filters. */}
-      <header className="flex flex-col gap-3">
-        <h1 className="text-title">Presets</h1>
-        <div className="flex items-start gap-2">
+    <PageFrame className="!gap-6">
+      {/* Title, one sticky row of controls, then the songs: plugins, producers and sorting wait behind Filters. */}
+      <PageHeader
+        eyebrow="Ideas"
+        title="Presets"
+        lede="The synth, the bank and the patch name behind the songs you're chasing. Sourced from producers, engineers and interviews."
+        count={
+          <span aria-live="polite">
+            <b>{songs.length.toLocaleString("en")}</b> {songs.length === 1 ? "song" : "songs"} · <b>{shownSounds.toLocaleString("en")}</b> {shownSounds === 1 ? "sound" : "sounds"}
+          </span>
+        }
+      />
+      <div className="ds-toolbar">
+        <div className="flex w-full items-center gap-2">
           <SearchInput
             label="Search songs, artists, producers, presets"
             hideLabel
@@ -134,18 +144,21 @@ export function PresetsPage() {
             onClear={() => reset(() => setQ(""))}
             className="min-w-0 flex-1"
           />
-          <Button variant={open ? "primary" : "secondary"} aria-expanded={open} onClick={() => setOpen(!open)}>
+          <Button variant={open || (touched && !needle) ? "primary" : "secondary"} icon={SlidersHorizontal} aria-expanded={open} onClick={() => setOpen(!open)}>
             {touched && !needle ? "Filters ·" : "Filters"}
           </Button>
+          <span className="hidden tablet:contents">
+            <Dropdown name="Sort" active={false} value={SORTS[sort].label} options={(Object.keys(SORTS) as SortId[]).map((s): [string, string] => [s, SORTS[s].label])} selected={sort} onPick={(v) => reset(() => setSort(v as SortId))} />
+          </span>
         </div>
-      </header>
+      </div>
 
       {open && (
-      <div className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-3">
+      <div className="ds-panel flex flex-col gap-5 p-5">
       {/* The plugin shelf: every VST with its count; tap one to see only its presets. */}
-      <section aria-label="Plugins" className="flex flex-col gap-2">
-        <span className="text-label text-label-caps text-text-muted">Pick a plugin</span>
-        <ul className="-mx-3 flex gap-2 overflow-x-auto px-3 pb-1 tablet:mx-0 tablet:px-0">
+      <section aria-label="Plugins" className="flex flex-col gap-3">
+        <span className="ds-eyebrow">Pick a plugin</span>
+        <ul className="flex gap-2 overflow-x-auto pb-1 tablet:flex-wrap">
           {[["All", PRESETS.length] as [string, number], ...families].map(([f, n]) => {
             const on = family === f;
             return (
@@ -154,10 +167,10 @@ export function PresetsPage() {
                   type="button"
                   aria-pressed={on}
                   onClick={() => reset(() => setFamily(on && f !== "All" ? "All" : f))}
-                  className={`flex st-box min-w-24 flex-col items-start gap-1 rounded-control border px-3 py-2 text-left transition-colors ${on ? "border-accent bg-raised" : "border-border bg-surface ui-hover:border-border-strong"}`}
+                  className="ds-pick flex min-w-24 flex-col items-start gap-0.5 px-3 py-2 text-left"
                 >
                   <span className={`text-small ${on ? "text-text" : "text-text-muted"}`}>{f === "All" ? "Every plugin" : f}</span>
-                  <span className={`font-mono text-body-strong tabular ${on ? "text-accent" : "text-text"}`}>{n}</span>
+                  <span className={`text-body-strong tabular ${on ? "text-accent" : "text-text"}`}>{n}</span>
                 </button>
               </li>
             );
@@ -166,9 +179,9 @@ export function PresetsPage() {
       </section>
 
       {/* The producer shelf: the beatmakers with the most songs here; tap one to see only theirs. */}
-      <section aria-label="Producers" className="flex flex-col gap-2">
-        <span className="text-label text-label-caps text-text-muted">By producer</span>
-        <ul className="-mx-3 flex gap-2 overflow-x-auto px-3 pb-1 tablet:mx-0 tablet:px-0">
+      <section aria-label="Producers" className="flex flex-col gap-3">
+        <span className="ds-eyebrow">By producer</span>
+        <ul className="flex gap-2 overflow-x-auto pb-1 tablet:flex-wrap">
           {TOP_PRODUCERS.map(([name, n]) => {
             const on = who === name;
             return (
@@ -197,7 +210,9 @@ export function PresetsPage() {
           selected={sound}
           onPick={(v) => reset(() => setSound(v))}
         />
-        <Dropdown name="Sort" active={false} value={SORTS[sort].label} options={(Object.keys(SORTS) as SortId[]).map((s): [string, string] => [s, SORTS[s].label])} selected={sort} onPick={(v) => reset(() => setSort(v as SortId))} />
+        <span className="contents tablet:hidden">
+          <Dropdown name="Sort" active={false} value={SORTS[sort].label} options={(Object.keys(SORTS) as SortId[]).map((s): [string, string] => [s, SORTS[s].label])} selected={sort} onPick={(v) => reset(() => setSort(v as SortId))} />
+        </span>
         {touched && (
           <Button
             size="sm"
@@ -216,19 +231,11 @@ export function PresetsPage() {
             Clear
           </Button>
         )}
-        <span aria-live="polite" className="ml-auto font-mono text-numeric tabular text-text-muted">
-          {`${songs.length} ${songs.length === 1 ? "song" : "songs"} · ${shownSounds} ${shownSounds === 1 ? "sound" : "sounds"}`}
-        </span>
       </section>
       </div>
       )}
-      {!open && (
-        <span aria-live="polite" className="font-mono text-numeric tabular text-text-muted">
-          {`${songs.length} ${songs.length === 1 ? "song" : "songs"} · ${shownSounds} ${shownSounds === 1 ? "sound" : "sounds"}`}
-        </span>
-      )}
 
-      <ul aria-label="Songs and their presets" className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-3">
+      <ul aria-label="Songs and their presets" className="ps-grid">
         {songs.slice(0, limit).map((s) => (
           <SongCard key={s.key} s={s} />
         ))}
@@ -238,8 +245,12 @@ export function PresetsPage() {
           {`Show ${Math.min(PAGE, songs.length - limit)} more of ${songs.length - limit}`}
         </Button>
       )}
-      {songs.length === 0 && <p className="text-body text-text-muted">Nothing matches. Clear the search or pick another plugin.</p>}
-    </main>
+      {songs.length === 0 && (
+        <EmptyState icon={Search} title="Nothing matches">
+          Clear the search, or pick another plugin or producer.
+        </EmptyState>
+      )}
+    </PageFrame>
   );
 }
 
@@ -290,24 +301,29 @@ export function partOf(role: string): string {
  * card reads differently from the one next to it. One sound shows (the one with a named preset first).
  */
 function SongCard({ s }: { s: Song }) {
-  const album = albumOf(s.song, s.artist) ?? "Album not listed";
-  const producer = s.producer && !/^(unknown|not stated)$/i.test(s.producer) ? `prod. ${s.producer}` : "Producer not credited";
   const lead = s.entries.find((e) => e.preset) ?? s.entries[0]!;
+  const { name } = presetParts(lead.preset);
+  const more = s.entries.length - 1;
   return (
     <li className="h-full">
-      <UiLink href={songHref(s.song, s.artist)} className="group flex h-full flex-col gap-4 rounded-panel border border-border bg-surface p-4 ui-hover:border-border-strong">
-        <span className="flex items-start gap-4">
-          <Cover song={s.song} artist={s.artist} placeholder />
-          <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-            <span className="truncate text-title text-text group-hover:underline">{s.song}</span>
-            <span className="truncate text-body-strong text-text">{s.artist}</span>
-            <span className="truncate text-small text-text-muted">{album}</span>
-            <span className="truncate text-small text-text-muted">{producer}</span>
+      <UiLink href={songHref(s.song, s.artist)} className="ds-card ps-card h-full">
+        <span className="ds-art">
+          <Cover song={s.song} artist={s.artist} size="fill" placeholder />
+        </span>
+        <span className="flex min-w-0 flex-col px-1">
+          <span className="truncate font-display text-h3 text-text">{s.song}</span>
+          <span className="truncate text-small text-text-muted">{s.artist}</span>
+        </span>
+        <span className="mt-auto flex min-w-0 flex-col gap-1.5 px-1">
+          <span className="ps-chip self-start">
+            <span className="ps-chip-part">{partOf(lead.role)}</span>
+            <span className="truncate font-medium text-text">{name}</span>
+          </span>
+          <span className="truncate text-small text-text-subtle">
+            {lead.plugin}
+            {more > 0 ? ` · +${more} more` : ""}
           </span>
         </span>
-        <ul className="flex flex-col">
-          <PatchStrip e={lead} />
-        </ul>
       </UiLink>
     </li>
   );

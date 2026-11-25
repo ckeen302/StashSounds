@@ -1,10 +1,12 @@
 import {
+  ArrowLeft,
   Button,
   ButtonLink,
   Download,
   EmptyState,
   FilterChip,
   Heart,
+  Icon,
   IconButton,
   Menu,
   PlayButton,
@@ -20,6 +22,7 @@ import {
 } from "@stash/ui";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { navigate } from "../router";
+import { PageFrame, PageHeader, RailItem } from "../layout";
 import { has, set } from "../store";
 import { allShots, saveShots } from "../oneshots/store";
 import { CATEGORIES, categoryOf, cleanName, decode, labelOf, play, postKit, removeKit, useKits, type Category, type Draft, type Kit, type KitSound } from "./store";
@@ -68,6 +71,7 @@ const SOUND_TYPES: Category[] = ["808", "kick", "snare", "clap", "hat", "open ha
 function DrumSounds({ type, needle }: { type: Category; needle: string }) {
   const toast = useToast();
   const all = useKits();
+  const [last, setLast] = useState<string | null>(null);
   const sounds = allShots(all).filter(
     (s) => s.category === type && (!needle || [s.name, s.kit?.name ?? "", s.owner.handle, s.genre].some((x) => x.toLowerCase().includes(needle))),
   );
@@ -78,11 +82,20 @@ function DrumSounds({ type, needle }: { type: Category; needle: string }) {
       </EmptyState>
     );
   return (
-    <div className="overflow-hidden rounded-panel border border-border bg-surface">
-      <ul aria-label={CATEGORIES.find((c) => c.id === type)!.plural}>
-        {sounds.map((s) => (
-          <li key={`${s.kit?.id ?? "mine"}-${s.id}`} className="flex h-16 items-center gap-3 border-b border-border px-3 last:border-b-0 ui-hover:bg-raised tablet:h-14">
-            <PlayButton title={s.name} state="paused" onClick={() => void play(s)} />
+    <ul aria-label={CATEGORIES.find((c) => c.id === type)!.plural} className="ds-panel ds-list p-1.5">
+      {sounds.map((s) => {
+        const id = `${s.kit?.id ?? "mine"}-${s.id}`;
+        return (
+          <li key={id} data-selected={last === id || undefined} className="ds-row">
+            <PlayButton
+              title={s.name}
+              state="paused"
+              onClick={() => {
+                setLast(id);
+                void play(s);
+              }}
+            />
+            <span className="kt-dot" data-cat={s.category} aria-hidden="true" />
             <span className="flex min-w-0 flex-1 flex-col">
               <span className="truncate text-body-strong text-text">{s.name}</span>
               <span className="truncate text-small text-text-muted">
@@ -90,7 +103,7 @@ function DrumSounds({ type, needle }: { type: Category; needle: string }) {
                 {s.kit ? (
                   <>
                     {" · from "}
-                    <UiLink href={`/kit/${s.kit.id}`} className="underline underline-offset-2 ui-hover:text-text">
+                    <UiLink href={`/kit/${s.kit.id}`} className="text-text-muted underline decoration-border-strong underline-offset-2 ui-hover:text-text">
                       {s.kit.name}
                     </UiLink>
                   </>
@@ -98,7 +111,7 @@ function DrumSounds({ type, needle }: { type: Category; needle: string }) {
               </span>
             </span>
             <span className="hidden w-24 shrink-0 text-small text-text-muted tablet:block">{s.genre}</span>
-            <span className="hidden w-16 shrink-0 text-right font-mono text-numeric tabular text-text-muted tablet:block">{seconds(s.durationMs)}</span>
+            <span className="hidden w-16 shrink-0 text-right text-small font-medium tabular text-text-muted tablet:block">{seconds(s.durationMs)}</span>
             <IconButton
               icon={Download}
               label={`Download ${s.name}`}
@@ -109,8 +122,51 @@ function DrumSounds({ type, needle }: { type: Category; needle: string }) {
               }}
             />
           </li>
-        ))}
-      </ul>
+        );
+      })}
+    </ul>
+  );
+}
+
+/** The pad grid on a kit card: one pad per sound type the kit has, each plays its first sound. */
+const PAD_ORDER: Category[] = ["kick", "snare", "hat", "open hat", "808", "clap", "perc", "cymbal"];
+function KitPads({ k }: { k: Kit }) {
+  const [hit, setHit] = useState<Category | null>(null);
+  return (
+    <div className="kt-pads" role="group" aria-label={`Pads of ${k.name}`}>
+      {PAD_ORDER.map((c) => {
+        const sound = k.sounds.find((s) => s.category === c);
+        const label = CATEGORIES.find((x) => x.id === c)!.label;
+        if (!sound)
+          return (
+            <span key={c} className="kt-pad" data-cat={c} data-empty="" aria-hidden="true">
+              {label}
+            </span>
+          );
+        return (
+          <button
+            key={c}
+            type="button"
+            className="kt-pad"
+            data-cat={c}
+            data-hit={hit === c || undefined}
+            aria-label={`Play ${sound.name}`}
+            onPointerDown={() => {
+              setHit(c);
+              void play(sound);
+              window.setTimeout(() => setHit((h) => (h === c ? null : h)), 160);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                void play(sound);
+              }
+            }}
+          >
+            {label}
+          </button>
+        );
+      })}
     </div>
   );
 }
@@ -126,75 +182,118 @@ export function KitsPage() {
     (k) => (genre === "All" || k.genre === genre) && (!needle || [k.name, k.owner.displayName, k.owner.handle, k.genre, ...k.sounds.map((s) => s.name)].some((s) => s.toLowerCase().includes(needle))),
   );
   const genres = ["All", ...GENRES.filter((g) => all.some((k) => k.genre === g))];
+  const shots = allShots(all);
+  const nOf = (c: Category) => shots.filter((s) => s.category === c).length;
+  const total = all.reduce((n, k) => n + k.sounds.length, 0);
+  const typeName = (c: Category) => CATEGORIES.find((x) => x.id === c)!.plural;
 
   return (
-    <main className="mx-auto flex w-full max-w-content flex-col gap-6 px-3 py-8 tablet:px-4 desktop:px-6">
-      <header className="flex flex-col gap-4 tablet:flex-row tablet:items-end tablet:justify-between">
-        <div className="flex flex-col gap-1">
-          <h1 className="text-title">Drums</h1>
-        </div>
-        <ButtonLink href="/kit-upload" variant="secondary" icon={Upload} className="st-wide-only">
-          Upload a kit
-        </ButtonLink>
-      </header>
+    <PageFrame className="!gap-8">
+      <PageHeader
+        eyebrow="Sounds"
+        title="Drums"
+        lede="Full kits and single hits. Tap a pad to hear it, grab the whole folder or one sound."
+        count={
+          <span>
+            <b>{all.length}</b> kits · <b>{total}</b> sounds
+          </span>
+        }
+        actions={
+          <ButtonLink href="/kit-upload" variant="secondary" icon={Upload} className="st-wide-only">
+            Upload a kit
+          </ButtonLink>
+        }
+      />
 
-      <div role="group" aria-label="Drum type" className="flex flex-wrap gap-2">
-        <FilterChip selected={type === "kits"} onToggle={() => setType("kits")}>
-          Kits
-        </FilterChip>
-        {SOUND_TYPES.map((c) => (
-          <FilterChip key={c} selected={type === c} onToggle={() => setType(c)}>
-            {CATEGORIES.find((x) => x.id === c)!.plural}
-          </FilterChip>
-        ))}
-      </div>
-
-      <div className="flex flex-col gap-3 tablet:flex-row tablet:items-center tablet:justify-between">
-        <SearchInput label="Search kits, producers, sounds" hideLabel placeholder="Search kits, producers, sounds" shortcut="" value={q} onChange={(e) => setQ(e.target.value)} onClear={() => setQ("")} className="tablet:w-80" />
-        <div role="group" aria-label="Genre" className="flex flex-wrap gap-2" hidden={type !== "kits"}>
-          {genres.map((g) => (
-            <FilterChip key={g} selected={genre === g} onToggle={() => setGenre(g)}>
-              {g}
-            </FilterChip>
-          ))}
-        </div>
-      </div>
-
-      {type !== "kits" ? <DrumSounds type={type} needle={needle} /> : null}
-      <ul aria-label="Kits" hidden={type !== "kits"} className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-3">
-        {shown.map((k) => (
-          <li key={k.id} className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-4">
-            <div className="flex items-start gap-3">
-              <PlayButton title={`a preview of ${k.name}`} state="paused" onClick={() => preview(k)} />
-              <div className="flex min-w-0 flex-1 flex-col">
-                <UiLink href={`/kit/${k.id}`} className="truncate text-body-strong text-text ui-hover:underline">
-                  {k.name}
-                </UiLink>
-                <span className="truncate text-small text-text-muted">
-                  @{k.owner.handle} · {k.genre}
-                  {k.mine ? " · posted from this browser" : ""}
-                </span>
+      <div className="ds-split">
+        <aside className="ds-rail" aria-label="Drum filters">
+          <div className="flex flex-col gap-2">
+            <span className="ds-eyebrow px-3">Browse</span>
+            <div className="ds-rail-list">
+              <RailItem on={type === "kits"} onClick={() => setType("kits")} name="Kits" n={all.length} />
+            </div>
+          </div>
+          <div className="flex flex-col gap-2">
+            <span className="ds-eyebrow px-3">Single hits</span>
+            <div className="ds-rail-list">
+              {SOUND_TYPES.map((c) => (
+                <RailItem key={c} on={type === c} onClick={() => setType(c)} name={typeName(c)} n={nOf(c)} cat={c} />
+              ))}
+            </div>
+          </div>
+          {type === "kits" && (
+            <div className="flex flex-col gap-2">
+              <span className="ds-eyebrow px-3">Genre</span>
+              <div className="ds-rail-list">
+                {genres.map((g) => (
+                  <RailItem key={g} on={genre === g} onClick={() => setGenre(g)} name={g === "All" ? "All genres" : g} n={g === "All" ? all.length : all.filter((k) => k.genre === g).length} />
+                ))}
               </div>
             </div>
-            <p className="text-small text-text-muted">{summary(k.sounds)}</p>
-            <div className="flex items-center justify-between gap-3 font-mono text-numeric tabular text-text-muted">
-              <span>
-                {`${k.sounds.length} sounds`}
-                {!k.mine && k.downloads > 0 ? ` · ${k.downloads.toLocaleString("en")} downloads` : ""}
-              </span>
-              <Button size="sm" variant="secondary" icon={Download} aria-label={`Download ${k.name}`} onClick={() => void saveKit(k, toast)}>
-                Download
-              </Button>
+          )}
+        </aside>
+
+        <div className="flex min-w-0 flex-col gap-5">
+          <div className="ds-toolbar flex-col !items-stretch">
+            <SearchInput label="Search kits, producers, sounds" hideLabel placeholder="Search kits, producers, sounds" shortcut="" value={q} onChange={(e) => setQ(e.target.value)} onClear={() => setQ("")} />
+            <div role="group" aria-label="Drum type" className="ds-rail-only-phone ds-scroll-x">
+              <FilterChip selected={type === "kits"} onToggle={() => setType("kits")}>
+                Kits
+              </FilterChip>
+              {SOUND_TYPES.map((c) => (
+                <FilterChip key={c} selected={type === c} onToggle={() => setType(c)}>
+                  {typeName(c)}
+                </FilterChip>
+              ))}
             </div>
-          </li>
-        ))}
-      </ul>
-      {type === "kits" && shown.length === 0 && (
-        <EmptyState icon={Upload} title="No kits match" action={<ButtonLink href="/kit-upload" variant="secondary">Upload a kit</ButtonLink>}>
-          Clear the search, or post the first one.
-        </EmptyState>
-      )}
-    </main>
+            <div role="group" aria-label="Genre" className="ds-rail-only-phone ds-scroll-x" hidden={type !== "kits"}>
+              {genres.map((g) => (
+                <FilterChip key={g} selected={genre === g} onToggle={() => setGenre(g)}>
+                  {g}
+                </FilterChip>
+              ))}
+            </div>
+          </div>
+
+          {type !== "kits" ? <DrumSounds type={type} needle={needle} /> : null}
+          <ul aria-label="Kits" hidden={type !== "kits"} className="kt-grid">
+            {shown.map((k) => (
+              <li key={k.id} className="ds-card gap-4 p-4">
+                <div className="flex items-start gap-3">
+                  <PlayButton title={`a preview of ${k.name}`} state="paused" onClick={() => preview(k)} />
+                  <div className="flex min-w-0 flex-1 flex-col">
+                    <UiLink href={`/kit/${k.id}`} className="truncate font-display text-h3 text-text ui-hover:underline">
+                      {k.name}
+                    </UiLink>
+                    <span className="truncate text-small text-text-muted">
+                      @{k.owner.handle} · {k.genre}
+                      {k.mine ? " · posted from this browser" : ""}
+                    </span>
+                  </div>
+                </div>
+                <KitPads k={k} />
+                <div className="flex items-center justify-between gap-3">
+                  <span className="min-w-0 truncate text-small tabular text-text-muted">
+                    <b className="font-semibold text-text">{k.sounds.length}</b> sounds
+                    {!k.mine && k.downloads > 0 ? ` · ${k.downloads.toLocaleString("en")} downloads` : ""}
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <Button size="sm" variant="secondary" icon={Download} aria-label={`Download ${k.name}`} onClick={() => void saveKit(k, toast)}>
+                      Download
+                    </Button>
+                  </span>
+                </div>
+              </li>
+            ))}
+          </ul>
+          {type === "kits" && shown.length === 0 && (
+            <EmptyState icon={Upload} title="No kits match" action={<ButtonLink href="/kit-upload" variant="secondary">Upload a kit</ButtonLink>}>
+              Clear the search, or post the first one.
+            </EmptyState>
+          )}
+        </div>
+      </div>
+    </PageFrame>
   );
 }
 
@@ -230,7 +329,7 @@ export function KitPage({ id }: { id: string }) {
 
   if (!k) {
     return (
-      <main className="mx-auto flex w-full max-w-content flex-col gap-6 px-3 py-8 tablet:px-4 desktop:px-6">
+      <main className="ds-page">
         <EmptyState icon={Upload} title="That kit isn't here" action={<ButtonLink href="/kits" variant="secondary">All drum kits</ButtonLink>}>
           It may have been posted from another browser. Kits posted in the demo stay on the device that made them.
         </EmptyState>
@@ -242,14 +341,18 @@ export function KitPage({ id }: { id: string }) {
   const counts = (c: Category) => k.sounds.filter((s) => s.category === c).length;
 
   return (
-    <main className="mx-auto flex w-full max-w-content flex-col gap-6 px-3 py-8 tablet:px-4 desktop:px-6">
-      <header className="flex flex-col gap-4 rounded-panel border border-border bg-surface p-6">
-        <div className="flex flex-col gap-4 tablet:flex-row tablet:items-start tablet:justify-between">
+    <PageFrame className="!gap-8">
+      <UiLink href="/kits" className="group -mb-2 inline-flex items-center gap-1.5 self-start text-small font-medium text-text-muted ui-hover:text-text">
+        <Icon icon={ArrowLeft} className="transition-transform duration-200 group-hover:-translate-x-0.5" />
+        Drums
+      </UiLink>
+      <header className="kt-hero">
+        <div className="flex min-w-0 flex-col gap-6">
           <div className="flex min-w-0 items-center gap-4">
             <PlayButton size="hero" title={`a preview of ${k.name}`} state="paused" onClick={() => preview(k)} />
             <div className="flex min-w-0 flex-col gap-1">
-              <span className="text-label text-label-caps text-text-muted">{`Drum kit · ${k.genre}`}</span>
-              <h1 className="text-title break-words">{k.name}</h1>
+              <span className="ds-eyebrow">{`Drum kit · ${k.genre}`}</span>
+              <h1 className="font-display text-h1 break-words">{k.name}</h1>
               <UiLink href={`/u/${k.owner.handle}`} className="w-fit text-small text-text-muted ui-hover:text-text">
                 {`by ${k.owner.displayName} @${k.owner.handle}`}
               </UiLink>
@@ -289,14 +392,15 @@ export function KitPage({ id }: { id: string }) {
               </Button>
             )}
           </div>
-        </div>
-        {k.description && <p className="max-w-prose text-body text-text">{k.description}</p>}
+        {k.description && <p className="max-w-prose text-body text-text-muted">{k.description}</p>}
         <div className="grid grid-cols-2 gap-4 tablet:grid-cols-4">
           <Stat label="Sounds" value={k.sounds.length} />
           <Stat label="Downloads" value={k.downloads} />
           <Stat label="Likes" value={k.likes + (liked ? 1 : 0)} />
           <Stat label="License" value="Royalty free" />
         </div>
+        </div>
+        <KitPads k={k} />
       </header>
 
       <div role="group" aria-label="Sound type" className="flex flex-wrap gap-2">
@@ -310,13 +414,13 @@ export function KitPage({ id }: { id: string }) {
         ))}
       </div>
 
-      <div className="overflow-hidden rounded-panel border border-border bg-surface">
-        <ul ref={listRef} aria-label="Sounds">
+      <div className="ds-panel p-1.5">
+        <ul ref={listRef} aria-label="Sounds" className="ds-list">
           {sounds.map((s, i) => (
             <li
               key={s.id}
               data-selected={i === selected || undefined}
-              className="flex h-14 items-center gap-3 border-b border-border px-3 last:border-b-0 data-selected:bg-raised ui-hover:bg-raised"
+              className="ds-row"
             >
               <PlayButton
                 title={s.name}
@@ -326,15 +430,16 @@ export function KitPage({ id }: { id: string }) {
                   void play(s);
                 }}
               />
+              <span className="kt-dot" data-cat={s.category} aria-hidden="true" />
               <span className="min-w-0 flex-1 truncate text-body-strong text-text">{s.name}</span>
               <span className="w-24 shrink-0 text-small text-text-muted">{labelOf(s.category)}</span>
-              <span className="hidden w-16 shrink-0 text-right font-mono text-numeric tabular text-text-muted tablet:block">{seconds(s.durationMs)}</span>
+              <span className="hidden w-16 shrink-0 text-right text-small font-medium tabular text-text-muted tablet:block">{seconds(s.durationMs)}</span>
             </li>
           ))}
         </ul>
       </div>
-      <p className="text-small text-text-muted">The arrow keys move through the sounds and play each one; Space plays the selected sound again.</p>
-    </main>
+      <p className="text-small text-text-subtle">The arrow keys move through the sounds and play each one; Space plays the selected sound again.</p>
+    </PageFrame>
   );
 }
 
@@ -411,7 +516,7 @@ export function KitUploadPage({ embedded = false }: { embedded?: boolean } = {})
 
   const Wrap = embedded ? "div" : "main";
   return (
-    <Wrap className={embedded ? "flex w-full flex-col gap-6" : "mx-auto flex w-full max-w-content flex-col gap-6 px-3 py-8 tablet:px-4 desktop:px-6"}>
+    <Wrap className={embedded ? "flex w-full flex-col gap-6" : "ds-page"}>
       <header className={embedded ? "sr-only" : "flex flex-col gap-1"}>
         <h1 className="text-title">Post your drum kit</h1>
       </header>
