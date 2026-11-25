@@ -45,12 +45,17 @@ const PER_PAGE = 25;
 
 // What the loop is, read from its tags and title, the way a library files loops by instrument.
 const CATEGORIES: [string, RegExp][] = [
+  ["Drums", /drum loop/i],
+  ["Flute", /flute/i],
+  ["Mallets", /marimba|kalimba/i],
   ["Piano", /piano/i],
   ["Keys", /keys|rhodes|organ/i],
   ["Cowbell", /cowbell/i],
   ["Bells", /bell/i],
   ["Pad", /pad|chords/i],
   ["Strings", /string/i],
+  ["Brass", /brass|horn/i],
+  ["Harp", /harp/i],
   ["Guitar", /guitar|arp/i],
   ["Lead", /lead|whistle|stab/i],
   ["808", /808|bass/i],
