@@ -17,7 +17,7 @@ const TONE: Record<Confidence, string> = {
   press: "bg-type-loop",
   community: "bg-border-strong",
 };
-const TONE_TEXT: Record<Confidence, string> = {
+export const TONE_TEXT: Record<Confidence, string> = {
   producer: "text-accent",
   engineer: "text-type-midi",
   press: "text-type-loop",
@@ -264,6 +264,7 @@ export function Dropdown({ name, value, options, selected, onPick, active = valu
 const PART: [string, RegExp][] = [
   ["808", /808/i],
   ["Bass", /bass|sub\b|low end/i],
+  ["Guitar", /guitar/i],
   ["Bells", /bell|glock|celesta|music box|chime|xylophone|vibraphone/i],
   ["Piano", /piano/i],
   ["Organ", /organ/i],
@@ -273,7 +274,6 @@ const PART: [string, RegExp][] = [
   ["Brass", /brass|horn|trumpet/i],
   ["Flute", /flute|wind|pan ?flute|ocarina|piccolo|bottle/i],
   ["Vocal", /vocal|vox|choir|voice|aa+h/i],
-  ["Guitar", /guitar/i],
   ["Pluck", /pluck|kalimba|marimba|koto|steel ?drum/i],
   ["Arp", /arp/i],
   ["Lead", /lead|melody|whistle|hook|riff|solo|saw|sine/i],

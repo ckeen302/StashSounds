@@ -35,7 +35,7 @@ export function Cover({
   const row = coverFor(song, artist);
   const box =
     size === "fill"
-      ? "aspect-square w-full"
+      ? "block aspect-square w-full"
       : size === "sm"
         ? "size-12"
         : size === "lg"
