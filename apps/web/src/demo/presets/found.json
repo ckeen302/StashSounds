@@ -399,20 +399,6 @@
   "quote": "It's NI's SCARBEE RICKENBACKER BASS."
  },
  {
-  "song": "Bubba (album)",
-  "artist": "Kaytranada",
-  "producer": "Kaytranada",
-  "plugin": "Native Instruments FM8",
-  "preset": "Custom patches",
-  "role": "Organ-like melodies",
-  "confidence": "press",
-  "source": {
-   "label": "Native Instruments Blog, 25 for 25",
-   "url": "https://blog.native-instruments.com/25-for-25/"
-  },
-  "quote": "uses FM8 for the purpose, deploying custom-made patches for distinctive organ-like melodies."
- },
- {
   "song": "Umbrella",
   "artist": "Rihanna feat. Jay-Z",
   "producer": "Tricky Stewart",
@@ -2784,36 +2770,6 @@
   "quoteBy": "Equipboard contributors"
  },
  {
-  "song": "Hot Wings",
-  "artist": "Artist not named in the source",
-  "producer": "Pi'erre Bourne",
-  "plugin": "Siegfried Kullmann SQ8L",
-  "preset": "ANABAS",
-  "role": "Synth",
-  "confidence": "community",
-  "source": {
-   "label": "Equipboard: Pi'erre Bourne's Gear",
-   "url": "https://equipboard.com/pierre-bourne"
-  },
-  "quote": "The preset 'ANABAS' is used in the track, Hot Wings",
-  "quoteBy": "Equipboard contributors"
- },
- {
-  "song": "Dispatch",
-  "artist": "Artist not named in the source",
-  "producer": "Pi'erre Bourne",
-  "plugin": "Siegfried Kullmann SQ8L",
-  "preset": "SORROW",
-  "role": "Synth",
-  "confidence": "community",
-  "source": {
-   "label": "Equipboard: Pi'erre Bourne's Gear",
-   "url": "https://equipboard.com/pierre-bourne"
-  },
-  "quote": "The preset 'SORROW' is used on the track, Dispatch",
-  "quoteBy": "Equipboard contributors"
- },
- {
   "song": "All Girls Are the Same",
   "artist": "Juice WRLD",
   "producer": "Nick Mira",
@@ -4946,7 +4902,7 @@
  },
  {
   "song": "Oh No",
-  "artist": "Noreaga (as stated in the post)",
+  "artist": "Noreaga",
   "producer": "Unknown",
   "plugin": "Korg Triton (hardware workstation)",
   "preset": "Old & Analog (censored on the page as 'Old & A***og')",
@@ -5955,7 +5911,7 @@
   "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
  },
  {
-  "song": "Rockin' That **** (title censored on the page)",
+  "song": "Rockin' That Shit",
   "artist": "The-Dream",
   "producer": "The-Dream",
   "plugin": "Tone2 Gladiator",
@@ -6531,22 +6487,6 @@
   "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
  },
  {
-  "song": "Ape **** (title censored on the page)",
-  "artist": "Chief Keef",
-  "producer": "Yung Lan",
-  "plugin": "reFX Nexus",
-  "preset": "AR Monks",
-  "role": "Not stated",
-  "confidence": "community",
-  "source": {
-   "label": "Future Producers forum: GOLDEN thread!!!!!!! (list reposted from another website)",
-   "url": "https://www.futureproducers.com/forums/threads/golden-thread.475173/"
-  },
-  "path": "Psytrance",
-  "quote": "Ape **** - Chief Keef: AR Monks, under Psytrance in Nexus",
-  "quoteBy": "Dennis1990 (Future Producers forum), reposting a list from another website"
- },
- {
   "song": "Blacc Friday",
   "artist": "MellowHype",
   "producer": "Left Brain",
@@ -6673,8 +6613,8 @@
   "quoteBy": "eza333"
  },
  {
-  "song": "Convinced (Mystery Machine)",
-  "artist": "Chavo / Pi'erre Bourne",
+  "song": "Convinced",
+  "artist": "Chavo",
   "producer": "Pi'erre Bourne",
   "plugin": "Spectrasonics Omnisphere",
   "preset": "Glorious Harmonic 5ths",
@@ -6688,8 +6628,8 @@
   "quoteBy": "eza333"
  },
  {
-  "song": "Convinced (Mystery Machine)",
-  "artist": "Chavo / Pi'erre Bourne",
+  "song": "Convinced",
+  "artist": "Chavo",
   "producer": "Pi'erre Bourne",
   "plugin": "Spectrasonics Omnisphere",
   "preset": "Whistlers Bells",
@@ -7899,21 +7839,6 @@
   "quoteBy": "Mannie Fresh"
  },
  {
-  "song": "Owe You Back (as written in the comment; likely Nas's 'You Owe Me')",
-  "artist": "Nas",
-  "producer": "Timbaland",
-  "plugin": "E-mu Proteus 2000 (hardware sound module)",
-  "preset": "Plexy",
-  "role": "Bass riff (patch audition riff sampled straight)",
-  "confidence": "community",
-  "source": {
-   "label": "Music Thing: Friday is Timbaland Day - Pt 2: How Tim makes records",
-   "url": "https://musicthing.blogspot.com/2004/09/friday-is-timbaland-day-pt-2-how-tim.html"
-  },
-  "quote": "Nas's Owe You Back is an audition riff sampled straight from a bass patch called Plexy.",
-  "quoteBy": "Anonymous commenter (Music Thing blog)"
- },
- {
   "song": "More Than a Woman",
   "artist": "Aaliyah",
   "producer": "Timbaland",
@@ -9008,20 +8933,6 @@
    "url": "https://equipboard.com/items/spectrasonics-keyscape"
   },
   "quote": "specifically the patch Dark Indie Upright."
- },
- {
-  "song": "Trench (album: Jumpsuit, Chlorine, Neon Gravestones and others)",
-  "artist": "Twenty One Pilots",
-  "producer": "Tyler Joseph & Paul Meany",
-  "plugin": "Spectrasonics Keyscape",
-  "preset": "Wing Upright - Lonely Basement",
-  "role": "piano",
-  "confidence": "community",
-  "source": {
-   "label": "Equipboard: Spectrasonics Keyscape (Tyler Joseph entry)",
-   "url": "https://equipboard.com/items/spectrasonics-keyscape"
-  },
-  "quote": "You can hear the sound \"Wing Upright - Lonely Basement\" Throughout this song"
  },
  {
   "song": "Take My Breath Away",
