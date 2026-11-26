@@ -10630,5 +10630,157 @@
    "label": "Deezer, Sob Rock",
    "url": "https://www.deezer.com/album/243883782"
   }
+ },
+ "yes i'm changing|tame impala": {
+  "file": "covers/yes-i-m-changing-tame-impala.jpg",
+  "album": "Currents",
+  "source": {
+   "label": "Deezer, Currents",
+   "url": "https://www.deezer.com/album/10709540"
+  }
+ },
+ "past life|tame impala": {
+  "file": "covers/past-life-tame-impala.jpg",
+  "album": "Currents",
+  "source": {
+   "label": "Deezer, Currents",
+   "url": "https://www.deezer.com/album/10709540"
+  }
+ },
+ "list of people (to try and forget about)|tame impala": {
+  "file": "covers/list-of-people-to-try-and-forget-about-tame-impala.jpg",
+  "album": "Currents B-Sides & Remixes",
+  "source": {
+   "label": "Deezer, Currents B-Sides & Remixes",
+   "url": "https://www.deezer.com/album/51431732"
+  }
+ },
+ "gossip|tame impala": {
+  "file": "covers/gossip-tame-impala.jpg",
+  "album": "Currents",
+  "source": {
+   "label": "Deezer, Currents",
+   "url": "https://www.deezer.com/album/10709540"
+  }
+ },
+ "love/paranoia|tame impala": {
+  "file": "covers/love-paranoia-tame-impala.jpg",
+  "album": "Currents",
+  "source": {
+   "label": "Deezer, Currents",
+   "url": "https://www.deezer.com/album/10709540"
+  }
+ },
+ "on the level|mac demarco": {
+  "file": "covers/on-the-level-mac-demarco.jpg",
+  "album": "This Old Dog",
+  "source": {
+   "label": "Deezer, This Old Dog",
+   "url": "https://www.deezer.com/album/1030563412"
+  }
+ },
+ "ageispolis|aphex twin": {
+  "file": "covers/ageispolis-aphex-twin.jpg",
+  "album": "Selected Ambient Works 85-92",
+  "source": {
+   "label": "Deezer, Selected Ambient Works 85-92",
+   "url": "https://www.deezer.com/album/12977824"
+  }
+ },
+ "pulsewidth|aphex twin": {
+  "file": "covers/pulsewidth-aphex-twin.jpg",
+  "album": "Selected Ambient Works 85-92",
+  "source": {
+   "label": "Deezer, Selected Ambient Works 85-92",
+   "url": "https://www.deezer.com/album/12977824"
+  }
+ },
+ "xtal|aphex twin": {
+  "file": "covers/xtal-aphex-twin.jpg",
+  "album": "Selected Ambient Works 85-92",
+  "source": {
+   "label": "Deezer, Selected Ambient Works 85-92",
+   "url": "https://www.deezer.com/album/12977824"
+  }
+ },
+ "she's so lovely|beach house": {
+  "file": "covers/she-s-so-lovely-beach-house.jpg",
+  "album": "Thank Your Lucky Stars",
+  "source": {
+   "label": "Deezer, Thank Your Lucky Stars",
+   "url": "https://www.deezer.com/album/185273452"
+  }
+ },
+ "genesis|grimes": {
+  "file": "covers/genesis-grimes.jpg",
+  "album": "Visions",
+  "source": {
+   "label": "Deezer, Visions",
+   "url": "https://www.deezer.com/album/6509005"
+  }
+ },
+ "oblivion|grimes": {
+  "file": "covers/oblivion-grimes.jpg",
+  "album": "Visions",
+  "source": {
+   "label": "Deezer, Visions",
+   "url": "https://www.deezer.com/album/6509005"
+  }
+ },
+ "eventually|tame impala": {
+  "file": "covers/eventually-tame-impala.jpg",
+  "album": "Currents",
+  "source": {
+   "label": "Deezer, Currents",
+   "url": "https://www.deezer.com/album/10709540"
+  }
+ },
+ "'cause i'm a man|tame impala": {
+  "file": "covers/cause-i-m-a-man-tame-impala.jpg",
+  "album": "Currents",
+  "source": {
+   "label": "Deezer, Currents",
+   "url": "https://www.deezer.com/album/10709540"
+  }
+ },
+ "sledgehammer|peter gabriel": {
+  "file": "covers/sledgehammer-peter-gabriel.jpg",
+  "album": "So (25th Anniversary Deluxe Edition)",
+  "source": {
+   "label": "Deezer, So (25th Anniversary Deluxe Edition)",
+   "url": "https://www.deezer.com/album/70207382"
+  }
+ },
+ "west end girls|pet shop boys": {
+  "file": "covers/west-end-girls-pet-shop-boys.jpg",
+  "album": "Please",
+  "source": {
+   "label": "Deezer, Please",
+   "url": "https://www.deezer.com/album/315648"
+  }
+ },
+ "elegia|new order": {
+  "file": "covers/elegia-new-order.jpg",
+  "album": "Low-Life",
+  "source": {
+   "label": "Deezer, Low-Life",
+   "url": "https://www.deezer.com/album/11234190"
+  }
+ },
+ "say you will|foreigner": {
+  "file": "covers/say-you-will-foreigner.jpg",
+  "album": "Inside Information",
+  "source": {
+   "label": "Deezer, Inside Information",
+   "url": "https://www.deezer.com/album/612754"
+  }
+ },
+ "you move me|rick astley": {
+  "file": "covers/you-move-me-rick-astley.jpg",
+  "album": "Whenever You Need Somebody",
+  "source": {
+   "label": "Deezer, Whenever You Need Somebody",
+   "url": "https://www.deezer.com/album/901415162"
+  }
  }
 }
