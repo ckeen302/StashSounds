@@ -257,7 +257,7 @@ function WorksWith({ p }: { p: ProducerPage }) {
         </h2>
         <p className="text-small text-text-muted">Credited together on the songs here.</p>
       </div>
-      <ul aria-label={`Producers who work with ${p.name}`} className="grid grid-cols-2 gap-3 tablet:grid-cols-4">
+      <ul aria-label={`Producers who work with ${p.name}`} className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-4">
         {people.map(({ page: o, songs }) => (
           <li key={o.slug}>
             <UiLink href={producerPageHref(o)} className="group flex items-center gap-3 rounded-panel border border-border p-3 ui-hover:border-border-strong">
