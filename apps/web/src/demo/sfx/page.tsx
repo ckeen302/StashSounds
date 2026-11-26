@@ -170,11 +170,11 @@ export function SfxPage() {
       <div className="flex flex-col gap-2">
         <nav aria-label="SFX categories" className="-mx-3 flex gap-2 overflow-x-auto px-3 tablet:mx-0 tablet:flex-wrap tablet:px-0">
           <FilterChip selected={cat === null} onToggle={() => pick(null)}>
-            {`All · ${matching.length}`}
+            All
           </FilterChip>
           {SFX_CATEGORIES.filter((c) => catCount(c.id) > 0).map((c) => (
             <FilterChip key={c.id} selected={cat === c.id} onToggle={() => pick(c.id)}>
-              {`${c.name} · ${catCount(c.id)}`}
+              {c.name}
             </FilterChip>
           ))}
         </nav>
@@ -187,7 +187,7 @@ export function SfxPage() {
               .subs.filter((s) => subCount(s.id) > 0)
               .map((s) => (
                 <FilterChip key={s.id} selected={sub === s.id} onToggle={() => pick(cat, s.id)}>
-                  {`${s.name} · ${subCount(s.id)}`}
+                  {s.name}
                 </FilterChip>
               ))}
           </div>
@@ -195,7 +195,7 @@ export function SfxPage() {
       </div>
 
       <div className="flex items-center justify-between gap-2">
-        <span className="text-small text-text-muted">{`${where} · ${list.length} ${list.length === 1 ? "sound" : "sounds"}`}</span>
+        <span className="text-small text-text-muted">{where}</span>
         <div className="flex items-center gap-2">
           <select
             aria-label="Sort"

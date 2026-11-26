@@ -64,7 +64,6 @@ const VIEWS: [View, string][] = [
 const ORDERED = SAMPLE_SONGS.map((s) => ({ s, art: coverFor(s.song, s.artist) ? 1 : 0 }))
   .sort((a, b) => b.art - a.art || (b.s.year ?? 0) - (a.s.year ?? 0))
   .map(({ s }) => s);
-const CONNECTIONS = SAMPLE_SONGS.reduce((n, s) => n + s.samples.length, 0);
 
 const flat = (s: string) =>
   s.toLowerCase().normalize("NFKD").replace(/[̀-ͯ]/g, "");
@@ -147,7 +146,7 @@ export function SamplesPage() {
         <div className="flex flex-col gap-1">
           <h1 className="text-title">Samples</h1>
           <p className="text-body text-text-muted">
-            {`${plural(SAMPLE_SONGS.length, "hip-hop and R&B song")}, the ${plural(ORIGINALS.length, "record")} they sample, ${plural(CONNECTIONS, "connection")}. From Wikipedia's album credits and song articles, and MusicBrainz.`}
+            {"Hip-hop and R&B songs and the records they sample. From Wikipedia's album credits and song articles, and MusicBrainz."}
           </p>
         </div>
         <SearchInput
@@ -186,13 +185,13 @@ export function SamplesPage() {
             Sampled from
           </span>
           <ul className="-mx-3 flex gap-2 overflow-x-auto px-3 pb-1 tablet:mx-0 tablet:flex-wrap tablet:px-0">
-            {GENRES.filter(([g]) => known(g)).map(([g, n]) => (
+            {GENRES.filter(([g]) => known(g)).map(([g]) => (
               <li key={g} className="shrink-0">
                 <FilterChip
                   selected={genre === g}
                   onToggle={() => reset(() => setGenre(genre === g ? null : g))}
                 >
-                  {`${g} · ${n.toLocaleString("en-US")}`}
+                  {g}
                 </FilterChip>
               </li>
             ))}
@@ -215,10 +214,7 @@ export function SamplesPage() {
       )}
 
       <div className="flex items-center gap-2">
-        <span
-          aria-live="polite"
-          className="font-mono text-numeric tabular text-text-muted"
-        >
+        <span aria-live="polite" className="sr-only">
           {plural(shown, unit)}
         </span>
         {touched && (
@@ -266,14 +262,8 @@ export function SamplesPage() {
               href={artistHref(a)}
               n={i + 1}
               title={a.name}
-              sub={line(
-                plural(a.records.length, "record") + " sampled",
-                a.songs.length > 0 &&
-                  `${plural(a.songs.length, "song")} of theirs here`,
-              )}
+              sub={line(...a.records.slice(0, 3).map((r) => r.title))}
               detail={`Biggest: ${a.records[0]?.title ?? ""}`}
-              count={a.sampledTimes}
-              countLabel={a.sampledTimes === 1 ? "time" : "times"}
             />
           ))}
         </ol>
@@ -293,8 +283,6 @@ export function SamplesPage() {
                 ...[...new Set(p.songs.map((s) => s.artist))].slice(0, 3),
               )}
               detail={`Flipped ${topArtists(p.songs, 3).join(", ")}`}
-              count={p.songs.length}
-              countLabel={p.songs.length === 1 ? "song" : "songs"}
             />
           ))}
         </ol>
@@ -417,7 +405,7 @@ export function SongCard({ s }: { s: SampleSong }) {
             <li className="text-small text-text-muted">{`and ${s.samples.length - 3} more`}</li>
           )}
           {sampledIn > 0 && (
-            <li className="text-small text-accent">{`Sampled in ${plural(sampledIn, "song")} here`}</li>
+            <li className="text-small text-accent">{"Sampled in other songs here"}</li>
           )}
         </ul>
       </UiLink>
@@ -431,16 +419,12 @@ function RankRow({
   title,
   sub,
   detail,
-  count,
-  countLabel,
 }: {
   href: string;
   n: number;
   title: string;
   sub: string;
   detail?: string;
-  count: number;
-  countLabel: string;
 }) {
   return (
     <li>
@@ -462,14 +446,6 @@ function RankRow({
             </span>
           )}
         </span>
-        <span className="flex shrink-0 flex-col items-end">
-          <span className="font-mono text-title tabular text-accent">
-            {count}
-          </span>
-          <span className="text-label text-label-caps text-text-muted">
-            {countLabel}
-          </span>
-        </span>
       </UiLink>
     </li>
   );
@@ -483,8 +459,6 @@ function RecordRow({ o, n }: { o: Original; n: number }) {
       title={o.title}
       sub={line(o.artist, o.year, known(o.genre) && o.genre)}
       detail={`In ${o.uses.map((x) => x.song.song).join(", ")}`}
-      count={o.uses.length}
-      countLabel={o.uses.length === 1 ? "song" : "songs"}
     />
   );
 }
@@ -570,12 +544,10 @@ function ProducerList({ names }: { names: string[] }) {
 function Section({
   id,
   title,
-  count,
   children,
 }: {
   id: string;
   title: string;
-  count?: number;
   children: ReactNode;
 }) {
   return (
@@ -584,11 +556,6 @@ function Section({
         <h2 id={id} className="text-title text-text">
           {title}
         </h2>
-        {count !== undefined && (
-          <span className="font-mono text-numeric tabular text-text-muted">
-            {count}
-          </span>
-        )}
       </div>
       {children}
     </section>
@@ -694,7 +661,6 @@ export function SampleSongPage({ slug }: { slug: string }) {
         <Section
           id="contains"
           title="Contains samples of"
-          count={s.samples.length}
         >
           <ol className="flex flex-col gap-4">
             {s.samples.map((u) => (
@@ -707,7 +673,6 @@ export function SampleSongPage({ slug }: { slug: string }) {
           <Section
             id="sampled-in"
             title="Was sampled in"
-            count={sampledBy.length}
           >
             <ul className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-3">
               {sampledBy.map((x) => (
@@ -792,12 +757,12 @@ function Pair({ u, song }: { u: SampleUse; song: SampleSong }) {
               href={sampleHref(deeper)}
               className="self-start text-small text-accent ui-hover:underline"
             >
-              {`The original samples ${plural(deeper.samples.length, "record")} itself →`}
+              {"See what the original samples →"}
             </UiLink>
           )}
           {others.length > 0 && (
             <>
-              <span className="text-label text-label-caps text-text-muted">{`Also sampled in ${plural(others.length, "song")}`}</span>
+              <span className="text-label text-label-caps text-text-muted">Also sampled in</span>
               <ul className="flex flex-wrap gap-2">
                 {others.slice(0, 12).map((x) => (
                   <li key={x.song.key}>
@@ -966,7 +931,7 @@ export function OriginalPage({ slug }: { slug: string }) {
           )}
           {deeper && (
             <ButtonLink href={sampleHref(deeper)} variant="secondary" size="sm">
-              {`What it samples · ${deeper.samples.length}`}
+              What it samples
             </ButtonLink>
           )}
           <CrateMenu
@@ -980,7 +945,7 @@ export function OriginalPage({ slug }: { slug: string }) {
         </span>
       </PlainHero>
       <div className="mx-auto flex w-full max-w-content flex-col gap-3 px-3 py-8 tablet:px-4 desktop:px-6">
-        <Section id="used-in" title="Was sampled in" count={o.uses.length}>
+        <Section id="used-in" title="Was sampled in">
           <ul className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-3">
             {o.uses.map((x) => (
               <SongCard key={x.song.key} s={x.song} />
@@ -1021,7 +986,6 @@ function ArtistBody({ a }: { a: SampleArtist }) {
           <Section
             id="records"
             title="Their records that were sampled"
-            count={a.records.length}
           >
             <ol className="flex flex-col gap-2">
               {a.records.slice(0, 60).map((o, i) => (
@@ -1034,7 +998,6 @@ function ArtistBody({ a }: { a: SampleArtist }) {
           <Section
             id="songs"
             title="Their songs and what they sample"
-            count={a.songs.length}
           >
             <ul className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-3">
               {a.songs.slice(0, 60).map((s) => (
@@ -1085,13 +1048,12 @@ function ProducerBody({ p }: { p: SampleProducer }) {
               Flips most
             </span>
             <ul className="flex flex-wrap gap-2">
-              {top.map(([name, n]) => (
+              {top.map(([name]) => (
                 <li
                   key={name}
                   className="inline-flex items-center rounded-control border border-border px-2 py-1 text-small text-text"
                 >
                   <ArtistLink name={name} />
-                  <span className="pl-1 text-text-muted">{`· ${n}`}</span>
                 </li>
               ))}
             </ul>
@@ -1102,7 +1064,6 @@ function ProducerBody({ p }: { p: SampleProducer }) {
         <Section
           id="produced"
           title="Songs and what they sample"
-          count={p.songs.length}
         >
           <ul className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-3">
             {p.songs.map((s) => (

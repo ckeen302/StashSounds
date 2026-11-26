@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { allProducers, artistsOf, attachLoopStyles, collaboratorsOf, canonicalName, hrefForProducer, namesIn, producerBySlug, producerNamed } from "./data";
+import { allProducers, artistsOf, attachLoopStyles, collaboratorsOf, canonicalName, hrefForProducer, namesIn, looseKey, producerBySlug, producerNamed, similarOf } from "./data";
 
 describe("producer pages", () => {
   it("gathers Metro Boomin's presets, samples, song chords and the kit in his style", () => {
@@ -58,5 +58,17 @@ describe("producer pages", () => {
     expect(canonicalName("2015", "credit")).toBeNull();
     expect(canonicalName("249x249px", "credit")).toBeNull();
     expect(canonicalName("TM88", "credit")).toBe("TM88");
+  });
+
+  it("suggests producers who made songs for the same artists, not ones they already work with", () => {
+    const p = producerNamed("Metro Boomin")!;
+    const similar = similarOf(p);
+    expect(similar.length).toBeGreaterThan(0);
+    const mine = new Set([...p.artists.keys()]);
+    for (const s of similar) {
+      expect(s.page).not.toBe(p);
+      expect(p.collab.has(looseKey(s.page.name))).toBe(false);
+      expect(mine).toContain(s.artist);
+    }
   });
 });

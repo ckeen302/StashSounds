@@ -9,7 +9,7 @@ import { KitCards } from "../kits/pages";
 import { useKits } from "../kits/store";
 import { MidiList, useMidiItems } from "../midi/pages";
 import { coverFor, tileStyle } from "../presets/cover";
-import { allProducers, artistsOf, collaboratorsOf, midiSongKey, producerBySlug, producerPageHref, producerTotal, type ProducerPage } from "./data";
+import { allProducers, artistsOf, collaboratorsOf, midiSongKey, producerBySlug, producerPageHref, producerTotal, similarOf, type ProducerPage } from "./data";
 
 // The sampled songs come from the Samples tab's catalog, which loads on its own (see samples/credits.ts).
 const SampledSongs = lazy(() =>
@@ -44,14 +44,14 @@ export function initialsOf(name: string): string {
 
 const plural = (n: number, one: string, many = `${one}s`) => `${n.toLocaleString("en")} ${n === 1 ? one : many}`;
 
-/** "38 presets · 57 samples · 4 MIDI · 1 kit", leaving out what they have none of. */
+/** "Kits · Presets · MIDI", leaving out what they have none of. */
 export function summaryOf(p: ProducerPage): string {
   return [
-    p.kitStyles.size > 0 && plural(p.kitStyles.size, "kit"),
-    p.loopCount > 0 && plural(p.loopCount, "loop"),
-    p.presets.length > 0 && plural(p.presets.length, "preset song"),
-    p.midiSongs.size > 0 && `${p.midiSongs.size} MIDI`,
-    p.samples.length > 0 && plural(p.samples.length, "sampled song"),
+    p.kitStyles.size > 0 && "Kits",
+    p.loopCount > 0 && "Loops",
+    p.presets.length > 0 && "Presets",
+    p.midiSongs.size > 0 && "MIDI",
+    p.samples.length > 0 && "Samples",
   ]
     .filter(Boolean)
     .join(" · ");
@@ -169,7 +169,7 @@ export function ProducersPage() {
           </FilterChip>
         ))}
       </div>
-      <p className="font-mono text-numeric tabular text-text-muted">{plural(shown.length, "producer")}</p>
+      <p aria-live="polite" className="sr-only">{plural(shown.length, "producer")}</p>
       {shown.length === 0 ? (
         filter === "following" && !needle ? (
           <EmptyState icon={UserPlus} title="You don't follow any producers yet">
@@ -197,7 +197,7 @@ export function ProducersPage() {
       )}
       {shown.length > limit && (
         <Button variant="secondary" size="sm" className="self-start" onClick={() => setLimit(limit + PAGE)}>
-          {`Show ${Math.min(PAGE, shown.length - limit)} more of ${shown.length.toLocaleString("en")}`}
+          Show more
         </Button>
       )}
     </main>
@@ -207,7 +207,7 @@ export function ProducersPage() {
 // ---------------------------------------------------------------------------------------------
 // One producer.
 
-function Section({ id, title, count, note, children }: { id: string; title: string; count: number; note?: string; children: ReactNode }) {
+function Section({ id, title, note, children }: { id: string; title: string; note?: string; children: ReactNode }) {
   return (
     <section id={id} aria-labelledby={`${id}-h`} className="flex scroll-mt-4 flex-col gap-3">
       <div className="flex flex-col gap-1">
@@ -215,7 +215,6 @@ function Section({ id, title, count, note, children }: { id: string; title: stri
           <h2 id={`${id}-h`} className="text-title text-text">
             {title}
           </h2>
-          <span className="font-mono text-numeric tabular text-text-muted">{count}</span>
         </div>
         {note && <p className="text-small text-text-muted">{note}</p>}
       </div>
@@ -258,7 +257,7 @@ function WorksWith({ p }: { p: ProducerPage }) {
         <p className="text-small text-text-muted">Credited together on the songs here.</p>
       </div>
       <ul aria-label={`Producers who work with ${p.name}`} className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-4">
-        {people.map(({ page: o, songs }) => (
+        {people.map(({ page: o }) => (
           <li key={o.slug}>
             <UiLink href={producerPageHref(o)} className="group flex items-center gap-3 rounded-panel border border-border p-3 ui-hover:border-border-strong">
               <span data-hue={hueOf(o.name)} aria-hidden="true" className="st-avatar st-hero-title flex size-10 shrink-0 items-center justify-center rounded-full text-body">
@@ -266,7 +265,37 @@ function WorksWith({ p }: { p: ProducerPage }) {
               </span>
               <span className="flex min-w-0 flex-col">
                 <span className="truncate text-body text-text group-hover:underline">{o.name}</span>
-                <span className="text-small text-text-muted">{plural(songs, "song")} together</span>
+                <span className="text-small text-text-muted">{`Credited with ${p.name}`}</span>
+              </span>
+            </UiLink>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+function SoundsLike({ p }: { p: ProducerPage }) {
+  const people = similarOf(p);
+  if (!people.length) return null;
+  return (
+    <section id="similar" aria-labelledby="similar-h" className="flex scroll-mt-4 flex-col gap-3">
+      <div className="flex flex-col gap-1">
+        <h2 id="similar-h" className="text-title text-text">
+          Producers for the same artists
+        </h2>
+        <p className="text-small text-text-muted">They made songs for the artists {p.name} works with.</p>
+      </div>
+      <ul aria-label={`Producers for the same artists as ${p.name}`} className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-4">
+        {people.map(({ page: o, artist }) => (
+          <li key={o.slug}>
+            <UiLink href={producerPageHref(o)} className="group flex items-center gap-3 rounded-panel border border-border p-3 ui-hover:border-border-strong">
+              <span data-hue={hueOf(o.name)} aria-hidden="true" className="st-avatar st-hero-title flex size-10 shrink-0 items-center justify-center rounded-full text-body">
+                {initialsOf(o.name)}
+              </span>
+              <span className="flex min-w-0 flex-col">
+                <span className="truncate text-body text-text group-hover:underline">{o.name}</span>
+                <span className="truncate text-small text-text-muted">{`Also produced for ${artist}`}</span>
               </span>
             </UiLink>
           </li>
@@ -336,7 +365,7 @@ export function ProducerPageView({ slug, rows, styleOf, renderLoops }: { slug: s
             <nav aria-label={`${p.name} on Stash`} className="flex flex-wrap gap-2">
               {sections.map((s) => (
                 <Button key={s.id} variant="secondary" size="sm" onClick={() => document.getElementById(s.id)?.scrollIntoView({ behavior: "smooth", block: "start" })}>
-                  {`${s.name} · ${s.n}`}
+                  {s.name}
                 </Button>
               ))}
             </nav>
@@ -345,33 +374,34 @@ export function ProducerPageView({ slug, rows, styleOf, renderLoops }: { slug: s
       </header>
       <div className="mx-auto flex w-full max-w-content flex-col gap-10 px-3 py-8 tablet:px-4 desktop:px-6">
         {kits.length > 0 && (
-          <Section id="kits" title={`Drum kits in the style of ${p.name}`} count={kits.length} note={styleNote}>
+          <Section id="kits" title={`Drum kits in the style of ${p.name}`} note={styleNote}>
             <KitCards kits={kits} label="Drum kits" />
           </Section>
         )}
         {loops.length > 0 && (
-          <Section id="loops" title={`Loops in the style of ${p.name}`} count={loops.length} note={styleNote}>
+          <Section id="loops" title={`Loops in the style of ${p.name}`} note={styleNote}>
             {renderLoops(`Loops in the style of ${p.name}`, loops)}
           </Section>
         )}
         {p.presets.length > 0 && (
-          <Section id="presets" title="Presets on their songs" count={p.presets.length} note="Which synth and preset is on each song, with how sure the source is.">
+          <Section id="presets" title="Presets on their songs" note="Which synth and preset is on each song, with how sure the source is.">
             <Grid items={presets} first={6} label="Preset songs" render={(s) => <PresetSongCard key={s.key} s={s} />} />
           </Section>
         )}
         {midi.length > 0 && (
-          <Section id="midi" title="Chords from their songs" count={midi.length} note="Play the progression, then drag it into your DAW or save the .mid.">
+          <Section id="midi" title="Chords from their songs" note="Play the progression, then drag it into your DAW or save the .mid.">
             <MidiList label={`Chords from songs ${p.name} produced`} items={midi} />
           </Section>
         )}
         {p.samples.length > 0 && (
-          <Section id="samples" title="Songs and what they sample" count={p.samples.length} note="The records behind their beats, from album credits and MusicBrainz.">
+          <Section id="samples" title="Songs and what they sample" note="The records behind their beats, from album credits and MusicBrainz.">
             <Suspense fallback={null}>
               <SampledSongs songs={p.samples} />
             </Suspense>
           </Section>
         )}
         <WorksWith p={p} />
+        <SoundsLike p={p} />
         {sections.length === 0 && (
           <EmptyState icon={User} title="Nothing here yet">
             {`No sounds tied to ${p.name} yet.`}

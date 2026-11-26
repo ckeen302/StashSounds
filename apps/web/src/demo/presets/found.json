@@ -6987,11 +6987,12 @@
   "role": "synth",
   "confidence": "community",
   "source": {
-   "label": "",
-   "url": ""
+   "label": "YouTube: FAMOUS PRESETS #297: 'New Tank' by Playboi Carti",
+   "url": "https://www.youtube.com/watch?v=nW43Ie2cFcc"
   },
   "path": "Dune 2 Factory > Synths",
-  "album": "Whole Lotta Red"
+  "album": "Whole Lotta Red",
+  "quoteBy": "BLUE STEEL"
  },
  {
   "song": "Control",
@@ -7084,42 +7085,15 @@
   "artist": "Playboi Carti",
   "producer": "Pi'erre Bourne",
   "plugin": "FabFilter Twin 2",
-  "preset": "5th Synths O",
-  "role": "lead",
-  "confidence": "community",
-  "source": {
-   "label": "",
-   "url": ""
-  },
-  "path": "Lead > Dance A-M"
- },
- {
-  "song": "Place",
-  "artist": "Playboi Carti",
-  "producer": "Pi'erre Bourne",
-  "plugin": "FabFilter Twin 2",
-  "preset": "Ubiquitous O",
-  "role": "lead",
-  "confidence": "community",
-  "source": {
-   "label": "",
-   "url": ""
-  },
-  "path": "Lead > Soft"
- },
- {
-  "song": "Place",
-  "artist": "Playboi Carti",
-  "producer": "Pi'erre Bourne",
-  "plugin": "FabFilter Twin 2",
   "preset": "Triangle",
   "role": "synth",
   "confidence": "community",
   "source": {
-   "label": "",
-   "url": ""
+   "label": "YouTube: FAMOUS PRESETS #327: 'Place' by Playboi Carti",
+   "url": "https://www.youtube.com/watch?v=iLvxF1zQJnw"
   },
-  "path": "Basic"
+  "path": "Basic",
+  "quoteBy": "BLUE STEEL"
  },
  {
   "song": "Sky",
@@ -7130,10 +7104,11 @@
   "role": "synth",
   "confidence": "community",
   "source": {
-   "label": "",
-   "url": ""
+   "label": "YouTube: FAMOUS PRESETS #422: 'Sky' by Playboi Carti",
+   "url": "https://www.youtube.com/watch?v=28dHv622U_8"
   },
-  "album": "Whole Lotta Red"
+  "album": "Whole Lotta Red",
+  "quoteBy": "BLUE STEEL"
  },
  {
   "song": "Sky",
@@ -7455,11 +7430,12 @@
   "role": "lead",
   "confidence": "community",
   "source": {
-   "label": "",
-   "url": ""
+   "label": "YouTube: Playboi Carti - Long Time(Intro) Preset | Sound Searchin",
+   "url": "https://www.youtube.com/watch?v=r-us8w6ai8M"
   },
   "path": "Layered twice",
-  "album": "Die Lit"
+  "album": "Die Lit",
+  "quoteBy": "Sound Searchin"
  },
  {
   "song": "Long Time (Intro)",
@@ -7484,10 +7460,11 @@
   "role": "organ",
   "confidence": "community",
   "source": {
-   "label": "",
-   "url": ""
+   "label": "YouTube: FAMOUS PRESETS #368: 'Long Time' by Playboi Carti",
+   "url": "https://www.youtube.com/watch?v=B5R-lm04MtY"
   },
-  "album": "Die Lit"
+  "album": "Die Lit",
+  "quoteBy": "BLUE STEEL"
  },
  {
   "song": "Long Time (Intro)",
@@ -7556,10 +7533,11 @@
   "role": "bass",
   "confidence": "community",
   "source": {
-   "label": "",
-   "url": ""
+   "label": "YouTube: FAMOUS PRESETS #465: 'Poke It Out' by Playboi Carti",
+   "url": "https://www.youtube.com/watch?v=dg2NZc4D6uU"
   },
-  "path": "Bass > Vintage"
+  "path": "Bass > Vintage",
+  "quoteBy": "BLUE STEEL"
  },
  {
   "song": "Home (KOD)",
@@ -7623,28 +7601,32 @@
   "song": "Mileage",
   "artist": "Playboi Carti",
   "producer": "Pi'erre Bourne",
-  "plugin": "Tone2 ElectraX",
+  "plugin": "u-he ACE",
   "preset": "HS Copper Minor",
   "role": "synth",
   "confidence": "community",
   "source": {
-   "label": "",
-   "url": ""
-  }
+   "label": "YouTube: Mileage original presets (Seventh), video frame",
+   "url": "https://www.youtube.com/watch?v=Iz7xLID2G5I"
+  },
+  "quote": "On screen: u-he ACE with \"HS Copper Minor\" loaded",
+  "quoteBy": "Seventh"
  },
  {
   "song": "Mileage",
   "artist": "Playboi Carti",
   "producer": "Pi'erre Bourne",
-  "plugin": "Tone2 ElectraX",
+  "plugin": "u-he ACE",
   "preset": "eX Aliens Land",
   "role": "synth",
   "confidence": "community",
   "source": {
-   "label": "",
-   "url": ""
+   "label": "YouTube: Mileage original presets (Seventh), video frame",
+   "url": "https://www.youtube.com/watch?v=Iz7xLID2G5I"
   },
-  "path": "Phaser off"
+  "path": "Phaser off",
+  "quote": "On screen: u-he ACE with \"eX Aliens Land\" loaded",
+  "quoteBy": "Seventh"
  },
  {
   "song": "R.I.P. Fredo (Notice Me)",
@@ -7902,16 +7884,17 @@
   "song": "Money Longer",
   "artist": "Lil Uzi Vert",
   "producer": "Don Cannon, Maaly Raw",
-  "plugin": "reFX Nexus 2",
+  "plugin": "reFX Nexus 3",
   "preset": "Nintendo Lead",
   "role": "lead",
   "confidence": "community",
   "source": {
-   "label": "",
-   "url": ""
+   "label": "YouTube: FAMOUS PRESETS #310: 'Money Longer' by Lil Uzi Vert",
+   "url": "https://www.youtube.com/watch?v=z2pgkSXWsvM"
   },
   "path": "Trap or Die expansion",
-  "album": "Lil Uzi Vert vs. the World"
+  "album": "Lil Uzi Vert vs. the World",
+  "quoteBy": "BLUE STEEL"
  },
  {
   "song": "Hi Roller",
@@ -7937,25 +7920,11 @@
   "role": "keys",
   "confidence": "community",
   "source": {
-   "label": "",
-   "url": ""
+   "label": "YouTube: FAMOUS PRESETS #379: 'Erase Your Social' by Lil Uzi Vert",
+   "url": "https://www.youtube.com/watch?v=-_dShB9B1T8"
   },
-  "path": "Pianoids"
- },
- {
-  "song": "XO Tour Llif3",
-  "artist": "Lil Uzi Vert",
-  "producer": "TM88, JW Lucas",
-  "plugin": "reFX Nexus 2",
-  "preset": "Origin 1",
-  "role": "synth",
-  "confidence": "community",
-  "source": {
-   "label": "",
-   "url": ""
-  },
-  "path": "Factory",
-  "album": "Luv Is Rage 2"
+  "path": "Pianoids",
+  "quoteBy": "BLUE STEEL"
  },
  {
   "song": "XO Tour Llif3",
@@ -8117,61 +8086,65 @@
   "song": "Yale",
   "artist": "Ken Carson",
   "producer": "Outtatown, Star Boy",
-  "plugin": "reFX Nexus 3",
+  "plugin": "reFX Nexus 4",
   "preset": "LD Energetic",
   "role": "lead",
   "confidence": "community",
   "source": {
-   "label": "",
-   "url": ""
+   "label": "YouTube: FAMOUS PRESETS #298: 'Yale' by Ken Carson",
+   "url": "https://www.youtube.com/watch?v=qQLjm9e8_Mo"
   },
   "path": "Trance Universe > LD Lead",
-  "album": "Project X"
+  "album": "Project X",
+  "quoteBy": "BLUE STEEL"
  },
  {
   "song": "Yale",
   "artist": "Ken Carson",
   "producer": "Outtatown, Star Boy",
-  "plugin": "reFX Nexus 3",
+  "plugin": "reFX Nexus 4",
   "preset": "SY Plain",
   "role": "synth",
   "confidence": "community",
   "source": {
-   "label": "",
-   "url": ""
+   "label": "YouTube: FAMOUS PRESETS #298: 'Yale' by Ken Carson",
+   "url": "https://www.youtube.com/watch?v=qQLjm9e8_Mo"
   },
   "path": "Minimal House > SY Synth",
-  "album": "Project X"
+  "album": "Project X",
+  "quoteBy": "BLUE STEEL"
  },
  {
   "song": "Yale",
   "artist": "Ken Carson",
   "producer": "Outtatown, Star Boy",
-  "plugin": "reFX Nexus 3",
+  "plugin": "reFX Nexus 4",
   "preset": "WW Panflute",
   "role": "flute",
   "confidence": "community",
   "source": {
-   "label": "",
-   "url": ""
+   "label": "YouTube: FAMOUS PRESETS #298: 'Yale' by Ken Carson",
+   "url": "https://www.youtube.com/watch?v=qQLjm9e8_Mo"
   },
   "path": "Factory Presets > WW Woodwind",
-  "album": "Project X"
+  "album": "Project X",
+  "quoteBy": "BLUE STEEL"
  },
  {
   "song": "Yale",
   "artist": "Ken Carson",
   "producer": "Outtatown, Star Boy",
-  "plugin": "reFX Nexus 3",
+  "plugin": "reFX Nexus 4",
   "preset": "BA No Name",
   "role": "bass",
   "confidence": "community",
   "source": {
-   "label": "",
-   "url": ""
+   "label": "YouTube: FAMOUS PRESETS #298: 'Yale' by Ken Carson",
+   "url": "https://www.youtube.com/watch?v=qQLjm9e8_Mo"
   },
   "path": "Minimal House > BA Bass",
-  "album": "Project X"
+  "album": "Project X",
+  "quoteBy": "BLUE STEEL"
  },
  {
   "song": "Butterfly",
@@ -9628,14 +9601,16 @@
   "artist": "Travis Scott feat. Kendrick Lamar",
   "producer": "Cardo, Mike Dean",
   "plugin": "Spectrasonics Omnisphere",
-  "preset": "Cheese Ping Delay",
+  "preset": "Pinging Cheese Delay",
   "role": "synth",
   "confidence": "community",
   "source": {
-   "label": "r/FindThePreset (Reddit)",
-   "url": "https://www.reddit.com/r/findthepreset/"
+   "label": "YouTube: Goosebumps preset (Internet Money), video frame",
+   "url": "https://www.youtube.com/watch?v=aGXAtRtuoA4"
   },
-  "album": "Birds in the Trap Sing McKnight"
+  "album": "Birds in the Trap Sing McKnight",
+  "quote": "On screen: Omnisphere patch \"Pinging Cheese Delay\" loaded",
+  "quoteBy": "Internet Money"
  },
  {
   "song": "Ransom",
@@ -22537,5 +22512,185 @@
   "quote": "On screen: Dune 2 display \"052: Secret Mission KS\" (patch description \"Movie 105 BPM / Aftertouch: Waveform Position / Modwheel: Softly\"), held from about 2:21 to 2:50; caption \"052: Secret Mission KS, under Sequences in Synapse Audio Dune 2\"; song card \"Producer: Mike Will Made-It / Rae Sremmurd - Black Beatles\"",
   "quoteBy": "Sound Searchin",
   "album": "SremmLife 2 (Deluxe)"
+ },
+ {
+  "song": "Karma",
+  "artist": "Jelly",
+  "plugin": "Native Instruments Massive",
+  "preset": "Ostbahnhof",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Jelly - Karma prod. Pierre Bourne | Original Presets (Seventh), video frame at 0:18",
+   "url": "https://www.youtube.com/watch?v=IUCSa0b-CnU"
+  },
+  "quote": "On screen: Massive window title and patch field \"Ostbahnhof\" (loaded 0:08 to 0:20 and again 0:48 to the end); description: \"plugin - Massive\"; title names the song and producer Pi'erre Bourne",
+  "quoteBy": "Seventh",
+  "album": "The Wolf Of Peachtree"
+ },
+ {
+  "song": "Karma",
+  "artist": "Jelly",
+  "plugin": "Native Instruments Massive",
+  "preset": "Miss Smooth",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Jelly - Karma prod. Pierre Bourne | Original Presets (Seventh), video frame at 0:34",
+   "url": "https://www.youtube.com/watch?v=IUCSa0b-CnU"
+  },
+  "quote": "On screen: Massive window title and patch field \"Miss Smooth\" (loaded about 0:24 to 0:45); description: \"plugin - Massive\"; title names the song and producer Pi'erre Bourne",
+  "quoteBy": "Seventh",
+  "album": "The Wolf Of Peachtree"
+ },
+ {
+  "song": "Kahuna",
+  "artist": "Jelly",
+  "plugin": "u-he ACE",
+  "preset": "HS Grownup Toy",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Jelly - Kahuna prod. Pi'erre Bourne | Original Presets (Seventh), video frame at 0:18",
+   "url": "https://www.youtube.com/watch?v=fN0l7Oq04ro"
+  },
+  "quote": "On screen: ACE window title and patch display \"HS Grownup Toy\" (loaded about 0:08 to 0:28, after the startup patch); description: \"plugin - u-he\"; title names the song and producer Pi'erre Bourne",
+  "quoteBy": "Seventh",
+  "album": "Wolf Szn"
+ },
+ {
+  "song": "Kahuna",
+  "artist": "Jelly",
+  "plugin": "u-he ACE",
+  "preset": "HS Indias Lead",
+  "role": "Lead (per preset name; one of two shown)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Jelly - Kahuna prod. Pi'erre Bourne | Original Presets (Seventh), video frame at 0:40",
+   "url": "https://www.youtube.com/watch?v=fN0l7Oq04ro"
+  },
+  "quote": "On screen: ACE window title and patch display \"HS Indias Lead\" (loaded about 0:30 to the end); description: \"plugin - u-he\", \"The second background lead should have less velocity\"; title names the song and producer Pi'erre Bourne",
+  "quoteBy": "Seventh",
+  "album": "Wolf Szn"
+ },
+ {
+  "song": "LR Wrist",
+  "artist": "Chavo",
+  "plugin": "Native Instruments Absynth 5",
+  "preset": "Mixed Beauty",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Chavo - LR Wrist prod. Pi'erre Bourne | Original Presets (Seventh), video frame at 0:35",
+   "url": "https://www.youtube.com/watch?v=LZv4O-hVSa4"
+  },
+  "quote": "On screen: Absynth 5 window titled \"Mixed Beauty\" (loaded from about 0:08 to the end, after \"Newsound\"); description: \"plugin - Absynth 5\", \"s/o Minerals\"; title names the song and producer Pi'erre Bourne",
+  "quoteBy": "Seventh",
+  "album": "Chavo's World"
+ },
+ {
+  "song": "DMD",
+  "artist": "Famous Dex",
+  "plugin": "LennarDigital Sylenth1",
+  "preset": "KEY Icicle",
+  "role": "Keys",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Famous Dex - DMD prod. Pi'erre Bourne | Original Presets (Seventh), video frame at 0:22",
+   "url": "https://www.youtube.com/watch?v=JUYS5VgQRTw"
+  },
+  "quote": "On screen: Sylenth1 window titled \"KEY Icicle\" (loaded 0:14 to 0:30); description chapter \"0:13 Keys\", note \"remove delay and reverb for the keys\"; description: \"plugin - Sylenth1\"; title names the song and producer Pi'erre Bourne",
+  "quoteBy": "Seventh",
+  "album": "Dex Meets Dexter"
+ },
+ {
+  "song": "DMD",
+  "artist": "Famous Dex",
+  "plugin": "LennarDigital Sylenth1",
+  "preset": "KEY Fifth House",
+  "role": "Chords",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Famous Dex - DMD prod. Pi'erre Bourne | Original Presets (Seventh), video frame at 0:52",
+   "url": "https://www.youtube.com/watch?v=JUYS5VgQRTw"
+  },
+  "quote": "On screen: Sylenth1 window titled \"KEY Fifth House\" (loaded about 0:40 to 1:04); description chapter \"0:39 Chords\"; description: \"plugin - Sylenth1\"; title names the song and producer Pi'erre Bourne",
+  "quoteBy": "Seventh",
+  "album": "Dex Meets Dexter"
+ },
+ {
+  "song": "DMD",
+  "artist": "Famous Dex",
+  "plugin": "LennarDigital Sylenth1",
+  "preset": "KEY Crystal Bells",
+  "role": "Bells",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Famous Dex - DMD prod. Pi'erre Bourne | Original Presets (Seventh), video frame at 1:10",
+   "url": "https://www.youtube.com/watch?v=JUYS5VgQRTw"
+  },
+  "quote": "On screen: Sylenth1 window titled \"KEY Crystal Bells\" (loaded 1:05 to 1:25); description chapter \"1:05 Bells\"; description: \"plugin - Sylenth1\"; title names the song and producer Pi'erre Bourne",
+  "quoteBy": "Seventh",
+  "album": "Dex Meets Dexter"
+ },
+ {
+  "song": "Make a Way",
+  "artist": "Frazier Trill",
+  "plugin": "u-he TyrellN6",
+  "preset": "Brown Dwarf",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Frazier Trill - Make a Way prod. Pi'erre Bourne | Original Preset (Seventh), video frame at 0:05",
+   "url": "https://www.youtube.com/watch?v=XPf1Nwysccw"
+  },
+  "quote": "On screen: TyrellN6 browser, folder \"Tasmodia\" (factory Local presets), \"Brown Dwarf\" selected and shown in the patch display and window title for the whole clip; description: \"plugin - Tyrelln6 u-he\"; title names the song and producer Pi'erre Bourne",
+  "quoteBy": "Seventh",
+  "album": "Frazier Trill"
+ },
+ {
+  "song": "Santa",
+  "artist": "Duwap Kaine",
+  "plugin": "Dmitry Sches Diversion",
+  "preset": "LEAD Lonely Square",
+  "role": "Lead (per preset name; one of two shown)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Duwap Kaine - Santa prod. Pi'erre Bourne | Original Presets (Seventh), video frame at 0:26",
+   "url": "https://www.youtube.com/watch?v=HYkYaz-hOwc"
+  },
+  "quote": "On screen: Diversion preset display \"LEAD Lonely Square\", author \"Dmitry Sches\" (loaded about 0:18 to the end, untouched); description: \"plugin - Diversion by Dmitry Sches\"; title names the song and producer Pi'erre Bourne",
+  "quoteBy": "Seventh",
+  "album": "Santa"
+ },
+ {
+  "song": "Kash Money",
+  "artist": "Jelly",
+  "plugin": "Dmitry Sches Diversion",
+  "preset": "LEAD Night Singer",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Jelly - Kash Money prod. Pi'erre Bourne | Original Presets (Seventh), video frame at 0:05",
+   "url": "https://www.youtube.com/watch?v=6OGw0xhZEKw"
+  },
+  "quote": "On screen: Diversion preset display \"LEAD Night Singer\", author \"Dmitry Sches\" (loaded 0:00 to 0:12 and again 0:22 to the end); description: \"plugin - Dmitry Sches - Diversion\"; title names the song and producer Pi'erre Bourne",
+  "quoteBy": "Seventh",
+  "album": "The Wolf Of Peachtree"
+ },
+ {
+  "song": "Kash Money",
+  "artist": "Jelly",
+  "plugin": "Dmitry Sches Diversion",
+  "preset": "LEAD Mallet Bell",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Jelly - Kash Money prod. Pi'erre Bourne | Original Presets (Seventh), video frame at 0:15",
+   "url": "https://www.youtube.com/watch?v=6OGw0xhZEKw"
+  },
+  "quote": "On screen: Diversion preset display \"LEAD Mallet Bell\", author \"Dmitry Sches\" (loaded about 0:13 to 0:18); description: \"plugin - Dmitry Sches - Diversion\"; title names the song and producer Pi'erre Bourne",
+  "quoteBy": "Seventh",
+  "album": "The Wolf Of Peachtree"
  }
 ]

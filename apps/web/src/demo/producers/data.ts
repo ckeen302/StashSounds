@@ -281,3 +281,30 @@ export function artistsOf(p: ProducerPage, max = 4): string[] {
 export function producerTotal(p: ProducerPage): number {
   return total(p);
 }
+
+/**
+ * Producers who made songs for the same artists, leaving out the ones they already work with.
+ * Each comes with the artist they share most, for the "Also produced for Future" line.
+ */
+export function similarOf(p: ProducerPage, max = 4): { page: ProducerPage; artist: string }[] {
+  const mine = new Map([...p.artists].map(([a, n]) => [looseKey(a), { a, n }]));
+  if (!mine.size) return [];
+  const out: { page: ProducerPage; artist: string; score: number }[] = [];
+  for (const o of allProducers()) {
+    if (o === p || p.collab.has(looseKey(o.name))) continue;
+    let score = 0;
+    let best: { a: string; n: number } | null = null;
+    for (const [a, n] of o.artists) {
+      const m = mine.get(looseKey(a));
+      if (!m) continue;
+      const shared = Math.min(n, m.n);
+      score += shared;
+      if (!best || shared > best.n) best = { a: m.a, n: shared };
+    }
+    if (best) out.push({ page: o, artist: best.a, score });
+  }
+  return out
+    .sort((a, b) => b.score - a.score || total(b.page) - total(a.page) || a.page.name.localeCompare(b.page.name))
+    .slice(0, max)
+    .map(({ page: o, artist }) => ({ page: o, artist }));
+}

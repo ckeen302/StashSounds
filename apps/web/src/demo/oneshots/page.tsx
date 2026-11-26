@@ -80,7 +80,6 @@ export function OneShotsPage() {
       (kind === "all" || s.kind === kind),
   );
   const shots = inst === "all" ? matching : matching.filter((s) => s.instrument === inst);
-  const count = (i: InstrumentId) => matching.filter((s) => s.instrument === i).length;
   const current = shots[Math.min(selected, Math.max(0, shots.length - 1))];
   const reset = () => setSelected(0);
 
@@ -191,7 +190,7 @@ export function OneShotsPage() {
       <header className="flex flex-col gap-4 tablet:flex-row tablet:items-end tablet:justify-between">
         <div className="flex flex-col gap-1">
           <h1 className="text-title">One-shots</h1>
-          <p className="text-body text-text-muted">{`Single notes and chords from keys, bells, plucks, pads, leads, guitars and 808s, in all 12 keys. Drop them in your sampler and play a melody without loading a heavy synth. ${MELODIC.length} sounds.`}</p>
+          <p className="text-body text-text-muted">{`Single notes and chords from keys, bells, plucks, pads, leads, guitars and 808s, in all 12 keys. Drop them in your sampler and play a melody without loading a heavy synth.`}</p>
         </div>
         <label className="os-upload st-wide-only inline-flex h-10 shrink-0 cursor-pointer items-center gap-2 rounded-control bg-accent px-4 text-body-strong text-bg focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-accent">
           <Upload className="size-4" aria-hidden="true" />
@@ -213,7 +212,6 @@ export function OneShotsPage() {
             }}
             className="os-type flex w-24 shrink-0 flex-col items-start gap-1 rounded-control border border-border bg-surface p-3 text-left tablet:w-auto ui-hover:border-border-strong aria-pressed:border-accent aria-pressed:bg-raised"
           >
-            <span className="os-type-count font-mono text-title tabular text-text">{count(i.id)}</span>
             <span className="text-label text-label-caps text-text-muted">{i.label}</span>
           </button>
         ))}
@@ -226,7 +224,6 @@ export function OneShotsPage() {
           }}
           className="os-type flex w-24 shrink-0 flex-col items-start gap-1 rounded-control border border-border bg-surface p-3 text-left tablet:w-auto ui-hover:border-border-strong aria-pressed:border-accent aria-pressed:bg-raised"
         >
-          <span className="os-type-count font-mono text-title tabular text-text">{matching.length}</span>
           <span className="text-label text-label-caps text-text-muted">All</span>
         </button>
       </div>

@@ -583,10 +583,7 @@ export function LoopsPage({
 
 
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <span
-          aria-live="polite"
-          className="font-mono text-numeric tabular text-text-muted"
-        >
+        <span aria-live="polite" className="sr-only">
           {shown.length === 0
             ? "No loops"
             : `Loops ${from + 1} - ${from + onPage.length} of ${shown.length}`}
@@ -922,7 +919,7 @@ function PackStrip() {
             <UiLink href={`/pack/${p.id}`} className="flex h-full flex-col gap-1 rounded-panel border border-border bg-surface p-3 ui-hover:border-border-strong">
               <span className="text-body-strong text-text">{p.name}</span>
               <span className="line-clamp-2 text-small text-text-muted">{p.blurb}</span>
-              <span className="font-mono text-numeric tabular text-text-muted">{`${p.loops.length} loops + MIDI`}</span>
+              <span className="font-mono text-numeric tabular text-text-muted">Loops + MIDI</span>
             </UiLink>
           </li>
         ))}

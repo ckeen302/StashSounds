@@ -164,8 +164,7 @@ export function KitCards({ kits, hidden = false, label = "Kits" }: { kits: Kit[]
         <p className="text-small text-text-muted">{summary(k.sounds)}</p>
         <div className="flex items-center justify-between gap-3 font-mono text-numeric tabular text-text-muted">
           <span>
-            {`${k.sounds.length} sounds`}
-            {!k.mine && k.downloads > 0 ? ` · ${k.downloads.toLocaleString("en")} downloads` : ""}
+            {!k.mine && k.downloads > 0 ? `${k.downloads.toLocaleString("en")} downloads` : ""}
           </span>
           <span className="flex items-center gap-2">
             <CrateMenu itemId={`kit:${k.id}`} title={k.name} kind="Drum kit" href={`/kit/${k.id}`} by={k.owner.displayName} size="sm" />
