@@ -122,11 +122,13 @@ function build(): SampleSong[] {
     artist,
     year,
     album,
-    producers,
+    credited,
     page,
     uses,
     video,
   ] of RAW as Row[]) {
+    // Some credits keep their wiki link markup: "[[Metro Boomin]]", "[[Doughboy (producer)|Doughboy]]".
+    const producers = credited.map((n) => (n.replace(/\[\[|\]\]/g, "").split("|").pop() ?? n).trim()).filter(Boolean);
     const samples: SampleUse[] = uses.map(([t, a, y, g, replayed, p, v]) => ({
       title: t,
       artist: a,

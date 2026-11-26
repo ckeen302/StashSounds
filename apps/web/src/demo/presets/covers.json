@@ -15254,5 +15254,197 @@
    "label": "Apple Music, VIDA by Luis Fonsi & Demi Lovato",
    "url": "https://music.apple.com/us/album/%C3%A9chame-la-culpa/1447401519"
   }
+ },
+ "10 2 10|big sean": {
+  "file": "covers/10-2-10-big-sean.jpg",
+  "album": "Hall Of Fame (Deluxe)",
+  "source": {
+   "label": "Deezer, Hall Of Fame (Deluxe)",
+   "url": "https://www.deezer.com/album/9855404"
+  }
+ },
+ "adaptation|the weeknd": {
+  "file": "covers/adaptation-the-weeknd.jpg",
+  "album": "Kiss Land",
+  "source": {
+   "label": "Deezer, Kiss Land",
+   "url": "https://www.deezer.com/album/6884969"
+  }
+ },
+ "new level|a$ap ferg": {
+  "file": "covers/new-level-a-ap-ferg.jpg",
+  "album": "ALWAYS STRIVE AND PROSPER",
+  "source": {
+   "label": "Deezer, ALWAYS STRIVE AND PROSPER",
+   "url": "https://www.deezer.com/album/13401171"
+  }
+ },
+ "hasta la vista|lil wayne": {
+  "file": "covers/hasta-la-vista-lil-wayne.jpg",
+  "album": "Tha Carter V (Deluxe)",
+  "source": {
+   "label": "Deezer, Tha Carter V (Deluxe)",
+   "url": "https://www.deezer.com/album/174326332"
+  }
+ },
+ "you|t.i.": {
+  "file": "covers/you-t-i.jpg",
+  "album": "DIME TRAP",
+  "source": {
+   "label": "Deezer, DIME TRAP",
+   "url": "https://www.deezer.com/album/74358282"
+  }
+ },
+ "bedtime stories|rae sremmurd": {
+  "file": "covers/bedtime-stories-rae-sremmurd.jpg",
+  "album": "SR3MM",
+  "source": {
+   "label": "Deezer, SR3MM",
+   "url": "https://www.deezer.com/album/62563562"
+  }
+ },
+ "crazy|lil pump": {
+  "file": "covers/crazy-lil-pump.jpg",
+  "album": "Lil Pump",
+  "source": {
+   "label": "Deezer, Lil Pump",
+   "url": "https://www.deezer.com/album/49305962"
+  }
+ },
+ "murda dem|freddie gibbs": {
+  "file": "covers/murda-dem-freddie-gibbs.jpg",
+  "album": "ESGN - Evil Seeds Grow Naturally",
+  "source": {
+   "label": "Apple Music, ESGN - Evil Seeds Grow Naturally by Freddie Gibbs",
+   "url": "https://music.apple.com/us/album/bonus-track-murda-dem-feat-g-i-fleezy-big-kill/660371267"
+  }
+ },
+ "queso|lil uzi vert": {
+  "file": "covers/queso-lil-uzi-vert.jpg",
+  "album": "Luv Is Rage",
+  "source": {
+   "label": "Apple Music, Luv Is Rage by Lil Uzi Vert",
+   "url": "https://music.apple.com/us/album/luv-is-rage/1067479738"
+  }
+ },
+ "chum|earl sweatshirt": {
+  "file": "covers/chum-earl-sweatshirt.jpg",
+  "album": "Doris",
+  "source": {
+   "label": "Apple Music, Doris by Earl Sweatshirt",
+   "url": "https://music.apple.com/us/album/chum/669700847"
+  }
+ },
+ "fly me to the moon|frank sinatra": {
+  "file": "covers/fly-me-to-the-moon-frank-sinatra.jpg",
+  "album": "A Man and His Music",
+  "source": {
+   "label": "Apple Music, A Man and His Music by Frank Sinatra",
+   "url": "https://music.apple.com/us/album/fly-me-to-the-moon/1443165749"
+  }
+ },
+ "luv(sic) part 2|nujabes feat. shing02": {
+  "file": "covers/luv-sic-part-2-nujabes-feat-shing02.jpg",
+  "album": "Metaphorical Music",
+  "source": {
+   "label": "Apple Music, Metaphorical Music by Nujabes",
+   "url": "https://music.apple.com/us/album/metaphorical-music/1078898175"
+  }
+ },
+ "lady brown|nujabes feat. cise starr": {
+  "file": "covers/luv-sic-part-2-nujabes-feat-shing02.jpg",
+  "album": "Metaphorical Music",
+  "source": {
+   "label": "Apple Music, Metaphorical Music by Nujabes",
+   "url": "https://music.apple.com/us/album/lady-brown-feat-cise-star/1078898175"
+  }
+ },
+ "poker face|lady gaga": {
+  "file": "covers/poker-face-lady-gaga.jpg",
+  "album": "The Fame",
+  "source": {
+   "label": "Apple Music, The Fame by Lady Gaga",
+   "url": "https://music.apple.com/us/album/poker-face/1440818588"
+  }
+ },
+ "paparazzi|lady gaga": {
+  "file": "covers/poker-face-lady-gaga.jpg",
+  "album": "The Fame",
+  "source": {
+   "label": "Apple Music, The Fame by Lady Gaga",
+   "url": "https://music.apple.com/us/album/paparazzi/1440818588"
+  }
+ },
+ "creep|radiohead": {
+  "file": "covers/creep-radiohead.jpg",
+  "album": "Pablo Honey",
+  "source": {
+   "label": "Apple Music, Pablo Honey by Radiohead",
+   "url": "https://music.apple.com/us/album/creep/1097862062"
+  }
+ },
+ "boulevard of broken dreams|green day": {
+  "file": "covers/boulevard-of-broken-dreams-green-day.jpg",
+  "album": "American Idiot",
+  "source": {
+   "label": "Apple Music, American Idiot by Green Day",
+   "url": "https://music.apple.com/us/album/boulevard-of-broken-dreams/1161539183"
+  }
+ },
+ "good riddance (time of your life)|green day": {
+  "file": "covers/good-riddance-time-of-your-life-green-day.jpg",
+  "album": "Nimrod",
+  "source": {
+   "label": "Apple Music, Nimrod by Green Day",
+   "url": "https://music.apple.com/us/album/good-riddance-time-of-your-life/346245355"
+  }
+ },
+ "somebody else|the 1975": {
+  "file": "covers/somebody-else-the-1975.jpg",
+  "album": "I like it when you sleep, for you are so beautiful yet so unaware of it",
+  "source": {
+   "label": "Apple Music, I like it when you sleep, for you are so beautiful yet so unaware of it by The 1975",
+   "url": "https://music.apple.com/us/album/somebody-else/1440832181"
+  }
+ },
+ "last dance|donna summer": {
+  "file": "covers/last-dance-donna-summer.jpg",
+  "album": "On the Radio: Greatest Hits, Vol. I & II",
+  "source": {
+   "label": "Apple Music, On the Radio: Greatest Hits, Vol. I & II by Donna Summer",
+   "url": "https://music.apple.com/us/album/last-dance/1423304329"
+  }
+ },
+ "i will survive|gloria gaynor": {
+  "file": "covers/i-will-survive-gloria-gaynor.jpg",
+  "album": "Love Tracks",
+  "source": {
+   "label": "Apple Music, Love Tracks by Gloria Gaynor",
+   "url": "https://music.apple.com/us/album/i-will-survive/1475006468"
+  }
+ },
+ "smooth operator|sade": {
+  "file": "covers/smooth-operator-sade.jpg",
+  "album": "Diamond Life",
+  "source": {
+   "label": "Apple Music, Diamond Life by Sade",
+   "url": "https://music.apple.com/us/album/smooth-operator/211429791"
+  }
+ },
+ "your love is king|sade": {
+  "file": "covers/smooth-operator-sade.jpg",
+  "album": "Diamond Life",
+  "source": {
+   "label": "Apple Music, Diamond Life by Sade",
+   "url": "https://music.apple.com/us/album/your-love-is-king/211429791"
+  }
+ },
+ "sing a song|earth, wind & fire": {
+  "file": "covers/sing-a-song-earth-wind-fire.jpg",
+  "album": "Gratitude (Live)",
+  "source": {
+   "label": "Apple Music, Gratitude (Live) by Earth, Wind & Fire",
+   "url": "https://music.apple.com/us/album/sing-a-song/523231887"
+  }
  }
 }
