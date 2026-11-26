@@ -15510,5 +15510,53 @@
    "label": "Apple Music, The Saga Continues... by P. Diddy",
    "url": "https://music.apple.com/us/album/i-need-a-girl-to-bella/78989520"
   }
+ },
+ "karma|jelly": {
+  "file": "covers/karma-jelly.jpg",
+  "album": "The Wolf Of Peachtree",
+  "source": {
+   "label": "Deezer, The Wolf Of Peachtree",
+   "url": "https://www.deezer.com/album/129613512"
+  }
+ },
+ "kahuna|jelly": {
+  "file": "covers/kahuna-jelly.jpg",
+  "album": "Wolf Szn",
+  "source": {
+   "label": "Deezer, Wolf Szn",
+   "url": "https://www.deezer.com/album/115597082"
+  }
+ },
+ "lr wrist|chavo": {
+  "file": "covers/lr-wrist-chavo.jpg",
+  "album": "Chavo's World",
+  "source": {
+   "label": "Deezer, Chavo's World",
+   "url": "https://www.deezer.com/album/184346962"
+  }
+ },
+ "make a way|frazier trill": {
+  "file": "covers/make-a-way-frazier-trill.jpg",
+  "album": "Frazier Trill",
+  "source": {
+   "label": "Deezer, Frazier Trill",
+   "url": "https://www.deezer.com/album/199979552"
+  }
+ },
+ "santa|duwap kaine": {
+  "file": "covers/santa-duwap-kaine.jpg",
+  "album": "Santa",
+  "source": {
+   "label": "Deezer, Santa",
+   "url": "https://www.deezer.com/album/323850187"
+  }
+ },
+ "kash money|jelly": {
+  "file": "covers/kash-money-jelly.jpg",
+  "album": "The Wolf Of Peachtree",
+  "source": {
+   "label": "Deezer, The Wolf Of Peachtree",
+   "url": "https://www.deezer.com/album/129613512"
+  }
  }
 }
