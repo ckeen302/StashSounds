@@ -21514,5 +21514,184 @@
   "quote": "On screen: Logic Pro Sampler window titled \"FM Mega Octave\" loaded (Compare not lit); songs listed in order in a viewer comment pinned by BLUE STEEL: \"First one is Just What I Am, and second one is \"Maybe\"\"",
   "quoteBy": "BLUE STEEL",
   "album": "Indicud"
+ },
+ {
+  "song": "Murda Dem",
+  "artist": "Freddie Gibbs",
+  "plugin": "reFX Nexus",
+  "preset": "JJ SteelDrum",
+  "role": "Steel Drum",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Freddie Gibbs - Murda Dem | Nexus Preset | [I Found those VST Presets #23] (JC Biffro), video frame at 1:00",
+   "url": "https://www.youtube.com/watch?v=bWIreZuCNo4"
+  },
+  "quote": "On screen: Nexus 2 browser, category \"JJ - XP Vol 1\", preset \"JJ SteelDrum\" selected and shown in the name field, video titled \"Freddie Gibbs - Murda Dem | Nexus Preset | [I Found those VST Presets #23]\"",
+  "quoteBy": "JC Biffro"
+ },
+ {
+  "song": "Basement Freestyle",
+  "artist": "Travis Scott",
+  "plugin": "Native Instruments Massive",
+  "preset": "Jell Bell",
+  "role": "Bell",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Travis Scott -  Basement Freestyle | Massive Preset | [I Found those VST Presets #25] (JC Biffro), video frame at 0:35",
+   "url": "https://www.youtube.com/watch?v=-egXXPNXisM"
+  },
+  "quote": "On screen: Massive window, preset field reads \"JELL BELL\", video titled \"Travis Scott -  Basement Freestyle | Massive Preset | [I Found those VST Presets #25]\"",
+  "quoteBy": "JC Biffro",
+  "album": "DAYS BEFORE RODEO"
+ },
+ {
+  "song": "Love Yourz",
+  "artist": "J. Cole",
+  "plugin": "reFX Vanguard",
+  "preset": "BS Mooger MS",
+  "role": "Bass",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: J Cole - Love Yourz | Vanguard Preset | [I Found those VST Presets #28] (JC Biffro), video frame at 0:34",
+   "url": "https://www.youtube.com/watch?v=2GlMxqDjWmg"
+  },
+  "quote": "On screen: Vanguard display reads \"BS Mooger MS\" (same at 1:47), video titled \"J Cole - Love Yourz | Vanguard Preset | [I Found those VST Presets #28]\"",
+  "quoteBy": "JC Biffro",
+  "album": "2014 Forest Hills Drive"
+ },
+ {
+  "song": "Truth",
+  "artist": "Gucci Mane",
+  "plugin": "Rob Papen Predator",
+  "preset": "ARP: Chord-Cobra Phase",
+  "role": "Arp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Gucci Mane - Truth | Predator Preset | [I Found those VST Presets #26] (JC Biffro), video frame at 0:32",
+   "url": "https://www.youtube.com/watch?v=DRjOiRjTK00"
+  },
+  "quote": "On screen: Predator preset display reads \"003 ARP: CHORD-COBRA PHASE\", bank \"01 INTRODUCTION\", video titled \"Gucci Mane - Truth | Predator Preset | [I Found those VST Presets #26]\"",
+  "quoteBy": "JC Biffro",
+  "album": "Trap God"
+ },
+ {
+  "song": "Superpower",
+  "artist": "Beyoncé feat. Frank Ocean",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Jazz Stacks Doos",
+  "role": "Vocal",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Beyonce x Pharrell - Superpower | Omnisphere Preset | [I Found those VST Presets #18] (JC Biffro), video frame at 0:28",
+   "url": "https://www.youtube.com/watch?v=JeW9VloNJ_0"
+  },
+  "quote": "On screen: Omnisphere patch browser, \"Jazz Stacks Doos\" selected (Omnisphere Library Patch), video titled \"Beyonce x Pharrell - Superpower | Omnisphere Preset | [I Found those VST Presets #18]\"",
+  "quoteBy": "JC Biffro",
+  "album": "BEYONCÉ [Platinum Edition]"
+ },
+ {
+  "song": "Alright",
+  "artist": "Kendrick Lamar",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Jazz Stacks Dah-Dat",
+  "role": "Vocal",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Kendrick Lamar x Pharrell - Alright | Omnisphere Preset | [I Found those VST Presets #22] (JC Biffro), video frame at 0:35",
+   "url": "https://www.youtube.com/watch?v=5wFkntWCHHM"
+  },
+  "quote": "On screen: Omnisphere patch browser, \"Jazz Stacks Dah-Dat\" selected (Omnisphere Library Patch), notes: Jazz Male Vocal Ensemble singing Dah-Dat, video titled \"Kendrick Lamar x Pharrell - Alright | Omnisphere Preset | [I Found those VST Presets #22]\"",
+  "quoteBy": "JC Biffro",
+  "album": "To Pimp A Butterfly"
+ },
+ {
+  "song": "Playing Our Part",
+  "artist": "Joe Budden",
+  "plugin": "reFX Nexus",
+  "preset": "VO Voicetoy",
+  "role": "Vocal",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Joe Budden - Playing our Part | Nexus Preset | [I Found those VST Presets #29] (JC Biffro), video frame at 0:47",
+   "url": "https://www.youtube.com/watch?v=iwmfJGIigmg"
+  },
+  "quote": "On screen: Nexus 2 browser, category \"Voice\", preset \"VO Voicetoy\" selected, video titled \"Joe Budden - Playing our Part | Nexus Preset | [I Found those VST Presets #29]\"",
+  "quoteBy": "JC Biffro",
+  "album": "All Love Lost"
+ },
+ {
+  "song": "Superstar",
+  "artist": "Curren$y feat. Ty Dolla $ign",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Communing with Whales 1",
+  "role": "Texture",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Curren$y - Superstar | Omnisphere Preset | [I Found those VST Presets #31] (JC Biffro), video frame at 2:55",
+   "url": "https://www.youtube.com/watch?v=fEx2uiOqUpI"
+  },
+  "quote": "On screen: Omnisphere patch name field reads \"Communing with Whales 1\", video titled \"Curren$y - Superstar | Omnisphere Preset | [I Found those VST Presets #31]\"",
+  "quoteBy": "JC Biffro",
+  "album": "Canal Street Confidential"
+ },
+ {
+  "song": "H•A•M",
+  "artist": "Jay-Z & Kanye West",
+  "plugin": "Tone2 Gladiator",
+  "preset": "ATM Tripping Alien",
+  "role": "Atmosphere",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Jay Z x Kanye West x Lex Luger - HAM | Gladiator Preset | [I Found those VST Presets #24] (JC Biffro), video frame at 0:39",
+   "url": "https://www.youtube.com/watch?v=js_NDN2yrKY"
+  },
+  "quote": "On screen: Gladiator PATCH display reads \"ATM Tripping Alien\" (same at 1:10), video titled \"Jay Z x Kanye West x Lex Luger - HAM | Gladiator Preset | [I Found those VST Presets #24]\"",
+  "quoteBy": "JC Biffro",
+  "album": "Watch The Throne (Deluxe)"
+ },
+ {
+  "song": "My Flag/Da Homies",
+  "artist": "The Game",
+  "plugin": "reFX Nexus",
+  "preset": "PN Delayed Piano",
+  "role": "Piano",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: The Game x DJ Mustard - My Flag | Nexus Preset | [I Found those VST Presets #30] (JC Biffro), video frame at 1:20",
+   "url": "https://www.youtube.com/watch?v=gzAGw2mrSeY"
+  },
+  "quote": "On screen: Nexus 2 browser, category \"Piano\", preset \"PN Delayed Piano\" selected, video titled \"The Game x DJ Mustard - My Flag | Nexus Preset | [I Found those VST Presets #30]\"",
+  "quoteBy": "JC Biffro",
+  "album": "The Documentary 2.5"
+ },
+ {
+  "song": "What They Want",
+  "artist": "Russ",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Analog Tremolo Piano",
+  "role": "Keys",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: RUSS USED THIS OMNISPHERE PRESET ON WHAT THEY WANT #shorts (Beats by Nova), video frame at 0:07",
+   "url": "https://www.youtube.com/watch?v=QfxR6bUzgrY"
+  },
+  "quote": "On screen: Omnisphere patch browser searched \"analog tremo\", result \"Analog Tremolo Piano\" shown, video titled \"RUSS USED THIS OMNISPHERE PRESET ON WHAT THEY WANT #shorts\"",
+  "quoteBy": "Beats by Nova",
+  "album": "There's Really A Wolf"
+ },
+ {
+  "song": "No Cap",
+  "artist": "Future & Young Thug",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Smoked Lap Steel c",
+  "role": "Guitar",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FUTURE & YOUNG THUG USED THIS OMNISPHERE PRESET #shorts (Beats by Nova), video frame at 0:06",
+   "url": "https://www.youtube.com/watch?v=A4222YBf6ew"
+  },
+  "quote": "On screen: Omnisphere patch browser searched \"steel guitar\", \"Smoked Lap Steel c\" selected; description names the track #nocap, video titled \"FUTURE & YOUNG THUG USED THIS OMNISPHERE PRESET #shorts\"",
+  "quoteBy": "Beats by Nova",
+  "album": "SUPER SLIMEY"
  }
 ]

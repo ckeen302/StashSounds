@@ -11558,5 +11558,61 @@
    "label": "Deezer, Indicud",
    "url": "https://www.deezer.com/album/6487903"
   }
+ },
+ "love yourz|j. cole": {
+  "file": "covers/love-yourz-j-cole.jpg",
+  "album": "2014 Forest Hills Drive",
+  "source": {
+   "label": "Deezer, 2014 Forest Hills Drive",
+   "url": "https://www.deezer.com/album/280445562"
+  }
+ },
+ "truth|gucci mane": {
+  "file": "covers/truth-gucci-mane.jpg",
+  "album": "Trap God",
+  "source": {
+   "label": "Deezer, Trap God",
+   "url": "https://www.deezer.com/album/6065390"
+  }
+ },
+ "playing our part|joe budden": {
+  "file": "covers/playing-our-part-joe-budden.jpg",
+  "album": "All Love Lost",
+  "source": {
+   "label": "Deezer, All Love Lost",
+   "url": "https://www.deezer.com/album/11240448"
+  }
+ },
+ "superstar|curren$y feat. ty dolla $ign": {
+  "file": "covers/superstar-curren-y-feat-ty-dolla-ign.jpg",
+  "album": "Canal Street Confidential",
+  "source": {
+   "label": "Deezer, Canal Street Confidential",
+   "url": "https://www.deezer.com/album/11764836"
+  }
+ },
+ "my flag/da homies|the game": {
+  "file": "covers/my-flag-da-homies-the-game.jpg",
+  "album": "The Documentary 2.5",
+  "source": {
+   "label": "Deezer, The Documentary 2.5",
+   "url": "https://www.deezer.com/album/11458760"
+  }
+ },
+ "what they want|russ": {
+  "file": "covers/what-they-want-russ.jpg",
+  "album": "There's Really A Wolf",
+  "source": {
+   "label": "Deezer, There's Really A Wolf",
+   "url": "https://www.deezer.com/album/40977811"
+  }
+ },
+ "no cap|future & young thug": {
+  "file": "covers/no-cap-future-young-thug.jpg",
+  "album": "SUPER SLIMEY",
+  "source": {
+   "label": "Deezer, SUPER SLIMEY",
+   "url": "https://www.deezer.com/album/50227902"
+  }
  }
 }
