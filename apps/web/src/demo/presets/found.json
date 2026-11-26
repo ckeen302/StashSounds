@@ -18153,5 +18153,193 @@
    "url": "https://www.gearnews.com/the-story-of-sararr/"
   },
   "album": "The Tipping Point"
+ },
+ {
+  "song": "Remember the Time",
+  "artist": "Michael Jackson",
+  "producer": "Teddy Riley, Michael Jackson",
+  "plugin": "Roland D-50 (hardware)",
+  "preset": "Nylon Atmosphere",
+  "role": "Main sound",
+  "confidence": "press",
+  "quote": "You know the main sound on “Remember The Time?” There was a sound called Nylon Atmosphere.",
+  "quoteBy": "Rodney “Darkchild” Jerkins, Roland Articles",
+  "source": {
+   "label": "Roland Articles: A Few Minutes with Rodney “Darkchild” Jerkins",
+   "url": "https://articles.roland.com/a-few-minutes-with-rodney-darkchild-jerkins/"
+  },
+  "album": "Dangerous"
+ },
+ {
+  "song": "You Remind Me",
+  "artist": "Mary J. Blige",
+  "plugin": "Roland D-50 (hardware)",
+  "preset": "Nylon Atmosphere",
+  "role": "Opening sound",
+  "confidence": "press",
+  "quote": "It’s the first sound that comes on in Mary J. Blige’s “You Remind Me.”",
+  "quoteBy": "Rodney “Darkchild” Jerkins, Roland Articles",
+  "source": {
+   "label": "Roland Articles: A Few Minutes with Rodney “Darkchild” Jerkins",
+   "url": "https://articles.roland.com/a-few-minutes-with-rodney-darkchild-jerkins/"
+  },
+  "album": "What's the 411?"
+ },
+ {
+  "song": "Right Here (Human Nature Remix)",
+  "artist": "SWV",
+  "plugin": "Roland D-50 (hardware)",
+  "preset": "Nylon Atmosphere",
+  "role": "Not stated",
+  "confidence": "press",
+  "quote": "The “Human Nature” remix with SWV also has Nylon Atmosphere in it.",
+  "quoteBy": "Rodney “Darkchild” Jerkins, Roland Articles",
+  "source": {
+   "label": "Roland Articles: A Few Minutes with Rodney “Darkchild” Jerkins",
+   "url": "https://articles.roland.com/a-few-minutes-with-rodney-darkchild-jerkins/"
+  },
+  "album": "Right Here"
+ },
+ {
+  "song": "Sunchyme",
+  "artist": "Dario G",
+  "producer": "Dario G (Paul Spencer, Scott Rosser, Stephen Spencer)",
+  "plugin": "Yamaha CS1x (hardware)",
+  "preset": "044 Mega Hook",
+  "role": "Steel-drum-like hook (filtered, layered with a Korg X2 steel drum)",
+  "confidence": "producer",
+  "quote": "Preset 044 from their Yamaha CS1x synth, 'Mega Hook', which sounded remarkably like a steel drum when they filtered it.",
+  "quoteBy": "Matt Bell, Sound On Sound",
+  "source": {
+   "label": "Sound On Sound: Dario G, Recording SunMachine (October 1998)",
+   "url": "https://www.soundonsound.com/people/dario-g-recording-sunmachine"
+  },
+  "album": "Sunmachine"
+ },
+ {
+  "song": "Sunchyme",
+  "artist": "Dario G",
+  "producer": "Dario G (Paul Spencer, Scott Rosser, Stephen Spencer)",
+  "plugin": "Yamaha CS1x (hardware)",
+  "preset": "056 Bass Sine",
+  "role": "Bass (sampled from the CS1x into an Akai sampler)",
+  "confidence": "producer",
+  "quote": "the trio's Akai sampler provided the bass sound, which had been sampled from the CS1x (Preset 056, 'Bass Sine')",
+  "quoteBy": "Matt Bell, Sound On Sound",
+  "source": {
+   "label": "Sound On Sound: Dario G, Recording SunMachine (October 1998)",
+   "url": "https://www.soundonsound.com/people/dario-g-recording-sunmachine"
+  },
+  "album": "Sunmachine"
+ },
+ {
+  "song": "Pure & Simple",
+  "artist": "Hear'Say",
+  "producer": "Tim Hawes, Pete Kirtley",
+  "plugin": "Roland JV-1080 (hardware)",
+  "preset": "Booster Bips",
+  "role": "Squelchy verse bass (layered with a Studio Electronics SE1 bass)",
+  "confidence": "producer",
+  "quote": "a combination of a bass from the Studio Electronics SE1, and a patch from the Roland JV1080 called 'Booster Bips'",
+  "quoteBy": "Pete Kirtley, Sound On Sound",
+  "source": {
+   "label": "Sound On Sound: Tim Hawes & Pete Kirtley, Writing & Recording Hear'Say's 'Pure & Simple' (May 2001)",
+   "url": "https://www.soundonsound.com/people/tim-hawes-pete-kirtley-writing-recording-hearsays-pure-simple"
+  },
+  "album": "Popstars"
+ },
+ {
+  "song": "What's Love Got to Do with It",
+  "artist": "Tina Turner",
+  "producer": "Terry Britten",
+  "plugin": "Yamaha DX7 (hardware)",
+  "preset": "18 HARMONICA1",
+  "role": "Harmonica",
+  "confidence": "community",
+  "quote": "This preset was used in a VERY FAMOUS hit song of the '80s:  Tina Turner's \"What's Love Got To Do With It?\"",
+  "quoteBy": "Synthmania",
+  "source": {
+   "label": "Synthmania: Yamaha DX7",
+   "url": "https://www.synthmania.com/dx7.htm"
+  },
+  "album": "Private Dancer"
+ },
+ {
+  "song": "greedy",
+  "artist": "Tate McRae",
+  "producer": "Ryan Tedder, Grant Boutin",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Hang Drum Sugar Packets",
+  "role": "Hang drum / shaker part",
+  "confidence": "press",
+  "quote": "it’s a patch from this famous software synth - Hang Drum Sugar Packets - that Tedder is talking about",
+  "quoteBy": "MusicRadar",
+  "source": {
+   "label": "MusicRadar: Ryan Tedder on the SexyBack snare and the Omnisphere preset in Tate McRae's Greedy",
+   "url": "https://www.musicradar.com/artists/pretty-sure-thats-the-sexyback-snare-timbaland-thank-you-producer-ryan-tedder-on-picking-up-a-classic-00s-drum-sound-and-using-it-in-tate-mcraes-greedy-and-the-omnisphere-preset-that-features-throughout"
+  },
+  "album": "THINK LATER"
+ },
+ {
+  "song": "Cars",
+  "artist": "Gary Numan",
+  "producer": "Gary Numan",
+  "plugin": "Moog Polymoog 280A (hardware)",
+  "preset": "Vox Humana",
+  "role": "Lingering high string part",
+  "confidence": "producer",
+  "quote": "The first preset on the Polymoog 280A, Vox Humana features prominently in Gary Numan's Cars.",
+  "quoteBy": "MusicRadar (quoting Gary Numan to Synth History)",
+  "source": {
+   "label": "MusicRadar: UJAM's Vox Humana captures the classic Polymoog preset from Gary Numan's Cars",
+   "url": "https://www.musicradar.com/music-tech/i-love-that-sound-its-the-reason-i-bought-a-polymoog-ujams-vox-humana-faithfully-captures-the-classic-polymoog-preset-from-gary-numans-cars"
+  },
+  "album": "The Pleasure Principle"
+ },
+ {
+  "song": "Mentasm",
+  "artist": "Second Phase",
+  "producer": "Joey Beltram, Mundo Muzique",
+  "plugin": "Roland Alpha Juno (hardware)",
+  "preset": "What the",
+  "role": "Hoover sound",
+  "confidence": "press",
+  "quote": "the so-called Hoover sound ... (check out Second Phase's Mentasm and Human Resource's Dominator). It was created, unknowingly, by Eric Persing",
+  "quoteBy": "MusicRadar (quoting Eric Persing)",
+  "source": {
+   "label": "MusicRadar: Eric Persing didn't know he'd created a classic Roland synth preset (the Hoover)",
+   "url": "https://www.musicradar.com/music-tech/synths/whats-a-hoover-sound-designer-eric-persing-didnt-know-hed-created-a-classic-roland-synth-preset-until-he-was-asked-to-make-it-again"
+  }
+ },
+ {
+  "song": "Dominator",
+  "artist": "Human Resource",
+  "plugin": "Roland Alpha Juno (hardware)",
+  "preset": "What the",
+  "role": "Hoover sound",
+  "confidence": "press",
+  "quote": "the so-called Hoover sound ... (check out Second Phase's Mentasm and Human Resource's Dominator). It was created, unknowingly, by Eric Persing",
+  "quoteBy": "MusicRadar (quoting Eric Persing)",
+  "source": {
+   "label": "MusicRadar: Eric Persing didn't know he'd created a classic Roland synth preset (the Hoover)",
+   "url": "https://www.musicradar.com/music-tech/synths/whats-a-hoover-sound-designer-eric-persing-didnt-know-hed-created-a-classic-roland-synth-preset-until-he-was-asked-to-make-it-again"
+  },
+  "album": "Dominator"
+ },
+ {
+  "song": "Bar A Thym",
+  "artist": "Kerri Chandler",
+  "producer": "Kerri Chandler",
+  "plugin": "Korg Polysix (hardware)",
+  "preset": "Brave Arp",
+  "role": "Synth riff",
+  "confidence": "press",
+  "quote": "Wikipedia cites that in the song, the Jersey legend wields the ‘Brave Arp’ preset of the KORG Polysix.",
+  "quoteBy": "Splice Blog (citing Wikipedia)",
+  "source": {
+   "label": "Splice Blog: 6 iconic songs that use KORG synthesizers",
+   "url": "https://splice.com/blog/iconic-songs-korg-synthesizers/"
+  },
+  "album": "Bar A Thym"
  }
 ]
