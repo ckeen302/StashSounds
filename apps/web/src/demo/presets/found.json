@@ -6987,11 +6987,12 @@
   "role": "synth",
   "confidence": "community",
   "source": {
-   "label": "",
-   "url": ""
+   "label": "YouTube: FAMOUS PRESETS #297: 'New Tank' by Playboi Carti",
+   "url": "https://www.youtube.com/watch?v=nW43Ie2cFcc"
   },
   "path": "Dune 2 Factory > Synths",
-  "album": "Whole Lotta Red"
+  "album": "Whole Lotta Red",
+  "quoteBy": "BLUE STEEL"
  },
  {
   "song": "Control",
@@ -7084,42 +7085,15 @@
   "artist": "Playboi Carti",
   "producer": "Pi'erre Bourne",
   "plugin": "FabFilter Twin 2",
-  "preset": "5th Synths O",
-  "role": "lead",
-  "confidence": "community",
-  "source": {
-   "label": "",
-   "url": ""
-  },
-  "path": "Lead > Dance A-M"
- },
- {
-  "song": "Place",
-  "artist": "Playboi Carti",
-  "producer": "Pi'erre Bourne",
-  "plugin": "FabFilter Twin 2",
-  "preset": "Ubiquitous O",
-  "role": "lead",
-  "confidence": "community",
-  "source": {
-   "label": "",
-   "url": ""
-  },
-  "path": "Lead > Soft"
- },
- {
-  "song": "Place",
-  "artist": "Playboi Carti",
-  "producer": "Pi'erre Bourne",
-  "plugin": "FabFilter Twin 2",
   "preset": "Triangle",
   "role": "synth",
   "confidence": "community",
   "source": {
-   "label": "",
-   "url": ""
+   "label": "YouTube: FAMOUS PRESETS #327: 'Place' by Playboi Carti",
+   "url": "https://www.youtube.com/watch?v=iLvxF1zQJnw"
   },
-  "path": "Basic"
+  "path": "Basic",
+  "quoteBy": "BLUE STEEL"
  },
  {
   "song": "Sky",
@@ -7130,10 +7104,11 @@
   "role": "synth",
   "confidence": "community",
   "source": {
-   "label": "",
-   "url": ""
+   "label": "YouTube: FAMOUS PRESETS #422: 'Sky' by Playboi Carti",
+   "url": "https://www.youtube.com/watch?v=28dHv622U_8"
   },
-  "album": "Whole Lotta Red"
+  "album": "Whole Lotta Red",
+  "quoteBy": "BLUE STEEL"
  },
  {
   "song": "Sky",
@@ -7455,11 +7430,12 @@
   "role": "lead",
   "confidence": "community",
   "source": {
-   "label": "",
-   "url": ""
+   "label": "YouTube: Playboi Carti - Long Time(Intro) Preset | Sound Searchin",
+   "url": "https://www.youtube.com/watch?v=r-us8w6ai8M"
   },
   "path": "Layered twice",
-  "album": "Die Lit"
+  "album": "Die Lit",
+  "quoteBy": "Sound Searchin"
  },
  {
   "song": "Long Time (Intro)",
@@ -7484,10 +7460,11 @@
   "role": "organ",
   "confidence": "community",
   "source": {
-   "label": "",
-   "url": ""
+   "label": "YouTube: FAMOUS PRESETS #368: 'Long Time' by Playboi Carti",
+   "url": "https://www.youtube.com/watch?v=B5R-lm04MtY"
   },
-  "album": "Die Lit"
+  "album": "Die Lit",
+  "quoteBy": "BLUE STEEL"
  },
  {
   "song": "Long Time (Intro)",
@@ -7556,10 +7533,11 @@
   "role": "bass",
   "confidence": "community",
   "source": {
-   "label": "",
-   "url": ""
+   "label": "YouTube: FAMOUS PRESETS #465: 'Poke It Out' by Playboi Carti",
+   "url": "https://www.youtube.com/watch?v=dg2NZc4D6uU"
   },
-  "path": "Bass > Vintage"
+  "path": "Bass > Vintage",
+  "quoteBy": "BLUE STEEL"
  },
  {
   "song": "Home (KOD)",
@@ -7906,16 +7884,17 @@
   "song": "Money Longer",
   "artist": "Lil Uzi Vert",
   "producer": "Don Cannon, Maaly Raw",
-  "plugin": "reFX Nexus 2",
+  "plugin": "reFX Nexus 3",
   "preset": "Nintendo Lead",
   "role": "lead",
   "confidence": "community",
   "source": {
-   "label": "",
-   "url": ""
+   "label": "YouTube: FAMOUS PRESETS #310: 'Money Longer' by Lil Uzi Vert",
+   "url": "https://www.youtube.com/watch?v=z2pgkSXWsvM"
   },
   "path": "Trap or Die expansion",
-  "album": "Lil Uzi Vert vs. the World"
+  "album": "Lil Uzi Vert vs. the World",
+  "quoteBy": "BLUE STEEL"
  },
  {
   "song": "Hi Roller",
@@ -7941,25 +7920,11 @@
   "role": "keys",
   "confidence": "community",
   "source": {
-   "label": "",
-   "url": ""
+   "label": "YouTube: FAMOUS PRESETS #379: 'Erase Your Social' by Lil Uzi Vert",
+   "url": "https://www.youtube.com/watch?v=-_dShB9B1T8"
   },
-  "path": "Pianoids"
- },
- {
-  "song": "XO Tour Llif3",
-  "artist": "Lil Uzi Vert",
-  "producer": "TM88, JW Lucas",
-  "plugin": "reFX Nexus 2",
-  "preset": "Origin 1",
-  "role": "synth",
-  "confidence": "community",
-  "source": {
-   "label": "",
-   "url": ""
-  },
-  "path": "Factory",
-  "album": "Luv Is Rage 2"
+  "path": "Pianoids",
+  "quoteBy": "BLUE STEEL"
  },
  {
   "song": "XO Tour Llif3",
@@ -8121,61 +8086,65 @@
   "song": "Yale",
   "artist": "Ken Carson",
   "producer": "Outtatown, Star Boy",
-  "plugin": "reFX Nexus 3",
+  "plugin": "reFX Nexus 4",
   "preset": "LD Energetic",
   "role": "lead",
   "confidence": "community",
   "source": {
-   "label": "",
-   "url": ""
+   "label": "YouTube: FAMOUS PRESETS #298: 'Yale' by Ken Carson",
+   "url": "https://www.youtube.com/watch?v=qQLjm9e8_Mo"
   },
   "path": "Trance Universe > LD Lead",
-  "album": "Project X"
+  "album": "Project X",
+  "quoteBy": "BLUE STEEL"
  },
  {
   "song": "Yale",
   "artist": "Ken Carson",
   "producer": "Outtatown, Star Boy",
-  "plugin": "reFX Nexus 3",
+  "plugin": "reFX Nexus 4",
   "preset": "SY Plain",
   "role": "synth",
   "confidence": "community",
   "source": {
-   "label": "",
-   "url": ""
+   "label": "YouTube: FAMOUS PRESETS #298: 'Yale' by Ken Carson",
+   "url": "https://www.youtube.com/watch?v=qQLjm9e8_Mo"
   },
   "path": "Minimal House > SY Synth",
-  "album": "Project X"
+  "album": "Project X",
+  "quoteBy": "BLUE STEEL"
  },
  {
   "song": "Yale",
   "artist": "Ken Carson",
   "producer": "Outtatown, Star Boy",
-  "plugin": "reFX Nexus 3",
+  "plugin": "reFX Nexus 4",
   "preset": "WW Panflute",
   "role": "flute",
   "confidence": "community",
   "source": {
-   "label": "",
-   "url": ""
+   "label": "YouTube: FAMOUS PRESETS #298: 'Yale' by Ken Carson",
+   "url": "https://www.youtube.com/watch?v=qQLjm9e8_Mo"
   },
   "path": "Factory Presets > WW Woodwind",
-  "album": "Project X"
+  "album": "Project X",
+  "quoteBy": "BLUE STEEL"
  },
  {
   "song": "Yale",
   "artist": "Ken Carson",
   "producer": "Outtatown, Star Boy",
-  "plugin": "reFX Nexus 3",
+  "plugin": "reFX Nexus 4",
   "preset": "BA No Name",
   "role": "bass",
   "confidence": "community",
   "source": {
-   "label": "",
-   "url": ""
+   "label": "YouTube: FAMOUS PRESETS #298: 'Yale' by Ken Carson",
+   "url": "https://www.youtube.com/watch?v=qQLjm9e8_Mo"
   },
   "path": "Minimal House > BA Bass",
-  "album": "Project X"
+  "album": "Project X",
+  "quoteBy": "BLUE STEEL"
  },
  {
   "song": "Butterfly",
