@@ -408,7 +408,6 @@ await Promise.all(
 // 8. Links: resolve every href seen against the data; open the ones the data cannot decide.
 log(`${hrefs.size} distinct internal links`);
 const open = [];
-let linkChecked = 0;
 for (const [h, from] of hrefs) {
   const path = data.toPath(h);
   if (path === "/not-found") {
@@ -416,7 +415,6 @@ for (const [h, from] of hrefs) {
     continue;
   }
   const r = data.resolves(path);
-  linkChecked++;
   if (r === false) fail("broken link", `${h} goes to a not-found page (seen on ${from})`, from);
   else if (r === null && !visits.some((v) => v.path === path)) open.push([h, path, from]);
 }
