@@ -14182,5 +14182,441 @@
   "quote": "Nylon Guitar - Various Songs, the first sound you hear on Truth or Dare (01 Version)",
   "quoteBy": "MrKiD",
   "album": "In Search Of..."
+ },
+ {
+  "song": "Hustlin'",
+  "artist": "Rick Ross",
+  "producer": "The Runners",
+  "plugin": "Yamaha Motif (hardware workstation)",
+  "preset": "Early Bird",
+  "role": "Organ",
+  "album": "Port Of Miami",
+  "confidence": "community",
+  "quote": "The organ sound from the runners everybody wanna know: \"Early Bird\" from a motif",
+  "quoteBy": "PHH (Future Producers forum)",
+  "source": {
+   "label": "Future Producers forum: Famous HipHop/Rap Preset Thread Pt2",
+   "url": "https://www.futureproducers.com/forums/threads/famous-hiphop-rap-preset-thread-pt2.190324/"
+  }
+ },
+ {
+  "song": "Where My Money (I Need That)",
+  "artist": "Rick Ross",
+  "producer": "The Runners",
+  "plugin": "Yamaha Motif (hardware workstation)",
+  "preset": "Early Bird",
+  "role": "Organ",
+  "album": "Port Of Miami",
+  "confidence": "community",
+  "quote": "\"Early Bird\" from a motif Used in: Hustlin Rick Ross Where my money Rick ross",
+  "quoteBy": "PHH (Future Producers forum)",
+  "source": {
+   "label": "Future Producers forum: Famous HipHop/Rap Preset Thread Pt2",
+   "url": "https://www.futureproducers.com/forums/threads/famous-hiphop-rap-preset-thread-pt2.190324/"
+  }
+ },
+ {
+  "song": "Blow",
+  "artist": "Rick Ross",
+  "producer": "Not stated",
+  "plugin": "Yamaha Motif ES (hardware workstation)",
+  "preset": "Free LFO",
+  "role": "Synth lead",
+  "album": "Port Of Miami",
+  "confidence": "community",
+  "quote": "Rick Ross \"Blow\" has the \"Free LFO\" synth lead patch from the Motif ES",
+  "quoteBy": "dmensah1 (Future Producers forum)",
+  "source": {
+   "label": "Future Producers forum: Famous HipHop/Rap Preset Thread Pt2",
+   "url": "https://www.futureproducers.com/forums/threads/famous-hiphop-rap-preset-thread-pt2.190324/"
+  }
+ },
+ {
+  "song": "This Is Why I'm Hot",
+  "artist": "Mims",
+  "producer": "Blackout Movement",
+  "plugin": "Yamaha Motif ES (hardware workstation)",
+  "preset": "Orbitsine",
+  "role": "Main melody (lead)",
+  "album": "Music Is My Savior",
+  "confidence": "community",
+  "quote": "the main melody in Mim's \"this is why I'm hot\" is \"Orbitsine\" lead preset from the Motif ES",
+  "quoteBy": "dmensah1 (Future Producers forum)",
+  "source": {
+   "label": "Future Producers forum: Famous HipHop/Rap Preset Thread Pt2",
+   "url": "https://www.futureproducers.com/forums/threads/famous-hiphop-rap-preset-thread-pt2.190324/"
+  }
+ },
+ {
+  "song": "Party Like a Rockstar",
+  "artist": "Shop Boyz",
+  "producer": "Not stated",
+  "plugin": "Yamaha Motif ES (hardware workstation)",
+  "preset": "Charan Lead",
+  "role": "Lead (most of the song)",
+  "album": "Rockstar Mentality",
+  "confidence": "community",
+  "quote": "pretty much that whole song is the \"Charan Lead\" from the motif ES",
+  "quoteBy": "dmensah1 (Future Producers forum)",
+  "source": {
+   "label": "Future Producers forum: Famous HipHop/Rap Preset Thread Pt2",
+   "url": "https://www.futureproducers.com/forums/threads/famous-hiphop-rap-preset-thread-pt2.190324/"
+  }
+ },
+ {
+  "song": "Burn",
+  "artist": "Usher",
+  "producer": "Jermaine Dupri, Bryan-Michael Cox",
+  "plugin": "Roland Fantom (hardware workstation)",
+  "preset": "Lazer Points",
+  "path": "Synth FX",
+  "role": "Synth FX at the start",
+  "album": "Confessions",
+  "confidence": "community",
+  "quote": "The synth Fx at the begining of Usher's \"Burn\" is from Fantom and it's called \"Lazer Points\"",
+  "quoteBy": "Baltov (Future Producers forum)",
+  "source": {
+   "label": "Future Producers forum: Famous HipHop/Rap Preset Thread Pt2",
+   "url": "https://www.futureproducers.com/forums/threads/famous-hiphop-rap-preset-thread-pt2.190324/"
+  }
+ },
+ {
+  "song": "Tell Me When to Go",
+  "artist": "E-40 feat. Keak da Sneak",
+  "producer": "Lil Jon",
+  "plugin": "E-mu Proteus 2000 (hardware module)",
+  "preset": "Swing Hop",
+  "role": "Kick and synth hit (drum kit preset, keys C3 and E3)",
+  "album": "My Ghetto Report Card",
+  "confidence": "community",
+  "quote": "E-40's \"tell me when to go\" is from the \"Swing Hop\" kit preset (keys C3 and E3) on the Emu Proteus 2000",
+  "quoteBy": "dmensah1 (Future Producers forum)",
+  "source": {
+   "label": "Future Producers forum: Famous HipHop/Rap Preset Thread Pt2",
+   "url": "https://www.futureproducers.com/forums/threads/famous-hiphop-rap-preset-thread-pt2.190324/"
+  }
+ },
+ {
+  "song": "Raise Up",
+  "artist": "Petey Pablo",
+  "producer": "Timbaland",
+  "plugin": "E-mu Proteus 2000 (hardware module)",
+  "preset": "Phatassassin",
+  "role": "Clap (drum kit preset, key A5)",
+  "album": "Diary of a Sinner: 1st Entry",
+  "confidence": "community",
+  "quote": "the clap from \"hey papi\" and \"raise up\" is from the \"Phatassassin\" kit preset (key A5) also on the Proteus 2000",
+  "quoteBy": "dmensah1 (Future Producers forum)",
+  "source": {
+   "label": "Future Producers forum: Famous HipHop/Rap Preset Thread Pt2",
+   "url": "https://www.futureproducers.com/forums/threads/famous-hiphop-rap-preset-thread-pt2.190324/"
+  }
+ },
+ {
+  "song": "Hey Papi",
+  "artist": "JAY-Z feat. Memphis Bleek & Amil",
+  "producer": "Timbaland",
+  "plugin": "E-mu Proteus 2000 (hardware module)",
+  "preset": "Phatassassin",
+  "role": "Clap (drum kit preset, key A5)",
+  "album": "Hey Papi",
+  "confidence": "community",
+  "quote": "the clap from \"hey papi\" and \"raise up\" is from the \"Phatassassin\" kit preset (key A5) also on the Proteus 2000",
+  "quoteBy": "dmensah1 (Future Producers forum)",
+  "source": {
+   "label": "Future Producers forum: Famous HipHop/Rap Preset Thread Pt2",
+   "url": "https://www.futureproducers.com/forums/threads/famous-hiphop-rap-preset-thread-pt2.190324/"
+  }
+ },
+ {
+  "song": "New York",
+  "artist": "Ja Rule feat. Fat Joe & Jadakiss",
+  "producer": "Cool & Dre",
+  "plugin": "Yamaha Motif (hardware workstation)",
+  "preset": "Big Drone",
+  "role": "Heavy synth",
+  "album": "R.U.L.E.",
+  "confidence": "community",
+  "quote": "Ja Rule- New York New York. The heavy synth is the preset on Motif called Big Drone.",
+  "quoteBy": "gballin123 (Future Producers forum); floss says the same in the Pt2 thread",
+  "source": {
+   "label": "Future Producers forum: rap music \"famous presets thread\"",
+   "url": "https://www.futureproducers.com/forums/threads/rap-music-famous-presets-thread.114041/"
+  }
+ },
+ {
+  "song": "Bartender",
+  "artist": "T-Pain feat. Akon",
+  "producer": "T-Pain",
+  "plugin": "Yamaha Motif (hardware workstation)",
+  "preset": "Sweetness",
+  "role": "Wurlitzer",
+  "album": "Epiphany",
+  "confidence": "community",
+  "quote": "T-Pain's bartender wurly is the \"Sweetness\" preset on the motif",
+  "quoteBy": "Dlc_Records (Future Producers forum)",
+  "source": {
+   "label": "Future Producers forum: Famous HipHop/Rap Preset Thread Pt2",
+   "url": "https://www.futureproducers.com/forums/threads/famous-hiphop-rap-preset-thread-pt2.190324/"
+  }
+ },
+ {
+  "song": "I'm So Hood",
+  "artist": "DJ Khaled feat. T-Pain, Trick Daddy, Rick Ross & Plies",
+  "producer": "The Runners",
+  "plugin": "Yamaha Motif ES (hardware workstation)",
+  "preset": "TrncHook",
+  "role": "Melody",
+  "album": "We The Best",
+  "confidence": "community",
+  "quote": "trnchook on motif es was used to make the melody for \"im so hood\" on khaled's album",
+  "quoteBy": "versatilebeatz (Future Producers forum)",
+  "source": {
+   "label": "Future Producers forum: Famous HipHop/Rap Preset Thread Pt2 (page 2)",
+   "url": "https://www.futureproducers.com/forums/threads/famous-hiphop-rap-preset-thread-pt2.190324/page-2"
+  }
+ },
+ {
+  "song": "Wait (The Whisper Song)",
+  "artist": "Ying Yang Twins",
+  "producer": "Mr. Collipark",
+  "plugin": "Roland Fantom (hardware workstation)",
+  "preset": "Hip Hop Kit 1",
+  "role": "Snap (drum kit preset)",
+  "album": "U.S.A. (United State of Atlanta)",
+  "confidence": "community",
+  "quote": "I found the intro sound for Usher - Burn in the Synth FX folder, and the snap for Ying Yang Twins - Wait in the hip hop kit 1",
+  "quoteBy": "orjanbeats (Future Producers forum)",
+  "source": {
+   "label": "Future Producers forum: Famous HipHop/Rap Preset Thread Pt2 (page 3)",
+   "url": "https://www.futureproducers.com/forums/threads/famous-hiphop-rap-preset-thread-pt2.190324/page-3"
+  }
+ },
+ {
+  "song": "Gimme the Light",
+  "artist": "Sean Paul",
+  "producer": "Troyton Rami",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": "Strato Chime",
+  "role": "Guitar",
+  "album": "Dutty Rock",
+  "confidence": "community",
+  "quote": "SeanPaul - Gimme The Light - Triton Strato Chime",
+  "quoteBy": "OsamaPigLatin (Future Producers forum)",
+  "source": {
+   "label": "Future Producers forum: rap music \"famous presets thread\"",
+   "url": "https://www.futureproducers.com/forums/threads/rap-music-famous-presets-thread.114041/"
+  }
+ },
+ {
+  "song": "Lean Back",
+  "artist": "Terror Squad",
+  "producer": "Scott Storch",
+  "plugin": "Novation Supernova II (hardware synth)",
+  "preset": "Down osc",
+  "role": "A specific synth sound",
+  "album": "True Story",
+  "confidence": "community",
+  "quote": "Fat Joe - Lean Back Down osc-Novation Supernova 2 Used for a specific synth sound",
+  "quoteBy": "beatzz (Future Producers forum)",
+  "source": {
+   "label": "Future Producers forum: rap music \"famous presets thread\"",
+   "url": "https://www.futureproducers.com/forums/threads/rap-music-famous-presets-thread.114041/"
+  }
+ },
+ {
+  "song": "Lean Back",
+  "artist": "Terror Squad",
+  "producer": "Scott Storch",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": "Digital Polysix",
+  "role": "Synth",
+  "album": "True Story",
+  "confidence": "community",
+  "quote": "(Disco Inferno, Lean Back) is called \"Digital Polysix\" also off the Triton.",
+  "quoteBy": "Red_venom (Future Producers forum)",
+  "source": {
+   "label": "Future Producers forum: rap music \"famous presets thread\" (page 2)",
+   "url": "https://www.futureproducers.com/forums/threads/rap-music-famous-presets-thread.114041/page-2"
+  }
+ },
+ {
+  "song": "Oh Boy",
+  "artist": "Cam'ron feat. Juelz Santana",
+  "producer": "Just Blaze",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": "Monkey Skulls",
+  "role": "Percussion",
+  "album": "Come Home With Me",
+  "confidence": "community",
+  "quote": "Just Blaze used the Monkey Skulls percussion preset off the Triton for Cam'Ron's \"Oh Boy\"",
+  "quoteBy": "Win T-I-P (Future Producers forum)",
+  "source": {
+   "label": "Future Producers forum: rap music \"famous presets thread\"",
+   "url": "https://www.futureproducers.com/forums/threads/rap-music-famous-presets-thread.114041/"
+  }
+ },
+ {
+  "song": "Southern Hospitality",
+  "artist": "Ludacris feat. Pharrell",
+  "producer": "The Neptunes",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": "Dark Night",
+  "role": "Car-passing effect (patch panned so only the car is heard)",
+  "album": "Back For The First Time",
+  "confidence": "community",
+  "quote": "Ludacris -  Southern Hospitality - Triton \"Dark Night\" preset edited whereas you only here the car passing.",
+  "quoteBy": "OsamaPigLatin (Future Producers forum)",
+  "source": {
+   "label": "Future Producers forum: rap music \"famous presets thread\"",
+   "url": "https://www.futureproducers.com/forums/threads/rap-music-famous-presets-thread.114041/"
+  }
+ },
+ {
+  "song": "You Owe Me",
+  "artist": "Nas feat. Ginuwine",
+  "producer": "Timbaland",
+  "plugin": "E-mu Proteus 2000 (hardware module)",
+  "preset": "Plexy Bass",
+  "role": "Bass",
+  "album": "Nastradamus",
+  "confidence": "community",
+  "quote": "plexy bass off proteus 2000 is used for ginuines/nas-you owe me, its the demo for the patch.",
+  "quoteBy": "Killjoy (Future Producers forum)",
+  "source": {
+   "label": "Future Producers forum: rap music \"famous presets thread\"",
+   "url": "https://www.futureproducers.com/forums/threads/rap-music-famous-presets-thread.114041/"
+  }
+ },
+ {
+  "song": "Only U",
+  "artist": "Ashanti",
+  "producer": "7 Aurelius, Irv Gotti",
+  "plugin": "Yamaha Motif (hardware workstation)",
+  "preset": "Rockabilly",
+  "role": "Guitar (insert effects boosted)",
+  "album": "Concrete Rose",
+  "confidence": "community",
+  "quote": "the guitar on ashanti's song \"only you\" is a preset off the motif called \"rockabilly\"",
+  "quoteBy": "j-traxx (Future Producers forum)",
+  "source": {
+   "label": "Future Producers forum: rap music \"famous presets thread\" (page 2)",
+   "url": "https://www.futureproducers.com/forums/threads/rap-music-famous-presets-thread.114041/page-2"
+  }
+ },
+ {
+  "song": "White Tee",
+  "artist": "Dem Franchize Boyz",
+  "producer": "Not stated",
+  "plugin": "Image-Line SimSynth (FL Studio)",
+  "preset": "BELL; LFO Moog_s",
+  "role": "Bell and Moog synth",
+  "album": "Dem Franchize Boyz",
+  "confidence": "community",
+  "quote": "\"white tees\" was obviously made wit fl studio...they din't even tweak the main presets are under sim synth: BELL and LFO Moog_s",
+  "quoteBy": "Wals Kronkite (Future Producers forum)",
+  "source": {
+   "label": "Future Producers forum: rap music \"famous presets thread\" (page 3)",
+   "url": "https://www.futureproducers.com/forums/threads/rap-music-famous-presets-thread.114041/page-3"
+  }
+ },
+ {
+  "song": "Playa's Only",
+  "artist": "R. Kelly feat. The Game",
+  "producer": "Scott Storch",
+  "plugin": "Yamaha Motif (hardware workstation)",
+  "preset": "Hiphop multikit",
+  "role": "Drums (kit preset)",
+  "album": "TP.3 Reloaded",
+  "confidence": "community",
+  "quote": "Storch-Playas only Hiphop multikit motif",
+  "quoteBy": "Dlc_Records (Future Producers forum)",
+  "source": {
+   "label": "Future Producers forum: Famous HipHop/Rap Preset Thread Pt2 (page 2)",
+   "url": "https://www.futureproducers.com/forums/threads/famous-hiphop-rap-preset-thread-pt2.190324/page-2"
+  }
+ },
+ {
+  "song": "Pop That Cannon",
+  "artist": "Cassidy feat. Styles P",
+  "producer": "Swizz Beatz",
+  "plugin": "E-mu XL-1 (hardware module)",
+  "preset": "Guitar Hits",
+  "role": "Guitar hits",
+  "album": "Split Personality",
+  "confidence": "community",
+  "quote": "Cassidy - Pop That Cannon produced by Swizz... Emu XL-1 Module Guitar Hits Preset",
+  "quoteBy": "OsamaPigLatin (Future Producers forum)",
+  "source": {
+   "label": "Future Producers forum: rap music \"famous presets thread\"",
+   "url": "https://www.futureproducers.com/forums/threads/rap-music-famous-presets-thread.114041/"
+  }
+ },
+ {
+  "song": "Dropped Out",
+  "artist": "Playboi Carti",
+  "producer": "Pi'erre Bourne",
+  "plugin": "FabFilter Twin 2",
+  "preset": "MW Rotor 2 DJM",
+  "path": "Keys, Organ",
+  "role": "Organ (pitched up +200)",
+  "confidence": "community",
+  "quote": "FabFilter Twin2: Keys, Organ - MW Rotor 2 DJM",
+  "quoteBy": "eza333",
+  "source": {
+   "label": "YouTube: How 'Dropped Out' by Playboi Carti was made (w/ Preset)",
+   "url": "https://www.youtube.com/watch?v=tblDHkz1LZE"
+  }
+ },
+ {
+  "song": "BrainWashed",
+  "artist": "Glokk40Spaz",
+  "producer": "Al Chapo",
+  "plugin": "AIR Music Technology Xpand!2",
+  "preset": "02 Ballad-String-Pad",
+  "path": "16 Strings",
+  "role": "Strings",
+  "album": "Dont Get Took Off 3",
+  "confidence": "community",
+  "quote": "Strings - Xpand2!: 16 Strings - 02 Ballad-String-Pad",
+  "quoteBy": "eza333",
+  "source": {
+   "label": "YouTube: (FLP) How 'BrainWashed' by Glokk40Spaz was made",
+   "url": "https://www.youtube.com/watch?v=HfJZA7bt-yo"
+  }
+ },
+ {
+  "song": "BrainWashed",
+  "artist": "Glokk40Spaz",
+  "producer": "Al Chapo",
+  "plugin": "AIR Music Technology Xpand!2",
+  "preset": "01 Steel String Acoustic",
+  "path": "21 Guitars",
+  "role": "Guitar",
+  "album": "Dont Get Took Off 3",
+  "confidence": "community",
+  "quote": "Guitar - Xpand2!: 21 Guitars - 01 Steel String Acoustic",
+  "quoteBy": "eza333",
+  "source": {
+   "label": "YouTube: (FLP) How 'BrainWashed' by Glokk40Spaz was made",
+   "url": "https://www.youtube.com/watch?v=HfJZA7bt-yo"
+  }
+ },
+ {
+  "song": "BrainWashed",
+  "artist": "Glokk40Spaz",
+  "producer": "Al Chapo",
+  "plugin": "AIR Music Technology Xpand!2",
+  "preset": "09 Marimba",
+  "path": "19 Mallets",
+  "role": "Mallet",
+  "album": "Dont Get Took Off 3",
+  "confidence": "community",
+  "quote": "Mallet - Xpand2!: 19 Mallets - 09 Marimba",
+  "quoteBy": "eza333",
+  "source": {
+   "label": "YouTube: (FLP) How 'BrainWashed' by Glokk40Spaz was made",
+   "url": "https://www.youtube.com/watch?v=HfJZA7bt-yo"
+  }
  }
 ]
