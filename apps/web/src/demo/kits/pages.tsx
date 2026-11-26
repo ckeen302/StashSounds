@@ -295,7 +295,7 @@ export function KitPage({ id }: { id: string }) {
 
   return (
     <main className="mx-auto flex w-full max-w-content flex-col gap-6 px-3 py-8 tablet:px-4 desktop:px-6">
-      <header className="flex flex-col gap-4 rounded-panel border border-border bg-surface p-6">
+      <header className="flex flex-col gap-4 rounded-panel border border-border bg-surface p-4 tablet:p-6">
         <div className="flex flex-col gap-4 tablet:flex-row tablet:items-start tablet:justify-between">
           <div className="flex min-w-0 items-center gap-4">
             <PlayButton size="hero" title={`a preview of ${k.name}`} state="paused" onClick={() => preview(k)} />
@@ -312,10 +312,12 @@ export function KitPage({ id }: { id: string }) {
               )}
             </div>
           </div>
-          <div className="flex flex-wrap gap-2">
+          {/* On a phone: Download across the top, Crate and Like side by side under it. */}
+          <div className="grid grid-cols-2 gap-2 *:w-full tablet:flex tablet:flex-wrap tablet:*:w-auto">
             <Button
               variant="primary"
               icon={Download}
+              className="col-span-2"
               onClick={() => void saveKit(k, toast)}
             >
               Download kit
@@ -359,11 +361,11 @@ export function KitPage({ id }: { id: string }) {
 
       <div role="group" aria-label="Sound type" className="flex flex-wrap gap-2">
         <FilterChip selected={cat === "all"} onToggle={() => pick("all")}>
-          {`All ${k.sounds.length}`}
+          All
         </FilterChip>
         {CATEGORIES.filter((c) => counts(c.id) > 0).map((c) => (
           <FilterChip key={c.id} selected={cat === c.id} onToggle={() => pick(c.id)}>
-            {`${c.plural} ${counts(c.id)}`}
+            {c.plural}
           </FilterChip>
         ))}
       </div>
@@ -524,7 +526,7 @@ export function KitUploadPage({ embedded = false }: { embedded?: boolean } = {})
         <>
           <section aria-label="Sounds in the kit" className="flex flex-col gap-3">
             <div className="flex items-end justify-between gap-3">
-              <h2 className="text-title">{`${rows.length} sounds`}</h2>
+              <h2 className="text-title">Sounds</h2>
               <span className="text-small text-text-muted">{summary(rows)}</span>
             </div>
             <div className="overflow-hidden rounded-panel border border-border bg-surface">

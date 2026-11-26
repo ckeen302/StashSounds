@@ -182,7 +182,6 @@ export function BrowsePage({ catalog, rows, renderLoops, only }: { catalog: Cata
     .sort(SORTS[f.sort].by);
   const loops = shown.filter((s) => s.row).map((s) => s.row!);
   const midi = shown.filter((s) => s.item).map((s) => s.item!);
-  const genreCount = (g: string) => all.filter((s) => s.genres.includes(g)).length;
   const touched = JSON.stringify(f) !== JSON.stringify(DEFAULT);
 
   return (
@@ -198,7 +197,7 @@ export function BrowsePage({ catalog, rows, renderLoops, only }: { catalog: Cata
           <div role="group" aria-label="Type" className={`flex flex-wrap gap-2 ${only ? "hidden" : ""}`}>
             {(["all", "loop", "midi"] as const).map((t) => (
               <FilterChip key={t} selected={f.type === t} onToggle={() => update({ type: t })}>
-                {`${t === "all" ? "All" : t === "loop" ? "Loops" : "MIDI"} ${t === "all" ? all.length : all.filter((s) => s.type === t).length}`}
+                {t === "all" ? "All" : t === "loop" ? "Loops" : "MIDI"}
               </FilterChip>
             ))}
           </div>
@@ -209,7 +208,7 @@ export function BrowsePage({ catalog, rows, renderLoops, only }: { catalog: Cata
           <div role="group" aria-label="Genre" className="flex flex-wrap gap-2">
             {GENRES.map((g) => (
               <FilterChip key={g.name} selected={f.genre === g.name} onToggle={() => update({ genre: f.genre === g.name ? null : g.name })}>
-                {`${g.name} ${genreCount(g.name)}`}
+                {g.name}
               </FilterChip>
             ))}
           </div>
@@ -260,7 +259,7 @@ export function BrowsePage({ catalog, rows, renderLoops, only }: { catalog: Cata
             ))}
           </div>
           <div className="flex items-center gap-3">
-            <span aria-live="polite" className="font-mono text-numeric tabular text-text">{`${shown.length} ${shown.length === 1 ? "sound" : "sounds"}`}</span>
+            <span aria-live="polite" className="sr-only">{`${shown.length} ${shown.length === 1 ? "sound" : "sounds"}`}</span>
             {touched && (
               <Button size="sm" variant="ghost" onClick={() => update(DEFAULT)}>
                 Clear filters
@@ -272,7 +271,7 @@ export function BrowsePage({ catalog, rows, renderLoops, only }: { catalog: Cata
 
       {loops.length > 0 && (
         <section className="flex flex-col gap-3">
-          <h2 className="text-title">{`Loops ${loops.length}`}</h2>
+          <h2 className="text-title">Loops</h2>
           {renderLoops("Loops", loops)}
         </section>
       )}
@@ -373,7 +372,7 @@ export function ProfilePage({ handle, catalog, rows, renderLoops, kits = null, k
 
       {loops.length > 0 && (
         <section className="flex flex-col gap-3">
-          <h2 className="text-title">{`Loops ${loops.length}`}</h2>
+          <h2 className="text-title">Loops</h2>
           {renderLoops(`Loops by ${p.displayName}`, loops)}
         </section>
       )}
@@ -594,13 +593,13 @@ export function LibraryPage({ catalog, rows, renderLoops }: { catalog: Catalog; 
 
       <nav aria-label="Library sections" className="flex flex-wrap gap-2">
         {[
-          ["#lib-crates", `Crates ${list.length}`],
-          ["#lib-likes", `Likes ${liked.length}`],
-          ["#lib-receipts", `Receipts ${slips.length}`],
-          ["#lib-following", `Following ${followed.length}`],
-          ["#lib-posts", `Your posts ${mine.length}`],
+          ["#lib-crates", "Crates"],
+          ["#lib-likes", "Likes"],
+          ["#lib-receipts", "Receipts"],
+          ["#lib-following", "Following"],
+          ["#lib-posts", "Your posts"],
         ].map(([href, label]) => (
-          <a key={href} href={href} onClick={(e) => { e.preventDefault(); document.querySelector(href!)?.scrollIntoView({ behavior: "smooth" }); }} className="rounded-control border border-border px-3 py-2 text-small text-text ui-hover:border-border-strong">
+          <a key={href} href={href} onClick={(e) => { e.preventDefault(); document.querySelector(href!)?.scrollIntoView({ behavior: "smooth" }); }} className="inline-flex min-h-11 items-center rounded-control border border-border px-3 text-small text-text ui-hover:border-border-strong">
             {label}
           </a>
         ))}
@@ -731,7 +730,7 @@ export function CreatorsPage({ catalog, rows, kitCounts }: { catalog: Catalog; r
         <p className="text-body text-text-muted">Everyone posting sounds here. Follow someone and their new sounds rise to the top of Home and Loops.</p>
       </header>
       <ul aria-label="Producers" className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-3">
-        {people.map(({ p, n, followers }) => {
+        {people.map(({ p }) => {
           const own = p.id === VIEWER.id;
           const following = has("follows", p.id);
           return (
@@ -742,7 +741,6 @@ export function CreatorsPage({ catalog, rows, kitCounts }: { catalog: Catalog; r
                   {p.displayName}
                 </UiLink>
                 <span className="truncate text-small text-text-muted">{`@${p.handle}`}</span>
-                <span className="truncate font-mono text-numeric tabular text-text-muted">{`${n.toLocaleString("en")} ${n === 1 ? "sound" : "sounds"} · ${followers} ${followers === 1 ? "follower" : "followers"}`}</span>
               </div>
               {!own && (
                 <Button size="sm" variant={following ? "secondary" : "primary"} icon={following ? Check : UserPlus} aria-pressed={following} onClick={() => setFollow(p.id, !following)}>

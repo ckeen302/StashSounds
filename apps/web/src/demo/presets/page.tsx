@@ -258,7 +258,7 @@ export function PresetsPage() {
       </ul>
       {songs.length > limit && (
         <Button variant="secondary" className="self-center" onClick={() => setLimit(limit + PAGE)}>
-          {`Show ${Math.min(PAGE, songs.length - limit)} more of ${songs.length - limit}`}
+          Show more
         </Button>
       )}
       {songs.length === 0 && (

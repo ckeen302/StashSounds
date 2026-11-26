@@ -476,3 +476,18 @@ html body { color: var(--color-text); background-color: var(--color-bg); }
 .st-daw-row { cursor: grab; }
 .st-daw-row:active { cursor: grabbing; }
 .st-daw-row :where(button, a, input, .touch-none, [role="slider"]) { cursor: pointer; }
+
+/* The demo tabs on a narrow screen: the strip scrolls, so fade the edge that has more tabs past it
+   instead of cutting a word in half. */
+.demo-tabs { scrollbar-width: none; }
+.demo-tabs[data-after="true"] { mask-image: linear-gradient(to right, black calc(100% - 32px), transparent); }
+.demo-tabs[data-before="true"] { mask-image: linear-gradient(to left, black calc(100% - 32px), transparent); }
+.demo-tabs[data-before="true"][data-after="true"] { mask-image: linear-gradient(to right, transparent, black 32px, black calc(100% - 32px), transparent); }
+/* Phone tap targets: the pill tabs and the library icon are at least 40px tall. */
+html[data-look="stash"] nav[aria-label="Demo sections"] a { height: 40px; min-width: 40px; justify-content: center; }
+/* Phone tap targets: the small tag buttons (tags on a loop, search examples) keep their look but take
+   a taller touch area, so a thumb does not miss them. */
+@media (pointer: coarse) {
+  button.h-6.rounded-control { position: relative; }
+  button.h-6.rounded-control::after { content: ""; position: absolute; inset: -6px -4px; }
+}

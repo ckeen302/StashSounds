@@ -990,11 +990,6 @@ function AllMidi() {
   }, [all]);
   const kinded = midi.filter((m) => midiFilter(m, kind));
   const shown = prog ? kinded.filter((m) => m.song && progressionOf(m.song)?.label === prog) : kinded;
-  const packCounts = useMemo(() => {
-    const n = new Map<string, number>();
-    for (const m of all) if (m.pack) n.set(m.pack.name, (n.get(m.pack.name) ?? 0) + 1);
-    return n;
-  }, [all]);
   const packs = CHORD_PACKS.filter((p) => style === "all" || PACKS_BY_STYLE.get(style)?.has(p.name));
   const filtered = style !== "all" || tempo !== "all" || keyRoot !== "all" || keyMode !== "all" || !!packName;
   // A new filter starts the list at its first page again.
@@ -1104,7 +1099,6 @@ function AllMidi() {
                     <span className="st-hero-title text-title text-text">{p.name}</span>
                     <span className="shrink-0 text-small text-text-muted">{p.style}</span>
                   </span>
-                  <span className="text-small text-text">{`${packCounts.get(p.name) ?? 0} progressions`}</span>
                   <span className="line-clamp-2 text-small text-text-muted">{p.description}</span>
                 </button>
               </li>
@@ -1130,7 +1124,7 @@ function AllMidi() {
           )}
         </section>
       )}
-      {progressions.length > 0 && !filtered && (
+      {progressions.length > 0 && !filtered && (!q || prog) && (
         <section aria-labelledby="progressions" className="flex flex-col gap-3">
           <div className="flex items-end justify-between gap-3">
             <div className="flex flex-col gap-1">
@@ -1174,7 +1168,7 @@ function AllMidi() {
           </FilterChip>
         ))}
       </div>
-      <MidiList label="MIDI" items={shown.slice(0, limit)} />
+      {shown.length > 0 && <MidiList label="MIDI" items={shown.slice(0, limit)} />}
       {shown.length === 0 && <p className="text-body text-text-muted">Nothing matches. Clear a filter or the search.</p>}
       {shown.length > limit && (
         <Button variant="secondary" size="sm" className="self-start" onClick={() => setLimit(limit + PAGE)}>
@@ -1209,36 +1203,51 @@ function DemoTabs() {
         (href === "/samples" && (path.startsWith("/samples") || path.startsWith("/sampled/"))) ||
         (href === "/kits" &&
           (path.startsWith("/kit/") || path === "/kit-upload"));
-  // On a phone the strip scrolls: keep the current tab in view (opening Samples from a link shows it).
+  // On a phone the strip scrolls: keep the current tab in view (opening Samples from a link shows it),
+  // and fade whichever edge has more tabs past it.
   const strip = useRef<HTMLUListElement>(null);
+  useEffect(() => {
+    const ul = strip.current;
+    if (!ul) return;
+    const edges = () => {
+      ul.dataset.before = String(ul.scrollLeft > 2);
+      ul.dataset.after = String(ul.scrollLeft + ul.clientWidth < ul.scrollWidth - 2);
+    };
+    edges();
+    ul.addEventListener("scroll", edges, { passive: true });
+    window.addEventListener("resize", edges);
+    return () => {
+      ul.removeEventListener("scroll", edges);
+      window.removeEventListener("resize", edges);
+    };
+  }, []);
   useEffect(() => {
     const ul = strip.current;
     const tab = ul?.querySelector<HTMLElement>('[aria-current="page"]');
     if (!ul || !tab || ul.scrollWidth <= ul.clientWidth) return;
     const left = tab.offsetLeft - ul.offsetLeft;
-    if (left < ul.scrollLeft || left + tab.offsetWidth > ul.scrollLeft + ul.clientWidth - 48)
+    if (left < ul.scrollLeft + 24 || left + tab.offsetWidth > ul.scrollLeft + ul.clientWidth - 24)
       ul.scrollTo({ left: Math.max(0, left - 24), behavior: "smooth" });
   }, [path]);
   return (
     <nav aria-label="Demo sections" className="border-b border-border bg-bg">
-      <ul ref={strip} className="mx-auto flex max-w-content gap-1 overflow-x-auto px-3 tablet:px-4 desktop:px-6">
-        {TABS.map((t) => (
-          <li key={t.href} className="shrink-0">
-            <UiLink
-              href={t.href}
-              aria-current={current(t.href) ? "page" : undefined}
-              className={`flex h-11 items-center border-b-2 px-3 text-body-strong ${current(t.href) ? "border-accent text-text" : "border-transparent text-text-muted ui-hover:text-text"}`}
-            >
-              {t.name}
-            </UiLink>
-          </li>
-        ))}
-        <li className="sticky right-0 ml-auto flex shrink-0 items-center bg-bg pl-1">
-          {/* On a phone the tabs scroll under this icon: fade them out instead of cutting a word. */}
-          <span aria-hidden className="pointer-events-none absolute top-0 right-full h-full w-6 bg-linear-to-l from-bg to-transparent desktop:hidden" />
-          <IconLink href="/library" icon={LibraryIcon} label="Your crates and license receipts" aria-current={path === "/library" ? "page" : undefined} />
-        </li>
-      </ul>
+      <div className="mx-auto flex max-w-content items-center gap-1 pr-3 tablet:pr-4 desktop:pr-6">
+        <ul ref={strip} className="demo-tabs flex min-w-0 flex-1 gap-1 overflow-x-auto pl-3 tablet:pl-4 desktop:pl-6">
+          {TABS.map((t) => (
+            <li key={t.href} className="shrink-0">
+              <UiLink
+                href={t.href}
+                aria-current={current(t.href) ? "page" : undefined}
+                className={`flex h-11 items-center border-b-2 px-3 text-body-strong ${current(t.href) ? "border-accent text-text" : "border-transparent text-text-muted ui-hover:text-text"}`}
+              >
+                {t.name}
+              </UiLink>
+            </li>
+          ))}
+        </ul>
+        {/* Outside the scrolling strip, so the tabs never show past it on a phone. */}
+        <IconLink href="/library" icon={LibraryIcon} label="Your crates and license receipts" aria-current={path === "/library" ? "page" : undefined} />
+      </div>
     </nav>
   );
 }

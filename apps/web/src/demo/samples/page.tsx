@@ -298,7 +298,7 @@ export function SamplesPage() {
           className="self-center"
           onClick={() => setLimit(limit + PAGE)}
         >
-          {`Show ${Math.min(PAGE, shown - limit)} more of ${(shown - limit).toLocaleString("en-US")}`}
+          Show more
         </Button>
       )}
       {shown === 0 && (

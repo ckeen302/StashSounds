@@ -8,9 +8,9 @@ import {
   Button,
   ButtonLink,
   Download,
+  formatCount,
   Ellipsis,
   FilterChip,
-  formatCount,
   Heart,
   IconButton,
   Menu,
@@ -34,7 +34,7 @@ import { Why, SmartSearch } from "./search-ui";
 import { loopProfile } from "./search-index";
 import { likeness, match, parseQuery, quality, type Profile } from "./smart-search";
 import { addPlay, plays, set } from "./store";
-import { CommentGlyph, Comments, commentCount, trendScore, useSocialVersion } from "./social";
+import { CommentGlyph, Comments, commentCount, countOrNone, trendScore, useSocialVersion } from "./social";
 import { navigate } from "./router";
 
 /**
@@ -83,7 +83,7 @@ const trend = (l: Loop) =>
 
 /** A count button in a loop's corner: like, download, comment. */
 const PILL =
-  "inline-flex h-8 items-center gap-1.5 rounded-control border border-border bg-raised px-2.5 font-mono text-numeric tabular text-text-muted ui-hover:border-border-strong ui-hover:text-text aria-pressed:border-accent aria-pressed:text-accent aria-pressed:*:fill-current aria-expanded:border-border-strong aria-expanded:text-text disabled:opacity-60";
+  "inline-flex h-8 min-w-8 items-center justify-center gap-1.5 rounded-control border border-border bg-raised px-2.5 font-mono text-numeric tabular text-text-muted ui-hover:border-border-strong ui-hover:text-text aria-pressed:border-accent aria-pressed:text-accent aria-pressed:*:fill-current aria-expanded:border-border-strong aria-expanded:text-text disabled:opacity-60";
 
 const SORTS: Record<
   string,
@@ -368,6 +368,8 @@ export function LoopsPage({
     ...(f.tsig !== "all" ? [[f.tsig, { tsig: "all" }] as [string, Partial<Filters>]] : []),
     ...(f.when !== "all" ? [[WHEN.find((w) => w.id === f.when)!.label, { when: "all" }] as [string, Partial<Filters>]] : []),
   ];
+  // The search box already shows its own words: the filter row lists only the filters.
+  const filtersOn = applied.filter(([, patch]) => !("q" in patch));
 
   const engine = getEngine();
   const currentId = usePlayerState((s) => s.current?.id ?? null);
@@ -390,7 +392,7 @@ export function LoopsPage({
             <SmartSearch value={f.q} onChange={(v) => update({ q: v, like: null })} examples={[]} placeholder="Search loops: dark piano 140" />
           </div>
           <Button size="md" variant={filtersOpen ? "primary" : "secondary"} aria-expanded={filtersOpen} onClick={() => setFiltersOpen(!filtersOpen)}>
-            {applied.length ? `Filters · ${applied.length}` : "Filters"}
+            {filtersOn.length ? `Filters · ${filtersOn.length}` : "Filters"}
           </Button>
           {/* The Upload tab is one tap away in the nav on a phone. */}
           <ButtonLink href="/upload" variant="secondary" size="md" className="st-wide-only">
@@ -526,19 +528,19 @@ export function LoopsPage({
         {/* One sideways row on a phone, so the loops stay near the top; wrapped from tablet up. */}
         <div role="group" aria-label="Popular tags" className="-mx-3 flex items-center gap-2 overflow-x-auto border-t border-border px-3 pt-3 pb-1 tablet:mx-0 tablet:flex-wrap tablet:overflow-visible tablet:px-0 tablet:pb-0">
           <span className="text-label text-label-caps text-text-muted">Popular tags</span>
-          {cloud.map(([t, n]) => (
+          {cloud.map(([t]) => (
             <FilterChip key={t} selected={f.tags.includes(t)} onToggle={() => toggleTag(t)}>
-              {`${t} ${n}`}
+              {t}
             </FilterChip>
           ))}
         </div>
       </section>
       )}
 
-      {applied.length > 0 && (
+      {filtersOn.length > 0 && (
         <div role="group" aria-label="Filters on" className="flex flex-wrap items-center gap-2">
           <span className="text-label text-label-caps text-text-muted">Showing</span>
-          {applied.map(([label, patch]) => (
+          {filtersOn.map(([label, patch]) => (
             <TagChip
               key={label}
               onRemove={() => {
@@ -783,19 +785,21 @@ function LoopEntry({
             className={PILL}
           >
             <Heart className="size-4" aria-hidden="true" />
-            {formatCount(row.likesCount)}
+            {countOrNone(row.likesCount)}
           </button>
           <button type="button" aria-label={`Download ${row.title}, ${row.downloadsCount} downloads`} onClick={() => void download()} disabled={saving} className={PILL}>
             <Download className="size-4" aria-hidden="true" />
-            {formatCount(row.downloadsCount)}
+            {countOrNone(row.downloadsCount)}
           </button>
-          <span aria-label={`${plays(row.id)} plays`} title="Plays" className={PILL}>
-            <PlayGlyph />
-            {formatCount(plays(row.id))}
-          </span>
+          {plays(row.id) > 0 && (
+            <span aria-label={`${plays(row.id)} plays`} title="Plays" className={PILL}>
+              <PlayGlyph />
+              {formatCount(plays(row.id))}
+            </span>
+          )}
           <button type="button" aria-expanded={talk} aria-label={`Comments on ${row.title}, ${comments}`} onClick={() => setTalk(!talk)} className={PILL}>
             <CommentGlyph />
-            {formatCount(comments)}
+            {countOrNone(comments)}
           </button>
         </div>
       </div>
