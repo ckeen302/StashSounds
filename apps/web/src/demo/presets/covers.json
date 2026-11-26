@@ -10822,5 +10822,133 @@
    "label": "Deezer, Man of the Woods",
    "url": "https://www.deezer.com/album/55996842"
   }
+ },
+ "waves|kanye west": {
+  "file": "covers/waves-kanye-west.jpg",
+  "album": "The Life Of Pablo",
+  "source": {
+   "label": "Deezer, The Life Of Pablo",
+   "url": "https://www.deezer.com/album/13357219"
+  }
+ },
+ "war|drake": {
+  "file": "covers/war-drake.jpg",
+  "album": "Dark Lane Demo Tapes",
+  "source": {
+   "label": "Deezer, Dark Lane Demo Tapes",
+   "url": "https://www.deezer.com/album/145596282"
+  }
+ },
+ "shyne|travis scott": {
+  "file": "covers/shyne-travis-scott.jpg",
+  "album": "JACKBOYS 2",
+  "source": {
+   "label": "Deezer, JACKBOYS 2",
+   "url": "https://www.deezer.com/album/787248701"
+  }
+ },
+ "2 hard 4 the radio|drake": {
+  "file": "covers/2-hard-4-the-radio-drake.jpg",
+  "album": "ICEMAN",
+  "source": {
+   "label": "Deezer, ICEMAN",
+   "url": "https://www.deezer.com/album/983236081"
+  }
+ },
+ "hot|young thug feat. gunna": {
+  "file": "covers/hot-young-thug-feat-gunna.jpg",
+  "album": "So Much Fun",
+  "source": {
+   "label": "Deezer, So Much Fun",
+   "url": "https://www.deezer.com/album/107511992"
+  }
+ },
+ "aston martin music|rick ross": {
+  "file": "covers/aston-martin-music-rick-ross.jpg",
+  "album": "Teflon Don",
+  "source": {
+   "label": "Deezer, Teflon Don",
+   "url": "https://www.deezer.com/album/629517"
+  }
+ },
+ "lil demon|future": {
+  "file": "covers/lil-demon-future.jpg",
+  "album": "MIXTAPE PLUTO",
+  "source": {
+   "label": "Deezer, MIXTAPE PLUTO",
+   "url": "https://www.deezer.com/album/644715771"
+  }
+ },
+ "empty|juice wrld": {
+  "file": "covers/empty-juice-wrld.jpg",
+  "album": "Death Race For Love (Bonus Track Version)",
+  "source": {
+   "label": "Deezer, Death Race For Love (Bonus Track Version)",
+   "url": "https://www.deezer.com/album/290509042"
+  }
+ },
+ "lost souls|baby keem": {
+  "file": "covers/lost-souls-baby-keem.jpg",
+  "album": "The Melodic Blue",
+  "source": {
+   "label": "Deezer, The Melodic Blue",
+   "url": "https://www.deezer.com/album/260381642"
+  }
+ },
+ "jersey|future": {
+  "file": "covers/jersey-future.jpg",
+  "album": "What A Time To Be Alive",
+  "source": {
+   "label": "Deezer, What A Time To Be Alive",
+   "url": "https://www.deezer.com/album/11250516"
+  }
+ },
+ "no scrubs|tlc": {
+  "file": "covers/no-scrubs-tlc.jpg",
+  "album": "Fanmail",
+  "source": {
+   "label": "Deezer, Fanmail",
+   "url": "https://www.deezer.com/album/116323"
+  }
+ },
+ "bills, bills, bills|destiny's child": {
+  "file": "covers/bills-bills-bills-destiny-s-child.jpg",
+  "album": "The Writing's On The Wall",
+  "source": {
+   "label": "Deezer, The Writing's On The Wall",
+   "url": "https://www.deezer.com/album/74843"
+  }
+ },
+ "birthday cake|rihanna": {
+  "file": "covers/birthday-cake-rihanna.jpg",
+  "album": "Talk That Talk",
+  "source": {
+   "label": "Deezer, Talk That Talk",
+   "url": "https://www.deezer.com/album/1334690"
+  }
+ },
+ "bop|dababy": {
+  "file": "covers/bop-dababy.jpg",
+  "album": "KIRK",
+  "source": {
+   "label": "Deezer, KIRK",
+   "url": "https://www.deezer.com/album/112139492"
+  }
+ },
+ "what's next|drake": {
+  "file": "covers/what-s-next-drake.jpg",
+  "album": "Scary Hours 2",
+  "source": {
+   "label": "Deezer, Scary Hours 2",
+   "url": "https://www.deezer.com/album/212457792"
+  }
+ },
+ "desires|drake feat. future": {
+  "file": "covers/desires-drake-feat-future.jpg",
+  "album": "Dark Lane Demo Tapes",
+  "source": {
+   "label": "Deezer, Dark Lane Demo Tapes",
+   "url": "https://www.deezer.com/album/145596282"
+  }
  }
 }

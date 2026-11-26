@@ -19723,5 +19723,248 @@
   "quoteBy": "imamusicmogul",
   "path": "Bass (Hard)",
   "album": "Man of the Woods"
+ },
+ {
+  "song": "Waves",
+  "artist": "Kanye West",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Gospel Choir Ohs",
+  "role": "Choir",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #356: \"Waves\" by Kanye West (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/ZuzV8lmDn7A"
+  },
+  "quote": "On screen: Omnisphere browser, \"Gospel Choir Ohs\" loaded (Omnisphere Library Patch), captioned \"Waves\" by Kanye West",
+  "quoteBy": "BLUE STEEL",
+  "album": "The Life Of Pablo"
+ },
+ {
+  "song": "War",
+  "artist": "Drake",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Fizzy VP-330 Vox",
+  "role": "Vox synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #512: \"War\" by Drake (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/qU7jycIwiJQ"
+  },
+  "quote": "On screen: Omnisphere, \"Fizzy VP-330 Vox\" loaded (Omnisphere Library Patch)",
+  "quoteBy": "BLUE STEEL",
+  "album": "Dark Lane Demo Tapes"
+ },
+ {
+  "song": "SHYNE",
+  "artist": "Travis Scott",
+  "plugin": "reFX Nexus",
+  "preset": "Brass Army [MW]",
+  "role": "Brass",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #509: \"SHYNE\" by Travis Scott (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/B-GJ1fhkW_M"
+  },
+  "quote": "On screen: Nexus 4, \"Brass Army [MW]\" loaded, window titled \"Brass - SHYNE (Travis Scott)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "JACKBOYS 2"
+ },
+ {
+  "song": "2 Hard 4 The Radio",
+  "artist": "Drake",
+  "plugin": "Arturia Jup-8 V",
+  "preset": "Acid Attack",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #507: \"2 Hard 4 Radio\" by Drake (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/xHchoKqIwBs"
+  },
+  "quote": "On screen: Arturia Jup-8 V4, \"Acid Attack*\" loaded (the asterisk marks an edited patch), track titled \"Lead - 2 Hard 4 Radio (Drake)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "ICEMAN"
+ },
+ {
+  "song": "Hot",
+  "artist": "Young Thug feat. Gunna",
+  "plugin": "reFX Nexus",
+  "preset": "Brass Trap 1",
+  "role": "Brass",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #503: \"Hot\" by Young Thug (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/sPZa5HeQ6nc"
+  },
+  "quote": "On screen: Nexus 4, \"Brass Trap 1 - BAZZABEATS-GOWILD-NEXUS-TRAP-EXPANSION\" loaded",
+  "quoteBy": "BLUE STEEL",
+  "album": "So Much Fun",
+  "path": "BAZZABEATS GOWILD Nexus Trap Expansion"
+ },
+ {
+  "song": "Aston Martin Music",
+  "artist": "Rick Ross",
+  "plugin": "Luxonix Purity",
+  "preset": "Partial",
+  "role": "Keys",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #501: \"Aston Martin Music\" by Rick Ross (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/p6bWfCGSeq8"
+  },
+  "quote": "On screen: Purity, display reads \"Fast Synth / Partial\", window titled \"Keys - Aston Martin Music (Rick Ross)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Teflon Don",
+  "path": "Fast Synth"
+ },
+ {
+  "song": "LIL DEMON",
+  "artist": "Future",
+  "plugin": "Arturia CZ V",
+  "preset": "Twilight Lead",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #493: \"Lil Demon\" by Future (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/kjsBKTa8CCk"
+  },
+  "quote": "On screen: Arturia CZ V, \"Twilight Lead*\" loaded (the asterisk marks an edited patch)",
+  "quoteBy": "BLUE STEEL",
+  "album": "MIXTAPE PLUTO"
+ },
+ {
+  "song": "Empty",
+  "artist": "Juice WRLD",
+  "plugin": "Spectrasonics Keyscape",
+  "preset": "LA Custom C7 Grand Piano",
+  "role": "Piano",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #489: \"Empty\" by Juice WRLD (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/GA6393KBiJM"
+  },
+  "quote": "On screen: Keyscape, \"LA Custom C7 Grand Piano\" loaded",
+  "quoteBy": "BLUE STEEL",
+  "album": "Death Race For Love"
+ },
+ {
+  "song": "lost souls",
+  "artist": "Baby Keem",
+  "plugin": "Roland Cloud JUNO-106",
+  "preset": "BL Magic Bells",
+  "role": "Bells",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #486: \"Lost Souls\" by Baby Keem (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/HqWJ6WASzdk"
+  },
+  "quote": "On screen: Roland JUNO-106 plugin, patch display reads \"BL Magic Bells\", captioned \"Lost Souls\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "The Melodic Blue"
+ },
+ {
+  "song": "Jersey",
+  "artist": "Future",
+  "plugin": "reFX Nexus",
+  "preset": "Bellpad 3",
+  "role": "Bell",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #477: \"Jersey\" by Future (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/0IHyeCBQhJI"
+  },
+  "quote": "On screen: Nexus 4, \"Bellpad 3\" loaded, window titled \"Bell_Jersey (Future)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "What A Time To Be Alive"
+ },
+ {
+  "song": "No Scrubs",
+  "artist": "TLC",
+  "plugin": "Kurzweil K2000 (hardware)",
+  "preset": "015 Steel Str Guitar",
+  "role": "Guitar",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #456: \"No Scrubs\" by TLC (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/1jIIjKuyHvs"
+  },
+  "quote": "On screen: Logic Sampler zone labelled Kurzweil K2000 - \"015 Steel Str Guitar\", captioned \"No Scrubs\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Fanmail"
+ },
+ {
+  "song": "Bills, Bills, Bills",
+  "artist": "Destiny's Child",
+  "plugin": "Roland ZENOLOGY Pro",
+  "preset": "110 Steel Away",
+  "role": "Acoustic guitar",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #452: \"Bills, Bills, Bills\" by Destiny's Child (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/SE7V33xyRnQ"
+  },
+  "quote": "On screen: Roland ZENOLOGY Pro, preset bank \"PRST_E XV Collection\", \"110: Steel Away\" (Ac.Guitar), captioned \"Bills, Bills, Bills\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "The Writing's On The Wall",
+  "path": "XV Collection"
+ },
+ {
+  "song": "Birthday Cake",
+  "artist": "Rihanna",
+  "plugin": "LennarDigital Sylenth1",
+  "preset": "023 HOV Dominator",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #447: \"Birthday Cake\" by Rihanna (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/CitExbxakLM"
+  },
+  "quote": "On screen: Sylenth1, display reads \"023: HOV Dominator\", window titled \"Lead_Birthday Cake (Rihanna)\" (the same patch shows in FAMOUS PRESETS #427)",
+  "quoteBy": "BLUE STEEL",
+  "album": "Talk That Talk"
+ },
+ {
+  "song": "BOP",
+  "artist": "DaBaby",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Mellotron Flute",
+  "role": "Flute",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #445: \"Bop\" by DaBaby (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/KpBUG8aaY94"
+  },
+  "quote": "On screen: Omnisphere, \"Mellotron Flute\" loaded (Omnisphere Library Patch), window titled \"BOP - 127: Flute_BOP (DaBaby)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "KIRK"
+ },
+ {
+  "song": "What's Next",
+  "artist": "Drake",
+  "plugin": "u-he Hive",
+  "preset": "KS Dirty Old Rotter",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #442: \"What's Next\" by Drake (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/rhHZwpv03dQ"
+  },
+  "quote": "On screen: u-he Hive, \"KS Dirty Old Rotter\" loaded, window titled \"What's Next - 130\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Scary Hours 2"
+ },
+ {
+  "song": "Desires",
+  "artist": "Drake feat. Future",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "JU06 - Shakey Squares",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #433: \"Desires\" by Drake (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/lTgAQ8ekoOc"
+  },
+  "quote": "On screen: Omnisphere, \"JU06 - Shakey Squares\" loaded (Hardware Library Patch), window titled \"Desires - 145: Pad_Desires (Drake)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Dark Lane Demo Tapes"
  }
 ]
