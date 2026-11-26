@@ -41,7 +41,7 @@ import { classicLabel, type Classic } from "./classics";
 import { progressionOf } from "./songs";
 import { follow as shareFollow, followerCount } from "../comments-store";
 import { Comments } from "../social";
-import { Cover } from "../presets/cover";
+import { albumOf, Cover } from "../presets/cover";
 import { midiPlayer, TIMBRES, type MidiPlayerState, type Timbre } from "./synth";
 
 const player = midiPlayer();
@@ -276,11 +276,11 @@ function ChordChart({ song }: { song: NonNullable<MidiItem["song"]> }) {
         </h2>
         <span className="font-mono text-numeric tabular text-text-muted">{`${song.key} · ${song.bpm} BPM`}</span>
       </div>
-      {song.album && (
+      {(song.album ?? albumOf(song.song, song.artist)) && (
         <div className="flex items-center gap-3">
-          <Cover song={song.song} artist={song.artist} size="sm" />
+          <Cover song={song.song} artist={song.artist} size="sm" placeholder />
           <div className="flex min-w-0 flex-col">
-            <span className="truncate text-body-strong text-text">{song.album}</span>
+            <span className="truncate text-body-strong text-text">{song.album ?? albumOf(song.song, song.artist)}</span>
             <span className="truncate text-small text-text-muted">{[song.artist, song.year, song.genre].filter(Boolean).join(" · ")}</span>
           </div>
         </div>
