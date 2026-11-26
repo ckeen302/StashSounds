@@ -105,6 +105,17 @@ for page, album, artist, year, tracks in raw:
         songs.append({"song": title, "artist": artist, "year": year, "album": album, "producers": producers(prod),
                       "samples": uses, "sources": [{"label": f"Wikipedia: {album}, sample credits", "url": wiki(page)}], "video": video})
 
+# A song article credits every performer ("The Weeknd, Playboi Carti and Madonna") where an album's
+# notes name the lead ("The Weeknd"); the same record is listed once, under the shorter name.
+by_title = {}
+for x in songs:
+    for u in x["samples"]: by_title.setdefault(norm(u["title"]), set()).add(u["artist"])
+for x in songs:
+    for u in x["samples"]:
+        for a in by_title[norm(u["title"])]:
+            if len(a) < len(u["artist"]) and re.match(re.escape(a) + r"(,| and | & | featuring | feat\. | with )", u["artist"]):
+                u["artist"] = a; break
+
 # Compact rows (the file ships inside the demo bundle):
 # [song, artist, year, album, producers, album article, [[title, artist, year, genre, replayed, article, video]], video]
 WIKI = "https://en.wikipedia.org/wiki/"
