@@ -23,7 +23,7 @@ import { CrateMenu } from "../explore";
 import { navigate } from "../router";
 import { has, set } from "../store";
 import { allShots, saveShots } from "../oneshots/store";
-import { CATEGORIES, categoryOf, cleanName, decode, labelOf, play, playSequence, postKit, removeKit, useKits, warmSounds, type Category, type Draft, type Kit, type KitSound } from "./store";
+import { CATEGORIES, categoryOf, clipBuffer, cleanName, decode, labelOf, play, playSequence, postKit, removeKit, useKits, warmSounds, type Category, type Draft, type Kit, type KitSound } from "./store";
 
 /**
  * The drum kits screens: every kit, one kit's sounds, and posting a kit of your own one-shots.
@@ -48,8 +48,14 @@ function preview(k: Kit) {
   const order = [pick(["kick", "808"]), pick(["hat"]), pick(["snare", "clap"]), pick(["hat"]), pick(["808", "kick"]), pick(["open hat", "hat"]), pick(["clap", "snare"])].filter(
     (s): s is KitSound => !!s,
   );
-  playSequence(order, 210);
+  // Cut the sounds first, then play them in time: started cold, the beat would otherwise wait on the
+  // download and come out as one late hit instead of a groove.
+  const mine = ++previewSeq;
+  void Promise.all(order.map((s) => ("clip" in s && s.clip ? clipBuffer(s.clip).catch(() => null) : null))).then(() => {
+    if (mine === previewSeq) playSequence(order, 210);
+  });
 }
+let previewSeq = 0;
 
 /** Saves every sound in the kit as one zip. */
 async function saveKit(k: Kit, toast: ReturnType<typeof useToast>) {
@@ -134,6 +140,11 @@ export function KitsPage() {
   const shown = all.filter(
     (k) => (genre === "All" || k.genre === genre) && (!needle || [k.name, k.name.replace(/['’]/g, ""), k.owner.displayName, k.owner.handle, k.genre, ...k.sounds.map((s) => s.name)].some((s) => s.toLowerCase().includes(needle))),
   );
+  // Phones have no hover to warm a kit before its tap: fetch the first kits on screen now.
+  const firstKits = shown.slice(0, 2);
+  useEffect(() => {
+    for (const k of firstKits) warmSounds(k.sounds);
+  }, [firstKits.map((k) => k.id).join()]); // eslint-disable-line react-hooks/exhaustive-deps
   const genres = ["All", ...GENRES.filter((g) => all.some((k) => k.genre === g))];
 
   return (
@@ -174,7 +185,7 @@ export function KitsPage() {
         {shown.map((k) => (
           <li key={k.id} className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-4">
             <div className="flex items-start gap-3">
-              <PlayButton title={`a preview of ${k.name}`} state="paused" onPointerEnter={() => warmSounds(k.sounds)} onClick={() => preview(k)} />
+              <PlayButton title={`a preview of ${k.name}`} state="paused" onPointerEnter={() => warmSounds(k.sounds)} onPointerDown={(e) => e.button === 0 && preview(k)} onClick={(e) => e.detail === 0 && preview(k)} />
               <div className="flex min-w-0 flex-1 flex-col">
                 <UiLink href={`/kit/${k.id}`} className="truncate text-body-strong text-text ui-hover:underline">
                   {k.name}

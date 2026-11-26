@@ -1,7 +1,10 @@
 import {
+  lazy,
   StrictMode,
+  Suspense,
   useEffect,
   useMemo,
+  useRef,
   useState,
   useSyncExternalStore,
   type ReactNode,
@@ -33,7 +36,14 @@ import { buildCatalog, type Catalog } from "./data";
 import { LICENSE_LABELS } from "@stash/contracts/format";
 import { HashLink } from "./hash-link";
 import { navigate, startRouter, usePath } from "./router";
-import { OriginalPage, SampleArtistPage, SampleProducerPage, SampleSongPage, SamplesPage } from "./samples/page";
+// The Samples tab's catalog is about a third of the demo's script: it loads on its own, after the
+// first paint (the page prefetches it at low priority), so the rest of the demo starts without it.
+const samplesPage = () => import("./samples/page");
+const SamplesPage = lazy(() => samplesPage().then((m) => ({ default: m.SamplesPage })));
+const SampleSongPage = lazy(() => samplesPage().then((m) => ({ default: m.SampleSongPage })));
+const OriginalPage = lazy(() => samplesPage().then((m) => ({ default: m.OriginalPage })));
+const SampleArtistPage = lazy(() => samplesPage().then((m) => ({ default: m.SampleArtistPage })));
+const SampleProducerPage = lazy(() => samplesPage().then((m) => ({ default: m.SampleProducerPage })));
 import { has, set } from "./store";
 import { startLooks, useLook } from "./looks";
 import { midiItem, type MidiItem } from "./midi/catalog";
@@ -1140,9 +1150,19 @@ function DemoTabs() {
         (href === "/samples" && (path.startsWith("/samples") || path.startsWith("/sampled/"))) ||
         (href === "/kits" &&
           (path.startsWith("/kit/") || path === "/kit-upload"));
+  // On a phone the strip scrolls: keep the current tab in view (opening Samples from a link shows it).
+  const strip = useRef<HTMLUListElement>(null);
+  useEffect(() => {
+    const ul = strip.current;
+    const tab = ul?.querySelector<HTMLElement>('[aria-current="page"]');
+    if (!ul || !tab || ul.scrollWidth <= ul.clientWidth) return;
+    const left = tab.offsetLeft - ul.offsetLeft;
+    if (left < ul.scrollLeft || left + tab.offsetWidth > ul.scrollLeft + ul.clientWidth - 48)
+      ul.scrollTo({ left: Math.max(0, left - 24), behavior: "smooth" });
+  }, [path]);
   return (
     <nav aria-label="Demo sections" className="border-b border-border bg-bg">
-      <ul className="mx-auto flex max-w-content gap-1 overflow-x-auto px-3 tablet:px-4 desktop:px-6">
+      <ul ref={strip} className="mx-auto flex max-w-content gap-1 overflow-x-auto px-3 tablet:px-4 desktop:px-6">
         {TABS.map((t) => (
           <li key={t.href} className="shrink-0">
             <UiLink
@@ -1155,6 +1175,8 @@ function DemoTabs() {
           </li>
         ))}
         <li className="sticky right-0 ml-auto flex shrink-0 items-center bg-bg pl-1">
+          {/* On a phone the tabs scroll under this icon: fade them out instead of cutting a word. */}
+          <span aria-hidden className="pointer-events-none absolute top-0 right-full h-full w-6 bg-linear-to-l from-bg to-transparent desktop:hidden" />
           <IconLink href="/library" icon={LibraryIcon} label="Your crates and license receipts" aria-current={path === "/library" ? "page" : undefined} />
         </li>
       </ul>
@@ -1234,7 +1256,9 @@ function App() {
         <ToastProvider viewport={false}>
           <AppShell>
             <DemoTabs />
-            <Route key={look} />
+            <Suspense fallback={null}>
+              <Route key={look} />
+            </Suspense>
             <NewCrateHost />
           </AppShell>
         </ToastProvider>

@@ -83,6 +83,11 @@ export function SfxPage() {
     return l;
   }, [inCat, sub, sort]);
   const visible = list.slice(0, shown);
+  // Phones have no hover to warm a row before its tap: fetch the sounds at the top of the list now.
+  const firstRows = list.slice(0, 4);
+  useEffect(() => {
+    for (const s of firstRows) warm(s); // one fetch per sprite file, however many rows share it
+  }, [firstRows.map((s) => s.id).join()]); // eslint-disable-line react-hooks/exhaustive-deps
   const current = list[Math.min(selected, Math.max(0, list.length - 1))];
 
   const pick = (c: string | null, s: string | null = null) => {

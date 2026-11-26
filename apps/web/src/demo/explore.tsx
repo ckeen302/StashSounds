@@ -428,7 +428,7 @@ export function useCrateEntries(itemId: string, title: string, meta?: Omit<Crate
 export function CrateMenu({ itemId, title, kind, href, by, size }: { itemId: string; title: string; kind?: string; href?: string; by?: string; size?: "sm" }) {
   const entries = useCrateEntries(itemId, title, kind && href ? { kind, href, by } : undefined);
   if (size === "sm")
-    return <Menu entries={entries} trigger={<Button size="sm" variant="ghost" icon={LibraryIcon} aria-label={`Add ${title} to a crate`}>Crate</Button>} />;
+    return <Menu entries={entries} trigger={<Button size="sm" variant="ghost" icon={LibraryIcon} aria-label={`Add ${title} to a crate`} className="max-tablet:gap-0 max-tablet:px-2 max-tablet:*:last:sr-only">Crate</Button>} />;
   return <Menu entries={entries} trigger={<Button variant="secondary" icon={LibraryIcon} aria-label={`Add ${title} to a crate`}>Crate</Button>} />;
 }
 
