@@ -19376,5 +19376,55 @@
    "url": "https://reverbmachine.com/blog/tame-impala-love-paranoia-synth-sounds/"
   },
   "album": "Whenever You Need Somebody"
+ },
+ {
+  "song": "Put You On The Game",
+  "artist": "The Game",
+  "producer": "Timbaland",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": "Nostalgic Strings",
+  "path": "Slow Synth",
+  "role": "Featured Triton sound from the intro (part not specified by source)",
+  "confidence": "press",
+  "quote": "The Game - Put You On The Game. Korg Triton Preset: Nostalgic Strings under Slow Synth. Coming in 00:03",
+  "quoteBy": "pluginplug.io",
+  "source": {
+   "label": "pluginplug.io: Korg Triton – The 00s Hip Hop Sound",
+   "url": "https://pluginplug.io/blog/korg-triton-the-00s-hip-hop-sound"
+  },
+  "album": "The Documentary"
+ },
+ {
+  "song": "Glow",
+  "artist": "Nelly Furtado",
+  "producer": "Timbaland",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": "Nostalgic Strings",
+  "path": "Slow Synth",
+  "role": "Featured Triton sound from 1:40 (part not specified by source)",
+  "confidence": "press",
+  "quote": "Nelly Furtado - Glow. Korg Triton Preset: Nostalgic Strings under Slow Synth. Coming in 01:40",
+  "quoteBy": "pluginplug.io",
+  "source": {
+   "label": "pluginplug.io: Korg Triton – The 00s Hip Hop Sound",
+   "url": "https://pluginplug.io/blog/korg-triton-the-00s-hip-hop-sound"
+  },
+  "album": "Loose"
+ },
+ {
+  "song": "Crank That (Soulja Boy)",
+  "artist": "Soulja Boy Tell'em",
+  "producer": "Soulja Boy",
+  "plugin": "Image-Line FL Studio (stock sample)",
+  "preset": "PERC_Steeldrum_C5",
+  "role": "Steel drum",
+  "confidence": "community",
+  "quote": "Steel Drum in Crank That is PERC_Steeldrum_C5 in FL Studio",
+  "quoteBy": "Tiffany (KTT2 forum)",
+  "source": {
+   "label": "KTT2 forum: Presets/Sounds used by popular producers",
+   "url": "https://www.ktt2.com/presets-sounds-used-by-popular-producers-34684"
+  },
+  "album": "souljaboytellem.com"
  }
 ]

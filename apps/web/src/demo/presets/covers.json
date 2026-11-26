@@ -10782,5 +10782,29 @@
    "label": "Deezer, Whenever You Need Somebody",
    "url": "https://www.deezer.com/album/901415162"
   }
+ },
+ "put you on the game|the game": {
+  "file": "covers/put-you-on-the-game-the-game.jpg",
+  "album": "The Documentary",
+  "source": {
+   "label": "Deezer, The Documentary",
+   "url": "https://www.deezer.com/album/293752"
+  }
+ },
+ "glow|nelly furtado": {
+  "file": "covers/glow-nelly-furtado.jpg",
+  "album": "Loose",
+  "source": {
+   "label": "Deezer, Loose",
+   "url": "https://www.deezer.com/album/239467"
+  }
+ },
+ "crank that (soulja boy)|soulja boy tell'em": {
+  "file": "covers/crank-that-soulja-boy-soulja-boy-tell-em.jpg",
+  "album": "souljaboytellem.com",
+  "source": {
+   "label": "Deezer, souljaboytellem.com",
+   "url": "https://www.deezer.com/album/102608"
+  }
  }
 }
