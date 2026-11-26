@@ -21439,5 +21439,65 @@
   "quote": "On screen: Xfer Serum, preset \"BA Digimods [ASL]\" loaded, captioned \"Club Classics\" by Charli xcx",
   "quoteBy": "BLUE STEEL",
   "album": "BRAT"
+ },
+ {
+  "song": "Ric Flair Drip",
+  "artist": "Offset & Metro Boomin",
+  "plugin": "XLN Audio Addictive Keys",
+  "preset": "Mark One - Lounge",
+  "role": "Keys",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #200: \"Metro Boomin\" Pt. 1 (BLUE STEEL), video frame of the second segment",
+   "url": "https://www.youtube.com/shorts/tjZzqlAADAo"
+  },
+  "quote": "On screen: Addictive Keys Mark One, preset \"Mark One - Lounge\" loaded in the second segment; the creator-pinned comment names the songs as \"space cadet and ric flair drip\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Without Warning"
+ },
+ {
+  "song": "All Girls Are the Same",
+  "artist": "Juice WRLD",
+  "plugin": "Tone2 ElectraX",
+  "preset": "SY - Remember",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #191: \"ElectraX\" Pt. 1 (BLUE STEEL), video frame of the first segment",
+   "url": "https://www.youtube.com/shorts/iexqMjzgJHQ"
+  },
+  "quote": "On screen: ElectraX browser showing bank \"Fantasy Sounds XP (Based Gutta)\", preset \"SY - Remember\" in the first segment; the creator-pinned comment names the songs as \"All Girls Are The Same by Juice WRLD and Beibs in the Trap by Nav & Travis Scott\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Goodbye & Good Riddance"
+ },
+ {
+  "song": "Hell Yeah",
+  "artist": "SoFaygo feat. Ken Carson",
+  "plugin": "Xfer Serum",
+  "preset": "SY Simple Sync [SD]",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #195: \"Serum\" Pt. 1 (BLUE STEEL), video frame of the second segment",
+   "url": "https://www.youtube.com/shorts/m_z-fmACQmw"
+  },
+  "quote": "On screen: Serum preset \"SY Simple Sync [SD]\" loaded, Logic window titled \"SY Simple Sync [SD]\" in the second segment; the creator-pinned comment names the songs as \"destroy lonely - jetlggd sofaygo, ken carson - hell yeah\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Hell Yeah"
+ },
+ {
+  "song": "Shotta",
+  "artist": "Young Nudy feat. Megan Thee Stallion",
+  "plugin": "u-he TyrellN6",
+  "preset": "PV - El Harpo",
+  "role": "Harp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #190: \"TyrellN6\" Pt. 1 (BLUE STEEL), video frame of the second segment",
+   "url": "https://www.youtube.com/shorts/jnq6bQzfus4"
+  },
+  "quote": "On screen: u-he TyrellN6, display \"PV - El Harpo\", window titled \"PV - El Harpo\" in the second segment; the creator-pinned comment names the songs as \"drake, partynextdoor - recognize young nudy, megan thee stallion - shotta\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Sli'merre"
  }
 ]

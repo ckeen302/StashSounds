@@ -11494,5 +11494,21 @@
    "label": "Deezer, BRAT",
    "url": "https://www.deezer.com/album/597350882"
   }
+ },
+ "hell yeah|sofaygo feat. ken carson": {
+  "file": "covers/hell-yeah-sofaygo-feat-ken-carson.jpg",
+  "album": "Hell Yeah",
+  "source": {
+   "label": "Deezer, Hell Yeah",
+   "url": "https://www.deezer.com/album/366348757"
+  }
+ },
+ "shotta|young nudy feat. megan thee stallion": {
+  "file": "covers/shotta-young-nudy-feat-megan-thee-stallion.jpg",
+  "album": "Sli'merre",
+  "source": {
+   "label": "Deezer, Sli'merre",
+   "url": "https://www.deezer.com/album/95743662"
+  }
  }
 }
