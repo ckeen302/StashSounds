@@ -650,7 +650,7 @@ function SearchResults() {
             </FilterChip>
             {shown.map((g) => (
               <FilterChip key={g.id} selected={active?.id === g.id} onToggle={() => setKind(g.id)}>
-                {`${g.name} ${g.n}`}
+                {g.name}
               </FilterChip>
             ))}
           </div>
@@ -680,7 +680,7 @@ function SearchResults() {
               <h2 className="text-body-strong text-text">{g.close ? `${g.name} · close matches` : g.name}</h2>
               {g.n > g.top && (
                 <Button size="sm" variant="ghost" onClick={() => setKind(g.id)}>
-                  {`See all ${g.n}`}
+                  See all
                 </Button>
               )}
             </div>
@@ -733,7 +733,7 @@ function PackPage({ id }: { id: string }) {
         toast({
           tone: "success",
           title: "Pack saved",
-          description: `${loops.length} loops and ${fits.length} MIDI files.`,
+          description: fits.length > 0 ? "Loops and MIDI files." : "Loops.",
         });
       else if (out === "failed")
         toast({
@@ -759,7 +759,7 @@ function PackPage({ id }: { id: string }) {
           >
             {busy
               ? "Packing…"
-              : `Download pack (${loops.length} loops, ${fits.length} MIDI)`}
+              : "Download pack"}
           </Button>
           <ButtonLink href="/loops" variant="secondary">
             All loops
@@ -767,12 +767,12 @@ function PackPage({ id }: { id: string }) {
         </div>
       </header>
       <section className="flex flex-col gap-3">
-        <h2 className="text-title">{`Loops ${loops.length}`}</h2>
+        <h2 className="text-title">Loops</h2>
         {renderLoops("Pack loops", loops)}
       </section>
       {fits.length > 0 && (
         <section className="flex flex-col gap-3">
-          <h2 className="text-title">{`MIDI that fits ${fits.length}`}</h2>
+          <h2 className="text-title">MIDI that fits</h2>
           <MidiList label="Pack MIDI" items={fits} />
         </section>
       )}
@@ -1085,7 +1085,7 @@ function AllMidi() {
         <section aria-labelledby="chord-packs" className="flex flex-col gap-3">
           <div className="flex flex-col gap-1">
             <h2 id="chord-packs" className="text-title">Chord packs</h2>
-            <p className="text-small text-text-muted">{`${packCounts.size} packs, ${[...packCounts.values()].reduce((a, b) => a + b, 0)} voiced progressions written for Stash. Pick a pack to hear every progression in it.`}</p>
+            <p className="text-small text-text-muted">Voiced progressions written for Stash. Pick a pack to hear every progression in it.</p>
           </div>
           <ul className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-4">
             {(allPacks ? packs : packs.slice(0, 8)).map((p) => (
@@ -1125,7 +1125,7 @@ function AllMidi() {
           <MidiList label="Classic progressions" items={allClassics ? classics : classics.slice(0, 8)} />
           {classics.length > 8 && (
             <Button variant="secondary" size="sm" className="self-start" onClick={() => setAllClassics(!allClassics)}>
-              {allClassics ? "Show fewer" : `Show all ${classics.length}`}
+              {allClassics ? "Show fewer" : "Show all"}
             </Button>
           )}
         </section>
@@ -1178,7 +1178,7 @@ function AllMidi() {
       {shown.length === 0 && <p className="text-body text-text-muted">Nothing matches. Clear a filter or the search.</p>}
       {shown.length > limit && (
         <Button variant="secondary" size="sm" className="self-start" onClick={() => setLimit(limit + PAGE)}>
-          {`Show ${Math.min(PAGE, shown.length - limit)} more of ${shown.length}`}
+          Show more
         </Button>
       )}
     </Page>

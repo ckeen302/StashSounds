@@ -135,7 +135,6 @@ export function PresetsPage() {
     f();
     setLimit(PAGE);
   };
-  const counts = (c: Confidence) => PRESETS.filter((p) => p.confidence === c).length;
   const [open, setOpen] = useState(kept.open);
   const touched = conf !== "all" || family !== "All" || sound !== "All" || named || needle !== "" || who !== "All";
   useEffect(() => {
@@ -219,14 +218,14 @@ export function PresetsPage() {
         <Dropdown
           name="How sure"
           value={conf === "all" ? "Any" : CONFIDENCE[conf].label}
-          options={[["all", `Any ${PRESETS.length}`], ...(Object.keys(CONFIDENCE) as Confidence[]).map((c): [string, string] => [c, `${CONFIDENCE[c].label} ${counts(c)}`])]}
+          options={[["all", "Any"], ...(Object.keys(CONFIDENCE) as Confidence[]).map((c): [string, string] => [c, CONFIDENCE[c].label])]}
           selected={conf}
           onPick={(v) => reset(() => setConf(v as Confidence | "all"))}
         />
         <Dropdown
           name="Sound"
           value={sound === "All" ? "Any" : sound}
-          options={[["All", "Any"], ...SOUNDS.map(([n]): [string, string] => [n, `${n} ${indexed.filter((x) => x.sounds.includes(n)).length}`])]}
+          options={[["All", "Any"], ...SOUNDS.map(([n]): [string, string] => [n, n])]}
           selected={sound}
           onPick={(v) => reset(() => setSound(v))}
         />

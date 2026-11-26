@@ -273,7 +273,7 @@ export function OneShotsPage() {
           </div>
           {shots.length > 1 && (
             <Button variant="secondary" icon={Download} loading={busy === "zip"} onClick={() => void grab(shots, `stash-${instName.replace(/\s+/g, "-")}`)}>
-              {shots.length > MAX_ZIP ? `Grab the first ${MAX_ZIP}` : `Grab all ${shots.length}`}
+              {shots.length > MAX_ZIP ? `Grab the first ${MAX_ZIP}` : "Grab all"}
             </Button>
           )}
         </div>

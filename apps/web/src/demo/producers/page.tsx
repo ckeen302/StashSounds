@@ -10,13 +10,32 @@ import { useKits } from "../kits/store";
 import { MidiList, useMidiItems } from "../midi/pages";
 import { coverFor, tileStyle } from "../presets/cover";
 import { allProducers, artistsOf, collaboratorsOf, midiSongKey, producerBySlug, producerPageHref, producerTotal, similarOf, type ProducerPage } from "./data";
+import { digsOf } from "./digs";
 
 // The sampled songs come from the Samples tab's catalog, which loads on its own (see samples/credits.ts).
 const SampledSongs = lazy(() =>
-  Promise.all([import("../samples/page"), import("../samples/data")]).then(([{ SongCard }, { SAMPLE_SONGS }]) => ({
-    default: function SampledSongs({ songs: at }: { songs: number[] }) {
+  Promise.all([import("../samples/page"), import("../samples/data")]).then(([{ SongCard }, { SAMPLE_SONGS, artistHref, artistOf }]) => ({
+    default: function SampledSongs({ songs: at, self }: { songs: number[]; self: string }) {
       const songs = at.map((i) => SAMPLE_SONGS[i]).filter((x) => x !== undefined);
-      return <Grid items={songs} first={6} label="Sampled songs" render={(x) => <SongCard key={x.key} s={x} />} />;
+      const digs = digsOf(songs, self).flatMap((name) => {
+        const a = artistOf(name);
+        return a ? [{ name, href: artistHref(a) }] : [];
+      });
+      return (
+        <>
+          {digs.length > 0 && (
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-small text-text-muted">They keep going back to</span>
+              {digs.map((d) => (
+                <ButtonLink key={d.href} href={d.href} variant="secondary" size="sm">
+                  {d.name}
+                </ButtonLink>
+              ))}
+            </div>
+          )}
+          <Grid items={songs} first={6} label="Sampled songs" render={(x) => <SongCard key={x.key} s={x} />} />
+        </>
+      );
     },
   })),
 );
@@ -234,7 +253,7 @@ function Grid<T>({ items, first, label, render }: { items: T[]; first: number; l
       </ul>
       {items.length > shown.length && (
         <Button variant="secondary" size="sm" className="self-start" onClick={() => setAll(true)}>
-          {`Show all ${items.length}`}
+          Show all
         </Button>
       )}
     </>
@@ -396,7 +415,7 @@ export function ProducerPageView({ slug, rows, styleOf, renderLoops }: { slug: s
         {p.samples.length > 0 && (
           <Section id="samples" title="Songs and what they sample" note="The records behind their beats, from album credits and MusicBrainz.">
             <Suspense fallback={null}>
-              <SampledSongs songs={p.samples} />
+              <SampledSongs songs={p.samples} self={p.name} />
             </Suspense>
           </Section>
         )}
