@@ -56,7 +56,7 @@ NOISE = re.compile(
     r"|\s+(?:feat\.?|ft\.?|featuring)\s.*$",
     re.I,
 )
-COMPILATION = re.compile(r"greatest hits|best of|\bcollection\b|essential|anthology|\bhits\b|\bgold\b|ultimate|very best|platinum|definitive|classics|20th century masters|the singles|retrospective|playlist|number ones|#1s|love songs", re.I)
+COMPILATION = re.compile(r"greatest hits|best of|\bcollection\b|essential|anthology|\bhits\b|\bgold\b|ultimate|very best|platinum|definitive|classics|20th century masters|the singles|retrospective|playlist|number ones|#1s|love songs|soundtrack|motion picture|music from", re.I)
 SPLIT = r",\s*|\s+&\s+|\s+x\s+|\s+(?:feat\.?|ft\.?|featuring|with|and)\s+"
 ALBUM_NOISE = r"\(.*?\)|\[.*?\]|deluxe|edition|expanded|remaster(ed)?|anniversary|version|\s-\s(single|ep)$"
 
