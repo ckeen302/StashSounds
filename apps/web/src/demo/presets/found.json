@@ -14618,5 +14618,644 @@
    "label": "YouTube: (FLP) How 'BrainWashed' by Glokk40Spaz was made",
    "url": "https://www.youtube.com/watch?v=HfJZA7bt-yo"
   }
+ },
+ {
+  "song": "out da window",
+  "artist": "Summrs",
+  "producer": "Goyxrd",
+  "plugin": "Roland Zenology",
+  "preset": "Sweet Tynes",
+  "role": "Keys",
+  "confidence": "community",
+  "quote": "Keys - Sweet Tynes in XV-580/ZENOLOGY",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Summrs - out da window Was Made in 5 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=gOsa3vo7_Hc"
+  },
+  "album": "What We Have"
+ },
+ {
+  "song": "out da window",
+  "artist": "Summrs",
+  "producer": "Goyxrd",
+  "plugin": "AIR Music Technology Xpand!2",
+  "preset": "Ballad-String-Pad",
+  "role": "String pad",
+  "confidence": "community",
+  "quote": "String Pad - Ballad-String-Pad in Xpand!2",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Summrs - out da window Was Made in 5 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=gOsa3vo7_Hc"
+  },
+  "album": "What We Have"
+ },
+ {
+  "song": "out da window",
+  "artist": "Summrs",
+  "producer": "Goyxrd",
+  "plugin": "Luxonix Purity",
+  "preset": "Simple Sqr",
+  "role": "Lead",
+  "confidence": "community",
+  "quote": "Lead - Simple Sqr in Purity",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Summrs - out da window Was Made in 5 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=gOsa3vo7_Hc"
+  },
+  "album": "What We Have"
+ },
+ {
+  "song": "out da window",
+  "artist": "Summrs",
+  "producer": "Goyxrd",
+  "plugin": "Luxonix Purity",
+  "preset": "Oct-Saw Lead",
+  "role": "Second lead",
+  "confidence": "community",
+  "quote": "Lead 2 - Oct-Saw Lead in Purity",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Summrs - out da window Was Made in 5 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=gOsa3vo7_Hc"
+  },
+  "album": "What We Have"
+ },
+ {
+  "song": "out da window",
+  "artist": "Summrs",
+  "producer": "Goyxrd",
+  "plugin": "AIR Music Technology Xpand!2",
+  "preset": "Big Pizz Strings",
+  "role": "String pluck",
+  "confidence": "community",
+  "quote": "String Pluck - Big Pizz Strings in Xpand!2",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Summrs - out da window Was Made in 5 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=gOsa3vo7_Hc"
+  },
+  "album": "What We Have"
+ },
+ {
+  "song": "Off Tha Lot",
+  "artist": "Yeat",
+  "producer": "Trgc, Casheart, Synthetic",
+  "plugin": "u-he Hive",
+  "preset": "GZ Wai",
+  "role": "The 'weow' sound",
+  "confidence": "community",
+  "quote": "Weow - GZ Wai in u-he Hive",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Yeat - “Off Tha Lot” Was Made in 4 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=SjtkTLB9ISg"
+  },
+  "album": "4L"
+ },
+ {
+  "song": "Talk 2 God",
+  "artist": "Yeat",
+  "producer": "Iankon",
+  "plugin": "AIR Music Technology Xpand!2",
+  "preset": "Solo Violin",
+  "role": "Strings",
+  "confidence": "community",
+  "quote": "Strings - Solo Violin in Xpand!2",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Yeat - Talk 2 God Was Made In 4 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=xfG-iljQT0Y"
+  },
+  "album": "4L"
+ },
+ {
+  "song": "Broad Day",
+  "artist": "Kankan",
+  "producer": "30nickk",
+  "plugin": "AIR Music Technology Xpand!2",
+  "preset": "Mark 2 Tremolo",
+  "role": "Keys",
+  "confidence": "community",
+  "quote": "keys - mark 2 tremolo in xpand!2",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Kankan - Broad Day Was Made in 4 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=BoujgFEfx1U"
+  },
+  "album": "##B4rr"
+ },
+ {
+  "song": "Broad Day",
+  "artist": "Kankan",
+  "producer": "30nickk",
+  "plugin": "Roland SRX Orchestra",
+  "preset": "Warm Vlns",
+  "role": "Strings",
+  "confidence": "community",
+  "quote": "strings 1 - warm vlns in srx orchestra",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Kankan - Broad Day Was Made in 4 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=BoujgFEfx1U"
+  },
+  "album": "##B4rr"
+ },
+ {
+  "song": "Broad Day",
+  "artist": "Kankan",
+  "producer": "30nickk",
+  "plugin": "AIR Music Technology Xpand!2",
+  "preset": "Bigger Legato Strings",
+  "role": "Second strings",
+  "confidence": "community",
+  "quote": "strings 2 - bigger legato strings in xpand!2",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Kankan - Broad Day Was Made in 4 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=BoujgFEfx1U"
+  },
+  "album": "##B4rr"
+ },
+ {
+  "song": "Broad Day",
+  "artist": "Kankan",
+  "producer": "30nickk",
+  "plugin": "Luxonix Purity",
+  "preset": "Same Feel 2",
+  "role": "Bell",
+  "confidence": "community",
+  "quote": "bell - same feel 2 in purity",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Kankan - Broad Day Was Made in 4 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=BoujgFEfx1U"
+  },
+  "album": "##B4rr"
+ },
+ {
+  "song": "Broad Day",
+  "artist": "Kankan",
+  "producer": "30nickk",
+  "plugin": "Surge XT",
+  "preset": "Gliss Lead",
+  "role": "Lead",
+  "confidence": "community",
+  "quote": "lead 1 - gliss lead in surge",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Kankan - Broad Day Was Made in 4 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=BoujgFEfx1U"
+  },
+  "album": "##B4rr"
+ },
+ {
+  "song": "Broad Day",
+  "artist": "Kankan",
+  "producer": "30nickk",
+  "plugin": "Luxonix Purity",
+  "preset": "Simple Sine",
+  "role": "Third lead",
+  "confidence": "community",
+  "quote": "lead 3 - simple sine in purity",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Kankan - Broad Day Was Made in 4 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=BoujgFEfx1U"
+  },
+  "album": "##B4rr"
+ },
+ {
+  "song": "Broad Day",
+  "artist": "Kankan",
+  "producer": "30nickk",
+  "plugin": "Luxonix Purity",
+  "preset": "Pizzicato Strings",
+  "role": "Pizzicato strings",
+  "confidence": "community",
+  "quote": "pizz strings - pizzicato strings in purity",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Kankan - Broad Day Was Made in 4 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=BoujgFEfx1U"
+  },
+  "album": "##B4rr"
+ },
+ {
+  "song": "Broad Day",
+  "artist": "Kankan",
+  "producer": "30nickk",
+  "plugin": "Luxonix Purity",
+  "preset": "PW for President",
+  "role": "PW lead",
+  "confidence": "community",
+  "quote": "pw lead - pw for president in purity",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Kankan - Broad Day Was Made in 4 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=BoujgFEfx1U"
+  },
+  "album": "##B4rr"
+ },
+ {
+  "song": "hang_fire",
+  "artist": "Ken Carson",
+  "producer": "Outtatown, Starboy",
+  "plugin": "AIR Music Technology Xpand!2",
+  "preset": "Spiccato Up+Down",
+  "role": "Strings",
+  "confidence": "community",
+  "quote": "Strings - Spiccato Up+Down in Xpand!2",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Ken Carson - hang_fire Was Made in 5 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=dOjM6sPN7Bw"
+  }
+ },
+ {
+  "song": "Translucent",
+  "artist": "Summrs",
+  "producer": "Goyxrd",
+  "plugin": "Luxonix Purity",
+  "preset": "Chorus FM",
+  "role": "Keys",
+  "confidence": "community",
+  "quote": "presets used / all purity / keys - chorus fm",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Summrs - Translucent Was Made in 5 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=QfQrrdPNtWI"
+  },
+  "album": "DEVOTION"
+ },
+ {
+  "song": "Translucent",
+  "artist": "Summrs",
+  "producer": "Goyxrd",
+  "plugin": "Luxonix Purity",
+  "preset": "Some-Rect",
+  "role": "Lead",
+  "confidence": "community",
+  "quote": "lead 1 - some-rect",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Summrs - Translucent Was Made in 5 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=QfQrrdPNtWI"
+  },
+  "album": "DEVOTION"
+ },
+ {
+  "song": "Translucent",
+  "artist": "Summrs",
+  "producer": "Goyxrd",
+  "plugin": "Luxonix Purity",
+  "preset": "Tiny Lead",
+  "role": "Second lead",
+  "confidence": "community",
+  "quote": "lead 2 - tiny lead",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Summrs - Translucent Was Made in 5 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=QfQrrdPNtWI"
+  },
+  "album": "DEVOTION"
+ },
+ {
+  "song": "Translucent",
+  "artist": "Summrs",
+  "producer": "Goyxrd",
+  "plugin": "Luxonix Purity",
+  "preset": "Twinuzis",
+  "role": "Third lead",
+  "confidence": "community",
+  "quote": "lead 3 - twinuzis",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Summrs - Translucent Was Made in 5 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=QfQrrdPNtWI"
+  },
+  "album": "DEVOTION"
+ },
+ {
+  "song": "Translucent",
+  "artist": "Summrs",
+  "producer": "Goyxrd",
+  "plugin": "Luxonix Purity",
+  "preset": "Trumpet",
+  "role": "Brass",
+  "confidence": "community",
+  "quote": "brass - trumpet",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Summrs - Translucent Was Made in 5 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=QfQrrdPNtWI"
+  },
+  "album": "DEVOTION"
+ },
+ {
+  "song": "Translucent",
+  "artist": "Summrs",
+  "producer": "Goyxrd",
+  "plugin": "Luxonix Purity",
+  "preset": "Legato Hall",
+  "role": "Strings",
+  "confidence": "community",
+  "quote": "strings - legato hall",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Summrs - Translucent Was Made in 5 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=QfQrrdPNtWI"
+  },
+  "album": "DEVOTION"
+ },
+ {
+  "song": "Countup",
+  "artist": "Yeat feat. Summrs",
+  "producer": "Trgc, Kayyo",
+  "plugin": "Tone2 ElectraX",
+  "preset": "Highs and Lows BN",
+  "role": "Pad",
+  "confidence": "community",
+  "quote": "pad - highs and lows bn in electrax",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Summrs & Yeat - Countup Was Made in 2 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=qqS3v_Lr9SQ"
+  },
+  "album": "Luh Leakyz Vol. 1"
+ },
+ {
+  "song": "Rëal six",
+  "artist": "Yeat",
+  "producer": "Dulio, Rision, Acex8",
+  "plugin": "AIR Music Technology Xpand!2",
+  "preset": "Glamour Tron",
+  "role": "Vox lead",
+  "confidence": "community",
+  "quote": "vox lead - glamour tron in xpand2",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Yeat - Rëal six was made in 3 minutes {FL STUDIO REMAKE}",
+   "url": "https://www.youtube.com/watch?v=7tcbWyDE1K8"
+  },
+  "album": "2 Alivë"
+ },
+ {
+  "song": "Breakin Tha Bank",
+  "artist": "Kankan",
+  "producer": "Octodog, ggedgar, Jdolla",
+  "plugin": "Xfer Serum (Sharkboy's XTC bank)",
+  "preset": "F33liNg",
+  "role": "Bass",
+  "confidence": "community",
+  "quote": "Bass: F33liNg in Sharkboy's XTC Serum bank",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Kankan - Breakin Tha Bank Was Made in 6 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=pU2XmFZ9J0E"
+  },
+  "album": "Rr"
+ },
+ {
+  "song": "First 48",
+  "artist": "Summrs",
+  "producer": "Twinuzis",
+  "plugin": "Roland Zenology",
+  "preset": "1090::80's EP",
+  "role": "Chords",
+  "confidence": "community",
+  "quote": "Chords - 1090::80's EP in ZENOLOGY",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Summrs - \"First 48\" Was Made in 4 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=UvsZHfUy6W8"
+  },
+  "album": "Nothing more Nothing LESS"
+ },
+ {
+  "song": "First 48",
+  "artist": "Summrs",
+  "producer": "Twinuzis",
+  "plugin": "Roland Zenology",
+  "preset": "Dyno EP",
+  "role": "Topline",
+  "confidence": "community",
+  "quote": "Topline - Dyno EP in ZENOLOGY",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Summrs - \"First 48\" Was Made in 4 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=UvsZHfUy6W8"
+  },
+  "album": "Nothing more Nothing LESS"
+ },
+ {
+  "song": "First 48",
+  "artist": "Summrs",
+  "producer": "Twinuzis",
+  "plugin": "AIR Music Technology Xpand!2",
+  "preset": "Basic Digital Lead",
+  "role": "Lead",
+  "confidence": "community",
+  "quote": "Lead - Basic Digital Lead in Xpand!2",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Summrs - \"First 48\" Was Made in 4 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=UvsZHfUy6W8"
+  },
+  "album": "Nothing more Nothing LESS"
+ },
+ {
+  "song": "Swing Ya Pole",
+  "artist": "Summrs",
+  "producer": "Venexxi, Oaomingo, Paulo",
+  "plugin": "Image-Line FLEX",
+  "preset": "Full Brass Sustain",
+  "role": "Bass",
+  "confidence": "community",
+  "quote": "Bass - Full Brass Sustain in FLEX",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Summrs - \"Swing Ya Pole\" Was Made in 6 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=t6YrGe-hQDY"
+  },
+  "album": "FALLEN RAVEN"
+ },
+ {
+  "song": "Swing Ya Pole",
+  "artist": "Summrs",
+  "producer": "Venexxi, Oaomingo, Paulo",
+  "plugin": "AIR Music Technology Xpand!2",
+  "preset": "# Trumpets Long",
+  "role": "Brass stab",
+  "confidence": "community",
+  "quote": "Brass Stab - # Trumpets Long in Xpand!2",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Summrs - \"Swing Ya Pole\" Was Made in 6 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=t6YrGe-hQDY"
+  },
+  "album": "FALLEN RAVEN"
+ },
+ {
+  "song": "Swing Ya Pole",
+  "artist": "Summrs",
+  "producer": "Venexxi, Oaomingo, Paulo",
+  "plugin": "AIR Music Technology Xpand!2",
+  "preset": "Producer Brass",
+  "role": "Brass chords",
+  "confidence": "community",
+  "quote": "Brass Chords - Producer Brass in Xpand!2",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Summrs - \"Swing Ya Pole\" Was Made in 6 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=t6YrGe-hQDY"
+  },
+  "album": "FALLEN RAVEN"
+ },
+ {
+  "song": "don't @ me",
+  "artist": "Kankan",
+  "producer": "Telxry",
+  "plugin": "AIR Music Technology Xpand!2",
+  "preset": "Ballad",
+  "role": "Keys",
+  "confidence": "community",
+  "quote": "In Xpand / Keys - Ballad",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Kankan - \"dont @ me\" Was MAde in 6 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=AnHU4xlRQ98"
+  },
+  "album": "##B4W2G"
+ },
+ {
+  "song": "don't @ me",
+  "artist": "Kankan",
+  "producer": "Telxry",
+  "plugin": "AIR Music Technology Xpand!2",
+  "preset": "Basic Sine Pad",
+  "role": "Pad",
+  "confidence": "community",
+  "quote": "Pad - Basic Sine Pad",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Kankan - \"dont @ me\" Was MAde in 6 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=AnHU4xlRQ98"
+  },
+  "album": "##B4W2G"
+ },
+ {
+  "song": "don't @ me",
+  "artist": "Kankan",
+  "producer": "Telxry",
+  "plugin": "Roland SRX Orchestra (or Zenology)",
+  "preset": "Double Flute",
+  "role": "Flute",
+  "confidence": "community",
+  "quote": "In SRX Orchestra or Zenology / Flute - Double Flute",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Kankan - \"dont @ me\" Was MAde in 6 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=AnHU4xlRQ98"
+  },
+  "album": "##B4W2G"
+ },
+ {
+  "song": "don't @ me",
+  "artist": "Kankan",
+  "producer": "Telxry",
+  "plugin": "Roland SRX Orchestra (or Zenology)",
+  "preset": "AgitatoVaSRX",
+  "role": "Violin",
+  "confidence": "community",
+  "quote": "Violin - AgitatoVaSRX",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Kankan - \"dont @ me\" Was MAde in 6 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=AnHU4xlRQ98"
+  },
+  "album": "##B4W2G"
+ },
+ {
+  "song": "don't @ me",
+  "artist": "Kankan",
+  "producer": "Telxry",
+  "plugin": "Roland SRX Orchestra (or Zenology)",
+  "preset": "Orch Flute",
+  "role": "Second flute",
+  "confidence": "community",
+  "quote": "Flute - Orch Flute",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Kankan - \"dont @ me\" Was MAde in 6 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=AnHU4xlRQ98"
+  },
+  "album": "##B4W2G"
+ },
+ {
+  "song": "don't @ me",
+  "artist": "Kankan",
+  "producer": "Telxry",
+  "plugin": "Roland SRX Orchestra (or Zenology)",
+  "preset": "WarmVlns SRX",
+  "role": "Strings",
+  "confidence": "community",
+  "quote": "Strings - WarmVlns SRX",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Kankan - \"dont @ me\" Was MAde in 6 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=AnHU4xlRQ98"
+  },
+  "album": "##B4W2G"
+ },
+ {
+  "song": "don't @ me",
+  "artist": "Kankan",
+  "producer": "Telxry",
+  "plugin": "Roland SRX Orchestra (or Zenology)",
+  "preset": "Orch p",
+  "role": "Intro strings",
+  "confidence": "community",
+  "quote": "Intro Strings - Orch p",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Kankan - \"dont @ me\" Was MAde in 6 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=AnHU4xlRQ98"
+  },
+  "album": "##B4W2G"
+ },
+ {
+  "song": "GEEKED N BLESSED",
+  "artist": "Lucki",
+  "producer": "Bhristo, Mingo, Vennexi, Mixed Matches",
+  "plugin": "AIR Music Technology Xpand!2",
+  "preset": "15 Solo Trumpet",
+  "role": "Trumpet",
+  "confidence": "community",
+  "quote": "Trumpet - 15 Solo Trumpet in Xpand!2",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Lucki - \"GEEKED N BLESSED\" Was Made in 5 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=1chUnr-dmbQ"
+  },
+  "album": "FLAWLESS LIKE ME"
+ },
+ {
+  "song": "GEEKED N BLESSED",
+  "artist": "Lucki",
+  "producer": "Bhristo, Mingo, Vennexi, Mixed Matches",
+  "plugin": "AIR Music Technology Xpand!2",
+  "preset": "+09 Pizz Strings",
+  "role": "Pluck",
+  "confidence": "community",
+  "quote": "Pluck - +09 Pizz Strings in Xpand!2",
+  "quoteBy": "touchedmars (YouTube remake description)",
+  "source": {
+   "label": "YouTube: How Lucki - \"GEEKED N BLESSED\" Was Made in 5 Minutes {FL STUDIO BREAKDOWN}",
+   "url": "https://www.youtube.com/watch?v=1chUnr-dmbQ"
+  },
+  "album": "FLAWLESS LIKE ME"
  }
 ]
