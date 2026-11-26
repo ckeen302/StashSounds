@@ -10462,5 +10462,29 @@
    "label": "Deezer, The Tipping Point",
    "url": "https://www.deezer.com/album/260492212"
   }
+ },
+ "michigan|chavo": {
+  "file": "covers/michigan-chavo.jpg",
+  "album": "Chavo's World",
+  "source": {
+   "label": "Deezer, Chavo's World",
+   "url": "https://www.deezer.com/album/184346962"
+  }
+ },
+ "uh uh|chief keef feat. playboi carti": {
+  "file": "covers/uh-uh-chief-keef-feat-playboi-carti.jpg",
+  "album": "Mansion Musick",
+  "source": {
+   "label": "Deezer, Mansion Musick",
+   "url": "https://www.deezer.com/album/877820572"
+  }
+ },
+ "wild blue|john mayer": {
+  "file": "covers/wild-blue-john-mayer.jpg",
+  "album": "Sob Rock",
+  "source": {
+   "label": "Deezer, Sob Rock",
+   "url": "https://www.deezer.com/album/243883782"
+  }
  }
 }
