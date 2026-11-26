@@ -1,4 +1,6 @@
 import { useProgressive } from "../progressive";
+import { hrefForProducer } from "../producers/data";
+import { producersOf } from "../presets/songs";
 import { silenceOthers } from "../exclusive";
 import { getEngine } from "@stash/audio";
 import { LICENSES, midiKindSchema, soundIdSchema, type MidiKind, type SoundId } from "@stash/contracts";
@@ -420,7 +422,12 @@ export function MidiPage({ publicId }: { publicId: string }) {
             {item.song ? (
               <p className="text-small text-text-muted">
                 From <span className="text-text">{item.song.song}</span> by <span className="text-text">{item.song.artist}</span>
-                {item.song.producer ? ` · prod. ${item.song.producer}` : ""}
+                {item.song.producer && (
+                  <>
+                    {" · prod. "}
+                    <ProducerCredits credit={item.song.producer} />
+                  </>
+                )}
               </p>
             ) : (
               <p className="text-small text-text-muted">
@@ -883,3 +890,28 @@ export function UploadPage({ embedded = false }: { embedded?: boolean } = {}) {
 }
 
 export { midiItem };
+
+/** "Metro Boomin & Southside", each name a link to its producer page when it has one. */
+function ProducerCredits({ credit }: { credit: string }) {
+  const names = producersOf(credit);
+  if (!names.length) return <>{credit}</>;
+  return (
+    <>
+      {names.map((n, i) => {
+        const href = hrefForProducer(n);
+        return (
+          <span key={n}>
+            {i > 0 && ", "}
+            {href ? (
+              <UiLink href={href} className="text-text ui-hover:underline">
+                {n}
+              </UiLink>
+            ) : (
+              n
+            )}
+          </span>
+        );
+      })}
+    </>
+  );
+}
