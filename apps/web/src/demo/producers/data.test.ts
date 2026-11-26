@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { allProducers, attachLoopStyles, canonicalName, hrefForProducer, namesIn, producerBySlug, producerNamed } from "./data";
+import { allProducers, artistsOf, attachLoopStyles, collaboratorsOf, canonicalName, hrefForProducer, namesIn, producerBySlug, producerNamed } from "./data";
 
 describe("producer pages", () => {
   it("gathers Metro Boomin's presets, samples, song chords and the kit in his style", () => {
@@ -37,5 +37,23 @@ describe("producer pages", () => {
     attachLoopStyles(["metro boomin", "ax", "someone unknown"]);
     expect(producerNamed("Metro Boomin")!.loopCount).toBe(1);
     expect(producerNamed("AXL Beats")).toBeNull();
+  });
+
+  it("names who they work with: co-producers with pages, and the artists they produce for", () => {
+    const metro = producerNamed("Metro Boomin")!;
+    const people = collaboratorsOf(metro);
+    expect(people.length).toBeGreaterThan(0);
+    expect(people.every((c) => c.page !== metro && c.songs > 0)).toBe(true);
+    expect(people.map((c) => c.songs)).toEqual([...people.map((c) => c.songs)].sort((a, b) => b - a));
+    // Shared credits run both ways.
+    const first = people[0]!;
+    expect(collaboratorsOf(first.page, 100).some((c) => c.page === metro)).toBe(true);
+    const artists = artistsOf(metro);
+    expect(artists.length).toBeGreaterThan(0);
+    expect(artists.every((a) => !/feat\.|,| & /.test(a))).toBe(true);
+    expect(artistsOf(producerNamed("Kanye West")!, 50)).not.toContain("Kanye West");
+    expect(canonicalName("2015", "credit")).toBeNull();
+    expect(canonicalName("249x249px", "credit")).toBeNull();
+    expect(canonicalName("TM88", "credit")).toBe("TM88");
   });
 });

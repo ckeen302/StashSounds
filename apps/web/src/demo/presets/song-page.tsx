@@ -1,4 +1,6 @@
+import type { ReactNode } from "react";
 import { ButtonLink, EmptyState, UiLink } from "@stash/ui";
+import { hrefForProducer } from "../producers/data";
 import { CrateMenu } from "../explore";
 import { Comments } from "../social";
 import { songChordItems } from "../midi/catalog";
@@ -57,9 +59,27 @@ export function PresetSongPage({ slug }: { slug: string }) {
     (f) => f !== "Other",
   );
 
-  const facts: [string, string][] = [
+  // Each credited producer links to their page when they have one.
+  const credits: ReactNode = who.length
+    ? who.map((n, i) => {
+        const href = hrefForProducer(n);
+        return (
+          <span key={n}>
+            {i > 0 && ", "}
+            {href ? (
+              <UiLink href={href} className="ui-hover:underline">
+                {n}
+              </UiLink>
+            ) : (
+              n
+            )}
+          </span>
+        );
+      })
+    : "Not credited";
+  const facts: [string, ReactNode][] = [
     ["Album", albumOf(s.song, s.artist) ?? "Not listed"],
-    ["Produced by", who.length ? who.join(", ") : "Not credited"],
+    ["Produced by", credits],
     ["Sounds", `${s.entries.length}`],
   ];
 

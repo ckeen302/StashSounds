@@ -92,6 +92,8 @@ export function canonicalName(raw: string, from: "credit" | "style" | "preset"):
   // A lowercase phrase is a sentence fragment ("backing vocals", "the Creator"), not a name.
   if (/^[a-z]/.test(name) && name.includes(" ")) return null;
   if (/[:;?*’/–]|^(ok|lincoln|burke)$/i.test(name)) return null;
+  // Years, image sizes and other numbers from the scraped markup ("2015", "249x249px").
+  if (/^\d+$|^\d+x\d+(px)?$|\dpx\b/i.test(name)) return null;
   if (/\b(vocals?|guitars?|bass|keys|drums|production|producers?|chart(ed)?|featuring|hook|interview|single|remix|album|song|record|track|itunes|released?|however)\b/i.test(name)) return null;
   const k = looseKey(name);
   const hit = ALIAS.get(k);
@@ -129,6 +131,10 @@ export type ProducerPage = {
   loopCount: number;
   /** Kit "inspired by" names that point here. */
   kitStyles: Set<string>;
+  /** Other producers credited on the same songs, by page key, with how many songs they share. */
+  collab: Map<string, number>;
+  /** Lead artists of the songs they produced, with how many songs each. */
+  artists: Map<string, number>;
 };
 
 const BY_NAME = new Map<string, ProducerPage>();
@@ -136,27 +142,55 @@ function page(name: string): ProducerPage {
   const k = looseKey(name);
   let p = BY_NAME.get(k);
   if (!p) {
-    p = { name, slug: "", presets: [], samples: [], midiSongs: new Set(), styleTags: new Set(), loopCount: 0, kitStyles: new Set() };
+    p = { name, slug: "", presets: [], samples: [], midiSongs: new Set(), styleTags: new Set(), loopCount: 0, kitStyles: new Set(), collab: new Map(), artists: new Map() };
     BY_NAME.set(k, p);
   }
   return p;
 }
 
+const bump = (m: Map<string, number>, k: string) => m.set(k, (m.get(k) ?? 0) + 1);
+/** The first credited artist: "Future, Drake & Young Thug" is Future's song. */
+export const leadArtist = (artist: string) => (artist.split(/ feat\.? | ft\.? |,| & | x | and /i)[0] ?? artist).trim();
+
+/** One song's credits: each producer on it counts the others as collaborators, and the artist once. */
+const seen = new Map<string, Set<string>>(); // producer key -> songs already counted
+function credit(names: Iterable<string>, song: string, artist: string | null) {
+  const keys = [...new Set([...names].map(looseKey))];
+  const songKey = `${looseKey(song)}|${artist ? looseKey(leadArtist(artist)) : ""}`;
+  for (const k of keys) {
+    const p = BY_NAME.get(k);
+    if (!p) continue;
+    let done = seen.get(k);
+    if (!done) seen.set(k, (done = new Set()));
+    if (done.has(songKey)) continue;
+    done.add(songKey);
+    for (const o of keys) if (o !== k) bump(p.collab, o);
+    // Their own songs ("Kanye West" on a Kanye album) say nothing about who they produce for.
+    if (artist && !isUnknown(artist) && looseKey(leadArtist(artist)) !== k) bump(p.artists, leadArtist(artist));
+  }
+}
+
 for (const s of ALL_SONGS) {
   const names = new Set(s.entries.flatMap((e) => namesIn(e.producer, "preset")));
   for (const n of names) page(n).presets.push(s);
+  credit(names, s.song, s.artist);
 }
 for (const s of SAMPLE_CREDITS) {
   // The sample credits split "Tyler, the Creator" at its comma.
   const credits = s.producers.map((p) => (/^the Creator$/i.test(p.trim()) ? "Tyler, the Creator" : p));
   const names = new Set(credits.map((p) => canonicalName(p, "credit")).filter((n): n is string => !!n));
   for (const n of names) page(n).samples.push(s.index);
+  credit(names, `sample:${s.index}`, null);
 }
 
 /** The key a song-chord row is filed under. */
 export const midiSongKey = (song: string, artist: string) => `${looseKey(song)}|${looseKey(artist.split(/ feat\.? | ft\.? |,| & | x /i)[0] ?? artist)}`;
 
-for (const c of SONG_CHORDS) for (const n of namesIn(c.producer, "preset")) page(n).midiSongs.add(midiSongKey(c.song, c.artist));
+for (const c of SONG_CHORDS) {
+  const names = namesIn(c.producer, "preset");
+  for (const n of names) page(n).midiSongs.add(midiSongKey(c.song, c.artist));
+  credit(names, c.song, c.artist);
+}
 
 /** The page a loop's style tag or a kit's "inspired by" name points at, if that producer has one. */
 export function styleTarget(tag: string): ProducerPage | null {
@@ -217,6 +251,21 @@ export function attachLoopStyles(loopTags: string[]) {
     p.loopCount++;
   }
   ordered = null;
+}
+
+/** The producers they share the most songs with, each with a page. */
+export function collaboratorsOf(p: ProducerPage, max = 8): { page: ProducerPage; songs: number }[] {
+  allProducers();
+  return [...p.collab]
+    .map(([k, songs]) => ({ page: BY_NAME.get(k), songs }))
+    .filter((c): c is { page: ProducerPage; songs: number } => !!c.page && c.page !== p)
+    .sort((a, b) => b.songs - a.songs || a.page.name.localeCompare(b.page.name))
+    .slice(0, max);
+}
+
+/** The artists they produced for most, most songs first. */
+export function artistsOf(p: ProducerPage, max = 4): string[] {
+  return [...p.artists].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, max).map(([a]) => a);
 }
 
 export function producerTotal(p: ProducerPage): number {

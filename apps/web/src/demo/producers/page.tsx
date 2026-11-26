@@ -8,7 +8,8 @@ import { SongCard as PresetSongCard } from "../presets/page";
 import { KitCards } from "../kits/pages";
 import { useKits } from "../kits/store";
 import { MidiList, useMidiItems } from "../midi/pages";
-import { allProducers, midiSongKey, producerBySlug, producerPageHref, producerTotal, type ProducerPage } from "./data";
+import { coverFor, tileStyle } from "../presets/cover";
+import { allProducers, artistsOf, collaboratorsOf, midiSongKey, producerBySlug, producerPageHref, producerTotal, type ProducerPage } from "./data";
 
 // The sampled songs come from the Samples tab's catalog, which loads on its own (see samples/credits.ts).
 const SampledSongs = lazy(() =>
@@ -233,6 +234,40 @@ function Grid<T>({ items, first, label, render }: { items: T[]; first: number; l
   );
 }
 
+/** "Future, Travis Scott and 21 Savage" */
+const andList = (xs: string[]) => (xs.length < 2 ? (xs[0] ?? "") : `${xs.slice(0, -1).join(", ")} and ${xs[xs.length - 1]}`);
+
+/** Producers they share songs with, each a link to their page. */
+function WorksWith({ p }: { p: ProducerPage }) {
+  const people = collaboratorsOf(p);
+  if (!people.length) return null;
+  return (
+    <section id="works-with" aria-labelledby="works-with-h" className="flex scroll-mt-4 flex-col gap-3">
+      <div className="flex flex-col gap-1">
+        <h2 id="works-with-h" className="text-title text-text">
+          Producers they work with
+        </h2>
+        <p className="text-small text-text-muted">Credited together on the songs here.</p>
+      </div>
+      <ul aria-label={`Producers who work with ${p.name}`} className="grid grid-cols-2 gap-3 tablet:grid-cols-4">
+        {people.map(({ page: o, songs }) => (
+          <li key={o.slug}>
+            <UiLink href={producerPageHref(o)} className="group flex items-center gap-3 rounded-panel border border-border p-3 ui-hover:border-border-strong">
+              <span data-hue={hueOf(o.name)} aria-hidden="true" className="st-avatar st-hero-title flex size-10 shrink-0 items-center justify-center rounded-full text-body">
+                {initialsOf(o.name)}
+              </span>
+              <span className="flex min-w-0 flex-col">
+                <span className="truncate text-body text-text group-hover:underline">{o.name}</span>
+                <span className="text-small text-text-muted">{plural(songs, "song")} together</span>
+              </span>
+            </UiLink>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
 function Missing() {
   return (
     <main className="mx-auto flex w-full max-w-content flex-col gap-6 px-3 py-8 tablet:px-4 desktop:px-6">
@@ -261,11 +296,18 @@ export function ProducerPageView({ slug, rows, styleOf, renderLoops }: { slug: s
     { id: "midi", name: "MIDI", n: midi.length },
     { id: "samples", name: "Samples", n: p.samples.length },
   ].filter((s) => s.n > 0);
+  const artists = artistsOf(p);
+  // The backdrop: the cover of their best-known song that has one.
+  const cover =
+    p.presets.map((s) => coverFor(s.song, s.artist)).find((c) => !!c) ??
+    midi.map((m) => (m.song ? coverFor(m.song.song, m.song.artist) : null)).find((c) => !!c) ??
+    null;
   const styleNote = `Original Stash sounds made in this style. ${p.name} did not make or endorse them.`;
   return (
     <main className="flex w-full flex-col">
-      <header className="border-b border-border">
-        <div className="mx-auto flex w-full max-w-content flex-col gap-4 px-3 pt-6 pb-8 tablet:px-4 tablet:pt-8 desktop:px-6">
+      <header className="st-song-hero relative overflow-hidden border-b border-border">
+        {cover && <span aria-hidden="true" className="st-song-backdrop" style={tileStyle(cover.file)} />}
+        <div className="relative mx-auto flex w-full max-w-content flex-col gap-4 px-3 pt-6 pb-8 tablet:px-4 tablet:pt-8 desktop:px-6">
           <UiLink href="/producers" className="self-start text-small text-text-muted ui-hover:text-text">
             ← Producers
           </UiLink>
@@ -274,6 +316,7 @@ export function ProducerPageView({ slug, rows, styleOf, renderLoops }: { slug: s
             <div className="flex min-w-0 flex-1 flex-col gap-1">
               <span className="text-label text-label-caps text-text-muted">Producer</span>
               <h1 className="st-hero-title st-song-title text-balance break-words text-text">{p.name}</h1>
+              {artists.length > 0 && <p className="text-body text-text-muted">{`Songs for ${andList(artists)}`}</p>}
             </div>
             <div className="shrink-0">
               <FollowButton p={p} />
@@ -318,6 +361,7 @@ export function ProducerPageView({ slug, rows, styleOf, renderLoops }: { slug: s
             </Suspense>
           </Section>
         )}
+        <WorksWith p={p} />
         {sections.length === 0 && (
           <EmptyState icon={User} title="Nothing here yet">
             {`No sounds tied to ${p.name} yet.`}

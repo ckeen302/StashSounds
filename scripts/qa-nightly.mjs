@@ -395,7 +395,8 @@ async function visit(ctx, v) {
 const queue = [...visits];
 await Promise.all(
   Array.from({ length: WORKERS }, async () => {
-    const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+    // Reduced motion stops the genre ticker, so its chips scroll into view and click like any other.
+    const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 }, reducedMotion: "reduce" });
     await ctx.addInitScript(HOOKS);
     for (let v; (v = queue.shift()); ) {
       await visit(ctx, v);
