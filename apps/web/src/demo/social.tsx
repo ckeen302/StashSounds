@@ -1,4 +1,7 @@
 import { Button, Heart, IconButton, TextInput, Trash, formatCount } from "@stash/ui";
+
+/** A count beside an icon, or nothing at zero: a row of "0"s reads as a dead page. */
+export const countOrNone = (n: number): string | null => (n > 0 ? formatCount(n) : null);
 import { useEffect, useState, useSyncExternalStore } from "react";
 import * as store from "./comments-store";
 import { has, plays } from "./store";
@@ -152,7 +155,7 @@ function CommentItem({ c, itemId, replies, canReply }: { c: store.Comment; itemI
           <div className="flex items-center gap-2 pt-1">
             <button type="button" aria-pressed={c.liked} aria-label={`${c.liked ? "Unlike" : "Like"} ${c.name}'s comment, ${c.likes} likes`} onClick={() => void store.toggleLike(c.id)} className={LIKE}>
               <Heart className="size-4" aria-hidden="true" />
-              {formatCount(c.likes)}
+              {countOrNone(c.likes)}
             </button>
             {canReply && (
               <Button size="sm" variant="ghost" aria-expanded={replying} onClick={() => setReplying(!replying)}>
@@ -226,7 +229,7 @@ export function CommentGlyph() {
 }
 
 const TALK =
-  "inline-flex h-8 shrink-0 items-center gap-1.5 rounded-control border border-border bg-raised px-2.5 font-mono text-numeric tabular text-text-muted ui-hover:border-border-strong ui-hover:text-text aria-expanded:border-border-strong aria-expanded:text-text";
+  "inline-flex h-8 min-w-8 shrink-0 items-center justify-center gap-1.5 rounded-control border border-border bg-raised px-2.5 font-mono text-numeric tabular text-text-muted ui-hover:border-border-strong ui-hover:text-text aria-expanded:border-border-strong aria-expanded:text-text";
 
 /** The comment count on a list row; pressing it opens the row's thread under it. */
 export function CommentToggle({ itemId, title, open, onToggle }: { itemId: string; title: string; open: boolean; onToggle: () => void }) {
@@ -235,7 +238,7 @@ export function CommentToggle({ itemId, title, open, onToggle }: { itemId: strin
   return (
     <button type="button" aria-expanded={open} aria-label={`Comments on ${title}, ${n}`} onClick={onToggle} className={TALK}>
       <CommentGlyph />
-      {formatCount(n)}
+      {countOrNone(n)}
     </button>
   );
 }
