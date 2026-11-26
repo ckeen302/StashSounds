@@ -61,7 +61,10 @@ const VIEWS: [View, string][] = [
 
 // Songs with their album cover first, then newest, so the tab opens on art.
 // (Each song's cover is looked up once, not on every comparison: the sort compared 9,000 songs.)
-const ORDERED = SAMPLE_SONGS.map((s) => ({ s, art: coverFor(s.song, s.artist) ? 1 : 0 }))
+const ORDERED = SAMPLE_SONGS.map((s) => ({
+  s,
+  art: coverFor(s.song, s.artist) ? 1 : 0,
+}))
   .sort((a, b) => b.art - a.art || (b.s.year ?? 0) - (a.s.year ?? 0))
   .map(({ s }) => s);
 
@@ -146,7 +149,9 @@ export function SamplesPage() {
         <div className="flex flex-col gap-1">
           <h1 className="text-title">Samples</h1>
           <p className="text-body text-text-muted">
-            {"Hip-hop and R&B songs and the records they sample. From Wikipedia's album credits and song articles, and MusicBrainz."}
+            {
+              "Hip-hop and R&B songs and the records they sample. From Wikipedia's album credits and song articles, and MusicBrainz."
+            }
           </p>
         </div>
         <SearchInput
@@ -405,7 +410,9 @@ export function SongCard({ s }: { s: SampleSong }) {
             <li className="text-small text-text-muted">{`and ${s.samples.length - 3} more`}</li>
           )}
           {sampledIn > 0 && (
-            <li className="text-small text-accent">{"Sampled in other songs here"}</li>
+            <li className="text-small text-accent">
+              {"Sampled in other songs here"}
+            </li>
           )}
         </ul>
       </UiLink>
@@ -613,13 +620,6 @@ export function SampleSongPage({ slug }: { slug: string }) {
                   ],
                   ["Year", s.year ? String(s.year) : "Not listed"],
                   ["Produced by", <ProducerList key="p" names={s.producers} />],
-                  ["Samples", String(s.samples.length)],
-                  ...(sampledBy.length
-                    ? ([["Sampled in", String(sampledBy.length)]] as [
-                        string,
-                        string,
-                      ][])
-                    : []),
                 ]}
               />
               <div className="mt-2 flex flex-wrap gap-2">
@@ -658,10 +658,7 @@ export function SampleSongPage({ slug }: { slug: string }) {
       </header>
 
       <div className="mx-auto flex w-full max-w-content flex-col gap-10 px-3 py-8 tablet:px-4 desktop:px-6">
-        <Section
-          id="contains"
-          title="Contains samples of"
-        >
+        <Section id="contains" title="Contains samples of">
           <ol className="flex flex-col gap-4">
             {s.samples.map((u) => (
               <Pair key={`${u.title}|${u.artist}`} u={u} song={s} />
@@ -670,10 +667,7 @@ export function SampleSongPage({ slug }: { slug: string }) {
         </Section>
 
         {sampledBy.length > 0 && (
-          <Section
-            id="sampled-in"
-            title="Was sampled in"
-          >
+          <Section id="sampled-in" title="Was sampled in">
             <ul className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-3">
               {sampledBy.map((x) => (
                 <SongCard key={x.song.key} s={x.song} />
@@ -686,7 +680,10 @@ export function SampleSongPage({ slug }: { slug: string }) {
           <SongShelf title={`More samples on ${s.album}`} songs={more} />
         )}
 
-        <Comments itemId={`sample:${s.slug}`} title={`${s.song} by ${s.artist}`} />
+        <Comments
+          itemId={`sample:${s.slug}`}
+          title={`${s.song} by ${s.artist}`}
+        />
 
         <Sources sources={s.sources} />
       </div>
@@ -762,7 +759,9 @@ function Pair({ u, song }: { u: SampleUse; song: SampleSong }) {
           )}
           {others.length > 0 && (
             <>
-              <span className="text-label text-label-caps text-text-muted">Also sampled in</span>
+              <span className="text-label text-label-caps text-text-muted">
+                Also sampled in
+              </span>
               <ul className="flex flex-wrap gap-2">
                 {others.slice(0, 12).map((x) => (
                   <li key={x.song.key}>
@@ -904,7 +903,6 @@ export function OriginalPage({ slug }: { slug: string }) {
   if (!o) return <Missing what="record" />;
   const page = o.uses.find((x) => x.use.page)?.use.page;
   const deeper = asSong(o);
-  const replayed = o.uses.filter((x) => x.use.type === "interpolation").length;
   return (
     <main className="flex w-full flex-col">
       <PlainHero eyebrow="Sampled record" title={o.title}>
@@ -913,8 +911,6 @@ export function OriginalPage({ slug }: { slug: string }) {
             ["Artist", <ArtistLink key="a" name={o.artist} />],
             ["Year", o.year ? String(o.year) : "Not listed"],
             ["Genre", known(o.genre) ? o.genre : "Not listed"],
-            ["Sampled in", String(o.uses.length)],
-            ["Replayed in", String(replayed)],
           ]}
         />
         <span className="flex flex-wrap gap-2">
@@ -952,7 +948,10 @@ export function OriginalPage({ slug }: { slug: string }) {
             ))}
           </ul>
         </Section>
-        <Comments itemId={`sample:original:${o.slug}`} title={`${o.title} by ${o.artist}`} />
+        <Comments
+          itemId={`sample:original:${o.slug}`}
+          title={`${o.title} by ${o.artist}`}
+        />
       </div>
     </main>
   );
@@ -983,10 +982,7 @@ function ArtistBody({ a }: { a: SampleArtist }) {
       </PlainHero>
       <div className="mx-auto flex w-full max-w-content flex-col gap-10 px-3 py-8 tablet:px-4 desktop:px-6">
         {a.records.length > 0 && (
-          <Section
-            id="records"
-            title="Their records that were sampled"
-          >
+          <Section id="records" title="Their records that were sampled">
             <ol className="flex flex-col gap-2">
               {a.records.slice(0, 60).map((o, i) => (
                 <RecordRow key={o.key} o={o} n={i + 1} />
@@ -995,10 +991,7 @@ function ArtistBody({ a }: { a: SampleArtist }) {
           </Section>
         )}
         {a.songs.length > 0 && (
-          <Section
-            id="songs"
-            title="Their songs and what they sample"
-          >
+          <Section id="songs" title="Their songs and what they sample">
             <ul className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-3">
               {a.songs.slice(0, 60).map((s) => (
                 <SongCard key={s.key} s={s} />
@@ -1061,10 +1054,7 @@ function ProducerBody({ p }: { p: SampleProducer }) {
         )}
       </PlainHero>
       <div className="mx-auto flex w-full max-w-content flex-col gap-3 px-3 py-8 tablet:px-4 desktop:px-6">
-        <Section
-          id="produced"
-          title="Songs and what they sample"
-        >
+        <Section id="produced" title="Songs and what they sample">
           <ul className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-3">
             {p.songs.map((s) => (
               <SongCard key={s.key} s={s} />
