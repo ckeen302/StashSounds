@@ -15950,5 +15950,93 @@
    "label": "Deezer, What they say",
    "url": "https://www.deezer.com/album/446880365"
   }
+ },
+ "бандана|платина": {
+  "file": "covers/.jpg",
+  "album": "РНБ КЛУБ",
+  "source": {
+   "label": "Deezer, РНБ КЛУБ",
+   "url": "https://www.deezer.com/album/453518705"
+  }
+ },
+ "boss|lil pump": {
+  "file": "covers/boss-lil-pump.jpg",
+  "album": "Boss",
+  "source": {
+   "label": "Deezer, Boss",
+   "url": "https://www.deezer.com/album/42632651"
+  }
+ },
+ "новый мерин|morgenshtern": {
+  "file": "covers/morgenshtern.jpg",
+  "album": "Новый Мерин",
+  "source": {
+   "label": "Deezer, Новый Мерин",
+   "url": "https://www.deezer.com/album/378760307"
+  }
+ },
+ "patek|future & lil uzi vert": {
+  "file": "covers/patek-future-lil-uzi-vert.jpg",
+  "album": "Pluto x Baby Pluto (Deluxe)",
+  "source": {
+   "label": "Deezer, Pluto x Baby Pluto (Deluxe)",
+   "url": "https://www.deezer.com/album/187062942"
+  }
+ },
+ "met gala|gucci mane feat. offset": {
+  "file": "covers/met-gala-gucci-mane-feat-offset.jpg",
+  "album": "Droptopwop",
+  "source": {
+   "label": "Deezer, Droptopwop",
+   "url": "https://www.deezer.com/album/42102181"
+  }
+ },
+ "helluva price|gunna": {
+  "file": "covers/helluva-price-gunna.jpg",
+  "album": "Drip Season 3",
+  "source": {
+   "label": "Deezer, Drip Season 3",
+   "url": "https://www.deezer.com/album/90920232"
+  }
+ },
+ "dollaz on my head|gunna feat. young thug": {
+  "file": "covers/dollaz-on-my-head-gunna-feat-young-thug.jpg",
+  "album": "WUNNA",
+  "source": {
+   "label": "Deezer, WUNNA",
+   "url": "https://www.deezer.com/album/149937242"
+  }
+ },
+ "noticed|lil mosey": {
+  "file": "covers/noticed-lil-mosey.jpg",
+  "album": "Northsbest (Extended)",
+  "source": {
+   "label": "Deezer, Northsbest (Extended)",
+   "url": "https://www.deezer.com/album/101230302"
+  }
+ },
+ "tiramisu|don toliver": {
+  "file": "covers/tiramisu-don-toliver.jpg",
+  "album": "Tiramisu",
+  "source": {
+   "label": "Deezer, Tiramisu",
+   "url": "https://www.deezer.com/album/812978131"
+  }
+ },
+ "trance|metro boomin, travis scott & young thug": {
+  "file": "covers/trance-metro-boomin-travis-scott-young-thug.jpg",
+  "album": "HEROES & VILLAINS",
+  "source": {
+   "label": "Deezer, HEROES & VILLAINS",
+   "url": "https://www.deezer.com/album/382760377"
+  }
+ },
+ "cinderella|future & metro boomin": {
+  "file": "covers/cinderella-future-metro-boomin.jpg",
+  "album": "WE DON'T TRUST YOU",
+  "source": {
+   "label": "Deezer, WE DON'T TRUST YOU",
+   "url": "https://www.deezer.com/album/563224412"
+  }
  }
 }
