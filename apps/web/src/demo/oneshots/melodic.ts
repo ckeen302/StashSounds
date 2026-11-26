@@ -221,7 +221,7 @@ export function fileName(s: MelodicShot): string {
   return `${base}.${s.posted?.ext ?? "wav"}`;
 }
 
-async function fileOf(s: MelodicShot): Promise<Blob | null> {
+export async function fileOf(s: MelodicShot): Promise<Blob | null> {
   if (s.posted) {
     const d = await getFile(s.posted.fileKey);
     return d ? new Blob([d]) : null;

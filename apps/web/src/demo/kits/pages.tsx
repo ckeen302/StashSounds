@@ -1,3 +1,5 @@
+import { DawDragZone } from "../daw-drag";
+import { kitSoundSource, shotSource } from "../daw-sources";
 import {
   Button,
   ButtonLink,
@@ -87,7 +89,7 @@ function DrumSounds({ type, needle }: { type: Category; needle: string }) {
       </EmptyState>
     );
   return (
-    <div className="overflow-hidden rounded-panel border border-border bg-surface">
+    <DawDragZone sources={sounds.map(shotSource)} className="overflow-hidden rounded-panel border border-border bg-surface">
       <ul aria-label={CATEGORIES.find((c) => c.id === type)!.plural}>
         {sounds.map((s) => {
           const cid = s.kit ? `kit:${s.kit.id}:${s.id}` : `kit:sound:${s.id}`;
@@ -135,7 +137,7 @@ function DrumSounds({ type, needle }: { type: Category; needle: string }) {
           );
         })}
       </ul>
-    </div>
+    </DawDragZone>
   );
 }
 
@@ -360,7 +362,7 @@ export function KitPage({ id }: { id: string }) {
         ))}
       </div>
 
-      <div className="overflow-hidden rounded-panel border border-border bg-surface">
+      <DawDragZone sources={k ? sounds.map((s) => kitSoundSource(k, s)) : []} className="overflow-hidden rounded-panel border border-border bg-surface">
         <ul ref={listRef} aria-label="Sounds">
           {sounds.map((s, i) => (
             <li
@@ -389,7 +391,7 @@ export function KitPage({ id }: { id: string }) {
             </li>
           ))}
         </ul>
-      </div>
+      </DawDragZone>
       <p className="text-small text-text-muted">The arrow keys move through the sounds and play each one; Space plays the selected sound again.</p>
       <Comments itemId={`kit:${k.id}`} title={k.name} />
     </main>

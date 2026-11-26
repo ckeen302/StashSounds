@@ -324,7 +324,7 @@ export function partOf(role: string): string {
  * lead sound (part, plugin, preset). The whole card opens the song. Missing facts keep their line, so no
  * card reads differently from the one next to it. One sound shows (the one with a named preset first).
  */
-function SongCard({ s }: { s: Song }) {
+export function SongCard({ s }: { s: Song }) {
   const album = albumOf(s.song, s.artist) ?? "Album not listed";
   const producer = s.producer && !/^(unknown|not stated)$/i.test(s.producer) ? `prod. ${s.producer}` : "Producer not credited";
   const lead = s.entries.find((e) => e.preset) ?? s.entries[0]!;

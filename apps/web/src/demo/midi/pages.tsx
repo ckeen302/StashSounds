@@ -34,6 +34,8 @@ import { MidiError, parseMidi, SOUND_FOR, type MidiAnalysis } from "./parse";
 import { DRUM_PART_LABEL, guessDrumPart, setDrumPart, type DrumPart } from "./drum-parts";
 import { PianoRoll } from "./piano-roll";
 import { saveFiles } from "../save";
+import { DawDragZone } from "../daw-drag";
+import { midiSource } from "../daw-sources";
 import { writeMidi } from "./write";
 import { classicLabel, type Classic } from "./classics";
 import { progressionOf } from "./songs";
@@ -121,7 +123,7 @@ export function MidiList({ label, items }: { label: string; items: MidiItem[] })
   const toast = useToast();
   const cell = "font-mono text-numeric tabular text-text";
   return (
-    <div className="overflow-hidden rounded-panel border border-border bg-surface">
+    <DawDragZone sources={items.map(midiSource)} className="overflow-hidden rounded-panel border border-border bg-surface">
       <div aria-hidden="true" className="flex h-8 items-center gap-3 border-b border-border px-3">
         <span className="w-10 shrink-0" />
         <span className="hidden w-50 shrink-0 text-label text-label-caps text-text-muted tablet:block">Notes</span>
@@ -161,7 +163,7 @@ export function MidiList({ label, items }: { label: string; items: MidiItem[] })
           );
         })}
       </ul>
-    </div>
+    </DawDragZone>
   );
 }
 

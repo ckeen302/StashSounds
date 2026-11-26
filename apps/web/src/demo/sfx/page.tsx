@@ -1,3 +1,5 @@
+import { DawDragZone } from "../daw-drag";
+import { sfxSource } from "../daw-sources";
 import { Button, Download, EmptyState, FilterChip, IconButton, PlayButton, Search, SearchInput, TagChip, useToast } from "@stash/ui";
 import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { CrateMenu } from "../explore";
@@ -214,7 +216,7 @@ export function SfxPage() {
       </div>
 
       {list.length > 0 ? (
-        <div className="overflow-hidden rounded-panel border border-border bg-surface">
+        <DawDragZone sources={visible.map(sfxSource)} className="overflow-hidden rounded-panel border border-border bg-surface">
           <ul ref={listRef} aria-label="Sound effects">
             {visible.map((s, i) => {
               const isPlaying = playing.id === s.id;
@@ -271,7 +273,7 @@ export function SfxPage() {
               <Button variant="ghost" onClick={() => setShown((n) => n + PAGE)}>{`Show more (${list.length - shown} left)`}</Button>
             </div>
           )}
-        </div>
+        </DawDragZone>
       ) : (
         <EmptyState icon={Search} title="No sound effects match">
           Try a simpler word, like roar, siren, phone or boom, or pick a category above.

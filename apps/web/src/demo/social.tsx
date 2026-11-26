@@ -243,7 +243,7 @@ export function CommentToggle({ itemId, title, open, onToggle }: { itemId: strin
 /** A row's thread, as the list item right under the row. */
 export function RowThread({ itemId, title }: { itemId: string; title: string }) {
   return (
-    <li className="border-b border-border bg-bg px-3 py-3 last:border-b-0">
+    <li data-thread className="border-b border-border bg-bg px-3 py-3 last:border-b-0">
       <Comments itemId={itemId} title={title} compact />
     </li>
   );
