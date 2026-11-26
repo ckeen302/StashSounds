@@ -31,3 +31,6 @@ apps/web/public/demo/
 
 # Browser-only demo build (scripts/build-demo-app.mjs)
 apps/web/out-demo/
+
+# Nightly demo QA output (scripts/qa-nightly.mjs)
+qa-report/

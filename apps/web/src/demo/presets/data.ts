@@ -163,7 +163,10 @@ export function presetParts(preset: string | null): { name: string; note: string
 
 /** A row counts only when it names both the plugin and the preset: "Kontakt" alone isn't something a producer can load. */
 const complete = (p: PresetEntry) => !!p.preset?.trim() && !/not named|unknown|unnamed/i.test(p.preset) && !!p.plugin.trim() && !/not named|unknown/i.test(p.plugin);
-const unique: PresetEntry[] = [...HAND, ...(found as unknown as PresetEntry[])].filter((p) => {
+// Some found rows name no producer: they read as "Unknown", like the hand rows that say so (the
+// search reads every row's producer and failed on the missing field).
+const foundRows: PresetEntry[] = (found as unknown as (Omit<PresetEntry, "producer"> & { producer?: string | null })[]).map((p) => ({ ...p, producer: p.producer ?? "Unknown" }));
+const unique: PresetEntry[] = [...HAND, ...foundRows].filter((p) => {
   if (!complete(p)) return false;
   const k = keyOf(p);
   if (seen.has(k)) return false;
