@@ -2,9 +2,10 @@ import RAW from "./samples.json";
 import { slugify, songKey } from "../presets/songs";
 
 /**
- * The Samples tab's data: hip-hop songs, the records each one samples, and the links between them
- * both ways (what a song samples, and what sampled it). Every song cites the Wikipedia album article
- * whose sample credits (from the liner notes) name it. Nothing comes from WhoSampled.
+ * The Samples tab's data: hip-hop and R&B songs, the records each one samples, and the links between
+ * them both ways (what a song samples, and what sampled it). Every song cites the Wikipedia article
+ * that names the sample: its album's sample credits (from the liner notes), or the song's own article.
+ * Nothing comes from WhoSampled.
  * scripts/samples/build-samples.py writes samples.json; its header says how the credits were read.
  */
 
@@ -134,7 +135,7 @@ function build(): SampleSong[] {
     }));
     if (!song || !artist || !samples.length) continue;
     const source = {
-      label: `Wikipedia: ${album ?? song}, sample credits`,
+      label: `Wikipedia: ${decodeURIComponent(page).replace(/_/g, " ")}`,
       url: WIKI + page,
     };
     const key = songKey(song, artist);

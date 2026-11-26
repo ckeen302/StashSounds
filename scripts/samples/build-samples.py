@@ -6,6 +6,9 @@ Input: a JSON list of albums, each [page, album, artist, year, songs], where a s
 It was read from each album article's "Sample credits" section (the album's liner notes), or, for an
 article with no such section, from its bulleted sample notes for tracks on its track listing, through
 the Wikipedia API, with the sampled record's year and genre from its own article or its artist's.
+A song article can stand in for an album: [song article, album, artist, year, [the song]], read from
+sentences whose subject is the song ("The song samples "X" by Y"), with the performer taken from
+the sampled record's own article when it has one.
 Nothing here comes from WhoSampled.
 
 YouTube videos come from Wikidata's "YouTube video ID" (P1651) on the song's own item, read for
