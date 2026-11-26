@@ -146,7 +146,7 @@ export function SamplesPage() {
         <div className="flex flex-col gap-1">
           <h1 className="text-title">Samples</h1>
           <p className="text-body text-text-muted">
-            {`${plural(SAMPLE_SONGS.length, "hip-hop and R&B song")}, the ${plural(ORIGINALS.length, "record")} they sample, ${plural(CONNECTIONS, "connection")}. From each album's liner-note credits.`}
+            {`${plural(SAMPLE_SONGS.length, "hip-hop and R&B song")}, the ${plural(ORIGINALS.length, "record")} they sample, ${plural(CONNECTIONS, "connection")}. From Wikipedia's album credits and song articles.`}
           </p>
         </div>
         <SearchInput

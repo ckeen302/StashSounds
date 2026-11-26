@@ -6,6 +6,12 @@ Input: a JSON list of albums, each [page, album, artist, year, songs], where a s
 It was read from each album article's "Sample credits" section (the album's liner notes), or, for an
 article with no such section, from its bulleted sample notes for tracks on its track listing, through
 the Wikipedia API, with the sampled record's year and genre from its own article or its artist's.
+A song article can stand in for an album: [song article, album, artist, year, [the song]], read from
+sentences whose subject is the song ("The song samples "X" by Y"), with the performer taken from
+the sampled record's own article when it has one. A sampled record's article can stand in too:
+[record article, None, sampling artist, year, [[sampling song, "", [the record]]]], read from its
+Sampling section where the sentence says the record was sampled (or the list is introduced that way)
+and the sampling artist's own article lists hip hop or R&B.
 Nothing here comes from WhoSampled.
 
 YouTube videos come from Wikidata's "YouTube video ID" (P1651) on the song's own item, read for
@@ -101,6 +107,17 @@ for page, album, artist, year, tracks in raw:
         if not uses: continue
         songs.append({"song": title, "artist": artist, "year": year, "album": album, "producers": producers(prod),
                       "samples": uses, "sources": [{"label": f"Wikipedia: {album}, sample credits", "url": wiki(page)}], "video": video})
+
+# A song article credits every performer ("The Weeknd, Playboi Carti and Madonna") where an album's
+# notes name the lead ("The Weeknd"); the same record is listed once, under the shorter name.
+by_title = {}
+for x in songs:
+    for u in x["samples"]: by_title.setdefault(norm(u["title"]), set()).add(u["artist"])
+for x in songs:
+    for u in x["samples"]:
+        for a in by_title[norm(u["title"])]:
+            if len(a) < len(u["artist"]) and re.match(re.escape(a) + r"(,| and | & | featuring | feat\. | with )", u["artist"]):
+                u["artist"] = a; break
 
 # Compact rows (the file ships inside the demo bundle):
 # [song, artist, year, album, producers, album article, [[title, artist, year, genre, replayed, article, video]], video]
