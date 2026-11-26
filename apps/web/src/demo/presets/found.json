@@ -18899,5 +18899,482 @@
   "quoteBy": "G66 (Fractal Audio distributor)",
   "path": "Factory presets",
   "album": "Sob Rock"
+ },
+ {
+  "song": "Yes I'm Changing",
+  "artist": "Tame Impala",
+  "producer": "Kevin Parker",
+  "plugin": "Roland JV-1080 (hardware)",
+  "preset": "PR-C 075 Jet Pad 1",
+  "role": "Choir doubling the chords",
+  "confidence": "press",
+  "quote": "The patch is a preset found on the JV-1080 called PR-C: 075: Jet Pad 1.",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Tame Impala Synth Sounds",
+   "url": "https://reverbmachine.com/blog/tame-impala-synth-sounds/"
+  },
+  "album": "Currents"
+ },
+ {
+  "song": "Yes I'm Changing",
+  "artist": "Tame Impala",
+  "producer": "Kevin Parker",
+  "plugin": "Roland JV-1080 (hardware)",
+  "preset": "PR-A 060 Cathedral",
+  "role": "Church organ lead at 2:05",
+  "confidence": "press",
+  "quote": "The church organ lead sound that plays at 2:05 is also from the JV-1080, this time it’s the patch PR-A: 060: Cathedral",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Tame Impala Synth Sounds",
+   "url": "https://reverbmachine.com/blog/tame-impala-synth-sounds/"
+  },
+  "album": "Currents"
+ },
+ {
+  "song": "Past Life",
+  "artist": "Tame Impala",
+  "producer": "Kevin Parker",
+  "plugin": "Roland JV-1080 (hardware)",
+  "preset": "PR-C 075 Jet Pad 1",
+  "role": "Choir pad",
+  "confidence": "press",
+  "quote": "this is the Jet Pad choir sound that is used all over Currents such as on Past Life and List of People",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Tame Impala Synth Sounds",
+   "url": "https://reverbmachine.com/blog/tame-impala-synth-sounds/"
+  },
+  "album": "Currents"
+ },
+ {
+  "song": "List Of People (To Try And Forget About)",
+  "artist": "Tame Impala",
+  "producer": "Kevin Parker",
+  "plugin": "Roland JV-1080 (hardware)",
+  "preset": "PR-C 075 Jet Pad 1",
+  "role": "Choir pad",
+  "confidence": "press",
+  "quote": "this is the Jet Pad choir sound that is used all over Currents such as on Past Life and List of People",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Tame Impala Synth Sounds",
+   "url": "https://reverbmachine.com/blog/tame-impala-synth-sounds/"
+  },
+  "album": "Currents B-Sides & Remixes"
+ },
+ {
+  "song": "Gossip",
+  "artist": "Tame Impala",
+  "producer": "Kevin Parker",
+  "plugin": "Roland JV-1080 (hardware)",
+  "preset": "PR-C 099 Flying Waltz",
+  "role": "Rhythmic tempo-synced synth",
+  "confidence": "press",
+  "quote": "The preset that Kevin Parker used in Gossip is PRC: 099 Flying Waltz.",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Tame Impala Gossip Synth",
+   "url": "https://reverbmachine.com/blog/tame-impala-gossip-synth/"
+  },
+  "album": "Currents"
+ },
+ {
+  "song": "Love/Paranoia",
+  "artist": "Tame Impala",
+  "producer": "Kevin Parker",
+  "plugin": "Roland JV-1010 / JV-1080 (hardware)",
+  "preset": "PR-D 023 Stacc Heaven",
+  "role": "Bright bell doubling the brass chords",
+  "confidence": "press",
+  "quote": "The bright bell sound that doubles the brass chords is the JV preset PR-D: 023 Stacc Heaven.",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Tame Impala Love/Paranoia Synth Sounds",
+   "url": "https://reverbmachine.com/blog/tame-impala-love-paranoia-synth-sounds/"
+  },
+  "album": "Currents"
+ },
+ {
+  "song": "On the Level",
+  "artist": "Mac DeMarco",
+  "producer": "Mac DeMarco",
+  "plugin": "Roland D-50 (hardware)",
+  "preset": "Perc E-Piano",
+  "role": "Chord synth",
+  "confidence": "press",
+  "quote": "The chord synth track was recorded with a Roland D-50, specifically the Perc E-Piano preset.",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Mac DeMarco Synth Sounds",
+   "url": "https://reverbmachine.com/blog/mac-demarco-synth-sounds/"
+  },
+  "album": "This Old Dog"
+ },
+ {
+  "song": "Ageispolis",
+  "artist": "Aphex Twin",
+  "producer": "Richard D. James",
+  "plugin": "Yamaha DX7 (hardware)",
+  "preset": "ROM2A 08 STRINGS 5",
+  "role": "Spacey string pad (filtered)",
+  "confidence": "press",
+  "quote": "The synth patch in Ageispolis is Rom2A 08-STRINGS 5 with filtering and lots of reverb & delay.",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Aphex Twin Selected Ambient Works 85-92",
+   "url": "https://reverbmachine.com/blog/aphex-twin-selected-ambient-works-85-92/"
+  },
+  "album": "Selected Ambient Works 85-92"
+ },
+ {
+  "song": "Pulsewidth",
+  "artist": "Aphex Twin",
+  "producer": "Richard D. James",
+  "plugin": "Yamaha DX7 (hardware)",
+  "preset": "ROM2A 09 STRINGS 6",
+  "role": "Melodic lead from the halfway point",
+  "confidence": "press",
+  "quote": "This part comes from the Yamaha DX7 Rom2A 09-STRINGS 6 preset",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Aphex Twin Selected Ambient Works 85-92",
+   "url": "https://reverbmachine.com/blog/aphex-twin-selected-ambient-works-85-92/"
+  },
+  "album": "Selected Ambient Works 85-92"
+ },
+ {
+  "song": "Xtal",
+  "artist": "Aphex Twin",
+  "producer": "Richard D. James",
+  "plugin": "Yamaha DX7 (hardware)",
+  "preset": "ROM2A 08 STRINGS 5",
+  "role": "Ethereal ambient chords",
+  "confidence": "press",
+  "quote": "again comes from the Rom2A 08-STRINGS 5 DX7 patch, but with the filter set to 800 Hz",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Aphex Twin Selected Ambient Works 85-92",
+   "url": "https://reverbmachine.com/blog/aphex-twin-selected-ambient-works-85-92/"
+  },
+  "album": "Selected Ambient Works 85-92"
+ },
+ {
+  "song": "She's So Lovely",
+  "artist": "Beach House",
+  "plugin": "Yamaha PS-20 (hardware)",
+  "preset": "Organ 2",
+  "role": "Keyboard chords and melody",
+  "confidence": "press",
+  "quote": "Specifically, she used the PS-20’s Organ 2 preset",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: How Beach House Created She's So Lovely",
+   "url": "https://reverbmachine.com/blog/how-beach-house-created-shes-so-lovely/"
+  },
+  "album": "Thank Your Lucky Stars"
+ },
+ {
+  "song": "Genesis",
+  "artist": "Grimes",
+  "producer": "Grimes",
+  "plugin": "Roland Juno-G (hardware)",
+  "preset": "Theramax",
+  "role": "Intro lead synth",
+  "confidence": "press",
+  "quote": "The lead synth in the intro of Genesis comes from the Roland Juno-G, specifically the Theramax preset.",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Grimes Synth Sounds",
+   "url": "https://reverbmachine.com/blog/grimes-synth-sounds/"
+  },
+  "album": "Visions"
+ },
+ {
+  "song": "Oblivion",
+  "artist": "Grimes",
+  "producer": "Grimes",
+  "plugin": "Roland Juno-G (hardware)",
+  "preset": "Ourobots",
+  "role": "Sequenced bassline",
+  "confidence": "press",
+  "quote": "The song’s driving bassline comes from the Juno-G’s Ourobots preset",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Grimes Synth Sounds",
+   "url": "https://reverbmachine.com/blog/grimes-synth-sounds/"
+  },
+  "album": "Visions"
+ },
+ {
+  "song": "Oblivion",
+  "artist": "Grimes",
+  "producer": "Grimes",
+  "plugin": "Roland Juno-G (hardware)",
+  "preset": "Vocastic",
+  "role": "Outro choir",
+  "confidence": "press",
+  "quote": "The choir sound that plays in Oblivion’s outro is the Vocastic preset on the Juno-G",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Grimes Synth Sounds",
+   "url": "https://reverbmachine.com/blog/grimes-synth-sounds/"
+  },
+  "album": "Visions"
+ },
+ {
+  "song": "Love/Paranoia",
+  "artist": "Tame Impala",
+  "producer": "Kevin Parker",
+  "plugin": "Roland JV-1010 / JV-1080 (hardware)",
+  "preset": "PR-C 017 Random Vowels",
+  "role": "Quiet vowel layer from the beginning",
+  "confidence": "press",
+  "quote": "There is also a quiet JV-1080 patch playing from the beginning, which uses the PR-C: 017 Random Vowels patch.",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Tame Impala Love/Paranoia Synth Sounds",
+   "url": "https://reverbmachine.com/blog/tame-impala-love-paranoia-synth-sounds/"
+  },
+  "album": "Currents"
+ },
+ {
+  "song": "Love/Paranoia",
+  "artist": "Tame Impala",
+  "producer": "Kevin Parker",
+  "plugin": "Roland JV-1010 / JV-1080 (hardware)",
+  "preset": "PR-C 040 String Ens",
+  "role": "High violin melody",
+  "confidence": "press",
+  "quote": "A high violin melody plays long notes using the PR-C: 040 String Ens patch",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Tame Impala Love/Paranoia Synth Sounds",
+   "url": "https://reverbmachine.com/blog/tame-impala-love-paranoia-synth-sounds/"
+  },
+  "album": "Currents"
+ },
+ {
+  "song": "Love/Paranoia",
+  "artist": "Tame Impala",
+  "producer": "Kevin Parker",
+  "plugin": "Roland JV-1010 / JV-1080 (hardware)",
+  "preset": "PR-C 045 Film Octaves",
+  "role": "Main descending orchestral melody",
+  "confidence": "press",
+  "quote": "The main descending orchestral melody comes from the JV-1080 PR-C: 045 Film Octaves patch",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Tame Impala Love/Paranoia Synth Sounds",
+   "url": "https://reverbmachine.com/blog/tame-impala-love-paranoia-synth-sounds/"
+  },
+  "album": "Currents"
+ },
+ {
+  "song": "Eventually",
+  "artist": "Tame Impala",
+  "producer": "Kevin Parker",
+  "plugin": "Roland JV-1080 (hardware)",
+  "preset": "PR-A 082 Music Box",
+  "role": "Descending melodic line in the outro",
+  "confidence": "press",
+  "quote": "the PR-A 082 Music Box preset plays this descending melodic line",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Tame Impala Eventually Synth Sounds",
+   "url": "https://reverbmachine.com/blog/tame-impala-eventually-synth-sounds/"
+  },
+  "album": "Currents"
+ },
+ {
+  "song": "Eventually",
+  "artist": "Tame Impala",
+  "producer": "Kevin Parker",
+  "plugin": "Roland JV-1080 (hardware)",
+  "preset": "PR-C 039 Bright Str",
+  "role": "Outro lead, breakdown layer",
+  "confidence": "press",
+  "quote": "there are two patches: JV-1080 PR-C: 039 Bright Str and Mellotron 3Violins both panned hard-left.",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Tame Impala Eventually Synth Sounds",
+   "url": "https://reverbmachine.com/blog/tame-impala-eventually-synth-sounds/"
+  },
+  "album": "Currents"
+ },
+ {
+  "song": "Eventually",
+  "artist": "Tame Impala",
+  "producer": "Kevin Parker",
+  "plugin": "Roland JV-1080 (hardware)",
+  "preset": "PR-B 085 Sawteeth",
+  "role": "Outro lead from 4:33",
+  "confidence": "press",
+  "quote": "the JV-1080 Bright Strings patch is replaced with the PR-B: 085 Sawteeth preset",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Tame Impala Eventually Synth Sounds",
+   "url": "https://reverbmachine.com/blog/tame-impala-eventually-synth-sounds/"
+  },
+  "album": "Currents"
+ },
+ {
+  "song": "'Cause I'm A Man",
+  "artist": "Tame Impala",
+  "producer": "Kevin Parker",
+  "plugin": "Fairlight CMI (hardware)",
+  "preset": "ARR",
+  "role": "Choir part",
+  "confidence": "press",
+  "quote": "The choir part is the classic ARR patch from the Fairlight CMI",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Tame Impala Cause I'm a Man Synth Sounds",
+   "url": "https://reverbmachine.com/blog/tame-impala-cause-im-a-man-synth-sounds/"
+  },
+  "album": "Currents"
+ },
+ {
+  "song": "Shout",
+  "artist": "Tears for Fears",
+  "producer": "Chris Hughes",
+  "plugin": "Fairlight CMI (hardware)",
+  "preset": "ARR 1",
+  "role": "Main melodic synth hook",
+  "confidence": "press",
+  "quote": "The main melodic synth hook from Shout is the Fairlight ARR 1 sound that you can hear in the pre-chorus.",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Tears for Fears Shout Synths",
+   "url": "https://reverbmachine.com/blog/tears-for-fears-shout-synths/"
+  },
+  "album": "Songs from the Big Chair"
+ },
+ {
+  "song": "Shout",
+  "artist": "Tears for Fears",
+  "producer": "Chris Hughes",
+  "plugin": "Yamaha DX7 (hardware)",
+  "preset": "11 E.PIANO 1",
+  "role": "Slap bass behind the Fairlight solo",
+  "confidence": "press",
+  "quote": "The slap-bass sound that plays behind the Fairlight solo at 3:11 originally comes from the group’s Yamaha DX7, in particular the 11-E.Piano 1 patch",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Tears for Fears Shout Synths",
+   "url": "https://reverbmachine.com/blog/tears-for-fears-shout-synths/"
+  },
+  "album": "Songs from the Big Chair"
+ },
+ {
+  "song": "Everybody Wants to Rule the World",
+  "artist": "Tears for Fears",
+  "producer": "Chris Hughes",
+  "plugin": "Yamaha DX7 (hardware)",
+  "preset": "ROM1A 08 PIANO 1",
+  "role": "Layered chord patch",
+  "confidence": "press",
+  "quote": "For the layered chord patch, they used two of the DX7’s stock electric piano sounds: ROM1A 08-PIANO 1 and ROM1B 01-PIANO 4.",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Tears for Fears Everybody Wants to Rule the World Synths",
+   "url": "https://reverbmachine.com/blog/tears-for-fears-everybody-wants-to-rule-the-world-synths/"
+  },
+  "album": "Songs from the Big Chair"
+ },
+ {
+  "song": "Everybody Wants to Rule the World",
+  "artist": "Tears for Fears",
+  "producer": "Chris Hughes",
+  "plugin": "Yamaha DX7 (hardware)",
+  "preset": "ROM1B 01 PIANO 4",
+  "role": "Layered chord patch (second layer)",
+  "confidence": "press",
+  "quote": "For the layered chord patch, they used two of the DX7’s stock electric piano sounds: ROM1A 08-PIANO 1 and ROM1B 01-PIANO 4.",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Tears for Fears Everybody Wants to Rule the World Synths",
+   "url": "https://reverbmachine.com/blog/tears-for-fears-everybody-wants-to-rule-the-world-synths/"
+  },
+  "album": "Songs from the Big Chair"
+ },
+ {
+  "song": "Sledgehammer",
+  "artist": "Peter Gabriel",
+  "producer": "Daniel Lanois",
+  "plugin": "E-mu Emulator II (hardware)",
+  "preset": "Shakuhachi",
+  "role": "Flute",
+  "confidence": "press",
+  "quote": "such as the Shakuhachi flute heard on Peter Gabriel’s Sledgehammer",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: New Order Elegia Synth Sounds",
+   "url": "https://reverbmachine.com/blog/new-order-elegia-synth-sounds/"
+  },
+  "album": "So"
+ },
+ {
+  "song": "West End Girls",
+  "artist": "Pet Shop Boys",
+  "producer": "Stephen Hague",
+  "plugin": "E-mu Emulator II (hardware)",
+  "preset": "Marcato Strings",
+  "role": "Strings",
+  "confidence": "press",
+  "quote": "the Marcato Strings patch in the Pet Shop Boys West End Girls",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: New Order Elegia Synth Sounds",
+   "url": "https://reverbmachine.com/blog/new-order-elegia-synth-sounds/"
+  },
+  "album": "Please"
+ },
+ {
+  "song": "Elegia",
+  "artist": "New Order",
+  "producer": "New Order",
+  "plugin": "E-mu Emulator II (hardware)",
+  "preset": "NY Church Bell (Universe of Sounds)",
+  "role": "Church bell at the start of the outro guitar solo",
+  "confidence": "press",
+  "quote": "it’s the NY Church Bell sample from the Universe of Sounds collection",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: New Order Elegia Synth Sounds",
+   "url": "https://reverbmachine.com/blog/new-order-elegia-synth-sounds/"
+  },
+  "album": "Low-Life"
+ },
+ {
+  "song": "Say You Will",
+  "artist": "Foreigner",
+  "plugin": "Roland D-50 (hardware)",
+  "preset": "Staccato Heaven",
+  "role": "Signature D-50 patch",
+  "confidence": "press",
+  "quote": "the famous Roland D-50 patch Staccato Heaven (of Foreigner’s Say You Will and Rick Astley’s You Move Me fame)",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Tame Impala Love/Paranoia Synth Sounds",
+   "url": "https://reverbmachine.com/blog/tame-impala-love-paranoia-synth-sounds/"
+  },
+  "album": "Inside Information"
+ },
+ {
+  "song": "You Move Me",
+  "artist": "Rick Astley",
+  "plugin": "Roland D-50 (hardware)",
+  "preset": "Staccato Heaven",
+  "role": "Signature D-50 patch",
+  "confidence": "press",
+  "quote": "the famous Roland D-50 patch Staccato Heaven (of Foreigner’s Say You Will and Rick Astley’s You Move Me fame)",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Tame Impala Love/Paranoia Synth Sounds",
+   "url": "https://reverbmachine.com/blog/tame-impala-love-paranoia-synth-sounds/"
+  },
+  "album": "Whenever You Need Somebody"
  }
 ]
