@@ -16014,5 +16014,29 @@
    "label": "Deezer, Northsbest (Extended)",
    "url": "https://www.deezer.com/album/101230302"
   }
+ },
+ "tiramisu|don toliver": {
+  "file": "covers/tiramisu-don-toliver.jpg",
+  "album": "Tiramisu",
+  "source": {
+   "label": "Deezer, Tiramisu",
+   "url": "https://www.deezer.com/album/812978131"
+  }
+ },
+ "trance|metro boomin, travis scott & young thug": {
+  "file": "covers/trance-metro-boomin-travis-scott-young-thug.jpg",
+  "album": "HEROES & VILLAINS",
+  "source": {
+   "label": "Deezer, HEROES & VILLAINS",
+   "url": "https://www.deezer.com/album/382760377"
+  }
+ },
+ "cinderella|future & metro boomin": {
+  "file": "covers/cinderella-future-metro-boomin.jpg",
+  "album": "WE DON'T TRUST YOU",
+  "source": {
+   "label": "Deezer, WE DON'T TRUST YOU",
+   "url": "https://www.deezer.com/album/563224412"
+  }
  }
 }

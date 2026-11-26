@@ -25658,5 +25658,110 @@
    "label": "YouTube: Famous Song Presets (Part1)",
    "url": "https://www.youtube.com/watch?v=ia2nLwl0j6A"
   }
+ },
+ {
+  "song": "Panda",
+  "artist": "Desiigner",
+  "plugin": "LennarDigital Sylenth1",
+  "preset": "KEY Rhowdz",
+  "role": "keys",
+  "confidence": "community",
+  "quote": "038: KEY Rhowdz",
+  "quoteBy": " 🐼🔥💰",
+  "album": "New English",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS ",
+   "url": "https://www.youtube.com/watch?v=2YKTlUm4VP0"
+  }
+ },
+ {
+  "song": "Panda",
+  "artist": "Desiigner",
+  "plugin": "LennarDigital Sylenth1",
+  "preset": "KEY Orchestra Hit",
+  "role": "synth",
+  "confidence": "community",
+  "quote": "035: KEY Orchestra Hit",
+  "quoteBy": "brky",
+  "album": "New English",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS ",
+   "url": "https://www.youtube.com/watch?v=2YKTlUm4VP0"
+  }
+ },
+ {
+  "song": "Tiramisu",
+  "artist": "Don Toliver",
+  "plugin": "Luxonix Purity",
+  "preset": "Pretty Suitcase",
+  "role": "keys",
+  "confidence": "community",
+  "quote": "064 Pretty Suitcase",
+  "quoteBy": " 🍰🌙🎶",
+  "album": "Tiramisu",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS ",
+   "url": "https://www.youtube.com/watch?v=3vNRrvBwRR0"
+  }
+ },
+ {
+  "song": "Tiramisu",
+  "artist": "Don Toliver",
+  "plugin": "Roland ZENOLOGY Pro",
+  "preset": "Solo AltoSax",
+  "role": "sax",
+  "confidence": "community",
+  "quote": "PRST_E XV Collection: 621: Solo AltoSax",
+  "quoteBy": "brky",
+  "album": "Tiramisu",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS ",
+   "url": "https://www.youtube.com/watch?v=3vNRrvBwRR0"
+  }
+ },
+ {
+  "song": "Trance",
+  "artist": "Metro Boomin, Travis Scott & Young Thug",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Living Moog Triangles",
+  "role": "synth",
+  "confidence": "community",
+  "quote": "Living Moog Triangles",
+  "quoteBy": " 🌀🌌😵‍💫",
+  "album": "HEROES & VILLAINS",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS ",
+   "url": "https://www.youtube.com/watch?v=btEM-Xz3l1g"
+  }
+ },
+ {
+  "song": "Cinderella",
+  "artist": "Future & Metro Boomin",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Virgin Vinyl Rhodes",
+  "role": "keys",
+  "confidence": "community",
+  "quote": "Virgin Vinyl Rhodes",
+  "quoteBy": " 🌃 💎 🕷️",
+  "album": "WE DON'T TRUST YOU",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS ",
+   "url": "https://www.youtube.com/watch?v=_ZgImICep8c"
+  }
+ },
+ {
+  "song": "Cinderella",
+  "artist": "Future & Metro Boomin",
+  "plugin": "Roland ZENOLOGY Pro",
+  "preset": "Loose Nylon",
+  "role": "guitar",
+  "confidence": "community",
+  "quote": "EXZ006 World Instruments: ZEN-Core 115: Loose Nylon",
+  "quoteBy": "brky",
+  "album": "WE DON'T TRUST YOU",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS ",
+   "url": "https://www.youtube.com/watch?v=_ZgImICep8c"
+  }
  }
 ]
