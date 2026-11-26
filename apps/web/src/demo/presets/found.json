@@ -21994,21 +21994,6 @@
   "album": "FUTURE"
  },
  {
-  "song": "Glow Up",
-  "artist": "NAV",
-  "plugin": "Output Exhale",
-  "preset": "001. Bangers",
-  "role": "Vocal Loop",
-  "confidence": "community",
-  "source": {
-   "label": "YouTube: Nav - Glow Up Preset | Sound Searchin (Sound Searchin), video frame at 0:33",
-   "url": "https://www.youtube.com/watch?v=F0lK9H800Bs"
-  },
-  "quote": "On screen: Output Exhale in Loops mode, preset bar reads \"001. Bangers\" and it is highlighted in the list; card \"Nav - Glow Up\"",
-  "quoteBy": "Sound Searchin",
-  "album": "RECKLESS"
- },
- {
   "song": "Blem",
   "artist": "Drake",
   "plugin": "Spectrasonics Omnisphere",
@@ -22122,5 +22107,257 @@
   },
   "quote": "On screen: Nexus browser, category \"Plucked\", preset \"PL Dr Chaotica\" loaded; caption \"PL Dr Chaotica, under Plucked in ReFx Nexus\"; song card \"Producer: Metro Boomin / Young Thug - Keep It Leave\"",
   "quoteBy": "Sound Searchin"
+ },
+ {
+  "song": "10 2 10",
+  "artist": "Big Sean",
+  "plugin": "Reason Combinator",
+  "preset": "Ethereal S&E Harp",
+  "role": "Harp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Big Sean - 10 2 10 Presets | Sound Searchin (Sound Searchin on JonesTV), video frame at 1:00",
+   "url": "https://www.youtube.com/watch?v=UdqmoCZQExw"
+  },
+  "quote": "On screen: Reason browser \"Ethereal S&E Harp.cmb\" selected (Orchestral folder) and loaded in the Combinator; caption \"Ethereal S&E Harp, under Orchestral, under Combinator in Propellerhead Reason\"; song card \"Producer: Key Wane / Big Sean - 10 2 10\"",
+  "quoteBy": "Sound Searchin",
+  "album": "Hall Of Fame (Deluxe)"
+ },
+ {
+  "song": "10 2 10",
+  "artist": "Big Sean",
+  "plugin": "Reason NN-XT",
+  "preset": "Tubular Bells",
+  "role": "Bells",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Big Sean - 10 2 10 Presets | Sound Searchin (Sound Searchin on JonesTV), video frame at 2:05",
+   "url": "https://www.youtube.com/watch?v=UdqmoCZQExw"
+  },
+  "quote": "On screen: Reason NN-XT with patch \"Tubular Bells\" loaded (browser folder Mallets); caption \"Tubular Bells, under Mallets, under Orkester Sound Bank in Propellerhead Reason\"; song card \"Producer: Key Wane / Big Sean - 10 2 10\"",
+  "quoteBy": "Sound Searchin",
+  "album": "Hall Of Fame (Deluxe)"
+ },
+ {
+  "song": "Adaptation",
+  "artist": "The Weeknd",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Breathy Harmonica Pad",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: The Weeknd - Adaptation Preset | Sound Searchin (Sound Searchin on JonesTV), video frame at 2:11",
+   "url": "https://www.youtube.com/watch?v=9XMaZXEo1gM"
+  },
+  "quote": "On screen: Omnisphere patch \"Breathy Harmonica Pad\" loaded (category Textures Playable); caption \"Breathy Harmonica Pad, under Textures Playable in Spectrasonics Omnisphere\"; song card \"Producer: Danny Boy Styles / The Weeknd - Adaptation\"",
+  "quoteBy": "Sound Searchin",
+  "album": "Kiss Land"
+ },
+ {
+  "song": "New Level",
+  "artist": "A$AP Ferg",
+  "plugin": "ProjectSAM Lumina (Kontakt)",
+  "preset": "C Mystery - Long - Master of Suspense",
+  "role": "Texture",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: ASAP Ferg - New Level Preset | Sound Searchin (Sound Searchin on JonesTV), video frame at 1:02",
+   "url": "https://www.youtube.com/watch?v=DJqdmQe9VMM"
+  },
+  "quote": "On screen: Kontakt with ProjectSAM Lumina, instrument \"C Mystery - Long - Master of Susp[ense]\" loaded (panel reads \"master of suspense\"); caption \"C Mystery - Long - Master of Suspense, under Textures & Gestures in ProjectSam Lumina\"; song card \"ASAP Ferg - New Level\"",
+  "quoteBy": "Sound Searchin",
+  "album": "ALWAYS STRIVE AND PROSPER"
+ },
+ {
+  "song": "Passionfruit",
+  "artist": "Drake",
+  "plugin": "Reason Thor",
+  "preset": "Bass Radioactive (Mod) -TLS",
+  "role": "Bass",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Drake - Passionfruit Presets | Sound Searchin (Sound Searchin), video frame at 1:16",
+   "url": "https://www.youtube.com/watch?v=778ofApyhWE"
+  },
+  "quote": "On screen: Reason Thor display \"Bass Radioactive (Mod) -TLS\"; caption \"Bass Radioactive (Mod) -TLS, under Two Lone Swordsmen(TLS), under Signature Patches, under Thor, under Factory Sounds in Propellerhead Reason\"; song card \"Producer: Nana Rogues / Drake - Passionfruit\"",
+  "quoteBy": "Sound Searchin",
+  "album": "More Life"
+ },
+ {
+  "song": "Passionfruit",
+  "artist": "Drake",
+  "plugin": "Reason NN-XT",
+  "preset": "MTron Flutes",
+  "role": "Flute",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Drake - Passionfruit Presets | Sound Searchin (Sound Searchin), video frame at 4:04",
+   "url": "https://www.youtube.com/watch?v=778ofApyhWE"
+  },
+  "quote": "On screen: Reason NN-XT named \"MTron Flutes\" with \"MTron Flutes\" in its patch display; caption \"Mtron Flutes, under Reed and Pipe under NN-XT, under Factory Sounds in Propellerhead Reason\"; song card \"Producer: Nana Rogues / Drake - Passionfruit\"",
+  "quoteBy": "Sound Searchin",
+  "album": "More Life"
+ },
+ {
+  "song": "Skyfall",
+  "artist": "Travis Scott feat. Young Thug",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Classical Soprano Staccato",
+  "role": "Choir",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Travis Scott - Skyfall Presets | Sound Searchin (Sound Searchin on JonesTV), video frame at 3:42",
+   "url": "https://www.youtube.com/watch?v=q_bLUzMUpJM"
+  },
+  "quote": "On screen: Omnisphere patch field \"Classical Soprano Staccato\" (held 2:45 to the end); caption \"Classical Soprano Staccato, under Human Voices in Spectrasonic Omnisphere\"; song card \"Producer: Metro Boomin / Travis Scott - Skyfall\"",
+  "quoteBy": "Sound Searchin",
+  "album": "DAYS BEFORE RODEO"
+ },
+ {
+  "song": "Quintana Pt. 2",
+  "artist": "Travis Scott",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Chroma Brass",
+  "role": "Brass",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Travis Scott - Quintana Pt 2 Preset | Sound Searchin (Sound Searchin on JonesTV), video frame at 1:46",
+   "url": "https://www.youtube.com/watch?v=TiZ13G5-T6A"
+  },
+  "quote": "On screen: Omnisphere patch field \"Chroma Brass\" (loaded from 0:54 to the end, after \"Default\"); caption \"Chroma Brass, under Synth Poly in Spectrasonics Omnisphere\"; song card \"Producer: Mike Dean / Travis Scott - Quintana Pt 2\"",
+  "quoteBy": "Sound Searchin",
+  "album": "DAYS BEFORE RODEO"
+ },
+ {
+  "song": "Hasta La Vista",
+  "artist": "Lil Wayne",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Jazz Stacks Doh-Doos",
+  "role": "Choir",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Lil Wayne - Hasta La Vista Preset | Sound Searchin (Sound Searchin), video frame at 0:51",
+   "url": "https://www.youtube.com/watch?v=FOrw9IAG4ew"
+  },
+  "quote": "On screen: Omnisphere patch field \"Jazz Stacks Doh-Doos\" (whole episode); caption \"Jazz Stacks Doh-Doos, under Human Voice in Spectrasonics Omnisphere\"; song card \"Lil Wayne - Hasta La Vista, produced by Tay Keith\"",
+  "quoteBy": "Sound Searchin",
+  "album": "Tha Carter V (Deluxe)"
+ },
+ {
+  "song": "You",
+  "artist": "T.I.",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "In Memorium 1",
+  "role": "Bells",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: T.I. - You Preset | Sound Searchin (Sound Searchin), video frame at 0:51",
+   "url": "https://www.youtube.com/watch?v=nAAXrIf7Lp4"
+  },
+  "quote": "On screen: Omnisphere patch field \"In Memorium 1\" (whole episode, 0:15 to 1:16); song card \"T.I. - You, produced by TBHits\"",
+  "quoteBy": "Sound Searchin",
+  "album": "DIME TRAP"
+ },
+ {
+  "song": "Know About Me",
+  "artist": "Big Sean",
+  "plugin": "reFX Nexus",
+  "preset": "PL VZ Bells 2",
+  "role": "Bells",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Big Sean - Know About Me | Sound Searchin (Sound Searchin), video frame at 0:40",
+   "url": "https://www.youtube.com/watch?v=9shiKOnZ6d8"
+  },
+  "quote": "On screen: Nexus browser, category \"Plucked\", preset \"PL VZ Bells 2\" selected; caption \"PL VZ Bells 2, under Plucked in ReFx Nexus\"; song card \"Big Sean - Know About Me, produced by Metro Boomin\"",
+  "quoteBy": "Sound Searchin"
+ },
+ {
+  "song": "Know About Me",
+  "artist": "Big Sean",
+  "plugin": "Image-Line Sytrus",
+  "preset": "Celestial 3",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Big Sean - Know About Me | Sound Searchin (Sound Searchin), video frame at 2:04",
+   "url": "https://www.youtube.com/watch?v=9shiKOnZ6d8"
+  },
+  "quote": "On screen: Sytrus with patch info text \"Celestial 3 / gol ... Mod X adjusts phaser, Mod Y adjusts vibrato\"; caption \"Celestial 3, under Short Synth in Image-Line Sytrus\"; song card \"Big Sean - Know About Me, produced by Metro Boomin\"",
+  "quoteBy": "Sound Searchin"
+ },
+ {
+  "song": "Bedtime Stories",
+  "artist": "Rae Sremmurd",
+  "plugin": "reFX Nexus",
+  "preset": "PN Playing Piano in Heaven",
+  "role": "Piano",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Rae Sremmurd - Bedtime Stories Presets | Sound Searchin (Sound Searchin), video frame at 0:42",
+   "url": "https://www.youtube.com/watch?v=W30x3ZNmQr4"
+  },
+  "quote": "On screen: Nexus browser, category \"Piano\", preset \"PN Playing Piano in Heave[n]\" highlighted; caption \"PN Playing Piano in Heaven, under Piano in ReFx Nexus\"; song card \"Rae Sremmurd - Bedtime Stories\"",
+  "quoteBy": "Sound Searchin",
+  "album": "SR3MM"
+ },
+ {
+  "song": "Bedtime Stories",
+  "artist": "Rae Sremmurd",
+  "plugin": "reFX Nexus",
+  "preset": "PL Waterhouse Pikes",
+  "role": "Pluck",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Rae Sremmurd - Bedtime Stories Presets | Sound Searchin (Sound Searchin), video frame at 1:54",
+   "url": "https://www.youtube.com/watch?v=W30x3ZNmQr4"
+  },
+  "quote": "On screen: Nexus browser, category \"Plucked\", preset \"PL Waterhouse Pikes\" highlighted; caption \"PL Waterhouse Pikes, under Plucked in ReFx Nexus\"; song card \"Rae Sremmurd - Bedtime Stories\"",
+  "quoteBy": "Sound Searchin",
+  "album": "SR3MM"
+ },
+ {
+  "song": "I Need a Girl (Part One)",
+  "artist": "P. Diddy",
+  "plugin": "Roland Cloud JV-1080",
+  "preset": "Flying Waltz",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: P. Diddy - I Need A Girl Part 1 | Sound Searchin (Sound Searchin), video frame at 0:45",
+   "url": "https://www.youtube.com/watch?v=5rHYEftja2w"
+  },
+  "quote": "On screen: Roland Super JV-1080 plugin display \"PR-C : 099 Flying Waltz\", category \"PLS (Pulsating)\" (0:33 to 1:10); song card \"P. Diddy - I Need A Girl (Part 1)\"",
+  "quoteBy": "Sound Searchin"
+ },
+ {
+  "song": "Crazy",
+  "artist": "Lil Pump",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Circular Reasoning Pluck",
+  "role": "Pluck",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Lil Pump - Crazy Preset | Sound Searchin (Sound Searchin), video frame at 0:47",
+   "url": "https://www.youtube.com/watch?v=rNfJAnmuiGA"
+  },
+  "quote": "On screen: Omnisphere patch field \"Circular Reasoning Pluck\" (0:23 to the end of the episode); song card \"Lil Pump - Crazy, produced by Bighead\"",
+  "quoteBy": "Sound Searchin",
+  "album": "Lil Pump"
+ },
+ {
+  "song": "Bitch Better Have My Money",
+  "artist": "Rihanna",
+  "plugin": "Tone2 Gladiator",
+  "preset": "AR Fortune wheel",
+  "role": "Arp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Rihanna - B*tch Better Have My Money Preset | Sound Searchin (Sound Searchin), video frame at 1:12",
+   "url": "https://www.youtube.com/watch?v=7CSgYBQuEnA"
+  },
+  "quote": "On screen: Gladiator 2, category \"Arpeggiator\", PATCH display \"AR Fortune wheel\" (0:47 to the end); caption \"AR Fortune wheel, under Arpeggiator in Tone2 Gladiator\"; song card \"Producer: Deputy / Rihanna - B*tch Better Have My Money\"",
+  "quoteBy": "Sound Searchin",
+  "album": "Bitch Better Have My Money"
  }
 ]
