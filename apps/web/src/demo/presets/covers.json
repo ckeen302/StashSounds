@@ -16038,5 +16038,21 @@
    "label": "Deezer, WE DON'T TRUST YOU",
    "url": "https://www.deezer.com/album/563224412"
   }
+ },
+ "singapore|ken carson": {
+  "file": "covers/singapore-ken-carson.jpg",
+  "album": "A Great Chaos",
+  "source": {
+   "label": "Deezer, A Great Chaos",
+   "url": "https://www.deezer.com/album/498395131"
+  }
+ },
+ "radar|playboi carti": {
+  "file": "covers/radar-playboi-carti.jpg",
+  "album": "MUSIC",
+  "source": {
+   "label": "Deezer, MUSIC",
+   "url": "https://www.deezer.com/album/727466171"
+  }
  }
 }
