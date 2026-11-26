@@ -19410,21 +19410,5 @@
    "url": "https://pluginplug.io/blog/korg-triton-the-00s-hip-hop-sound"
   },
   "album": "Loose"
- },
- {
-  "song": "Crank That (Soulja Boy)",
-  "artist": "Soulja Boy Tell'em",
-  "producer": "Soulja Boy",
-  "plugin": "Image-Line FL Studio (stock sample)",
-  "preset": "PERC_Steeldrum_C5",
-  "role": "Steel drum",
-  "confidence": "community",
-  "quote": "Steel Drum in Crank That is PERC_Steeldrum_C5 in FL Studio",
-  "quoteBy": "Tiffany (KTT2 forum)",
-  "source": {
-   "label": "KTT2 forum: Presets/Sounds used by popular producers",
-   "url": "https://www.ktt2.com/presets-sounds-used-by-popular-producers-34684"
-  },
-  "album": "souljaboytellem.com"
  }
 ]
