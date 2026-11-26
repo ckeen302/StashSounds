@@ -75,6 +75,9 @@ const CANON: { name: string; aliases: string[] }[] = [
   { name: "Vinylz", aliases: ["vinylz"] },
   { name: "Ronny J", aliases: ["ronny j"] },
   { name: "Working on Dying", aliases: ["working on dying"] },
+  { name: "Diddy", aliases: ["diddy", "p. diddy", "p diddy", "puff daddy", "sean combs", "puffy"] },
+  { name: "Ty Dolla $ign", aliases: ["ty dolla $ign", "ty dolla sign"] },
+  { name: "A$AP Rocky", aliases: ["a$ap rocky", "asap rocky"] },
 ];
 
 const ALIAS = new Map<string, string>();

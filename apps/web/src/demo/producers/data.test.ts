@@ -14,6 +14,9 @@ describe("producer pages", () => {
   it("files every spelling of a name under one page", () => {
     expect(producerNamed("pierre bourne")?.name).toBe("Pi'erre Bourne");
     expect(producerNamed("DJ Mustard")?.name).toBe("Mustard");
+    expect(producerNamed("Puff Daddy")?.name).toBe("Diddy");
+    expect(producerNamed("P. Diddy")).toBe(producerNamed("Puff Daddy"));
+    expect(producerNamed("Ty Dolla Sign")?.name).toBe("Ty Dolla $ign");
     expect(namesIn("Hit-Boy, Rogét Chahayed & Wheezy (co-producers)", "preset")).toEqual(["Hit-Boy", "Rogét Chahayed", "Wheezy"]);
     expect(namesIn("Tyler, the Creator", "preset")).toEqual(["Tyler, the Creator"]);
   });
