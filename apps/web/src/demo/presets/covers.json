@@ -10486,5 +10486,21 @@
    "label": "Deezer, Sob Rock",
    "url": "https://www.deezer.com/album/243883782"
   }
+ },
+ "feel like 2016|lazer dim 700": {
+  "file": "covers/feel-like-2016-lazer-dim-700.jpg",
+  "album": "Feel like 2016",
+  "source": {
+   "label": "Deezer, Feel like 2016",
+   "url": "https://www.deezer.com/album/1076006272"
+  }
+ },
+ "filthy|justin timberlake": {
+  "file": "covers/filthy-justin-timberlake.jpg",
+  "album": "Man of the Woods",
+  "source": {
+   "label": "Deezer, Man of the Woods",
+   "url": "https://www.deezer.com/album/55996842"
+  }
  }
 }
