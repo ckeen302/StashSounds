@@ -21693,5 +21693,349 @@
   "quote": "On screen: Omnisphere patch browser searched \"steel guitar\", \"Smoked Lap Steel c\" selected; description names the track #nocap, video titled \"FUTURE & YOUNG THUG USED THIS OMNISPHERE PRESET #shorts\"",
   "quoteBy": "Beats by Nova",
   "album": "SUPER SLIMEY"
+ },
+ {
+  "song": "Ric Flair Drip",
+  "artist": "Offset & Metro Boomin",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "In Memorium 1",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: 2 famous Omnisphere presets. #music #ableton #musicproduction #beats #metroboomin  #flstudio #hiphop (HypoDorian), video frame at 0:04",
+   "url": "https://www.youtube.com/watch?v=b81NG5XFCps"
+  },
+  "quote": "On screen: Omnisphere patch browser, search \"in memorium\", patch \"In Memorium 1\" selected, captioned \"Famous presets pt. 1\" / \"Ric flair drip\"",
+  "quoteBy": "HypoDorian",
+  "album": "Without Warning"
+ },
+ {
+  "song": "Make Me Proud",
+  "artist": "Drake feat. Nicki Minaj",
+  "plugin": "Tone2 Gladiator",
+  "preset": "VO ElectroLp",
+  "role": "Vocoder Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Drake - Make Me Proud Preset | Sound Searchin (Sound Searchin), video frame at 1:10",
+   "url": "https://www.youtube.com/watch?v=7wfKV93kMqI"
+  },
+  "quote": "On screen: Tone2 Gladiator 2, category \"Vocoder\", patch \"VO ElectroLp\" loaded; caption \"VO ElectroLp, under Vocoder in Tone2 Gladiator\"; card \"Drake - Make Me Proud, produced by T-Minus\"",
+  "quoteBy": "Sound Searchin",
+  "album": "Take Care (Deluxe)"
+ },
+ {
+  "song": "5Am In Toronto",
+  "artist": "Drake",
+  "plugin": "Tone2 Gladiator",
+  "preset": "AR Walruss2 MF",
+  "role": "Arp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Drake - 5AM in Toronto Preset | Sound Searchin (JonesTV), video frame at 1:28",
+   "url": "https://www.youtube.com/watch?v=eERBcVNYmgI"
+  },
+  "quote": "On screen: Tone2 Gladiator 2, category \"Arpeggiator\", patch \"AR Walruss2 MF\" loaded; caption \"AR Walruss2 MF, under Arpeggiator in Tone2 Gladiator\"; card \"Drake - 5AM in Toronto, Producer: Boi-1da\"",
+  "quoteBy": "JonesTV",
+  "album": "Care Package"
+ },
+ {
+  "song": "Yacht Master",
+  "artist": "Murda Beatz",
+  "plugin": "Luxonix Purity",
+  "preset": "Digi Bell 2",
+  "role": "Bell",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Murda Beatz - Yacht Master Preset | Sound Searchin (Sound Searchin), video frame at 1:30",
+   "url": "https://www.youtube.com/watch?v=WRAvRv-JlaE"
+  },
+  "quote": "On screen: Luxonix Purity, bank \"Bell & Perc\", program \"Digi Bell 2\" selected and in the LCD; caption \"Digi Bell 2, under 052 Bell & Perc in Luxonix Purity\"; card \"Murda Beatz - Yacht Master, Producer: Murda Beatz\"",
+  "quoteBy": "Sound Searchin",
+  "album": "Keep God First"
+ },
+ {
+  "song": "Clarity",
+  "artist": "Mac Miller",
+  "plugin": "Arturia Prophet V",
+  "preset": "RJ_Vokonoise",
+  "role": "Keys",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Mac Miller - Clarity Preset | Sound Searchin (JonesTV), video frame at 1:25",
+   "url": "https://www.youtube.com/watch?v=V-ZMnJrHVGQ"
+  },
+  "quote": "On screen: Arturia Prophet V2, preset bar \"ProHybrid > Keyboards > RJ_Vokonoise\"; caption \"RJ_Vokonoise, under Keyboards, under ProHybrid in Arturia Prophet V2\"; card \"Mac Miller - Clarity, Producer: ID Labs\"",
+  "quoteBy": "JonesTV",
+  "album": "Macadelic"
+ },
+ {
+  "song": "Zoom",
+  "artist": "Future",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Astral Visions 1",
+  "role": "Arp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Future - Zoom Preset | Sound Searchin (JonesTV), video frame at 1:53",
+   "url": "https://www.youtube.com/watch?v=ks8ac2GR3rM"
+  },
+  "quote": "On screen: Omnisphere, patch field reads \"Astral Visions 1\" with arpeggiator page open; card \"Future - Zoom, Producer: Southside\"",
+  "quoteBy": "JonesTV",
+  "album": "FUTURE"
+ },
+ {
+  "song": "Conscience",
+  "artist": "Kodak Black feat. Future",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Bouncing on the Spring",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Kodak Black - Conscience Preset | Sound Searchin (Sound Searchin), video frame at 1:23",
+   "url": "https://www.youtube.com/watch?v=ZXl1n1DClLc"
+  },
+  "quote": "On screen: Omnisphere, patch field reads \"Bouncing on the Spring\"; card \"Kodak Black - Conscience, Producer: DY\"",
+  "quoteBy": "Sound Searchin",
+  "album": "Painting Pictures"
+ },
+ {
+  "song": "Salute",
+  "artist": "Future",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Astral Visions 2",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Future - Salute Preset | Sound Searchin (JonesTV), video frame at 1:26",
+   "url": "https://www.youtube.com/watch?v=mZTAdquSX24"
+  },
+  "quote": "On screen: Omnisphere, patch field reads \"Astral Visions 2\"; card \"Future - Salute, Producer: DJ Spinz\"",
+  "quoteBy": "JonesTV",
+  "album": "Purple Reign"
+ },
+ {
+  "song": "Queso",
+  "artist": "Lil Uzi Vert",
+  "plugin": "reFX Nexus",
+  "preset": "WW Dance Piccolo",
+  "role": "Flute",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Lil Uzi Vert - Queso Presets | Sound Searchin (Sound Searchin), video frame at 1:50",
+   "url": "https://www.youtube.com/watch?v=y1iFbj-RdCo"
+  },
+  "quote": "On screen: Nexus 2, category \"Classical\", preset \"WW Dance Piccolo\" selected and in the name field; caption \"WW Dance Piccolo, under Classical in ReFx Nexus\"; card \"Lil Uzi Vert - Queso, Producer: TM88\"",
+  "quoteBy": "Sound Searchin",
+  "album": "Luv Is Rage"
+ },
+ {
+  "song": "Queso",
+  "artist": "Lil Uzi Vert",
+  "plugin": "reFX Nexus",
+  "preset": "CL Angels Harp",
+  "role": "Harp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Lil Uzi Vert - Queso Presets | Sound Searchin (Sound Searchin), video frame at 0:52",
+   "url": "https://www.youtube.com/watch?v=y1iFbj-RdCo"
+  },
+  "quote": "On screen: Nexus 2, name field \"CL Angels Harp\"; caption \"CL Angels Harp, under Classical in ReFx Nexus\"; card \"Lil Uzi Vert - Queso, Producer: TM88\"",
+  "quoteBy": "Sound Searchin",
+  "album": "Luv Is Rage"
+ },
+ {
+  "song": "Relay",
+  "artist": "Vince Staples",
+  "plugin": "reFX Nexus",
+  "preset": "Orchestra Arp 1",
+  "role": "Arp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Vince Staples - Relay Preset | Sound Searchin (Sound Searchin), video frame at 0:50",
+   "url": "https://www.youtube.com/watch?v=zgNOPCj_O0w"
+  },
+  "quote": "On screen: Nexus 2, category \"XP Dance Orchestra\", preset \"Orchestra Arp 1\" selected and in the name field; card \"Vince Staples - Relay, produced by Hagler\"",
+  "quoteBy": "Sound Searchin",
+  "album": "FM!"
+ },
+ {
+  "song": "Group Home",
+  "artist": "Future & Young Thug",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Ambient Space Piano",
+  "role": "Keys",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Future/Young Thug -  Group Home Preset | Sound Searchin (Sound Searchin), video frame at 0:55",
+   "url": "https://www.youtube.com/watch?v=B4ni7sRGH3U"
+  },
+  "quote": "On screen: Omnisphere, patch field reads \"Ambient Space Piano\"; caption \"Ambient Space Piano, under Keyboards in Spectrasonics Omnisphere\"; card \"Future/Young Thug - Group Home, produced by Fuse, TM88, Stoni, Romo, Bobby Keyz\"",
+  "quoteBy": "Sound Searchin",
+  "album": "SUPER SLIMEY"
+ },
+ {
+  "song": "The Box",
+  "artist": "Roddy Ricch",
+  "plugin": "Roland SRX Orchestra",
+  "preset": "Bad Ending",
+  "role": "Orchestra",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Roddy Ricch - The Box Presets | Sound Searchin (Sound Searchin), video frame at 0:29",
+   "url": "https://www.youtube.com/watch?v=VwpK2gDqeXs"
+  },
+  "quote": "On screen: Roland SRX Orchestra plugin, LCD reads \"PR-A : 115 Bad Ending, PATCH ORC (Orchestra)\"; caption \"114 Bad Ending, under PR-A in Roland SRX Orchestra\"; card \"Roddy Ricch - The Box, produced by 30 Roc, Dat Boi Squeeze\"",
+  "quoteBy": "Sound Searchin",
+  "album": "Please Excuse Me for Being Antisocial"
+ },
+ {
+  "song": "The Box",
+  "artist": "Roddy Ricch",
+  "plugin": "Roland SRX Orchestra",
+  "preset": "FluteAtm/Aft",
+  "role": "Flute",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Roddy Ricch - The Box Presets | Sound Searchin (Sound Searchin), video frame at 0:45",
+   "url": "https://www.youtube.com/watch?v=VwpK2gDqeXs"
+  },
+  "quote": "On screen: Roland SRX Orchestra plugin, LCD reads \"PR-B : 033 FluteAtm/Aft, PATCH FLT (Flute)\"; card \"Roddy Ricch - The Box, produced by 30 Roc, Dat Boi Squeeze\"",
+  "quoteBy": "Sound Searchin",
+  "album": "Please Excuse Me for Being Antisocial"
+ },
+ {
+  "song": "Drip",
+  "artist": "Cardi B feat. Migos",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Pinging Cheese Delay",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Cardi B - Drip Preset | Sound Searchin (Sound Searchin), video frame at 0:45",
+   "url": "https://www.youtube.com/watch?v=bxwtCOEM0fg"
+  },
+  "quote": "On screen: Omnisphere, patch field reads \"Pinging Cheese Delay\"; card \"Cardi B - Drip, produced by Cassius Jay, Nonstop Da Hitman\"",
+  "quoteBy": "Sound Searchin",
+  "album": "Invasion of Privacy"
+ },
+ {
+  "song": "Stunt On You",
+  "artist": "Drake",
+  "plugin": "AIR Music Technology Xpand!2",
+  "preset": "Sine Bend",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Drake - Stunt On You Preset | Sound Searchin (Sound Searchin), video frame at 0:52",
+   "url": "https://www.youtube.com/watch?v=wg2XQj-72pw"
+  },
+  "quote": "On screen: Xpand!2, part A shows \"000 Soft Pads\" / \"Sine Bend\", info \"Pitch Bending Sine Pad\"; card \"Drake - Stunt On You, produced by 40\"",
+  "quoteBy": "Sound Searchin"
+ },
+ {
+  "song": "I Got the Juice",
+  "artist": "Meek Mill",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Chaotic Vibes",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Meek Mill - I Got The Juice Preset | Sound Searchin (JonesTV), video frame at 1:06",
+   "url": "https://www.youtube.com/watch?v=hO1fAk3wJHM"
+  },
+  "quote": "On screen: Omnisphere, patch field reads \"Chaotic Vibes\"; card \"Meek Mill - I Got The Juice, Producer: Cardo\"",
+  "quoteBy": "JonesTV",
+  "album": "Dreams Worth More Than Money"
+ },
+ {
+  "song": "Turn On Me",
+  "artist": "Future",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Air of Resignation",
+  "role": "Keys",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Future - Turn On Me Preset | Sound Searchin (Sound Searchin), video frame at 1:40",
+   "url": "https://www.youtube.com/watch?v=G9KWFCGzsKQ"
+  },
+  "quote": "On screen: Omnisphere, patch field reads \"Air of Resignation\"; card \"Future - Turn On Me\"",
+  "quoteBy": "Sound Searchin",
+  "album": "HNDRXX"
+ },
+ {
+  "song": "Perfect Timing (Intro)",
+  "artist": "NAV & Metro Boomin",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Pure in Spirit",
+  "role": "Bells",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Nav - Perfect Timing (Intro) Preset | Sound Searchin (Sound Searchin), video frame at 1:18",
+   "url": "https://www.youtube.com/watch?v=saVEHaI9v8E"
+  },
+  "quote": "On screen: Omnisphere, patch field reads \"Pure in Spirit\"; caption \"Pure in Spirit, under Bells & Vibes in Spectrasonics Omnisphere\"; card \"Nav - Perfect Timing (Intro), Producer: Metro Boomin\"",
+  "quoteBy": "Sound Searchin",
+  "album": "Perfect Timing"
+ },
+ {
+  "song": "Rent Money",
+  "artist": "Future",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Choir Full Staccato - f",
+  "role": "Choir",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Future - Rent Money Preset | Sound Searchin (Sound Searchin), video frame at 1:54",
+   "url": "https://www.youtube.com/watch?v=VixNs3ZJDO8"
+  },
+  "quote": "On screen: Omnisphere, patch field reads \"Choir Full Staccato - f\"; caption \"Choir Full Staccato - f, under Human Voices in Spectrasonics Omnisphere\"; card \"Future - Rent Money\"",
+  "quoteBy": "Sound Searchin",
+  "album": "FUTURE"
+ },
+ {
+  "song": "Glow Up",
+  "artist": "NAV",
+  "plugin": "Output Exhale",
+  "preset": "001. Bangers",
+  "role": "Vocal Loop",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Nav - Glow Up Preset | Sound Searchin (Sound Searchin), video frame at 0:33",
+   "url": "https://www.youtube.com/watch?v=F0lK9H800Bs"
+  },
+  "quote": "On screen: Output Exhale in Loops mode, preset bar reads \"001. Bangers\" and it is highlighted in the list; card \"Nav - Glow Up\"",
+  "quoteBy": "Sound Searchin",
+  "album": "RECKLESS"
+ },
+ {
+  "song": "Blem",
+  "artist": "Drake",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Afterthought Sines",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Drake - Blem Preset | Sound Searchin (Sound Searchin), video frame at 1:26",
+   "url": "https://www.youtube.com/watch?v=kdFgzYzKClY"
+  },
+  "quote": "On screen: Omnisphere, patch field reads \"Afterthought Sines\"; card \"Drake - Blem\"",
+  "quoteBy": "Sound Searchin",
+  "album": "More Life"
+ },
+ {
+  "song": "Guwop Home",
+  "artist": "Gucci Mane feat. Young Thug",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Pro Soloist Analog Oboe",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Gucci Mane - Guwop Home Preset | Sound Searchin (JonesTV), video frame at 1:44",
+   "url": "https://www.youtube.com/watch?v=xbFN5XL6Sgw"
+  },
+  "quote": "On screen: Omnisphere, patch field reads \"Pro Soloist Analog Oboe\"; caption \"Pro Soloist Analog Oboe, under Retro Land in Omnisphere\"; card \"Gucci Mane - Guwop Home, Producer: Mike WiLL Made-It\"",
+  "quoteBy": "JonesTV",
+  "album": "Everybody Looking"
  }
 ]
