@@ -364,7 +364,7 @@ function UseBadge({ u }: { u: SampleUse }) {
   );
 }
 
-function SongCard({ s }: { s: SampleSong }) {
+export function SongCard({ s }: { s: SampleSong }) {
   const sampledIn = asOriginal(s)?.uses.length ?? 0;
   return (
     <li className="h-full">

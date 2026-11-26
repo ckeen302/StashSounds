@@ -69,12 +69,15 @@ import { Cover, coverFor } from "./presets/cover";
 import { kits } from "./kits/store";
 import { saveFiles, saveLoopRow } from "./save";
 import { SmartSearch, useQuery } from "./search-ui";
-import { KitHits, PresetHits, ProducerHits, ShotHits, SfxHits, useOtherHits } from "./search-page";
+import { KitHits, PresetHits, ProducerHits, rank, ShotHits, SfxHits, useOtherHits } from "./search-page";
 import { queryWords, textMatch } from "./text-match";
 import { loopProfile, midiProfile } from "./search-index";
 import { match, moreLike } from "./smart-search";
 import { writeMidi } from "./midi/write";
 import { KitPage, KitsPage, KitUploadPage } from "./kits/pages";
+import { attachLoopStyles, allProducers, hrefForProducer, producerBySlug, producerNamed, producerPageHref } from "./producers/data";
+import { ProducerPageView, ProducersPage, summaryOf } from "./producers/page";
+import { producerBySlug as sampleProducerBySlug } from "./samples/data";
 import { Button, Download, FilterChip, IconLink, Library as LibraryIcon, SearchInput, UiLink } from "@stash/ui";
 
 /**
@@ -83,6 +86,12 @@ import { Button, Download, FilterChip, IconLink, Library as LibraryIcon, SearchI
  */
 
 const catalog: Catalog = buildCatalog(document.baseURI);
+
+/** A loop's "in the style of" tag ("metro boomin"), which ties it to a producer page. */
+function styleOf(row: ItemRow): string | null {
+  return catalog.page(row.publicId)?.item.allTags.find((t) => t.kind === "reference")?.name ?? null;
+}
+attachLoopStyles(catalog.rows.map(styleOf).filter((t): t is string => !!t));
 
 /** A row as this browser's viewer sees it: their like, counted once. */
 function withViewer(row: ItemRow): ItemRow {
@@ -445,14 +454,14 @@ function Home() {
 
         <section aria-labelledby="producers" className="flex flex-col gap-3">
           <div id="producers">
-            <SectionHead title="Producers behind the songs" href="/presets" more="All presets" />
+            <SectionHead title="Producers behind the songs" href="/producers" more="All producers" />
           </div>
           <ul className="st-shelf -mx-3 flex gap-5 overflow-x-auto px-3 pb-2 tablet:mx-0 tablet:px-0">
             {TOP_PRODUCERS.slice(0, 12).map(([name, n]) => {
               const first = ALL_SONGS.find((s) => madeBy(s, name));
               return (
                 <li key={name} className="w-24 shrink-0 tablet:w-28">
-                  <UiLink href={first ? songHref(first.song, first.artist) : "/presets"} className="group flex flex-col items-center gap-2 text-center">
+                  <UiLink href={hrefForProducer(name) ?? (first ? songHref(first.song, first.artist) : "/presets")} className="group flex flex-col items-center gap-2 text-center">
                     <span data-hue={hueOf(name)} className="st-avatar st-hero-title flex size-24 items-center justify-center rounded-full text-title tablet:size-28" aria-hidden="true">
                       {initialsOf(name)}
                     </span>
@@ -494,6 +503,11 @@ function Home() {
   );
 }
 
+function ProducerRoute({ slug }: { slug: string }) {
+  const [rows] = useRows();
+  return <ProducerPageView slug={slug} rows={rows} styleOf={styleOf} renderLoops={renderLoops} />;
+}
+
 function BrowseRoute() {
   const [rows] = useRows();
   return <BrowsePage catalog={catalog} rows={rows} renderLoops={renderLoops} />;
@@ -524,7 +538,7 @@ function LibraryRoute() {
   );
 }
 
-type SearchKind = "all" | "loops" | "midi" | "presets" | "sfx" | "kits" | "shots" | "producers";
+type SearchKind = "all" | "loops" | "midi" | "presets" | "sfx" | "kits" | "shots" | "producers" | "pages";
 let searchKind: SearchKind = "all";
 
 /** Strict matches (every word of the query found) first; close matches only when there are none. */
@@ -535,6 +549,22 @@ function rankSmart<T>(list: T[], prof: (x: T) => Parameters<typeof match>[0], q:
     .sort((a, b) => b.hit.score - a.hit.score);
   const full = scored.filter((r) => r.hit.all !== false);
   return full.length ? { items: full.map((r) => r.x), close: false } : { items: scored.map((r) => r.x), close: scored.length > 0 };
+}
+
+/** Producer pages that match a search: name and what they have here. */
+function ProducerPageHits({ list }: { list: ReturnType<typeof allProducers> }) {
+  return (
+    <ul aria-label="Producer page results" className="flex flex-col overflow-hidden rounded-panel border border-border bg-surface">
+      {list.map((p) => (
+        <li key={p.slug} className="flex min-h-14 items-center gap-3 border-b border-border px-3 py-2 last:border-b-0">
+          <UiLink href={producerPageHref(p)} className="flex min-w-0 flex-1 flex-col ui-hover:underline">
+            <span className="truncate text-body-strong text-text">{p.name}</span>
+            <span className="truncate text-small text-text-muted">{summaryOf(p)}</span>
+          </UiLink>
+        </li>
+      ))}
+    </ul>
+  );
 }
 
 function SearchResults() {
@@ -555,7 +585,9 @@ function SearchResults() {
   // How squarely a group's best result names what was typed: orders the groups, so "kick" leads with
   // one-shots and "god's plan" with the song's chords.
   const lead = (name: string | undefined) => (name ? (textMatch([{ text: name, weight: 1 }], words)?.score ?? 0) : 0);
+  const pages = useMemo(() => rank(allProducers(), (p) => [{ text: p.name, weight: 4 }], words), [query]); // eslint-disable-line react-hooks/exhaustive-deps
   const groups: { id: Exclude<SearchKind, "all">; name: string; n: number; close: boolean; top: number; lead: number; render: (all: boolean) => ReactNode }[] = [
+    { id: "pages", name: "Producer pages", n: pages.items.length, close: pages.close, top: 4, lead: lead(pages.items[0]?.name), render: (all) => <ProducerPageHits list={pages.items.slice(0, all ? 200 : 4)} /> },
     { id: "presets", name: "Presets", n: other.presets.items.length, close: other.presets.close, top: 5, lead: lead(other.presets.items[0] && `${other.presets.items[0].song} ${other.presets.items[0].artist}`), render: (all) => <PresetHits songs={other.presets.items.slice(0, all ? 200 : 5)} query={query} /> },
     { id: "loops", name: "Loops", n: loops.items.length, close: loops.close, top: 5, lead: lead(loops.items[0] && `${loops.items[0].title} ${loops.items[0].owner.displayName}`), render: (all) => <LoopList label="Loop results" rows={loops.items.slice(0, all ? 200 : 5)} onChange={refresh} /> },
     { id: "midi", name: "MIDI", n: mids.items.length, close: mids.close, top: 6, lead: lead(mids.items[0] && `${mids.items[0].title} ${mids.items[0].song?.artist ?? ""}`), render: (all) => <MidiList label="MIDI results" items={mids.items.slice(0, all ? 200 : 6)} /> },
@@ -1125,6 +1157,7 @@ const TABS = [
   { href: "/sfx", name: "SFX" },
   { href: "/presets", name: "Presets" },
   { href: "/samples", name: "Samples" },
+  { href: "/producers", name: "Producers" },
   { href: "/upload", name: "Upload" },
 ];
 
@@ -1137,7 +1170,8 @@ function DemoTabs() {
       : path === href ||
         (href === "/midi" && path.startsWith("/midi")) ||
         (href === "/presets" && path.startsWith("/presets/")) ||
-        (href === "/samples" && (path.startsWith("/samples") || path.startsWith("/sampled/"))) ||
+        (href === "/samples" && (path.startsWith("/samples") || path.startsWith("/sampled/")) && !path.startsWith("/samples-producer/")) ||
+        (href === "/producers" && (path.startsWith("/producer/") || path.startsWith("/samples-producer/"))) ||
         (href === "/kits" &&
           (path.startsWith("/kit/") || path === "/kit-upload"));
   return (
@@ -1176,7 +1210,9 @@ function Route() {
       : midiPage
         ? midiItem(midiPage[1]!)?.title
         : null;
-    document.title = title ? `${title} · Stash demo` : "Stash demo";
+    const producer = /^\/producer\/([a-z0-9-]+)$/.exec(path);
+    const name = title ?? (producer ? producerBySlug(producer[1]!)?.name : null);
+    document.title = name ? `${name} · Stash demo` : "Stash demo";
   }, [path]);
   const loop = /^\/loop\/(?:.*-)?([a-z0-9]+)$/.exec(path);
   if (loop) return <LoopPage publicId={loop[1]!} />;
@@ -1197,7 +1233,15 @@ function Route() {
   if (path.startsWith("/samples/")) return <SampleSongPage key={path} slug={path.slice(9)} />;
   if (path.startsWith("/sampled/")) return <OriginalPage key={path} slug={path.slice(9)} />;
   if (path.startsWith("/samples-artist/")) return <SampleArtistPage key={path} slug={path.slice(16)} />;
-  if (path.startsWith("/samples-producer/")) return <SampleProducerPage key={path} slug={path.slice(18)} />;
+  if (path.startsWith("/samples-producer/")) {
+    // The samples tab's producer links open the full producer page when there is one.
+    const sp = sampleProducerBySlug(path.slice(18));
+    const full = sp ? producerNamed(sp.name) : null;
+    if (full) return <ProducerRoute key={full.slug} slug={full.slug} />;
+    return <SampleProducerPage key={path} slug={path.slice(18)} />;
+  }
+  if (path === "/producers") return <ProducersPage />;
+  if (path.startsWith("/producer/")) return <ProducerRoute key={path} slug={path.slice(10)} />;
   if (path === "/library") return <LibraryRoute />;
   if (path === "/kits") return <KitsPage />;
   const kitPage = /^\/kit\/([a-z0-9]+)$/.exec(path);

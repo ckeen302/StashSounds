@@ -124,8 +124,41 @@ function DrumSounds({ type, needle }: { type: Category; needle: string }) {
   );
 }
 
-export function KitsPage() {
+/** One kit as a card: play a preview, open it, crate it, download it. Used on the Drums tab and producer pages. */
+export function KitCard({ k }: { k: Kit }) {
   const toast = useToast();
+  return (
+    <li className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-4">
+      <div className="flex items-start gap-3">
+        <PlayButton title={`a preview of ${k.name}`} state="paused" onPointerEnter={() => warmSounds(k.sounds)} onClick={() => preview(k)} />
+        <div className="flex min-w-0 flex-1 flex-col">
+          <UiLink href={`/kit/${k.id}`} className="truncate text-body-strong text-text ui-hover:underline">
+            {k.name}
+          </UiLink>
+          <span className="truncate text-small text-text-muted">
+            @{k.owner.handle} · {k.genre}
+            {k.mine ? " · posted from this browser" : ""}
+          </span>
+        </div>
+      </div>
+      <p className="text-small text-text-muted">{summary(k.sounds)}</p>
+      <div className="flex items-center justify-between gap-3 font-mono text-numeric tabular text-text-muted">
+        <span>
+          {`${k.sounds.length} sounds`}
+          {!k.mine && k.downloads > 0 ? ` · ${k.downloads.toLocaleString("en")} downloads` : ""}
+        </span>
+        <span className="flex items-center gap-2">
+          <CrateMenu itemId={`kit:${k.id}`} title={k.name} kind="Drum kit" href={`/kit/${k.id}`} by={k.owner.displayName} size="sm" />
+          <Button size="sm" variant="secondary" icon={Download} aria-label={`Download ${k.name}`} onClick={() => void saveKit(k, toast)}>
+            Download
+          </Button>
+        </span>
+      </div>
+    </li>
+  );
+}
+
+export function KitsPage() {
   const all = useKits();
   const [type, setType] = useState<Category | "kits">("kits");
   const [genre, setGenre] = useState("All");
@@ -172,33 +205,7 @@ export function KitsPage() {
       {type !== "kits" ? <DrumSounds type={type} needle={needle} /> : null}
       <ul aria-label="Kits" hidden={type !== "kits"} className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-3">
         {shown.map((k) => (
-          <li key={k.id} className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-4">
-            <div className="flex items-start gap-3">
-              <PlayButton title={`a preview of ${k.name}`} state="paused" onPointerEnter={() => warmSounds(k.sounds)} onClick={() => preview(k)} />
-              <div className="flex min-w-0 flex-1 flex-col">
-                <UiLink href={`/kit/${k.id}`} className="truncate text-body-strong text-text ui-hover:underline">
-                  {k.name}
-                </UiLink>
-                <span className="truncate text-small text-text-muted">
-                  @{k.owner.handle} · {k.genre}
-                  {k.mine ? " · posted from this browser" : ""}
-                </span>
-              </div>
-            </div>
-            <p className="text-small text-text-muted">{summary(k.sounds)}</p>
-            <div className="flex items-center justify-between gap-3 font-mono text-numeric tabular text-text-muted">
-              <span>
-                {`${k.sounds.length} sounds`}
-                {!k.mine && k.downloads > 0 ? ` · ${k.downloads.toLocaleString("en")} downloads` : ""}
-              </span>
-              <span className="flex items-center gap-2">
-                <CrateMenu itemId={`kit:${k.id}`} title={k.name} kind="Drum kit" href={`/kit/${k.id}`} by={k.owner.displayName} size="sm" />
-                <Button size="sm" variant="secondary" icon={Download} aria-label={`Download ${k.name}`} onClick={() => void saveKit(k, toast)}>
-                  Download
-                </Button>
-              </span>
-            </div>
-          </li>
+          <KitCard key={k.id} k={k} />
         ))}
       </ul>
       {type === "kits" && shown.length === 0 && (
