@@ -15974,5 +15974,45 @@
    "label": "Deezer, Новый Мерин",
    "url": "https://www.deezer.com/album/378760307"
   }
+ },
+ "patek|future & lil uzi vert": {
+  "file": "covers/patek-future-lil-uzi-vert.jpg",
+  "album": "Pluto x Baby Pluto (Deluxe)",
+  "source": {
+   "label": "Deezer, Pluto x Baby Pluto (Deluxe)",
+   "url": "https://www.deezer.com/album/187062942"
+  }
+ },
+ "met gala|gucci mane feat. offset": {
+  "file": "covers/met-gala-gucci-mane-feat-offset.jpg",
+  "album": "Droptopwop",
+  "source": {
+   "label": "Deezer, Droptopwop",
+   "url": "https://www.deezer.com/album/42102181"
+  }
+ },
+ "helluva price|gunna": {
+  "file": "covers/helluva-price-gunna.jpg",
+  "album": "Drip Season 3",
+  "source": {
+   "label": "Deezer, Drip Season 3",
+   "url": "https://www.deezer.com/album/90920232"
+  }
+ },
+ "dollaz on my head|gunna feat. young thug": {
+  "file": "covers/dollaz-on-my-head-gunna-feat-young-thug.jpg",
+  "album": "WUNNA",
+  "source": {
+   "label": "Deezer, WUNNA",
+   "url": "https://www.deezer.com/album/149937242"
+  }
+ },
+ "noticed|lil mosey": {
+  "file": "covers/noticed-lil-mosey.jpg",
+  "album": "Northsbest (Extended)",
+  "source": {
+   "label": "Deezer, Northsbest (Extended)",
+   "url": "https://www.deezer.com/album/101230302"
+  }
  }
 }

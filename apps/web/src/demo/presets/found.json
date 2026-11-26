@@ -25583,5 +25583,80 @@
    "label": "YouTube: Пресеты из Популярных Треков Часть 1 (Presets From Popular Tracks pt. 1)",
    "url": "https://www.youtube.com/watch?v=ZEj2-_WOVi8"
   }
+ },
+ {
+  "song": "Patek",
+  "artist": "Future & Lil Uzi Vert",
+  "plugin": "Luxonix Purity",
+  "preset": "Cold Memory",
+  "role": "keys",
+  "confidence": "community",
+  "quote": "Piano / Cold Memory",
+  "quoteBy": "DaShine",
+  "album": "Pluto x Baby Pluto (Deluxe)",
+  "source": {
+   "label": "YouTube: 1 ПРЕСЕТ - 3 ТРЕКА? ПРЕСЕТ ИЗ ПОПУЛЯРНЫХ ТРЕКОВ (1 preset - 3 tracks? Preset from popular tracks)",
+   "url": "https://www.youtube.com/watch?v=Nsc-Mto6aPI"
+  }
+ },
+ {
+  "song": "Met Gala",
+  "artist": "Gucci Mane feat. Offset",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Chimus",
+  "role": "keys",
+  "confidence": "community",
+  "quote": "Met Gala / Gucci Mane & Offset",
+  "quoteBy": "KenzoEnoBeats",
+  "album": "Droptopwop",
+  "source": {
+   "label": "YouTube: Famous Songs that use Omnisphere presets",
+   "url": "https://www.youtube.com/watch?v=ezFGW0Rp2ok"
+  }
+ },
+ {
+  "song": "Helluva Price",
+  "artist": "Gunna",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Pure in Spirit",
+  "role": "pad",
+  "confidence": "community",
+  "quote": "Helluva Price / Gunna",
+  "quoteBy": "KenzoEnoBeats",
+  "album": "Drip Season 3",
+  "source": {
+   "label": "YouTube: Famous Songs that use Omnisphere presets",
+   "url": "https://www.youtube.com/watch?v=ezFGW0Rp2ok"
+  }
+ },
+ {
+  "song": "DOLLAZ ON MY HEAD",
+  "artist": "Gunna feat. Young Thug",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "In Memorium 1",
+  "role": "keys",
+  "confidence": "community",
+  "quote": "Famous Omnisphere Presets Pt. 2 / 'In Memorium 1'",
+  "quoteBy": "DVNSOUNDS",
+  "album": "WUNNA",
+  "source": {
+   "label": "YouTube: Famous Omnisphere Presets Pt. 2",
+   "url": "https://www.youtube.com/watch?v=7sHRY4F1Ask"
+  }
+ },
+ {
+  "song": "Noticed",
+  "artist": "Lil Mosey",
+  "plugin": "reFX Nexus",
+  "preset": "PN FM Piano",
+  "role": "keys",
+  "confidence": "community",
+  "quote": "Famous Presets (FM Piano - Nexus 2)",
+  "quoteBy": "OGMusicStuff",
+  "album": "Northsbest (Extended)",
+  "source": {
+   "label": "YouTube: Famous Song Presets (Part1)",
+   "url": "https://www.youtube.com/watch?v=ia2nLwl0j6A"
+  }
  }
 ]
