@@ -21,6 +21,7 @@ import {
   decadeOf,
   GENRES,
   listenHref,
+  listenLabel,
   ORIGINALS,
   originalBySlug,
   originalHref,
@@ -145,7 +146,7 @@ export function SamplesPage() {
         <div className="flex flex-col gap-1">
           <h1 className="text-title">Samples</h1>
           <p className="text-body text-text-muted">
-            {`${plural(SAMPLE_SONGS.length, "hip-hop song")}, the ${plural(ORIGINALS.length, "record")} they sample, ${plural(CONNECTIONS, "connection")}. From each album's liner-note credits.`}
+            {`${plural(SAMPLE_SONGS.length, "hip-hop and R&B song")}, the ${plural(ORIGINALS.length, "record")} they sample, ${plural(CONNECTIONS, "connection")}. From each album's liner-note credits.`}
           </p>
         </div>
         <SearchInput
@@ -654,8 +655,11 @@ export function SampleSongPage({ slug }: { slug: string }) {
                 ]}
               />
               <div className="mt-2 flex flex-wrap gap-2">
-                <ExtLink href={listenHref(s.song, s.artist)} variant="primary">
-                  Play on YouTube
+                <ExtLink
+                  href={listenHref(s.song, s.artist, s.video)}
+                  variant="primary"
+                >
+                  {listenLabel(s.video)}
                 </ExtLink>
                 {preset && (
                   <ButtonLink
@@ -671,7 +675,14 @@ export function SampleSongPage({ slug }: { slug: string }) {
                     Play the chords
                   </ButtonLink>
                 )}
-                <CrateMenu itemId={`sample:${s.slug}`} title={s.song} kind="Sample" href={sampleHref(s)} by={s.artist} size="sm" />
+                <CrateMenu
+                  itemId={`sample:${s.slug}`}
+                  title={s.song}
+                  kind="Sample"
+                  href={sampleHref(s)}
+                  by={s.artist}
+                  size="sm"
+                />
               </div>
             </div>
           </div>
@@ -718,7 +729,8 @@ export function SampleSongPage({ slug }: { slug: string }) {
 /**
  * The song and one record it samples, side by side, each with a way to hear it: play one, then the
  * other, and listen for the part that carried over. YouTube can't be framed inside the demo's host page,
- * so each side opens the recording on YouTube; the credits name no timestamps, so neither side jumps.
+ * so each side opens the recording on YouTube (its own video when Wikidata names one, otherwise a
+ * search); the credits name no timestamps, so neither side jumps.
  */
 function Pair({ u, song }: { u: SampleUse; song: SampleSong }) {
   const o = originalOf(u);
@@ -747,7 +759,8 @@ function Pair({ u, song }: { u: SampleUse; song: SampleSong }) {
           }
           title={song.song}
           meta={line(song.artist, song.year)}
-          listen={listenHref(song.song, song.artist)}
+          listen={listenHref(song.song, song.artist, song.video)}
+          listenText={listenLabel(song.video)}
         />
         <span
           aria-hidden="true"
@@ -764,7 +777,8 @@ function Pair({ u, song }: { u: SampleUse; song: SampleSong }) {
           title={u.title}
           href={originalHref(o)}
           meta={line(u.artist, u.year, known(u.genre) && u.genre)}
-          listen={listenHref(u.title, u.artist)}
+          listen={listenHref(u.title, u.artist, u.video ?? o.video)}
+          listenText={listenLabel(u.video ?? o.video)}
           extra={u.page ? { href: u.page, label: "About it" } : undefined}
         />
       </div>
@@ -818,6 +832,7 @@ function Side({
   href,
   meta,
   listen,
+  listenText,
   extra,
 }: {
   label: string;
@@ -826,6 +841,7 @@ function Side({
   href?: string;
   meta: string;
   listen: string;
+  listenText: string;
   extra?: { href: string; label: string };
 }) {
   return (
@@ -853,7 +869,7 @@ function Side({
       </span>
       <span className="flex flex-wrap gap-2">
         <ExtLink href={listen} variant="secondary">
-          Play on YouTube
+          {listenText}
         </ExtLink>
         {extra && (
           <ExtLink href={extra.href} variant="ghost">
@@ -934,8 +950,11 @@ export function OriginalPage({ slug }: { slug: string }) {
           ]}
         />
         <span className="flex flex-wrap gap-2">
-          <ExtLink href={listenHref(o.title, o.artist)} variant="primary">
-            Play on YouTube
+          <ExtLink
+            href={listenHref(o.title, o.artist, o.video)}
+            variant="primary"
+          >
+            {listenLabel(o.video)}
           </ExtLink>
           {page && (
             <ExtLink href={page} variant="secondary">
@@ -947,7 +966,14 @@ export function OriginalPage({ slug }: { slug: string }) {
               {`What it samples · ${deeper.samples.length}`}
             </ButtonLink>
           )}
-          <CrateMenu itemId={`sample:original:${o.slug}`} title={o.title} kind="Sampled record" href={originalHref(o)} by={o.artist} size="sm" />
+          <CrateMenu
+            itemId={`sample:original:${o.slug}`}
+            title={o.title}
+            kind="Sampled record"
+            href={originalHref(o)}
+            by={o.artist}
+            size="sm"
+          />
         </span>
       </PlainHero>
       <div className="mx-auto flex w-full max-w-content flex-col gap-3 px-3 py-8 tablet:px-4 desktop:px-6">
