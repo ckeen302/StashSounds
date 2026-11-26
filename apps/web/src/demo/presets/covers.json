@@ -10422,5 +10422,45 @@
    "label": "Deezer, We All Need Love",
    "url": "https://www.deezer.com/album/866136572"
   }
+ },
+ "see you|depeche mode": {
+  "file": "covers/see-you-depeche-mode.jpg",
+  "album": "A Broken Frame (Deluxe)",
+  "source": {
+   "label": "Deezer, A Broken Frame (Deluxe)",
+   "url": "https://www.deezer.com/album/6709026"
+  }
+ },
+ "chime|orbital": {
+  "file": "covers/chime-orbital.jpg",
+  "album": "Chime",
+  "source": {
+   "label": "Deezer, Chime",
+   "url": "https://www.deezer.com/album/79331692"
+  }
+ },
+ "smack my bitch up|the prodigy": {
+  "file": "covers/smack-my-bitch-up-the-prodigy.jpg",
+  "album": "The Fat of the Land",
+  "source": {
+   "label": "Deezer, The Fat of the Land",
+   "url": "https://www.deezer.com/album/6509072"
+  }
+ },
+ "the ghost in you|the psychedelic furs": {
+  "file": "covers/the-ghost-in-you-the-psychedelic-furs.jpg",
+  "album": "Mirror Moves",
+  "source": {
+   "label": "Deezer, Mirror Moves",
+   "url": "https://www.deezer.com/album/1399893"
+  }
+ },
+ "break the man|tears for fears": {
+  "file": "covers/break-the-man-tears-for-fears.jpg",
+  "album": "The Tipping Point",
+  "source": {
+   "label": "Deezer, The Tipping Point",
+   "url": "https://www.deezer.com/album/260492212"
+  }
  }
 }

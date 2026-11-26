@@ -18074,5 +18074,84 @@
    "url": "https://synthmania.com/Famous-Sounds/"
   },
   "album": "We All Need Love"
+ },
+ {
+  "song": "See You",
+  "artist": "Depeche Mode",
+  "producer": "Daniel Miller, Depeche Mode",
+  "plugin": "PPG Wave 2.2/2.3 (hardware)",
+  "preset": "Choir",
+  "role": "Not stated",
+  "confidence": "press",
+  "quote": "Depeche Mode would drop it into See You, from their second LP, A Broken Frame.",
+  "quoteBy": "Scot Solida, MusicRadar",
+  "source": {
+   "label": "MusicRadar: The 10 best synth presets ever used, and where to hear them",
+   "url": "https://www.musicradar.com/news/the-10-best-synth-presets-ever-used-and-where-to-hear-them"
+  },
+  "album": "A Broken Frame"
+ },
+ {
+  "song": "Chime",
+  "artist": "Orbital",
+  "producer": "Orbital",
+  "plugin": "Yamaha TX81Z (hardware)",
+  "preset": "Lately Bass",
+  "role": "Bass",
+  "confidence": "press",
+  "quote": "for me, Orbital’s ‘Chime’ is a great example",
+  "quoteBy": "Rob Puricelli, Gearnews",
+  "source": {
+   "label": "Gearnews: 5 Amazing Synth Presets That Changed Pop Music!",
+   "url": "https://www.gearnews.com/5-synth-presets-that-changed-pop-music-synths/"
+  },
+  "album": "Chime"
+ },
+ {
+  "song": "Smack My Bitch Up",
+  "artist": "The Prodigy",
+  "producer": "Liam Howlett",
+  "plugin": "Korg Prophecy (hardware)",
+  "preset": "303Growler RBN",
+  "role": "303-style lead",
+  "confidence": "press",
+  "quote": "pretty much associated with one track by The Prodigy, from their ‘Fat of the Land’ album",
+  "quoteBy": "Rob Puricelli, Gearnews",
+  "source": {
+   "label": "Gearnews: 5 Amazing Synth Presets That Changed Pop Music!",
+   "url": "https://www.gearnews.com/5-synth-presets-that-changed-pop-music-synths/"
+  },
+  "album": "The Fat of the Land"
+ },
+ {
+  "song": "The Ghost in You",
+  "artist": "The Psychedelic Furs",
+  "producer": "Keith Forsey",
+  "plugin": "Fairlight CMI (hardware)",
+  "preset": "SARARR (ARR1.VC)",
+  "role": "Vocal pad (a tweaked version, played by Ed Buller)",
+  "confidence": "press",
+  "quote": "on ‘The Ghost in You’, a haunting ballad with a tweaked version of SARARR played by Ed Buller",
+  "quoteBy": "Gearnews",
+  "source": {
+   "label": "Gearnews: The Story of SARARR",
+   "url": "https://www.gearnews.com/the-story-of-sararr/"
+  },
+  "album": "Mirror Moves"
+ },
+ {
+  "song": "Break the Man",
+  "artist": "Tears for Fears",
+  "plugin": "Fairlight CMI",
+  "preset": "SARARR (ARR1.VC)",
+  "role": "Not stated",
+  "confidence": "press",
+  "quote": "Tears for Fears subtly revisited it on their last album, ‘The Tipping Point’, on a track called ‘Break the Man‘",
+  "quoteBy": "Gearnews",
+  "source": {
+   "label": "Gearnews: The Story of SARARR",
+   "url": "https://www.gearnews.com/the-story-of-sararr/"
+  },
+  "album": "The Tipping Point"
  }
 ]
