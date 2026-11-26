@@ -115,9 +115,10 @@ function FollowButton({ p }: { p: ProducerPage }) {
 // ---------------------------------------------------------------------------------------------
 // The directory.
 
-type Has = "all" | "kits" | "presets" | "midi" | "samples";
+type Has = "all" | "following" | "kits" | "presets" | "midi" | "samples";
 const HAS: { id: Has; name: string; test: (p: ProducerPage) => boolean }[] = [
   { id: "all", name: "All", test: () => true },
+  { id: "following", name: "Following", test: (p) => has("follows", `producer:${p.slug}`) },
   { id: "kits", name: "Drum kits and loops", test: (p) => p.kitStyles.size + p.loopCount > 0 },
   { id: "presets", name: "Presets", test: (p) => p.presets.length > 0 },
   { id: "midi", name: "MIDI", test: (p) => p.midiSongs.size > 0 },
@@ -130,17 +131,18 @@ const fold = (x: string) => x.toLowerCase().normalize("NFKD").replace(/[̀-ͯ]/g
 export function ProducersPage() {
   const all = allProducers();
   const [q, setQ] = useState("");
-  const [has, setHas] = useState<Has>("all");
+  const [filter, setFilter] = useState<Has>("all");
   const [limit, setLimit] = useState(PAGE);
   const needle = fold(q);
   const shown = useMemo(() => {
-    const test = HAS.find((h) => h.id === has)!.test;
-    // With no search, the directory lists producers with more than one thing here; a search finds anyone.
-    const list = all.filter((p) => test(p) && (needle ? fold(p.name).includes(needle) : producerTotal(p) > 1));
+    const test = HAS.find((h) => h.id === filter)!.test;
+    // With no search, the directory lists producers with more than one thing here; a search (or the
+    // ones you follow) finds anyone.
+    const list = all.filter((p) => test(p) && (needle ? fold(p.name).includes(needle) : filter === "following" || producerTotal(p) > 1));
     if (!needle) return list;
     // Names that start with what was typed come first.
     return [...list].sort((a, b) => Number(fold(b.name).startsWith(needle)) - Number(fold(a.name).startsWith(needle)));
-  }, [all, needle, has]);
+  }, [all, needle, filter]);
   const reset = (f: () => void) => {
     f();
     setLimit(PAGE);
@@ -162,16 +164,22 @@ export function ProducersPage() {
       />
       <div role="group" aria-label="Has" className="flex flex-wrap gap-2">
         {HAS.map((h) => (
-          <FilterChip key={h.id} selected={has === h.id} onToggle={() => reset(() => setHas(h.id))}>
+          <FilterChip key={h.id} selected={filter === h.id} onToggle={() => reset(() => setFilter(h.id))}>
             {h.name}
           </FilterChip>
         ))}
       </div>
       <p className="font-mono text-numeric tabular text-text-muted">{plural(shown.length, "producer")}</p>
       {shown.length === 0 ? (
-        <EmptyState icon={User} title="No producer by that name">
-          Check the spelling, or try a shorter part of the name.
-        </EmptyState>
+        filter === "following" && !needle ? (
+          <EmptyState icon={UserPlus} title="You don't follow any producers yet">
+            {"Open a producer's page and press Follow to keep them here."}
+          </EmptyState>
+        ) : (
+          <EmptyState icon={User} title="No producer by that name">
+            Check the spelling, or try a shorter part of the name.
+          </EmptyState>
+        )
       ) : (
         <ul aria-label="Producers" className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-3">
           {shown.slice(0, limit).map((p) => (
