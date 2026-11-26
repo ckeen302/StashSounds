@@ -20191,5 +20191,248 @@
   "quote": "On screen: u-he Diva, \"HS Destroit Minor\" loaded, window titled \"Savage - 169\"",
   "quoteBy": "BLUE STEEL",
   "album": "Suga"
+ },
+ {
+  "song": "Calling My Phone",
+  "artist": "Lil Tjay feat. 6LACK",
+  "plugin": "Output Arcade",
+  "preset": "Stuck on You",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #314: \"Calling My Phone\" by Lil Tjay (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/-eigKA-Dm_g"
+  },
+  "quote": "On screen: Output Arcade, kit \"Stuck on You\" loaded from the \"Hooked\" line, captioned \"Calling My Phone\" by Lil Tjay",
+  "quoteBy": "BLUE STEEL",
+  "album": "Destined 2 Win"
+ },
+ {
+  "song": "Life Is Good",
+  "artist": "Future feat. Drake",
+  "plugin": "Arturia Prophet V",
+  "preset": "Underwater Adventures",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #347: \"Life Is Good\" by Future (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/bCUco5piW2Q"
+  },
+  "quote": "On screen: Arturia Prophet V3 (Prophet VS panel), \"Underwater Adventures*\" loaded (the asterisk marks an edited patch), window titled \"Pad - Life Is Good (Future)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "High Off Life"
+ },
+ {
+  "song": "Slippery",
+  "artist": "Migos feat. Gucci Mane",
+  "plugin": "Rob Papen Predator 2",
+  "preset": "lead- aftertouch sinus",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #300: \"Slippery\" by Migos (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/KSxS7AK_e3M"
+  },
+  "quote": "On screen: Rob Papen Predator 2, preset \"lead- aftertouch sinus\" in bank \"104 HipHop RnB 01\", window titled \"Lead_Slippery (Migos)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Culture",
+  "path": "104 HipHop RnB 01"
+ },
+ {
+  "song": "Sing For The Moment",
+  "artist": "Eminem",
+  "plugin": "Korg Collection TRITON Extreme",
+  "preset": "HarpsyKorg 8'+4'",
+  "role": "Harpsichord",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #416: \"Sing for the Moment\" by Eminem (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/TH1sp-IiKWM"
+  },
+  "quote": "On screen: Korg TRITON Extreme plugin, program \"HarpsyKorg 8'+4'\" (bank K 056) loaded, captioned \"Sing For The Moment\" by Eminem",
+  "quoteBy": "BLUE STEEL",
+  "album": "The Eminem Show"
+ },
+ {
+  "song": "Like I Love You",
+  "artist": "Justin Timberlake",
+  "plugin": "Korg Collection TRITON Extreme",
+  "preset": "Jazz Guitar",
+  "role": "Guitar",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #473: \"Like I Love You\" by Justin Timberlake (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/oTB2Z5aBxhM"
+  },
+  "quote": "On screen: Korg TRITON Extreme plugin, program \"Jazz Guitar\" (bank J 069) loaded, captioned \"Like I Love You\" by Justin Timberlake",
+  "quoteBy": "BLUE STEEL",
+  "album": "Justified"
+ },
+ {
+  "song": "The Boy Is Mine",
+  "artist": "Brandy & Monica",
+  "plugin": "Roland Cloud JV-1080",
+  "preset": "PR-C 050 Harp",
+  "role": "Harp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #495: \"That Boy Is Mine\" by Brandy & Monica (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/AfRhSOEo90w"
+  },
+  "quote": "On screen: Roland JV-1080 plugin, display reads \"PR-C : 050 Harp\" (PLK Plucked), captioned \"That Boy Is Mine\" by Brandy & Monica",
+  "quoteBy": "BLUE STEEL",
+  "album": "Never Say Never"
+ },
+ {
+  "song": "Black & Chinese",
+  "artist": "Huncho Jack",
+  "plugin": "reFX Nexus",
+  "preset": "Pizzi 2",
+  "role": "Pizzicato",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #498: \"Black & Chinese\" by Huncho Jack (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/DdzTg-IaCjw"
+  },
+  "quote": "On screen: Nexus 4, \"Pizzi 2 - Da Sauce God XP\" loaded (from user presets), captioned \"Black & Chinese\" by Huncho Jack",
+  "quoteBy": "BLUE STEEL",
+  "album": "Huncho Jack, Jack Huncho",
+  "path": "Da Sauce God XP"
+ },
+ {
+  "song": "Sexy Love",
+  "artist": "Ne-Yo",
+  "plugin": "Native Instruments Kontakt",
+  "preset": "H118 Pearly Harp",
+  "role": "Harp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #413: \"Sexy Love\" by Ne-Yo (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/5q29r3g1EAs"
+  },
+  "quote": "On screen: Kontakt, instrument \"H118 Pearly Harp\" loaded from a \"32 Plucked\" folder, captioned \"Sexy Love\" by Ne-Yo",
+  "quoteBy": "BLUE STEEL",
+  "album": "In My Own Words"
+ },
+ {
+  "song": "I'm N Luv (Wit A Stripper)",
+  "artist": "T-Pain feat. Mike Jones",
+  "plugin": "Logic Pro Sampler",
+  "preset": "Steel String Acoustic",
+  "role": "Acoustic guitar",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #388: \"I'm N Luv\" by T-Pain (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/5IIemUZrdSo"
+  },
+  "quote": "On screen: Logic Sampler, \"Steel String Acoustic\" loaded, window titled \"I'm N Luv (Wit A Stripper) - 140\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Rappa Ternt Sanga (Expanded Edition)"
+ },
+ {
+  "song": "Don't",
+  "artist": "Bryson Tiller",
+  "plugin": "AIR Music Technology Xpand!2",
+  "preset": "59 Noise Band",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #350: \"Don't\" by Bryson Tiller (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/UFNLz9QEKRs"
+  },
+  "quote": "On screen: Xpand!2, \"59 Noise Band\" loaded (part \"Noise Band 1\" from Soft Pads; info \"Ambient Noise Band Pad.\"), captioned \"Don't\" by Bryson Tiller",
+  "quoteBy": "BLUE STEEL",
+  "album": "T R A P S O U L"
+ },
+ {
+  "song": "New Flame",
+  "artist": "Chris Brown feat. Usher & Rick Ross",
+  "plugin": "FabFilter One",
+  "preset": "Double-U",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #357: \"New Flame\" by Chris Brown (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/8MdgxRp9YEk"
+  },
+  "quote": "On screen: FabFilter One, \"Double-U\" loaded, captioned \"New Flame\" by Chris Brown",
+  "quoteBy": "BLUE STEEL",
+  "album": "X (Expanded Edition)"
+ },
+ {
+  "song": "Girls Need Love",
+  "artist": "Summer Walker",
+  "plugin": "AIR Music Technology Hybrid 3",
+  "preset": "13 Soft Sine Pad",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #355: \"Girls Need Love\" by Summer Walker (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/xlRw98q1NHg"
+  },
+  "quote": "On screen: AIR Hybrid 3, \"13 Soft Sine Pad\" loaded, captioned \"Girls Need Love\" by Summer Walker",
+  "quoteBy": "BLUE STEEL",
+  "album": "Last Day Of Summer"
+ },
+ {
+  "song": "I Know What You Want",
+  "artist": "Busta Rhymes & Mariah Carey feat. Flipmode Squad",
+  "plugin": "Korg Collection TRITON Extreme",
+  "preset": "Jazz Guitar",
+  "role": "Guitar",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #400: \"I Know What You Want\" by Busta Rhymes (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/KkcfGXkh5TE"
+  },
+  "quote": "On screen: Korg TRITON Extreme plugin, program \"Jazz Guitar\" (bank J 069) loaded, captioned \"I Know What You Want\" by Busta Rhymes",
+  "quoteBy": "BLUE STEEL",
+  "album": "It Ain't Safe No More. . ."
+ },
+ {
+  "song": "Don't Tell 'Em",
+  "artist": "Jeremih feat. YG",
+  "plugin": "reFX Nexus",
+  "preset": "Organ 2",
+  "role": "Bass",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #399: \"Don't Tell 'Em\" by Jeremih (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/3HzmoToQmuw"
+  },
+  "quote": "On screen: Nexus 4, \"Organ 2\" loaded from the Bass expansion, window titled \"Bass - Don't Tell 'Em (Jeremih)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Late Nights: The Album",
+  "path": "Bass expansion"
+ },
+ {
+  "song": "Beautiful",
+  "artist": "Snoop Dogg feat. Pharrell & Uncle Charlie Wilson",
+  "plugin": "Roland Cloud XV-5080",
+  "preset": "PR-A 033 Comp Clav",
+  "role": "Keys",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #402: \"Beautiful\" by Snoop Dogg (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/b5dBkQ1jaAI"
+  },
+  "quote": "On screen: Roland XV-5080 plugin, display reads \"PR-A:033 Comp Clav\" (category KEY Keyboards), window titled \"Keys_Beautiful (Snoop Dogg)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Paid Tha Cost To Be Da Bo$$"
+ },
+ {
+  "song": "Emotionally Scarred",
+  "artist": "Lil Baby",
+  "plugin": "reFX Nexus",
+  "preset": "Flute Solo",
+  "role": "Flute",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #378: \"Emotionally Scarred\" by Lil Baby (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/q6jd2-dISaw"
+  },
+  "quote": "On screen: Nexus 4, \"Flute Solo\" loaded (WW category), window titled \"Flute: WW Flute Solo\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "My Turn"
  }
 ]
