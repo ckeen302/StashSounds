@@ -15446,5 +15446,69 @@
    "label": "Apple Music, Gratitude (Live) by Earth, Wind & Fire",
    "url": "https://music.apple.com/us/album/sing-a-song/523231887"
   }
+ },
+ "remind me (intro)|eminem": {
+  "file": "covers/remind-me-intro-eminem.jpg",
+  "album": "Revival",
+  "source": {
+   "label": "Deezer, Revival",
+   "url": "https://www.deezer.com/album/53227232"
+  }
+ },
+ "back out|juicy j": {
+  "file": "covers/back-out-juicy-j.jpg",
+  "album": "Lit in Ceylon",
+  "source": {
+   "label": "Deezer, Lit in Ceylon",
+   "url": "https://www.deezer.com/album/162300712"
+  }
+ },
+ "again|fetty wap": {
+  "file": "covers/again-fetty-wap.jpg",
+  "album": "Again",
+  "source": {
+   "label": "Deezer, Again",
+   "url": "https://www.deezer.com/album/10967332"
+  }
+ },
+ "we dem boyz (remix)|wiz khalifa feat. rick ross, schoolboy q & nas": {
+  "file": "covers/we-dem-boyz-remix-wiz-khalifa-feat-rick-ross-schoolboy-q-nas.jpg",
+  "album": "Blacc Hollywood (Deluxe)",
+  "source": {
+   "label": "Deezer, Blacc Hollywood (Deluxe)",
+   "url": "https://www.deezer.com/album/8270494"
+  }
+ },
+ "aries (yugo)|mike will made-it feat. pharrell & kendrick lamar": {
+  "file": "covers/aries-yugo-mike-will-made-it-feat-pharrell-kendrick-lamar.jpg",
+  "album": "Ransom 2",
+  "source": {
+   "label": "Deezer, Ransom 2",
+   "url": "https://www.deezer.com/album/15733070"
+  }
+ },
+ "get right witcha|migos": {
+  "file": "covers/get-right-witcha-migos.jpg",
+  "album": "Culture",
+  "source": {
+   "label": "Deezer, Culture",
+   "url": "https://www.deezer.com/album/304785627"
+  }
+ },
+ "sunny duet|noname feat. themind": {
+  "file": "covers/sunny-duet-noname-feat-themind.jpg",
+  "album": "Telefone",
+  "source": {
+   "label": "Deezer, Telefone",
+   "url": "https://www.deezer.com/album/373693007"
+  }
+ },
+ "i need a girl (part one)|p. diddy": {
+  "file": "covers/i-need-a-girl-part-one-p-diddy.jpg",
+  "album": "The Saga Continues...",
+  "source": {
+   "label": "Apple Music, The Saga Continues... by P. Diddy",
+   "url": "https://music.apple.com/us/album/i-need-a-girl-to-bella/78989520"
+  }
  }
 }

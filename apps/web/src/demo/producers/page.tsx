@@ -115,9 +115,10 @@ function FollowButton({ p }: { p: ProducerPage }) {
 // ---------------------------------------------------------------------------------------------
 // The directory.
 
-type Has = "all" | "kits" | "presets" | "midi" | "samples";
+type Has = "all" | "following" | "kits" | "presets" | "midi" | "samples";
 const HAS: { id: Has; name: string; test: (p: ProducerPage) => boolean }[] = [
   { id: "all", name: "All", test: () => true },
+  { id: "following", name: "Following", test: (p) => has("follows", `producer:${p.slug}`) },
   { id: "kits", name: "Drum kits and loops", test: (p) => p.kitStyles.size + p.loopCount > 0 },
   { id: "presets", name: "Presets", test: (p) => p.presets.length > 0 },
   { id: "midi", name: "MIDI", test: (p) => p.midiSongs.size > 0 },
@@ -130,17 +131,18 @@ const fold = (x: string) => x.toLowerCase().normalize("NFKD").replace(/[̀-ͯ]/g
 export function ProducersPage() {
   const all = allProducers();
   const [q, setQ] = useState("");
-  const [has, setHas] = useState<Has>("all");
+  const [filter, setFilter] = useState<Has>("all");
   const [limit, setLimit] = useState(PAGE);
   const needle = fold(q);
   const shown = useMemo(() => {
-    const test = HAS.find((h) => h.id === has)!.test;
-    // With no search, the directory lists producers with more than one thing here; a search finds anyone.
-    const list = all.filter((p) => test(p) && (needle ? fold(p.name).includes(needle) : producerTotal(p) > 1));
+    const test = HAS.find((h) => h.id === filter)!.test;
+    // With no search, the directory lists producers with more than one thing here; a search (or the
+    // ones you follow) finds anyone.
+    const list = all.filter((p) => test(p) && (needle ? fold(p.name).includes(needle) : filter === "following" || producerTotal(p) > 1));
     if (!needle) return list;
     // Names that start with what was typed come first.
     return [...list].sort((a, b) => Number(fold(b.name).startsWith(needle)) - Number(fold(a.name).startsWith(needle)));
-  }, [all, needle, has]);
+  }, [all, needle, filter]);
   const reset = (f: () => void) => {
     f();
     setLimit(PAGE);
@@ -162,16 +164,22 @@ export function ProducersPage() {
       />
       <div role="group" aria-label="Has" className="flex flex-wrap gap-2">
         {HAS.map((h) => (
-          <FilterChip key={h.id} selected={has === h.id} onToggle={() => reset(() => setHas(h.id))}>
+          <FilterChip key={h.id} selected={filter === h.id} onToggle={() => reset(() => setFilter(h.id))}>
             {h.name}
           </FilterChip>
         ))}
       </div>
       <p className="font-mono text-numeric tabular text-text-muted">{plural(shown.length, "producer")}</p>
       {shown.length === 0 ? (
-        <EmptyState icon={User} title="No producer by that name">
-          Check the spelling, or try a shorter part of the name.
-        </EmptyState>
+        filter === "following" && !needle ? (
+          <EmptyState icon={UserPlus} title="You don't follow any producers yet">
+            {"Open a producer's page and press Follow to keep them here."}
+          </EmptyState>
+        ) : (
+          <EmptyState icon={User} title="No producer by that name">
+            Check the spelling, or try a shorter part of the name.
+          </EmptyState>
+        )
       ) : (
         <ul aria-label="Producers" className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-3">
           {shown.slice(0, limit).map((p) => (
@@ -249,7 +257,7 @@ function WorksWith({ p }: { p: ProducerPage }) {
         </h2>
         <p className="text-small text-text-muted">Credited together on the songs here.</p>
       </div>
-      <ul aria-label={`Producers who work with ${p.name}`} className="grid grid-cols-2 gap-3 tablet:grid-cols-4">
+      <ul aria-label={`Producers who work with ${p.name}`} className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-4">
         {people.map(({ page: o, songs }) => (
           <li key={o.slug}>
             <UiLink href={producerPageHref(o)} className="group flex items-center gap-3 rounded-panel border border-border p-3 ui-hover:border-border-strong">
@@ -297,9 +305,11 @@ export function ProducerPageView({ slug, rows, styleOf, renderLoops }: { slug: s
     { id: "samples", name: "Samples", n: p.samples.length },
   ].filter((s) => s.n > 0);
   const artists = artistsOf(p);
+  // Songs with their album art first, so the page opens on covers rather than blank tiles.
+  const presets = [...p.presets].sort((a, b) => Number(!!coverFor(b.song, b.artist)) - Number(!!coverFor(a.song, a.artist)));
   // The backdrop: the cover of their best-known song that has one.
   const cover =
-    p.presets.map((s) => coverFor(s.song, s.artist)).find((c) => !!c) ??
+    presets.map((s) => coverFor(s.song, s.artist)).find((c) => !!c) ??
     midi.map((m) => (m.song ? coverFor(m.song.song, m.song.artist) : null)).find((c) => !!c) ??
     null;
   const styleNote = `Original Stash sounds made in this style. ${p.name} did not make or endorse them.`;
@@ -346,7 +356,7 @@ export function ProducerPageView({ slug, rows, styleOf, renderLoops }: { slug: s
         )}
         {p.presets.length > 0 && (
           <Section id="presets" title="Presets on their songs" count={p.presets.length} note="Which synth and preset is on each song, with how sure the source is.">
-            <Grid items={p.presets} first={6} label="Preset songs" render={(s) => <PresetSongCard key={s.key} s={s} />} />
+            <Grid items={presets} first={6} label="Preset songs" render={(s) => <PresetSongCard key={s.key} s={s} />} />
           </Section>
         )}
         {midi.length > 0 && (

@@ -75,6 +75,9 @@ const CANON: { name: string; aliases: string[] }[] = [
   { name: "Vinylz", aliases: ["vinylz"] },
   { name: "Ronny J", aliases: ["ronny j"] },
   { name: "Working on Dying", aliases: ["working on dying"] },
+  { name: "Diddy", aliases: ["diddy", "p. diddy", "p diddy", "puff daddy", "sean combs", "puffy"] },
+  { name: "Ty Dolla $ign", aliases: ["ty dolla $ign", "ty dolla sign"] },
+  { name: "A$AP Rocky", aliases: ["a$ap rocky", "asap rocky"] },
 ];
 
 const ALIAS = new Map<string, string>();
@@ -235,6 +238,13 @@ export const producerPageHref = (p: { slug: string }) => `/producer/${p.slug}`;
 export function hrefForProducer(name: string): string | null {
   const p = producerNamed(name);
   return p ? producerPageHref(p) : null;
+}
+
+/** The page a style tag or kit's "inspired by" name links to, with its name, or null. */
+export function styleLink(tag: string): { href: string; name: string } | null {
+  allProducers();
+  const p = styleTarget(tag);
+  return p ? { href: producerPageHref(p), name: p.name } : null;
 }
 
 for (const k of KIT_LIBRARY.kits) if (k.inspiredBy) styleTarget(k.inspiredBy)?.kitStyles.add(k.inspiredBy);
