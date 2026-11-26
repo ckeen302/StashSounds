@@ -91,7 +91,7 @@ import { DawDragZone } from "./daw-drag";
 import { loopSource } from "./daw-sources";
 import { attachLoopStyles, allProducers, hrefForProducer, producerBySlug, producerNamed, producerPageHref } from "./producers/data";
 import { ProducerPageView, ProducersPage, summaryOf } from "./producers/page";
-import { producerBySlug as sampleProducerBySlug } from "./samples/data";
+import { SAMPLE_PRODUCER_NAMES } from "./samples/credits";
 import { Button, Download, FilterChip, IconLink, Library as LibraryIcon, SearchInput, UiLink } from "@stash/ui";
 
 /**
@@ -1273,8 +1273,8 @@ function Route() {
   if (path.startsWith("/samples-artist/")) return <SampleArtistPage key={path} slug={path.slice(16)} />;
   if (path.startsWith("/samples-producer/")) {
     // The samples tab's producer links open the full producer page when there is one.
-    const sp = sampleProducerBySlug(path.slice(18));
-    const full = sp ? producerNamed(sp.name) : null;
+    const spName = SAMPLE_PRODUCER_NAMES[path.slice(18)];
+    const full = spName ? producerNamed(spName) : null;
     if (full) return <ProducerRoute key={full.slug} slug={full.slug} />;
     return <SampleProducerPage key={path} slug={path.slice(18)} />;
   }

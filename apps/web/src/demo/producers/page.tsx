@@ -1,15 +1,24 @@
-import { useMemo, useState, useSyncExternalStore, type ReactNode } from "react";
+import { lazy, Suspense, useMemo, useState, useSyncExternalStore, type ReactNode } from "react";
 import type { ItemRow } from "@stash/contracts";
 import { Button, ButtonLink, Check, EmptyState, FilterChip, SearchInput, UiLink, User, UserPlus, useToast } from "@stash/ui";
 import { has } from "../store";
 import { setFollow } from "../explore";
 import type { RenderLoops } from "../explore";
 import { SongCard as PresetSongCard } from "../presets/page";
-import { SongCard as SampleSongCard } from "../samples/page";
 import { KitCards } from "../kits/pages";
 import { useKits } from "../kits/store";
 import { MidiList, useMidiItems } from "../midi/pages";
 import { allProducers, midiSongKey, producerBySlug, producerPageHref, producerTotal, type ProducerPage } from "./data";
+
+// The sampled songs come from the Samples tab's catalog, which loads on its own (see samples/credits.ts).
+const SampledSongs = lazy(() =>
+  Promise.all([import("../samples/page"), import("../samples/data")]).then(([{ SongCard }, { SAMPLE_SONGS }]) => ({
+    default: function SampledSongs({ songs: at }: { songs: number[] }) {
+      const songs = at.map((i) => SAMPLE_SONGS[i]).filter((x) => x !== undefined);
+      return <Grid items={songs} first={6} label="Sampled songs" render={(x) => <SongCard key={x.key} s={x} />} />;
+    },
+  })),
+);
 
 /**
  * Producer pages: "/producers" lists every producer with material here, and "/producer/<slug>" gathers
@@ -304,7 +313,9 @@ export function ProducerPageView({ slug, rows, styleOf, renderLoops }: { slug: s
         )}
         {p.samples.length > 0 && (
           <Section id="samples" title="Songs and what they sample" count={p.samples.length} note="The records behind their beats, from album credits and MusicBrainz.">
-            <Grid items={p.samples} first={6} label="Sampled songs" render={(s) => <SampleSongCard key={s.key} s={s} />} />
+            <Suspense fallback={null}>
+              <SampledSongs songs={p.samples} />
+            </Suspense>
           </Section>
         )}
         {sections.length === 0 && (

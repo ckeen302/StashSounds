@@ -63,6 +63,21 @@ writeFileSync(
 );
 
 // 3. Script.
+// samples/credits.ts derives the producer credits from the whole Samples catalog. Run it here, once,
+// and bundle only its values, so the catalog itself loads with the Samples tab (see that file).
+const creditsSrc = join(demoSrc, "samples/credits.ts");
+const creditsOut = join(out, ".credits.mjs");
+await esbuild.build({ entryPoints: [creditsSrc], outfile: creditsOut, bundle: true, format: "esm", platform: "node", logLevel: "warning" });
+const credits = await import(pathToFileURL(creditsOut).href);
+rmSync(creditsOut);
+// Names repeat across thousands of songs: send each once, and the credits as [song, name numbers].
+const creditNames = [...new Set(credits.SAMPLE_CREDITS.flatMap((c) => c.producers))];
+const nameAt = new Map(creditNames.map((n, i) => [n, i]));
+const packed = credits.SAMPLE_CREDITS.map((c) => [c.index, ...c.producers.map((n) => nameAt.get(n))]);
+const creditsModule = `const names = ${JSON.stringify(creditNames)};
+export const SAMPLE_CREDITS = ${JSON.stringify(packed)}.map(([index, ...p]) => ({ index, producers: p.map((i) => names[i]) }));
+export const SAMPLE_PRODUCER_NAMES = ${JSON.stringify(credits.SAMPLE_PRODUCER_NAMES)};
+`;
 const swaps = {
   name: "demo-swaps",
   setup(build) {
@@ -117,6 +132,7 @@ if (typeof document !== "undefined") {
         loader: "tsx",
       };
     });
+    build.onLoad({ filter: /demo[\\/]samples[\\/]credits\.ts$/ }, () => ({ contents: creditsModule, loader: "js" }));
     // zod puts every language's error messages on its namespace (z.locales), so the bundle carried
     // all of them (about a quarter of a megabyte) though the demo shows none. Keep English only.
     build.onLoad({ filter: /[\\/]zod[\\/]v4[\\/]locales[\\/]index\.js$/ }, (args) => {

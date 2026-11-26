@@ -1,5 +1,5 @@
 import { ALL_SONGS, isUnknown, producersOf, slugify, type Song } from "../presets/songs";
-import { SAMPLE_SONGS, type SampleSong } from "../samples/data";
+import { SAMPLE_CREDITS } from "../samples/credits";
 import { SONG_CHORDS } from "../midi/songs";
 import KIT_LIBRARY from "../kits/library.json";
 
@@ -119,8 +119,8 @@ export type ProducerPage = {
   slug: string;
   /** Preset songs they produced. */
   presets: Song[];
-  /** Songs they produced, with the records those songs sample. */
-  samples: SampleSong[];
+  /** Songs they produced on the Samples tab, as places in SAMPLE_SONGS (the songs load with that tab). */
+  samples: number[];
   /** Song-chord rows (by title|artist key) they produced; resolved to MIDI items on the page. */
   midiSongs: Set<string>;
   /** Style tags on loops that point here ("metro boomin", "ax"). */
@@ -146,11 +146,11 @@ for (const s of ALL_SONGS) {
   const names = new Set(s.entries.flatMap((e) => namesIn(e.producer, "preset")));
   for (const n of names) page(n).presets.push(s);
 }
-for (const s of SAMPLE_SONGS) {
+for (const s of SAMPLE_CREDITS) {
   // The sample credits split "Tyler, the Creator" at its comma.
   const credits = s.producers.map((p) => (/^the Creator$/i.test(p.trim()) ? "Tyler, the Creator" : p));
   const names = new Set(credits.map((p) => canonicalName(p, "credit")).filter((n): n is string => !!n));
-  for (const n of names) page(n).samples.push(s);
+  for (const n of names) page(n).samples.push(s.index);
 }
 
 /** The key a song-chord row is filed under. */
