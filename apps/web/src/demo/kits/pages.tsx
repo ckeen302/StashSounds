@@ -92,7 +92,7 @@ function DrumSounds({ type, needle }: { type: Category; needle: string }) {
             <span className="flex min-w-0 flex-1 flex-col">
               <span className="truncate text-body-strong text-text">{s.name}</span>
               <span className="truncate text-small text-text-muted">
-                @{s.owner.handle}
+                <UiLink href={`/u/${s.owner.handle}`} className="ui-hover:text-text">{`@${s.owner.handle}`}</UiLink>
                 {s.kit ? (
                   <>
                     {" · from "}
@@ -133,8 +133,45 @@ function DrumSounds({ type, needle }: { type: Category; needle: string }) {
   );
 }
 
-export function KitsPage() {
+/** Kit cards: hear a few of its sounds, open it, crate it, download it. The Drums page and profiles share them. */
+export function KitCards({ kits, hidden = false, label = "Kits" }: { kits: Kit[]; hidden?: boolean; label?: string }) {
   const toast = useToast();
+  return (
+  <ul aria-label={label} hidden={hidden} className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-3">
+    {kits.map((k) => (
+      <li key={k.id} className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-4">
+        <div className="flex items-start gap-3">
+          <PlayButton title={`a preview of ${k.name}`} state="paused" onPointerEnter={() => warmSounds(k.sounds)} onClick={() => preview(k)} />
+          <div className="flex min-w-0 flex-1 flex-col">
+            <UiLink href={`/kit/${k.id}`} className="truncate text-body-strong text-text ui-hover:underline">
+              {k.name}
+            </UiLink>
+            <span className="truncate text-small text-text-muted">
+              @{k.owner.handle} · {k.genre}
+              {k.mine ? " · posted from this browser" : ""}
+            </span>
+          </div>
+        </div>
+        <p className="text-small text-text-muted">{summary(k.sounds)}</p>
+        <div className="flex items-center justify-between gap-3 font-mono text-numeric tabular text-text-muted">
+          <span>
+            {`${k.sounds.length} sounds`}
+            {!k.mine && k.downloads > 0 ? ` · ${k.downloads.toLocaleString("en")} downloads` : ""}
+          </span>
+          <span className="flex items-center gap-2">
+            <CrateMenu itemId={`kit:${k.id}`} title={k.name} kind="Drum kit" href={`/kit/${k.id}`} by={k.owner.displayName} size="sm" />
+            <Button size="sm" variant="secondary" icon={Download} aria-label={`Download ${k.name}`} onClick={() => void saveKit(k, toast)}>
+              Download
+            </Button>
+          </span>
+        </div>
+      </li>
+    ))}
+  </ul>
+  );
+}
+
+export function KitsPage() {
   const all = useKits();
   const [type, setType] = useState<Category | "kits">("kits");
   const [genre, setGenre] = useState("All");
@@ -179,37 +216,7 @@ export function KitsPage() {
       </div>
 
       {type !== "kits" ? <DrumSounds type={type} needle={needle} /> : null}
-      <ul aria-label="Kits" hidden={type !== "kits"} className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-3">
-        {shown.map((k) => (
-          <li key={k.id} className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-4">
-            <div className="flex items-start gap-3">
-              <PlayButton title={`a preview of ${k.name}`} state="paused" onPointerEnter={() => warmSounds(k.sounds)} onClick={() => preview(k)} />
-              <div className="flex min-w-0 flex-1 flex-col">
-                <UiLink href={`/kit/${k.id}`} className="truncate text-body-strong text-text ui-hover:underline">
-                  {k.name}
-                </UiLink>
-                <span className="truncate text-small text-text-muted">
-                  @{k.owner.handle} · {k.genre}
-                  {k.mine ? " · posted from this browser" : ""}
-                </span>
-              </div>
-            </div>
-            <p className="text-small text-text-muted">{summary(k.sounds)}</p>
-            <div className="flex items-center justify-between gap-3 font-mono text-numeric tabular text-text-muted">
-              <span>
-                {`${k.sounds.length} sounds`}
-                {!k.mine && k.downloads > 0 ? ` · ${k.downloads.toLocaleString("en")} downloads` : ""}
-              </span>
-              <span className="flex items-center gap-2">
-                <CrateMenu itemId={`kit:${k.id}`} title={k.name} kind="Drum kit" href={`/kit/${k.id}`} by={k.owner.displayName} size="sm" />
-                <Button size="sm" variant="secondary" icon={Download} aria-label={`Download ${k.name}`} onClick={() => void saveKit(k, toast)}>
-                  Download
-                </Button>
-              </span>
-            </div>
-          </li>
-        ))}
-      </ul>
+      <KitCards kits={shown} hidden={type !== "kits"} />
       {type === "kits" && shown.length === 0 && (
         <EmptyState icon={Upload} title="No kits match" action={<ButtonLink href="/kit-upload" variant="secondary">Upload a kit</ButtonLink>}>
           Clear the search, or post the first one.

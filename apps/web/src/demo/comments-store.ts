@@ -18,6 +18,8 @@
  * limits before it reaches the screen, and React renders it as text.
  */
 
+import { has as hasLocal, set as setLocal } from "./store";
+
 export const LIMITS = {
   text: 500,
   name: 30,
@@ -32,7 +34,7 @@ export const LIMITS = {
 } as const;
 
 export type Post = { id: string; item: string; parent: string | null; text: string; at: string };
-export type AuthorDoc = { name: string; posts: Record<string, Post>; likes: Record<string, string> };
+export type AuthorDoc = { name: string; posts: Record<string, Post>; likes: Record<string, string>; follows: Record<string, string> };
 export type Comment = Post & { author: string; name: string; likes: number; liked: boolean; mine: boolean };
 
 export type Mode = "loading" | "shared" | "shared-readonly" | "local";
@@ -61,7 +63,7 @@ let owner = false;
 let stale = false;
 let me = LOCAL_ME;
 let shared = new Map<string, AuthorDoc>();
-let mine: AuthorDoc = { name: "", posts: {}, likes: {} };
+let mine: AuthorDoc = { name: "", posts: {}, likes: {}, follows: {} };
 let version = 0;
 let byItem = new Map<string, Comment[]>();
 const listeners = new Set<() => void>();
@@ -93,7 +95,7 @@ function str(v: unknown, max: number): string | null {
 
 /** A document from the store, checked field by field; anything malformed is dropped. */
 export function clean(raw: Record<string, unknown> | undefined): AuthorDoc {
-  const out: AuthorDoc = { name: "", posts: {}, likes: {} };
+  const out: AuthorDoc = { name: "", posts: {}, likes: {}, follows: {} };
   if (!raw || typeof raw !== "object") return out;
   out.name = str(raw.name, LIMITS.name) ?? "";
   const posts = raw.posts && typeof raw.posts === "object" ? (raw.posts as Record<string, unknown>) : {};
@@ -110,6 +112,8 @@ export function clean(raw: Record<string, unknown> | undefined): AuthorDoc {
   }
   const likes = raw.likes && typeof raw.likes === "object" ? (raw.likes as Record<string, unknown>) : {};
   for (const [k, v] of Object.entries(likes).slice(0, 2000)) if (k.length <= 120 && typeof v === "string") out.likes[k] = v;
+  const follows = raw.follows && typeof raw.follows === "object" ? (raw.follows as Record<string, unknown>) : {};
+  for (const [k, v] of Object.entries(follows).slice(0, 500)) if (k.length <= 80 && typeof v === "string") out.follows[k] = v;
   return out;
 }
 
@@ -262,10 +266,29 @@ export async function remove(key: string): Promise<void> {
   await writeShared(next, author).catch(() => undefined);
 }
 
+// ---- follows -----------------------------------------------------------------------------------
+
+/** How many people on this demo follow a producer: everyone else's documents, plus me. */
+export function followerCount(producerId: string): number {
+  let n = 0;
+  for (const [author, doc] of authors()) if (author !== me && doc.follows[producerId]) n++;
+  return n + (hasLocal("follows", producerId) ? 1 : 0);
+}
+
+/** Follows or unfollows a producer for everyone to count (the button reads store.ts, as before). */
+export async function follow(producerId: string, on: boolean): Promise<void> {
+  const follows = { ...mine.follows };
+  if (on) follows[producerId] = new Date().toISOString();
+  else delete follows[producerId];
+  mine = { ...mine, follows };
+  emit();
+  await persist().catch(() => undefined);
+}
+
 // ---- start -------------------------------------------------------------------------------------
 
 function loadLocal(): AuthorDoc {
-  let doc: AuthorDoc = { name: "", posts: {}, likes: {} };
+  let doc: AuthorDoc = { name: "", posts: {}, likes: {}, follows: {} };
   try {
     const raw = window.localStorage.getItem(LOCAL_KEY);
     if (raw) doc = clean(JSON.parse(raw) as Record<string, unknown>);
@@ -280,6 +303,8 @@ function loadLocal(): AuthorDoc {
       window.localStorage.removeItem(LEGACY_KEY);
     }
     doc.name = window.localStorage.getItem(NAME_KEY) ?? doc.name;
+    // Follows from before they were shared.
+    for (const id of JSON.parse(window.localStorage.getItem("stash.demo.follows") ?? "[]") as unknown[]) if (typeof id === "string") doc.follows[id] ??= new Date(0).toISOString();
   } catch {
     // Storage blocked: start empty.
   }
@@ -315,9 +340,11 @@ async function connect(): Promise<void> {
         } else {
           // Switch my comments to the shared store, bringing along any this browser kept.
           me = uid;
-          const there = next.get(uid) ?? { name: "", posts: {}, likes: {} };
-          const merged: AuthorDoc = { name: local.name || there.name, posts: { ...there.posts }, likes: { ...there.likes, ...local.likes } };
-          let moved = false;
+          const there = next.get(uid) ?? { name: "", posts: {}, likes: {}, follows: {} };
+          const merged: AuthorDoc = { name: local.name || there.name, posts: { ...there.posts }, likes: { ...there.likes, ...local.likes }, follows: { ...there.follows, ...local.follows } };
+          // Follows made on another device show as followed here too.
+          for (const id of Object.keys(merged.follows)) setLocal("follows", id, true);
+          let moved = Object.keys(local.follows).some((id) => !there.follows[id]) || Object.keys(local.likes).some((k) => !there.likes[k]);
           for (const p of Object.values(local.posts)) {
             if (merged.posts[p.id]) continue;
             merged.posts[p.id] = p;
@@ -327,7 +354,7 @@ async function connect(): Promise<void> {
           mode = "shared";
           if (moved) {
             persist().then(
-              () => saveLocal({ name: merged.name, posts: {}, likes: {} }),
+              () => saveLocal({ name: merged.name, posts: {}, likes: {}, follows: {} }),
               () => {
                 // The store refused this viewer's write: stay on this browser.
                 me = LOCAL_ME;

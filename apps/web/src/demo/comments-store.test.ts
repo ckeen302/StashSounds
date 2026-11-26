@@ -40,7 +40,8 @@ describe("problemWith", () => {
 
 describe("clean", () => {
   it("keeps well-formed comments and likes", () => {
-    const doc = clean({ name: "Kai", posts: { a1: post() }, likes: { "u2/x1": ago(10) } });
+    const doc = clean({ name: "Kai", posts: { a1: post() }, likes: { "u2/x1": ago(10) }, follows: { p1: ago(5), bad: 3 } });
+    expect(Object.keys(doc.follows)).toEqual(["p1"]);
     expect(doc.name).toBe("Kai");
     expect(doc.posts.a1?.text).toBe("hard");
     expect(Object.keys(doc.likes)).toEqual(["u2/x1"]);
@@ -61,6 +62,6 @@ describe("clean", () => {
     expect(doc.name).toBe("");
     expect(Object.keys(doc.posts)).toEqual(["ok"]);
     expect(doc.likes).toEqual({});
-    expect(clean(undefined)).toEqual({ name: "", posts: {}, likes: {} });
+    expect(clean(undefined)).toEqual({ name: "", posts: {}, likes: {}, follows: {} });
   });
 });
