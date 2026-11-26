@@ -167,7 +167,29 @@ export function mineAsMelodic(stored: Stored[] = loadMine()): MelodicShot[] {
 
 const buffers = new Map<string, Promise<AudioBuffer | null>>();
 
-export function bufferOf(s: MelodicShot): Promise<AudioBuffer | null> {
+// Setting up each render takes the main thread a few milliseconds (the reverb's room is prepared
+// there), and a page of one-shots asks for dozens at once: started together they froze the page for
+// seconds on a phone. So renders start one per task, in order, and a tapped sound jumps the queue.
+type Job = { s: MelodicShot; resolve: (b: Promise<AudioBuffer | null>) => void };
+const jobs: Job[] = [];
+let pumping = false;
+function pump() {
+  if (pumping) return;
+  pumping = true;
+  const next = () => {
+    const job = jobs.shift();
+    if (!job) {
+      pumping = false;
+      return;
+    }
+    const inst = instrumentOf(job.s.instrument);
+    job.resolve(MidiPlayer.renderNotes(inst.timbre, job.s.pitches, inst.hold, inst.hold + inst.tail).catch(() => null));
+    setTimeout(next, 0);
+  };
+  setTimeout(next, 0);
+}
+
+export function bufferOf(s: MelodicShot, urgent = false): Promise<AudioBuffer | null> {
   let p = buffers.get(s.id);
   if (!p) {
     if (s.posted) {
@@ -175,17 +197,21 @@ export function bufferOf(s: MelodicShot): Promise<AudioBuffer | null> {
         .then((d) => (d ? decode(d) : null))
         .catch(() => null);
     } else {
-      const inst = instrumentOf(s.instrument);
-      p = MidiPlayer.renderNotes(inst.timbre, s.pitches, inst.hold, inst.hold + inst.tail).catch(() => null);
+      p = new Promise<AudioBuffer | null>((resolve) => jobs.push({ s, resolve }));
+      pump();
     }
     buffers.set(s.id, p);
+  }
+  if (urgent) {
+    const i = jobs.findIndex((j) => j.s.id === s.id);
+    if (i > 0) jobs.unshift(...jobs.splice(i, 1));
   }
   return p;
 }
 
 export async function playShot(s: MelodicShot): Promise<void> {
   const mine = claimPlay();
-  const b = await bufferOf(s);
+  const b = await bufferOf(s, true);
   // A newer tap or arrow key won while this one was rendering: don't play it late.
   if (b && isCurrentPlay(mine)) playBuffer(b);
 }

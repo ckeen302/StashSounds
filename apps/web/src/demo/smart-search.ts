@@ -294,8 +294,16 @@ export type Profile = {
   titleTerms: string[];
 };
 
+// One compiled pattern per name (any of its aliases, as a whole word), built once: compiling a new
+// RegExp for every alias of every item made indexing the catalog the slowest part of opening a tab.
+const compiled = new WeakMap<[string, string[]][], [string, RegExp][]>();
 function hits(aliases: [string, string[]][], text: string): string[] {
-  return aliases.filter(([, as]) => as.some((a) => new RegExp(`(?<![\\w&'])${esc(a)}(?![\\w&'])`).test(text))).map(([n]) => n);
+  let list = compiled.get(aliases);
+  if (!list) {
+    list = aliases.filter(([, as]) => as.length > 0).map(([n, as]) => [n, new RegExp(`(?<![\\w&'])(?:${as.map(esc).join("|")})(?![\\w&'])`)]);
+    compiled.set(aliases, list);
+  }
+  return list.filter(([, re]) => re.test(text)).map(([n]) => n);
 }
 
 export function profile(p: { id: string; kind: "loop" | "midi"; title: string; bpm: number | null; key: MusicalKey | null; words: string[]; people?: string[]; publishedAt: string }): Profile {

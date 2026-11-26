@@ -1,3 +1,5 @@
+import { useProgressive } from "../progressive";
+import { silenceOthers } from "../exclusive";
 import { getEngine } from "@stash/audio";
 import { LICENSES, midiKindSchema, soundIdSchema, type MidiKind, type SoundId } from "@stash/contracts";
 import { formatKey } from "@stash/contracts/format";
@@ -50,9 +52,15 @@ player.onStart = () => {
   const engine = getEngine();
   const s = engine.getState().status;
   if (s === "playing" || s === "loading") engine.pause();
+  silenceOthers();
 };
+let engineWasOn = false;
 getEngine().subscribe((s) => {
-  if (s.status === "playing" || s.status === "loading") player.pause();
+  const on = s.status === "playing" || s.status === "loading";
+  if (on) player.pause();
+  // A loop starting also cuts off a one-shot or sound effect (once, as it starts).
+  if (on && !engineWasOn) silenceOthers();
+  engineWasOn = on;
 });
 
 export function useMidiPlayer(): MidiPlayerState {
@@ -122,6 +130,7 @@ export function MidiList({ label, items }: { label: string; items: MidiItem[] })
   const s = useMidiPlayer();
   const toast = useToast();
   const cell = "font-mono text-numeric tabular text-text";
+  const { shown, sentinel } = useProgressive(items);
   return (
     <DawDragZone sources={items.map(midiSource)} className="overflow-hidden rounded-panel border border-border bg-surface">
       <div aria-hidden="true" className="flex h-8 items-center gap-3 border-b border-border px-3">
@@ -135,7 +144,7 @@ export function MidiList({ label, items }: { label: string; items: MidiItem[] })
         <span className="w-10 shrink-0" />
       </div>
       <ul aria-label={label}>
-        {items.map((m) => {
+        {shown.map((m) => {
           const playing = s.currentId === m.id && s.status === "playing";
           const current = s.currentId === m.id;
           return (
@@ -162,6 +171,7 @@ export function MidiList({ label, items }: { label: string; items: MidiItem[] })
             </li>
           );
         })}
+        {sentinel}
       </ul>
     </DawDragZone>
   );

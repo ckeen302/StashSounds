@@ -126,21 +126,14 @@ export class MidiPlayer {
     this.out = ctx.createGain();
     this.out.gain.value = this.state.volume;
     this.out.connect(comp);
-    // A short generated room: decaying stereo noise.
+    // A short generated room: decaying stereo noise. Made once per sample rate and shared: a list of
+    // one-shots renders dozens of offline players, and generating these each time froze the page.
     const conv = ctx.createConvolver();
-    const len = Math.floor(ctx.sampleRate * 1.8);
-    const ir = ctx.createBuffer(2, len, ctx.sampleRate);
-    for (let c = 0; c < 2; c++) {
-      const d = ir.getChannelData(c);
-      for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / len) ** 3;
-    }
-    conv.buffer = ir;
+    conv.buffer = roomFor(ctx.sampleRate);
     this.reverb = ctx.createGain();
     this.reverb.gain.value = 0.25;
     this.reverb.connect(conv).connect(this.out);
-    this.noise = ctx.createBuffer(1, ctx.sampleRate, ctx.sampleRate);
-    const n = this.noise.getChannelData(0);
-    for (let i = 0; i < n.length; i++) n[i] = Math.random() * 2 - 1;
+    this.noise = noiseFor(ctx.sampleRate);
     this.ctx = ctx;
     return ctx;
   }
@@ -871,4 +864,34 @@ export function midiPlayer(): MidiPlayer {
     (globalThis as Record<symbol, unknown>)[Symbol.for("stash.demo.midi")] = player;
   }
   return player;
+}
+
+// Read-only buffers shared by every player: an AudioBuffer is not tied to the context that made it.
+const rooms = new Map<number, AudioBuffer>();
+function roomFor(rate: number): AudioBuffer {
+  let ir = rooms.get(rate);
+  if (!ir) {
+    const len = Math.floor(rate * 1.8);
+    ir = new AudioBuffer({ numberOfChannels: 2, length: len, sampleRate: rate });
+    for (let c = 0; c < 2; c++) {
+      const d = ir.getChannelData(c);
+      for (let i = 0; i < len; i++) {
+        const fade = 1 - i / len;
+        d[i] = (Math.random() * 2 - 1) * fade * fade * fade;
+      }
+    }
+    rooms.set(rate, ir);
+  }
+  return ir;
+}
+const noises = new Map<number, AudioBuffer>();
+function noiseFor(rate: number): AudioBuffer {
+  let b = noises.get(rate);
+  if (!b) {
+    b = new AudioBuffer({ numberOfChannels: 1, length: rate, sampleRate: rate });
+    const n = b.getChannelData(0);
+    for (let i = 0; i < n.length; i++) n[i] = Math.random() * 2 - 1;
+    noises.set(rate, b);
+  }
+  return b;
 }

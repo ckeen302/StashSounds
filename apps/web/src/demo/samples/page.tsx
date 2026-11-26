@@ -60,11 +60,10 @@ const VIEWS: [View, string][] = [
 ];
 
 // Songs with their album cover first, then newest, so the tab opens on art.
-const ORDERED = [...SAMPLE_SONGS].sort(
-  (a, b) =>
-    Number(!!coverFor(b.song, b.artist)) -
-      Number(!!coverFor(a.song, a.artist)) || (b.year ?? 0) - (a.year ?? 0),
-);
+// (Each song's cover is looked up once, not on every comparison: the sort compared 9,000 songs.)
+const ORDERED = SAMPLE_SONGS.map((s) => ({ s, art: coverFor(s.song, s.artist) ? 1 : 0 }))
+  .sort((a, b) => b.art - a.art || (b.s.year ?? 0) - (a.s.year ?? 0))
+  .map(({ s }) => s);
 const CONNECTIONS = SAMPLE_SONGS.reduce((n, s) => n + s.samples.length, 0);
 
 const flat = (s: string) =>
