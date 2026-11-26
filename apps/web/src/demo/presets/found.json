@@ -18495,5 +18495,409 @@
    "url": "https://www.devingademan.com/writings/playing-gypsy-woman-by-crystal-waters-on-the-legendary-korg-m1/"
   },
   "album": "Surprise"
+ },
+ {
+  "song": "Fuckumean",
+  "artist": "Bermuda Yae",
+  "producer": "Pi'erre Bourne",
+  "plugin": "u-he Repro-1",
+  "preset": "GK Tangerine Seq",
+  "role": "Arp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How Pi'erre Bourne Made the Beat for \"Fuckumean\" by Bermuda Yae",
+   "url": "https://www.youtube.com/watch?v=ii57C4HT-gI"
+  },
+  "quote": "Arp: Repro-1 - 07 Seq - Melodic - GK Tangerine Seq",
+  "quoteBy": "djeybeats",
+  "path": "07 Seq - Melodic"
+ },
+ {
+  "song": "Fuckumean",
+  "artist": "Bermuda Yae",
+  "producer": "Pi'erre Bourne",
+  "plugin": "u-he Repro-1",
+  "preset": "EH Perpetual Soloist Lead",
+  "role": "Brass",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How Pi'erre Bourne Made the Beat for \"Fuckumean\" by Bermuda Yae",
+   "url": "https://www.youtube.com/watch?v=ii57C4HT-gI"
+  },
+  "quote": "Brass: Repro-1 - Leads - EH Perpetual Soloist Lead",
+  "quoteBy": "djeybeats",
+  "path": "Leads"
+ },
+ {
+  "song": "Perculator",
+  "artist": "Chavo",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Synapse Audio DUNE 2",
+  "preset": "Fantasy Trip ST",
+  "role": "Arp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How \"Perculator\" by Chavo was made (Prod. Pi'erre Bourne)",
+   "url": "https://www.youtube.com/watch?v=nfwiK5gVeTM"
+  },
+  "quote": "Dune 2 - Arp - Fantasy Trip ST",
+  "quoteBy": "djeybeats",
+  "path": "Arp"
+ },
+ {
+  "song": "Perculator",
+  "artist": "Chavo",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Synapse Audio DUNE 2",
+  "preset": "Oceana AZ",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How \"Perculator\" by Chavo was made (Prod. Pi'erre Bourne)",
+   "url": "https://www.youtube.com/watch?v=nfwiK5gVeTM"
+  },
+  "quote": "Dune 2 - Pads - Oceana AZ",
+  "quoteBy": "djeybeats",
+  "path": "Pads"
+ },
+ {
+  "song": "Perculator",
+  "artist": "Chavo",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Synapse Audio DUNE 2",
+  "preset": "Blue Pigments KS",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How \"Perculator\" by Chavo was made (Prod. Pi'erre Bourne)",
+   "url": "https://www.youtube.com/watch?v=nfwiK5gVeTM"
+  },
+  "quote": "Dune 2 - Leads - Blue Pigments KS",
+  "quoteBy": "djeybeats",
+  "path": "Leads"
+ },
+ {
+  "song": "Perculator",
+  "artist": "Chavo",
+  "producer": "Pi'erre Bourne",
+  "plugin": "FabFilter Twin 2",
+  "preset": "Classic Flute DJM",
+  "role": "Flute",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How \"Perculator\" by Chavo was made (Prod. Pi'erre Bourne)",
+   "url": "https://www.youtube.com/watch?v=nfwiK5gVeTM"
+  },
+  "quote": "FabFilter Twin 2 - Orchestral - Wood - Classic Flute DJM",
+  "quoteBy": "djeybeats",
+  "path": "Orchestral - Wood"
+ },
+ {
+  "song": "Talk About",
+  "artist": "Jay Critch feat. Rich The Kid",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Arturia ARP 2600 V",
+  "preset": "CE_Pad02",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How Pi'erre Bourne Made the Beat for \"Talk About\" by Jay Critch & Rich The Kid",
+   "url": "https://www.youtube.com/watch?v=gzrJ6YUI3Js"
+  },
+  "quote": "Pad: Pads - CE_Pad02",
+  "quoteBy": "djeybeats",
+  "path": "Pads"
+ },
+ {
+  "song": "Talk About",
+  "artist": "Jay Critch feat. Rich The Kid",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Arturia ARP 2600 V",
+  "preset": "L_BryanBorchard",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How Pi'erre Bourne Made the Beat for \"Talk About\" by Jay Critch & Rich The Kid",
+   "url": "https://www.youtube.com/watch?v=gzrJ6YUI3Js"
+  },
+  "quote": "Lead: Leads - L_BryanBorchard",
+  "quoteBy": "djeybeats",
+  "path": "Leads"
+ },
+ {
+  "song": "Talk About",
+  "artist": "Jay Critch feat. Rich The Kid",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Arturia ARP 2600 V",
+  "preset": "TC_SilverFish",
+  "role": "Second lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How Pi'erre Bourne Made the Beat for \"Talk About\" by Jay Critch & Rich The Kid",
+   "url": "https://www.youtube.com/watch?v=gzrJ6YUI3Js"
+  },
+  "quote": "2nd lead: Leads - TC_SilverFish",
+  "quoteBy": "djeybeats",
+  "path": "Leads"
+ },
+ {
+  "song": "Talk About",
+  "artist": "Jay Critch feat. Rich The Kid",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Arturia ARP 2600 V",
+  "preset": "CE_PanPad02",
+  "role": "Second pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How Pi'erre Bourne Made the Beat for \"Talk About\" by Jay Critch & Rich The Kid",
+   "url": "https://www.youtube.com/watch?v=gzrJ6YUI3Js"
+  },
+  "quote": "2nd pad: Pads - CE_PanPad02",
+  "quoteBy": "djeybeats",
+  "path": "Pads"
+ },
+ {
+  "song": "Talk About",
+  "artist": "Jay Critch feat. Rich The Kid",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Arturia ARP 2600 V",
+  "preset": "03Trucker.Bass",
+  "role": "Pluck",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How Pi'erre Bourne Made the Beat for \"Talk About\" by Jay Critch & Rich The Kid",
+   "url": "https://www.youtube.com/watch?v=gzrJ6YUI3Js"
+  },
+  "quote": "Pluck: A_Basic_inst - 03Trucker.Bass",
+  "quoteBy": "djeybeats",
+  "path": "A_Basic_inst"
+ },
+ {
+  "song": "Talk About",
+  "artist": "Jay Critch feat. Rich The Kid",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Arturia ARP 2600 V",
+  "preset": "SingPad",
+  "role": "Whistle lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How Pi'erre Bourne Made the Beat for \"Talk About\" by Jay Critch & Rich The Kid",
+   "url": "https://www.youtube.com/watch?v=gzrJ6YUI3Js"
+  },
+  "quote": "Whistle lead: Pads - SingPad",
+  "quoteBy": "djeybeats",
+  "path": "Pads"
+ },
+ {
+  "song": "Smoke A Joint",
+  "artist": "Young Thug feat. T-Shyne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Native Instruments Massive",
+  "preset": "Waving Eighties",
+  "role": "Goofy synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How Pi'erre Bourne Made the Beat for \"Smoke A Joint\" by Young Thug & T-Shyne",
+   "url": "https://www.youtube.com/watch?v=qHdNEZkjnS0"
+  },
+  "quote": "Goofy synth: Massive - Waving eighties",
+  "quoteBy": "djeybeats"
+ },
+ {
+  "song": "Smoke A Joint",
+  "artist": "Young Thug feat. T-Shyne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Native Instruments Massive",
+  "preset": "Creamy Winter",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How Pi'erre Bourne Made the Beat for \"Smoke A Joint\" by Young Thug & T-Shyne",
+   "url": "https://www.youtube.com/watch?v=qHdNEZkjnS0"
+  },
+  "quote": "Lead: Massive - Creamy winter",
+  "quoteBy": "djeybeats"
+ },
+ {
+  "song": "Michigan",
+  "artist": "Chavo",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Korg Gadget Darwin",
+  "preset": "Wine Pad",
+  "role": "Pad (also the bass note, attack -50)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How \"Michigan\" by Chavo was made (Prod. Pi'erre Bourne)",
+   "url": "https://www.youtube.com/watch?v=QWZzPkauKpY"
+  },
+  "quote": "Pad: Korg Gadget Darwin - KLC - Wine Pad",
+  "quoteBy": "djeybeats",
+  "path": "KLC",
+  "album": "Chavo's World"
+ },
+ {
+  "song": "Michigan",
+  "artist": "Chavo",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Korg Gadget Glasgow",
+  "preset": "Smooth Sine Lead",
+  "role": "Sine lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How \"Michigan\" by Chavo was made (Prod. Pi'erre Bourne)",
+   "url": "https://www.youtube.com/watch?v=QWZzPkauKpY"
+  },
+  "quote": "Sine lead: Korg Gadget Glasgow - Smooth Sine Lead",
+  "quoteBy": "djeybeats",
+  "album": "Chavo's World"
+ },
+ {
+  "song": "Uh Uh",
+  "artist": "Chief Keef feat. Playboi Carti",
+  "producer": "Pi'erre Bourne",
+  "plugin": "u-he TyrellN6",
+  "preset": "KEY old chords II SM",
+  "role": "Chords",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How Pi'erre Bourne Made the Beat for \"Uh Uh\" by Chief Keef & Playboi Carti",
+   "url": "https://www.youtube.com/watch?v=J_eeY-aBxBc"
+  },
+  "quote": "Tyrell N6 - rsmus7 - KEY old chords II SM",
+  "quoteBy": "djeybeats",
+  "path": "rsmus7",
+  "album": "Mansion Musick"
+ },
+ {
+  "song": "Switching Sides",
+  "artist": "Chavo",
+  "producer": "Pi'erre Bourne",
+  "plugin": "FabFilter Twin 2",
+  "preset": "Hospitality DJM",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How Pi'erre Bourne Made the Beat for \"Switching Sides\" by Chavo",
+   "url": "https://www.youtube.com/watch?v=6xGVu5bgFjY"
+  },
+  "quote": "Lead: Fabfiter Twin 2 (Pad - Other) - Hospitality DJM",
+  "quoteBy": "djeybeats",
+  "path": "Pad - Other"
+ },
+ {
+  "song": "Switching Sides",
+  "artist": "Chavo",
+  "producer": "Pi'erre Bourne",
+  "plugin": "FabFilter Twin 2",
+  "preset": "Classic Flute DJM",
+  "role": "Flute",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How Pi'erre Bourne Made the Beat for \"Switching Sides\" by Chavo",
+   "url": "https://www.youtube.com/watch?v=6xGVu5bgFjY"
+  },
+  "quote": "Flute: Fabfilter Twin 2 (Orchestral - Wood) - Classic Flute DJM",
+  "quoteBy": "djeybeats",
+  "path": "Orchestral - Wood"
+ },
+ {
+  "song": "King Vamp",
+  "artist": "Playboi Carti",
+  "producer": "Art Dealer, Star Boy, Outtatown",
+  "plugin": "reFX Nexus",
+  "preset": "LD Avenues",
+  "role": "Bass",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How star boy, Outtatown & Art Dealer Made the Beat for \"King Vamp\" by Playboi Carti",
+   "url": "https://www.youtube.com/watch?v=RQM9aCgV4wY"
+  },
+  "quote": "Bass: Nexus - XP Trance Universe - LD Avenues (Turn off delay and reverb)",
+  "quoteBy": "djeybeats",
+  "path": "XP Trance Universe",
+  "album": "Whole Lotta Red"
+ },
+ {
+  "song": "King Vamp",
+  "artist": "Playboi Carti",
+  "producer": "Art Dealer, Star Boy, Outtatown",
+  "plugin": "reFX Nexus",
+  "preset": "BA Basic Sine",
+  "role": "Sine beep",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How star boy, Outtatown & Art Dealer Made the Beat for \"King Vamp\" by Playboi Carti",
+   "url": "https://www.youtube.com/watch?v=RQM9aCgV4wY"
+  },
+  "quote": "Sine beep: Nexus - Old Factory Presets - BA Basic Sine",
+  "quoteBy": "djeybeats",
+  "path": "Old Factory Presets",
+  "album": "Whole Lotta Red"
+ },
+ {
+  "song": "King Vamp",
+  "artist": "Playboi Carti",
+  "producer": "Art Dealer, Star Boy, Outtatown",
+  "plugin": "Luxonix Purity",
+  "preset": "Simple Saw",
+  "role": "Saw lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How star boy, Outtatown & Art Dealer Made the Beat for \"King Vamp\" by Playboi Carti",
+   "url": "https://www.youtube.com/watch?v=RQM9aCgV4wY"
+  },
+  "quote": "Saw lead: Purity - Lead Synth - Simple Saw (Turn off delay and reverb)",
+  "quoteBy": "djeybeats",
+  "path": "Lead Synth",
+  "album": "Whole Lotta Red"
+ },
+ {
+  "song": "Firearm",
+  "artist": "Playboi Carti feat. Lil Uzi Vert",
+  "producer": "Unknown",
+  "plugin": "Tone2 ElectraX",
+  "preset": "Chord Groover BT",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Firearm' by Playboi Carti & Lil Uzi Vert Was Made (FLP + PRESETS)",
+   "url": "https://www.youtube.com/watch?v=aL2Gxx43cu4"
+  },
+  "quote": "ElectraX - Arp Singleplayer - Chord Groover BT",
+  "quoteBy": "prod. JXR",
+  "path": "Arp Singleplayer"
+ },
+ {
+  "song": "Firearm",
+  "artist": "Playboi Carti feat. Lil Uzi Vert",
+  "producer": "Unknown",
+  "plugin": "Luxonix Purity",
+  "preset": "Panfluit",
+  "role": "Flute",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Firearm' by Playboi Carti & Lil Uzi Vert Was Made (FLP + PRESETS)",
+   "url": "https://www.youtube.com/watch?v=aL2Gxx43cu4"
+  },
+  "quote": "Purity - Woodwind - Panfluit",
+  "quoteBy": "prod. JXR",
+  "path": "Woodwind"
+ },
+ {
+  "song": "Wild Blue",
+  "artist": "John Mayer",
+  "producer": "John Mayer, Don Was",
+  "plugin": "Fractal Audio Axe-Fx III (hardware)",
+  "preset": "099 Studio Clean",
+  "role": "Guitar tone",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: John Mayer Used THIS FACTORY PRESET on his Album - Studio Clean 099 (G66)",
+   "url": "https://www.youtube.com/watch?v=DrkVEa8CKow"
+  },
+  "quote": "Preset 099 Studio Clean made it onto John Mayer's album Sob Rock - on the tune Wild Blue",
+  "quoteBy": "G66 (Fractal Audio distributor)",
+  "path": "Factory presets",
+  "album": "Sob Rock"
  }
 ]
