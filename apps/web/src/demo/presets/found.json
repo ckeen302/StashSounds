@@ -19376,5 +19376,2173 @@
    "url": "https://reverbmachine.com/blog/tame-impala-love-paranoia-synth-sounds/"
   },
   "album": "Whenever You Need Somebody"
+ },
+ {
+  "song": "Put You On The Game",
+  "artist": "The Game",
+  "producer": "Timbaland",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": "Nostalgic Strings",
+  "path": "Slow Synth",
+  "role": "Featured Triton sound from the intro (part not specified by source)",
+  "confidence": "press",
+  "quote": "The Game - Put You On The Game. Korg Triton Preset: Nostalgic Strings under Slow Synth. Coming in 00:03",
+  "quoteBy": "pluginplug.io",
+  "source": {
+   "label": "pluginplug.io: Korg Triton – The 00s Hip Hop Sound",
+   "url": "https://pluginplug.io/blog/korg-triton-the-00s-hip-hop-sound"
+  },
+  "album": "The Documentary"
+ },
+ {
+  "song": "Glow",
+  "artist": "Nelly Furtado",
+  "producer": "Timbaland",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": "Nostalgic Strings",
+  "path": "Slow Synth",
+  "role": "Featured Triton sound from 1:40 (part not specified by source)",
+  "confidence": "press",
+  "quote": "Nelly Furtado - Glow. Korg Triton Preset: Nostalgic Strings under Slow Synth. Coming in 01:40",
+  "quoteBy": "pluginplug.io",
+  "source": {
+   "label": "pluginplug.io: Korg Triton – The 00s Hip Hop Sound",
+   "url": "https://pluginplug.io/blog/korg-triton-the-00s-hip-hop-sound"
+  },
+  "album": "Loose"
+ },
+ {
+  "song": "playstation character",
+  "artist": "drihdreh",
+  "producer": "drihdreh",
+  "plugin": "Siegfried Kullmann SQ8L",
+  "preset": "A002 BOTTLE",
+  "role": "Mallet",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How \"playstation character\" by drihdreh was made",
+   "url": "https://www.youtube.com/watch?v=OmbcHZjenxU"
+  },
+  "quote": "Mallet: SQ8L - A002 BOTTLE",
+  "quoteBy": "djeybeats"
+ },
+ {
+  "song": "playstation character",
+  "artist": "drihdreh",
+  "producer": "drihdreh",
+  "plugin": "Siegfried Kullmann SQ8L",
+  "preset": "A009 SORROW",
+  "role": "Wah",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How \"playstation character\" by drihdreh was made",
+   "url": "https://www.youtube.com/watch?v=OmbcHZjenxU"
+  },
+  "quote": "Wah: SQ8L - A009 SORROW",
+  "quoteBy": "djeybeats"
+ },
+ {
+  "song": "playstation character",
+  "artist": "drihdreh",
+  "producer": "drihdreh",
+  "plugin": "Siegfried Kullmann SQ8L",
+  "preset": "A013 NICE LEAD",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How \"playstation character\" by drihdreh was made",
+   "url": "https://www.youtube.com/watch?v=OmbcHZjenxU"
+  },
+  "quote": "Lead: SQ8L - A013 NICE LEAD",
+  "quoteBy": "djeybeats"
+ },
+ {
+  "song": "Solo",
+  "artist": "Kxshey!",
+  "producer": "burke",
+  "plugin": "Korg Triton Extreme",
+  "preset": "Grawkr Bass",
+  "role": "Bass",
+  "confidence": "producer",
+  "source": {
+   "label": "YouTube: How I Made the Beat for \"Solo\" by Kxshey!",
+   "url": "https://www.youtube.com/watch?v=kmnNFtypHyY"
+  },
+  "quote": "Bass - Grawkr Bass (Triton Extreme)",
+  "quoteBy": "burke (the song's producer)"
+ },
+ {
+  "song": "Solo",
+  "artist": "Kxshey!",
+  "producer": "burke",
+  "plugin": "Korg Triton Extreme",
+  "preset": "8 Celli ST",
+  "role": "Pad",
+  "confidence": "producer",
+  "source": {
+   "label": "YouTube: How I Made the Beat for \"Solo\" by Kxshey!",
+   "url": "https://www.youtube.com/watch?v=kmnNFtypHyY"
+  },
+  "quote": "Pad - 8 Celli ST (Triton Extreme)",
+  "quoteBy": "burke (the song's producer)"
+ },
+ {
+  "song": "Solo",
+  "artist": "Kxshey!",
+  "producer": "burke",
+  "plugin": "Korg Triton Extreme",
+  "preset": "Jazz Rotary",
+  "role": "Organ",
+  "confidence": "producer",
+  "source": {
+   "label": "YouTube: How I Made the Beat for \"Solo\" by Kxshey!",
+   "url": "https://www.youtube.com/watch?v=kmnNFtypHyY"
+  },
+  "quote": "Organ - Jazz Rotary (Triton Extreme)",
+  "quoteBy": "burke (the song's producer)"
+ },
+ {
+  "song": "Solo",
+  "artist": "Kxshey!",
+  "producer": "burke",
+  "plugin": "Korg Triton Extreme",
+  "preset": "Largo Violas",
+  "role": "Strings",
+  "confidence": "producer",
+  "source": {
+   "label": "YouTube: How I Made the Beat for \"Solo\" by Kxshey!",
+   "url": "https://www.youtube.com/watch?v=kmnNFtypHyY"
+  },
+  "quote": "Strings - Largo Violas (Triton Extreme)",
+  "quoteBy": "burke (the song's producer)"
+ },
+ {
+  "song": "Solo",
+  "artist": "Kxshey!",
+  "producer": "burke",
+  "plugin": "Korg Triton Extreme",
+  "preset": "Dissolve Hit",
+  "role": "Hit",
+  "confidence": "producer",
+  "source": {
+   "label": "YouTube: How I Made the Beat for \"Solo\" by Kxshey!",
+   "url": "https://www.youtube.com/watch?v=kmnNFtypHyY"
+  },
+  "quote": "Hit - Dissolve Hit (Triton Extreme)",
+  "quoteBy": "burke (the song's producer)"
+ },
+ {
+  "song": "Solo",
+  "artist": "Kxshey!",
+  "producer": "burke",
+  "plugin": "Korg Triton Extreme",
+  "preset": "Wide Detune Lead",
+  "role": "Lead",
+  "confidence": "producer",
+  "source": {
+   "label": "YouTube: How I Made the Beat for \"Solo\" by Kxshey!",
+   "url": "https://www.youtube.com/watch?v=kmnNFtypHyY"
+  },
+  "quote": "Lead - Wide Detune Lead (Triton Extreme)",
+  "quoteBy": "burke (the song's producer)"
+ },
+ {
+  "song": "Rules",
+  "artist": "Lil Dre 556",
+  "producer": "eza333",
+  "plugin": "Luxonix Purity",
+  "preset": "Holy Breath",
+  "role": "Pad",
+  "confidence": "producer",
+  "source": {
+   "label": "YouTube: How I made the beat for 'Rules' by Lil Dre 556",
+   "url": "https://www.youtube.com/watch?v=LptM7gUxyJE"
+  },
+  "quote": "Pad - Purity: Slow Synth - Holy Breath",
+  "quoteBy": "eza333 (the song's producer)",
+  "path": "Slow Synth"
+ },
+ {
+  "song": "Rules",
+  "artist": "Lil Dre 556",
+  "producer": "eza333",
+  "plugin": "Luxonix Purity",
+  "preset": "Flute Vib",
+  "role": "Flute",
+  "confidence": "producer",
+  "source": {
+   "label": "YouTube: How I made the beat for 'Rules' by Lil Dre 556",
+   "url": "https://www.youtube.com/watch?v=LptM7gUxyJE"
+  },
+  "quote": "Flute - Purity: Woodwind - Flute Vib",
+  "quoteBy": "eza333 (the song's producer)",
+  "path": "Woodwind"
+ },
+ {
+  "song": "Rules",
+  "artist": "Lil Dre 556",
+  "producer": "eza333",
+  "plugin": "Luxonix Purity",
+  "preset": "SameFeel 1",
+  "role": "Bell",
+  "confidence": "producer",
+  "source": {
+   "label": "YouTube: How I made the beat for 'Rules' by Lil Dre 556",
+   "url": "https://www.youtube.com/watch?v=LptM7gUxyJE"
+  },
+  "quote": "Bell - Purity: Bell & Perc - SameFeel 1",
+  "quoteBy": "eza333 (the song's producer)",
+  "path": "Bell & Perc"
+ },
+ {
+  "song": "Rules",
+  "artist": "Lil Dre 556",
+  "producer": "eza333",
+  "plugin": "Luxonix Purity",
+  "preset": "Legato Hall",
+  "role": "Strings",
+  "confidence": "producer",
+  "source": {
+   "label": "YouTube: How I made the beat for 'Rules' by Lil Dre 556",
+   "url": "https://www.youtube.com/watch?v=LptM7gUxyJE"
+  },
+  "quote": "Strings - Purity: Strings - Legato Hall",
+  "quoteBy": "eza333 (the song's producer)",
+  "path": "Strings"
+ },
+ {
+  "song": "why my card decline?!",
+  "artist": "Trap Montana",
+  "producer": "eza333",
+  "plugin": "u-he Hive 2",
+  "preset": "AZ Progression",
+  "role": "Arp",
+  "confidence": "producer",
+  "source": {
+   "label": "YouTube: How I made the beat for 'why my card decline?!' by Trap Montana",
+   "url": "https://www.youtube.com/watch?v=bkaHBn1NsTw"
+  },
+  "quote": "Arp - Hive: 10 Loops - tuned - AZ Progression",
+  "quoteBy": "eza333 (the song's producer)",
+  "path": "10 Loops - tuned"
+ },
+ {
+  "song": "why my card decline?!",
+  "artist": "Trap Montana",
+  "producer": "eza333",
+  "plugin": "u-he Hive 2",
+  "preset": "GZ Scooby",
+  "role": "Lead",
+  "confidence": "producer",
+  "source": {
+   "label": "YouTube: How I made the beat for 'why my card decline?!' by Trap Montana",
+   "url": "https://www.youtube.com/watch?v=bkaHBn1NsTw"
+  },
+  "quote": "Lead - Hive: 03 Mono Leads - GZ Scooby",
+  "quoteBy": "eza333 (the song's producer)",
+  "path": "03 Mono Leads"
+ },
+ {
+  "song": "why my card decline?!",
+  "artist": "Trap Montana",
+  "producer": "eza333",
+  "plugin": "u-he Hive 2",
+  "preset": "ETE Rate Cry",
+  "role": "Pad",
+  "confidence": "producer",
+  "source": {
+   "label": "YouTube: How I made the beat for 'why my card decline?!' by Trap Montana",
+   "url": "https://www.youtube.com/watch?v=bkaHBn1NsTw"
+  },
+  "quote": "Pad - Hive: 03 Mono Leads - ETE Rate Cry",
+  "quoteBy": "eza333 (the song's producer)",
+  "path": "03 Mono Leads"
+ },
+ {
+  "song": "Feel like 2016",
+  "artist": "LAZER DIM 700",
+  "producer": "9k drg",
+  "plugin": "reFX Nexus",
+  "preset": "Distorted piano strings",
+  "role": "Keys/pad",
+  "confidence": "producer",
+  "source": {
+   "label": "YouTube: How i made the beat for \"Feel like 2016\" by Lazer dim 700",
+   "url": "https://www.youtube.com/watch?v=od4SS3nJ0NU"
+  },
+  "quote": "Keys/Pad: \"Distorted piano strings\" - Nexus",
+  "quoteBy": "9k drg (the song's producer)",
+  "album": "Feel like 2016"
+ },
+ {
+  "song": "Feel like 2016",
+  "artist": "LAZER DIM 700",
+  "producer": "9k drg",
+  "plugin": "reFX Nexus",
+  "preset": "Hands up bell 4",
+  "role": "Bell",
+  "confidence": "producer",
+  "source": {
+   "label": "YouTube: How i made the beat for \"Feel like 2016\" by Lazer dim 700",
+   "url": "https://www.youtube.com/watch?v=od4SS3nJ0NU"
+  },
+  "quote": "Bell: \"Hands up bell 4\" - Nexus",
+  "quoteBy": "9k drg (the song's producer)",
+  "album": "Feel like 2016"
+ },
+ {
+  "song": "Feel like 2016",
+  "artist": "LAZER DIM 700",
+  "producer": "9k drg",
+  "plugin": "Luxonix Purity",
+  "preset": "Synfagotto",
+  "role": "Bassoon",
+  "confidence": "producer",
+  "source": {
+   "label": "YouTube: How i made the beat for \"Feel like 2016\" by Lazer dim 700",
+   "url": "https://www.youtube.com/watch?v=od4SS3nJ0NU"
+  },
+  "quote": "Fagot: \"Synfagotto\" - Purity (Woodwinds)",
+  "quoteBy": "9k drg (the song's producer)",
+  "path": "Woodwinds",
+  "album": "Feel like 2016"
+ },
+ {
+  "song": "Filthy",
+  "artist": "Justin Timberlake",
+  "producer": "Justin Timberlake, Timbaland, Danja",
+  "plugin": "Xfer Serum",
+  "preset": "BA Digimods",
+  "role": "Wobbly bass",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: That wobbly bass PRESET Justin Timberlake used in Filthy (imamusicmogul)",
+   "url": "https://www.youtube.com/watch?v=GFn72-UziLE"
+  },
+  "quote": "XFER Records Serum Preset: BA Digimods (found under Bass (Hard) category)",
+  "quoteBy": "imamusicmogul",
+  "path": "Bass (Hard)",
+  "album": "Man of the Woods"
+ },
+ {
+  "song": "Waves",
+  "artist": "Kanye West",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Gospel Choir Ohs",
+  "role": "Choir",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #356: \"Waves\" by Kanye West (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/ZuzV8lmDn7A"
+  },
+  "quote": "On screen: Omnisphere browser, \"Gospel Choir Ohs\" loaded (Omnisphere Library Patch), captioned \"Waves\" by Kanye West",
+  "quoteBy": "BLUE STEEL",
+  "album": "The Life Of Pablo"
+ },
+ {
+  "song": "War",
+  "artist": "Drake",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Fizzy VP-330 Vox",
+  "role": "Vox synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #512: \"War\" by Drake (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/qU7jycIwiJQ"
+  },
+  "quote": "On screen: Omnisphere, \"Fizzy VP-330 Vox\" loaded (Omnisphere Library Patch)",
+  "quoteBy": "BLUE STEEL",
+  "album": "Dark Lane Demo Tapes"
+ },
+ {
+  "song": "SHYNE",
+  "artist": "Travis Scott",
+  "plugin": "reFX Nexus",
+  "preset": "Brass Army [MW]",
+  "role": "Brass",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #509: \"SHYNE\" by Travis Scott (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/B-GJ1fhkW_M"
+  },
+  "quote": "On screen: Nexus 4, \"Brass Army [MW]\" loaded, window titled \"Brass - SHYNE (Travis Scott)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "JACKBOYS 2"
+ },
+ {
+  "song": "2 Hard 4 The Radio",
+  "artist": "Drake",
+  "plugin": "Arturia Jup-8 V",
+  "preset": "Acid Attack",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #507: \"2 Hard 4 Radio\" by Drake (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/xHchoKqIwBs"
+  },
+  "quote": "On screen: Arturia Jup-8 V4, \"Acid Attack*\" loaded (the asterisk marks an edited patch), track titled \"Lead - 2 Hard 4 Radio (Drake)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "ICEMAN"
+ },
+ {
+  "song": "Hot",
+  "artist": "Young Thug feat. Gunna",
+  "plugin": "reFX Nexus",
+  "preset": "Brass Trap 1",
+  "role": "Brass",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #503: \"Hot\" by Young Thug (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/sPZa5HeQ6nc"
+  },
+  "quote": "On screen: Nexus 4, \"Brass Trap 1 - BAZZABEATS-GOWILD-NEXUS-TRAP-EXPANSION\" loaded",
+  "quoteBy": "BLUE STEEL",
+  "album": "So Much Fun",
+  "path": "BAZZABEATS GOWILD Nexus Trap Expansion"
+ },
+ {
+  "song": "Aston Martin Music",
+  "artist": "Rick Ross",
+  "plugin": "Luxonix Purity",
+  "preset": "Partial",
+  "role": "Keys",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #501: \"Aston Martin Music\" by Rick Ross (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/p6bWfCGSeq8"
+  },
+  "quote": "On screen: Purity, display reads \"Fast Synth / Partial\", window titled \"Keys - Aston Martin Music (Rick Ross)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Teflon Don",
+  "path": "Fast Synth"
+ },
+ {
+  "song": "LIL DEMON",
+  "artist": "Future",
+  "plugin": "Arturia CZ V",
+  "preset": "Twilight Lead",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #493: \"Lil Demon\" by Future (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/kjsBKTa8CCk"
+  },
+  "quote": "On screen: Arturia CZ V, \"Twilight Lead*\" loaded (the asterisk marks an edited patch)",
+  "quoteBy": "BLUE STEEL",
+  "album": "MIXTAPE PLUTO"
+ },
+ {
+  "song": "Empty",
+  "artist": "Juice WRLD",
+  "plugin": "Spectrasonics Keyscape",
+  "preset": "LA Custom C7 Grand Piano",
+  "role": "Piano",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #489: \"Empty\" by Juice WRLD (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/GA6393KBiJM"
+  },
+  "quote": "On screen: Keyscape, \"LA Custom C7 Grand Piano\" loaded",
+  "quoteBy": "BLUE STEEL",
+  "album": "Death Race For Love"
+ },
+ {
+  "song": "lost souls",
+  "artist": "Baby Keem",
+  "plugin": "Roland Cloud JUNO-106",
+  "preset": "BL Magic Bells",
+  "role": "Bells",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #486: \"Lost Souls\" by Baby Keem (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/HqWJ6WASzdk"
+  },
+  "quote": "On screen: Roland JUNO-106 plugin, patch display reads \"BL Magic Bells\", captioned \"Lost Souls\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "The Melodic Blue"
+ },
+ {
+  "song": "Jersey",
+  "artist": "Future",
+  "plugin": "reFX Nexus",
+  "preset": "Bellpad 3",
+  "role": "Bell",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #477: \"Jersey\" by Future (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/0IHyeCBQhJI"
+  },
+  "quote": "On screen: Nexus 4, \"Bellpad 3\" loaded, window titled \"Bell_Jersey (Future)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "What A Time To Be Alive"
+ },
+ {
+  "song": "No Scrubs",
+  "artist": "TLC",
+  "plugin": "Kurzweil K2000 (hardware)",
+  "preset": "015 Steel Str Guitar",
+  "role": "Guitar",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #456: \"No Scrubs\" by TLC (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/1jIIjKuyHvs"
+  },
+  "quote": "On screen: Logic Sampler zone labelled Kurzweil K2000 - \"015 Steel Str Guitar\", captioned \"No Scrubs\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Fanmail"
+ },
+ {
+  "song": "Bills, Bills, Bills",
+  "artist": "Destiny's Child",
+  "plugin": "Roland ZENOLOGY Pro",
+  "preset": "110 Steel Away",
+  "role": "Acoustic guitar",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #452: \"Bills, Bills, Bills\" by Destiny's Child (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/SE7V33xyRnQ"
+  },
+  "quote": "On screen: Roland ZENOLOGY Pro, preset bank \"PRST_E XV Collection\", \"110: Steel Away\" (Ac.Guitar), captioned \"Bills, Bills, Bills\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "The Writing's On The Wall",
+  "path": "XV Collection"
+ },
+ {
+  "song": "Birthday Cake",
+  "artist": "Rihanna",
+  "plugin": "LennarDigital Sylenth1",
+  "preset": "023 HOV Dominator",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #447: \"Birthday Cake\" by Rihanna (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/CitExbxakLM"
+  },
+  "quote": "On screen: Sylenth1, display reads \"023: HOV Dominator\", window titled \"Lead_Birthday Cake (Rihanna)\" (the same patch shows in FAMOUS PRESETS #427)",
+  "quoteBy": "BLUE STEEL",
+  "album": "Talk That Talk"
+ },
+ {
+  "song": "BOP",
+  "artist": "DaBaby",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Mellotron Flute",
+  "role": "Flute",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #445: \"Bop\" by DaBaby (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/KpBUG8aaY94"
+  },
+  "quote": "On screen: Omnisphere, \"Mellotron Flute\" loaded (Omnisphere Library Patch), window titled \"BOP - 127: Flute_BOP (DaBaby)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "KIRK"
+ },
+ {
+  "song": "What's Next",
+  "artist": "Drake",
+  "plugin": "u-he Hive",
+  "preset": "KS Dirty Old Rotter",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #442: \"What's Next\" by Drake (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/rhHZwpv03dQ"
+  },
+  "quote": "On screen: u-he Hive, \"KS Dirty Old Rotter\" loaded, window titled \"What's Next - 130\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Scary Hours 2"
+ },
+ {
+  "song": "Desires",
+  "artist": "Drake feat. Future",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "JU06 - Shakey Squares",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #433: \"Desires\" by Drake (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/lTgAQ8ekoOc"
+  },
+  "quote": "On screen: Omnisphere, \"JU06 - Shakey Squares\" loaded (Hardware Library Patch), window titled \"Desires - 145: Pad_Desires (Drake)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Dark Lane Demo Tapes"
+ },
+ {
+  "song": "Lucid Dreams",
+  "artist": "Juice WRLD",
+  "plugin": "Spectrasonics Keyscape",
+  "preset": "JD-800 - Crystal Wash",
+  "role": "Keys",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #309: \"Lucid Dreams\" by Juice WRLD (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/EeChVvpfbyo"
+  },
+  "quote": "On screen: Keyscape, \"JD-800 - Crystal Wash\" loaded, window titled \"Keys_Lucid Dreams (Juice WRLD)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Goodbye & Good Riddance"
+ },
+ {
+  "song": "White Iverson",
+  "artist": "Post Malone",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Love Signs and Triangles",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #328: \"White Iverson\" by Post Malone (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/cZoEk2w711Y"
+  },
+  "quote": "On screen: Omnisphere, \"Love Signs and Triangles\" loaded (Atmosphere Library Patch), window titled \"White Iverson - 130: Pad_White Iverson (Post Malone)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Stoney (Deluxe)"
+ },
+ {
+  "song": "Lollipop",
+  "artist": "Lil Wayne feat. Static Major",
+  "plugin": "Native Instruments Massive",
+  "preset": "A Square In Space",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #317: \"Lollipop\" by Lil Wayne (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/uGvTbnpt7_A"
+  },
+  "quote": "On screen: Massive, \"A SQUARE IN SPACE\" loaded, track titled \"Lollipop - 148: A Square in Space\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Tha Carter III"
+ },
+ {
+  "song": "Yeah!",
+  "artist": "Usher feat. Lil Jon & Ludacris",
+  "plugin": "Novation V-Station",
+  "preset": "Trance2",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #332: \"Yeah!\" by USHER (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/gdcanc0CCfw"
+  },
+  "quote": "On screen: Novation V-Station, display reads \"Trance2 / 216\", captioned \"Yeah!\" by Usher",
+  "quoteBy": "BLUE STEEL",
+  "album": "Confessions (Expanded Edition)"
+ },
+ {
+  "song": "Day 'N' Nite",
+  "artist": "Kid Cudi",
+  "plugin": "Korg Collection TRITON",
+  "preset": "Smooth Sine Lead",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #329: \"Day 'n' Nite\" by Kid Cudi (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/esd-TjuA3dQ"
+  },
+  "quote": "On screen: Korg TRITON plugin, \"Smooth Sine Lead\" loaded (Lead Synth), window titled \"Day 'N' Nite - 138: Lead_Day 'N' Nite (Kid Cudi)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Man On The Moon: The End Of Day"
+ },
+ {
+  "song": "Wolves",
+  "artist": "Kanye West",
+  "plugin": "Cinesamples Voxos (Kontakt)",
+  "preset": "10 Solo Boy Legacy",
+  "role": "Choir",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #430: \"Wolves\" by Kanye West (correction) (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/CwqeEgJT9f0"
+  },
+  "quote": "On screen: Kontakt, Voxos Epic Virtual Choir with \"10 Solo Boy Legacy\" loaded; the short is captioned as a correction",
+  "quoteBy": "BLUE STEEL",
+  "album": "The Life Of Pablo"
+ },
+ {
+  "song": "Pushin P",
+  "artist": "Gunna & Future feat. Young Thug",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Dusting the Enigma 2",
+  "role": "Arp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #429: \"Pushin P\" by Gunna (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/nZ2sF1yuywU"
+  },
+  "quote": "On screen: Omnisphere, \"Dusting the Enigma 2\" loaded, window titled \"Arp - Pushin P (Gunna)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "DS4EVER"
+ },
+ {
+  "song": "Way 2 Sexy",
+  "artist": "Drake feat. Future & Young Thug",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Air Bells Descend",
+  "role": "Arp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #305: \"Way 2 Sexy\" by Drake (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/l03a4PMiGKM"
+  },
+  "quote": "On screen: Omnisphere, \"Air Bells Descend*\" loaded (Keyscape Creative patch; the asterisk marks an edited patch), window titled \"Way 2 Sexy - 136: Arp_Way 2 Sexy (Drake)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Certified Lover Boy"
+ },
+ {
+  "song": "Psycho",
+  "artist": "Post Malone feat. Ty Dolla $ign",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Nineties Keyz Vibe Dry",
+  "role": "Keys",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #474: \"Psycho\" by Post Malone (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/y2Tw-Ba97i4"
+  },
+  "quote": "On screen: Omnisphere, \"Nineties Keyz Vibe Dry\" loaded (Omnisphere Library Patch), captioned \"Psycho\" by Post Malone",
+  "quoteBy": "BLUE STEEL",
+  "album": "beerbongs & bentleys"
+ },
+ {
+  "song": "Gucci Gang",
+  "artist": "Lil Pump",
+  "plugin": "Synapse Audio Dune 3",
+  "preset": "Gravity KS",
+  "role": "Arp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #383: \"Gucci Gang\" by Lil Pump (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/ukBjGTEy9Yc"
+  },
+  "quote": "On screen: Synapse Dune 3, patch \"Gravity KS\" loaded, window titled \"120: Arp_Gucci Gang (Lil Pump)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Lil Pump"
+ },
+ {
+  "song": "Plug Walk",
+  "artist": "Rich The Kid",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Pad - Watery Grave",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #385: \"Plug Walk\" by Rich The Kid (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/p-XZ2jIYyi0"
+  },
+  "quote": "On screen: Omnisphere, \"Pad - Watery Grave\" loaded (oscillator sample JP-8 Trance Synth), window titled \"Plug Walk - 95: Pad_Plug Walk (Rich The Kid)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "The World Is Yours"
+ },
+ {
+  "song": "Esskeetit",
+  "artist": "Lil Pump",
+  "plugin": "reFX Nexus",
+  "preset": "Distortion 5",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #438: \"Esskeetit\" by Lil Pump (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/L3oe96TF9Wk"
+  },
+  "quote": "On screen: Nexus 4 in FL Studio, \"Distortion 5\" loaded, captioned \"Esskeetit\" by Lil Pump",
+  "quoteBy": "BLUE STEEL",
+  "album": "Esskeetit"
+ },
+ {
+  "song": "Thinkin Bout You",
+  "artist": "Frank Ocean",
+  "plugin": "AIR Music Technology Xpand!2",
+  "preset": "+06 Scanner Pad",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #324: \"Thinkin Bout You\" by Frank Ocean (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/P7m-2-dCrnc"
+  },
+  "quote": "On screen: Xpand!2, \"+06 Scanner Pad\" loaded (part A \"Scanner Pad+\"), captioned \"Thinkin Bout You\" by Frank Ocean",
+  "quoteBy": "BLUE STEEL",
+  "album": "channel ORANGE"
+ },
+ {
+  "song": "Timeless",
+  "artist": "The Weeknd & Playboi Carti",
+  "plugin": "reFX Nexus",
+  "preset": "After Midnight 1",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #323: \"Timeless\" by The Weeknd & Playboi Carti (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/9gvYkPGdAvU"
+  },
+  "quote": "On screen: Nexus 4, \"After Midnight 1\" loaded, window titled \"Lead - Timeless (The Weeknd & Playboi Carti)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Hurry Up Tomorrow"
+ },
+ {
+  "song": "Savage",
+  "artist": "Megan Thee Stallion",
+  "plugin": "u-he Diva",
+  "preset": "HS Destroit Minor",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #342: \"Savage\" by Megan Thee Stallion (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/JuxM4dNOqmU"
+  },
+  "quote": "On screen: u-he Diva, \"HS Destroit Minor\" loaded, window titled \"Savage - 169\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Suga"
+ },
+ {
+  "song": "Calling My Phone",
+  "artist": "Lil Tjay feat. 6LACK",
+  "plugin": "Output Arcade",
+  "preset": "Stuck on You",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #314: \"Calling My Phone\" by Lil Tjay (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/-eigKA-Dm_g"
+  },
+  "quote": "On screen: Output Arcade, kit \"Stuck on You\" loaded from the \"Hooked\" line, captioned \"Calling My Phone\" by Lil Tjay",
+  "quoteBy": "BLUE STEEL",
+  "album": "Destined 2 Win"
+ },
+ {
+  "song": "Life Is Good",
+  "artist": "Future feat. Drake",
+  "plugin": "Arturia Prophet V",
+  "preset": "Underwater Adventures",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #347: \"Life Is Good\" by Future (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/bCUco5piW2Q"
+  },
+  "quote": "On screen: Arturia Prophet V3 (Prophet VS panel), \"Underwater Adventures*\" loaded (the asterisk marks an edited patch), window titled \"Pad - Life Is Good (Future)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "High Off Life"
+ },
+ {
+  "song": "Slippery",
+  "artist": "Migos feat. Gucci Mane",
+  "plugin": "Rob Papen Predator 2",
+  "preset": "lead- aftertouch sinus",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #300: \"Slippery\" by Migos (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/KSxS7AK_e3M"
+  },
+  "quote": "On screen: Rob Papen Predator 2, preset \"lead- aftertouch sinus\" in bank \"104 HipHop RnB 01\", window titled \"Lead_Slippery (Migos)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Culture",
+  "path": "104 HipHop RnB 01"
+ },
+ {
+  "song": "Sing For The Moment",
+  "artist": "Eminem",
+  "plugin": "Korg Collection TRITON Extreme",
+  "preset": "HarpsyKorg 8'+4'",
+  "role": "Harpsichord",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #416: \"Sing for the Moment\" by Eminem (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/TH1sp-IiKWM"
+  },
+  "quote": "On screen: Korg TRITON Extreme plugin, program \"HarpsyKorg 8'+4'\" (bank K 056) loaded, captioned \"Sing For The Moment\" by Eminem",
+  "quoteBy": "BLUE STEEL",
+  "album": "The Eminem Show"
+ },
+ {
+  "song": "Like I Love You",
+  "artist": "Justin Timberlake",
+  "plugin": "Korg Collection TRITON Extreme",
+  "preset": "Jazz Guitar",
+  "role": "Guitar",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #473: \"Like I Love You\" by Justin Timberlake (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/oTB2Z5aBxhM"
+  },
+  "quote": "On screen: Korg TRITON Extreme plugin, program \"Jazz Guitar\" (bank J 069) loaded, captioned \"Like I Love You\" by Justin Timberlake",
+  "quoteBy": "BLUE STEEL",
+  "album": "Justified"
+ },
+ {
+  "song": "The Boy Is Mine",
+  "artist": "Brandy & Monica",
+  "plugin": "Roland Cloud JV-1080",
+  "preset": "PR-C 050 Harp",
+  "role": "Harp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #495: \"That Boy Is Mine\" by Brandy & Monica (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/AfRhSOEo90w"
+  },
+  "quote": "On screen: Roland JV-1080 plugin, display reads \"PR-C : 050 Harp\" (PLK Plucked), captioned \"That Boy Is Mine\" by Brandy & Monica",
+  "quoteBy": "BLUE STEEL",
+  "album": "Never Say Never"
+ },
+ {
+  "song": "Black & Chinese",
+  "artist": "Huncho Jack",
+  "plugin": "reFX Nexus",
+  "preset": "Pizzi 2",
+  "role": "Pizzicato",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #498: \"Black & Chinese\" by Huncho Jack (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/DdzTg-IaCjw"
+  },
+  "quote": "On screen: Nexus 4, \"Pizzi 2 - Da Sauce God XP\" loaded (from user presets), captioned \"Black & Chinese\" by Huncho Jack",
+  "quoteBy": "BLUE STEEL",
+  "album": "Huncho Jack, Jack Huncho",
+  "path": "Da Sauce God XP"
+ },
+ {
+  "song": "Sexy Love",
+  "artist": "Ne-Yo",
+  "plugin": "Native Instruments Kontakt",
+  "preset": "H118 Pearly Harp",
+  "role": "Harp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #413: \"Sexy Love\" by Ne-Yo (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/5q29r3g1EAs"
+  },
+  "quote": "On screen: Kontakt, instrument \"H118 Pearly Harp\" loaded from a \"32 Plucked\" folder, captioned \"Sexy Love\" by Ne-Yo",
+  "quoteBy": "BLUE STEEL",
+  "album": "In My Own Words"
+ },
+ {
+  "song": "I'm N Luv (Wit A Stripper)",
+  "artist": "T-Pain feat. Mike Jones",
+  "plugin": "Logic Pro Sampler",
+  "preset": "Steel String Acoustic",
+  "role": "Acoustic guitar",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #388: \"I'm N Luv\" by T-Pain (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/5IIemUZrdSo"
+  },
+  "quote": "On screen: Logic Sampler, \"Steel String Acoustic\" loaded, window titled \"I'm N Luv (Wit A Stripper) - 140\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Rappa Ternt Sanga (Expanded Edition)"
+ },
+ {
+  "song": "Don't",
+  "artist": "Bryson Tiller",
+  "plugin": "AIR Music Technology Xpand!2",
+  "preset": "59 Noise Band",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #350: \"Don't\" by Bryson Tiller (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/UFNLz9QEKRs"
+  },
+  "quote": "On screen: Xpand!2, \"59 Noise Band\" loaded (part \"Noise Band 1\" from Soft Pads; info \"Ambient Noise Band Pad.\"), captioned \"Don't\" by Bryson Tiller",
+  "quoteBy": "BLUE STEEL",
+  "album": "T R A P S O U L"
+ },
+ {
+  "song": "New Flame",
+  "artist": "Chris Brown feat. Usher & Rick Ross",
+  "plugin": "FabFilter One",
+  "preset": "Double-U",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #357: \"New Flame\" by Chris Brown (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/8MdgxRp9YEk"
+  },
+  "quote": "On screen: FabFilter One, \"Double-U\" loaded, captioned \"New Flame\" by Chris Brown",
+  "quoteBy": "BLUE STEEL",
+  "album": "X (Expanded Edition)"
+ },
+ {
+  "song": "Girls Need Love",
+  "artist": "Summer Walker",
+  "plugin": "AIR Music Technology Hybrid 3",
+  "preset": "13 Soft Sine Pad",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #355: \"Girls Need Love\" by Summer Walker (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/xlRw98q1NHg"
+  },
+  "quote": "On screen: AIR Hybrid 3, \"13 Soft Sine Pad\" loaded, captioned \"Girls Need Love\" by Summer Walker",
+  "quoteBy": "BLUE STEEL",
+  "album": "Last Day Of Summer"
+ },
+ {
+  "song": "I Know What You Want",
+  "artist": "Busta Rhymes & Mariah Carey feat. Flipmode Squad",
+  "plugin": "Korg Collection TRITON Extreme",
+  "preset": "Jazz Guitar",
+  "role": "Guitar",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #400: \"I Know What You Want\" by Busta Rhymes (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/KkcfGXkh5TE"
+  },
+  "quote": "On screen: Korg TRITON Extreme plugin, program \"Jazz Guitar\" (bank J 069) loaded, captioned \"I Know What You Want\" by Busta Rhymes",
+  "quoteBy": "BLUE STEEL",
+  "album": "It Ain't Safe No More. . ."
+ },
+ {
+  "song": "Don't Tell 'Em",
+  "artist": "Jeremih feat. YG",
+  "plugin": "reFX Nexus",
+  "preset": "Organ 2",
+  "role": "Bass",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #399: \"Don't Tell 'Em\" by Jeremih (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/3HzmoToQmuw"
+  },
+  "quote": "On screen: Nexus 4, \"Organ 2\" loaded from the Bass expansion, window titled \"Bass - Don't Tell 'Em (Jeremih)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Late Nights: The Album",
+  "path": "Bass expansion"
+ },
+ {
+  "song": "Beautiful",
+  "artist": "Snoop Dogg feat. Pharrell & Uncle Charlie Wilson",
+  "plugin": "Roland Cloud XV-5080",
+  "preset": "PR-A 033 Comp Clav",
+  "role": "Keys",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #402: \"Beautiful\" by Snoop Dogg (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/b5dBkQ1jaAI"
+  },
+  "quote": "On screen: Roland XV-5080 plugin, display reads \"PR-A:033 Comp Clav\" (category KEY Keyboards), window titled \"Keys_Beautiful (Snoop Dogg)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Paid Tha Cost To Be Da Bo$$"
+ },
+ {
+  "song": "Emotionally Scarred",
+  "artist": "Lil Baby",
+  "plugin": "reFX Nexus",
+  "preset": "Flute Solo",
+  "role": "Flute",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #378: \"Emotionally Scarred\" by Lil Baby (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/q6jd2-dISaw"
+  },
+  "quote": "On screen: Nexus 4, \"Flute Solo\" loaded (WW category), window titled \"Flute: WW Flute Solo\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "My Turn"
+ },
+ {
+  "song": "That Girl",
+  "artist": "Pharrell Williams",
+  "plugin": "Roland ZENOLOGY Pro",
+  "preset": "Voice Menu 3",
+  "role": "Choir",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #492: \"That Girl\" by Pharrell Williams (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/FAoBXBCxHVs"
+  },
+  "quote": "On screen: Roland ZENOLOGY Pro, preset bank \"EXZ006 World Instruments\", \"407: Voice Menu 3\" (Vox/Choir) loaded, captioned \"That Girl\" by Pharrell Williams",
+  "quoteBy": "BLUE STEEL",
+  "album": "In My Mind"
+ },
+ {
+  "song": "Low",
+  "artist": "Flo Rida feat. T-Pain",
+  "plugin": "Korg Collection TRITON Extreme",
+  "preset": "Smooth Sine Lead",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #484: \"Low\" by Flo Rida (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/5LIeVoztO_M"
+  },
+  "quote": "On screen: Korg TRITON Extreme plugin, program \"Smooth Sine Lead\" (bank J 012, category Lead Synth) loaded, captioned \"Low\" by Flo Rida",
+  "quoteBy": "BLUE STEEL",
+  "album": "Mail on Sunday"
+ },
+ {
+  "song": "Blakk Rokkstar",
+  "artist": "Ken Carson",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Poly Theremin",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #482: \"Blakk Rokkstar\" by Ken Carson (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/4ZTKYBCfYGI"
+  },
+  "quote": "On screen: Omnisphere, \"Poly Theremin\" loaded (Omnisphere Library Patch), captioned \"Blakk Rokkstar\" by Ken Carson",
+  "quoteBy": "BLUE STEEL",
+  "album": "More Chaos"
+ },
+ {
+  "song": "Myself",
+  "artist": "NAV",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Love Triangle Bells",
+  "role": "Bells",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #453: \"Myself\" by NAV (BLUE STEEL), video frame",
+   "url": "https://www.youtube.com/shorts/L7zf9xMM1c8"
+  },
+  "quote": "On screen: Omnisphere, \"Love Triangle Bells\" loaded (Atmosphere Library Patch) on Inst 1",
+  "quoteBy": "BLUE STEEL",
+  "album": "NAV"
+ },
+ {
+  "song": "wgft",
+  "artist": "Gunna feat. Burna Boy",
+  "plugin": "AAS Lounge Lizard EP-5",
+  "preset": "Fully Serviced 2",
+  "role": "Keys",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #443: \"wgft\" by Gunna (BLUE STEEL), video frame",
+   "url": "https://www.youtube.com/shorts/Wf_oHsBYPWM"
+  },
+  "quote": "On screen: AAS Lounge Lizard EP-5, preset \"Fully Serviced 2\" (Factory - EP-4 Remastered - Electric Pianos) loaded",
+  "quoteBy": "BLUE STEEL",
+  "album": "The Last Wun"
+ },
+ {
+  "song": "beibs in the trap",
+  "artist": "Travis Scott",
+  "plugin": "Tone2 ElectraX",
+  "preset": "2 Sparkle Pad BT",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #437: \"Biebs in the Trap\" by Travis Scott (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/g2dW__5sl1A"
+  },
+  "quote": "On screen: Tone2 ElectraX, preset \"2 Sparkle Pad BT\" (folder ArpMultilayer) loaded, captioned \"Biebs in the Trap\" by Travis Scott",
+  "quoteBy": "BLUE STEEL",
+  "album": "Birds In The Trap Sing McKnight"
+ },
+ {
+  "song": "OH I DID",
+  "artist": "Yeat",
+  "plugin": "reFX Nexus",
+  "preset": "Italo 80s D",
+  "role": "Brass",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #432: \"OH I DID\" by Yeat (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/wEVyIlezQHo"
+  },
+  "quote": "On screen: Nexus 4, \"Italo 80s D\" loaded (BR category), window titled \"BR Italo 80s D\", captioned \"OH I DID\" by Yeat",
+  "quoteBy": "BLUE STEEL",
+  "album": "DANGEROUS SUMMER"
+ },
+ {
+  "song": "Half The Plot",
+  "artist": "Lil Tecca",
+  "plugin": "Roland ZENOLOGY Pro",
+  "preset": "SL-JP6 6",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #431: \"Half The Plot\" by Lil Tecca (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/Q_1XYWdZWn4"
+  },
+  "quote": "On screen: Roland ZENOLOGY Pro on track \"Lead 1\", preset bank \"PRST_C Synth Legend\", \"029: SL-JP6 6\" (Synth Lead) loaded, captioned \"Half The Plot\" by Lil Tecca",
+  "quoteBy": "BLUE STEEL",
+  "album": "DOPAMINE"
+ },
+ {
+  "song": "Dum, Dumb, and Dumber",
+  "artist": "Lil Baby",
+  "plugin": "Cradle The Prince",
+  "preset": "mind voucher",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #428: \"Dum, Dumb, and Dumber\" by Lil Baby (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/LIIXW2QnlUM"
+  },
+  "quote": "On screen: Cradle The Prince, preset \"mind voucher\" (leads) loaded, captioned \"Dum, Dumb, and Dumber\" by Lil Baby",
+  "quoteBy": "BLUE STEEL",
+  "album": "Dum, Dumb, and Dumber"
+ },
+ {
+  "song": "Doing It Wrong",
+  "artist": "Drake",
+  "plugin": "AIR Music Technology Xpand!2",
+  "preset": "+13 Sine Pad",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #424: \"Doing It Wrong\" by Drake (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/eeSjAY_NAQ4"
+  },
+  "quote": "On screen: AIR Xpand!2, patch \"+13 Sine Pad\" loaded (part A: Soft Pads / Basic Sine Pad+), captioned \"Doing It Wrong\" by Drake",
+  "quoteBy": "BLUE STEEL",
+  "album": "Take Care (Deluxe)"
+ },
+ {
+  "song": "R.I.P. SCREW",
+  "artist": "Travis Scott",
+  "plugin": "Korg Collection Polysix",
+  "preset": "Fat Line Bass",
+  "role": "Bass",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #421: \"R.I.P. Screw\" by Travis Scott (BLUE STEEL), video frame",
+   "url": "https://www.youtube.com/shorts/HT41KT8U0uA"
+  },
+  "quote": "On screen: Korg Polysix plugin, preset \"Fat Line Bass\" loaded, window titled \"Bass - R.I.P. Screw (Travis Scott)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "ASTROWORLD"
+ },
+ {
+  "song": "Pyramids",
+  "artist": "Frank Ocean",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "FM Danceline Lead",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #415: \"Pyramids\" by Frank Ocean (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/A-1clH8I5og"
+  },
+  "quote": "On screen: Omnisphere, \"FM Danceline Lead\" loaded (Omnisphere Library Patch), window titled \"Pyramids - 108: Lead_Pyramids (Frank Ocean)\", captioned \"Pyramids\" by Frank Ocean",
+  "quoteBy": "BLUE STEEL",
+  "album": "channel ORANGE"
+ },
+ {
+  "song": "House Of Balloons / Glass Table Girls",
+  "artist": "The Weeknd",
+  "plugin": "LennarDigital Sylenth1",
+  "preset": "HOV Dominator",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #414: \"House of Balloons\" by The Weeknd (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/VJtmnIVT_lE"
+  },
+  "quote": "On screen: Sylenth1, program \"823: HOV Dominator\" loaded, captioned \"House of Balloons\" by The Weeknd",
+  "quoteBy": "BLUE STEEL",
+  "album": "House Of Balloons (Original)"
+ },
+ {
+  "song": "By Design",
+  "artist": "Kid Cudi",
+  "plugin": "Logic Pro Alchemy",
+  "preset": "Antarctic Sun",
+  "role": "Keys",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #403: \"By Design\" by Kid Cudi (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/6NeLl503S5A"
+  },
+  "quote": "On screen: Logic Alchemy browser, preset \"Antarctic Sun\" (Keys) loaded, captioned \"By Design\" by Kid Cudi",
+  "quoteBy": "BLUE STEEL",
+  "album": "Passion, Pain & Demon Slayin'"
+ },
+ {
+  "song": "Who Dat Boy",
+  "artist": "Tyler, The Creator feat. A$AP Rocky",
+  "plugin": "LennarDigital Sylenth1",
+  "preset": "KEY TranceFlute",
+  "role": "Flute",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #396: \"Who Dat Boy\" by Tyler, The Creator (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/ua5zwihYjMM"
+  },
+  "quote": "On screen: Sylenth1, program \"362: KEY TranceFlute\" loaded, captioned \"Who Dat Boy\" by Tyler, The Creator",
+  "quoteBy": "BLUE STEEL",
+  "album": "Flower Boy"
+ },
+ {
+  "song": "Outside Today",
+  "artist": "YoungBoy Never Broke Again",
+  "plugin": "Luxonix Purity",
+  "preset": "Celesta",
+  "role": "Bells",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #387: \"Outside Today\" by NBA YoungBoy (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/I9gpc4A85iM"
+  },
+  "quote": "On screen: Luxonix Purity, part 1 \"Celesta\" (Bell & Perc 012) loaded, track \"Bell_Outside Today (NBA YoungBoy)\", captioned \"Outside Today\" by NBA YoungBoy",
+  "quoteBy": "BLUE STEEL",
+  "album": "Outside Today"
+ },
+ {
+  "song": "pink dreads",
+  "artist": "DDG & PlaqueBoyMax",
+  "plugin": "reFX Nexus",
+  "preset": "German Trumpet 3",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #384: \"Pink Dreads\" by DDG & PlaqueBoyMax (BLUE STEEL), video frame",
+   "url": "https://www.youtube.com/shorts/jM1rHlYNkIU"
+  },
+  "quote": "On screen: Nexus 4, \"German Trumpet 3\" loaded (LD category), window titled \"LD German Trumpet 3\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "pink dreads"
+ },
+ {
+  "song": "Hatchback",
+  "artist": "Cochise",
+  "plugin": "Luxonix Purity",
+  "preset": "Pulse Width Mod",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #382: \"Hatchback\" by Cochise (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/eGeT1KwoWSM"
+  },
+  "quote": "On screen: Luxonix Purity, part 1 \"Pulse Width Mod\" (Fast Synth 077) loaded, captioned \"Hatchback\" by Cochise",
+  "quoteBy": "BLUE STEEL",
+  "album": "Hatchback"
+ },
+ {
+  "song": "Dark Thoughts",
+  "artist": "Lil Tecca",
+  "plugin": "Korg Collection TRITON",
+  "preset": "Chorus E.Guitar",
+  "role": "Guitar",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #376: \"Dark Thoughts\" by Lil Tecca (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/y9QO75_mUBA"
+  },
+  "quote": "On screen: Korg TRITON plugin, program \"Chorus E.Guitar\" loaded, captioned \"Dark Thoughts\" by Lil Tecca",
+  "quoteBy": "BLUE STEEL",
+  "album": "DOPAMINE"
+ },
+ {
+  "song": "Tried Our Best",
+  "artist": "Drake",
+  "plugin": "Spectrasonics Trilian",
+  "preset": "TR-RnB Mute - True Staccato",
+  "role": "Bass",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #374: \"Tried Our Best\" by Drake (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/EN5RZNEwvho"
+  },
+  "quote": "On screen: Trilian patch \"TR-RnB Mute - True Staccato\" loaded, window titled \"Bass - Tried Our Best (Drake)\", captioned \"Tried Our Best\" by Drake",
+  "quoteBy": "BLUE STEEL",
+  "album": "For All The Dogs"
+ },
+ {
+  "song": "JETLGGD",
+  "artist": "Destroy Lonely",
+  "plugin": "Xfer Serum",
+  "preset": "Arp - Ego",
+  "role": "Arp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #372: \"JETLGGD\" by Destroy Lonely (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/UzbxnwiUpCY"
+  },
+  "quote": "On screen: Serum, preset \"Arp - Ego\" loaded, window titled \"JETLGGD - 140: Arp - Ego\", captioned \"JETLGGD\" by Destroy Lonely",
+  "quoteBy": "BLUE STEEL",
+  "album": "NS+ (ULTRA)"
+ },
+ {
+  "song": "Watch",
+  "artist": "Travis Scott feat. Lil Uzi Vert & Kanye West",
+  "plugin": "Native Instruments FM8",
+  "preset": "Telepath",
+  "role": "Bells",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #369: \"Watch\" by Travis Scott (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/z6GVk8RDje8"
+  },
+  "quote": "On screen: Native Instruments FM8, sound \"Telepath\" loaded, track \"Bell_Watch (Travis Scott)\", captioned \"Watch\" by Travis Scott",
+  "quoteBy": "BLUE STEEL",
+  "album": "Watch (feat. Lil Uzi Vert & Kanye West)"
+ },
+ {
+  "song": "Drunk And Nasty",
+  "artist": "Pi'erre Bourne",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Bowed Balaphones",
+  "role": "Pluck",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #364: \"Drunk & Nasty\" by Pi'erre Bourne (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/8DLrk4fu5R4"
+  },
+  "quote": "On screen: Omnisphere, \"Bowed Balaphones\" loaded (Omnisphere Library Patch), window titled \"Drunk and Nasty - 127: Pluck_Drunk and Nasty (Pi'erre Bourne)\", captioned \"Drunk & Nasty\" by Pi'erre Bourne",
+  "quoteBy": "BLUE STEEL",
+  "album": "The Life Of Pi'erre 5"
+ },
+ {
+  "song": "Tweaker",
+  "artist": "GELO",
+  "plugin": "AIR Music Technology Xpand!2",
+  "preset": "46 Basic Square Lead",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #362: \"Tweaker\" by GELO (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/CTfmpH3zWhU"
+  },
+  "quote": "On screen: AIR Xpand!2, patch \"46 Basic Square Lead\" loaded (part A: Basics / Mono Square), captioned \"Tweaker\" by GELO",
+  "quoteBy": "BLUE STEEL",
+  "album": "Tweaker"
+ },
+ {
+  "song": "Myron",
+  "artist": "Lil Uzi Vert",
+  "plugin": "Synapse Audio Dune 3",
+  "preset": "Chime Swimmers EDT",
+  "role": "Arp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #358: \"Myron\" by Lil Uzi Vert (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/lWyB4GqFf9k"
+  },
+  "quote": "On screen: Synapse Dune 3, patch \"Chime Swimmers EDT\" loaded, window titled \"155: Arp_Myron (Lil Uzi Vert)\", captioned \"Myron\" by Lil Uzi Vert",
+  "quoteBy": "BLUE STEEL",
+  "album": "Eternal Atake (Deluxe) - LUV vs. The World 2"
+ },
+ {
+  "song": "Freestyle",
+  "artist": "Lil Baby",
+  "plugin": "reFX Nexus",
+  "preset": "Chillin House Lounge 3",
+  "role": "Bells",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #349: \"Freestyle\" by Lil Baby (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/8vM9m7Ivou8"
+  },
+  "quote": "On screen: Nexus 4, \"Chillin House Lounge 3\" loaded, track \"Bell_Freestyle (Lil Baby)\", captioned \"Freestyle\" by Lil Baby",
+  "quoteBy": "BLUE STEEL",
+  "album": "Too Hard"
+ },
+ {
+  "song": "Lord Pretty Flacko Jodye 2 (LPFJ2)",
+  "artist": "A$AP Rocky",
+  "plugin": "Native Instruments Absynth 5",
+  "preset": "Chorditron Lead",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #345: \"LPFJ2\" by A$AP Rocky (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/moGrq4jigqs"
+  },
+  "quote": "On screen: Absynth 5, sound \"Chorditron Lead\" loaded (window titled \"Chorditron Lead\"), captioned \"LPFJ2\" by A$AP Rocky",
+  "quoteBy": "BLUE STEEL",
+  "album": "AT.LONG.LAST.A$AP"
+ },
+ {
+  "song": "After Party",
+  "artist": "Don Toliver",
+  "plugin": "Arturia Matrix-12 V",
+  "preset": "Soda Beach",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #344: \"After Party\" by Don Toliver (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/_ZaLUuhBrEs"
+  },
+  "quote": "On screen: Arturia Matrix-12 V2, preset \"Soda Beach\" loaded, captioned \"After Party\" by Don Toliver",
+  "quoteBy": "BLUE STEEL",
+  "album": "Heaven Or Hell"
+ },
+ {
+  "song": "Guillotine",
+  "artist": "Pi'erre Bourne",
+  "plugin": "Output Exhale",
+  "preset": "Somber Feels",
+  "role": "Vox",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #331: \"Guillotine\" by Pi'erre Bourne (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/oFCV9-ONpFk"
+  },
+  "quote": "On screen: Output EXHALE (Kontakt), preset \"026. Somber Feels\" loaded, window titled \"Vox - Guillotine (Pi'erre Bourne)\", captioned \"Guillotine\" by Pi'erre Bourne",
+  "quoteBy": "BLUE STEEL",
+  "album": "The Life Of Pi'erre 4"
+ },
+ {
+  "song": "The Race",
+  "artist": "Tay-K",
+  "plugin": "Image-Line Sytrus",
+  "preset": "Flute",
+  "role": "Flute",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #322: \"The Race\" by Tay-K (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/tljMCbRVQOU"
+  },
+  "quote": "On screen: Image-Line Sytrus, preset \"Flute\" (Daven Hughes) loaded, captioned \"The Race\" by Tay-K",
+  "quoteBy": "BLUE STEEL",
+  "album": "#SantanaWorld (+)"
+ },
+ {
+  "song": "Peaches & Eggplants",
+  "artist": "Young Nudy feat. 21 Savage",
+  "plugin": "AIR Music Technology Xpand!2",
+  "preset": "34 Nasal Bells",
+  "role": "Bells",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #316: \"Peaches & Eggplants\" by Young Nudy (BLUE STEEL), video frame",
+   "url": "https://www.youtube.com/shorts/TSS_rqLJW40"
+  },
+  "quote": "On screen: AIR Xpand!2, patch \"34 Nasal Bells\" loaded (part A: Bells / Nasal Bells)",
+  "quoteBy": "BLUE STEEL",
+  "album": "Gumbo"
+ },
+ {
+  "song": "Impossible",
+  "artist": "Travis Scott",
+  "plugin": "Native Instruments Massive",
+  "preset": "Bellus Blingus",
+  "role": "Bells",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #312: \"Impossible\" by Travis Scott (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/HNsDxI3G1h0"
+  },
+  "quote": "On screen: Native Instruments Massive, preset \"Bellus Blingus\" loaded, captioned \"Impossible\" by Travis Scott",
+  "quoteBy": "BLUE STEEL",
+  "album": "Rodeo"
+ },
+ {
+  "song": "Wat it feel lykë",
+  "artist": "Yeat",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Innerversions",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #296: \"Wat it feel lykë\" by Yeat (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/00ozGQb6z5Q"
+  },
+  "quote": "On screen: Omnisphere, \"Innerversions\" loaded (Omnisphere Library Patch), captioned \"Wat it feel lykë\" by Yeat",
+  "quoteBy": "BLUE STEEL",
+  "album": "Lyfë"
+ },
+ {
+  "song": "Solo",
+  "artist": "Future",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Shepherds Horn",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #325: \"Solo\" by Future (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/t_RGdwrcIiI"
+  },
+  "quote": "On screen: Omnisphere, \"Shepherds Horn\" loaded (Omnisphere Library Patch), window titled \"Solo - 111: Lead_Solo (Future)\", captioned \"Solo\" by Future",
+  "quoteBy": "BLUE STEEL",
+  "album": "HNDRXX"
+ },
+ {
+  "song": "Master of None",
+  "artist": "Beach House",
+  "plugin": "DecentSampler (Decent Samples RM-20)",
+  "preset": "RM-20 Organ 2",
+  "role": "Organ",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #517: \"Master of None\" by Beach House (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/Bw6B4f--yU4"
+  },
+  "quote": "On screen: DecentSampler with the RM-20 instrument, preset \"RM-20 Organ 2\" loaded, captioned \"Master of None\" by Beach House",
+  "quoteBy": "BLUE STEEL",
+  "album": "Beach House"
+ },
+ {
+  "song": "Animals",
+  "artist": "Martin Garrix",
+  "plugin": "LennarDigital Sylenth1",
+  "preset": "VANDALISM_Lead_Castle",
+  "role": "Pluck",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #516: \"Animals\" by Martin Garrix (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/JFlMvwVqqZo"
+  },
+  "quote": "On screen: Sylenth1, preset \"058: VANDALISM_Lead_Castle\" in the display, Logic channel \"Pluck_Animals (Martin Garrix)\", captioned \"Animals\" by Martin Garrix",
+  "quoteBy": "BLUE STEEL",
+  "album": "Animals"
+ },
+ {
+  "song": "Midnight Sun",
+  "artist": "Zara Larsson",
+  "plugin": "u-he Hive 2",
+  "preset": "AZ Clean SuperPluck",
+  "role": "Pluck",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #508: \"Midnight Sun\" by Zara Larsson (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/sYmeTShzvKg"
+  },
+  "quote": "On screen: u-he Hive, preset \"AZ Clean SuperPluck\" loaded, captioned \"Midnight Sun\" by Zara Larsson",
+  "quoteBy": "BLUE STEEL",
+  "album": "Midnight Sun"
+ },
+ {
+  "song": "Somebody Told Me",
+  "artist": "The Killers",
+  "plugin": "Korg Collection microKORG",
+  "preset": "PhaserLead",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #506: \"Somebody Told Me\" by The Killers (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/t-OnBASadOI"
+  },
+  "quote": "On screen: Korg microKORG plugin, program \"B.14 PhaserLead\" (Trance) loaded, window \"Lead - Somebody Told Me (The Killers)\", captioned \"Somebody Told Me\" by The Killers",
+  "quoteBy": "BLUE STEEL",
+  "album": "Hot Fuss"
+ },
+ {
+  "song": "Eyesight",
+  "artist": "slayr",
+  "plugin": "Tone2 ElectraX",
+  "preset": "LEAD - 808 MAFIA SIREN",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #497: \"Eyesight\" by Slayr (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/7pGpmX3mVt8"
+  },
+  "quote": "On screen: Tone2 ElectraX, bank \"KC Supreme - Aventador Elec...\" with preset \"LEAD - 808 MAFIA SIREN\" loaded, captioned \"Eyesight\" by Slayr",
+  "quoteBy": "BLUE STEEL",
+  "album": "Half Blood (BloodLuxe)"
+ },
+ {
+  "song": "405",
+  "artist": "Justin Bieber",
+  "plugin": "Arturia DX7 V",
+  "preset": "Dire Dreams",
+  "role": "Keys",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #494: \"405\" by Justin Bieber (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/fHl9qnd3BmI"
+  },
+  "quote": "On screen: Arturia DX7 V, preset \"Dire Dreams\" loaded, captioned \"405\" by Justin Bieber",
+  "quoteBy": "BLUE STEEL",
+  "album": "SWAG"
+ },
+ {
+  "song": "WASSUP",
+  "artist": "Young Miko",
+  "plugin": "Native Instruments Massive",
+  "preset": "A Square In Space",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #491: \"WASSUP\" by Young Miko (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/5KfGfeK3x24"
+  },
+  "quote": "On screen: Native Instruments Massive, preset \"A SQUARE IN SPACE\" loaded (window titled \"A Square In Space\"), captioned \"WASSUP\" by Young Miko",
+  "quoteBy": "BLUE STEEL",
+  "album": "WASSUP"
+ },
+ {
+  "song": "PALACE",
+  "artist": "Thirteendegrees °",
+  "plugin": "reFX Nexus",
+  "preset": "Italo 80s D",
+  "role": "Bass",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #490: \"Palace\" by Thirteendegrees (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/VwjHxvBdIfQ"
+  },
+  "quote": "On screen: reFX Nexus 4, preset \"Italo 80s D\" (BR) loaded, window \"Bass - Palace (Thirteendegrees)\", captioned \"Palace\" by Thirteendegrees",
+  "quoteBy": "BLUE STEEL",
+  "album": "PALACE"
+ },
+ {
+  "song": "365",
+  "artist": "Charli xcx",
+  "plugin": "RaveGenerator 2",
+  "preset": "T99 anasthasia",
+  "role": "Stab",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #481: \"365\" by Charli xcx (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/4IpF8_Izi2M"
+  },
+  "quote": "On screen: RaveGenerator2, \"T99 anasthasia\" selected in the \"stabs\" folder and loaded in slot 1, captioned \"365\" by Charli xcx",
+  "quoteBy": "BLUE STEEL",
+  "album": "BRAT"
+ },
+ {
+  "song": "needy",
+  "artist": "Ariana Grande",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "In Memorium 1",
+  "role": "Bells",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #480: \"Needy\" by Ariana Grande (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/G8sygrr2Kzw"
+  },
+  "quote": "On screen: Omnisphere, patch \"In Memorium 1\" (Omnisphere Library Patch) loaded, captioned \"Needy\" by Ariana Grande",
+  "quoteBy": "BLUE STEEL",
+  "album": "thank u, next"
+ },
+ {
+  "song": "Firestarter",
+  "artist": "The Prodigy",
+  "plugin": "Korg Collection Prophecy",
+  "preset": "Space Adventure",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #479: \"Firestarter\" by The Prodigy (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/1rBQc7W6DB8"
+  },
+  "quote": "On screen: Korg Prophecy plugin, program \"B00 Space Adventure\" loaded, captioned \"Firestarter\" by The Prodigy",
+  "quoteBy": "BLUE STEEL",
+  "album": "The Fat of the Land"
+ },
+ {
+  "song": "i like the way you kiss me",
+  "artist": "Artemas",
+  "plugin": "Universal Audio UADx Moog Minimoog",
+  "preset": "Dope Bassy",
+  "role": "Bass",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #478: \"I Like The Way You Kiss Me\" by Artemas (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/Mh53QQBYy1o"
+  },
+  "quote": "On screen: UADx Moog Minimoog Synth, preset \"Dope Bassy\" loaded, Logic channel \"Bass - I Like The Way You Kiss Me (Artemas)\", captioned \"I Like The Way You Kiss Me\" by Artemas",
+  "quoteBy": "BLUE STEEL",
+  "album": "i like the way you kiss me"
+ },
+ {
+  "song": "Voodoo People",
+  "artist": "The Prodigy",
+  "plugin": "Roland Cloud JD-800",
+  "preset": "Wailing Guitar",
+  "role": "Guitar",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #460: \"Voodoo People\" by The Prodigy (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/rr2v9lXdPJI"
+  },
+  "quote": "On screen: Roland JD-800 plugin, patch \"1-5: Wailing Guitar\" loaded, captioned \"Voodoo People\" by The Prodigy",
+  "quoteBy": "BLUE STEEL",
+  "album": "Music for the Jilted Generation"
+ },
+ {
+  "song": "What Do You Mean?",
+  "artist": "Justin Bieber",
+  "plugin": "reFX Nexus",
+  "preset": "PanFlute",
+  "role": "Flute",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #449: \"What Do You Mean?\" by Justin Bieber (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/g3GSNs6utJ8"
+  },
+  "quote": "On screen: reFX Nexus 4, preset \"PanFlute\" (WW) loaded, window \"Flute_What Do You Mean? (Justin Bieber)\", captioned \"What Do You Mean?\" by Justin Bieber",
+  "quoteBy": "BLUE STEEL",
+  "album": "Purpose"
+ },
+ {
+  "song": "Transgender",
+  "artist": "Crystal Castles",
+  "plugin": "Native Instruments FM8",
+  "preset": "Telepath",
+  "role": "Bells",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #448: \"Transgender\" by Crystal Castles (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/gTilZ4JPSOo"
+  },
+  "quote": "On screen: Native Instruments FM8, preset \"Telepath\" loaded, window \"Bell_Transgender (Crystal Castles)\", captioned \"Transgender\" by Crystal Castles",
+  "quoteBy": "BLUE STEEL",
+  "album": "(III)"
+ },
+ {
+  "song": "stressed",
+  "artist": "Nettspend",
+  "plugin": "Xfer Serum 2",
+  "preset": "ARP - D3MON",
+  "role": "Arp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #446: \"stressed\" by Nettspend (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/1n9DdudTano"
+  },
+  "quote": "On screen: Xfer Serum 2, preset \"ARP - D3MON\" (artist Lukrative) loaded, captioned \"stressed\" by Nettspend",
+  "quoteBy": "BLUE STEEL",
+  "album": "gone too soon"
+ },
+ {
+  "song": "Victory Lap",
+  "artist": "Fred again..",
+  "plugin": "Apple Logic Pro Alchemy",
+  "preset": "80s FM Bass Attack",
+  "role": "Bass",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #419: \"Victory Lap\" by Fred again.. (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/zcVyKZhhU1Q"
+  },
+  "quote": "On screen: Logic Alchemy, preset \"Bass | 80s FM Bass Attack\" loaded (window titled \"80s FM Bass Attack\"), captioned \"Victory Lap\" by Fred again..",
+  "quoteBy": "BLUE STEEL",
+  "album": "Victory Lap"
+ },
+ {
+  "song": "I'm a Slave 4 U",
+  "artist": "Britney Spears",
+  "plugin": "Korg Collection TRITON",
+  "preset": "Strato-Chime",
+  "role": "Guitar",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #434: \"I'm a Slave 4 U\" by Britney Spears (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/l2Prcntl4JM"
+  },
+  "quote": "On screen: Korg TRITON plugin, program \"Strato-Chime\" (bank INT-B 069, category Guitar) loaded, captioned \"I'm a Slave 4 U\" by Britney Spears",
+  "quoteBy": "BLUE STEEL",
+  "album": "Britney (Digital Deluxe Version)"
+ },
+ {
+  "song": "Good Luck, Babe!",
+  "artist": "Chappell Roan",
+  "plugin": "TAL-U-NO-LX",
+  "preset": "17 Brass",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #426: \"Good Luck, Babe!\" by Chappell Roan (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/o7vCTSt9hQo"
+  },
+  "quote": "On screen: TAL-U-NO-LX V2, preset \"17 Brass\" loaded, window \"Pad - Good Luck, Babe! (Chappell Roan)\", captioned \"Good Luck, Babe!\" by Chappell Roan",
+  "quoteBy": "BLUE STEEL",
+  "album": "Good Luck, Babe!"
+ },
+ {
+  "song": "Good Luck, Babe!",
+  "artist": "Chappell Roan",
+  "plugin": "Roland ZENOLOGY",
+  "preset": "BRASS",
+  "role": "Brass",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #420: \"Good Luck, Babe!\" by Chappell Roan (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/qEy0oPjqtBY"
+  },
+  "quote": "On screen: Roland ZENOLOGY, bank \"EXM002 JUNO-106\", preset \"076: BRASS\" loaded, captioned \"Good Luck, Babe!\" by Chappell Roan",
+  "quoteBy": "BLUE STEEL",
+  "album": "Good Luck, Babe!"
+ },
+ {
+  "song": "Rockstar",
+  "artist": "LISA",
+  "plugin": "Xfer Serum",
+  "preset": "LD Ratata [Sam Smyers]",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #411: \"Rockstar\" by LISA (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/LD_h4iiEQ34"
+  },
+  "quote": "On screen: Xfer Serum, preset \"LD Ratata [Sam Smyers]\" loaded (preset note \"Skrillex, Missy Elliott\"), captioned \"Rockstar\" by LISA",
+  "quoteBy": "BLUE STEEL",
+  "album": "Rockstar"
+ },
+ {
+  "song": "When Doves Cry",
+  "artist": "Prince",
+  "plugin": "Arturia DX7 V",
+  "preset": "Rom1A 23-KOTO",
+  "role": "Pluck",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #409: \"When Doves Cry\" by Prince (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/tePkFLUTqjI"
+  },
+  "quote": "On screen: Arturia DX7 V, preset \"Rom1A 23-KOTO\" loaded, captioned \"When Doves Cry\" by Prince",
+  "quoteBy": "BLUE STEEL",
+  "album": "Purple Rain"
+ },
+ {
+  "song": "Waiting For Love",
+  "artist": "Avicii",
+  "plugin": "LennarDigital Sylenth1",
+  "preset": "LD Pulse AM",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #406: \"Waiting For Love\" by Avicii (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/VP7ivVugOLY"
+  },
+  "quote": "On screen: Sylenth1, preset \"447: LD Pulse AM\" in the display, captioned \"Waiting For Love\" by Avicii",
+  "quoteBy": "BLUE STEEL",
+  "album": "Stories"
+ },
+ {
+  "song": "Me Porto Bonito",
+  "artist": "Bad Bunny & Chencho Corleone",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Hohner Guitaret - Main",
+  "role": "Pluck",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #395: \"Me Porto Bonito\" by Bad Bunny (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/XFbscqbMofk"
+  },
+  "quote": "On screen: Omnisphere, patch \"Hohner Guitaret - Main\" (Omnisphere Library Patch) loaded, window \"Pluck_Me Porto Bonito (Bad Bunny)\", captioned \"Me Porto Bonito\" by Bad Bunny",
+  "quoteBy": "BLUE STEEL",
+  "album": "Un Verano Sin Ti"
+ },
+ {
+  "song": "The Final Countdown",
+  "artist": "Europe",
+  "plugin": "Roland ZENOLOGY",
+  "preset": "STAB BRASS",
+  "role": "Brass",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #394: \"The Final Countdown\" by Europe (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/LjX5eBxsId4"
+  },
+  "quote": "On screen: Roland ZENOLOGY, bank \"EXM003 JX-8P\", preset \"089: STAB BRASS\" (Synth Brass) loaded, captioned \"The Final Countdown\" by Europe",
+  "quoteBy": "BLUE STEEL",
+  "album": "The Final Countdown (Expanded Edition)"
+ },
+ {
+  "song": "BITTERSUITE",
+  "artist": "Billie Eilish",
+  "plugin": "FabFilter Twin 2",
+  "preset": "Hit Me Soft And Hard 01 bM",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #386: \"BITTERSUITE\" by Billie Eilish (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/1SBS4HXhEPQ"
+  },
+  "quote": "On screen: FabFilter Twin 2, preset \"Hit Me Soft And Hard 01 bM\" loaded, captioned \"BITTERSUITE\" by Billie Eilish",
+  "quoteBy": "BLUE STEEL",
+  "album": "HIT ME HARD AND SOFT"
+ },
+ {
+  "song": "BIRDS OF A FEATHER",
+  "artist": "Billie Eilish",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Melting in Memoriam",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #375: \"BIRDS OF A FEATHER\" by Billie Eilish (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/1H5CFKmUIFY"
+  },
+  "quote": "On screen: Omnisphere, patch \"Melting in Memoriam\" (Keyscape Creative) loaded, window \"Lead - BIRDS OF A FEATHER (Billie Eilish)\", captioned \"BIRDS OF A FEATHER\" by Billie Eilish",
+  "quoteBy": "BLUE STEEL",
+  "album": "HIT ME HARD AND SOFT"
+ },
+ {
+  "song": "Lights",
+  "artist": "Ellie Goulding",
+  "plugin": "LennarDigital Sylenth1",
+  "preset": "ARP RainDrop",
+  "role": "Arp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #373: \"Lights\" by Ellie Goulding (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/Ln8xJgoPFKc"
+  },
+  "quote": "On screen: Sylenth1, preset \"148: ARP RainDrop\" in the display, window \"Arp_Lights (Ellie Goulding)\", captioned \"Lights\" by Ellie Goulding",
+  "quoteBy": "BLUE STEEL",
+  "album": "Bright Lights (Lights Re-pack / Bonus Version)"
+ },
+ {
+  "song": "Rock Your Body",
+  "artist": "Justin Timberlake",
+  "plugin": "Korg Collection TRITON",
+  "preset": "Chorus E.Guitar",
+  "role": "Guitar",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #365: \"Rock Your Body\" by Justin Timberlake (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/IsBfgr6iZYg"
+  },
+  "quote": "On screen: Korg TRITON plugin, program \"Chorus E.Guitar\" (bank INT-A 021, category Guitar) loaded, captioned \"Rock Your Body\" by Justin Timberlake",
+  "quoteBy": "BLUE STEEL",
+  "album": "Justified"
+ },
+ {
+  "song": "Mi Gente",
+  "artist": "J Balvin & Willy William",
+  "plugin": "Output Exhale (Kontakt)",
+  "preset": "Nice Male Ahs",
+  "role": "Vocal",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #363: \"Mi Gente\" by J Balvin (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/ighJ_0tlcHs"
+  },
+  "quote": "On screen: Kontakt with Output EXHALE, preset \"064. Nice Male Ahs\" loaded, window \"104: Vox - Mi Gente (J Balvin)\", captioned \"Mi Gente\" by J Balvin",
+  "quoteBy": "BLUE STEEL",
+  "album": "Mi Gente"
+ },
+ {
+  "song": "Figure It Out",
+  "artist": "ian",
+  "plugin": "Roland ZENOLOGY Pro",
+  "preset": "Electrostar",
+  "role": "Synth FX",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #308: \"Figure It Out\" by ian (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/ITFfDMF8hzM"
+  },
+  "quote": "On screen: Roland ZENOLOGY Pro, bank \"PRST_F Essential\", preset \"729: Electrostar\" (Synth FX) loaded, captioned \"Figure It Out\" by ian",
+  "quoteBy": "BLUE STEEL",
+  "album": "Figure It Out"
+ },
+ {
+  "song": "Scary Monsters and Nice Sprites",
+  "artist": "Skrillex",
+  "plugin": "LennarDigital Sylenth1",
+  "preset": "LD Screamer",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #303: \"Scary Monsters & Nice Sprites\" by Skrillex (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/G0vwkxrQJ68"
+  },
+  "quote": "On screen: Sylenth1, preset \"069: LD Screamer\" in the display, window \"140: LD Screamer\", captioned \"Scary Monsters & Nice Sprites\" by Skrillex",
+  "quoteBy": "BLUE STEEL",
+  "album": "Scary Monsters and Nice Sprites EP"
+ },
+ {
+  "song": "Club classics",
+  "artist": "Charli xcx",
+  "plugin": "Xfer Serum",
+  "preset": "BA Digimods [ASL]",
+  "role": "Bass",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #295: \"Club Classics\" by Charli xcx (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/tM-nX0HXXsU"
+  },
+  "quote": "On screen: Xfer Serum, preset \"BA Digimods [ASL]\" loaded, captioned \"Club Classics\" by Charli xcx",
+  "quoteBy": "BLUE STEEL",
+  "album": "BRAT"
+ },
+ {
+  "song": "Ric Flair Drip",
+  "artist": "Offset & Metro Boomin",
+  "plugin": "XLN Audio Addictive Keys",
+  "preset": "Mark One - Lounge",
+  "role": "Keys",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #200: \"Metro Boomin\" Pt. 1 (BLUE STEEL), video frame of the second segment",
+   "url": "https://www.youtube.com/shorts/tjZzqlAADAo"
+  },
+  "quote": "On screen: Addictive Keys Mark One, preset \"Mark One - Lounge\" loaded in the second segment; the creator-pinned comment names the songs as \"space cadet and ric flair drip\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Without Warning"
+ },
+ {
+  "song": "All Girls Are the Same",
+  "artist": "Juice WRLD",
+  "plugin": "Tone2 ElectraX",
+  "preset": "SY - Remember",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #191: \"ElectraX\" Pt. 1 (BLUE STEEL), video frame of the first segment",
+   "url": "https://www.youtube.com/shorts/iexqMjzgJHQ"
+  },
+  "quote": "On screen: ElectraX browser showing bank \"Fantasy Sounds XP (Based Gutta)\", preset \"SY - Remember\" in the first segment; the creator-pinned comment names the songs as \"All Girls Are The Same by Juice WRLD and Beibs in the Trap by Nav & Travis Scott\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Goodbye & Good Riddance"
+ },
+ {
+  "song": "Hell Yeah",
+  "artist": "SoFaygo feat. Ken Carson",
+  "plugin": "Xfer Serum",
+  "preset": "SY Simple Sync [SD]",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #195: \"Serum\" Pt. 1 (BLUE STEEL), video frame of the second segment",
+   "url": "https://www.youtube.com/shorts/m_z-fmACQmw"
+  },
+  "quote": "On screen: Serum preset \"SY Simple Sync [SD]\" loaded, Logic window titled \"SY Simple Sync [SD]\" in the second segment; the creator-pinned comment names the songs as \"destroy lonely - jetlggd sofaygo, ken carson - hell yeah\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Hell Yeah"
+ },
+ {
+  "song": "Shotta",
+  "artist": "Young Nudy feat. Megan Thee Stallion",
+  "plugin": "u-he TyrellN6",
+  "preset": "PV - El Harpo",
+  "role": "Harp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #190: \"TyrellN6\" Pt. 1 (BLUE STEEL), video frame of the second segment",
+   "url": "https://www.youtube.com/shorts/jnq6bQzfus4"
+  },
+  "quote": "On screen: u-he TyrellN6, display \"PV - El Harpo\", window titled \"PV - El Harpo\" in the second segment; the creator-pinned comment names the songs as \"drake, partynextdoor - recognize young nudy, megan thee stallion - shotta\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Sli'merre"
+ },
+ {
+  "song": "See You Again",
+  "artist": "Tyler, the Creator feat. Kali Uchis",
+  "plugin": "Apple Logic Pro Sampler",
+  "preset": "French Horns Legato",
+  "role": "Horns",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #162: Tyler, The Creator Pt. 3 (BLUE STEEL), video frame of the first segment",
+   "url": "https://www.youtube.com/shorts/onscNPtu_v0"
+  },
+  "quote": "On screen: Logic Pro Sampler window titled \"French Horns Legato\" loaded (Compare not lit); songs named in a comment pinned by BLUE STEEL: \"Second is IFHY and the first is See you again\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Flower Boy"
+ },
+ {
+  "song": "Sauce It Up",
+  "artist": "Lil Uzi Vert",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Retro Bass Flute",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #158: Lil Uzi Vert Pt. 5 (BLUE STEEL), video frame of the second segment",
+   "url": "https://www.youtube.com/shorts/dZ1b5nvAs34"
+  },
+  "quote": "On screen: Omnisphere patch \"Retro Bass Flute\" (Omnisphere Library Patch) loaded; songs listed in order in a comment pinned by BLUE STEEL: \"just wanna rock and sauce it up\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Luv Is Rage 2"
+ },
+ {
+  "song": "VETERAN",
+  "artist": "Destroy Lonely feat. Ken Carson",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Accidental Magic",
+  "role": "Arp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #112: Destroy Lonely Pt. 2 (BLUE STEEL), video frame of the second segment",
+   "url": "https://www.youtube.com/shorts/gzv9UKwNFUY"
+  },
+  "quote": "On screen: Omnisphere patch \"Accidental Magic\" (Spotlight - EDM Patch) loaded; songs listed in order in a comment pinned by BLUE STEEL: \"NOSTYLIST and VETERAN\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "NO STYLIST"
  }
 ]
