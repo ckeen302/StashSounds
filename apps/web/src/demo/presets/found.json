@@ -22692,5 +22692,241 @@
   "quote": "On screen: Diversion preset display \"LEAD Mallet Bell\", author \"Dmitry Sches\" (loaded about 0:13 to 0:18); description: \"plugin - Dmitry Sches - Diversion\"; title names the song and producer Pi'erre Bourne",
   "quoteBy": "Seventh",
   "album": "The Wolf Of Peachtree"
+ },
+ {
+  "song": "March Madness",
+  "artist": "Future",
+  "plugin": "Image-Line Purity",
+  "preset": "Sky Walker 1",
+  "role": "keys",
+  "confidence": "community",
+  "quote": "On screen: FL Studio, Purity LCD list with \"Sky Walker 1\" highlighted and display \"Phrase / Sky Walker 1\"; caption \"March Madness\" by Future",
+  "quoteBy": "BLUE STEEL",
+  "album": "56 Nights",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #304: 'March Madness' by Future",
+   "url": "https://www.youtube.com/watch?v=9zZSk2nVAMs"
+  }
+ },
+ {
+  "song": "Ric Flair Drip",
+  "artist": "Offset & Metro Boomin",
+  "plugin": "XLN Audio Addictive Keys",
+  "preset": "Mark One - Lounge",
+  "role": "keys",
+  "confidence": "community",
+  "quote": "On screen: Addictive Keys Mark One Stage Piano, preset field \"Mark One - Lounge\" (Lounge highlighted); caption \"Ric Flair Drip\" by Metro Boomin",
+  "quoteBy": "BLUE STEEL",
+  "album": "Without Warning",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #315: 'Ric Flair Drip' by Metro Boomin",
+   "url": "https://www.youtube.com/watch?v=uSnwafAmprY"
+  }
+ },
+ {
+  "song": "Hell Shell",
+  "artist": "Young Nudy feat. Pi'erre Bourne",
+  "plugin": "Image-Line Purity",
+  "preset": "Trace Sqr",
+  "role": "lead",
+  "confidence": "community",
+  "quote": "On screen: Purity LCD, category \"Lead Synth\", \"058 Trace Sqr\" highlighted, display \"Lead Synth / Trace Sqr\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Sli'merre",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #338: 'Hell Shell' by Young Nudy",
+   "url": "https://www.youtube.com/watch?v=QZm4HZK8jJg"
+  }
+ },
+ {
+  "song": "We Not Like You",
+  "artist": "Nettspend",
+  "plugin": "Roland Zenology Pro",
+  "preset": "Tech Pno SRX",
+  "role": "keys",
+  "confidence": "community",
+  "quote": "On screen: ZENOLOGY Pro display \"Preset: EXZ012 Dance Trax: / 284: Tech Pno SRX\" (category Pop Piano); caption \"We Not Like You\" by",
+  "quoteBy": "BLUE STEEL",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #341: 'We Not Like You' by Nettspend",
+   "url": "https://www.youtube.com/watch?v=YSvTRS4mVAo"
+  }
+ },
+ {
+  "song": "No Sl33p",
+  "artist": "Playboi Carti",
+  "plugin": "Synapse Audio Dune 3",
+  "preset": "Sawdust ARK",
+  "role": "lead",
+  "confidence": "community",
+  "quote": "On screen: DUNE 3 display \"037: Sawdust ARK\" (\"Buzzy nasal dance lead\"), window \"152: Sawdust ARK\"; caption \"No Sl33p\"",
+  "quoteBy": "BLUE STEEL",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #352: 'No Sl33p' by Playboi Carti 👀",
+   "url": "https://www.youtube.com/watch?v=MNqUwjjpt_Q"
+  }
+ },
+ {
+  "song": "No Sl33p",
+  "artist": "Playboi Carti",
+  "plugin": "Synapse Audio Dune 3",
+  "preset": "Hard EDM Glider KS",
+  "role": "lead",
+  "confidence": "community",
+  "quote": "On screen: DUNE 3 display \"Hard EDM Glider KS\", window \"152: Lead_NoSl33p (Playboi Carti)\"",
+  "quoteBy": "BLUE STEEL",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #352: 'No Sl33p' by Playboi Carti 👀",
+   "url": "https://www.youtube.com/watch?v=MNqUwjjpt_Q"
+  }
+ },
+ {
+  "song": "Off Tha Lot",
+  "artist": "Yeat",
+  "plugin": "Xfer Serum",
+  "preset": "SY - Vitamin",
+  "role": "synth",
+  "confidence": "community",
+  "quote": "On screen: Serum preset field \"SY - Vitamin\" (bank \"Adapt Sound Kit Vol. 2\", @prodbarthaw), window \"Off The Lot - 140: SY - Vitamin\"",
+  "quoteBy": "BLUE STEEL",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #354: 'Off Tha Lot' by Yeat 👀",
+   "url": "https://www.youtube.com/watch?v=TpdgMDlSNRg"
+  }
+ },
+ {
+  "song": "Love in This Club",
+  "artist": "Usher feat. Young Jeezy",
+  "plugin": "Apple Logic Pro Analog Basic",
+  "preset": "Dance Basix",
+  "role": "synth",
+  "confidence": "community",
+  "quote": "On screen: Logic window \"Love In This Club - 140\", Analog Basic plug-in with preset field \"Dance Basix\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Here I Stand",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #391: 'Love In This Club' by Usher",
+   "url": "https://www.youtube.com/watch?v=3xVZDertazM"
+  }
+ },
+ {
+  "song": "Love in This Club",
+  "artist": "Usher feat. Young Jeezy",
+  "plugin": "Apple Logic Pro Analog Pad",
+  "preset": "Analog Dreams",
+  "role": "pad",
+  "confidence": "community",
+  "quote": "On screen: Logic window \"Love In This Club - 140\", Analog Pad plug-in with preset field \"Analog Dreams\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Here I Stand",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #391: 'Love In This Club' by Usher",
+   "url": "https://www.youtube.com/watch?v=3xVZDertazM"
+  }
+ },
+ {
+  "song": "Hustlin'",
+  "artist": "Rick Ross",
+  "plugin": "Reason NN-19",
+  "preset": "Organ B3",
+  "role": "organ",
+  "confidence": "community",
+  "quote": "On screen: Reason Rack Plugin, NN-19 Digital Sampler patch display \"ORGAN B3\"; caption \"Hustlin'\" by Rick Ross",
+  "quoteBy": "BLUE STEEL",
+  "album": "Port of Miami",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #393: 'Hustlin’' by Rick Ross",
+   "url": "https://www.youtube.com/watch?v=YJNKyZGyaUE"
+  }
+ },
+ {
+  "song": "Don't Play",
+  "artist": "Travis Scott feat. Big Sean, The 1975",
+  "plugin": "Roland Zenology Pro",
+  "preset": "Harpsichord",
+  "role": "keys",
+  "confidence": "community",
+  "quote": "On screen: ZENOLOGY Pro display \"Preset: PRST_F Essential: / 049: Harpsichord\"; caption \"Don't Play\" by",
+  "quoteBy": "BLUE STEEL",
+  "album": "Rodeo",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #410: 'Don’t Play' by Travis Scott",
+   "url": "https://www.youtube.com/watch?v=ZrTTnJqKKs0"
+  }
+ },
+ {
+  "song": "Broke Boi",
+  "artist": "Playboi Carti",
+  "plugin": "reFX Nexus 4",
+  "preset": "PL Hands Up Bells 4",
+  "role": "bell",
+  "confidence": "community",
+  "quote": "On screen: Logic project \"BROKE BOI\", window and preset field \"PL Hands Up Bells 4\", Nexus 4 header \"Hands Up Bells 4\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Playboi Carti",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #451: 'Broke Boi' by Playboi Carti",
+   "url": "https://www.youtube.com/watch?v=xVuTlg_qZ7w"
+  }
+ },
+ {
+  "song": "IDFWU",
+  "artist": "Big Sean feat. E-40",
+  "plugin": "reFX Nexus 3",
+  "preset": "PL VZ Bells 1",
+  "role": "bell",
+  "confidence": "community",
+  "quote": "On screen: Nexus 3 window \"PL VZ Bells 1\", header \"PL VZ Bells 1\" (Factory Presets, Plucked); caption \"I Don't F*** With You\" by",
+  "quoteBy": "BLUE STEEL",
+  "album": "Dark Sky Paradise",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #472: 'I Don’t F*** With You' by Big Sean",
+   "url": "https://www.youtube.com/watch?v=hUO3hR4Pti4"
+  }
+ },
+ {
+  "song": "Back in Blood",
+  "artist": "Pooh Shiesty feat. Lil Durk",
+  "plugin": "Spectrasonics Keyscape",
+  "preset": "LA Custom C7 - Softest",
+  "role": "keys",
+  "confidence": "community",
+  "quote": "On screen: Omnisphere patch browser, Directory \"Keyscape Library\", \"LA Custom C7 - Softest\" highlighted; description \"Exact preset used in the song\"",
+  "quoteBy": "D1EG8",
+  "album": "Shiesty Season",
+  "source": {
+   "label": "YouTube: USE THIS PRESET - Back In Blood Piano #shorts",
+   "url": "https://www.youtube.com/watch?v=0Xsq0aPJNTo"
+  }
+ },
+ {
+  "song": "Clout",
+  "artist": "Offset feat. Cardi B",
+  "plugin": "Native Instruments Alicia's Keys (Kontakt)",
+  "preset": "Alicias Keys",
+  "role": "keys",
+  "confidence": "community",
+  "quote": "On screen: Kontakt with instrument \"Alicias Keys\" loaded (Alicia's Keys piano), Tune -12.00; description \"Exact preset used in the song\"",
+  "quoteBy": "D1EG8",
+  "album": "Father of 4",
+  "source": {
+   "label": "YouTube: USE THIS PRESET - Clout Piano #shorts",
+   "url": "https://www.youtube.com/watch?v=r4O6FigeoLE"
+  }
+ },
+ {
+  "song": "Out West",
+  "artist": "JACKBOYS feat. Young Thug",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Mellotron Flute",
+  "role": "flute",
+  "confidence": "community",
+  "quote": "On screen: Omnisphere Patch Browser (search \"Mello\"), \"Mellotron Flute\" highlighted",
+  "quoteBy": "D1EG8",
+  "album": "JackBoys",
+  "source": {
+   "label": "YouTube: USE THIS PRESET - Outwest Flute #shorts",
+   "url": "https://www.youtube.com/watch?v=E5iHvEXbdg0"
+  }
  }
 ]
