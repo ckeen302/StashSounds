@@ -68,7 +68,7 @@ export type SampleProducer = {
 };
 
 const WIKI = "https://en.wikipedia.org/wiki/";
-/** A row names a Wikipedia article by its title, or another open source (MusicBrainz) by its URL. */
+/** A row names a Wikipedia article by its title, or another open source (MusicBrainz, Wikidata) by its URL. */
 const sourceUrl = (page: string) =>
   page.startsWith("https://") ? page : WIKI + page;
 
@@ -128,7 +128,16 @@ function build(): SampleSong[] {
     video,
   ] of RAW as Row[]) {
     // Some credits keep their wiki link markup: "[[Metro Boomin]]", "[[Doughboy (producer)|Doughboy]]".
-    const producers = credited.map((n) => (n.replace(/\[\[|\]\]/g, "").split("|").pop() ?? n).trim()).filter(Boolean);
+    const producers = credited
+      .map((n) =>
+        (
+          n
+            .replace(/\[\[|\]\]/g, "")
+            .split("|")
+            .pop() ?? n
+        ).trim(),
+      )
+      .filter(Boolean);
     const samples: SampleUse[] = uses.map(([t, a, y, g, replayed, p, v]) => ({
       title: t,
       artist: a,
@@ -142,7 +151,9 @@ function build(): SampleSong[] {
     const source = {
       label: page.startsWith("https://musicbrainz.org/")
         ? `MusicBrainz: ${song}, samples`
-        : `Wikipedia: ${decodeURIComponent(page).replace(/_/g, " ")}`,
+        : page.startsWith("https://www.wikidata.org/")
+          ? `Wikidata: ${song}, samples from work`
+          : `Wikipedia: ${decodeURIComponent(page).replace(/_/g, " ")}`,
       url: sourceUrl(page),
     };
     const key = songKey(song, artist);
