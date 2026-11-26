@@ -18,8 +18,9 @@ import {
   X,
   type MenuEntry,
 } from "@stash/ui";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { CrateMenu } from "../explore";
+import { CommentToggle, Comments, RowThread } from "../social";
 import { navigate } from "../router";
 import { has, set } from "../store";
 import { allShots, saveShots } from "../oneshots/store";
@@ -69,6 +70,7 @@ const SOUND_TYPES: Category[] = ["808", "kick", "snare", "clap", "hat", "open ha
 function DrumSounds({ type, needle }: { type: Category; needle: string }) {
   const toast = useToast();
   const all = useKits();
+  const [talk, setTalk] = useState<string | null>(null);
   const sounds = allShots(all).filter(
     (s) => s.category === type && (!needle || [s.name, s.kit?.name ?? "", (s.kit?.name ?? "").replace(/['’]/g, ""), s.owner.handle, s.genre].some((x) => x.toLowerCase().includes(needle))),
   );
@@ -81,8 +83,11 @@ function DrumSounds({ type, needle }: { type: Category; needle: string }) {
   return (
     <div className="overflow-hidden rounded-panel border border-border bg-surface">
       <ul aria-label={CATEGORIES.find((c) => c.id === type)!.plural}>
-        {sounds.map((s) => (
-          <li key={`${s.kit?.id ?? "mine"}-${s.id}`} className="flex h-16 items-center gap-3 border-b border-border px-3 last:border-b-0 ui-hover:bg-raised tablet:h-14">
+        {sounds.map((s) => {
+          const cid = s.kit ? `kit:${s.kit.id}:${s.id}` : `kit:sound:${s.id}`;
+          return (
+          <Fragment key={`${s.kit?.id ?? "mine"}-${s.id}`}>
+          <li className="flex h-16 items-center gap-3 border-b border-border px-3 last:border-b-0 ui-hover:bg-raised tablet:h-14">
             <PlayButton title={s.name} state="paused" onClick={() => void play(s)} />
             <span className="flex min-w-0 flex-1 flex-col">
               <span className="truncate text-body-strong text-text">{s.name}</span>
@@ -109,8 +114,9 @@ function DrumSounds({ type, needle }: { type: Category; needle: string }) {
                 else if (outcome === "empty") toast({ tone: "error", title: "Nothing to save", description: "This sound's audio isn't in this browser anymore." });
               }}
             />
+            <CommentToggle itemId={cid} title={s.name} open={talk === cid} onToggle={() => setTalk(talk === cid ? null : cid)} />
             <CrateMenu
-              itemId={s.kit ? `kit:${s.kit.id}:${s.id}` : `kit:sound:${s.id}`}
+              itemId={cid}
               title={s.name}
               kind="Drum sound"
               href={s.kit ? `/kit/${s.kit.id}` : "/kits"}
@@ -118,7 +124,10 @@ function DrumSounds({ type, needle }: { type: Category; needle: string }) {
               size="sm"
             />
           </li>
-        ))}
+          {talk === cid && <RowThread itemId={cid} title={s.name} />}
+          </Fragment>
+          );
+        })}
       </ul>
     </div>
   );
@@ -364,6 +373,7 @@ export function KitPage({ id }: { id: string }) {
         </ul>
       </div>
       <p className="text-small text-text-muted">The arrow keys move through the sounds and play each one; Space plays the selected sound again.</p>
+      <Comments itemId={`kit:${k.id}`} title={k.name} />
     </main>
   );
 }
