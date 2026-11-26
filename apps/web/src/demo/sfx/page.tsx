@@ -1,6 +1,7 @@
 import { Button, Download, EmptyState, FilterChip, IconButton, PlayButton, Search, SearchInput, TagChip, useToast } from "@stash/ui";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { CrateMenu } from "../explore";
+import { CommentToggle, RowThread } from "../social";
 import {
   categoryName, downloadSfx, fileName, haystack, licenseLabel, playSfx, position, SFX, SFX_CATEGORIES, sourceLine, stop, subName, usePlaying, warm, type Sfx,
 } from "./library";
@@ -60,6 +61,7 @@ function Wave({ s, playing, onSeek }: { s: Sfx; playing: boolean; onSeek: (fract
 
 export function SfxPage() {
   const toast = useToast();
+  const [talk, setTalk] = useState<string | null>(null);
   const playing = usePlaying();
   const [cat, setCat] = useState<string | null>(null);
   const [sub, setSub] = useState<string | null>(null);
@@ -125,7 +127,7 @@ export function SfxPage() {
         e.preventDefault();
         const n = Math.max(0, Math.min(visible.length - 1, selected + (e.key === "ArrowDown" ? 1 : -1)));
         hear(n);
-        listRef.current?.children[n]?.scrollIntoView({ block: "nearest" });
+        listRef.current?.querySelectorAll(":scope > li.sfx-row")[n]?.scrollIntoView({ block: "nearest" });
       } else if (e.key === " " && current) {
         e.preventDefault();
         void playSfx(current);
@@ -217,9 +219,10 @@ export function SfxPage() {
             {visible.map((s, i) => {
               const isPlaying = playing.id === s.id;
               const state = playing.loading === s.id ? "loading" : isPlaying ? "playing" : playing.error === s.id ? "error" : "paused";
+              const cid = `sfx:${s.id}`;
               return (
+                <Fragment key={s.id}>
                 <li
-                  key={s.id}
                   data-selected={s === current || undefined}
                   data-playing={isPlaying || undefined}
                   onPointerEnter={() => warm(s)}
@@ -255,8 +258,11 @@ export function SfxPage() {
                     <span className="hidden w-14 shrink-0 desktop:block" />
                   )}
                   <IconButton icon={Download} label={`Download ${s.name}`} size="md" disabled={busy !== null} onClick={() => void grab([s], fileName(s).replace(/\.wav$/, ""), s.id)} />
-                  <CrateMenu itemId={`sfx:${s.id}`} title={s.name} kind="Sound effect" href="/sfx" size="sm" />
+                  <CommentToggle itemId={cid} title={s.name} open={talk === cid} onToggle={() => setTalk(talk === cid ? null : cid)} />
+                  <CrateMenu itemId={cid} title={s.name} kind="Sound effect" href="/sfx" size="sm" />
                 </li>
+                {talk === cid && <RowThread itemId={cid} title={s.name} />}
+                </Fragment>
               );
             })}
           </ul>

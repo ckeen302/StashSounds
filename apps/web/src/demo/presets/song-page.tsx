@@ -1,5 +1,6 @@
 import { ButtonLink, EmptyState, UiLink } from "@stash/ui";
 import { CrateMenu } from "../explore";
+import { Comments } from "../social";
 import { songChordItems } from "../midi/catalog";
 import { fold } from "../text-match";
 import { albumOf, Cover, coverFor, tileStyle } from "./cover";
@@ -111,6 +112,8 @@ export function PresetSongPage({ slug }: { slug: string }) {
         {plugins.slice(0, 1).map((f) => (
           <Shelf key={f} title={`More on ${f}`} songs={ALL_SONGS.filter((x) => x !== s && x.entries.some((e) => familyOf(e.plugin) === f))} />
         ))}
+
+        <Comments itemId={`preset:${s.slug}`} title={`${s.song} by ${s.artist}`} />
 
         <details className="st-details group rounded-panel border border-border bg-surface px-4 py-3">
           <summary className="flex cursor-pointer items-center text-small text-text-muted ui-hover:text-text">How sure is each source?</summary>

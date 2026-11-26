@@ -33,6 +33,8 @@ import { createCrate, crateMeta, deleteCrate, rememberMeta, toggleInCrate, useCr
 import { extra, VIEWER, type MidiItem } from "./midi/catalog";
 import { MidiList, useMidiItems } from "./midi/pages";
 import { CHORDS_OWNER } from "./midi/songs";
+import { follow as shareFollow, followerCount } from "./comments-store";
+import { useSocialVersion } from "./social";
 import { has, set } from "./store";
 import { creditTag, deleteReceipt, receiptText, useReceipts, type Receipt } from "./receipts";
 
@@ -296,6 +298,7 @@ let followTick = 0;
 const followListeners = new Set<() => void>();
 export function setFollow(id: string, on: boolean) {
   set("follows", id, on);
+  void shareFollow(id, on);
   followTick++;
   for (const l of followListeners) l();
 }
@@ -310,8 +313,9 @@ function useFollowTick(): number {
   );
 }
 
-export function ProfilePage({ handle, catalog, rows, renderLoops }: { handle: string; catalog: Catalog; rows: ItemRow[]; renderLoops: RenderLoops }) {
+export function ProfilePage({ handle, catalog, rows, renderLoops, kits = null, kitCount = 0 }: { handle: string; catalog: Catalog; rows: ItemRow[]; renderLoops: RenderLoops; kits?: ReactNode; kitCount?: number }) {
   useFollowTick();
+  useSocialVersion();
   const p = producerByHandle(handle);
   const all = useSounds(catalog, rows).filter((s) => s.handle === handle);
   if (!p) {
@@ -354,8 +358,8 @@ export function ProfilePage({ handle, catalog, rows, renderLoops }: { handle: st
           )}
         </div>
         <div className="grid grid-cols-2 gap-4 tablet:grid-cols-4">
-          <Stat label="Followers" value={p.followers + (following ? 1 : 0)} />
-          <Stat label="Sounds" value={all.length} />
+          <Stat label="Followers" value={p.followers + followerCount(p.id)} />
+          <Stat label="Sounds" value={all.length + kitCount} />
           <Stat label="Downloads" value={downloads} />
           <Stat label="Likes" value={likes} />
         </div>
@@ -379,7 +383,13 @@ export function ProfilePage({ handle, catalog, rows, renderLoops }: { handle: st
           <MidiList label={`MIDI by ${p.displayName}`} items={midi} />
         </section>
       )}
-      {all.length === 0 && (
+      {kitCount > 0 && (
+        <section className="flex flex-col gap-3">
+          <h2 className="text-title">{`Drum kits ${kitCount}`}</h2>
+          {kits}
+        </section>
+      )}
+      {all.length + kitCount === 0 && (
         <EmptyState icon={Upload} title="Nothing posted yet" action={own ? <ButtonLink href="/upload" variant="secondary">Post a MIDI file</ButtonLink> : undefined}>
           {own ? "Post a .mid file and it shows up here." : "When they post, it shows here."}
         </EmptyState>
@@ -649,7 +659,15 @@ export function LibraryPage({ catalog, rows, renderLoops }: { catalog: Catalog; 
 
       <section id="lib-following" aria-labelledby="following-title" className="flex flex-col gap-3">
         <h2 id="following-title" className="text-title">Following</h2>
-        {followed.length === 0 && <p className="text-body text-text-muted">You follow no one yet. Open a producer and press Follow.</p>}
+        {followed.length === 0 && (
+          <p className="text-body text-text-muted">
+            {"You follow no one yet. "}
+            <UiLink href="/creators" className="underline underline-offset-2 ui-hover:text-text">
+              See every producer
+            </UiLink>
+            {" and press Follow."}
+          </p>
+        )}
         <ul className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-3">
           {followed.map((p) => (
             <li key={p.id} className="flex items-center gap-3 rounded-panel border border-border bg-surface p-3">
@@ -695,3 +713,47 @@ export function LibraryPage({ catalog, rows, renderLoops }: { catalog: Catalog; 
   );
 }
 
+
+// ---------------------------------------------------------------------------------------------
+// Everyone who posts here, with how many sounds and followers each has, and a follow button.
+
+export function CreatorsPage({ catalog, rows, kitCounts }: { catalog: Catalog; rows: ItemRow[]; kitCounts: Record<string, number> }) {
+  useFollowTick();
+  useSocialVersion();
+  const sounds = useSounds(catalog, rows);
+  const people = [...new Map([...ALL_PRODUCERS, VIEWER].map((p) => [p.handle, p])).values()]
+    .map((p) => ({ p, n: sounds.filter((s) => s.handle === p.handle).length + (kitCounts[p.handle] ?? 0), followers: p.followers + followerCount(p.id) }))
+    .filter((x) => x.n > 0 || x.p.id === VIEWER.id)
+    .sort((a, b) => b.followers - a.followers || b.n - a.n);
+  return (
+    <main className="mx-auto flex w-full max-w-content flex-col gap-6 px-3 py-8 tablet:px-4 desktop:px-6">
+      <header className="flex flex-col gap-1">
+        <h1 className="text-title">Producers</h1>
+        <p className="text-body text-text-muted">Everyone posting sounds here. Follow someone and their new sounds rise to the top of Home and Loops.</p>
+      </header>
+      <ul aria-label="Producers" className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-3">
+        {people.map(({ p, n, followers }) => {
+          const own = p.id === VIEWER.id;
+          const following = has("follows", p.id);
+          return (
+            <li key={p.id} className="flex items-center gap-3 rounded-panel border border-border bg-surface p-4">
+              <Avatar name={p.displayName} src={null} size={32} />
+              <div className="flex min-w-0 flex-1 flex-col">
+                <UiLink href={`/u/${p.handle}`} className="truncate text-body-strong text-text ui-hover:underline">
+                  {p.displayName}
+                </UiLink>
+                <span className="truncate text-small text-text-muted">{`@${p.handle}`}</span>
+                <span className="truncate font-mono text-numeric tabular text-text-muted">{`${n.toLocaleString("en")} ${n === 1 ? "sound" : "sounds"} · ${followers} ${followers === 1 ? "follower" : "followers"}`}</span>
+              </div>
+              {!own && (
+                <Button size="sm" variant={following ? "secondary" : "primary"} icon={following ? Check : UserPlus} aria-pressed={following} onClick={() => setFollow(p.id, !following)}>
+                  {following ? "Following" : "Follow"}
+                </Button>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </main>
+  );
+}
