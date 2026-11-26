@@ -22359,5 +22359,183 @@
   "quote": "On screen: Gladiator 2, category \"Arpeggiator\", PATCH display \"AR Fortune wheel\" (0:47 to the end); caption \"AR Fortune wheel, under Arpeggiator in Tone2 Gladiator\"; song card \"Producer: Deputy / Rihanna - B*tch Better Have My Money\"",
   "quoteBy": "Sound Searchin",
   "album": "Bitch Better Have My Money"
+ },
+ {
+  "song": "Outside Today",
+  "artist": "YoungBoy Never Broke Again",
+  "plugin": "reFX Nexus",
+  "preset": "PN Nexus Grandpiano",
+  "role": "Piano",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: NBA Youngboy - Outside Today Preset | Sound Searchin (Sound Searchin), video frame at 0:39",
+   "url": "https://www.youtube.com/watch?v=5q61XneBJ88"
+  },
+  "quote": "On screen: Nexus browser, category \"Piano\", preset \"PN Nexus Grandpiano\" loaded in the name field (0:12 to 0:39); caption \"PN Nexus Grandpiano, under Piano in ReFx Nexus\"; song card \"NBA Youngboy - Outside Today, produced by DmacTooBangin\"",
+  "quoteBy": "Sound Searchin",
+  "album": "Until Death Call My Name"
+ },
+ {
+  "song": "Outside Today",
+  "artist": "YoungBoy Never Broke Again",
+  "plugin": "reFX Nexus",
+  "preset": "PD Sinepad 1",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: NBA Youngboy - Outside Today Preset | Sound Searchin (Sound Searchin), video frame at 1:19",
+   "url": "https://www.youtube.com/watch?v=5q61XneBJ88"
+  },
+  "quote": "On screen: Nexus browser, category \"Single Layer Pads\", preset \"PD Sinepad 1\" loaded in the name field (0:55 to 1:19); caption \"PD Sinepad 1, under Single Layer Pad in ReFx Nexus\"; song card \"NBA Youngboy - Outside Today, produced by DmacTooBangin\"",
+  "quoteBy": "Sound Searchin",
+  "album": "Until Death Call My Name"
+ },
+ {
+  "song": "Remind Me (Intro)",
+  "artist": "Eminem",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Gospel Choir Whoas",
+  "role": "Choir",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Eminem - Remind Me (Intro) Preset | Sound Searchin (Sound Searchin), video frame at 1:11",
+   "url": "https://www.youtube.com/watch?v=37taWGTReVI"
+  },
+  "quote": "On screen: Omnisphere patch field \"Gospel Choir Whoas\" (loaded from 0:33 to the end, after \"Empty\"), Human Voices category; caption \"Gospel Choir Whoas, under Human Voices in Spectrasonics Omnisphere\"; song card \"Producer: Theron Feemster / Eminem - Revival (Deluxe)\"",
+  "quoteBy": "Sound Searchin",
+  "album": "Revival"
+ },
+ {
+  "song": "Back Out",
+  "artist": "Juicy J",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Bendy Boys",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Juicy J - Back Out Preset | Sound Searchin (Sound Searchin), video frame at 1:04",
+   "url": "https://www.youtube.com/watch?v=3-x26b0jZow"
+  },
+  "quote": "On screen: Omnisphere patch field \"Bendy Boys\" (Spotlight - EDM patch, category Synth Mono), loaded from 0:29 to the end; caption \"Bendy Boys, under Synth Mono in Spectrasonics Omnisphere\"; song card \"Producer: TM88 / Juicy J - Back Out\"",
+  "quoteBy": "Sound Searchin",
+  "album": "Lit in Ceylon"
+ },
+ {
+  "song": "Again",
+  "artist": "Fetty Wap",
+  "plugin": "reFX Nexus",
+  "preset": "LD Monolead",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Fetty Wap - Again Preset | Sound Searchin (Sound Searchin), video frame at 1:35",
+   "url": "https://www.youtube.com/watch?v=uD_39tn2RQM"
+  },
+  "quote": "On screen: Nexus browser, category \"XP Psytrance\", preset \"LD Monolead\" loaded in the name field for the whole episode (0:15 to 1:35); caption \"LD Monolead, under XP Psytrance in Refx Nexus\"; song card \"Producer: Peoples / Fetty Wap - Again\"",
+  "quoteBy": "Sound Searchin",
+  "album": "Again"
+ },
+ {
+  "song": "We Dem Boyz (Remix)",
+  "artist": "Wiz Khalifa feat. Rick Ross, Schoolboy Q & Nas",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Liquid Bowers",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Wiz Khalifa - We Dem Boyz Remix Preset | Sound Searchin (Sound Searchin), video frame at 1:46",
+   "url": "https://www.youtube.com/watch?v=tULPYerimhE"
+  },
+  "quote": "On screen: Omnisphere patch field \"Liquid Bowers\" (category Pads + Strings), loaded from about 0:41 to the end; caption \"Liquid Bowers, under Pads + Strings in Spectrasonics Omnisphere\"; song card \"Producer: Sledgren / Wiz Khalifa - We Dem Boyz Remix\"",
+  "quoteBy": "Sound Searchin",
+  "album": "Blacc Hollywood (Deluxe)"
+ },
+ {
+  "song": "Aries (YuGo)",
+  "artist": "Mike WiLL Made-It feat. Pharrell & Kendrick Lamar",
+  "plugin": "Synapse Audio Dune 2",
+  "preset": "Angels Talking ST",
+  "role": "Arp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Mike Will Made-It - Aries Preset | Sound Searchin (Sound Searchin), video frame at 1:52",
+   "url": "https://www.youtube.com/watch?v=_GLDp_RyZOI"
+  },
+  "quote": "On screen: Dune 2 display \"001: Angels Talking ST\" (patch description \"Modwheel changes the sound to something more detuned\"), loaded from about 0:41 to the end after the default \"001: Avalon Light RH\"; caption \"001 Angels Talking ST, under Arp in Synapse Audio Dune 2\"; song card \"Producer: Mike Will Made-It / Mike Will Made-It - Aries (feat. Pharrell)\"",
+  "quoteBy": "Sound Searchin",
+  "album": "Ransom 2"
+ },
+ {
+  "song": "Get Right Witcha",
+  "artist": "Migos",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Lotus Flute",
+  "role": "Flute",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Migos - Get Right Witcha Preset | Sound Searchin (Sound Searchin), video frame at 1:40",
+   "url": "https://www.youtube.com/watch?v=TVgVRtsc_jU"
+  },
+  "quote": "On screen: Omnisphere patch field \"Lotus Flute\" (category Ethnic World), loaded from about 0:28 to the end; caption \"Lotus Flute, under Ethnic World in Spectrasonics Omnisphere\"; song card \"Producer: Murda Beatz / Migos - Get Right Witcha\"",
+  "quoteBy": "Sound Searchin",
+  "album": "Culture"
+ },
+ {
+  "song": "Sunny Duet",
+  "artist": "Noname feat. theMIND",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Jazz Stacks Doos",
+  "role": "Vocal pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Noname - Sunny Duet Preset | Sound Searchin (Sound Searchin), video frame at 1:53",
+   "url": "https://www.youtube.com/watch?v=oqjsutKWwyQ"
+  },
+  "quote": "On screen: Omnisphere patch field \"Jazz Stacks Doos\" (category Human Voices), loaded from about 0:43 to the end; caption \"Jazz Stacks Doos, Human Voices under in Spectrasonics Omnisphere\"; song card \"Producer: Cam O'bi / Noname - Sunny Duet\"",
+  "quoteBy": "Sound Searchin",
+  "album": "Telefone"
+ },
+ {
+  "song": "Sellin' Dope",
+  "artist": "Freddie Gibbs",
+  "plugin": "Tone2 Gladiator",
+  "preset": "AR Suspense XS",
+  "role": "Arp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Freddie Gibbs  - Sellin' Dope Preset | Sound Searchin (Sound Searchin), video frame at 1:50",
+   "url": "https://www.youtube.com/watch?v=ZpVBYK5z4t0"
+  },
+  "quote": "On screen: Gladiator 2, category \"Arpeggiator\", PATCH display \"AR Suspense XS\" (loaded from about 0:41 to the end, after \"Welcome\"); caption \"AR Suspense XS, under Arpeggiator in Tone2 Gladiator\"; song card \"Producer: Mike Dean / Freddie Gibbs - Sellin' Dope\"",
+  "quoteBy": "Sound Searchin"
+ },
+ {
+  "song": "Purple Kisses",
+  "artist": "A$AP Rocky",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Zargon Lead",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: ASAP Rocky - Purple Kisses Preset | Sound Searchin (JonesTV), video frame at 2:21",
+   "url": "https://www.youtube.com/watch?v=ayusydk_xhk"
+  },
+  "quote": "On screen: Omnisphere patch field \"Zargon Lead\" (Atmosphere Library Patch, category Synth Mono), loaded from about 0:33 to the end; caption \"Zargon Lead, under Synth Mono in Spectrasonics Omnisphere\"; song card \"ASAP Rocky - Purple Kisses\"",
+  "quoteBy": "Sound Searchin"
+ },
+ {
+  "song": "Black Beatles",
+  "artist": "Rae Sremmurd feat. Gucci Mane",
+  "plugin": "Synapse Audio Dune 2",
+  "preset": "Secret Mission KS",
+  "role": "Sequence",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Rae Sremmurd - Black Beatles Presets | Sound Searchin (JonesTV), video frame at 2:21",
+   "url": "https://www.youtube.com/watch?v=3l-zUqJJCzI"
+  },
+  "quote": "On screen: Dune 2 display \"052: Secret Mission KS\" (patch description \"Movie 105 BPM / Aftertouch: Waveform Position / Modwheel: Softly\"), held from about 2:21 to 2:50; caption \"052: Secret Mission KS, under Sequences in Synapse Audio Dune 2\"; song card \"Producer: Mike Will Made-It / Rae Sremmurd - Black Beatles\"",
+  "quoteBy": "Sound Searchin",
+  "album": "SremmLife 2 (Deluxe)"
  }
 ]
