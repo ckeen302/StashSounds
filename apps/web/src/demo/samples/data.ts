@@ -68,6 +68,9 @@ export type SampleProducer = {
 };
 
 const WIKI = "https://en.wikipedia.org/wiki/";
+/** A row names a Wikipedia article by its title, or another open source (MusicBrainz) by its URL. */
+const sourceUrl = (page: string) =>
+  page.startsWith("https://") ? page : WIKI + page;
 
 const flat = (x: string) =>
   x
@@ -130,13 +133,15 @@ function build(): SampleSong[] {
       year: y,
       genre: g,
       type: replayed ? "interpolation" : "sample",
-      page: p ? WIKI + p : null,
+      page: p ? sourceUrl(p) : null,
       video: v || null,
     }));
     if (!song || !artist || !samples.length) continue;
     const source = {
-      label: `Wikipedia: ${decodeURIComponent(page).replace(/_/g, " ")}`,
-      url: WIKI + page,
+      label: page.startsWith("https://musicbrainz.org/")
+        ? `MusicBrainz: ${song}, samples`
+        : `Wikipedia: ${decodeURIComponent(page).replace(/_/g, " ")}`,
+      url: sourceUrl(page),
     };
     const key = songKey(song, artist);
     const had = by.get(key);

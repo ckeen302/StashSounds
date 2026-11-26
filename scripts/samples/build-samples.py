@@ -24,6 +24,10 @@ import json, re, sys, os
 from urllib.parse import quote
 
 raw = json.load(open(sys.argv[1]))
+# MusicBrainz's "samples material" links, one row per link in the same shape, cited by recording URL;
+# the sampled record's year, genre and article come from its Wikipedia article when one matches.
+mb = os.path.join(os.path.dirname(__file__), "musicbrainz-samples.json")
+if os.path.exists(mb): raw += json.load(open(mb))
 YT = json.load(open(os.path.join(os.path.dirname(__file__), "wikidata-youtube.json")))
 out_path = os.path.join(os.path.dirname(__file__), "../../apps/web/src/demo/samples/samples.json")
 
@@ -67,12 +71,12 @@ def producers(p):
     if "{{" in p: return []
     names = []
     for n in re.split(r",| and | & ", p):
-        n = n.strip()
+        n = re.sub(r"<[^>]*>.*$|\(.*$", "", n).strip()
         if n and n not in names and len(n) > 1: names.append(n)
     return names
 
 SAFE = "()_,!'"
-wiki = lambda page: "https://en.wikipedia.org/wiki/" + quote(page.replace(" ", "_"), safe=SAFE)
+wiki = lambda page: page if page.startswith("https://") else "https://en.wikipedia.org/wiki/" + quote(page.replace(" ", "_"), safe=SAFE)
 lead = lambda a: re.split(r" and | & |,| featuring | feat\. ", a)[0].lower().strip()
 norm = lambda s: re.sub(r"[^a-z0-9]", "", s.lower())
 
@@ -80,8 +84,11 @@ songs, dropped = [], 0
 lead_js = lambda a: re.split(r" feat\.? | featuring | ft\.? | with ", a or "", flags=re.I)[0].strip()
 for page, album, artist, year, tracks in raw:
     raw_artist = artist
+    # An infobox field the parser ran past ("| released =") is not an album name.
+    if album and re.search(r"[|=<{}]", album): album = None
     # Soundtracks and compilations credit no one artist; their songs are left out.
     if not artist or re.match(r"(?i)various", artist): continue
+    artist = re.sub(r"<!--.*?(-->|$)", "", artist).strip()
     artist = re.sub(r"^the ", "The ", artist)
     artist = artist.replace("Joey Badass", "Joey Bada$$").replace("ASAP Rocky", "A$AP Rocky").replace("Juice Wrld", "Juice WRLD")
     for title, prod, samples in tracks:
