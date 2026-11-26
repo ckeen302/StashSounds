@@ -7623,28 +7623,32 @@
   "song": "Mileage",
   "artist": "Playboi Carti",
   "producer": "Pi'erre Bourne",
-  "plugin": "Tone2 ElectraX",
+  "plugin": "u-he ACE",
   "preset": "HS Copper Minor",
   "role": "synth",
   "confidence": "community",
   "source": {
-   "label": "",
-   "url": ""
-  }
+   "label": "YouTube: Mileage original presets (Seventh), video frame",
+   "url": "https://www.youtube.com/watch?v=Iz7xLID2G5I"
+  },
+  "quote": "On screen: u-he ACE with \"HS Copper Minor\" loaded",
+  "quoteBy": "Seventh"
  },
  {
   "song": "Mileage",
   "artist": "Playboi Carti",
   "producer": "Pi'erre Bourne",
-  "plugin": "Tone2 ElectraX",
+  "plugin": "u-he ACE",
   "preset": "eX Aliens Land",
   "role": "synth",
   "confidence": "community",
   "source": {
-   "label": "",
-   "url": ""
+   "label": "YouTube: Mileage original presets (Seventh), video frame",
+   "url": "https://www.youtube.com/watch?v=Iz7xLID2G5I"
   },
-  "path": "Phaser off"
+  "path": "Phaser off",
+  "quote": "On screen: u-he ACE with \"eX Aliens Land\" loaded",
+  "quoteBy": "Seventh"
  },
  {
   "song": "R.I.P. Fredo (Notice Me)",
@@ -9628,14 +9632,16 @@
   "artist": "Travis Scott feat. Kendrick Lamar",
   "producer": "Cardo, Mike Dean",
   "plugin": "Spectrasonics Omnisphere",
-  "preset": "Cheese Ping Delay",
+  "preset": "Pinging Cheese Delay",
   "role": "synth",
   "confidence": "community",
   "source": {
-   "label": "r/FindThePreset (Reddit)",
-   "url": "https://www.reddit.com/r/findthepreset/"
+   "label": "YouTube: Goosebumps preset (Internet Money), video frame",
+   "url": "https://www.youtube.com/watch?v=aGXAtRtuoA4"
   },
-  "album": "Birds in the Trap Sing McKnight"
+  "album": "Birds in the Trap Sing McKnight",
+  "quote": "On screen: Omnisphere patch \"Pinging Cheese Delay\" loaded",
+  "quoteBy": "Internet Money"
  },
  {
   "song": "Ransom",
