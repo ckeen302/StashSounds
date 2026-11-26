@@ -426,7 +426,6 @@ function Home() {
                 >
                   <span className="st-dot size-2.5 rounded-full" aria-hidden="true" />
                   <span className="text-body-strong text-text">{t.name}</span>
-                  <span className="font-mono text-numeric tabular text-text-muted">{t.count.toLocaleString("en")}</span>
                 </UiLink>
               </li>
             ))}
@@ -437,7 +436,7 @@ function Home() {
       <Page>
         <section aria-labelledby="trending" className="-mt-6 flex flex-col gap-3">
           <div id="trending">
-            <SectionHead title="Trending now" href="/loops" more={`All ${rows.length} loops`} />
+            <SectionHead title="Trending now" href="/loops" more="All loops" />
           </div>
           <LoopList label="Trending now" rows={trending(rows).slice(0, 6)} onChange={refresh} />
         </section>
@@ -461,7 +460,7 @@ function Home() {
 
         <section aria-labelledby="songs-shelf" className="flex flex-col gap-3">
           <div id="songs-shelf">
-            <SectionHead title="Presets behind the songs" href="/presets" more={`All ${ALL_SONGS.length} songs`} />
+            <SectionHead title="Presets behind the songs" href="/presets" more="All songs" />
           </div>
           <ul className="st-shelf -mx-3 flex gap-4 overflow-x-auto px-3 pb-2 tablet:mx-0 tablet:px-0">
             {SHELF.map((s) => {
@@ -473,7 +472,7 @@ function Home() {
                     <span className="flex min-w-0 flex-col">
                       <span className="truncate text-body-strong text-text group-hover:underline">{s.song}</span>
                       <span className="truncate text-small text-text-muted">{s.artist}</span>
-                      <span className={`text-small ${r.text}`}>{`${r.name} · ${s.entries.length} ${s.entries.length === 1 ? "sound" : "sounds"}`}</span>
+                      <span className={`text-small ${r.text}`}>{r.name}</span>
                     </span>
                   </UiLink>
                 </li>
@@ -487,7 +486,7 @@ function Home() {
             <SectionHead title="Producers behind the songs" href="/producers" more="All producers" />
           </div>
           <ul className="st-shelf -mx-3 flex gap-5 overflow-x-auto px-3 pb-2 tablet:mx-0 tablet:px-0">
-            {TOP_PRODUCERS.slice(0, 12).map(([name, n]) => {
+            {TOP_PRODUCERS.slice(0, 12).map(([name]) => {
               const first = ALL_SONGS.find((s) => madeBy(s, name));
               return (
                 <li key={name} className="w-24 shrink-0 tablet:w-28">
@@ -496,7 +495,6 @@ function Home() {
                       {initialsOf(name)}
                     </span>
                     <span className="w-full truncate text-body-strong text-text group-hover:underline">{name}</span>
-                    <span className="text-small text-text-muted">{`${n} songs`}</span>
                   </UiLink>
                 </li>
               );
@@ -506,7 +504,7 @@ function Home() {
 
         {songs.length > 0 && (
           <section className="flex flex-col gap-3">
-            <SectionHead title="Chords from the songs" href="/midi" more={`All ${songs.length} songs`} />
+            <SectionHead title="Chords from the songs" href="/midi" more="All songs" />
             <MidiList label="Song chords" items={songs.slice(0, 6)} />
           </section>
         )}
@@ -1114,7 +1112,7 @@ function AllMidi() {
           </ul>
           {packs.length > 8 && (
             <Button variant="secondary" size="sm" className="self-start" onClick={() => setAllPacks(!allPacks)}>
-              {allPacks ? "Show fewer" : `Show all ${packs.length} packs`}
+              {allPacks ? "Show fewer" : "Show all packs"}
             </Button>
           )}
         </section>
@@ -1162,7 +1160,6 @@ function AllMidi() {
                     <span className="st-hero-title text-title text-text">{g.label}</span>
                     <span className="shrink-0 text-small text-text-muted">{g.minor ? "Minor" : "Major"}</span>
                   </span>
-                  <span className="text-small text-text">{`${g.songs.length} songs`}</span>
                   <span className="line-clamp-2 text-small text-text-muted">{g.songs.slice(0, 4).join(", ")}</span>
                 </button>
               </li>

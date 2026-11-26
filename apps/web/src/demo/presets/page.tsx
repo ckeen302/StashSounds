@@ -202,12 +202,12 @@ export function PresetsPage() {
       <section aria-label="Producers" className="flex flex-col gap-2">
         <span className="text-label text-label-caps text-text-muted">By producer</span>
         <ul className="-mx-3 flex gap-2 overflow-x-auto px-3 pb-1 tablet:mx-0 tablet:px-0">
-          {TOP_PRODUCERS.map(([name, n]) => {
+          {TOP_PRODUCERS.map(([name]) => {
             const on = who === name;
             return (
               <li key={name} className="shrink-0">
                 <FilterChip selected={on} onToggle={() => reset(() => setWho(on ? "All" : name))}>
-                  {`${name} · ${n}`}
+                  {name}
                 </FilterChip>
               </li>
             );
@@ -240,14 +240,14 @@ export function PresetsPage() {
             Clear
           </Button>
         )}
-        <span aria-live="polite" className="ml-auto font-mono text-numeric tabular text-text-muted">
+        <span aria-live="polite" className="sr-only">
           {`${songs.length} ${songs.length === 1 ? "song" : "songs"} · ${shownSounds} ${shownSounds === 1 ? "sound" : "sounds"}`}
         </span>
       </section>
       </div>
       )}
       {!open && (
-        <span aria-live="polite" className="font-mono text-numeric tabular text-text-muted">
+        <span aria-live="polite" className="sr-only">
           {`${songs.length} ${songs.length === 1 ? "song" : "songs"} · ${shownSounds} ${shownSounds === 1 ? "sound" : "sounds"}`}
         </span>
       )}

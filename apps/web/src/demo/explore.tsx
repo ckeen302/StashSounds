@@ -622,7 +622,6 @@ export function LibraryPage({ catalog, rows, renderLoops }: { catalog: Catalog; 
               <div className="flex items-center justify-between gap-3">
                 <div className="flex flex-col">
                   <span className="text-body-strong text-text">{c.name}</span>
-                  <span className="text-small text-text-muted">{`${c.items.length} ${c.items.length === 1 ? "sound" : "sounds"}`}</span>
                 </div>
                 <IconButton icon={Trash} label={`Delete ${c.name}`} onClick={() => setDoomed(c.id)} />
               </div>

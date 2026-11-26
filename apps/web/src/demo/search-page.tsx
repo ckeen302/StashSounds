@@ -99,7 +99,6 @@ export function PresetHits({ songs, query }: { songs: Song[]; query: string }) {
               <span className="truncate text-body-strong text-text">{`${s.song} · ${s.artist}`}</span>
               <span className="truncate text-small text-text-muted">{shown.map((e) => (e.preset ? `${e.plugin}: ${e.preset}` : e.plugin)).join(" · ")}</span>
             </UiLink>
-            <span className="shrink-0 font-mono text-numeric tabular text-text-muted">{`${s.entries.length} ${s.entries.length === 1 ? "sound" : "sounds"}`}</span>
           </li>
         );
       })}
@@ -141,7 +140,7 @@ export function KitHits({ list }: { list: Kit[] }) {
         <li key={k.id} className={ROW}>
           <UiLink href={`/kit/${k.id}`} className="flex min-w-0 flex-1 flex-col ui-hover:underline">
             <span className="truncate text-body-strong text-text">{k.name}</span>
-            <span className="truncate text-small text-text-muted">{`${k.genre} · ${k.sounds.length} sounds · ${k.owner.displayName}`}</span>
+            <span className="truncate text-small text-text-muted">{`${k.genre} · ${k.owner.displayName}`}</span>
           </UiLink>
         </li>
       ))}
