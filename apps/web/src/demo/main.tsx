@@ -1194,7 +1194,6 @@ const TABS = [
   { href: "/sfx", name: "SFX" },
   { href: "/presets", name: "Presets" },
   { href: "/samples", name: "Samples" },
-  { href: "/producers", name: "Producers" },
   { href: "/upload", name: "Upload" },
 ];
 
@@ -1207,8 +1206,7 @@ function DemoTabs() {
       : path === href ||
         (href === "/midi" && path.startsWith("/midi")) ||
         (href === "/presets" && path.startsWith("/presets/")) ||
-        (href === "/samples" && (path.startsWith("/samples") || path.startsWith("/sampled/")) && !path.startsWith("/samples-producer/")) ||
-        (href === "/producers" && (path.startsWith("/producer/") || path.startsWith("/samples-producer/"))) ||
+        (href === "/samples" && (path.startsWith("/samples") || path.startsWith("/sampled/"))) ||
         (href === "/kits" &&
           (path.startsWith("/kit/") || path === "/kit-upload"));
   // On a phone the strip scrolls: keep the current tab in view (opening Samples from a link shows it).
