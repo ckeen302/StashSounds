@@ -19966,5 +19966,230 @@
   "quote": "On screen: Omnisphere, \"JU06 - Shakey Squares\" loaded (Hardware Library Patch), window titled \"Desires - 145: Pad_Desires (Drake)\"",
   "quoteBy": "BLUE STEEL",
   "album": "Dark Lane Demo Tapes"
+ },
+ {
+  "song": "Lucid Dreams",
+  "artist": "Juice WRLD",
+  "plugin": "Spectrasonics Keyscape",
+  "preset": "JD-800 - Crystal Wash",
+  "role": "Keys",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #309: \"Lucid Dreams\" by Juice WRLD (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/EeChVvpfbyo"
+  },
+  "quote": "On screen: Keyscape, \"JD-800 - Crystal Wash\" loaded, window titled \"Keys_Lucid Dreams (Juice WRLD)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Goodbye & Good Riddance"
+ },
+ {
+  "song": "White Iverson",
+  "artist": "Post Malone",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Love Signs and Triangles",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #328: \"White Iverson\" by Post Malone (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/cZoEk2w711Y"
+  },
+  "quote": "On screen: Omnisphere, \"Love Signs and Triangles\" loaded (Atmosphere Library Patch), window titled \"White Iverson - 130: Pad_White Iverson (Post Malone)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Stoney (Deluxe)"
+ },
+ {
+  "song": "Lollipop",
+  "artist": "Lil Wayne feat. Static Major",
+  "plugin": "Native Instruments Massive",
+  "preset": "A Square In Space",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #317: \"Lollipop\" by Lil Wayne (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/uGvTbnpt7_A"
+  },
+  "quote": "On screen: Massive, \"A SQUARE IN SPACE\" loaded, track titled \"Lollipop - 148: A Square in Space\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Tha Carter III"
+ },
+ {
+  "song": "Yeah!",
+  "artist": "Usher feat. Lil Jon & Ludacris",
+  "plugin": "Novation V-Station",
+  "preset": "Trance2",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #332: \"Yeah!\" by USHER (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/gdcanc0CCfw"
+  },
+  "quote": "On screen: Novation V-Station, display reads \"Trance2 / 216\", captioned \"Yeah!\" by Usher",
+  "quoteBy": "BLUE STEEL",
+  "album": "Confessions (Expanded Edition)"
+ },
+ {
+  "song": "Day 'N' Nite",
+  "artist": "Kid Cudi",
+  "plugin": "Korg Collection TRITON",
+  "preset": "Smooth Sine Lead",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #329: \"Day 'n' Nite\" by Kid Cudi (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/esd-TjuA3dQ"
+  },
+  "quote": "On screen: Korg TRITON plugin, \"Smooth Sine Lead\" loaded (Lead Synth), window titled \"Day 'N' Nite - 138: Lead_Day 'N' Nite (Kid Cudi)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Man On The Moon: The End Of Day"
+ },
+ {
+  "song": "Wolves",
+  "artist": "Kanye West",
+  "plugin": "Cinesamples Voxos (Kontakt)",
+  "preset": "10 Solo Boy Legacy",
+  "role": "Choir",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #430: \"Wolves\" by Kanye West (correction) (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/CwqeEgJT9f0"
+  },
+  "quote": "On screen: Kontakt, Voxos Epic Virtual Choir with \"10 Solo Boy Legacy\" loaded; the short is captioned as a correction",
+  "quoteBy": "BLUE STEEL",
+  "album": "The Life Of Pablo"
+ },
+ {
+  "song": "Pushin P",
+  "artist": "Gunna & Future feat. Young Thug",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Dusting the Enigma 2",
+  "role": "Arp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #429: \"Pushin P\" by Gunna (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/nZ2sF1yuywU"
+  },
+  "quote": "On screen: Omnisphere, \"Dusting the Enigma 2\" loaded, window titled \"Arp - Pushin P (Gunna)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "DS4EVER"
+ },
+ {
+  "song": "Way 2 Sexy",
+  "artist": "Drake feat. Future & Young Thug",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Air Bells Descend",
+  "role": "Arp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #305: \"Way 2 Sexy\" by Drake (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/l03a4PMiGKM"
+  },
+  "quote": "On screen: Omnisphere, \"Air Bells Descend*\" loaded (Keyscape Creative patch; the asterisk marks an edited patch), window titled \"Way 2 Sexy - 136: Arp_Way 2 Sexy (Drake)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Certified Lover Boy"
+ },
+ {
+  "song": "Psycho",
+  "artist": "Post Malone feat. Ty Dolla $ign",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Nineties Keyz Vibe Dry",
+  "role": "Keys",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #474: \"Psycho\" by Post Malone (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/y2Tw-Ba97i4"
+  },
+  "quote": "On screen: Omnisphere, \"Nineties Keyz Vibe Dry\" loaded (Omnisphere Library Patch), captioned \"Psycho\" by Post Malone",
+  "quoteBy": "BLUE STEEL",
+  "album": "beerbongs & bentleys"
+ },
+ {
+  "song": "Gucci Gang",
+  "artist": "Lil Pump",
+  "plugin": "Synapse Audio Dune 3",
+  "preset": "Gravity KS",
+  "role": "Arp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #383: \"Gucci Gang\" by Lil Pump (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/ukBjGTEy9Yc"
+  },
+  "quote": "On screen: Synapse Dune 3, patch \"Gravity KS\" loaded, window titled \"120: Arp_Gucci Gang (Lil Pump)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Lil Pump"
+ },
+ {
+  "song": "Plug Walk",
+  "artist": "Rich The Kid",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Pad - Watery Grave",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #385: \"Plug Walk\" by Rich The Kid (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/p-XZ2jIYyi0"
+  },
+  "quote": "On screen: Omnisphere, \"Pad - Watery Grave\" loaded (oscillator sample JP-8 Trance Synth), window titled \"Plug Walk - 95: Pad_Plug Walk (Rich The Kid)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "The World Is Yours"
+ },
+ {
+  "song": "Esskeetit",
+  "artist": "Lil Pump",
+  "plugin": "reFX Nexus",
+  "preset": "Distortion 5",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #438: \"Esskeetit\" by Lil Pump (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/L3oe96TF9Wk"
+  },
+  "quote": "On screen: Nexus 4 in FL Studio, \"Distortion 5\" loaded, captioned \"Esskeetit\" by Lil Pump",
+  "quoteBy": "BLUE STEEL",
+  "album": "Esskeetit"
+ },
+ {
+  "song": "Thinkin Bout You",
+  "artist": "Frank Ocean",
+  "plugin": "AIR Music Technology Xpand!2",
+  "preset": "+06 Scanner Pad",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #324: \"Thinkin Bout You\" by Frank Ocean (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/P7m-2-dCrnc"
+  },
+  "quote": "On screen: Xpand!2, \"+06 Scanner Pad\" loaded (part A \"Scanner Pad+\"), captioned \"Thinkin Bout You\" by Frank Ocean",
+  "quoteBy": "BLUE STEEL",
+  "album": "channel ORANGE"
+ },
+ {
+  "song": "Timeless",
+  "artist": "The Weeknd & Playboi Carti",
+  "plugin": "reFX Nexus",
+  "preset": "After Midnight 1",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #323: \"Timeless\" by The Weeknd & Playboi Carti (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/9gvYkPGdAvU"
+  },
+  "quote": "On screen: Nexus 4, \"After Midnight 1\" loaded, window titled \"Lead - Timeless (The Weeknd & Playboi Carti)\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Hurry Up Tomorrow"
+ },
+ {
+  "song": "Savage",
+  "artist": "Megan Thee Stallion",
+  "plugin": "u-he Diva",
+  "preset": "HS Destroit Minor",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #342: \"Savage\" by Megan Thee Stallion (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/JuxM4dNOqmU"
+  },
+  "quote": "On screen: u-he Diva, \"HS Destroit Minor\" loaded, window titled \"Savage - 169\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Suga"
  }
 ]

@@ -10950,5 +10950,69 @@
    "label": "Deezer, Dark Lane Demo Tapes",
    "url": "https://www.deezer.com/album/145596282"
   }
+ },
+ "white iverson|post malone": {
+  "file": "covers/white-iverson-post-malone.jpg",
+  "album": "Stoney (Deluxe)",
+  "source": {
+   "label": "Deezer, Stoney (Deluxe)",
+   "url": "https://www.deezer.com/album/14781033"
+  }
+ },
+ "yeah!|usher feat. lil jon & ludacris": {
+  "file": "covers/yeah-usher-feat-lil-jon-ludacris.jpg",
+  "album": "Confessions (Expanded Edition)",
+  "source": {
+   "label": "Deezer, Confessions (Expanded Edition)",
+   "url": "https://www.deezer.com/album/1261242"
+  }
+ },
+ "wolves|kanye west": {
+  "file": "covers/wolves-kanye-west.jpg",
+  "album": "The Life Of Pablo",
+  "source": {
+   "label": "Deezer, The Life Of Pablo",
+   "url": "https://www.deezer.com/album/13357219"
+  }
+ },
+ "pushin p|gunna & future feat. young thug": {
+  "file": "covers/pushin-p-gunna-future-feat-young-thug.jpg",
+  "album": "DS4EVER",
+  "source": {
+   "label": "Deezer, DS4EVER",
+   "url": "https://www.deezer.com/album/287472932"
+  }
+ },
+ "way 2 sexy|drake feat. future & young thug": {
+  "file": "covers/way-2-sexy-drake-feat-future-young-thug.jpg",
+  "album": "Certified Lover Boy",
+  "source": {
+   "label": "Deezer, Certified Lover Boy",
+   "url": "https://www.deezer.com/album/256312232"
+  }
+ },
+ "psycho|post malone feat. ty dolla $ign": {
+  "file": "covers/psycho-post-malone-feat-ty-dolla-ign.jpg",
+  "album": "beerbongs & bentleys",
+  "source": {
+   "label": "Deezer, beerbongs & bentleys",
+   "url": "https://www.deezer.com/album/62183462"
+  }
+ },
+ "plug walk|rich the kid": {
+  "file": "covers/plug-walk-rich-the-kid.jpg",
+  "album": "The World Is Yours",
+  "source": {
+   "label": "Deezer, The World Is Yours",
+   "url": "https://www.deezer.com/album/68962771"
+  }
+ },
+ "esskeetit|lil pump": {
+  "file": "covers/esskeetit-lil-pump.jpg",
+  "album": "Esskeetit",
+  "source": {
+   "label": "Deezer, Esskeetit",
+   "url": "https://www.deezer.com/album/60934582"
+  }
  }
 }
