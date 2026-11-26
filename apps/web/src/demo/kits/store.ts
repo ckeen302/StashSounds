@@ -4,6 +4,7 @@ import { HOUSE, producers, type Producer } from "../data";
 import { extra, VIEWER } from "../midi/catalog";
 import { midiPlayer } from "../midi/synth";
 import library from "./library.json";
+import { onSilence, silenceOthers } from "../exclusive";
 
 /**
  * Drum kits: folders of one-shots (kicks, snares, hats...) that producers post and others grab.
@@ -350,6 +351,7 @@ function cancelSequence() {
 /** Plays sounds one after another (a kit's preview); starting it again, or playing any one sound, cancels it. */
 export function playSequence(sounds: (KitSound | Draft)[], gapMs: number) {
   cancelSequence();
+  silenceOthers(stopShot);
   sequenceTimers = sounds.map((s, i) => window.setTimeout(() => void play(s, undefined, true), i * gapMs));
 }
 
@@ -360,7 +362,10 @@ export function warmSounds(sounds: (KitSound | Draft)[]) {
 
 /** Plays one sound now. A draft plays from its bytes before it is posted. */
 export async function play(sound: KitSound | Draft, key?: string, fromSequence = false) {
-  if (!fromSequence) cancelSequence();
+  if (!fromSequence) {
+    cancelSequence();
+    silenceOthers(stopShot);
+  }
   const mine = claimPlay();
   stopOthers();
   if ("hit" in sound && sound.hit) {
@@ -383,9 +388,25 @@ export async function play(sound: KitSound | Draft, key?: string, fromSequence =
   if (isCurrentPlay(mine)) playBuffer(buf, false);
 }
 
+/** Stops the one-shot or kit preview that is sounding, and any still loading (another player starts). */
+function stopShot() {
+  cancelSequence();
+  playSeq++;
+  try {
+    playingNode?.stop();
+  } catch {
+    // Already ended.
+  }
+  playingNode = null;
+}
+onSilence(stopShot);
+
 /** Plays a buffer now, cutting off whatever one-shot played before it. */
 export function playBuffer(buf: AudioBuffer, stop = true) {
-  if (stop) stopOthers();
+  if (stop) {
+    stopOthers();
+    silenceOthers(stopShot);
+  }
   const c = audioContext();
   playingNode?.stop();
   const src = c.createBufferSource();

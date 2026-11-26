@@ -3,8 +3,20 @@ import type { Catalog } from "./data";
 import type { MidiItem } from "./midi/catalog";
 import { profile, type Profile } from "./smart-search";
 
+// Building a profile tokenizes every word of an item: a MIDI tab of 1,500 items spent most of its
+// first render here, and again on every keystroke. An item's words never change under its id, so
+// each profile is built once.
+const loopProfiles = new Map<string, Profile>();
+const midiProfiles = new Map<string, Profile>();
+
 /** The search profile of a loop: its title, tags, genre, description and the producer it nods to. */
 export function loopProfile(row: ItemRow, catalog: Catalog): Profile {
+  let p = loopProfiles.get(row.id);
+  if (!p) loopProfiles.set(row.id, (p = buildLoopProfile(row, catalog)));
+  return p;
+}
+
+function buildLoopProfile(row: ItemRow, catalog: Catalog): Profile {
   const item = catalog.page(row.publicId)?.item;
   return profile({
     id: row.id,
@@ -19,6 +31,12 @@ export function loopProfile(row: ItemRow, catalog: Catalog): Profile {
 
 /** The search profile of a MIDI item; a song's chords carry its artist and producer. */
 export function midiProfile(m: MidiItem): Profile {
+  let p = midiProfiles.get(m.id);
+  if (!p) midiProfiles.set(m.id, (p = buildMidiProfile(m)));
+  return p;
+}
+
+function buildMidiProfile(m: MidiItem): Profile {
   return profile({
     id: m.id,
     kind: "midi",

@@ -3,6 +3,7 @@ import { useSyncExternalStore } from "react";
 import { audioContext } from "../kits/store";
 import { midiPlayer } from "../midi/synth";
 import { saveFiles, wav, type SaveOutcome } from "../save";
+import { onSilence, silenceOthers } from "../exclusive";
 import data from "./library.json";
 
 /**
@@ -139,6 +140,7 @@ export function stop() {
   node = null;
   set({ id: null, loading: null });
 }
+onSilence(stop);
 
 /** Plays a sound from `from` seconds in; playing the same one again stops it. */
 export async function playSfx(s: Sfx, from = 0, toggle = true) {
@@ -148,6 +150,7 @@ export async function playSfx(s: Sfx, from = 0, toggle = true) {
   }
   stop();
   stopOthers();
+  silenceOthers(stop);
   const mine = ++token;
   set({ loading: s.id, error: null });
   let buf: AudioBuffer;

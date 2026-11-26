@@ -35,6 +35,7 @@ import { ItemView } from "../app/_item/item-view";
 import { buildCatalog, type Catalog } from "./data";
 import { LICENSE_LABELS } from "@stash/contracts/format";
 import { HashLink } from "./hash-link";
+import { useProgressive } from "./progressive";
 import { navigate, startRouter, usePath } from "./router";
 // The Samples tab's catalog is about a third of the demo's script: it loads on its own, after the
 // first paint (prefetched once the page is idle, at the bottom), so the rest of the demo starts without it.
@@ -184,13 +185,25 @@ function LoopList({
   const stateOf = (id: string): PlayState =>
     id !== currentId || status === "idle" ? "paused" : status;
   const play = (i: number) => void nowPlaying().playFrom(engine, rows, i);
-  // Five small previews: fetch and decode them all up front, so every row plays at once.
+  // Rows render as they near the screen (Browse lists every loop at once).
+  const { shown, sentinel } = useProgressive(rows, { atLeast: selected });
+  // Fetch the first rows' previews up front, so they play at once; the rest load when a pointer or
+  // focus reaches their row. (Preloading every row of Browse fetched every loop in the catalog.)
   useEffect(() => {
-    for (const r of rows) engine.preload(r.playable);
+    for (const r of rows.slice(0, 8)) engine.preload(r.playable);
   }, [engine, rows]);
+  const warmRow = (e: { target: EventTarget }) => {
+    const li = (e.target as Element).closest?.("li");
+    const i = li?.parentElement ? Array.prototype.indexOf.call(li.parentElement.children, li) : -1;
+    const r = i >= 0 ? rows[i] : undefined;
+    if (r) engine.preload(r.playable);
+  };
 
   return (
     <div
+      onPointerOver={warmRow}
+      onPointerDown={warmRow}
+      onFocus={warmRow}
       onKeyDown={(e) => {
         if (e.target instanceof HTMLInputElement) return;
         if (e.key === "ArrowDown" || e.key === "ArrowUp") {
@@ -211,7 +224,7 @@ function LoopList({
     >
       <DawDragZone sources={rows.map(loopSource)}>
       <ResultList label={label} className="st-rows">
-        {rows.map((r, i) => (
+        {shown.map((r, i) => (
           <LoopRow
             key={r.id}
             row={r}
@@ -244,6 +257,7 @@ function LoopList({
             }
           />
         ))}
+        {sentinel}
       </ResultList>
       </DawDragZone>
     </div>
