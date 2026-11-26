@@ -1,3 +1,5 @@
+import { DawDragZone } from "../daw-drag";
+import { melodicSource } from "../daw-sources";
 import { Button, Download, EmptyState, IconButton, PlayButton, SearchInput, Trash, Upload, useToast } from "@stash/ui";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { CrateMenu } from "../explore";
@@ -279,7 +281,7 @@ export function OneShotsPage() {
       </div>
 
       {shots.length > 0 ? (
-        <div className="overflow-hidden rounded-panel border border-border bg-surface">
+        <DawDragZone sources={shots.map(melodicSource)} className="overflow-hidden rounded-panel border border-border bg-surface">
           <ul ref={listRef} aria-label="One-shots">
             {shots.map((s, i) => {
               const ins = instrumentOf(s.instrument);
@@ -310,7 +312,7 @@ export function OneShotsPage() {
               );
             })}
           </ul>
-        </div>
+        </DawDragZone>
       ) : (
         <EmptyState icon={Upload} title="Nothing matches">
           Try another key, clear the search, or drop your own one-shots on this page to post them.

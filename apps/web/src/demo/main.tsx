@@ -75,6 +75,8 @@ import { loopProfile, midiProfile } from "./search-index";
 import { match, moreLike } from "./smart-search";
 import { writeMidi } from "./midi/write";
 import { KitPage, KitsPage, KitUploadPage } from "./kits/pages";
+import { DawDragZone } from "./daw-drag";
+import { loopSource } from "./daw-sources";
 import { attachLoopStyles, allProducers, hrefForProducer, producerBySlug, producerNamed, producerPageHref } from "./producers/data";
 import { ProducerPageView, ProducersPage, summaryOf } from "./producers/page";
 import { producerBySlug as sampleProducerBySlug } from "./samples/data";
@@ -195,6 +197,7 @@ function LoopList({
         }
       }}
     >
+      <DawDragZone sources={rows.map(loopSource)}>
       <ResultList label={label} className="st-rows">
         {rows.map((r, i) => (
           <LoopRow
@@ -230,6 +233,7 @@ function LoopList({
           />
         ))}
       </ResultList>
+      </DawDragZone>
     </div>
   );
 }
