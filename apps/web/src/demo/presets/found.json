@@ -16152,5 +16152,1384 @@
   },
   "quote": "911: West African Kit (Bells and Shakers) (Battery 3)",
   "album": "Flower Boy"
+ },
+ {
+  "song": "Hellcat Kenny",
+  "artist": "Young Thug feat. Lil Uzi Vert",
+  "producer": "Unknown",
+  "plugin": "Synapse Audio DUNE",
+  "preset": "Fifth Pluck RL",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Young Thug - Hellcat Kenny Presets | Preset Finds (omar16riyaz)",
+   "url": "https://www.youtube.com/watch?v=QXEQmsxR0v8"
+  },
+  "quote": "VST: Dune by Synapse Audio Presets: Fifth Pluck RL",
+  "quoteBy": "omar16riyaz",
+  "album": "BUSINESS IS BUSINESS"
+ },
+ {
+  "song": "Miss the Rage",
+  "artist": "Trippie Redd feat. Playboi Carti",
+  "producer": "Unknown",
+  "plugin": "Xfer Serum",
+  "preset": "Lead - Haygurl (Future Bass Cymatics Pack)",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Trippie Redd - Miss the Rage Presets | Preset Finds (omar16riyaz)",
+   "url": "https://www.youtube.com/watch?v=_TnBVWhg6x0"
+  },
+  "quote": "Presets: Lead - Haygurl (Future Bass Cymatics Pack)",
+  "quoteBy": "omar16riyaz",
+  "album": "Miss The Rage"
+ },
+ {
+  "song": "Faded",
+  "artist": "Tyga feat. Lil Wayne",
+  "producer": "Unknown",
+  "plugin": "Image-Line Purity",
+  "preset": "DK StickPad",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Tyga - Faded Presets | Preset Finds (omar16riyaz)",
+   "url": "https://www.youtube.com/watch?v=PWcf_2gkUMo"
+  },
+  "quote": "VST: Purity by Sonic Cat Presets: DK StickPad",
+  "quoteBy": "omar16riyaz",
+  "album": "Careless World: Rise Of The Last King"
+ },
+ {
+  "song": "4L",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Native Instruments Absynth",
+  "preset": "Elbow Pad",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Pi'erre Bourne - 4L Presets | Preset Finds (omar16riyaz)",
+   "url": "https://www.youtube.com/watch?v=vHLxu73QxJU"
+  },
+  "quote": "VST: Absynth by Native Instruments Presets: Elbow Pad",
+  "quoteBy": "omar16riyaz",
+  "album": "The Life Of Pi'erre 4 (Deluxe)"
+ },
+ {
+  "song": "Pain 1993",
+  "artist": "Drake feat. Playboi Carti",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Native Instruments Absynth",
+  "preset": "Analog +5",
+  "role": "Not stated (one of 2 presets listed)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Drake - Pain 1993 Presets | Preset Finds (omar16riyaz)",
+   "url": "https://www.youtube.com/watch?v=5nZQKIzHfu8"
+  },
+  "quote": "VST: Absynth by Native Instruments Presets: Analog +5 and Big Snorer",
+  "quoteBy": "omar16riyaz",
+  "album": "Dark Lane Demo Tapes"
+ },
+ {
+  "song": "Pain 1993",
+  "artist": "Drake feat. Playboi Carti",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Native Instruments Absynth",
+  "preset": "Big Snorer",
+  "role": "Not stated (one of 2 presets listed)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Drake - Pain 1993 Presets | Preset Finds (omar16riyaz)",
+   "url": "https://www.youtube.com/watch?v=5nZQKIzHfu8"
+  },
+  "quote": "VST: Absynth by Native Instruments Presets: Analog +5 and Big Snorer",
+  "quoteBy": "omar16riyaz",
+  "album": "Dark Lane Demo Tapes"
+ },
+ {
+  "song": "Stereotypes",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Native Instruments Massive",
+  "preset": "Bursted Flute",
+  "role": "Not stated (one of 2 presets listed)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Pi'erre Bourne - Stereotypes Presets | Preset Finds (omar16riyaz)",
+   "url": "https://www.youtube.com/watch?v=OkZXgOCjrtc"
+  },
+  "quote": "VST: Massive by Native Instruments Presets: Bursted Flute and 3 Octave Sub",
+  "quoteBy": "omar16riyaz",
+  "album": "The Life Of Pi'erre 4"
+ },
+ {
+  "song": "Stereotypes",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Native Instruments Massive",
+  "preset": "3 Octave Sub",
+  "role": "Not stated (one of 2 presets listed)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Pi'erre Bourne - Stereotypes Presets | Preset Finds (omar16riyaz)",
+   "url": "https://www.youtube.com/watch?v=OkZXgOCjrtc"
+  },
+  "quote": "VST: Massive by Native Instruments Presets: Bursted Flute and 3 Octave Sub",
+  "quoteBy": "omar16riyaz",
+  "album": "The Life Of Pi'erre 4"
+ },
+ {
+  "song": "Just Wanna Rock",
+  "artist": "Lil Uzi Vert",
+  "producer": "MCVertt & Synthetic",
+  "plugin": "Arturia Jup-8 V",
+  "preset": "Bell",
+  "role": "Not stated (one of 2 presets listed)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Lil Uzi Vert - Just Wanna Rock Presets | Preset Finds (omar16riyaz)",
+   "url": "https://www.youtube.com/watch?v=0yC4ycXWoUo"
+  },
+  "quote": "VST: JUP-8 V by Arturia Presets: Bell and Strings",
+  "quoteBy": "omar16riyaz",
+  "album": "Just Wanna Rock"
+ },
+ {
+  "song": "Just Wanna Rock",
+  "artist": "Lil Uzi Vert",
+  "producer": "MCVertt & Synthetic",
+  "plugin": "Arturia Jup-8 V",
+  "preset": "Strings",
+  "role": "Not stated (one of 2 presets listed)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Lil Uzi Vert - Just Wanna Rock Presets | Preset Finds (omar16riyaz)",
+   "url": "https://www.youtube.com/watch?v=0yC4ycXWoUo"
+  },
+  "quote": "VST: JUP-8 V by Arturia Presets: Bell and Strings",
+  "quoteBy": "omar16riyaz",
+  "album": "Just Wanna Rock"
+ },
+ {
+  "song": "Halftime",
+  "artist": "Young Thug",
+  "producer": "Unknown",
+  "plugin": "Native Instruments FM8",
+  "preset": "Rail",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: Young Thug - Halftime Presets | Preset Finds (omar16riyaz)",
+   "url": "https://www.youtube.com/watch?v=iaAbIspG6-8"
+  },
+  "quote": "VST: FM8 by Native Instruments Presets: Rail",
+  "quoteBy": "omar16riyaz",
+  "album": "Barter 6"
+ },
+ {
+  "song": "Restart",
+  "artist": "YhapoJJ",
+  "producer": "Unknown",
+  "plugin": "Image-Line Purity",
+  "preset": "1st Impression",
+  "role": "Piano",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Restart' by Yhapojj was made (w/ Presets)",
+   "url": "https://www.youtube.com/watch?v=1wNi_L3mHes"
+  },
+  "path": "Piano",
+  "quote": "Piano - Purity: Piano - 1st Impression (this is the startup preset)",
+  "quoteBy": "eza333",
+  "album": "Gossip Girl"
+ },
+ {
+  "song": "Restart",
+  "artist": "YhapoJJ",
+  "producer": "Unknown",
+  "plugin": "Image-Line Purity",
+  "preset": "Partial",
+  "role": "Pluck",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Restart' by Yhapojj was made (w/ Presets)",
+   "url": "https://www.youtube.com/watch?v=1wNi_L3mHes"
+  },
+  "path": "Fast Synth",
+  "quote": "Pluck - Purity: Fast Synth - Partial",
+  "quoteBy": "eza333",
+  "album": "Gossip Girl"
+ },
+ {
+  "song": "Restart",
+  "artist": "YhapoJJ",
+  "producer": "Unknown",
+  "plugin": "Image-Line Purity",
+  "preset": "Legato Strings 1",
+  "role": "Strings",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Restart' by Yhapojj was made (w/ Presets)",
+   "url": "https://www.youtube.com/watch?v=1wNi_L3mHes"
+  },
+  "path": "Strings",
+  "quote": "Strings - Purity: Strings - Legato Strings 1",
+  "quoteBy": "eza333",
+  "album": "Gossip Girl"
+ },
+ {
+  "song": "Restart",
+  "artist": "YhapoJJ",
+  "producer": "Unknown",
+  "plugin": "Image-Line Purity",
+  "preset": "Simple Sine",
+  "role": "Sine lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Restart' by Yhapojj was made (w/ Presets)",
+   "url": "https://www.youtube.com/watch?v=1wNi_L3mHes"
+  },
+  "path": "Lead Synth",
+  "quote": "Sine Lead - Purity: Lead Synth -  Simple Sine",
+  "quoteBy": "eza333",
+  "album": "Gossip Girl"
+ },
+ {
+  "song": "Restart",
+  "artist": "YhapoJJ",
+  "producer": "Unknown",
+  "plugin": "Image-Line Purity",
+  "preset": "Simple Pulse",
+  "role": "Brass lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Restart' by Yhapojj was made (w/ Presets)",
+   "url": "https://www.youtube.com/watch?v=1wNi_L3mHes"
+  },
+  "path": "Lead Synth",
+  "quote": "Brass Lead - Purity: Lead Synth - Simple Pulse",
+  "quoteBy": "eza333",
+  "album": "Gossip Girl"
+ },
+ {
+  "song": "Hot Ass Beat (Clap)",
+  "artist": "Tyler, the Creator feat. Earl Sweatshirt",
+  "producer": "Tyler, the Creator",
+  "plugin": "Native Instruments FM8",
+  "preset": "Adam the Psycho",
+  "role": "Organ",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Hot A*s Beat (Clap)' by Tyler, the Creator & Earl Sweatshirt was made in 2 minutes (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=asbak8c05X4"
+  },
+  "quote": "Organ - FM8: Adam the Psycho",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Hot Ass Beat (Clap)",
+  "artist": "Tyler, the Creator feat. Earl Sweatshirt",
+  "producer": "Tyler, the Creator",
+  "plugin": "Native Instruments FM8",
+  "preset": "Classic Flute",
+  "role": "Flute",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Hot A*s Beat (Clap)' by Tyler, the Creator & Earl Sweatshirt was made in 2 minutes (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=asbak8c05X4"
+  },
+  "quote": "Flute - FM8: Classic Flute",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Hot Ass Beat (Clap)",
+  "artist": "Tyler, the Creator feat. Earl Sweatshirt",
+  "producer": "Tyler, the Creator",
+  "plugin": "Image-Line Purity",
+  "preset": "Partial",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Hot A*s Beat (Clap)' by Tyler, the Creator & Earl Sweatshirt was made in 2 minutes (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=asbak8c05X4"
+  },
+  "path": "Fast Synth",
+  "quote": "Lead - Purity: Fast synth - Partial (Disable all FX)",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Blowin' Minds",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Native Instruments Absynth 5",
+  "preset": "80's Stack 2",
+  "role": "Pluck",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Blowin' Minds' by Pi'erre Bourne was made (w/ Presets)",
+   "url": "https://www.youtube.com/watch?v=DcdUvJgR9C0"
+  },
+  "quote": "Pluck - Absynth 5: 80's Stack 2",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Blowin' Minds",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Native Instruments FM8",
+  "preset": "Classic Flute",
+  "role": "Flute",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Blowin' Minds' by Pi'erre Bourne was made (w/ Presets)",
+   "url": "https://www.youtube.com/watch?v=DcdUvJgR9C0"
+  },
+  "quote": "Flute - FM8: Classic Flute",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "3rd World (Airplane)",
+  "artist": "Glokk40Spaz",
+  "producer": "Unknown",
+  "plugin": "Image-Line Purity",
+  "preset": "Partial",
+  "role": "Pluck",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How '3rd World (Airplane)' by Glokk40spaz was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=M1pJqgh7syo"
+  },
+  "path": "Fast Synth",
+  "quote": "Pluck - Purity: Fast Synth - Partial",
+  "quoteBy": "eza333",
+  "album": "Took The Biggest Risk"
+ },
+ {
+  "song": "3rd World (Airplane)",
+  "artist": "Glokk40Spaz",
+  "producer": "Unknown",
+  "plugin": "Image-Line Purity",
+  "preset": "Sticky Sqr",
+  "role": "Square",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How '3rd World (Airplane)' by Glokk40spaz was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=M1pJqgh7syo"
+  },
+  "path": "Fast Synth",
+  "quote": "Square - Purity: Fast Synth - Sticky Sqr",
+  "quoteBy": "eza333",
+  "album": "Took The Biggest Risk"
+ },
+ {
+  "song": "3rd World (Airplane)",
+  "artist": "Glokk40Spaz",
+  "producer": "Unknown",
+  "plugin": "Image-Line Purity",
+  "preset": "Legato Strings 1",
+  "role": "Strings",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How '3rd World (Airplane)' by Glokk40spaz was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=M1pJqgh7syo"
+  },
+  "path": "Strings",
+  "quote": "Strings - Purity: Strings - Legato Strings 1",
+  "quoteBy": "eza333",
+  "album": "Took The Biggest Risk"
+ },
+ {
+  "song": "Freeway",
+  "artist": "Okaymar feat. 1oneam & Ohsxnta",
+  "producer": "Unknown",
+  "plugin": "Image-Line Purity",
+  "preset": "Legato Hall",
+  "role": "Strings",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Freeway' by Okaymar, 1oneam, & Ohsxnta was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=m8eMPKzTQUc"
+  },
+  "path": "Strings",
+  "quote": "Strings - Purity: Strings - Legato Hall",
+  "quoteBy": "eza333",
+  "album": "Freeway (feat. 1oneam & Ohsxnta)"
+ },
+ {
+  "song": "Freeway",
+  "artist": "Okaymar feat. 1oneam & Ohsxnta",
+  "producer": "Unknown",
+  "plugin": "Image-Line Purity",
+  "preset": "Harmonic Lead",
+  "role": "Pluck",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Freeway' by Okaymar, 1oneam, & Ohsxnta was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=m8eMPKzTQUc"
+  },
+  "path": "Fast Synth",
+  "quote": "Pluck - Purity: Fast Synth - Harmonic Lead",
+  "quoteBy": "eza333",
+  "album": "Freeway (feat. 1oneam & Ohsxnta)"
+ },
+ {
+  "song": "Freeway",
+  "artist": "Okaymar feat. 1oneam & Ohsxnta",
+  "producer": "Unknown",
+  "plugin": "Image-Line Purity",
+  "preset": "Simple Pulse",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Freeway' by Okaymar, 1oneam, & Ohsxnta was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=m8eMPKzTQUc"
+  },
+  "path": "Lead Synth",
+  "quote": "Lead - Purity: Lead Synth - Simple Pulse",
+  "quoteBy": "eza333",
+  "album": "Freeway (feat. 1oneam & Ohsxnta)"
+ },
+ {
+  "song": "Plankton",
+  "artist": "Thr33",
+  "producer": "Unknown",
+  "plugin": "Image-Line Purity",
+  "preset": "Tine EP 2",
+  "role": "Electric piano",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Plankton' by Thr33 was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=eGpHMWbv9YE"
+  },
+  "path": "Piano",
+  "quote": "EPiano - Purity: Piano - Tine EP 2",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Plankton",
+  "artist": "Thr33",
+  "producer": "Unknown",
+  "plugin": "Siegfried Kullmann SQ8L",
+  "preset": "A002 Bottle",
+  "role": "Pluck",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Plankton' by Thr33 was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=eGpHMWbv9YE"
+  },
+  "quote": "Pluck - SQ8L: A002 Bottle",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Plankton",
+  "artist": "Thr33",
+  "producer": "Unknown",
+  "plugin": "AIR Music Technology Xpand!2",
+  "preset": "34 Dirty Lead 1",
+  "role": "Guitar",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Plankton' by Thr33 was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=eGpHMWbv9YE"
+  },
+  "path": "21 Guitars",
+  "quote": "Guitar - Xpand!2: 21 Guitars - 34 Dirty Lead 1",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Kant dië",
+  "artist": "Yeat",
+  "producer": "Unknown",
+  "plugin": "Image-Line Purity",
+  "preset": "Acoustic Piano",
+  "role": "Piano",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Kant dië' by Yeat was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=1Bh4ZXAT5fE"
+  },
+  "path": "Piano",
+  "quote": "Piano - Purity: Piano - Acoustic Piano",
+  "quoteBy": "eza333",
+  "album": "2 Alivë"
+ },
+ {
+  "song": "One Day",
+  "artist": "Playboi Carti",
+  "producer": "Unknown",
+  "plugin": "u-he Zebra2",
+  "preset": "HS X-Bells",
+  "role": "Bell",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'One Day' by Playboi Carti was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=XewOGO4h3rs"
+  },
+  "path": "4 Pianoids",
+  "quote": "Bell - Zebra2: 4 Pianoids - HS X-Bells",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "One Day",
+  "artist": "Playboi Carti",
+  "producer": "Unknown",
+  "plugin": "u-he Zebra2",
+  "preset": "HS DX8",
+  "role": "Keys",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'One Day' by Playboi Carti was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=XewOGO4h3rs"
+  },
+  "path": "4 Pianoids",
+  "quote": "Key - Zebra2: 4 Pianonds - HS DX8",
+  "quoteBy": "eza333"
+ },
+ {
+  "song": "Phone",
+  "artist": "Duwap Kaine",
+  "producer": "Unknown",
+  "plugin": "reFX Nexus 2",
+  "preset": "AR Sinebells",
+  "role": "High pluck",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Phone' & 'Under Da Sun 2' by Duwap Kaine was made (Presets & Transition)",
+   "url": "https://www.youtube.com/watch?v=VE3q4T9DJM0"
+  },
+  "path": "Arpeggios",
+  "quote": "High Pluck - Nexus2 : Arpeggios - AR Sinebells (disable arp)",
+  "quoteBy": "eza333",
+  "album": "Underdog"
+ },
+ {
+  "song": "Phone",
+  "artist": "Duwap Kaine",
+  "producer": "Unknown",
+  "plugin": "reFX Nexus 2",
+  "preset": "AR Sinebells",
+  "role": "Low pluck",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Phone' & 'Under Da Sun 2' by Duwap Kaine was made (Presets & Transition)",
+   "url": "https://www.youtube.com/watch?v=VE3q4T9DJM0"
+  },
+  "path": "Arpeggios",
+  "quote": "Low Pluck - Nexus2 : Arpeggios - AR Sinebells (disable arp & reverb, less delay)",
+  "quoteBy": "eza333",
+  "album": "Underdog"
+ },
+ {
+  "song": "Phone",
+  "artist": "Duwap Kaine",
+  "producer": "Unknown",
+  "plugin": "reFX Nexus 2",
+  "preset": "PD Ambient 3",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Phone' & 'Under Da Sun 2' by Duwap Kaine was made (Presets & Transition)",
+   "url": "https://www.youtube.com/watch?v=VE3q4T9DJM0"
+  },
+  "path": "Single Layer Pads",
+  "quote": "Pad - Nexus2 : Single Layer Pads - PD Ambient 3",
+  "quoteBy": "eza333",
+  "album": "Underdog"
+ },
+ {
+  "song": "Green Bean",
+  "artist": "Young Nudy",
+  "producer": "Unknown",
+  "plugin": "Image-Line Purity",
+  "preset": "Mood Ep",
+  "role": "Electric piano",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Green Bean' by Young Nudy was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=R7Db3Sy_r0A"
+  },
+  "path": "Piano",
+  "quote": "EPIANO - Purity: Piano, Mood Ep",
+  "quoteBy": "eza333",
+  "album": "Rich Shooter"
+ },
+ {
+  "song": "Green Bean",
+  "artist": "Young Nudy",
+  "producer": "Unknown",
+  "plugin": "Image-Line Purity",
+  "preset": "Flute Non Vib",
+  "role": "Flute",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Green Bean' by Young Nudy was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=R7Db3Sy_r0A"
+  },
+  "path": "Woodwind",
+  "quote": "FLUTE - Purity: Woodwind, Flute Non Vib",
+  "quoteBy": "eza333",
+  "album": "Rich Shooter"
+ },
+ {
+  "song": "COLORS",
+  "artist": "Trippie Redd feat. Kodak Black",
+  "producer": "Unknown",
+  "plugin": "Spectrasonics Keyscape",
+  "preset": "Pianet T",
+  "role": "Electric piano (three tweaked instances)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'COLORS' by Trippie Redd and Kodak Black was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=MoEOjYCTNbY"
+  },
+  "path": "Electric Pianos",
+  "quote": "Keyscape: Electric Pianos - Pianet T",
+  "quoteBy": "eza333",
+  "album": "MANSION MUSIK"
+ },
+ {
+  "song": "HULU",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Siegfried Kullmann SQ8L",
+  "preset": "Bottle",
+  "role": "Pluck",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How HULU by Pierre Bourne was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=YnxbRUeeOec"
+  },
+  "quote": "Pluck: SQ8L - Bottle",
+  "quoteBy": "eza333",
+  "album": "The Life Of Pi'erre 5"
+ },
+ {
+  "song": "HULU",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Siegfried Kullmann SQ8L",
+  "preset": "Spacelab",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How HULU by Pierre Bourne was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=YnxbRUeeOec"
+  },
+  "quote": "Lead: SQ8L - Spacelab",
+  "quoteBy": "eza333",
+  "album": "The Life Of Pi'erre 5"
+ },
+ {
+  "song": "HULU",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "u-he Hive",
+  "preset": "XS 8 Bit Fire",
+  "role": "Intro sound",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How HULU by Pierre Bourne was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=YnxbRUeeOec"
+  },
+  "quote": "Intro sound: Hive - XS 8 Bit Fire",
+  "quoteBy": "eza333",
+  "album": "The Life Of Pi'erre 5"
+ },
+ {
+  "song": "Biology 101",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "FabFilter Twin 2",
+  "preset": "TineStrings DJM",
+  "role": "Bells",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Biology 101' by Pi'erre Bourne was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=X7grCYwuiwE"
+  },
+  "path": "Keys, Other",
+  "quote": "Bells : FabFilter Twin 2 - Keys, Other, TineStrings DJM",
+  "quoteBy": "eza333",
+  "album": "The Life Of Pi'erre 5"
+ },
+ {
+  "song": "Biology 101",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "u-he Hive 2",
+  "preset": "XS 8 Bit Fire",
+  "role": "Intro",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Biology 101' by Pi'erre Bourne was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=X7grCYwuiwE"
+  },
+  "quote": "Intro : Hive 2 - XS 8 Bit Fire",
+  "quoteBy": "eza333",
+  "album": "The Life Of Pi'erre 5"
+ },
+ {
+  "song": "Fortune Cookie",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Rob Papen Albino 3",
+  "preset": "BinoOrgan 1",
+  "role": "Organ",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Fortune Cookie' by Pi'erre Bourne was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=j02GX82NFbU"
+  },
+  "path": "Diverse Sounds",
+  "quote": "Organ 1 : Albino3 - Diverse Sounds, BinoOrgan 1",
+  "quoteBy": "eza333",
+  "album": "The Life Of Pi'erre 4 (Deluxe)"
+ },
+ {
+  "song": "Fortune Cookie",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Rob Papen Albino 3",
+  "preset": "BinoOrgan 2",
+  "role": "Organ",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Fortune Cookie' by Pi'erre Bourne was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=j02GX82NFbU"
+  },
+  "path": "Diverse Sounds",
+  "quote": "Organ 2 : Albino3 - Diverse Sounds, BinoOrgan 2",
+  "quoteBy": "eza333",
+  "album": "The Life Of Pi'erre 4 (Deluxe)"
+ },
+ {
+  "song": "Fortune Cookie",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Pop Female1 Scoop Ahs",
+  "role": "Choir",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Fortune Cookie' by Pi'erre Bourne was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=j02GX82NFbU"
+  },
+  "quote": "Choir 1: Omnisphere - Pop Female1 Scoop Ahs",
+  "quoteBy": "eza333",
+  "album": "The Life Of Pi'erre 4 (Deluxe)"
+ },
+ {
+  "song": "Fortune Cookie",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Pop Female1 Ahs1",
+  "role": "Choir",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Fortune Cookie' by Pi'erre Bourne was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=j02GX82NFbU"
+  },
+  "quote": "Choir 3: Omnisphere - Pop Female1 Ahs1",
+  "quoteBy": "eza333",
+  "album": "The Life Of Pi'erre 4 (Deluxe)"
+ },
+ {
+  "song": "Poles 1469",
+  "artist": "Trippie Redd feat. 6ix9ine",
+  "producer": "Pi'erre Bourne",
+  "plugin": "FabFilter Twin 2",
+  "preset": "Whistlers SDG",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How Poles 1469 by Trippie Redd and 6ix9ine was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=2kdBUw6dtXk"
+  },
+  "path": "Lead, Soft",
+  "quote": "Lead - FabFilter Twin 2 : Lead, Soft, Whistlers SDG",
+  "quoteBy": "eza333",
+  "album": "A Love Letter To You"
+ },
+ {
+  "song": "Poles 1469",
+  "artist": "Trippie Redd feat. 6ix9ine",
+  "producer": "Pi'erre Bourne",
+  "plugin": "FabFilter Twin 2",
+  "preset": "Sine Chamber JN",
+  "role": "Pluck",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How Poles 1469 by Trippie Redd and 6ix9ine was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=2kdBUw6dtXk"
+  },
+  "path": "Lead, Soft",
+  "quote": "Pluck - FabFilter Twin 2 : Lead, Soft, Sine Chamber JN",
+  "quoteBy": "eza333",
+  "album": "A Love Letter To You"
+ },
+ {
+  "song": "Poles 1469",
+  "artist": "Trippie Redd feat. 6ix9ine",
+  "producer": "Pi'erre Bourne",
+  "plugin": "FabFilter Twin 2",
+  "preset": "Dramesque SM",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How Poles 1469 by Trippie Redd and 6ix9ine was made (w/ PRESETS)",
+   "url": "https://www.youtube.com/watch?v=2kdBUw6dtXk"
+  },
+  "path": "Pad, Other",
+  "quote": "Pad - FabFilter Twin 2 : Pad, Other, Dramesque SM",
+  "quoteBy": "eza333",
+  "album": "A Love Letter To You"
+ },
+ {
+  "song": "Pink Dreads",
+  "artist": "DDG & PlaqueBoyMax",
+  "producer": "Unknown",
+  "plugin": "Korg Triton Extreme",
+  "preset": null,
+  "role": "Not stated (plugin named in hashtags; preset shown in video)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube Short: FAMOUS PRESETS #384: “Pink Dreads” by DDG & PlaqueBoyMax (BLUE STEEL)",
+   "url": "https://www.youtube.com/watch?v=jM1rHlYNkIU"
+  },
+  "quote": "FAMOUS PRESETS #384: “Pink Dreads” by DDG & PlaqueBoyMax ... #korgtritonextreme #korgtriton",
+  "quoteBy": "BLUE STEEL",
+  "album": "pink dreads"
+ },
+ {
+  "song": "Hustlin'",
+  "artist": "Rick Ross",
+  "producer": "The Runners",
+  "plugin": "Reason Studios Reason",
+  "preset": null,
+  "role": "Not stated (plugin named in hashtags; preset shown in video)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube Short: FAMOUS PRESETS #393: “Hustlin’” by Rick Ross (BLUE STEEL)",
+   "url": "https://www.youtube.com/watch?v=YJNKyZGyaUE"
+  },
+  "quote": "FAMOUS PRESETS #393: “Hustlin’” by Rick Ross ... #reasonrack #propellerheadreason",
+  "quoteBy": "BLUE STEEL",
+  "album": "Port Of Miami"
+ },
+ {
+  "song": "I'm N Luv (Wit a Stripper)",
+  "artist": "T-Pain",
+  "producer": "Unknown",
+  "plugin": "Apple Logic Pro / GarageBand",
+  "preset": null,
+  "role": "Not stated (plugin named in hashtags; preset shown in video)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube Short: FAMOUS PRESETS #388: “I’m N Luv” by T-Pain (BLUE STEEL)",
+   "url": "https://www.youtube.com/watch?v=5IIemUZrdSo"
+  },
+  "quote": "FAMOUS PRESETS #388: “I’m N Luv” by T-Pain ... #logicpro #logicprox #garageband",
+  "quoteBy": "BLUE STEEL",
+  "album": "Rappa Ternt Sanga (Expanded Edition)"
+ },
+ {
+  "song": "Tweaker",
+  "artist": "GELO",
+  "producer": "Unknown",
+  "plugin": "Spectrasonics Keyscape",
+  "preset": null,
+  "role": "Not stated (hashtags name Keyscape and Xpand!2)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube Short: FAMOUS PRESETS #362: \"Tweaker\" by GELO (BLUE STEEL)",
+   "url": "https://www.youtube.com/watch?v=CTfmpH3zWhU"
+  },
+  "quote": "FAMOUS PRESETS #362: \"Tweaker\" by GELO ... #keyscape #xpand2",
+  "quoteBy": "BLUE STEEL",
+  "album": "Tweaker"
+ },
+ {
+  "song": "Tweaker",
+  "artist": "GELO",
+  "producer": "Unknown",
+  "plugin": "AIR Music Technology Xpand!2",
+  "preset": null,
+  "role": "Not stated (hashtags name Keyscape and Xpand!2)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube Short: FAMOUS PRESETS #362: \"Tweaker\" by GELO (BLUE STEEL)",
+   "url": "https://www.youtube.com/watch?v=CTfmpH3zWhU"
+  },
+  "quote": "FAMOUS PRESETS #362: \"Tweaker\" by GELO ... #keyscape #xpand2",
+  "quoteBy": "BLUE STEEL",
+  "album": "Tweaker"
+ },
+ {
+  "song": "Tried Our Best",
+  "artist": "Drake",
+  "producer": "Unknown",
+  "plugin": "Spectrasonics Trilian",
+  "preset": null,
+  "role": "Not stated (plugin named in hashtags; preset shown in video)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube Short: FAMOUS PRESETS #374: \"Tried Our Best\" by Drake (BLUE STEEL)",
+   "url": "https://www.youtube.com/watch?v=EN5RZNEwvho"
+  },
+  "quote": "FAMOUS PRESETS #374: \"Tried Our Best\" by Drake ... #trilian",
+  "quoteBy": "BLUE STEEL",
+  "album": "For All The Dogs"
+ },
+ {
+  "song": "Emotionally Scarred",
+  "artist": "Lil Baby",
+  "producer": "Twysted Genius",
+  "plugin": "reFX Nexus",
+  "preset": null,
+  "role": "Not stated (plugin named in hashtags; preset shown in video)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube Short: FAMOUS PRESETS #378: \"Emotionally Scarred\" by Lil Baby (BLUE STEEL)",
+   "url": "https://www.youtube.com/watch?v=q6jd2-dISaw"
+  },
+  "quote": "FAMOUS PRESETS #378: \"Emotionally Scarred\" by Lil Baby ... #twystedgenius #refxnexus",
+  "quoteBy": "BLUE STEEL",
+  "album": "My Turn (Deluxe)"
+ },
+ {
+  "song": "Mi Gente",
+  "artist": "J Balvin & Willy William",
+  "producer": "Unknown",
+  "plugin": "Output Exhale (Kontakt)",
+  "preset": null,
+  "role": "Not stated (plugin named in hashtags; preset shown in video)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube Short: FAMOUS PRESETS #363: “Mi Gente” by J Balvin (BLUE STEEL)",
+   "url": "https://www.youtube.com/watch?v=ighJ_0tlcHs"
+  },
+  "quote": "FAMOUS PRESETS #363: “Mi Gente” by J Balvin ... #outputexhale #output #kontakt",
+  "quoteBy": "BLUE STEEL",
+  "album": "Mi Gente"
+ },
+ {
+  "song": "She",
+  "artist": "Tyler, the Creator feat. Frank Ocean",
+  "producer": "Tyler, the Creator",
+  "plugin": "Reason Studios Reason Rack Plugin",
+  "preset": null,
+  "role": "Not stated (plugin named in hashtags; preset shown in video)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube Short: FAMOUS PRESETS #360: \"She\" by Tyler, The Creator (BLUE STEEL)",
+   "url": "https://www.youtube.com/watch?v=TtqaCkdczls"
+  },
+  "quote": "FAMOUS PRESETS #360: \"She\" by Tyler, The Creator ... #reasonrack #reasonrackplugin",
+  "quoteBy": "BLUE STEEL",
+  "album": "Goblin"
+ },
+ {
+  "song": "BITTERSUITE",
+  "artist": "Billie Eilish",
+  "producer": "FINNEAS",
+  "plugin": "FabFilter Twin 2",
+  "preset": null,
+  "role": "Not stated (plugin named in hashtags; preset shown in video)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube Short: FAMOUS PRESETS #386: “BITTERSUITE” by Billie Eilish (BLUE STEEL)",
+   "url": "https://www.youtube.com/watch?v=1SBS4HXhEPQ"
+  },
+  "quote": "FAMOUS PRESETS #386: “BITTERSUITE” by Billie Eilish ... #finneas #fabfilter #twin2",
+  "quoteBy": "BLUE STEEL",
+  "album": "HIT ME HARD AND SOFT"
+ },
+ {
+  "song": "Myron",
+  "artist": "Lil Uzi Vert",
+  "producer": "Unknown",
+  "plugin": "Synapse Audio DUNE",
+  "preset": null,
+  "role": "Not stated (plugin named in hashtags; preset shown in video)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube Short: FAMOUS PRESETS #358: \"Myron\" by Lil Uzi Vert (BLUE STEEL)",
+   "url": "https://www.youtube.com/watch?v=lWyB4GqFf9k"
+  },
+  "quote": "FAMOUS PRESETS #358: \"Myron\" by Lil Uzi Vert ... #dunepresets #synapseaudio",
+  "quoteBy": "BLUE STEEL",
+  "album": "Eternal Atake (Deluxe) - LUV vs. The World 2"
+ },
+ {
+  "song": "Outside Today",
+  "artist": "NBA YoungBoy",
+  "producer": "Unknown",
+  "plugin": "Image-Line Purity",
+  "preset": null,
+  "role": "Not stated (plugin named in hashtags; preset shown in video)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube Short: FAMOUS PRESETS #387: “Outside Today” by NBA YoungBoy (BLUE STEEL)",
+   "url": "https://www.youtube.com/watch?v=I9gpc4A85iM"
+  },
+  "quote": "FAMOUS PRESETS #387: “Outside Today” by NBA YoungBoy ... #purity #soniccatpurity",
+  "quoteBy": "BLUE STEEL",
+  "album": "Outside Today"
+ },
+ {
+  "song": "Off Tha Lot",
+  "artist": "Yeat",
+  "producer": "Unknown",
+  "plugin": "Xfer Serum",
+  "preset": null,
+  "role": "Not stated (plugin named in hashtags; preset shown in video)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube Short: FAMOUS PRESETS #354: \"Off Tha Lot\" by Yeat (BLUE STEEL)",
+   "url": "https://www.youtube.com/watch?v=TpdgMDlSNRg"
+  },
+  "quote": "FAMOUS PRESETS #354: \"Off Tha Lot\" by Yeat ... #serumpresets #xfer #xferrecords",
+  "quoteBy": "BLUE STEEL",
+  "album": "4L"
+ },
+ {
+  "song": "Don't",
+  "artist": "Bryson Tiller",
+  "producer": "Unknown",
+  "plugin": "AIR Music Technology Xpand!2",
+  "preset": null,
+  "role": "Not stated (plugin named in hashtags; preset shown in video)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube Short: FAMOUS PRESETS #350:  \"Don't\" by Bryson Tiller (BLUE STEEL)",
+   "url": "https://www.youtube.com/watch?v=UFNLz9QEKRs"
+  },
+  "quote": "FAMOUS PRESETS #350:  \"Don't\" by Bryson Tiller ... #xpand2",
+  "quoteBy": "BLUE STEEL",
+  "album": "T R A P S O U L"
+ },
+ {
+  "song": "After Party",
+  "artist": "Don Toliver",
+  "producer": "Unknown",
+  "plugin": "Arturia Analog Lab",
+  "preset": null,
+  "role": "Not stated (plugin named in hashtags; preset shown in video)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube Short: FAMOUS PRESETS #344: \"After Party\" by Don Toliver (BLUE STEEL)",
+   "url": "https://www.youtube.com/watch?v=_ZaLUuhBrEs"
+  },
+  "quote": "FAMOUS PRESETS #344: \"After Party\" by Don Toliver ... #arturiapresets #arturia #analoglab #arturiamatrix",
+  "quoteBy": "BLUE STEEL",
+  "album": "Heaven Or Hell"
+ },
+ {
+  "song": "LPFJ2",
+  "artist": "A$AP Rocky",
+  "producer": "Unknown",
+  "plugin": "Native Instruments Absynth",
+  "preset": null,
+  "role": "Not stated (plugin named in hashtags; preset shown in video)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube Short: FAMOUS PRESETS #345: \"LPFJ2\" by A$AP Rocky (BLUE STEEL)",
+   "url": "https://www.youtube.com/watch?v=moGrq4jigqs"
+  },
+  "quote": "FAMOUS PRESETS #345: \"LPFJ2\" by A$AP Rocky ... #nativeinstruments #absynthpresets",
+  "quoteBy": "BLUE STEEL",
+  "album": "AT.LONG.LAST.A$AP"
+ },
+ {
+  "song": "Savage",
+  "artist": "Megan Thee Stallion",
+  "producer": "J. White Did It",
+  "plugin": "u-he Diva",
+  "preset": null,
+  "role": "Not stated (plugin named in hashtags; preset shown in video)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube Short: FAMOUS PRESETS #342: \"Savage\" by Megan Thee Stallion (BLUE STEEL)",
+   "url": "https://www.youtube.com/watch?v=JuxM4dNOqmU"
+  },
+  "quote": "FAMOUS PRESETS #342: \"Savage\" by Megan Thee Stallion ... #jaywhitedidit #uhe #uhediva",
+  "quoteBy": "BLUE STEEL",
+  "album": "Suga"
+ },
+ {
+  "song": "The Race",
+  "artist": "Tay-K",
+  "producer": "S.Diesel",
+  "plugin": "Image-Line Sytrus",
+  "preset": null,
+  "role": "Not stated (plugin named in hashtags; preset shown in video)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube Short: FAMOUS PRESETS #322: \"The Race\" by Tay-K (BLUE STEEL)",
+   "url": "https://www.youtube.com/watch?v=tljMCbRVQOU"
+  },
+  "quote": "FAMOUS PRESETS #322: \"The Race\" by Tay-K ... #flstudiopresets #sytrus #sytruspresets",
+  "quoteBy": "BLUE STEEL",
+  "album": "#SantanaWorld (+)"
+ },
+ {
+  "song": "Girls Want Girls",
+  "artist": "Drake feat. Lil Baby",
+  "producer": "Unknown",
+  "plugin": "Arturia CS-80 V",
+  "preset": null,
+  "role": "Not stated (plugin named in hashtags; preset shown in video)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube Short: FAMOUS PRESETS #348: \"Girls Want Girls\" by Drake (BLUE STEEL)",
+   "url": "https://www.youtube.com/watch?v=4uWkrW_WozU"
+  },
+  "quote": "FAMOUS PRESETS #348: \"Girls Want Girls\" by Drake ... #analoglab #arturia #cs80 #cs80v",
+  "quoteBy": "BLUE STEEL",
+  "album": "Certified Lover Boy"
+ },
+ {
+  "song": "Freestyle",
+  "artist": "Lil Baby",
+  "producer": "Unknown",
+  "plugin": "reFX Nexus",
+  "preset": null,
+  "role": "Not stated (plugin named in hashtags; preset shown in video)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube Short: FAMOUS PRESETS #349: \"Freestyle\" by Lil Baby (BLUE STEEL)",
+   "url": "https://www.youtube.com/watch?v=8vM9m7Ivou8"
+  },
+  "quote": "FAMOUS PRESETS #349: \"Freestyle\" by Lil Baby ... #refx #refxnexus #nexuspresets",
+  "quoteBy": "BLUE STEEL",
+  "album": "Too Hard"
+ },
+ {
+  "song": "New Flame",
+  "artist": "Chris Brown feat. Usher & Rick Ross",
+  "producer": "Unknown",
+  "plugin": "FabFilter One",
+  "preset": null,
+  "role": "Not stated (plugin named in hashtags; preset shown in video)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube Short: FAMOUS PRESETS #357: “New Flame” by Chris Brown (BLUE STEEL)",
+   "url": "https://www.youtube.com/watch?v=8MdgxRp9YEk"
+  },
+  "quote": "FAMOUS PRESETS #357: “New Flame” by Chris Brown ... #fabfilter #fabfilterone",
+  "quoteBy": "BLUE STEEL",
+  "album": "X (Expanded Edition)"
+ },
+ {
+  "song": "Timeless",
+  "artist": "The Weeknd & Playboi Carti",
+  "producer": "Unknown",
+  "plugin": "reFX Nexus",
+  "preset": null,
+  "role": "Not stated (plugin named in hashtags; preset shown in video)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube Short: FAMOUS PRESETS #323: \"Timeless\" by The Weeknd & Playboi Carti (BLUE STEEL)",
+   "url": "https://www.youtube.com/watch?v=9gvYkPGdAvU"
+  },
+  "quote": "FAMOUS PRESETS #323: \"Timeless\" by The Weeknd & Playboi Carti ... #refxnexus #nexuspresets",
+  "quoteBy": "BLUE STEEL",
+  "album": "Hurry Up Tomorrow"
+ },
+ {
+  "song": "Guillotine",
+  "artist": "Pi'erre Bourne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Output Exhale (Kontakt)",
+  "preset": null,
+  "role": "Not stated (plugin named in hashtags; preset shown in video)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube Short: FAMOUS PRESETS #331: \"Guillotine\" by Pi'erre Bourne (BLUE STEEL)",
+   "url": "https://www.youtube.com/watch?v=oFCV9-ONpFk"
+  },
+  "quote": "FAMOUS PRESETS #331: \"Guillotine\" by Pi'erre Bourne ... #nativeinstruments #kontakt #outputexhale",
+  "quoteBy": "BLUE STEEL",
+  "album": "The Life Of Pi'erre 4"
+ },
+ {
+  "song": "Stay",
+  "artist": "The Kid LAROI & Justin Bieber",
+  "producer": "Unknown",
+  "plugin": "Arturia Jun-6 V",
+  "preset": null,
+  "role": "Not stated (plugin named in hashtags; preset shown in video)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube Short: FAMOUS PRESETS #311: \"Stay\" by The Kid LAROI (BLUE STEEL)",
+   "url": "https://www.youtube.com/watch?v=HZyNLaF3RPo"
+  },
+  "quote": "FAMOUS PRESETS #311: \"Stay\" by The Kid LAROI ... #rolandjuno #juno106 #juno60 #arturiapresets #jun6v",
+  "quoteBy": "BLUE STEEL",
+  "album": "STAY"
+ },
+ {
+  "song": "Impossible",
+  "artist": "Travis Scott",
+  "producer": "Unknown",
+  "plugin": "Native Instruments Massive",
+  "preset": null,
+  "role": "Not stated (plugin named in hashtags; preset shown in video)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube Short: FAMOUS PRESETS #312: \"Impossible\" by Travis Scott (BLUE STEEL)",
+   "url": "https://www.youtube.com/watch?v=HNsDxI3G1h0"
+  },
+  "quote": "FAMOUS PRESETS #312: \"Impossible\" by Travis Scott ... #nativeinstruments #massivepresets",
+  "quoteBy": "BLUE STEEL",
+  "album": "Rodeo"
+ },
+ {
+  "song": "Lollipop",
+  "artist": "Lil Wayne feat. Static Major",
+  "producer": "Jim Jonsin & Deezle",
+  "plugin": "Native Instruments Massive",
+  "preset": null,
+  "role": "Not stated (plugin named in hashtags; preset shown in video)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube Short: FAMOUS PRESETS #317: \"Lollipop\" by Lil Wayne (BLUE STEEL)",
+   "url": "https://www.youtube.com/watch?v=uGvTbnpt7_A"
+  },
+  "quote": "FAMOUS PRESETS #317: \"Lollipop\" by Lil Wayne ... #nativeinstruments #massivepresets",
+  "quoteBy": "BLUE STEEL",
+  "album": "Lollipop"
+ },
+ {
+  "song": "I LOVE YOU HOE",
+  "artist": "Odetari & 9lives",
+  "producer": "Unknown",
+  "plugin": "reFX Nexus",
+  "preset": null,
+  "role": "Not stated (plugin named in hashtags; preset shown in video)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube Short: FAMOUS PRESETS #301: \"I LOVE YOU H*E\" by Odetari & 9lives (BLUE STEEL)",
+   "url": "https://www.youtube.com/watch?v=ZAIzDGCTijY"
+  },
+  "quote": "FAMOUS PRESETS #301: \"I LOVE YOU H*E\" by Odetari & 9lives ... #nexuspresets #refxnexus",
+  "quoteBy": "BLUE STEEL",
+  "album": "3x3"
+ },
+ {
+  "song": "Wat it feel lykë",
+  "artist": "Yeat",
+  "producer": "BNYX",
+  "plugin": "Spectrasonics Trilian",
+  "preset": null,
+  "role": "Not stated (plugin named in hashtags; preset shown in video)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube Short: FAMOUS PRESETS #296: \"Wat it feel lykë\" by Yeat (BLUE STEEL)",
+   "url": "https://www.youtube.com/watch?v=00ozGQb6z5Q"
+  },
+  "quote": "FAMOUS PRESETS #296: \"Wat it feel lykë\" by Yeat ... #trilian #trilianpresets #bnyx",
+  "quoteBy": "BLUE STEEL",
+  "album": "Lyfë"
+ },
+ {
+  "song": "Calling My Phone",
+  "artist": "Lil Tjay feat. 6LACK",
+  "producer": "Unknown",
+  "plugin": "Output Arcade",
+  "preset": null,
+  "role": "Not stated (plugin named in hashtags; preset shown in video)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube Short: FAMOUS PRESETS #314: \"Calling My Phone\" by Lil Tjay (BLUE STEEL)",
+   "url": "https://www.youtube.com/watch?v=-eigKA-Dm_g"
+  },
+  "quote": "FAMOUS PRESETS #314: \"Calling My Phone\" by Lil Tjay ... #outputpresets #outputarcade",
+  "quoteBy": "BLUE STEEL",
+  "album": "Calling My Phone"
+ },
+ {
+  "song": "Figure It Out",
+  "artist": "ian",
+  "producer": "Unknown",
+  "plugin": "Roland Zenology",
+  "preset": null,
+  "role": "Not stated (plugin named in hashtags; preset shown in video)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube Short: FAMOUS PRESETS #308: \"Figure It Out\" by ian (BLUE STEEL)",
+   "url": "https://www.youtube.com/watch?v=ITFfDMF8hzM"
+  },
+  "quote": "FAMOUS PRESETS #308: \"Figure It Out\" by ian ... #rolandpresets #zenology #zenologypresets",
+  "quoteBy": "BLUE STEEL",
+  "album": "Valedictorian"
+ },
+ {
+  "song": "Please Please Please",
+  "artist": "Sabrina Carpenter",
+  "producer": "Jack Antonoff",
+  "plugin": "Arturia Juno emulation (model not named)",
+  "preset": null,
+  "role": "Not stated (plugin named in hashtags; preset shown in video)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube Short: FAMOUS PRESETS #294: \"Please Please Please\" by Sabrina Carpenter (BLUE STEEL)",
+   "url": "https://www.youtube.com/watch?v=j5x6AlOh5Vw"
+  },
+  "quote": "FAMOUS PRESETS #294: \"Please Please Please\" by Sabrina Carpenter ... #junopresets #arturiapresets #rolandjuno",
+  "quoteBy": "BLUE STEEL",
+  "album": "Please Please Please"
+ },
+ {
+  "song": "Girls Need Love",
+  "artist": "Summer Walker",
+  "producer": "Unknown",
+  "plugin": "AIR Music Technology Hybrid",
+  "preset": null,
+  "role": "Not stated (plugin named in hashtags; preset shown in video)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube Short: FAMOUS PRESETS #355: \"Girls Need Love\" by Summer Walker (BLUE STEEL)",
+   "url": "https://www.youtube.com/watch?v=xlRw98q1NHg"
+  },
+  "quote": "FAMOUS PRESETS #355: \"Girls Need Love\" by Summer Walker ... #summerwalker #drake #hybridpresets",
+  "quoteBy": "BLUE STEEL",
+  "album": "Last Day Of Summer"
+ },
+ {
+  "song": "Vato",
+  "artist": "Snoop Dogg feat. Pharrell",
+  "producer": "The Neptunes",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": "Harpsichord 8'",
+  "role": "Harpsichord",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: The Neptunes/Pharrell Presets on the Korg Triton",
+   "url": "https://www.ktt2.com/the-neptunes-pharrell-presets-on-the-korg-triton-23803"
+  },
+  "quote": "Harpsichord 8' - Vato",
+  "quoteBy": "MrKiD",
+  "album": "Tha Blue Carpet Treatment"
+ },
+ {
+  "song": "Truth or Dare",
+  "artist": "N.E.R.D feat. Kelis & Pusha T",
+  "producer": "The Neptunes",
+  "plugin": "Korg Triton (hardware workstation)",
+  "preset": "Nylon Guitar",
+  "role": "Guitar (the first sound in the 2001 version)",
+  "confidence": "community",
+  "source": {
+   "label": "KTT2 forum: The Neptunes/Pharrell Presets on the Korg Triton",
+   "url": "https://www.ktt2.com/the-neptunes-pharrell-presets-on-the-korg-triton-23803"
+  },
+  "quote": "Nylon Guitar - Various Songs, the first sound you hear on Truth or Dare (01 Version)",
+  "quoteBy": "MrKiD",
+  "album": "In Search Of..."
  }
 ]
