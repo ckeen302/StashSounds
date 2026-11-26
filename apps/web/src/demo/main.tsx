@@ -26,6 +26,7 @@ import {
   type ResultRowProps,
 } from "@stash/ui";
 import { AppShell } from "../app/_shell/app-shell";
+import { navItems } from "../app/_shell/nav";
 import { nowPlaying } from "../app/_shell/now-playing";
 import { ItemView } from "../app/_item/item-view";
 import { buildCatalog, type Catalog } from "./data";
@@ -74,7 +75,7 @@ import { loopProfile, midiProfile } from "./search-index";
 import { match, moreLike } from "./smart-search";
 import { writeMidi } from "./midi/write";
 import { KitPage, KitsPage, KitUploadPage } from "./kits/pages";
-import { Button, Download, FilterChip, SearchInput, UiLink } from "@stash/ui";
+import { Button, Download, FilterChip, IconLink, Library as LibraryIcon, SearchInput, UiLink } from "@stash/ui";
 
 /**
  * The browser-only demo (ticket 137): the real shell, player bar, result rows, loop page and audio
@@ -1117,7 +1118,6 @@ function AllMidi() {
 
 const TABS = [
   { href: "/", name: "Home" },
-  { href: "/browse", name: "Browse" },
   { href: "/loops", name: "Loops" },
   { href: "/midi", name: "MIDI" },
   { href: "/kits", name: "Drums" },
@@ -1125,7 +1125,6 @@ const TABS = [
   { href: "/sfx", name: "SFX" },
   { href: "/presets", name: "Presets" },
   { href: "/samples", name: "Samples" },
-  { href: "/library", name: "Library" },
   { href: "/upload", name: "Upload" },
 ];
 
@@ -1155,10 +1154,17 @@ function DemoTabs() {
             </UiLink>
           </li>
         ))}
+        <li className="sticky right-0 ml-auto flex shrink-0 items-center bg-bg pl-1">
+          <IconLink href="/library" icon={LibraryIcon} label="Your crates and license receipts" aria-current={path === "/library" ? "page" : undefined} />
+        </li>
       </ul>
     </nav>
   );
 }
+
+// The demo keeps Browse and Library out of the app's rail and phone tab bar: the demo tabs list the
+// catalog, and crates and receipts sit behind the Library icon at the end of the demo tabs.
+for (let i = navItems.length - 1; i >= 0; i--) if (navItems[i]!.href === "/browse/loops" || navItems[i]!.href === "/library") navItems.splice(i, 1);
 
 function Route() {
   const path = usePath();

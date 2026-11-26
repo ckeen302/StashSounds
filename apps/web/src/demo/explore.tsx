@@ -317,7 +317,7 @@ export function ProfilePage({ handle, catalog, rows, renderLoops }: { handle: st
   if (!p) {
     return (
       <main className="mx-auto flex w-full max-w-content flex-col gap-6 px-3 py-8 tablet:px-4 desktop:px-6">
-        <EmptyState icon={User} title="No producer by that name" action={<ButtonLink href="/browse" variant="secondary">Browse sounds</ButtonLink>}>
+        <EmptyState icon={User} title="No producer by that name" action={<ButtonLink href="/loops" variant="secondary">See every loop</ButtonLink>}>
           {`The demo has no one called @${handle}.`}
         </EmptyState>
       </main>
@@ -462,7 +462,7 @@ export function NewCrateHost() {
         if (!pendingItem) return;
         if (pendingItem.meta) rememberMeta(pendingItem.id, pendingItem.meta);
         const c = createCrate(name || "New crate", pendingItem.id);
-        toast({ tone: "success", title: `Made ${c.name}`, description: `${pendingItem.title} is in it. Find it in your library.` });
+        toast({ tone: "success", title: `Made ${c.name}`, description: `${pendingItem.title} is in it. Find it under the Library icon at the top.` });
         close();
       }}
     >

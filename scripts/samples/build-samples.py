@@ -3,9 +3,20 @@
 
 Input: a JSON list of albums, each [page, album, artist, year, songs], where a song is
 [title, producers, samples] and a sample is [title, performer, year, genre, isSample, page].
-It was read from each album article's "Sample credits" section (the album's liner notes) through
+It was read from each album article's "Sample credits" section (the album's liner notes), or, for an
+article with no such section, from its bulleted sample notes for tracks on its track listing, through
 the Wikipedia API, with the sampled record's year and genre from its own article or its artist's.
+A song article can stand in for an album: [song article, album, artist, year, [the song]], read from
+sentences whose subject is the song ("The song samples "X" by Y"), with the performer taken from
+the sampled record's own article when it has one. A sampled record's article can stand in too:
+[record article, None, sampling artist, year, [[sampling song, "", [the record]]]], read from its
+Sampling section where the sentence says the record was sampled (or the list is introduced that way)
+and the sampling artist's own article lists hip hop or R&B.
 Nothing here comes from WhoSampled.
+
+YouTube videos come from Wikidata's "YouTube video ID" (P1651) on the song's own item, read for
+each song article named here (scripts/samples/wikidata-youtube.json): originals by their article,
+songs by "title|lead artist" as the album article gives them.
 
 Usage: python3 scripts/samples/build-samples.py scripts/samples/wikipedia-sample-credits.json
 """
@@ -13,6 +24,11 @@ import json, re, sys, os
 from urllib.parse import quote
 
 raw = json.load(open(sys.argv[1]))
+# MusicBrainz's "samples material" links, one row per link in the same shape, cited by recording URL;
+# the sampled record's year, genre and article come from its Wikipedia article when one matches.
+mb = os.path.join(os.path.dirname(__file__), "musicbrainz-samples.json")
+if os.path.exists(mb): raw += json.load(open(mb))
+YT = json.load(open(os.path.join(os.path.dirname(__file__), "wikidata-youtube.json")))
 out_path = os.path.join(os.path.dirname(__file__), "../../apps/web/src/demo/samples/samples.json")
 
 RULES = [
@@ -55,22 +71,28 @@ def producers(p):
     if "{{" in p: return []
     names = []
     for n in re.split(r",| and | & ", p):
-        n = n.strip()
+        n = re.sub(r"<[^>]*>.*$|\(.*$", "", n).strip()
         if n and n not in names and len(n) > 1: names.append(n)
     return names
 
 SAFE = "()_,!'"
-wiki = lambda page: "https://en.wikipedia.org/wiki/" + quote(page.replace(" ", "_"), safe=SAFE)
+wiki = lambda page: page if page.startswith("https://") else "https://en.wikipedia.org/wiki/" + quote(page.replace(" ", "_"), safe=SAFE)
 lead = lambda a: re.split(r" and | & |,| featuring | feat\. ", a)[0].lower().strip()
 norm = lambda s: re.sub(r"[^a-z0-9]", "", s.lower())
 
 songs, dropped = [], 0
+lead_js = lambda a: re.split(r" feat\.? | featuring | ft\.? | with ", a or "", flags=re.I)[0].strip()
 for page, album, artist, year, tracks in raw:
+    raw_artist = artist
+    # An infobox field the parser ran past ("| released =") is not an album name.
+    if album and re.search(r"[|=<{}]", album): album = None
     # Soundtracks and compilations credit no one artist; their songs are left out.
     if not artist or re.match(r"(?i)various", artist): continue
+    artist = re.sub(r"<!--.*?(-->|$)", "", artist).strip()
     artist = re.sub(r"^the ", "The ", artist)
     artist = artist.replace("Joey Badass", "Joey Bada$$").replace("ASAP Rocky", "A$AP Rocky").replace("Juice Wrld", "Juice WRLD")
     for title, prod, samples in tracks:
+        video = YT["songs"].get(f"{title}|{lead_js(raw_artist)}")
         title = re.sub(r"\{\{'\}\}|\{\{.*$", "", title).strip()
         if not title or "{{" in title: continue
         uses = []
@@ -88,16 +110,27 @@ for page, album, artist, year, tracks in raw:
             if oyear and year and oyear > year: oyear = None
             uses.append({"title": s_title, "artist": perf, "year": oyear, "genre": bucket(genre),
                          "type": "sample" if is_sample else "interpolation", 
-                         "page": wiki(opage) if opage else None})
+                         "page": wiki(opage) if opage else None, "video": YT["originals"].get(opage) if opage else None})
         if not uses: continue
         songs.append({"song": title, "artist": artist, "year": year, "album": album, "producers": producers(prod),
-                      "samples": uses, "sources": [{"label": f"Wikipedia: {album}, sample credits", "url": wiki(page)}]})
+                      "samples": uses, "sources": [{"label": f"Wikipedia: {album}, sample credits", "url": wiki(page)}], "video": video})
+
+# A song article credits every performer ("The Weeknd, Playboi Carti and Madonna") where an album's
+# notes name the lead ("The Weeknd"); the same record is listed once, under the shorter name.
+by_title = {}
+for x in songs:
+    for u in x["samples"]: by_title.setdefault(norm(u["title"]), set()).add(u["artist"])
+for x in songs:
+    for u in x["samples"]:
+        for a in by_title[norm(u["title"])]:
+            if len(a) < len(u["artist"]) and re.match(re.escape(a) + r"(,| and | & | featuring | feat\. | with )", u["artist"]):
+                u["artist"] = a; break
 
 # Compact rows (the file ships inside the demo bundle):
-# [song, artist, year, album, producers, album article, [[title, artist, year, genre, replayed, article]]]
+# [song, artist, year, album, producers, album article, [[title, artist, year, genre, replayed, article, video]], video]
 WIKI = "https://en.wikipedia.org/wiki/"
 rows = [[x["song"], x["artist"], x["year"], x["album"], x["producers"], x["sources"][0]["url"].removeprefix(WIKI),
-         [[u["title"], u["artist"], u["year"], u["genre"], 0 if u["type"] == "sample" else 1, (u["page"] or "").removeprefix(WIKI)] for u in x["samples"]]]
+         [[u["title"], u["artist"], u["year"], u["genre"], 0 if u["type"] == "sample" else 1, (u["page"] or "").removeprefix(WIKI), u["video"] or ""] for u in x["samples"]], x["video"] or ""]
         for x in songs]
 json.dump(rows, open(out_path, "w"), ensure_ascii=False, separators=(",", ":"))
 from collections import Counter

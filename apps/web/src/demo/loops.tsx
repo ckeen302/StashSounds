@@ -723,7 +723,7 @@ function LoopEntry({
       if (outcome === "saved") {
         set("downloads", row.id, true);
         onChange();
-        toast({ tone: "success", title: "Downloaded", description: `${name}. Its license receipt is in your library.` });
+        toast({ tone: "success", title: "Downloaded", description: `${name}. Its license receipt is under the Library icon at the top.` });
       } else if (outcome === "failed") {
         toast({ tone: "error", title: "The download did not start", description: "Try again in a moment." });
       }

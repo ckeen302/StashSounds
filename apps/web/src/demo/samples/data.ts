@@ -2,9 +2,10 @@ import RAW from "./samples.json";
 import { slugify, songKey } from "../presets/songs";
 
 /**
- * The Samples tab's data: hip-hop songs, the records each one samples, and the links between them
- * both ways (what a song samples, and what sampled it). Every song cites the Wikipedia album article
- * whose sample credits (from the liner notes) name it. Nothing comes from WhoSampled.
+ * The Samples tab's data: hip-hop and R&B songs, the records each one samples, and the links between
+ * them both ways (what a song samples, and what sampled it). Every song cites the Wikipedia article
+ * that names the sample: its album's sample credits (from the liner notes), or the song's own article.
+ * Nothing comes from WhoSampled.
  * scripts/samples/build-samples.py writes samples.json; its header says how the credits were read.
  */
 
@@ -18,6 +19,8 @@ export type SampleUse = {
   type: SampleType;
   /** The sampled record's own Wikipedia article, when it has one. */
   page: string | null;
+  /** Its YouTube video, from Wikidata's "YouTube video ID" on the song's item. */
+  video: string | null;
 };
 
 export type SampleSource = { label: string; url: string };
@@ -30,6 +33,8 @@ export type SampleSong = {
   producers: string[];
   samples: SampleUse[];
   sources: SampleSource[];
+  /** Its YouTube video, from Wikidata, when the song has its own article there. */
+  video: string | null;
   slug: string;
   key: string;
 };
@@ -40,6 +45,7 @@ export type Original = {
   artist: string;
   year: number | null;
   genre: string;
+  video: string | null;
   slug: string;
   key: string;
   uses: { song: SampleSong; use: SampleUse }[];
@@ -62,6 +68,9 @@ export type SampleProducer = {
 };
 
 const WIKI = "https://en.wikipedia.org/wiki/";
+/** A row names a Wikipedia article by its title, or another open source (MusicBrainz) by its URL. */
+const sourceUrl = (page: string) =>
+  page.startsWith("https://") ? page : WIKI + page;
 
 const flat = (x: string) =>
   x
@@ -87,7 +96,8 @@ type Row = [
   string | null,
   string[],
   string,
-  [string, string, number | null, string, number, string][],
+  [string, string, number | null, string, number, string, string?][],
+  string?,
 ];
 
 function uniqueSlugs<T extends { slug: string }>(
@@ -115,19 +125,23 @@ function build(): SampleSong[] {
     producers,
     page,
     uses,
+    video,
   ] of RAW as Row[]) {
-    const samples: SampleUse[] = uses.map(([t, a, y, g, replayed, p]) => ({
+    const samples: SampleUse[] = uses.map(([t, a, y, g, replayed, p, v]) => ({
       title: t,
       artist: a,
       year: y,
       genre: g,
       type: replayed ? "interpolation" : "sample",
-      page: p ? WIKI + p : null,
+      page: p ? sourceUrl(p) : null,
+      video: v || null,
     }));
     if (!song || !artist || !samples.length) continue;
     const source = {
-      label: `Wikipedia: ${album ?? song}, sample credits`,
-      url: WIKI + page,
+      label: page.startsWith("https://musicbrainz.org/")
+        ? `MusicBrainz: ${song}, samples`
+        : `Wikipedia: ${decodeURIComponent(page).replace(/_/g, " ")}`,
+      url: sourceUrl(page),
     };
     const key = songKey(song, artist);
     const had = by.get(key);
@@ -144,6 +158,7 @@ function build(): SampleSong[] {
         had.sources.push(source);
       had.year ??= year;
       had.album ??= album;
+      had.video ??= video || null;
       if (!had.producers.length) had.producers = producers;
       continue;
     }
@@ -155,6 +170,7 @@ function build(): SampleSong[] {
       producers,
       samples,
       sources: [source],
+      video: video || null,
       key,
       slug: "",
     });
@@ -178,11 +194,13 @@ function buildOriginals(): Original[] {
         artist: u.artist,
         year: u.year,
         genre: u.genre,
+        video: u.video,
         key,
         slug: "",
         uses: [],
       };
       o.year ??= u.year;
+      o.video ??= u.video;
       if (o.genre === "Other" && u.genre !== "Other") o.genre = u.genre;
       if (!o.uses.some((x) => x.song === s)) o.uses.push({ song: s, use: u });
       by.set(key, o);
@@ -212,6 +230,15 @@ export const originalBySlug = (slug: string) =>
   ORIGINAL_BY_SLUG.get(slug) ?? null;
 export const originalOf = (u: SampleUse) =>
   ORIGINAL_BY_KEY.get(originalKey(u.title, u.artist))!;
+// A song that is also a sampled record shares its video both ways.
+for (const s of SAMPLE_SONGS) {
+  const o = ORIGINAL_BY_KEY.get(originalKey(s.song, s.artist));
+  if (o) {
+    s.video ??= o.video;
+    o.video ??= s.video;
+  }
+}
+
 /** The same recording seen as a sampled record: who sampled this song. */
 export const asOriginal = (s: SampleSong) =>
   ORIGINAL_BY_KEY.get(originalKey(s.song, s.artist)) ?? null;
@@ -297,6 +324,19 @@ export const GENRES: [string, number][] = (() => {
 export const decadeOf = (y: number | null) =>
   y ? `${Math.floor(y / 10) * 10}s` : null;
 
-/** A YouTube search for a recording, so a producer can hear it. Opens outside the demo. */
-export const listenHref = (title: string, artist: string) =>
-  `https://www.youtube.com/results?search_query=${encodeURIComponent(`${leadArtist(artist)} ${title}`)}`;
+/**
+ * Where to hear a recording on YouTube: its own video when Wikidata names one, otherwise a search.
+ * Opens outside the demo.
+ */
+export const listenHref = (
+  title: string,
+  artist: string,
+  video?: string | null,
+) =>
+  video
+    ? `https://www.youtube.com/watch?v=${video}`
+    : `https://www.youtube.com/results?search_query=${encodeURIComponent(`${leadArtist(artist)} ${title}`)}`;
+
+/** The button text for listenHref: a video plays, a search finds. */
+export const listenLabel = (video?: string | null) =>
+  video ? "Play on YouTube" : "Find on YouTube";
