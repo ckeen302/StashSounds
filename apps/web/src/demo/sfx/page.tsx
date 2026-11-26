@@ -1,6 +1,9 @@
+import { DawDragZone } from "../daw-drag";
+import { sfxSource } from "../daw-sources";
 import { Button, Download, EmptyState, FilterChip, IconButton, PlayButton, Search, SearchInput, TagChip, useToast } from "@stash/ui";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { CrateMenu } from "../explore";
+import { CommentToggle, RowThread } from "../social";
 import {
   categoryName, downloadSfx, fileName, haystack, licenseLabel, playSfx, position, SFX, SFX_CATEGORIES, sourceLine, stop, subName, usePlaying, warm, type Sfx,
 } from "./library";
@@ -46,7 +49,7 @@ function Wave({ s, playing, onSeek }: { s: Sfx; playing: boolean; onSeek: (fract
         const r = e.currentTarget.getBoundingClientRect();
         onSeek(Math.max(0, Math.min(1, (e.clientX - r.left) / r.width)));
       }}
-      className="sfx-wave h-8 w-16 shrink-0 cursor-pointer tablet:h-10 tablet:w-28 desktop:w-56"
+      className="sfx-wave hidden h-8 w-16 shrink-0 cursor-pointer tablet:block tablet:h-10 tablet:w-28 desktop:w-56"
     >
       <svg viewBox={`0 0 ${n * 3} 24`} preserveAspectRatio="none" className="size-full">
         {s.peaks.map((p, i) => {
@@ -60,6 +63,7 @@ function Wave({ s, playing, onSeek }: { s: Sfx; playing: boolean; onSeek: (fract
 
 export function SfxPage() {
   const toast = useToast();
+  const [talk, setTalk] = useState<string | null>(null);
   const playing = usePlaying();
   const [cat, setCat] = useState<string | null>(null);
   const [sub, setSub] = useState<string | null>(null);
@@ -83,6 +87,11 @@ export function SfxPage() {
     return l;
   }, [inCat, sub, sort]);
   const visible = list.slice(0, shown);
+  // Phones have no hover to warm a row before its tap: fetch the sounds at the top of the list now.
+  const firstRows = list.slice(0, 4);
+  useEffect(() => {
+    for (const s of firstRows) warm(s); // one fetch per sprite file, however many rows share it
+  }, [firstRows.map((s) => s.id).join()]); // eslint-disable-line react-hooks/exhaustive-deps
   const current = list[Math.min(selected, Math.max(0, list.length - 1))];
 
   const pick = (c: string | null, s: string | null = null) => {
@@ -120,7 +129,7 @@ export function SfxPage() {
         e.preventDefault();
         const n = Math.max(0, Math.min(visible.length - 1, selected + (e.key === "ArrowDown" ? 1 : -1)));
         hear(n);
-        listRef.current?.children[n]?.scrollIntoView({ block: "nearest" });
+        listRef.current?.querySelectorAll(":scope > li.sfx-row")[n]?.scrollIntoView({ block: "nearest" });
       } else if (e.key === " " && current) {
         e.preventDefault();
         void playSfx(current);
@@ -207,18 +216,19 @@ export function SfxPage() {
       </div>
 
       {list.length > 0 ? (
-        <div className="overflow-hidden rounded-panel border border-border bg-surface">
+        <DawDragZone sources={visible.map(sfxSource)} className="overflow-hidden rounded-panel border border-border bg-surface">
           <ul ref={listRef} aria-label="Sound effects">
             {visible.map((s, i) => {
               const isPlaying = playing.id === s.id;
               const state = playing.loading === s.id ? "loading" : isPlaying ? "playing" : playing.error === s.id ? "error" : "paused";
+              const cid = `sfx:${s.id}`;
               return (
+                <Fragment key={s.id}>
                 <li
-                  key={s.id}
                   data-selected={s === current || undefined}
                   data-playing={isPlaying || undefined}
                   onPointerEnter={() => warm(s)}
-                  className="sfx-row flex min-h-16 items-center gap-3 border-b border-border px-3 py-2 last:border-b-0 data-selected:bg-raised ui-hover:bg-raised"
+                  className="sfx-row flex min-h-16 items-center gap-2 tablet:gap-3 border-b border-border px-3 py-2 last:border-b-0 data-selected:bg-raised ui-hover:bg-raised"
                 >
                   <PlayButton title={s.name} state={state} onPointerDown={(e) => e.button === 0 && hear(i)} onClick={(e) => e.detail === 0 && hear(i)} />
                   <button type="button" onClick={() => hear(i)} className="flex min-w-0 flex-1 flex-col text-left" aria-label={`Hear ${s.name}`}>
@@ -250,8 +260,11 @@ export function SfxPage() {
                     <span className="hidden w-14 shrink-0 desktop:block" />
                   )}
                   <IconButton icon={Download} label={`Download ${s.name}`} size="md" disabled={busy !== null} onClick={() => void grab([s], fileName(s).replace(/\.wav$/, ""), s.id)} />
-                  <CrateMenu itemId={`sfx:${s.id}`} title={s.name} kind="Sound effect" href="/sfx" size="sm" />
+                  <CommentToggle itemId={cid} title={s.name} open={talk === cid} onToggle={() => setTalk(talk === cid ? null : cid)} />
+                  <CrateMenu itemId={cid} title={s.name} kind="Sound effect" href="/sfx" size="sm" />
                 </li>
+                {talk === cid && <RowThread itemId={cid} title={s.name} />}
+                </Fragment>
               );
             })}
           </ul>
@@ -260,7 +273,7 @@ export function SfxPage() {
               <Button variant="ghost" onClick={() => setShown((n) => n + PAGE)}>{`Show more (${list.length - shown} left)`}</Button>
             </div>
           )}
-        </div>
+        </DawDragZone>
       ) : (
         <EmptyState icon={Search} title="No sound effects match">
           Try a simpler word, like roar, siren, phone or boom, or pick a category above.

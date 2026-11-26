@@ -10,7 +10,7 @@
 // including inside an Artifact frame.
 //
 // Output: apps/web/out-demo/ (gitignored)
-//   index.html  app.js  app.css  demo/media/*.mp3  demo/midi/samples.json  worklets/signalsmith-stretch-<v>.mjs
+//   index.html  app.js  chunks/*.js  app.css  demo/media/*.mp3  demo/midi/samples.json  worklets/signalsmith-stretch-<v>.mjs
 // The looks' display fonts load from Google Fonts (the one font host an Artifact frame allows).
 //
 // Usage: node scripts/build-demo-app.mjs   (runs scripts/build-demo.mjs first if the media are missing)
@@ -63,6 +63,21 @@ writeFileSync(
 );
 
 // 3. Script.
+// samples/credits.ts derives the producer credits from the whole Samples catalog. Run it here, once,
+// and bundle only its values, so the catalog itself loads with the Samples tab (see that file).
+const creditsSrc = join(demoSrc, "samples/credits.ts");
+const creditsOut = join(out, ".credits.mjs");
+await esbuild.build({ entryPoints: [creditsSrc], outfile: creditsOut, bundle: true, format: "esm", platform: "node", logLevel: "warning" });
+const credits = await import(pathToFileURL(creditsOut).href);
+rmSync(creditsOut);
+// Names repeat across thousands of songs: send each once, and the credits as [song, name numbers].
+const creditNames = [...new Set(credits.SAMPLE_CREDITS.flatMap((c) => c.producers))];
+const nameAt = new Map(creditNames.map((n, i) => [n, i]));
+const packed = credits.SAMPLE_CREDITS.map((c) => [c.index, ...c.producers.map((n) => nameAt.get(n))]);
+const creditsModule = `const names = ${JSON.stringify(creditNames)};
+export const SAMPLE_CREDITS = ${JSON.stringify(packed)}.map(([index, ...p]) => ({ index, producers: p.map((i) => names[i]) }));
+export const SAMPLE_PRODUCER_NAMES = ${JSON.stringify(credits.SAMPLE_PRODUCER_NAMES)};
+`;
 const swaps = {
   name: "demo-swaps",
   setup(build) {
@@ -117,6 +132,14 @@ if (typeof document !== "undefined") {
         loader: "tsx",
       };
     });
+    build.onLoad({ filter: /demo[\\/]samples[\\/]credits\.ts$/ }, () => ({ contents: creditsModule, loader: "js" }));
+    // zod puts every language's error messages on its namespace (z.locales), so the bundle carried
+    // all of them (about a quarter of a megabyte) though the demo shows none. Keep English only.
+    build.onLoad({ filter: /[\\/]zod[\\/]v4[\\/]locales[\\/]index\.js$/ }, (args) => {
+      const src = readFileSync(args.path, "utf8");
+      if (!src.includes('export { default as en } from "./en.js";')) throw new Error("zod locales moved; update the demo build");
+      return { contents: 'export { default as en } from "./en.js";\n', loader: "js", resolveDir: dirname(args.path) };
+    });
     build.onLoad({ filter: /packages[\\/]audio[\\/]src[\\/]web-audio\.ts$/ }, (args) => {
       const src = readFileSync(args.path, "utf8");
       const from = "export const STRETCH_WORKLET_PATH = `/worklets/signalsmith-stretch-${STRETCH_VERSION}.mjs`;";
@@ -130,7 +153,12 @@ if (typeof document !== "undefined") {
 };
 const result = await esbuild.build({
   entryPoints: [join(demoSrc, "main.tsx")],
-  outfile: join(out, "app.js"),
+  // Split: a route that loads its code with import() (the Samples tab) gets its own file under
+  // chunks/, fetched when it is first wanted, so the first paint waits only for app.js.
+  outdir: out,
+  entryNames: "app",
+  chunkNames: "chunks/[name]-[hash]",
+  splitting: true,
   bundle: true,
   format: "esm",
   platform: "browser",
@@ -143,7 +171,26 @@ const result = await esbuild.build({
   logOverride: { "unsupported-directive": "silent" },
   metafile: true,
 });
-const jsBytes = Object.values(result.metafile.outputs).reduce((n, o) => n + o.bytes, 0);
+// The chunks app.js imports statically load with it: list them as modulepreloads in the page, so
+// they download alongside app.js instead of after it. The rest (import()) load when first wanted.
+const outputs = result.metafile.outputs;
+const entryOut = Object.keys(outputs).find((f) => f.endsWith("/app.js"));
+const firstLoad = new Set();
+for (const todo = [entryOut]; todo.length; ) {
+  const f = todo.pop();
+  if (firstLoad.has(f)) continue;
+  firstLoad.add(f);
+  for (const i of outputs[f].imports) if (i.kind === "import-statement") todo.push(i.path);
+}
+firstLoad.delete(entryOut);
+const preloads = [...firstLoad].map((f) => `<link rel="modulepreload" href="${f.slice(f.lastIndexOf("/chunks/") + 1)}">`).join("\n");
+// The rest are listed for main.tsx, which prefetches them once the page has loaded and gone idle
+// (downloaded, not run), so they never compete with the first paint and the Samples tab opens at once.
+const later = Object.keys(outputs).filter((f) => f.includes("/chunks/") && f.endsWith(".js") && !firstLoad.has(f));
+const prefetches = `<script type="application/json" id="demo-later">${JSON.stringify(later.map((f) => f.slice(f.lastIndexOf("/chunks/") + 1)))}</script>`;
+const firstBytes = [...firstLoad].reduce((n, f) => n + outputs[f].bytes, 0);
+const chunkBytes = Object.entries(outputs).reduce((n, [f, o]) => (f.includes("/chunks/") && !firstLoad.has(f) ? n + o.bytes : n), 0);
+const jsBytes = outputs[entryOut].bytes + firstBytes;
 
 // 4. Files the page fetches: previews and the stretch worklet.
 for (const l of loops) {
@@ -198,8 +245,10 @@ writeFileSync(
 <link rel="stylesheet" href="app.css">
 <style>:root{color-scheme:dark}html,body{height:100%}</style>
 <div id="root"></div>
+${preloads}
 <script type="module" src="app.js"></script>
+${prefetches}
 `,
 );
 
-console.log(`demo: ${out.slice(root.length + 1)}  app.js ${(jsBytes / 1024).toFixed(0)} KB, app.css ${(readFileSync(join(out, "app.css")).length / 1024).toFixed(0)} KB, ${loops.length} loops`);
+console.log(`demo: ${out.slice(root.length + 1)}  first script ${(jsBytes / 1024).toFixed(0)} KB (+${(chunkBytes / 1024).toFixed(0)} KB loaded later), app.css ${(readFileSync(join(out, "app.css")).length / 1024).toFixed(0)} KB, ${loops.length} loops`);

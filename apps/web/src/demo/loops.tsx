@@ -1,3 +1,5 @@
+import { DawDragZone } from "./daw-drag";
+import { loopSource } from "./daw-sources";
 import { getEngine, usePlayerState } from "@stash/audio";
 import type { ItemRow, MusicalKey } from "@stash/contracts";
 import { formatKey } from "@stash/contracts/format";
@@ -593,6 +595,7 @@ export function LoopsPage({
       </div>
 
       {shown.length > 0 ? (
+        <DawDragZone sources={onPage.map((l) => loopSource(l.row))}>
         <ul
           aria-label="Loops"
           className="flex flex-col overflow-hidden rounded-panel border border-border bg-surface"
@@ -613,6 +616,7 @@ export function LoopsPage({
             />
           ))}
         </ul>
+        </DawDragZone>
       ) : (
         <div className="flex flex-col items-start gap-3 rounded-panel border border-border bg-surface p-4">
           <p className="text-body text-text-muted">

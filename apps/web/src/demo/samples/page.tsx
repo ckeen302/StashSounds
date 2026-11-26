@@ -8,6 +8,7 @@ import {
 } from "@stash/ui";
 import { useState, type ReactNode } from "react";
 import { CrateMenu } from "../explore";
+import { Comments } from "../social";
 import { songChordItems } from "../midi/catalog";
 import { albumOf, Cover, coverFor, tileStyle } from "../presets/cover";
 import { ALL_SONGS, songHref } from "../presets/songs";
@@ -364,7 +365,7 @@ function UseBadge({ u }: { u: SampleUse }) {
   );
 }
 
-function SongCard({ s }: { s: SampleSong }) {
+export function SongCard({ s }: { s: SampleSong }) {
   const sampledIn = asOriginal(s)?.uses.length ?? 0;
   return (
     <li className="h-full">
@@ -720,6 +721,8 @@ export function SampleSongPage({ slug }: { slug: string }) {
           <SongShelf title={`More samples on ${s.album}`} songs={more} />
         )}
 
+        <Comments itemId={`sample:${s.slug}`} title={`${s.song} by ${s.artist}`} />
+
         <Sources sources={s.sources} />
       </div>
     </main>
@@ -984,6 +987,7 @@ export function OriginalPage({ slug }: { slug: string }) {
             ))}
           </ul>
         </Section>
+        <Comments itemId={`sample:original:${o.slug}`} title={`${o.title} by ${o.artist}`} />
       </div>
     </main>
   );

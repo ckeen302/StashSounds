@@ -471,3 +471,8 @@ html[data-look] main h1.st-song-title { font-size: clamp(36px, 5.6vw, 72px); lin
 /* The published page's host adds its own unlayered body text color, which beats the layered theme
    rule; restate it here so headings without a color class stay light on the dark page. */
 html body { color: var(--color-text); background-color: var(--color-bg); }
+
+/* Rows that drag into a DAW (daw-drag.tsx): a grab hand on the row, the usual pointer on its controls. */
+.st-daw-row { cursor: grab; }
+.st-daw-row:active { cursor: grabbing; }
+.st-daw-row :where(button, a, input, .touch-none, [role="slider"]) { cursor: pointer; }

@@ -1,6 +1,9 @@
+import { DawDragZone } from "../daw-drag";
+import { melodicSource } from "../daw-sources";
 import { Button, Download, EmptyState, IconButton, PlayButton, SearchInput, Trash, Upload, useToast } from "@stash/ui";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { CrateMenu } from "../explore";
+import { CommentToggle, RowThread } from "../social";
 import { categoryOf, cleanName, decode } from "../kits/store";
 import { fileName, INSTRUMENTS, instrumentOf, MELODIC, mineAsMelodic, NOTE_NAMES, peaksOf, playShot, saveMelodic, warmShots, type InstrumentId, type MelodicShot } from "./melodic";
 import { postShots, removeShot, useMineVersion, type ShotDraft } from "./store";
@@ -54,6 +57,7 @@ const PILL = "os-key inline-flex h-9 shrink-0 items-center justify-center rounde
 export function OneShotsPage() {
   const mineVersion = useMineVersion();
   const toast = useToast();
+  const [talk, setTalk] = useState<string | null>(null);
   const all = useMemo(() => {
     void mineVersion;
     return [...mineAsMelodic(), ...MELODIC];
@@ -115,7 +119,7 @@ export function OneShotsPage() {
         e.preventDefault();
         const n = Math.max(0, Math.min(shots.length - 1, selected + (e.key === "ArrowDown" ? 1 : -1)));
         hear(n);
-        listRef.current?.children[n]?.scrollIntoView({ block: "nearest" });
+        listRef.current?.querySelectorAll(":scope > li.os-row")[n]?.scrollIntoView({ block: "nearest" });
       } else if (e.key === " " && current) {
         e.preventDefault();
         void playShot(current);
@@ -279,22 +283,25 @@ export function OneShotsPage() {
       </div>
 
       {shots.length > 0 ? (
-        <div className="overflow-hidden rounded-panel border border-border bg-surface">
+        <DawDragZone sources={shots.map(melodicSource)} className="overflow-hidden rounded-panel border border-border bg-surface">
           <ul ref={listRef} aria-label="One-shots">
             {shots.map((s, i) => {
               const ins = instrumentOf(s.instrument);
+              const cid = `oneshot:${s.id}`;
               return (
-                <li key={s.id} data-selected={s === current || undefined} className="os-row flex min-h-16 items-center gap-3 border-b border-border px-3 py-2 last:border-b-0 data-selected:bg-raised ui-hover:bg-raised">
+                <Fragment key={s.id}>
+                <li data-selected={s === current || undefined} className="os-row flex min-h-16 items-center gap-2 tablet:gap-3 border-b border-border px-3 py-2 last:border-b-0 data-selected:bg-raised ui-hover:bg-raised">
                   <PlayButton title={s.name} state="paused" onPointerDown={(e) => e.button === 0 && hear(i)} onClick={(e) => e.detail === 0 && hear(i)} />
                   <button type="button" onClick={() => hear(i)} className="flex min-w-0 flex-1 flex-col text-left" aria-label={`Hear ${s.name}${s.spoken ? `, ${s.spoken}` : ""}`}>
                     <span className="truncate text-body-strong text-text">{s.name}</span>
                     <span className="truncate text-small text-text-muted">{s.mine ? `${ins.label} · posted from this browser` : `${ins.label} · ${s.kind === "chord" ? `Chord, ${s.pitches.length} notes` : "Single note"}`}</span>
                   </button>
-                  {s.label && <span className="os-key inline-flex h-7 shrink-0 items-center justify-center rounded-control border border-border-strong px-2 font-mono text-small text-text">{s.label}</span>}
+                  {s.label && <span className="os-key hidden h-7 shrink-0 tablet:inline-flex items-center justify-center rounded-control border border-border-strong px-2 font-mono text-small text-text">{s.label}</span>}
                   <Wave shot={s} />
                   <span className="hidden w-14 shrink-0 text-right font-mono text-numeric tabular text-text-muted desktop:block">{seconds(s.durationMs)}</span>
                   <IconButton icon={Download} label={`Download ${s.name}`} size="md" disabled={busy !== null} onClick={() => void grab([s], fileName(s).replace(/\.\w+$/, ""))} />
-                  <CrateMenu itemId={`oneshot:${s.id}`} title={s.name} kind="One-shot" href="/one-shots" size="sm" />
+                  <CommentToggle itemId={cid} title={s.name} open={talk === cid} onToggle={() => setTalk(talk === cid ? null : cid)} />
+                  <CrateMenu itemId={cid} title={s.name} kind="One-shot" href="/one-shots" size="sm" />
                   {s.mine && (
                     <IconButton
                       icon={Trash}
@@ -307,10 +314,12 @@ export function OneShotsPage() {
                     />
                   )}
                 </li>
+                {talk === cid && <RowThread itemId={cid} title={s.name} />}
+                </Fragment>
               );
             })}
           </ul>
-        </div>
+        </DawDragZone>
       ) : (
         <EmptyState icon={Upload} title="Nothing matches">
           Try another key, clear the search, or drop your own one-shots on this page to post them.
