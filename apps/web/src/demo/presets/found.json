@@ -17767,5 +17767,312 @@
    "url": "https://www.youtube.com/watch?v=MQzJrj_dk78"
   },
   "album": "#exclusive"
+ },
+ {
+  "song": "X",
+  "artist": "Alan Walker",
+  "plugin": "reFX Nexus",
+  "preset": "Chillin House Lounge 2",
+  "role": "Not stated (the one preset listed)",
+  "confidence": "community",
+  "quote": "Track 1: X (Preset: XP House vol.1 - Chillin House Lounge 2)",
+  "quoteBy": "Flen Plnens (YouTube preset showcase description)",
+  "source": {
+   "label": "YouTube: The Nexus Presets Behind Alan Walker’s Early Tracks (FL Studio)",
+   "url": "https://www.youtube.com/watch?v=qUCFjXqUZTI"
+  }
+ },
+ {
+  "song": "Flying Dreams",
+  "artist": "Alan Walker",
+  "plugin": "reFX Nexus",
+  "preset": "GT Guitar Ballad 1 C",
+  "role": "Guitar (one of two presets listed)",
+  "confidence": "community",
+  "quote": "Flying Dreams (Preset: Single Layer Sequences - GT Guitar Ballad 1 C & DL Guitar Ballad 1 A)",
+  "quoteBy": "Flen Plnens (YouTube preset showcase description)",
+  "source": {
+   "label": "YouTube: The Nexus Presets Behind Alan Walker’s Early Tracks (FL Studio)",
+   "url": "https://www.youtube.com/watch?v=qUCFjXqUZTI"
+  }
+ },
+ {
+  "song": "Flying Dreams",
+  "artist": "Alan Walker",
+  "plugin": "reFX Nexus",
+  "preset": "DL Guitar Ballad 1 A",
+  "role": "Guitar (one of two presets listed)",
+  "confidence": "community",
+  "quote": "Flying Dreams (Preset: Single Layer Sequences - GT Guitar Ballad 1 C & DL Guitar Ballad 1 A)",
+  "quoteBy": "Flen Plnens (YouTube preset showcase description)",
+  "source": {
+   "label": "YouTube: The Nexus Presets Behind Alan Walker’s Early Tracks (FL Studio)",
+   "url": "https://www.youtube.com/watch?v=qUCFjXqUZTI"
+  }
+ },
+ {
+  "song": "Energy",
+  "artist": "Alan Walker",
+  "plugin": "reFX Nexus",
+  "preset": "SQ Tribal Gee",
+  "role": "Not stated (the one preset listed)",
+  "confidence": "community",
+  "quote": "Track 3: Energy (Preset: Splits and Sequences - SQ Tribal Gee)",
+  "quoteBy": "Flen Plnens (YouTube preset showcase description)",
+  "source": {
+   "label": "YouTube: The Nexus Presets Behind Alan Walker’s Early Tracks (FL Studio)",
+   "url": "https://www.youtube.com/watch?v=qUCFjXqUZTI"
+  }
+ },
+ {
+  "song": "Burn",
+  "artist": "Alan Walker",
+  "plugin": "reFX Nexus",
+  "preset": "TG Secret Land",
+  "role": "Not stated (one of two presets listed)",
+  "confidence": "community",
+  "quote": "Burn & Burn 2.0 (Preset: XP Dance Vol.3 TG Secret Land & Piano - PN Ballad Grand Piano)",
+  "quoteBy": "Flen Plnens (YouTube preset showcase description)",
+  "source": {
+   "label": "YouTube: The Nexus Presets Behind Alan Walker’s Early Tracks (FL Studio)",
+   "url": "https://www.youtube.com/watch?v=qUCFjXqUZTI"
+  }
+ },
+ {
+  "song": "Burn",
+  "artist": "Alan Walker",
+  "plugin": "reFX Nexus",
+  "preset": "PN Ballad Grand Piano",
+  "role": "Piano",
+  "confidence": "community",
+  "quote": "Burn & Burn 2.0 (Preset: XP Dance Vol.3 TG Secret Land & Piano - PN Ballad Grand Piano)",
+  "quoteBy": "Flen Plnens (YouTube preset showcase description)",
+  "source": {
+   "label": "YouTube: The Nexus Presets Behind Alan Walker’s Early Tracks (FL Studio)",
+   "url": "https://www.youtube.com/watch?v=qUCFjXqUZTI"
+  }
+ },
+ {
+  "song": "Orinoco Flow",
+  "artist": "Enya",
+  "producer": "Nicky Ryan",
+  "plugin": "Roland D-50 (hardware)",
+  "preset": "Pizzagogo",
+  "role": "Pizzicato strings, the central melodic motif",
+  "confidence": "press",
+  "quote": "buoyed by the pizzicato string factory preset “Pizzagogo,” which appears throughout the track",
+  "quoteBy": "Adam Douglas, Roland Articles",
+  "source": {
+   "label": "Roland Articles: Listening Guide: Sounds of the D-50",
+   "url": "https://articles.roland.com/listening-guide-sounds-of-the-d-50/"
+  },
+  "album": "Watermark"
+ },
+ {
+  "song": "Bad Love",
+  "artist": "Eric Clapton",
+  "producer": "Russ Titelman",
+  "plugin": "Roland D-50 (hardware)",
+  "preset": "O K Chorale",
+  "role": "Intro",
+  "confidence": "press",
+  "quote": "Eric Clapton lassoed “O K Chorale” for the introduction to “Bad Love”",
+  "quoteBy": "Adam Douglas, Roland Articles",
+  "source": {
+   "label": "Roland Articles: Listening Guide: Sounds of the D-50",
+   "url": "https://articles.roland.com/listening-guide-sounds-of-the-d-50/"
+  },
+  "album": "Journeyman"
+ },
+ {
+  "song": "Father Figure",
+  "artist": "George Michael",
+  "producer": "George Michael",
+  "plugin": "Roland D-50 (hardware), PN-D50-01 card",
+  "preset": "Wabi Sabi",
+  "role": "Not stated",
+  "confidence": "press",
+  "quote": "George Michael used another patch from the same card, “Wabi Sabi,” in “Father Figure.”",
+  "quoteBy": "Adam Douglas, Roland Articles",
+  "source": {
+   "label": "Roland Articles: Listening Guide: Sounds of the D-50",
+   "url": "https://articles.roland.com/listening-guide-sounds-of-the-d-50/"
+  },
+  "album": "Faith"
+ },
+ {
+  "song": "Vanishing Point",
+  "artist": "New Order",
+  "producer": "New Order",
+  "plugin": "Roland D-50 (hardware)",
+  "preset": "Fantasia",
+  "role": "Main melody",
+  "confidence": "press",
+  "quote": "they made deft use of the D-50 on “Vanishing Point” for the main melody. Their patch of choice? Why, “Fantasia,”",
+  "quoteBy": "Adam Douglas, Roland Articles",
+  "source": {
+   "label": "Roland Articles: Listening Guide: Sounds of the D-50",
+   "url": "https://articles.roland.com/listening-guide-sounds-of-the-d-50/"
+  },
+  "album": "Technique"
+ },
+ {
+  "song": "Ode to Don Jose",
+  "artist": "Art of Noise",
+  "producer": "Art of Noise",
+  "plugin": "Roland D-50 (hardware)",
+  "preset": "O K Chorale",
+  "role": "Support under the sampled-voice melody",
+  "confidence": "press",
+  "quote": "the “O K Chorale” patch supporting the main sampled-voice melody",
+  "quoteBy": "Adam Douglas, Roland Articles",
+  "source": {
+   "label": "Roland Articles: Listening Guide: Sounds of the D-50",
+   "url": "https://articles.roland.com/listening-guide-sounds-of-the-d-50/"
+  },
+  "album": "In No Sense? Nonsense!"
+ },
+ {
+  "song": "Damn U",
+  "artist": "Prince",
+  "producer": "Prince",
+  "plugin": "Roland JD-800 (hardware)",
+  "preset": "Crystal Rhodes",
+  "role": "Electric piano",
+  "confidence": "producer",
+  "quote": "The ‘Crystal Rhodes’ patch is on ‘Damn U,’",
+  "quoteBy": "Tommy Barbarella, Prince's keyboardist (quoted by Roland Articles)",
+  "source": {
+   "label": "Roland Articles: Listening Guide: Prince in the ’90s",
+   "url": "https://articles.roland.com/listening-guide-prince-in-the-90s/"
+  },
+  "album": "[Love Symbol]"
+ },
+ {
+  "song": "Children",
+  "artist": "Robert Miles",
+  "producer": "Robert Miles",
+  "plugin": "Kurzweil K2000 (hardware)",
+  "preset": "Thunder",
+  "role": "Not stated",
+  "confidence": "community",
+  "quote": "he even used the great K2000 “Thunder” patch in this song",
+  "quoteBy": "Synthmania, Famous Sounds",
+  "source": {
+   "label": "Synthmania: Famous Sounds",
+   "url": "https://synthmania.com/Famous-Sounds/"
+  },
+  "album": "Dreamland"
+ },
+ {
+  "song": "Violet",
+  "artist": "Seal",
+  "producer": "Trevor Horn",
+  "plugin": "Roland D-50 (hardware)",
+  "preset": "Soundtrack",
+  "role": "Chorused, filter-swept sawtooth fifth",
+  "confidence": "community",
+  "quote": "Easily spotted on Seal’s “Violet” from Seal",
+  "quoteBy": "Synthmania, Famous Sounds (quoting Keyboard magazine, Oct 1995, for the D-50 entries)",
+  "source": {
+   "label": "Synthmania: Famous Sounds",
+   "url": "https://synthmania.com/Famous-Sounds/"
+  },
+  "album": "Seal"
+ },
+ {
+  "song": "America",
+  "artist": "Gary Numan",
+  "producer": "Gary Numan",
+  "plugin": "Roland D-50 (hardware)",
+  "preset": "Soundtrack",
+  "role": "Chorused, filter-swept sawtooth fifth",
+  "confidence": "community",
+  "quote": "Easily spotted on Seal’s “Violet” from Seal and Gary Numan’s “America” from New Anger.",
+  "quoteBy": "Synthmania, Famous Sounds (quoting Keyboard magazine, Oct 1995, for the D-50 entries)",
+  "source": {
+   "label": "Synthmania: Famous Sounds",
+   "url": "https://synthmania.com/Famous-Sounds/"
+  },
+  "album": "New Anger"
+ },
+ {
+  "song": "Devious",
+  "artist": "Gary Numan",
+  "producer": "Gary Numan",
+  "plugin": "Roland D-50 (hardware)",
+  "preset": "DigitalNativeDance",
+  "role": "Opening",
+  "confidence": "community",
+  "quote": "this preset opens countless songs. At the beginning of Miles Davis’s “Catémbe” (from Amandla) and Gary Numan’s “Devious”",
+  "quoteBy": "Synthmania, Famous Sounds (quoting Keyboard magazine, Oct 1995, for the D-50 entries)",
+  "source": {
+   "label": "Synthmania: Famous Sounds",
+   "url": "https://synthmania.com/Famous-Sounds/"
+  },
+  "album": "New Anger"
+ },
+ {
+  "song": "Cold Metal Rhythm",
+  "artist": "Gary Numan",
+  "producer": "Gary Numan",
+  "plugin": "Roland D-50 (hardware)",
+  "preset": "Fantasia",
+  "role": "Not stated",
+  "confidence": "community",
+  "quote": "he also used the Fantasia preset on the song “Cold Metal Rhythm.”",
+  "quoteBy": "Synthmania, Famous Sounds (quoting Keyboard magazine, Oct 1995, for the D-50 entries)",
+  "source": {
+   "label": "Synthmania: Famous Sounds",
+   "url": "https://synthmania.com/Famous-Sounds/"
+  },
+  "album": "New Anger"
+ },
+ {
+  "song": "Catembe",
+  "artist": "Miles Davis",
+  "producer": "Marcus Miller",
+  "plugin": "Roland D-50 (hardware)",
+  "preset": "DigitalNativeDance",
+  "role": "Opening",
+  "confidence": "community",
+  "quote": "At the beginning of Miles Davis’s “Catémbe” (from Amandla) and Gary Numan’s “Devious” (from New Anger), it’s even the same note.",
+  "quoteBy": "Synthmania, Famous Sounds (quoting Keyboard magazine, Oct 1995, for the D-50 entries)",
+  "source": {
+   "label": "Synthmania: Famous Sounds",
+   "url": "https://synthmania.com/Famous-Sounds/"
+  },
+  "album": "Amandla"
+ },
+ {
+  "song": "Pussycat Meow",
+  "artist": "Deee-Lite",
+  "producer": "Deee-Lite",
+  "plugin": "Yamaha TX81Z (hardware)",
+  "preset": "Lately Bass",
+  "role": "Bass",
+  "confidence": "community",
+  "quote": "For Rap, Hip-Hop or House, you can’t go wrong by using it. Check out Deee-Lite’s “Pussycat Meow”",
+  "quoteBy": "Synthmania, Famous Sounds",
+  "source": {
+   "label": "Synthmania: Famous Sounds",
+   "url": "https://synthmania.com/Famous-Sounds/"
+  },
+  "album": "Infinity Within"
+ },
+ {
+  "song": "Please Don't Go",
+  "artist": "Double You",
+  "plugin": "Korg M1 (hardware)",
+  "preset": "17 Organ2",
+  "role": "Organ",
+  "confidence": "community",
+  "quote": "The mythical “17 Organ2” preset on the M1 defined House music of the early 1990s. Listen for example to Double You’s version",
+  "quoteBy": "Synthmania, Famous Sounds",
+  "source": {
+   "label": "Synthmania: Famous Sounds",
+   "url": "https://synthmania.com/Famous-Sounds/"
+  },
+  "album": "We All Need Love"
  }
 ]

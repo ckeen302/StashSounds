@@ -10310,5 +10310,117 @@
    "label": "Deezer, #exclusive",
    "url": "https://www.deezer.com/album/681812181"
   }
+ },
+ "orinoco flow|enya": {
+  "file": "covers/orinoco-flow-enya.jpg",
+  "album": "Watermark",
+  "source": {
+   "label": "Deezer, Watermark",
+   "url": "https://www.deezer.com/album/341035"
+  }
+ },
+ "bad love|eric clapton": {
+  "file": "covers/bad-love-eric-clapton.jpg",
+  "album": "Journeyman",
+  "source": {
+   "label": "Deezer, Journeyman",
+   "url": "https://www.deezer.com/album/359536777"
+  }
+ },
+ "father figure|george michael": {
+  "file": "covers/father-figure-george-michael.jpg",
+  "album": "Faith",
+  "source": {
+   "label": "Deezer, Faith",
+   "url": "https://www.deezer.com/album/751664"
+  }
+ },
+ "vanishing point|new order": {
+  "file": "covers/vanishing-point-new-order.jpg",
+  "album": "Technique",
+  "source": {
+   "label": "Deezer, Technique",
+   "url": "https://www.deezer.com/album/11234144"
+  }
+ },
+ "ode to don jose|art of noise": {
+  "file": "covers/ode-to-don-jose-art-of-noise.jpg",
+  "album": "In No Sense? Nonsense!",
+  "source": {
+   "label": "Deezer, In No Sense? Nonsense!",
+   "url": "https://www.deezer.com/album/10232384"
+  }
+ },
+ "damn u|prince": {
+  "file": "covers/damn-u-prince.jpg",
+  "album": "[Love Symbol]",
+  "source": {
+   "label": "Deezer, [Love Symbol]",
+   "url": "https://www.deezer.com/album/192386942"
+  }
+ },
+ "children|robert miles": {
+  "file": "covers/children-robert-miles.jpg",
+  "album": "Dreamland",
+  "source": {
+   "label": "Deezer, Dreamland",
+   "url": "https://www.deezer.com/album/861280702"
+  }
+ },
+ "violet|seal": {
+  "file": "covers/violet-seal.jpg",
+  "album": "Seal",
+  "source": {
+   "label": "Deezer, Seal",
+   "url": "https://www.deezer.com/album/86422"
+  }
+ },
+ "america|gary numan": {
+  "file": "covers/america-gary-numan.jpg",
+  "album": "New Anger",
+  "source": {
+   "label": "Deezer, New Anger",
+   "url": "https://www.deezer.com/album/328929"
+  }
+ },
+ "devious|gary numan": {
+  "file": "covers/devious-gary-numan.jpg",
+  "album": "New Anger",
+  "source": {
+   "label": "Deezer, New Anger",
+   "url": "https://www.deezer.com/album/328929"
+  }
+ },
+ "cold metal rhythm|gary numan": {
+  "file": "covers/cold-metal-rhythm-gary-numan.jpg",
+  "album": "New Anger",
+  "source": {
+   "label": "Deezer, New Anger",
+   "url": "https://www.deezer.com/album/328929"
+  }
+ },
+ "catembe|miles davis": {
+  "file": "covers/catembe-miles-davis.jpg",
+  "album": "Amandla",
+  "source": {
+   "label": "Deezer, Amandla",
+   "url": "https://www.deezer.com/album/400627"
+  }
+ },
+ "pussycat meow|deee-lite": {
+  "file": "covers/pussycat-meow-deee-lite.jpg",
+  "album": "Infinity Within",
+  "source": {
+   "label": "Deezer, Infinity Within",
+   "url": "https://www.deezer.com/album/381379"
+  }
+ },
+ "please don't go|double you": {
+  "file": "covers/please-don-t-go-double-you.jpg",
+  "album": "We All Need Love",
+  "source": {
+   "label": "Deezer, We All Need Love",
+   "url": "https://www.deezer.com/album/866136572"
+  }
  }
 }
