@@ -18153,5 +18153,751 @@
    "url": "https://www.gearnews.com/the-story-of-sararr/"
   },
   "album": "The Tipping Point"
+ },
+ {
+  "song": "Remember the Time",
+  "artist": "Michael Jackson",
+  "producer": "Teddy Riley, Michael Jackson",
+  "plugin": "Roland D-50 (hardware)",
+  "preset": "Nylon Atmosphere",
+  "role": "Main sound",
+  "confidence": "press",
+  "quote": "You know the main sound on “Remember The Time?” There was a sound called Nylon Atmosphere.",
+  "quoteBy": "Rodney “Darkchild” Jerkins, Roland Articles",
+  "source": {
+   "label": "Roland Articles: A Few Minutes with Rodney “Darkchild” Jerkins",
+   "url": "https://articles.roland.com/a-few-minutes-with-rodney-darkchild-jerkins/"
+  },
+  "album": "Dangerous"
+ },
+ {
+  "song": "You Remind Me",
+  "artist": "Mary J. Blige",
+  "plugin": "Roland D-50 (hardware)",
+  "preset": "Nylon Atmosphere",
+  "role": "Opening sound",
+  "confidence": "press",
+  "quote": "It’s the first sound that comes on in Mary J. Blige’s “You Remind Me.”",
+  "quoteBy": "Rodney “Darkchild” Jerkins, Roland Articles",
+  "source": {
+   "label": "Roland Articles: A Few Minutes with Rodney “Darkchild” Jerkins",
+   "url": "https://articles.roland.com/a-few-minutes-with-rodney-darkchild-jerkins/"
+  },
+  "album": "What's the 411?"
+ },
+ {
+  "song": "Right Here (Human Nature Remix)",
+  "artist": "SWV",
+  "plugin": "Roland D-50 (hardware)",
+  "preset": "Nylon Atmosphere",
+  "role": "Not stated",
+  "confidence": "press",
+  "quote": "The “Human Nature” remix with SWV also has Nylon Atmosphere in it.",
+  "quoteBy": "Rodney “Darkchild” Jerkins, Roland Articles",
+  "source": {
+   "label": "Roland Articles: A Few Minutes with Rodney “Darkchild” Jerkins",
+   "url": "https://articles.roland.com/a-few-minutes-with-rodney-darkchild-jerkins/"
+  },
+  "album": "Right Here"
+ },
+ {
+  "song": "Sunchyme",
+  "artist": "Dario G",
+  "producer": "Dario G (Paul Spencer, Scott Rosser, Stephen Spencer)",
+  "plugin": "Yamaha CS1x (hardware)",
+  "preset": "044 Mega Hook",
+  "role": "Steel-drum-like hook (filtered, layered with a Korg X2 steel drum)",
+  "confidence": "producer",
+  "quote": "Preset 044 from their Yamaha CS1x synth, 'Mega Hook', which sounded remarkably like a steel drum when they filtered it.",
+  "quoteBy": "Matt Bell, Sound On Sound",
+  "source": {
+   "label": "Sound On Sound: Dario G, Recording SunMachine (October 1998)",
+   "url": "https://www.soundonsound.com/people/dario-g-recording-sunmachine"
+  },
+  "album": "Sunmachine"
+ },
+ {
+  "song": "Sunchyme",
+  "artist": "Dario G",
+  "producer": "Dario G (Paul Spencer, Scott Rosser, Stephen Spencer)",
+  "plugin": "Yamaha CS1x (hardware)",
+  "preset": "056 Bass Sine",
+  "role": "Bass (sampled from the CS1x into an Akai sampler)",
+  "confidence": "producer",
+  "quote": "the trio's Akai sampler provided the bass sound, which had been sampled from the CS1x (Preset 056, 'Bass Sine')",
+  "quoteBy": "Matt Bell, Sound On Sound",
+  "source": {
+   "label": "Sound On Sound: Dario G, Recording SunMachine (October 1998)",
+   "url": "https://www.soundonsound.com/people/dario-g-recording-sunmachine"
+  },
+  "album": "Sunmachine"
+ },
+ {
+  "song": "Pure & Simple",
+  "artist": "Hear'Say",
+  "producer": "Tim Hawes, Pete Kirtley",
+  "plugin": "Roland JV-1080 (hardware)",
+  "preset": "Booster Bips",
+  "role": "Squelchy verse bass (layered with a Studio Electronics SE1 bass)",
+  "confidence": "producer",
+  "quote": "a combination of a bass from the Studio Electronics SE1, and a patch from the Roland JV1080 called 'Booster Bips'",
+  "quoteBy": "Pete Kirtley, Sound On Sound",
+  "source": {
+   "label": "Sound On Sound: Tim Hawes & Pete Kirtley, Writing & Recording Hear'Say's 'Pure & Simple' (May 2001)",
+   "url": "https://www.soundonsound.com/people/tim-hawes-pete-kirtley-writing-recording-hearsays-pure-simple"
+  },
+  "album": "Popstars"
+ },
+ {
+  "song": "What's Love Got to Do with It",
+  "artist": "Tina Turner",
+  "producer": "Terry Britten",
+  "plugin": "Yamaha DX7 (hardware)",
+  "preset": "18 HARMONICA1",
+  "role": "Harmonica",
+  "confidence": "community",
+  "quote": "This preset was used in a VERY FAMOUS hit song of the '80s:  Tina Turner's \"What's Love Got To Do With It?\"",
+  "quoteBy": "Synthmania",
+  "source": {
+   "label": "Synthmania: Yamaha DX7",
+   "url": "https://www.synthmania.com/dx7.htm"
+  },
+  "album": "Private Dancer"
+ },
+ {
+  "song": "greedy",
+  "artist": "Tate McRae",
+  "producer": "Ryan Tedder, Grant Boutin",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Hang Drum Sugar Packets",
+  "role": "Hang drum / shaker part",
+  "confidence": "press",
+  "quote": "it’s a patch from this famous software synth - Hang Drum Sugar Packets - that Tedder is talking about",
+  "quoteBy": "MusicRadar",
+  "source": {
+   "label": "MusicRadar: Ryan Tedder on the SexyBack snare and the Omnisphere preset in Tate McRae's Greedy",
+   "url": "https://www.musicradar.com/artists/pretty-sure-thats-the-sexyback-snare-timbaland-thank-you-producer-ryan-tedder-on-picking-up-a-classic-00s-drum-sound-and-using-it-in-tate-mcraes-greedy-and-the-omnisphere-preset-that-features-throughout"
+  },
+  "album": "THINK LATER"
+ },
+ {
+  "song": "Cars",
+  "artist": "Gary Numan",
+  "producer": "Gary Numan",
+  "plugin": "Moog Polymoog 280A (hardware)",
+  "preset": "Vox Humana",
+  "role": "Lingering high string part",
+  "confidence": "producer",
+  "quote": "The first preset on the Polymoog 280A, Vox Humana features prominently in Gary Numan's Cars.",
+  "quoteBy": "MusicRadar (quoting Gary Numan to Synth History)",
+  "source": {
+   "label": "MusicRadar: UJAM's Vox Humana captures the classic Polymoog preset from Gary Numan's Cars",
+   "url": "https://www.musicradar.com/music-tech/i-love-that-sound-its-the-reason-i-bought-a-polymoog-ujams-vox-humana-faithfully-captures-the-classic-polymoog-preset-from-gary-numans-cars"
+  },
+  "album": "The Pleasure Principle"
+ },
+ {
+  "song": "Mentasm",
+  "artist": "Second Phase",
+  "producer": "Joey Beltram, Mundo Muzique",
+  "plugin": "Roland Alpha Juno (hardware)",
+  "preset": "What the",
+  "role": "Hoover sound",
+  "confidence": "press",
+  "quote": "the so-called Hoover sound ... (check out Second Phase's Mentasm and Human Resource's Dominator). It was created, unknowingly, by Eric Persing",
+  "quoteBy": "MusicRadar (quoting Eric Persing)",
+  "source": {
+   "label": "MusicRadar: Eric Persing didn't know he'd created a classic Roland synth preset (the Hoover)",
+   "url": "https://www.musicradar.com/music-tech/synths/whats-a-hoover-sound-designer-eric-persing-didnt-know-hed-created-a-classic-roland-synth-preset-until-he-was-asked-to-make-it-again"
+  }
+ },
+ {
+  "song": "Dominator",
+  "artist": "Human Resource",
+  "plugin": "Roland Alpha Juno (hardware)",
+  "preset": "What the",
+  "role": "Hoover sound",
+  "confidence": "press",
+  "quote": "the so-called Hoover sound ... (check out Second Phase's Mentasm and Human Resource's Dominator). It was created, unknowingly, by Eric Persing",
+  "quoteBy": "MusicRadar (quoting Eric Persing)",
+  "source": {
+   "label": "MusicRadar: Eric Persing didn't know he'd created a classic Roland synth preset (the Hoover)",
+   "url": "https://www.musicradar.com/music-tech/synths/whats-a-hoover-sound-designer-eric-persing-didnt-know-hed-created-a-classic-roland-synth-preset-until-he-was-asked-to-make-it-again"
+  },
+  "album": "Dominator"
+ },
+ {
+  "song": "Bar A Thym",
+  "artist": "Kerri Chandler",
+  "producer": "Kerri Chandler",
+  "plugin": "Korg Polysix (hardware)",
+  "preset": "Brave Arp",
+  "role": "Synth riff",
+  "confidence": "press",
+  "quote": "Wikipedia cites that in the song, the Jersey legend wields the ‘Brave Arp’ preset of the KORG Polysix.",
+  "quoteBy": "Splice Blog (citing Wikipedia)",
+  "source": {
+   "label": "Splice Blog: 6 iconic songs that use KORG synthesizers",
+   "url": "https://splice.com/blog/iconic-songs-korg-synthesizers/"
+  },
+  "album": "Bar A Thym"
+ },
+ {
+  "song": "Take on Me",
+  "artist": "a-ha",
+  "plugin": "Yamaha DX7 (hardware)",
+  "preset": "15 BASS 1",
+  "role": "Slap bass (through a chorus effect)",
+  "confidence": "press",
+  "quote": "The slap bass sound in a-ha’s Take on Me is the DX7’s 15-Bass 1 patch run through a chorus effect.",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Exploring The Yamaha DX7, Part Two: Songs",
+   "url": "https://reverbmachine.com/blog/exploring-the-yamaha-dx7-pt2/"
+  },
+  "album": "Hunting High and Low"
+ },
+ {
+  "song": "Take on Me",
+  "artist": "a-ha",
+  "plugin": "Yamaha DX7 (hardware)",
+  "preset": "02 SYN-LEAD 3",
+  "role": "Lead hook (DX7 layer, doubled with a Juno-60)",
+  "confidence": "press",
+  "quote": "The DX7 patch is 02 Syn-Lead 3",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Exploring The Yamaha DX7, Part Two: Songs",
+   "url": "https://reverbmachine.com/blog/exploring-the-yamaha-dx7-pt2/"
+  },
+  "album": "Hunting High and Low"
+ },
+ {
+  "song": "Who Wants to Live Forever",
+  "artist": "Queen",
+  "plugin": "Yamaha DX7 (hardware)",
+  "preset": "14 SYN-ORCH",
+  "role": "Intro orchestral pad",
+  "confidence": "press",
+  "quote": "the patch 14-SYN-ORCH for the intro of Who Wants to Live Forever",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Exploring The Yamaha DX7, Part Two: Songs",
+   "url": "https://reverbmachine.com/blog/exploring-the-yamaha-dx7-pt2/"
+  },
+  "album": "A Kind of Magic"
+ },
+ {
+  "song": "Twin Peaks Theme",
+  "artist": "Angelo Badalamenti",
+  "producer": "Angelo Badalamenti",
+  "plugin": "Yamaha DX7 (hardware)",
+  "preset": "11 E.PIANO 1",
+  "role": "Soft electric piano",
+  "confidence": "press",
+  "quote": "The patch in the theme is the DX’s most famous sound: the E.Piano 1 preset, which is factory preset 11.",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Exploring The Yamaha DX7, Part Two: Songs",
+   "url": "https://reverbmachine.com/blog/exploring-the-yamaha-dx7-pt2/"
+  },
+  "album": "Soundtrack from Twin Peaks"
+ },
+ {
+  "song": "Mood",
+  "artist": "Porches",
+  "producer": "Aaron Maine",
+  "plugin": "Yamaha DX7 (hardware)",
+  "preset": "11 E.PIANO 1",
+  "role": "Intro synth lead",
+  "confidence": "press",
+  "quote": "The patch is the DX7’s 11. E.PIANO 1 sound, a famous factory preset",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Porches Synth Sounds",
+   "url": "https://reverbmachine.com/blog/porches-synth-sounds/"
+  },
+  "album": "Pool"
+ },
+ {
+  "song": "Veridis Quo",
+  "artist": "Daft Punk",
+  "producer": "Daft Punk",
+  "plugin": "Yamaha DX7 (hardware)",
+  "preset": "ROM2A 02 FLUTE 2",
+  "role": "Flute melody (likely via sampled DX7 patches)",
+  "confidence": "press",
+  "quote": "The flute sound is the Yamaha DX7 factory preset Rom2A 02-Flute 2",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Daft Punk's \"Discovery\" Synth Sounds",
+   "url": "https://reverbmachine.com/blog/daft-punk-discovery-synth-sounds/"
+  },
+  "album": "Discovery"
+ },
+ {
+  "song": "Veridis Quo",
+  "artist": "Daft Punk",
+  "producer": "Daft Punk",
+  "plugin": "Yamaha DX7 (hardware)",
+  "preset": "ROM1B 17 PIPES 2",
+  "role": "Chords under the flute",
+  "confidence": "press",
+  "quote": "the chord sound beneath it is Rom1B 17-Pipes 2",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Daft Punk's \"Discovery\" Synth Sounds",
+   "url": "https://reverbmachine.com/blog/daft-punk-discovery-synth-sounds/"
+  },
+  "album": "Discovery"
+ },
+ {
+  "song": "The Simpsons Main Title Theme",
+  "artist": "Danny Elfman",
+  "producer": "Danny Elfman",
+  "plugin": "Roland D-50 (hardware)",
+  "preset": "D-50 Voices",
+  "role": "Opening choir",
+  "confidence": "press",
+  "quote": "the patch D-50 Voices was used by Danny Elfman to open the Simpsons Main Title Theme",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Exploring The Roland D-50",
+   "url": "https://reverbmachine.com/blog/exploring-the-roland-d-50-synth/"
+  }
+ },
+ {
+  "song": "Show Me Love",
+  "artist": "Robin S",
+  "plugin": "Korg M1 (hardware)",
+  "preset": "Organ 2",
+  "role": "Organ bassline",
+  "confidence": "press",
+  "quote": "The Korg M1's 'Organ 2' preset became a staple for many a classic dancefloor anthem in the 90s, including Robin S's hit Show Me Love.",
+  "quoteBy": "MusicRadar",
+  "source": {
+   "label": "MusicRadar: How to create a Korg M1-style organ bass sound",
+   "url": "https://www.musicradar.com/tuition/tech/how-to-create-a-korg-m1-style-organ-bass-sound-642650"
+  },
+  "album": "Show Me Love"
+ },
+ {
+  "song": "Gypsy Woman (She's Homeless)",
+  "artist": "Crystal Waters",
+  "plugin": "Korg M1 (hardware)",
+  "preset": "Organ 2",
+  "role": "Organ riff",
+  "confidence": "community",
+  "quote": "it also includes the unmistakable ‘Organ2’ preset from the legendary Korg M1 from 1988",
+  "quoteBy": "Devin Gademan",
+  "source": {
+   "label": "Devin Gademan: Playing Gypsy Woman By Crystal Waters On The Legendary Korg M1",
+   "url": "https://www.devingademan.com/writings/playing-gypsy-woman-by-crystal-waters-on-the-legendary-korg-m1/"
+  },
+  "album": "Surprise"
+ },
+ {
+  "song": "Fuckumean",
+  "artist": "Bermuda Yae",
+  "producer": "Pi'erre Bourne",
+  "plugin": "u-he Repro-1",
+  "preset": "GK Tangerine Seq",
+  "role": "Arp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How Pi'erre Bourne Made the Beat for \"Fuckumean\" by Bermuda Yae",
+   "url": "https://www.youtube.com/watch?v=ii57C4HT-gI"
+  },
+  "quote": "Arp: Repro-1 - 07 Seq - Melodic - GK Tangerine Seq",
+  "quoteBy": "djeybeats",
+  "path": "07 Seq - Melodic"
+ },
+ {
+  "song": "Fuckumean",
+  "artist": "Bermuda Yae",
+  "producer": "Pi'erre Bourne",
+  "plugin": "u-he Repro-1",
+  "preset": "EH Perpetual Soloist Lead",
+  "role": "Brass",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How Pi'erre Bourne Made the Beat for \"Fuckumean\" by Bermuda Yae",
+   "url": "https://www.youtube.com/watch?v=ii57C4HT-gI"
+  },
+  "quote": "Brass: Repro-1 - Leads - EH Perpetual Soloist Lead",
+  "quoteBy": "djeybeats",
+  "path": "Leads"
+ },
+ {
+  "song": "Perculator",
+  "artist": "Chavo",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Synapse Audio DUNE 2",
+  "preset": "Fantasy Trip ST",
+  "role": "Arp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How \"Perculator\" by Chavo was made (Prod. Pi'erre Bourne)",
+   "url": "https://www.youtube.com/watch?v=nfwiK5gVeTM"
+  },
+  "quote": "Dune 2 - Arp - Fantasy Trip ST",
+  "quoteBy": "djeybeats",
+  "path": "Arp"
+ },
+ {
+  "song": "Perculator",
+  "artist": "Chavo",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Synapse Audio DUNE 2",
+  "preset": "Oceana AZ",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How \"Perculator\" by Chavo was made (Prod. Pi'erre Bourne)",
+   "url": "https://www.youtube.com/watch?v=nfwiK5gVeTM"
+  },
+  "quote": "Dune 2 - Pads - Oceana AZ",
+  "quoteBy": "djeybeats",
+  "path": "Pads"
+ },
+ {
+  "song": "Perculator",
+  "artist": "Chavo",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Synapse Audio DUNE 2",
+  "preset": "Blue Pigments KS",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How \"Perculator\" by Chavo was made (Prod. Pi'erre Bourne)",
+   "url": "https://www.youtube.com/watch?v=nfwiK5gVeTM"
+  },
+  "quote": "Dune 2 - Leads - Blue Pigments KS",
+  "quoteBy": "djeybeats",
+  "path": "Leads"
+ },
+ {
+  "song": "Perculator",
+  "artist": "Chavo",
+  "producer": "Pi'erre Bourne",
+  "plugin": "FabFilter Twin 2",
+  "preset": "Classic Flute DJM",
+  "role": "Flute",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How \"Perculator\" by Chavo was made (Prod. Pi'erre Bourne)",
+   "url": "https://www.youtube.com/watch?v=nfwiK5gVeTM"
+  },
+  "quote": "FabFilter Twin 2 - Orchestral - Wood - Classic Flute DJM",
+  "quoteBy": "djeybeats",
+  "path": "Orchestral - Wood"
+ },
+ {
+  "song": "Talk About",
+  "artist": "Jay Critch feat. Rich The Kid",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Arturia ARP 2600 V",
+  "preset": "CE_Pad02",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How Pi'erre Bourne Made the Beat for \"Talk About\" by Jay Critch & Rich The Kid",
+   "url": "https://www.youtube.com/watch?v=gzrJ6YUI3Js"
+  },
+  "quote": "Pad: Pads - CE_Pad02",
+  "quoteBy": "djeybeats",
+  "path": "Pads"
+ },
+ {
+  "song": "Talk About",
+  "artist": "Jay Critch feat. Rich The Kid",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Arturia ARP 2600 V",
+  "preset": "L_BryanBorchard",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How Pi'erre Bourne Made the Beat for \"Talk About\" by Jay Critch & Rich The Kid",
+   "url": "https://www.youtube.com/watch?v=gzrJ6YUI3Js"
+  },
+  "quote": "Lead: Leads - L_BryanBorchard",
+  "quoteBy": "djeybeats",
+  "path": "Leads"
+ },
+ {
+  "song": "Talk About",
+  "artist": "Jay Critch feat. Rich The Kid",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Arturia ARP 2600 V",
+  "preset": "TC_SilverFish",
+  "role": "Second lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How Pi'erre Bourne Made the Beat for \"Talk About\" by Jay Critch & Rich The Kid",
+   "url": "https://www.youtube.com/watch?v=gzrJ6YUI3Js"
+  },
+  "quote": "2nd lead: Leads - TC_SilverFish",
+  "quoteBy": "djeybeats",
+  "path": "Leads"
+ },
+ {
+  "song": "Talk About",
+  "artist": "Jay Critch feat. Rich The Kid",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Arturia ARP 2600 V",
+  "preset": "CE_PanPad02",
+  "role": "Second pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How Pi'erre Bourne Made the Beat for \"Talk About\" by Jay Critch & Rich The Kid",
+   "url": "https://www.youtube.com/watch?v=gzrJ6YUI3Js"
+  },
+  "quote": "2nd pad: Pads - CE_PanPad02",
+  "quoteBy": "djeybeats",
+  "path": "Pads"
+ },
+ {
+  "song": "Talk About",
+  "artist": "Jay Critch feat. Rich The Kid",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Arturia ARP 2600 V",
+  "preset": "03Trucker.Bass",
+  "role": "Pluck",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How Pi'erre Bourne Made the Beat for \"Talk About\" by Jay Critch & Rich The Kid",
+   "url": "https://www.youtube.com/watch?v=gzrJ6YUI3Js"
+  },
+  "quote": "Pluck: A_Basic_inst - 03Trucker.Bass",
+  "quoteBy": "djeybeats",
+  "path": "A_Basic_inst"
+ },
+ {
+  "song": "Talk About",
+  "artist": "Jay Critch feat. Rich The Kid",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Arturia ARP 2600 V",
+  "preset": "SingPad",
+  "role": "Whistle lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How Pi'erre Bourne Made the Beat for \"Talk About\" by Jay Critch & Rich The Kid",
+   "url": "https://www.youtube.com/watch?v=gzrJ6YUI3Js"
+  },
+  "quote": "Whistle lead: Pads - SingPad",
+  "quoteBy": "djeybeats",
+  "path": "Pads"
+ },
+ {
+  "song": "Smoke A Joint",
+  "artist": "Young Thug feat. T-Shyne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Native Instruments Massive",
+  "preset": "Waving Eighties",
+  "role": "Goofy synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How Pi'erre Bourne Made the Beat for \"Smoke A Joint\" by Young Thug & T-Shyne",
+   "url": "https://www.youtube.com/watch?v=qHdNEZkjnS0"
+  },
+  "quote": "Goofy synth: Massive - Waving eighties",
+  "quoteBy": "djeybeats"
+ },
+ {
+  "song": "Smoke A Joint",
+  "artist": "Young Thug feat. T-Shyne",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Native Instruments Massive",
+  "preset": "Creamy Winter",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How Pi'erre Bourne Made the Beat for \"Smoke A Joint\" by Young Thug & T-Shyne",
+   "url": "https://www.youtube.com/watch?v=qHdNEZkjnS0"
+  },
+  "quote": "Lead: Massive - Creamy winter",
+  "quoteBy": "djeybeats"
+ },
+ {
+  "song": "Michigan",
+  "artist": "Chavo",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Korg Gadget Darwin",
+  "preset": "Wine Pad",
+  "role": "Pad (also the bass note, attack -50)",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How \"Michigan\" by Chavo was made (Prod. Pi'erre Bourne)",
+   "url": "https://www.youtube.com/watch?v=QWZzPkauKpY"
+  },
+  "quote": "Pad: Korg Gadget Darwin - KLC - Wine Pad",
+  "quoteBy": "djeybeats",
+  "path": "KLC",
+  "album": "Chavo's World"
+ },
+ {
+  "song": "Michigan",
+  "artist": "Chavo",
+  "producer": "Pi'erre Bourne",
+  "plugin": "Korg Gadget Glasgow",
+  "preset": "Smooth Sine Lead",
+  "role": "Sine lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How \"Michigan\" by Chavo was made (Prod. Pi'erre Bourne)",
+   "url": "https://www.youtube.com/watch?v=QWZzPkauKpY"
+  },
+  "quote": "Sine lead: Korg Gadget Glasgow - Smooth Sine Lead",
+  "quoteBy": "djeybeats",
+  "album": "Chavo's World"
+ },
+ {
+  "song": "Uh Uh",
+  "artist": "Chief Keef feat. Playboi Carti",
+  "producer": "Pi'erre Bourne",
+  "plugin": "u-he TyrellN6",
+  "preset": "KEY old chords II SM",
+  "role": "Chords",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How Pi'erre Bourne Made the Beat for \"Uh Uh\" by Chief Keef & Playboi Carti",
+   "url": "https://www.youtube.com/watch?v=J_eeY-aBxBc"
+  },
+  "quote": "Tyrell N6 - rsmus7 - KEY old chords II SM",
+  "quoteBy": "djeybeats",
+  "path": "rsmus7",
+  "album": "Mansion Musick"
+ },
+ {
+  "song": "Switching Sides",
+  "artist": "Chavo",
+  "producer": "Pi'erre Bourne",
+  "plugin": "FabFilter Twin 2",
+  "preset": "Hospitality DJM",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How Pi'erre Bourne Made the Beat for \"Switching Sides\" by Chavo",
+   "url": "https://www.youtube.com/watch?v=6xGVu5bgFjY"
+  },
+  "quote": "Lead: Fabfiter Twin 2 (Pad - Other) - Hospitality DJM",
+  "quoteBy": "djeybeats",
+  "path": "Pad - Other"
+ },
+ {
+  "song": "Switching Sides",
+  "artist": "Chavo",
+  "producer": "Pi'erre Bourne",
+  "plugin": "FabFilter Twin 2",
+  "preset": "Classic Flute DJM",
+  "role": "Flute",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How Pi'erre Bourne Made the Beat for \"Switching Sides\" by Chavo",
+   "url": "https://www.youtube.com/watch?v=6xGVu5bgFjY"
+  },
+  "quote": "Flute: Fabfilter Twin 2 (Orchestral - Wood) - Classic Flute DJM",
+  "quoteBy": "djeybeats",
+  "path": "Orchestral - Wood"
+ },
+ {
+  "song": "King Vamp",
+  "artist": "Playboi Carti",
+  "producer": "Art Dealer, Star Boy, Outtatown",
+  "plugin": "reFX Nexus",
+  "preset": "LD Avenues",
+  "role": "Bass",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How star boy, Outtatown & Art Dealer Made the Beat for \"King Vamp\" by Playboi Carti",
+   "url": "https://www.youtube.com/watch?v=RQM9aCgV4wY"
+  },
+  "quote": "Bass: Nexus - XP Trance Universe - LD Avenues (Turn off delay and reverb)",
+  "quoteBy": "djeybeats",
+  "path": "XP Trance Universe",
+  "album": "Whole Lotta Red"
+ },
+ {
+  "song": "King Vamp",
+  "artist": "Playboi Carti",
+  "producer": "Art Dealer, Star Boy, Outtatown",
+  "plugin": "reFX Nexus",
+  "preset": "BA Basic Sine",
+  "role": "Sine beep",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How star boy, Outtatown & Art Dealer Made the Beat for \"King Vamp\" by Playboi Carti",
+   "url": "https://www.youtube.com/watch?v=RQM9aCgV4wY"
+  },
+  "quote": "Sine beep: Nexus - Old Factory Presets - BA Basic Sine",
+  "quoteBy": "djeybeats",
+  "path": "Old Factory Presets",
+  "album": "Whole Lotta Red"
+ },
+ {
+  "song": "King Vamp",
+  "artist": "Playboi Carti",
+  "producer": "Art Dealer, Star Boy, Outtatown",
+  "plugin": "Luxonix Purity",
+  "preset": "Simple Saw",
+  "role": "Saw lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How star boy, Outtatown & Art Dealer Made the Beat for \"King Vamp\" by Playboi Carti",
+   "url": "https://www.youtube.com/watch?v=RQM9aCgV4wY"
+  },
+  "quote": "Saw lead: Purity - Lead Synth - Simple Saw (Turn off delay and reverb)",
+  "quoteBy": "djeybeats",
+  "path": "Lead Synth",
+  "album": "Whole Lotta Red"
+ },
+ {
+  "song": "Firearm",
+  "artist": "Playboi Carti feat. Lil Uzi Vert",
+  "producer": "Unknown",
+  "plugin": "Tone2 ElectraX",
+  "preset": "Chord Groover BT",
+  "role": "Not stated",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Firearm' by Playboi Carti & Lil Uzi Vert Was Made (FLP + PRESETS)",
+   "url": "https://www.youtube.com/watch?v=aL2Gxx43cu4"
+  },
+  "quote": "ElectraX - Arp Singleplayer - Chord Groover BT",
+  "quoteBy": "prod. JXR",
+  "path": "Arp Singleplayer"
+ },
+ {
+  "song": "Firearm",
+  "artist": "Playboi Carti feat. Lil Uzi Vert",
+  "producer": "Unknown",
+  "plugin": "Luxonix Purity",
+  "preset": "Panfluit",
+  "role": "Flute",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How 'Firearm' by Playboi Carti & Lil Uzi Vert Was Made (FLP + PRESETS)",
+   "url": "https://www.youtube.com/watch?v=aL2Gxx43cu4"
+  },
+  "quote": "Purity - Woodwind - Panfluit",
+  "quoteBy": "prod. JXR",
+  "path": "Woodwind"
+ },
+ {
+  "song": "Wild Blue",
+  "artist": "John Mayer",
+  "producer": "John Mayer, Don Was",
+  "plugin": "Fractal Audio Axe-Fx III (hardware)",
+  "preset": "099 Studio Clean",
+  "role": "Guitar tone",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: John Mayer Used THIS FACTORY PRESET on his Album - Studio Clean 099 (G66)",
+   "url": "https://www.youtube.com/watch?v=DrkVEa8CKow"
+  },
+  "quote": "Preset 099 Studio Clean made it onto John Mayer's album Sob Rock - on the tune Wild Blue",
+  "quoteBy": "G66 (Fractal Audio distributor)",
+  "path": "Factory presets",
+  "album": "Sob Rock"
  }
 ]
