@@ -18,7 +18,8 @@
     "visual": "node scripts/visual.mjs",
     "visual:update": "node scripts/visual.mjs --update-snapshots=changed",
     "perf": "playwright test --project=perf",
-    "licenses": "node scripts/licenses.mjs"
+    "licenses": "node scripts/licenses.mjs",
+    "qa:nightly": "node scripts/qa-nightly.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.14.0",
