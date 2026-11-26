@@ -297,9 +297,11 @@ export function ProducerPageView({ slug, rows, styleOf, renderLoops }: { slug: s
     { id: "samples", name: "Samples", n: p.samples.length },
   ].filter((s) => s.n > 0);
   const artists = artistsOf(p);
+  // Songs with their album art first, so the page opens on covers rather than blank tiles.
+  const presets = [...p.presets].sort((a, b) => Number(!!coverFor(b.song, b.artist)) - Number(!!coverFor(a.song, a.artist)));
   // The backdrop: the cover of their best-known song that has one.
   const cover =
-    p.presets.map((s) => coverFor(s.song, s.artist)).find((c) => !!c) ??
+    presets.map((s) => coverFor(s.song, s.artist)).find((c) => !!c) ??
     midi.map((m) => (m.song ? coverFor(m.song.song, m.song.artist) : null)).find((c) => !!c) ??
     null;
   const styleNote = `Original Stash sounds made in this style. ${p.name} did not make or endorse them.`;
@@ -346,7 +348,7 @@ export function ProducerPageView({ slug, rows, styleOf, renderLoops }: { slug: s
         )}
         {p.presets.length > 0 && (
           <Section id="presets" title="Presets on their songs" count={p.presets.length} note="Which synth and preset is on each song, with how sure the source is.">
-            <Grid items={p.presets} first={6} label="Preset songs" render={(s) => <PresetSongCard key={s.key} s={s} />} />
+            <Grid items={presets} first={6} label="Preset songs" render={(s) => <PresetSongCard key={s.key} s={s} />} />
           </Section>
         )}
         {midi.length > 0 && (

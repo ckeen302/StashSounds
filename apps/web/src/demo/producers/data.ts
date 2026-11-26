@@ -237,6 +237,13 @@ export function hrefForProducer(name: string): string | null {
   return p ? producerPageHref(p) : null;
 }
 
+/** The page a style tag or kit's "inspired by" name links to, with its name, or null. */
+export function styleLink(tag: string): { href: string; name: string } | null {
+  allProducers();
+  const p = styleTarget(tag);
+  return p ? { href: producerPageHref(p), name: p.name } : null;
+}
+
 for (const k of KIT_LIBRARY.kits) if (k.inspiredBy) styleTarget(k.inspiredBy)?.kitStyles.add(k.inspiredBy);
 
 /** Attaches loops' style tags (from the catalog, which the page builds at start). */

@@ -24,6 +24,7 @@ import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { CrateMenu } from "../explore";
 import { CommentToggle, Comments, RowThread } from "../social";
 import { navigate } from "../router";
+import { styleLink } from "../producers/data";
 import { has, set } from "../store";
 import { allShots, saveShots } from "../oneshots/store";
 import { CATEGORIES, categoryOf, clipBuffer, cleanName, decode, labelOf, play, playSequence, postKit, removeKit, useKits, warmSounds, type Category, type Draft, type Kit, type KitSound } from "./store";
@@ -291,6 +292,7 @@ export function KitPage({ id }: { id: string }) {
   };
   const liked = has("likes", k.id);
   const counts = (c: Category) => k.sounds.filter((s) => s.category === c).length;
+  const styleOfKit = k.inspiredBy ? styleLink(k.inspiredBy) : null;
 
   return (
     <main className="mx-auto flex w-full max-w-content flex-col gap-6 px-3 py-8 tablet:px-4 desktop:px-6">
@@ -304,6 +306,11 @@ export function KitPage({ id }: { id: string }) {
               <UiLink href={`/u/${k.owner.handle}`} className="w-fit text-small text-text-muted ui-hover:text-text">
                 {`by ${k.owner.displayName} @${k.owner.handle}`}
               </UiLink>
+              {styleOfKit && (
+                <UiLink href={styleOfKit.href} className="w-fit text-small text-text-muted ui-hover:text-text">
+                  {`Everything for ${styleOfKit.name} on Stash →`}
+                </UiLink>
+              )}
             </div>
           </div>
           <div className="flex flex-wrap gap-2">
