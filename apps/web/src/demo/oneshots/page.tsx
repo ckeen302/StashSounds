@@ -290,13 +290,13 @@ export function OneShotsPage() {
               const cid = `oneshot:${s.id}`;
               return (
                 <Fragment key={s.id}>
-                <li data-selected={s === current || undefined} className="os-row flex min-h-16 items-center gap-3 border-b border-border px-3 py-2 last:border-b-0 data-selected:bg-raised ui-hover:bg-raised">
+                <li data-selected={s === current || undefined} className="os-row flex min-h-16 items-center gap-2 tablet:gap-3 border-b border-border px-3 py-2 last:border-b-0 data-selected:bg-raised ui-hover:bg-raised">
                   <PlayButton title={s.name} state="paused" onPointerDown={(e) => e.button === 0 && hear(i)} onClick={(e) => e.detail === 0 && hear(i)} />
                   <button type="button" onClick={() => hear(i)} className="flex min-w-0 flex-1 flex-col text-left" aria-label={`Hear ${s.name}${s.spoken ? `, ${s.spoken}` : ""}`}>
                     <span className="truncate text-body-strong text-text">{s.name}</span>
                     <span className="truncate text-small text-text-muted">{s.mine ? `${ins.label} · posted from this browser` : `${ins.label} · ${s.kind === "chord" ? `Chord, ${s.pitches.length} notes` : "Single note"}`}</span>
                   </button>
-                  {s.label && <span className="os-key inline-flex h-7 shrink-0 items-center justify-center rounded-control border border-border-strong px-2 font-mono text-small text-text">{s.label}</span>}
+                  {s.label && <span className="os-key hidden h-7 shrink-0 tablet:inline-flex items-center justify-center rounded-control border border-border-strong px-2 font-mono text-small text-text">{s.label}</span>}
                   <Wave shot={s} />
                   <span className="hidden w-14 shrink-0 text-right font-mono text-numeric tabular text-text-muted desktop:block">{seconds(s.durationMs)}</span>
                   <IconButton icon={Download} label={`Download ${s.name}`} size="md" disabled={busy !== null} onClick={() => void grab([s], fileName(s).replace(/\.\w+$/, ""))} />

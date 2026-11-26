@@ -49,7 +49,7 @@ function Wave({ s, playing, onSeek }: { s: Sfx; playing: boolean; onSeek: (fract
         const r = e.currentTarget.getBoundingClientRect();
         onSeek(Math.max(0, Math.min(1, (e.clientX - r.left) / r.width)));
       }}
-      className="sfx-wave h-8 w-16 shrink-0 cursor-pointer tablet:h-10 tablet:w-28 desktop:w-56"
+      className="sfx-wave hidden h-8 w-16 shrink-0 cursor-pointer tablet:block tablet:h-10 tablet:w-28 desktop:w-56"
     >
       <svg viewBox={`0 0 ${n * 3} 24`} preserveAspectRatio="none" className="size-full">
         {s.peaks.map((p, i) => {
@@ -228,7 +228,7 @@ export function SfxPage() {
                   data-selected={s === current || undefined}
                   data-playing={isPlaying || undefined}
                   onPointerEnter={() => warm(s)}
-                  className="sfx-row flex min-h-16 items-center gap-3 border-b border-border px-3 py-2 last:border-b-0 data-selected:bg-raised ui-hover:bg-raised"
+                  className="sfx-row flex min-h-16 items-center gap-2 tablet:gap-3 border-b border-border px-3 py-2 last:border-b-0 data-selected:bg-raised ui-hover:bg-raised"
                 >
                   <PlayButton title={s.name} state={state} onPointerDown={(e) => e.button === 0 && hear(i)} onClick={(e) => e.detail === 0 && hear(i)} />
                   <button type="button" onClick={() => hear(i)} className="flex min-w-0 flex-1 flex-col text-left" aria-label={`Hear ${s.name}`}>
