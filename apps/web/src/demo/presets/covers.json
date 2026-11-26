@@ -11310,5 +11310,189 @@
    "label": "Deezer, HNDRXX",
    "url": "https://www.deezer.com/album/15455006"
   }
+ },
+ "master of none|beach house": {
+  "file": "covers/master-of-none-beach-house.jpg",
+  "album": "Beach House",
+  "source": {
+   "label": "Deezer, Beach House",
+   "url": "https://www.deezer.com/album/43108871"
+  }
+ },
+ "animals|martin garrix": {
+  "file": "covers/animals-martin-garrix.jpg",
+  "album": "Animals",
+  "source": {
+   "label": "Deezer, Animals",
+   "url": "https://www.deezer.com/album/394992317"
+  }
+ },
+ "midnight sun|zara larsson": {
+  "file": "covers/midnight-sun-zara-larsson.jpg",
+  "album": "Midnight Sun",
+  "source": {
+   "label": "Deezer, Midnight Sun",
+   "url": "https://www.deezer.com/album/768153511"
+  }
+ },
+ "eyesight|slayr": {
+  "file": "covers/eyesight-slayr.jpg",
+  "album": "Half Blood (BloodLuxe)",
+  "source": {
+   "label": "Deezer, Half Blood (BloodLuxe)",
+   "url": "https://www.deezer.com/album/931925521"
+  }
+ },
+ "405|justin bieber": {
+  "file": "covers/405-justin-bieber.jpg",
+  "album": "SWAG",
+  "source": {
+   "label": "Deezer, SWAG",
+   "url": "https://www.deezer.com/album/786280691"
+  }
+ },
+ "wassup|young miko": {
+  "file": "covers/wassup-young-miko.jpg",
+  "album": "WASSUP",
+  "source": {
+   "label": "Deezer, WASSUP",
+   "url": "https://www.deezer.com/album/742422831"
+  }
+ },
+ "palace|thirteendegrees °": {
+  "file": "covers/palace-thirteendegrees.jpg",
+  "album": "PALACE",
+  "source": {
+   "label": "Deezer, PALACE",
+   "url": "https://www.deezer.com/album/768244281"
+  }
+ },
+ "365|charli xcx": {
+  "file": "covers/365-charli-xcx.jpg",
+  "album": "BRAT",
+  "source": {
+   "label": "Deezer, BRAT",
+   "url": "https://www.deezer.com/album/597350882"
+  }
+ },
+ "needy|ariana grande": {
+  "file": "covers/needy-ariana-grande.jpg",
+  "album": "thank u, next",
+  "source": {
+   "label": "Deezer, thank u, next",
+   "url": "https://www.deezer.com/album/86773062"
+  }
+ },
+ "firestarter|the prodigy": {
+  "file": "covers/firestarter-the-prodigy.jpg",
+  "album": "The Fat of the Land",
+  "source": {
+   "label": "Deezer, The Fat of the Land",
+   "url": "https://www.deezer.com/album/6509072"
+  }
+ },
+ "i like the way you kiss me|artemas": {
+  "file": "covers/i-like-the-way-you-kiss-me-artemas.jpg",
+  "album": "i like the way you kiss me",
+  "source": {
+   "label": "Deezer, i like the way you kiss me",
+   "url": "https://www.deezer.com/album/560929292"
+  }
+ },
+ "voodoo people|the prodigy": {
+  "file": "covers/voodoo-people-the-prodigy.jpg",
+  "album": "Music for the Jilted Generation",
+  "source": {
+   "label": "Deezer, Music for the Jilted Generation",
+   "url": "https://www.deezer.com/album/6508878"
+  }
+ },
+ "transgender|crystal castles": {
+  "file": "covers/transgender-crystal-castles.jpg",
+  "album": "(III)",
+  "source": {
+   "label": "Deezer, (III)",
+   "url": "https://www.deezer.com/album/399666997"
+  }
+ },
+ "stressed|nettspend": {
+  "file": "covers/stressed-nettspend.jpg",
+  "album": "gone too soon",
+  "source": {
+   "label": "Deezer, gone too soon",
+   "url": "https://www.deezer.com/album/805253371"
+  }
+ },
+ "victory lap|fred again..": {
+  "file": "covers/victory-lap-fred-again.jpg",
+  "album": "Victory Lap",
+  "source": {
+   "label": "Deezer, Victory Lap",
+   "url": "https://www.deezer.com/album/772246171"
+  }
+ },
+ "i'm a slave 4 u|britney spears": {
+  "file": "covers/i-m-a-slave-4-u-britney-spears.jpg",
+  "album": "Britney (Digital Deluxe Version)",
+  "source": {
+   "label": "Deezer, Britney (Digital Deluxe Version)",
+   "url": "https://www.deezer.com/album/71570"
+  }
+ },
+ "rockstar|lisa": {
+  "file": "covers/rockstar-lisa.jpg",
+  "album": "Rockstar",
+  "source": {
+   "label": "Deezer, Rockstar",
+   "url": "https://www.deezer.com/album/603507502"
+  }
+ },
+ "when doves cry|prince": {
+  "file": "covers/when-doves-cry-prince.jpg",
+  "album": "Purple Rain",
+  "source": {
+   "label": "Deezer, Purple Rain",
+   "url": "https://www.deezer.com/album/587849692"
+  }
+ },
+ "me porto bonito|bad bunny & chencho corleone": {
+  "file": "covers/me-porto-bonito-bad-bunny-chencho-corleone.jpg",
+  "album": "Un Verano Sin Ti",
+  "source": {
+   "label": "Deezer, Un Verano Sin Ti",
+   "url": "https://www.deezer.com/album/316164367"
+  }
+ },
+ "the final countdown|europe": {
+  "file": "covers/the-final-countdown-europe.jpg",
+  "album": "The Final Countdown (Expanded Edition)",
+  "source": {
+   "label": "Deezer, The Final Countdown (Expanded Edition)",
+   "url": "https://www.deezer.com/album/97615"
+  }
+ },
+ "lights|ellie goulding": {
+  "file": "covers/lights-ellie-goulding.jpg",
+  "album": "Bright Lights (Lights Re-pack / Bonus Version)",
+  "source": {
+   "label": "Deezer, Bright Lights (Lights Re-pack / Bonus Version)",
+   "url": "https://www.deezer.com/album/707980"
+  }
+ },
+ "scary monsters and nice sprites|skrillex": {
+  "file": "covers/scary-monsters-and-nice-sprites-skrillex.jpg",
+  "album": "Scary Monsters and Nice Sprites EP",
+  "source": {
+   "label": "Deezer, Scary Monsters and Nice Sprites EP",
+   "url": "https://www.deezer.com/album/731513"
+  }
+ },
+ "club classics|charli xcx": {
+  "file": "covers/club-classics-charli-xcx.jpg",
+  "album": "BRAT",
+  "source": {
+   "label": "Deezer, BRAT",
+   "url": "https://www.deezer.com/album/597350882"
+  }
  }
 }

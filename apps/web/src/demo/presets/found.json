@@ -20646,21 +20646,6 @@
   "album": "Passion, Pain & Demon Slayin'"
  },
  {
-  "song": "Massive",
-  "artist": "Drake",
-  "plugin": "Korg Collection M1",
-  "preset": "FilmScore",
-  "role": "Keys",
-  "confidence": "community",
-  "source": {
-   "label": "YouTube: FAMOUS PRESETS #397: \"Massive\" by Drake (BLUE STEEL), video cover frame",
-   "url": "https://www.youtube.com/shorts/L5HfAjLiMtU"
-  },
-  "quote": "On screen: Korg M1 plugin in Combi mode, combi \"FilmScore\" (Piano 16', Tubular, Strings) loaded, captioned \"Massive\" by Drake",
-  "quoteBy": "BLUE STEEL",
-  "album": "Honestly, Nevermind"
- },
- {
   "song": "Who Dat Boy",
   "artist": "Tyler, The Creator feat. A$AP Rocky",
   "plugin": "LennarDigital Sylenth1",
@@ -20959,5 +20944,500 @@
   "quote": "On screen: Omnisphere, \"Shepherds Horn\" loaded (Omnisphere Library Patch), window titled \"Solo - 111: Lead_Solo (Future)\", captioned \"Solo\" by Future",
   "quoteBy": "BLUE STEEL",
   "album": "HNDRXX"
+ },
+ {
+  "song": "Master of None",
+  "artist": "Beach House",
+  "plugin": "DecentSampler (Decent Samples RM-20)",
+  "preset": "RM-20 Organ 2",
+  "role": "Organ",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #517: \"Master of None\" by Beach House (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/Bw6B4f--yU4"
+  },
+  "quote": "On screen: DecentSampler with the RM-20 instrument, preset \"RM-20 Organ 2\" loaded, captioned \"Master of None\" by Beach House",
+  "quoteBy": "BLUE STEEL",
+  "album": "Beach House"
+ },
+ {
+  "song": "Animals",
+  "artist": "Martin Garrix",
+  "plugin": "LennarDigital Sylenth1",
+  "preset": "VANDALISM_Lead_Castle",
+  "role": "Pluck",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #516: \"Animals\" by Martin Garrix (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/JFlMvwVqqZo"
+  },
+  "quote": "On screen: Sylenth1, preset \"058: VANDALISM_Lead_Castle\" in the display, Logic channel \"Pluck_Animals (Martin Garrix)\", captioned \"Animals\" by Martin Garrix",
+  "quoteBy": "BLUE STEEL",
+  "album": "Animals"
+ },
+ {
+  "song": "Midnight Sun",
+  "artist": "Zara Larsson",
+  "plugin": "u-he Hive 2",
+  "preset": "AZ Clean SuperPluck",
+  "role": "Pluck",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #508: \"Midnight Sun\" by Zara Larsson (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/sYmeTShzvKg"
+  },
+  "quote": "On screen: u-he Hive, preset \"AZ Clean SuperPluck\" loaded, captioned \"Midnight Sun\" by Zara Larsson",
+  "quoteBy": "BLUE STEEL",
+  "album": "Midnight Sun"
+ },
+ {
+  "song": "Somebody Told Me",
+  "artist": "The Killers",
+  "plugin": "Korg Collection microKORG",
+  "preset": "PhaserLead",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #506: \"Somebody Told Me\" by The Killers (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/t-OnBASadOI"
+  },
+  "quote": "On screen: Korg microKORG plugin, program \"B.14 PhaserLead\" (Trance) loaded, window \"Lead - Somebody Told Me (The Killers)\", captioned \"Somebody Told Me\" by The Killers",
+  "quoteBy": "BLUE STEEL",
+  "album": "Hot Fuss"
+ },
+ {
+  "song": "Eyesight",
+  "artist": "slayr",
+  "plugin": "Tone2 ElectraX",
+  "preset": "LEAD - 808 MAFIA SIREN",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #497: \"Eyesight\" by Slayr (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/7pGpmX3mVt8"
+  },
+  "quote": "On screen: Tone2 ElectraX, bank \"KC Supreme - Aventador Elec...\" with preset \"LEAD - 808 MAFIA SIREN\" loaded, captioned \"Eyesight\" by Slayr",
+  "quoteBy": "BLUE STEEL",
+  "album": "Half Blood (BloodLuxe)"
+ },
+ {
+  "song": "405",
+  "artist": "Justin Bieber",
+  "plugin": "Arturia DX7 V",
+  "preset": "Dire Dreams",
+  "role": "Keys",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #494: \"405\" by Justin Bieber (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/fHl9qnd3BmI"
+  },
+  "quote": "On screen: Arturia DX7 V, preset \"Dire Dreams\" loaded, captioned \"405\" by Justin Bieber",
+  "quoteBy": "BLUE STEEL",
+  "album": "SWAG"
+ },
+ {
+  "song": "WASSUP",
+  "artist": "Young Miko",
+  "plugin": "Native Instruments Massive",
+  "preset": "A Square In Space",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #491: \"WASSUP\" by Young Miko (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/5KfGfeK3x24"
+  },
+  "quote": "On screen: Native Instruments Massive, preset \"A SQUARE IN SPACE\" loaded (window titled \"A Square In Space\"), captioned \"WASSUP\" by Young Miko",
+  "quoteBy": "BLUE STEEL",
+  "album": "WASSUP"
+ },
+ {
+  "song": "PALACE",
+  "artist": "Thirteendegrees °",
+  "plugin": "reFX Nexus",
+  "preset": "Italo 80s D",
+  "role": "Bass",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #490: \"Palace\" by Thirteendegrees (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/VwjHxvBdIfQ"
+  },
+  "quote": "On screen: reFX Nexus 4, preset \"Italo 80s D\" (BR) loaded, window \"Bass - Palace (Thirteendegrees)\", captioned \"Palace\" by Thirteendegrees",
+  "quoteBy": "BLUE STEEL",
+  "album": "PALACE"
+ },
+ {
+  "song": "365",
+  "artist": "Charli xcx",
+  "plugin": "RaveGenerator 2",
+  "preset": "T99 anasthasia",
+  "role": "Stab",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #481: \"365\" by Charli xcx (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/4IpF8_Izi2M"
+  },
+  "quote": "On screen: RaveGenerator2, \"T99 anasthasia\" selected in the \"stabs\" folder and loaded in slot 1, captioned \"365\" by Charli xcx",
+  "quoteBy": "BLUE STEEL",
+  "album": "BRAT"
+ },
+ {
+  "song": "needy",
+  "artist": "Ariana Grande",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "In Memorium 1",
+  "role": "Bells",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #480: \"Needy\" by Ariana Grande (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/G8sygrr2Kzw"
+  },
+  "quote": "On screen: Omnisphere, patch \"In Memorium 1\" (Omnisphere Library Patch) loaded, captioned \"Needy\" by Ariana Grande",
+  "quoteBy": "BLUE STEEL",
+  "album": "thank u, next"
+ },
+ {
+  "song": "Firestarter",
+  "artist": "The Prodigy",
+  "plugin": "Korg Collection Prophecy",
+  "preset": "Space Adventure",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #479: \"Firestarter\" by The Prodigy (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/1rBQc7W6DB8"
+  },
+  "quote": "On screen: Korg Prophecy plugin, program \"B00 Space Adventure\" loaded, captioned \"Firestarter\" by The Prodigy",
+  "quoteBy": "BLUE STEEL",
+  "album": "The Fat of the Land"
+ },
+ {
+  "song": "i like the way you kiss me",
+  "artist": "Artemas",
+  "plugin": "Universal Audio UADx Moog Minimoog",
+  "preset": "Dope Bassy",
+  "role": "Bass",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #478: \"I Like The Way You Kiss Me\" by Artemas (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/Mh53QQBYy1o"
+  },
+  "quote": "On screen: UADx Moog Minimoog Synth, preset \"Dope Bassy\" loaded, Logic channel \"Bass - I Like The Way You Kiss Me (Artemas)\", captioned \"I Like The Way You Kiss Me\" by Artemas",
+  "quoteBy": "BLUE STEEL",
+  "album": "i like the way you kiss me"
+ },
+ {
+  "song": "Voodoo People",
+  "artist": "The Prodigy",
+  "plugin": "Roland Cloud JD-800",
+  "preset": "Wailing Guitar",
+  "role": "Guitar",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #460: \"Voodoo People\" by The Prodigy (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/rr2v9lXdPJI"
+  },
+  "quote": "On screen: Roland JD-800 plugin, patch \"1-5: Wailing Guitar\" loaded, captioned \"Voodoo People\" by The Prodigy",
+  "quoteBy": "BLUE STEEL",
+  "album": "Music for the Jilted Generation"
+ },
+ {
+  "song": "What Do You Mean?",
+  "artist": "Justin Bieber",
+  "plugin": "reFX Nexus",
+  "preset": "PanFlute",
+  "role": "Flute",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #449: \"What Do You Mean?\" by Justin Bieber (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/g3GSNs6utJ8"
+  },
+  "quote": "On screen: reFX Nexus 4, preset \"PanFlute\" (WW) loaded, window \"Flute_What Do You Mean? (Justin Bieber)\", captioned \"What Do You Mean?\" by Justin Bieber",
+  "quoteBy": "BLUE STEEL",
+  "album": "Purpose"
+ },
+ {
+  "song": "Transgender",
+  "artist": "Crystal Castles",
+  "plugin": "Native Instruments FM8",
+  "preset": "Telepath",
+  "role": "Bells",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #448: \"Transgender\" by Crystal Castles (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/gTilZ4JPSOo"
+  },
+  "quote": "On screen: Native Instruments FM8, preset \"Telepath\" loaded, window \"Bell_Transgender (Crystal Castles)\", captioned \"Transgender\" by Crystal Castles",
+  "quoteBy": "BLUE STEEL",
+  "album": "(III)"
+ },
+ {
+  "song": "stressed",
+  "artist": "Nettspend",
+  "plugin": "Xfer Serum 2",
+  "preset": "ARP - D3MON",
+  "role": "Arp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #446: \"stressed\" by Nettspend (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/1n9DdudTano"
+  },
+  "quote": "On screen: Xfer Serum 2, preset \"ARP - D3MON\" (artist Lukrative) loaded, captioned \"stressed\" by Nettspend",
+  "quoteBy": "BLUE STEEL",
+  "album": "gone too soon"
+ },
+ {
+  "song": "Victory Lap",
+  "artist": "Fred again..",
+  "plugin": "Apple Logic Pro Alchemy",
+  "preset": "80s FM Bass Attack",
+  "role": "Bass",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #419: \"Victory Lap\" by Fred again.. (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/zcVyKZhhU1Q"
+  },
+  "quote": "On screen: Logic Alchemy, preset \"Bass | 80s FM Bass Attack\" loaded (window titled \"80s FM Bass Attack\"), captioned \"Victory Lap\" by Fred again..",
+  "quoteBy": "BLUE STEEL",
+  "album": "Victory Lap"
+ },
+ {
+  "song": "I'm a Slave 4 U",
+  "artist": "Britney Spears",
+  "plugin": "Korg Collection TRITON",
+  "preset": "Strato-Chime",
+  "role": "Guitar",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #434: \"I'm a Slave 4 U\" by Britney Spears (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/l2Prcntl4JM"
+  },
+  "quote": "On screen: Korg TRITON plugin, program \"Strato-Chime\" (bank INT-B 069, category Guitar) loaded, captioned \"I'm a Slave 4 U\" by Britney Spears",
+  "quoteBy": "BLUE STEEL",
+  "album": "Britney (Digital Deluxe Version)"
+ },
+ {
+  "song": "Good Luck, Babe!",
+  "artist": "Chappell Roan",
+  "plugin": "TAL-U-NO-LX",
+  "preset": "17 Brass",
+  "role": "Pad",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #426: \"Good Luck, Babe!\" by Chappell Roan (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/o7vCTSt9hQo"
+  },
+  "quote": "On screen: TAL-U-NO-LX V2, preset \"17 Brass\" loaded, window \"Pad - Good Luck, Babe! (Chappell Roan)\", captioned \"Good Luck, Babe!\" by Chappell Roan",
+  "quoteBy": "BLUE STEEL",
+  "album": "Good Luck, Babe!"
+ },
+ {
+  "song": "Good Luck, Babe!",
+  "artist": "Chappell Roan",
+  "plugin": "Roland ZENOLOGY",
+  "preset": "BRASS",
+  "role": "Brass",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #420: \"Good Luck, Babe!\" by Chappell Roan (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/qEy0oPjqtBY"
+  },
+  "quote": "On screen: Roland ZENOLOGY, bank \"EXM002 JUNO-106\", preset \"076: BRASS\" loaded, captioned \"Good Luck, Babe!\" by Chappell Roan",
+  "quoteBy": "BLUE STEEL",
+  "album": "Good Luck, Babe!"
+ },
+ {
+  "song": "Rockstar",
+  "artist": "LISA",
+  "plugin": "Xfer Serum",
+  "preset": "LD Ratata [Sam Smyers]",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #411: \"Rockstar\" by LISA (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/LD_h4iiEQ34"
+  },
+  "quote": "On screen: Xfer Serum, preset \"LD Ratata [Sam Smyers]\" loaded (preset note \"Skrillex, Missy Elliott\"), captioned \"Rockstar\" by LISA",
+  "quoteBy": "BLUE STEEL",
+  "album": "Rockstar"
+ },
+ {
+  "song": "When Doves Cry",
+  "artist": "Prince",
+  "plugin": "Arturia DX7 V",
+  "preset": "Rom1A 23-KOTO",
+  "role": "Pluck",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #409: \"When Doves Cry\" by Prince (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/tePkFLUTqjI"
+  },
+  "quote": "On screen: Arturia DX7 V, preset \"Rom1A 23-KOTO\" loaded, captioned \"When Doves Cry\" by Prince",
+  "quoteBy": "BLUE STEEL",
+  "album": "Purple Rain"
+ },
+ {
+  "song": "Waiting For Love",
+  "artist": "Avicii",
+  "plugin": "LennarDigital Sylenth1",
+  "preset": "LD Pulse AM",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #406: \"Waiting For Love\" by Avicii (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/VP7ivVugOLY"
+  },
+  "quote": "On screen: Sylenth1, preset \"447: LD Pulse AM\" in the display, captioned \"Waiting For Love\" by Avicii",
+  "quoteBy": "BLUE STEEL",
+  "album": "Stories"
+ },
+ {
+  "song": "Me Porto Bonito",
+  "artist": "Bad Bunny & Chencho Corleone",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Hohner Guitaret - Main",
+  "role": "Pluck",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #395: \"Me Porto Bonito\" by Bad Bunny (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/XFbscqbMofk"
+  },
+  "quote": "On screen: Omnisphere, patch \"Hohner Guitaret - Main\" (Omnisphere Library Patch) loaded, window \"Pluck_Me Porto Bonito (Bad Bunny)\", captioned \"Me Porto Bonito\" by Bad Bunny",
+  "quoteBy": "BLUE STEEL",
+  "album": "Un Verano Sin Ti"
+ },
+ {
+  "song": "The Final Countdown",
+  "artist": "Europe",
+  "plugin": "Roland ZENOLOGY",
+  "preset": "STAB BRASS",
+  "role": "Brass",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #394: \"The Final Countdown\" by Europe (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/LjX5eBxsId4"
+  },
+  "quote": "On screen: Roland ZENOLOGY, bank \"EXM003 JX-8P\", preset \"089: STAB BRASS\" (Synth Brass) loaded, captioned \"The Final Countdown\" by Europe",
+  "quoteBy": "BLUE STEEL",
+  "album": "The Final Countdown (Expanded Edition)"
+ },
+ {
+  "song": "BITTERSUITE",
+  "artist": "Billie Eilish",
+  "plugin": "FabFilter Twin 2",
+  "preset": "Hit Me Soft And Hard 01 bM",
+  "role": "Synth",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #386: \"BITTERSUITE\" by Billie Eilish (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/1SBS4HXhEPQ"
+  },
+  "quote": "On screen: FabFilter Twin 2, preset \"Hit Me Soft And Hard 01 bM\" loaded, captioned \"BITTERSUITE\" by Billie Eilish",
+  "quoteBy": "BLUE STEEL",
+  "album": "HIT ME HARD AND SOFT"
+ },
+ {
+  "song": "BIRDS OF A FEATHER",
+  "artist": "Billie Eilish",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Melting in Memoriam",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #375: \"BIRDS OF A FEATHER\" by Billie Eilish (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/1H5CFKmUIFY"
+  },
+  "quote": "On screen: Omnisphere, patch \"Melting in Memoriam\" (Keyscape Creative) loaded, window \"Lead - BIRDS OF A FEATHER (Billie Eilish)\", captioned \"BIRDS OF A FEATHER\" by Billie Eilish",
+  "quoteBy": "BLUE STEEL",
+  "album": "HIT ME HARD AND SOFT"
+ },
+ {
+  "song": "Lights",
+  "artist": "Ellie Goulding",
+  "plugin": "LennarDigital Sylenth1",
+  "preset": "ARP RainDrop",
+  "role": "Arp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #373: \"Lights\" by Ellie Goulding (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/Ln8xJgoPFKc"
+  },
+  "quote": "On screen: Sylenth1, preset \"148: ARP RainDrop\" in the display, window \"Arp_Lights (Ellie Goulding)\", captioned \"Lights\" by Ellie Goulding",
+  "quoteBy": "BLUE STEEL",
+  "album": "Bright Lights (Lights Re-pack / Bonus Version)"
+ },
+ {
+  "song": "Rock Your Body",
+  "artist": "Justin Timberlake",
+  "plugin": "Korg Collection TRITON",
+  "preset": "Chorus E.Guitar",
+  "role": "Guitar",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #365: \"Rock Your Body\" by Justin Timberlake (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/IsBfgr6iZYg"
+  },
+  "quote": "On screen: Korg TRITON plugin, program \"Chorus E.Guitar\" (bank INT-A 021, category Guitar) loaded, captioned \"Rock Your Body\" by Justin Timberlake",
+  "quoteBy": "BLUE STEEL",
+  "album": "Justified"
+ },
+ {
+  "song": "Mi Gente",
+  "artist": "J Balvin & Willy William",
+  "plugin": "Output Exhale (Kontakt)",
+  "preset": "Nice Male Ahs",
+  "role": "Vocal",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #363: \"Mi Gente\" by J Balvin (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/ighJ_0tlcHs"
+  },
+  "quote": "On screen: Kontakt with Output EXHALE, preset \"064. Nice Male Ahs\" loaded, window \"104: Vox - Mi Gente (J Balvin)\", captioned \"Mi Gente\" by J Balvin",
+  "quoteBy": "BLUE STEEL",
+  "album": "Mi Gente"
+ },
+ {
+  "song": "Figure It Out",
+  "artist": "ian",
+  "plugin": "Roland ZENOLOGY Pro",
+  "preset": "Electrostar",
+  "role": "Synth FX",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #308: \"Figure It Out\" by ian (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/ITFfDMF8hzM"
+  },
+  "quote": "On screen: Roland ZENOLOGY Pro, bank \"PRST_F Essential\", preset \"729: Electrostar\" (Synth FX) loaded, captioned \"Figure It Out\" by ian",
+  "quoteBy": "BLUE STEEL",
+  "album": "Figure It Out"
+ },
+ {
+  "song": "Scary Monsters and Nice Sprites",
+  "artist": "Skrillex",
+  "plugin": "LennarDigital Sylenth1",
+  "preset": "LD Screamer",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #303: \"Scary Monsters & Nice Sprites\" by Skrillex (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/G0vwkxrQJ68"
+  },
+  "quote": "On screen: Sylenth1, preset \"069: LD Screamer\" in the display, window \"140: LD Screamer\", captioned \"Scary Monsters & Nice Sprites\" by Skrillex",
+  "quoteBy": "BLUE STEEL",
+  "album": "Scary Monsters and Nice Sprites EP"
+ },
+ {
+  "song": "Club classics",
+  "artist": "Charli xcx",
+  "plugin": "Xfer Serum",
+  "preset": "BA Digimods [ASL]",
+  "role": "Bass",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #295: \"Club Classics\" by Charli xcx (BLUE STEEL), video cover frame",
+   "url": "https://www.youtube.com/shorts/tM-nX0HXXsU"
+  },
+  "quote": "On screen: Xfer Serum, preset \"BA Digimods [ASL]\" loaded, captioned \"Club Classics\" by Charli xcx",
+  "quoteBy": "BLUE STEEL",
+  "album": "BRAT"
  }
 ]
