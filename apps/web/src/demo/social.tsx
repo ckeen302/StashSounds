@@ -97,7 +97,7 @@ function Composer({ itemId, parent, label, onDone, autoFocus = false }: { itemId
           onChange={(e) => setName(e.target.value)}
          
         />
-      ) : (
+      ) : parent ? null : (
         <p className="text-small text-text-muted">
           {"Posting as "}
           <span className="text-text">{name}</span>
@@ -138,7 +138,7 @@ function CommentItem({ c, itemId, replies, canReply }: { c: store.Comment; itemI
   const removable = c.mine || store.isModerator();
   return (
     <li className="flex flex-col gap-2">
-      <div className="flex items-start gap-3 rounded-control border border-border bg-bg px-3 py-2">
+      <div className="flex items-start gap-3 rounded-panel border border-border bg-bg px-3 py-2">
         <div className="flex min-w-0 flex-1 flex-col gap-1">
           <span className="text-small text-text-muted">
             <span className="text-text">{c.name}</span>
