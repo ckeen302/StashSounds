@@ -15558,5 +15558,29 @@
    "label": "Deezer, The Wolf Of Peachtree",
    "url": "https://www.deezer.com/album/129613512"
   }
+ },
+ "back in blood|pooh shiesty feat. lil durk": {
+  "file": "covers/back-in-blood-pooh-shiesty-feat-lil-durk.jpg",
+  "album": "Back In Blood (feat. Lil Durk)",
+  "source": {
+   "label": "Deezer, Back In Blood (feat. Lil Durk)",
+   "url": "https://www.deezer.com/album/184617922"
+  }
+ },
+ "clout|offset feat. cardi b": {
+  "file": "covers/clout-offset-feat-cardi-b.jpg",
+  "album": "FATHER OF 4",
+  "source": {
+   "label": "Deezer, FATHER OF 4",
+   "url": "https://www.deezer.com/album/88240462"
+  }
+ },
+ "out west|jackboys feat. young thug": {
+  "file": "covers/out-west-jackboys-feat-young-thug.jpg",
+  "album": "JACKBOYS",
+  "source": {
+   "label": "Deezer, JACKBOYS",
+   "url": "https://www.deezer.com/album/124362732"
+  }
  }
 }
