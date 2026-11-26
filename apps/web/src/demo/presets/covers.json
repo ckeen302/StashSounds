@@ -10190,5 +10190,125 @@
    "label": "Deezer, I Choose Violence",
    "url": "https://www.deezer.com/album/307594667"
   }
+ },
+ "purity|9lives": {
+  "file": "covers/purity-9lives.jpg",
+  "album": "unity",
+  "source": {
+   "label": "Deezer, unity",
+   "url": "https://www.deezer.com/album/865754082"
+  }
+ },
+ "manna|9lives": {
+  "file": "covers/manna-9lives.jpg",
+  "album": "unity",
+  "source": {
+   "label": "Deezer, unity",
+   "url": "https://www.deezer.com/album/865754082"
+  }
+ },
+ "spirit|9lives": {
+  "file": "covers/spirit-9lives.jpg",
+  "album": "unity",
+  "source": {
+   "label": "Deezer, unity",
+   "url": "https://www.deezer.com/album/865754082"
+  }
+ },
+ "khaos emerald 3|9lives": {
+  "file": "covers/khaos-emerald-3-9lives.jpg",
+  "album": "unity",
+  "source": {
+   "label": "Deezer, unity",
+   "url": "https://www.deezer.com/album/865754082"
+  }
+ },
+ "sodom|9lives": {
+  "file": "covers/sodom-9lives.jpg",
+  "album": "unity",
+  "source": {
+   "label": "Deezer, unity",
+   "url": "https://www.deezer.com/album/865754082"
+  }
+ },
+ "baphomet|9lives": {
+  "file": "covers/baphomet-9lives.jpg",
+  "album": "#exclusive",
+  "source": {
+   "label": "Deezer, #exclusive",
+   "url": "https://www.deezer.com/album/681812181"
+  }
+ },
+ "pharaoh|9lives": {
+  "file": "covers/pharaoh-9lives.jpg",
+  "album": "#exclusive",
+  "source": {
+   "label": "Deezer, #exclusive",
+   "url": "https://www.deezer.com/album/681812181"
+  }
+ },
+ "crystalline|9lives": {
+  "file": "covers/crystalline-9lives.jpg",
+  "album": "#exclusive",
+  "source": {
+   "label": "Deezer, #exclusive",
+   "url": "https://www.deezer.com/album/681812181"
+  }
+ },
+ "silk|9lives": {
+  "file": "covers/silk-9lives.jpg",
+  "album": "33.1FM",
+  "source": {
+   "label": "Deezer, 33.1FM",
+   "url": "https://www.deezer.com/album/408652187"
+  }
+ },
+ "sanctuary|9lives": {
+  "file": "covers/sanctuary-9lives.jpg",
+  "album": "unity",
+  "source": {
+   "label": "Deezer, unity",
+   "url": "https://www.deezer.com/album/865754082"
+  }
+ },
+ "rush|9lives": {
+  "file": "covers/rush-9lives.jpg",
+  "album": "33.1FM",
+  "source": {
+   "label": "Deezer, 33.1FM",
+   "url": "https://www.deezer.com/album/408652187"
+  }
+ },
+ "khaos emerald|9lives": {
+  "file": "covers/khaos-emerald-9lives.jpg",
+  "album": "#exclusive",
+  "source": {
+   "label": "Deezer, #exclusive",
+   "url": "https://www.deezer.com/album/681812181"
+  }
+ },
+ "labyrinth|9lives": {
+  "file": "covers/labyrinth-9lives.jpg",
+  "album": "#exclusive",
+  "source": {
+   "label": "Deezer, #exclusive",
+   "url": "https://www.deezer.com/album/681812181"
+  }
+ },
+ "morgue|9lives": {
+  "file": "covers/morgue-9lives.jpg",
+  "album": "33.1FM",
+  "source": {
+   "label": "Deezer, 33.1FM",
+   "url": "https://www.deezer.com/album/408652187"
+  }
+ },
+ "embers|9lives": {
+  "file": "covers/embers-9lives.jpg",
+  "album": "#exclusive",
+  "source": {
+   "label": "Deezer, #exclusive",
+   "url": "https://www.deezer.com/album/681812181"
+  }
  }
 }
