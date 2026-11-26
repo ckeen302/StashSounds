@@ -3,7 +3,8 @@
 
 Input: a JSON list of albums, each [page, album, artist, year, songs], where a song is
 [title, producers, samples] and a sample is [title, performer, year, genre, isSample, page].
-It was read from each album article's "Sample credits" section (the album's liner notes) through
+It was read from each album article's "Sample credits" section (the album's liner notes), or, for an
+article with no such section, from its bulleted sample notes for tracks on its track listing, through
 the Wikipedia API, with the sampled record's year and genre from its own article or its artist's.
 Nothing here comes from WhoSampled.
 
