@@ -168,10 +168,10 @@ for (const todo = [entryOut]; todo.length; ) {
 }
 firstLoad.delete(entryOut);
 const preloads = [...firstLoad].map((f) => `<link rel="modulepreload" href="${f.slice(f.lastIndexOf("/chunks/") + 1)}">`).join("\n");
-// The rest are prefetched at the lowest priority once the page is up (downloaded, not run), so
-// opening the Samples tab later does not wait on the network.
+// The rest are listed for main.tsx, which prefetches them once the page has loaded and gone idle
+// (downloaded, not run), so they never compete with the first paint and the Samples tab opens at once.
 const later = Object.keys(outputs).filter((f) => f.includes("/chunks/") && f.endsWith(".js") && !firstLoad.has(f));
-const prefetches = later.map((f) => `<link rel="prefetch" href="${f.slice(f.lastIndexOf("/chunks/") + 1)}" as="script">`).join("\n");
+const prefetches = `<script type="application/json" id="demo-later">${JSON.stringify(later.map((f) => f.slice(f.lastIndexOf("/chunks/") + 1)))}</script>`;
 const firstBytes = [...firstLoad].reduce((n, f) => n + outputs[f].bytes, 0);
 const chunkBytes = Object.entries(outputs).reduce((n, [f, o]) => (f.includes("/chunks/") && !firstLoad.has(f) ? n + o.bytes : n), 0);
 const jsBytes = outputs[entryOut].bytes + firstBytes;

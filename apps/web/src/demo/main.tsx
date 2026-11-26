@@ -37,7 +37,7 @@ import { LICENSE_LABELS } from "@stash/contracts/format";
 import { HashLink } from "./hash-link";
 import { navigate, startRouter, usePath } from "./router";
 // The Samples tab's catalog is about a third of the demo's script: it loads on its own, after the
-// first paint (the page prefetches it at low priority), so the rest of the demo starts without it.
+// first paint (prefetched once the page is idle, at the bottom), so the rest of the demo starts without it.
 const samplesPage = () => import("./samples/page");
 const SamplesPage = lazy(() => samplesPage().then((m) => ({ default: m.SamplesPage })));
 const SampleSongPage = lazy(() => samplesPage().then((m) => ({ default: m.SampleSongPage })));
@@ -1323,4 +1323,28 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <App />
   </StrictMode>,
+);
+// Once the page has loaded and gone idle, download (without running) the parts that load later, so
+// opening the Samples tab does not wait on the network. scripts/build-demo-app.mjs lists them.
+window.addEventListener(
+  "load",
+  () => {
+    const go = () => {
+      let later: string[] = [];
+      try {
+        later = JSON.parse(document.getElementById("demo-later")?.textContent ?? "[]") as string[];
+      } catch {
+        return;
+      }
+      for (const href of later) {
+        const link = document.createElement("link");
+        link.rel = "prefetch";
+        link.href = href;
+        document.head.append(link);
+      }
+    };
+    if ("requestIdleCallback" in window) requestIdleCallback(go, { timeout: 5000 });
+    else setTimeout(go, 2000);
+  },
+  { once: true },
 );
