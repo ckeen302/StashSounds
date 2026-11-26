@@ -10550,5 +10550,61 @@
    "label": "Deezer, Bar A Thym",
    "url": "https://www.deezer.com/album/470630925"
   }
+ },
+ "who wants to live forever|queen": {
+  "file": "covers/who-wants-to-live-forever-queen.jpg",
+  "album": "A Kind Of Magic",
+  "source": {
+   "label": "Deezer, A Kind Of Magic",
+   "url": "https://www.deezer.com/album/1007320541"
+  }
+ },
+ "twin peaks theme|angelo badalamenti": {
+  "file": "covers/twin-peaks-theme-angelo-badalamenti.jpg",
+  "album": "Soundtrack From Twin Peaks",
+  "source": {
+   "label": "Deezer, Soundtrack From Twin Peaks",
+   "url": "https://www.deezer.com/album/677360"
+  }
+ },
+ "mood|porches": {
+  "file": "covers/mood-porches.jpg",
+  "album": "Pool",
+  "source": {
+   "label": "Deezer, Pool",
+   "url": "https://www.deezer.com/album/12422982"
+  }
+ },
+ "veridis quo|daft punk": {
+  "file": "covers/veridis-quo-daft-punk.jpg",
+  "album": "Discovery",
+  "source": {
+   "label": "Deezer, Discovery",
+   "url": "https://www.deezer.com/album/302127"
+  }
+ },
+ "the simpsons main title theme|danny elfman": {
+  "file": "covers/the-simpsons-main-title-theme-danny-elfman.jpg",
+  "album": "Tunes!",
+  "source": {
+   "label": "Deezer, Tunes!",
+   "url": "https://www.deezer.com/album/583020792"
+  }
+ },
+ "show me love|robin s": {
+  "file": "covers/show-me-love-robin-s.jpg",
+  "album": "Show Me Love",
+  "source": {
+   "label": "Deezer, Show Me Love",
+   "url": "https://www.deezer.com/album/612921"
+  }
+ },
+ "gypsy woman (she's homeless)|crystal waters": {
+  "file": "covers/gypsy-woman-she-s-homeless-crystal-waters.jpg",
+  "album": "Surprise",
+  "source": {
+   "label": "Deezer, Surprise",
+   "url": "https://www.deezer.com/album/320942787"
+  }
  }
 }

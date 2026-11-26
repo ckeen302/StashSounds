@@ -18341,5 +18341,159 @@
    "url": "https://splice.com/blog/iconic-songs-korg-synthesizers/"
   },
   "album": "Bar A Thym"
+ },
+ {
+  "song": "Take on Me",
+  "artist": "a-ha",
+  "plugin": "Yamaha DX7 (hardware)",
+  "preset": "15 BASS 1",
+  "role": "Slap bass (through a chorus effect)",
+  "confidence": "press",
+  "quote": "The slap bass sound in a-ha’s Take on Me is the DX7’s 15-Bass 1 patch run through a chorus effect.",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Exploring The Yamaha DX7, Part Two: Songs",
+   "url": "https://reverbmachine.com/blog/exploring-the-yamaha-dx7-pt2/"
+  },
+  "album": "Hunting High and Low"
+ },
+ {
+  "song": "Take on Me",
+  "artist": "a-ha",
+  "plugin": "Yamaha DX7 (hardware)",
+  "preset": "02 SYN-LEAD 3",
+  "role": "Lead hook (DX7 layer, doubled with a Juno-60)",
+  "confidence": "press",
+  "quote": "The DX7 patch is 02 Syn-Lead 3",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Exploring The Yamaha DX7, Part Two: Songs",
+   "url": "https://reverbmachine.com/blog/exploring-the-yamaha-dx7-pt2/"
+  },
+  "album": "Hunting High and Low"
+ },
+ {
+  "song": "Who Wants to Live Forever",
+  "artist": "Queen",
+  "plugin": "Yamaha DX7 (hardware)",
+  "preset": "14 SYN-ORCH",
+  "role": "Intro orchestral pad",
+  "confidence": "press",
+  "quote": "the patch 14-SYN-ORCH for the intro of Who Wants to Live Forever",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Exploring The Yamaha DX7, Part Two: Songs",
+   "url": "https://reverbmachine.com/blog/exploring-the-yamaha-dx7-pt2/"
+  },
+  "album": "A Kind of Magic"
+ },
+ {
+  "song": "Twin Peaks Theme",
+  "artist": "Angelo Badalamenti",
+  "producer": "Angelo Badalamenti",
+  "plugin": "Yamaha DX7 (hardware)",
+  "preset": "11 E.PIANO 1",
+  "role": "Soft electric piano",
+  "confidence": "press",
+  "quote": "The patch in the theme is the DX’s most famous sound: the E.Piano 1 preset, which is factory preset 11.",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Exploring The Yamaha DX7, Part Two: Songs",
+   "url": "https://reverbmachine.com/blog/exploring-the-yamaha-dx7-pt2/"
+  },
+  "album": "Soundtrack from Twin Peaks"
+ },
+ {
+  "song": "Mood",
+  "artist": "Porches",
+  "producer": "Aaron Maine",
+  "plugin": "Yamaha DX7 (hardware)",
+  "preset": "11 E.PIANO 1",
+  "role": "Intro synth lead",
+  "confidence": "press",
+  "quote": "The patch is the DX7’s 11. E.PIANO 1 sound, a famous factory preset",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Porches Synth Sounds",
+   "url": "https://reverbmachine.com/blog/porches-synth-sounds/"
+  },
+  "album": "Pool"
+ },
+ {
+  "song": "Veridis Quo",
+  "artist": "Daft Punk",
+  "producer": "Daft Punk",
+  "plugin": "Yamaha DX7 (hardware)",
+  "preset": "ROM2A 02 FLUTE 2",
+  "role": "Flute melody (likely via sampled DX7 patches)",
+  "confidence": "press",
+  "quote": "The flute sound is the Yamaha DX7 factory preset Rom2A 02-Flute 2",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Daft Punk's \"Discovery\" Synth Sounds",
+   "url": "https://reverbmachine.com/blog/daft-punk-discovery-synth-sounds/"
+  },
+  "album": "Discovery"
+ },
+ {
+  "song": "Veridis Quo",
+  "artist": "Daft Punk",
+  "producer": "Daft Punk",
+  "plugin": "Yamaha DX7 (hardware)",
+  "preset": "ROM1B 17 PIPES 2",
+  "role": "Chords under the flute",
+  "confidence": "press",
+  "quote": "the chord sound beneath it is Rom1B 17-Pipes 2",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Daft Punk's \"Discovery\" Synth Sounds",
+   "url": "https://reverbmachine.com/blog/daft-punk-discovery-synth-sounds/"
+  },
+  "album": "Discovery"
+ },
+ {
+  "song": "The Simpsons Main Title Theme",
+  "artist": "Danny Elfman",
+  "producer": "Danny Elfman",
+  "plugin": "Roland D-50 (hardware)",
+  "preset": "D-50 Voices",
+  "role": "Opening choir",
+  "confidence": "press",
+  "quote": "the patch D-50 Voices was used by Danny Elfman to open the Simpsons Main Title Theme",
+  "quoteBy": "Reverb Machine",
+  "source": {
+   "label": "Reverb Machine: Exploring The Roland D-50",
+   "url": "https://reverbmachine.com/blog/exploring-the-roland-d-50-synth/"
+  }
+ },
+ {
+  "song": "Show Me Love",
+  "artist": "Robin S",
+  "plugin": "Korg M1 (hardware)",
+  "preset": "Organ 2",
+  "role": "Organ bassline",
+  "confidence": "press",
+  "quote": "The Korg M1's 'Organ 2' preset became a staple for many a classic dancefloor anthem in the 90s, including Robin S's hit Show Me Love.",
+  "quoteBy": "MusicRadar",
+  "source": {
+   "label": "MusicRadar: How to create a Korg M1-style organ bass sound",
+   "url": "https://www.musicradar.com/tuition/tech/how-to-create-a-korg-m1-style-organ-bass-sound-642650"
+  },
+  "album": "Show Me Love"
+ },
+ {
+  "song": "Gypsy Woman (She's Homeless)",
+  "artist": "Crystal Waters",
+  "plugin": "Korg M1 (hardware)",
+  "preset": "Organ 2",
+  "role": "Organ riff",
+  "confidence": "community",
+  "quote": "it also includes the unmistakable ‘Organ2’ preset from the legendary Korg M1 from 1988",
+  "quoteBy": "Devin Gademan",
+  "source": {
+   "label": "Devin Gademan: Playing Gypsy Woman By Crystal Waters On The Legendary Korg M1",
+   "url": "https://www.devingademan.com/writings/playing-gypsy-woman-by-crystal-waters-on-the-legendary-korg-m1/"
+  },
+  "album": "Surprise"
  }
 ]
