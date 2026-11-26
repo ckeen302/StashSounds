@@ -19410,5 +19410,318 @@
    "url": "https://pluginplug.io/blog/korg-triton-the-00s-hip-hop-sound"
   },
   "album": "Loose"
+ },
+ {
+  "song": "playstation character",
+  "artist": "drihdreh",
+  "producer": "drihdreh",
+  "plugin": "Siegfried Kullmann SQ8L",
+  "preset": "A002 BOTTLE",
+  "role": "Mallet",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How \"playstation character\" by drihdreh was made",
+   "url": "https://www.youtube.com/watch?v=OmbcHZjenxU"
+  },
+  "quote": "Mallet: SQ8L - A002 BOTTLE",
+  "quoteBy": "djeybeats"
+ },
+ {
+  "song": "playstation character",
+  "artist": "drihdreh",
+  "producer": "drihdreh",
+  "plugin": "Siegfried Kullmann SQ8L",
+  "preset": "A009 SORROW",
+  "role": "Wah",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How \"playstation character\" by drihdreh was made",
+   "url": "https://www.youtube.com/watch?v=OmbcHZjenxU"
+  },
+  "quote": "Wah: SQ8L - A009 SORROW",
+  "quoteBy": "djeybeats"
+ },
+ {
+  "song": "playstation character",
+  "artist": "drihdreh",
+  "producer": "drihdreh",
+  "plugin": "Siegfried Kullmann SQ8L",
+  "preset": "A013 NICE LEAD",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: How \"playstation character\" by drihdreh was made",
+   "url": "https://www.youtube.com/watch?v=OmbcHZjenxU"
+  },
+  "quote": "Lead: SQ8L - A013 NICE LEAD",
+  "quoteBy": "djeybeats"
+ },
+ {
+  "song": "Solo",
+  "artist": "Kxshey!",
+  "producer": "burke",
+  "plugin": "Korg Triton Extreme",
+  "preset": "Grawkr Bass",
+  "role": "Bass",
+  "confidence": "producer",
+  "source": {
+   "label": "YouTube: How I Made the Beat for \"Solo\" by Kxshey!",
+   "url": "https://www.youtube.com/watch?v=kmnNFtypHyY"
+  },
+  "quote": "Bass - Grawkr Bass (Triton Extreme)",
+  "quoteBy": "burke (the song's producer)"
+ },
+ {
+  "song": "Solo",
+  "artist": "Kxshey!",
+  "producer": "burke",
+  "plugin": "Korg Triton Extreme",
+  "preset": "8 Celli ST",
+  "role": "Pad",
+  "confidence": "producer",
+  "source": {
+   "label": "YouTube: How I Made the Beat for \"Solo\" by Kxshey!",
+   "url": "https://www.youtube.com/watch?v=kmnNFtypHyY"
+  },
+  "quote": "Pad - 8 Celli ST (Triton Extreme)",
+  "quoteBy": "burke (the song's producer)"
+ },
+ {
+  "song": "Solo",
+  "artist": "Kxshey!",
+  "producer": "burke",
+  "plugin": "Korg Triton Extreme",
+  "preset": "Jazz Rotary",
+  "role": "Organ",
+  "confidence": "producer",
+  "source": {
+   "label": "YouTube: How I Made the Beat for \"Solo\" by Kxshey!",
+   "url": "https://www.youtube.com/watch?v=kmnNFtypHyY"
+  },
+  "quote": "Organ - Jazz Rotary (Triton Extreme)",
+  "quoteBy": "burke (the song's producer)"
+ },
+ {
+  "song": "Solo",
+  "artist": "Kxshey!",
+  "producer": "burke",
+  "plugin": "Korg Triton Extreme",
+  "preset": "Largo Violas",
+  "role": "Strings",
+  "confidence": "producer",
+  "source": {
+   "label": "YouTube: How I Made the Beat for \"Solo\" by Kxshey!",
+   "url": "https://www.youtube.com/watch?v=kmnNFtypHyY"
+  },
+  "quote": "Strings - Largo Violas (Triton Extreme)",
+  "quoteBy": "burke (the song's producer)"
+ },
+ {
+  "song": "Solo",
+  "artist": "Kxshey!",
+  "producer": "burke",
+  "plugin": "Korg Triton Extreme",
+  "preset": "Dissolve Hit",
+  "role": "Hit",
+  "confidence": "producer",
+  "source": {
+   "label": "YouTube: How I Made the Beat for \"Solo\" by Kxshey!",
+   "url": "https://www.youtube.com/watch?v=kmnNFtypHyY"
+  },
+  "quote": "Hit - Dissolve Hit (Triton Extreme)",
+  "quoteBy": "burke (the song's producer)"
+ },
+ {
+  "song": "Solo",
+  "artist": "Kxshey!",
+  "producer": "burke",
+  "plugin": "Korg Triton Extreme",
+  "preset": "Wide Detune Lead",
+  "role": "Lead",
+  "confidence": "producer",
+  "source": {
+   "label": "YouTube: How I Made the Beat for \"Solo\" by Kxshey!",
+   "url": "https://www.youtube.com/watch?v=kmnNFtypHyY"
+  },
+  "quote": "Lead - Wide Detune Lead (Triton Extreme)",
+  "quoteBy": "burke (the song's producer)"
+ },
+ {
+  "song": "Rules",
+  "artist": "Lil Dre 556",
+  "producer": "eza333",
+  "plugin": "Luxonix Purity",
+  "preset": "Holy Breath",
+  "role": "Pad",
+  "confidence": "producer",
+  "source": {
+   "label": "YouTube: How I made the beat for 'Rules' by Lil Dre 556",
+   "url": "https://www.youtube.com/watch?v=LptM7gUxyJE"
+  },
+  "quote": "Pad - Purity: Slow Synth - Holy Breath",
+  "quoteBy": "eza333 (the song's producer)",
+  "path": "Slow Synth"
+ },
+ {
+  "song": "Rules",
+  "artist": "Lil Dre 556",
+  "producer": "eza333",
+  "plugin": "Luxonix Purity",
+  "preset": "Flute Vib",
+  "role": "Flute",
+  "confidence": "producer",
+  "source": {
+   "label": "YouTube: How I made the beat for 'Rules' by Lil Dre 556",
+   "url": "https://www.youtube.com/watch?v=LptM7gUxyJE"
+  },
+  "quote": "Flute - Purity: Woodwind - Flute Vib",
+  "quoteBy": "eza333 (the song's producer)",
+  "path": "Woodwind"
+ },
+ {
+  "song": "Rules",
+  "artist": "Lil Dre 556",
+  "producer": "eza333",
+  "plugin": "Luxonix Purity",
+  "preset": "SameFeel 1",
+  "role": "Bell",
+  "confidence": "producer",
+  "source": {
+   "label": "YouTube: How I made the beat for 'Rules' by Lil Dre 556",
+   "url": "https://www.youtube.com/watch?v=LptM7gUxyJE"
+  },
+  "quote": "Bell - Purity: Bell & Perc - SameFeel 1",
+  "quoteBy": "eza333 (the song's producer)",
+  "path": "Bell & Perc"
+ },
+ {
+  "song": "Rules",
+  "artist": "Lil Dre 556",
+  "producer": "eza333",
+  "plugin": "Luxonix Purity",
+  "preset": "Legato Hall",
+  "role": "Strings",
+  "confidence": "producer",
+  "source": {
+   "label": "YouTube: How I made the beat for 'Rules' by Lil Dre 556",
+   "url": "https://www.youtube.com/watch?v=LptM7gUxyJE"
+  },
+  "quote": "Strings - Purity: Strings - Legato Hall",
+  "quoteBy": "eza333 (the song's producer)",
+  "path": "Strings"
+ },
+ {
+  "song": "why my card decline?!",
+  "artist": "Trap Montana",
+  "producer": "eza333",
+  "plugin": "u-he Hive 2",
+  "preset": "AZ Progression",
+  "role": "Arp",
+  "confidence": "producer",
+  "source": {
+   "label": "YouTube: How I made the beat for 'why my card decline?!' by Trap Montana",
+   "url": "https://www.youtube.com/watch?v=bkaHBn1NsTw"
+  },
+  "quote": "Arp - Hive: 10 Loops - tuned - AZ Progression",
+  "quoteBy": "eza333 (the song's producer)",
+  "path": "10 Loops - tuned"
+ },
+ {
+  "song": "why my card decline?!",
+  "artist": "Trap Montana",
+  "producer": "eza333",
+  "plugin": "u-he Hive 2",
+  "preset": "GZ Scooby",
+  "role": "Lead",
+  "confidence": "producer",
+  "source": {
+   "label": "YouTube: How I made the beat for 'why my card decline?!' by Trap Montana",
+   "url": "https://www.youtube.com/watch?v=bkaHBn1NsTw"
+  },
+  "quote": "Lead - Hive: 03 Mono Leads - GZ Scooby",
+  "quoteBy": "eza333 (the song's producer)",
+  "path": "03 Mono Leads"
+ },
+ {
+  "song": "why my card decline?!",
+  "artist": "Trap Montana",
+  "producer": "eza333",
+  "plugin": "u-he Hive 2",
+  "preset": "ETE Rate Cry",
+  "role": "Pad",
+  "confidence": "producer",
+  "source": {
+   "label": "YouTube: How I made the beat for 'why my card decline?!' by Trap Montana",
+   "url": "https://www.youtube.com/watch?v=bkaHBn1NsTw"
+  },
+  "quote": "Pad - Hive: 03 Mono Leads - ETE Rate Cry",
+  "quoteBy": "eza333 (the song's producer)",
+  "path": "03 Mono Leads"
+ },
+ {
+  "song": "Feel like 2016",
+  "artist": "LAZER DIM 700",
+  "producer": "9k drg",
+  "plugin": "reFX Nexus",
+  "preset": "Distorted piano strings",
+  "role": "Keys/pad",
+  "confidence": "producer",
+  "source": {
+   "label": "YouTube: How i made the beat for \"Feel like 2016\" by Lazer dim 700",
+   "url": "https://www.youtube.com/watch?v=od4SS3nJ0NU"
+  },
+  "quote": "Keys/Pad: \"Distorted piano strings\" - Nexus",
+  "quoteBy": "9k drg (the song's producer)",
+  "album": "Feel like 2016"
+ },
+ {
+  "song": "Feel like 2016",
+  "artist": "LAZER DIM 700",
+  "producer": "9k drg",
+  "plugin": "reFX Nexus",
+  "preset": "Hands up bell 4",
+  "role": "Bell",
+  "confidence": "producer",
+  "source": {
+   "label": "YouTube: How i made the beat for \"Feel like 2016\" by Lazer dim 700",
+   "url": "https://www.youtube.com/watch?v=od4SS3nJ0NU"
+  },
+  "quote": "Bell: \"Hands up bell 4\" - Nexus",
+  "quoteBy": "9k drg (the song's producer)",
+  "album": "Feel like 2016"
+ },
+ {
+  "song": "Feel like 2016",
+  "artist": "LAZER DIM 700",
+  "producer": "9k drg",
+  "plugin": "Luxonix Purity",
+  "preset": "Synfagotto",
+  "role": "Bassoon",
+  "confidence": "producer",
+  "source": {
+   "label": "YouTube: How i made the beat for \"Feel like 2016\" by Lazer dim 700",
+   "url": "https://www.youtube.com/watch?v=od4SS3nJ0NU"
+  },
+  "quote": "Fagot: \"Synfagotto\" - Purity (Woodwinds)",
+  "quoteBy": "9k drg (the song's producer)",
+  "path": "Woodwinds",
+  "album": "Feel like 2016"
+ },
+ {
+  "song": "Filthy",
+  "artist": "Justin Timberlake",
+  "producer": "Justin Timberlake, Timbaland, Danja",
+  "plugin": "Xfer Serum",
+  "preset": "BA Digimods",
+  "role": "Wobbly bass",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: That wobbly bass PRESET Justin Timberlake used in Filthy (imamusicmogul)",
+   "url": "https://www.youtube.com/watch?v=GFn72-UziLE"
+  },
+  "quote": "XFER Records Serum Preset: BA Digimods (found under Bass (Hard) category)",
+  "quoteBy": "imamusicmogul",
+  "path": "Bass (Hard)",
+  "album": "Man of the Woods"
  }
 ]
