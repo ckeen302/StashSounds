@@ -15950,5 +15950,29 @@
    "label": "Deezer, What they say",
    "url": "https://www.deezer.com/album/446880365"
   }
+ },
+ "бандана|платина": {
+  "file": "covers/.jpg",
+  "album": "РНБ КЛУБ",
+  "source": {
+   "label": "Deezer, РНБ КЛУБ",
+   "url": "https://www.deezer.com/album/453518705"
+  }
+ },
+ "boss|lil pump": {
+  "file": "covers/boss-lil-pump.jpg",
+  "album": "Boss",
+  "source": {
+   "label": "Deezer, Boss",
+   "url": "https://www.deezer.com/album/42632651"
+  }
+ },
+ "новый мерин|morgenshtern": {
+  "file": "covers/morgenshtern.jpg",
+  "album": "Новый Мерин",
+  "source": {
+   "label": "Deezer, Новый Мерин",
+   "url": "https://www.deezer.com/album/378760307"
+  }
  }
 }

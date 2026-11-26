@@ -25508,5 +25508,80 @@
    "label": "YouTube: (ORIGINAL PRESET + SAMPLES FOUND; FREE FLP) What they say - Nettspend - Fl studio remake",
    "url": "https://www.youtube.com/watch?v=FaPfmJ0rXq4"
   }
+ },
+ {
+  "song": "Jennifer's Body",
+  "artist": "Ken Carson",
+  "plugin": "FabFilter One",
+  "preset": "Peanuts",
+  "role": "bass",
+  "confidence": "community",
+  "quote": "The Preset Is Peanuts From Fabfilter One In The Basses Tab",
+  "quoteBy": "prodbyNoSauce",
+  "album": "A Great Chaos",
+  "source": {
+   "label": "YouTube: Preset Found Jennifers Body By Ken Carson!!",
+   "url": "https://www.youtube.com/watch?v=HWwxO11aJRE"
+  }
+ },
+ {
+  "song": "ROCKSTAR",
+  "artist": "DaBaby feat. Roddy Ricch",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Classic Nylon Guitar",
+  "role": "guitar",
+  "confidence": "community",
+  "quote": "Classic Nylon Guitar",
+  "quoteBy": "CHESY BEATZ",
+  "album": "BLAME IT ON BABY",
+  "source": {
+   "label": "YouTube: Пресеты Из Популярных Треков Ч.6 (Presets From Popular Tracks pt. 6)",
+   "url": "https://www.youtube.com/watch?v=q6kO9DXk-kE"
+  }
+ },
+ {
+  "song": "Бандана",
+  "artist": "Платина",
+  "plugin": "LennarDigital Sylenth1",
+  "preset": "ARP Clean Slate",
+  "role": "arp",
+  "confidence": "community",
+  "quote": "VST: Sylenth1",
+  "quoteBy": "CHESY BEATZ",
+  "album": "РНБ КЛУБ",
+  "source": {
+   "label": "YouTube: Пресеты Из Популярных Треков Ч.8 (Presets From Popular Tracks pt. 8)",
+   "url": "https://www.youtube.com/watch?v=BrKdSP4Miqo"
+  }
+ },
+ {
+  "song": "Boss",
+  "artist": "Lil Pump",
+  "plugin": "reFX Nexus",
+  "preset": "LD Dark Saw",
+  "role": "lead",
+  "confidence": "community",
+  "quote": "Search: LD Dark Saw",
+  "quoteBy": "CHESY BEATZ",
+  "album": "Boss",
+  "source": {
+   "label": "YouTube: Пресеты Из Популярных Треков Ч.12 (Presets From Popular Tracks pt. 12)",
+   "url": "https://www.youtube.com/watch?v=pp1K5sYBSuA"
+  }
+ },
+ {
+  "song": "Новый Мерин",
+  "artist": "Morgenshtern",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Egyptian Saz",
+  "role": "lead",
+  "confidence": "community",
+  "quote": "Egyptian Saz",
+  "quoteBy": "CHESY BEATZ",
+  "album": "Новый Мерин",
+  "source": {
+   "label": "YouTube: Пресеты из Популярных Треков Часть 1 (Presets From Popular Tracks pt. 1)",
+   "url": "https://www.youtube.com/watch?v=ZEj2-_WOVi8"
+  }
  }
 ]
