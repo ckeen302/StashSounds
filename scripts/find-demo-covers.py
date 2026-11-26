@@ -284,7 +284,8 @@ def main():
         try:
             aid = artist_id(lead_credit(rows[0]["artist"]))
             songs = lookup("songs", aid) if aid else []
-            albums = lookup("albums", aid) if aid else []
+            # The album list only helps songs whose album the demo names.
+            albums = lookup("albums", aid) if aid and any(r.get("album") for r in rows) else []
         except Exception as e:  # noqa: BLE001 - one bad artist never stops the run
             print(f"  lookup failed for {rows[0]['artist']}: {e}", file=sys.stderr, flush=True)
             continue
@@ -331,8 +332,8 @@ def main():
                 lazy[key] = {"f": fname, "a": coll, "by": hit.get("artistName", ""), "u": url}
             else:
                 covers[key] = {"file": f"covers/{fname}", "album": coll, "source": {"label": f"Apple Music, {coll} by {hit.get('artistName', '')}", "url": url}}
+        save()  # after every artist: a stopped run loses nothing
         if n % 10 == 0:
-            save()
             print(f"[{n + 1}/{len(groups)} artists] {done} songs checked, {added} new cover files, {api.calls} calls, {api.refused} refused", file=sys.stderr, flush=True)
     save()
     print(f"done: {done} songs checked, {added} new cover files, {api.calls} calls, {len(misses)} misses recorded", file=sys.stderr)
