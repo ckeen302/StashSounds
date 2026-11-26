@@ -11734,5 +11734,13 @@
    "label": "Deezer, Everybody Looking",
    "url": "https://www.deezer.com/album/13633150"
   }
+ },
+ "carousel|travis scott": {
+  "file": "covers/yosemite-travis-scott.jpg",
+  "album": "ASTROWORLD",
+  "source": {
+   "label": "Apple Music, ASTROWORLD by Travis Scott",
+   "url": "https://music.apple.com/us/album/yosemite/1421658111"
+  }
  }
 }
