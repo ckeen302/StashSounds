@@ -11534,5 +11534,29 @@
    "label": "Deezer, NO STYLIST",
    "url": "https://www.deezer.com/album/416793117"
   }
+ },
+ "holy smokes|trippie redd feat. lil uzi vert": {
+  "file": "covers/holy-smokes-trippie-redd-feat-lil-uzi-vert.jpg",
+  "album": "Trip At Knight",
+  "source": {
+   "label": "Deezer, Trip At Knight",
+   "url": "https://www.deezer.com/album/499270021"
+  }
+ },
+ "new freezer|rich the kid feat. kendrick lamar": {
+  "file": "covers/new-freezer-rich-the-kid-feat-kendrick-lamar.jpg",
+  "album": "The World Is Yours",
+  "source": {
+   "label": "Deezer, The World Is Yours",
+   "url": "https://www.deezer.com/album/68962771"
+  }
+ },
+ "just what i am|kid cudi feat. king chip": {
+  "file": "covers/just-what-i-am-kid-cudi-feat-king-chip.jpg",
+  "album": "Indicud",
+  "source": {
+   "label": "Deezer, Indicud",
+   "url": "https://www.deezer.com/album/6487903"
+  }
  }
 }
