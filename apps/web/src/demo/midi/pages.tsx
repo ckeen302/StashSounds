@@ -39,6 +39,7 @@ import { midiSource } from "../daw-sources";
 import { writeMidi } from "./write";
 import { classicLabel, type Classic } from "./classics";
 import { progressionOf } from "./songs";
+import { follow as shareFollow, followerCount } from "../comments-store";
 import { Comments } from "../social";
 import { Cover } from "../presets/cover";
 import { midiPlayer, TIMBRES, type MidiPlayerState, type Timbre } from "./synth";
@@ -502,9 +503,10 @@ export function MidiPage({ publicId }: { publicId: string }) {
             following={following}
             onFollowChange={(f) => {
               set("follows", item.owner.id, f);
+              void shareFollow(item.owner.id, f);
               setLikeTick((n) => n + 1);
             }}
-            followersCount={item.owner.followers + (following ? 1 : 0)}
+            followersCount={item.owner.followers + followerCount(item.owner.id)}
           />
           <section aria-labelledby="license-title" className="flex flex-col gap-4 rounded-panel border border-border bg-surface p-4">
             <div className="flex items-center justify-between gap-3">

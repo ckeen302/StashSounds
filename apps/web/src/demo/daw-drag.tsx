@@ -112,10 +112,10 @@ function markTold() {
   }
 }
 
-/** Rows that count: the direct children of the zone's first list. */
+/** Rows that count: the direct children of the zone's first list, less a comment thread opened under a row. */
 function rowsOf(zone: HTMLElement): HTMLLIElement[] {
   const list = zone.querySelector("ul, ol");
-  return list ? ([...list.children].filter((c) => c instanceof HTMLLIElement && c.getAttribute("aria-hidden") !== "true") as HTMLLIElement[]) : [];
+  return list ? ([...list.children].filter((c) => c instanceof HTMLLIElement && c.getAttribute("aria-hidden") !== "true" && !c.hasAttribute("data-thread")) as HTMLLIElement[]) : [];
 }
 
 function rowOf(zone: HTMLElement, target: EventTarget | null): number {

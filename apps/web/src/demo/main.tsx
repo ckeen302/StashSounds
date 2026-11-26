@@ -53,6 +53,7 @@ import {
   BrowsePage,
   LibraryPage,
   NewCrateHost,
+  CreatorsPage,
   ProfilePage,
   producerByHandle,
   useCrateEntries,
@@ -60,13 +61,14 @@ import {
 } from "./explore";
 import { FlipPanel } from "./flip";
 import { LoopTools } from "./loop-tools";
+import { followerCount } from "./comments-store";
 import { Comments, trendScore } from "./social";
 import { LoopsPage } from "./loops";
 import { pack, PACK_WEEK } from "./packs";
 import { ALL_SONGS, madeBy, songHref, TOP_PRODUCERS } from "./presets/songs";
 import { PRESETS, type Confidence } from "./presets/data";
 import { Cover, coverFor } from "./presets/cover";
-import { kits } from "./kits/store";
+import { kits, useKits } from "./kits/store";
 import { saveFiles, saveLoopRow } from "./save";
 import { SmartSearch, useQuery } from "./search-ui";
 import { KitHits, PresetHits, ProducerHits, rank, ShotHits, SfxHits, useOtherHits } from "./search-page";
@@ -74,7 +76,7 @@ import { queryWords, textMatch } from "./text-match";
 import { loopProfile, midiProfile } from "./search-index";
 import { match, moreLike } from "./smart-search";
 import { writeMidi } from "./midi/write";
-import { KitPage, KitsPage, KitUploadPage } from "./kits/pages";
+import { KitCards, KitPage, KitsPage, KitUploadPage } from "./kits/pages";
 import { DawDragZone } from "./daw-drag";
 import { loopSource } from "./daw-sources";
 import { attachLoopStyles, allProducers, hrefForProducer, producerBySlug, producerNamed, producerPageHref } from "./producers/data";
@@ -116,7 +118,7 @@ function pageForViewer(page: ItemPage): ItemPage {
     owner: {
       ...page.owner,
       viewerFollows: follows,
-      followersCount: page.owner.followersCount + (follows ? 1 : 0),
+      followersCount: page.owner.followersCount + followerCount(page.owner.id),
     },
     moreFromOwner: page.moreFromOwner.map(withViewer),
     similar: page.similar.map(withViewer),
@@ -524,6 +526,7 @@ function LoopsRoute() {
 
 function ProfileRoute({ handle }: { handle: string }) {
   const [rows] = useRows();
+  const theirs = useKits().filter((k) => k.owner.handle === handle);
   return (
     <ProfilePage
       key={handle}
@@ -531,8 +534,17 @@ function ProfileRoute({ handle }: { handle: string }) {
       catalog={catalog}
       rows={rows}
       renderLoops={renderLoops}
+      kits={<KitCards kits={theirs} label="Drum kits" />}
+      kitCount={theirs.length}
     />
   );
+}
+
+function CreatorsRoute() {
+  const [rows] = useRows();
+  const counts: Record<string, number> = {};
+  for (const k of useKits()) counts[k.owner.handle] = (counts[k.owner.handle] ?? 0) + 1;
+  return <CreatorsPage catalog={catalog} rows={rows} kitCounts={counts} />;
 }
 
 function LibraryRoute() {
@@ -1248,6 +1260,7 @@ function Route() {
   if (path.startsWith("/producer/")) return <ProducerRoute key={path} slug={path.slice(10)} />;
   if (path === "/library") return <LibraryRoute />;
   if (path === "/kits") return <KitsPage />;
+  if (path === "/creators") return <CreatorsRoute />;
   const kitPage = /^\/kit\/([a-z0-9]+)$/.exec(path);
   if (kitPage) return <KitPage key={kitPage[1]} id={kitPage[1]!} />;
   if (path === "/kit-upload") return <KitUploadPage />;

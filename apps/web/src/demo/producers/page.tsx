@@ -6,7 +6,7 @@ import { setFollow } from "../explore";
 import type { RenderLoops } from "../explore";
 import { SongCard as PresetSongCard } from "../presets/page";
 import { SongCard as SampleSongCard } from "../samples/page";
-import { KitCard } from "../kits/pages";
+import { KitCards } from "../kits/pages";
 import { useKits } from "../kits/store";
 import { MidiList, useMidiItems } from "../midi/pages";
 import { allProducers, midiSongKey, producerBySlug, producerPageHref, producerTotal, type ProducerPage } from "./data";
@@ -284,11 +284,7 @@ export function ProducerPageView({ slug, rows, styleOf, renderLoops }: { slug: s
       <div className="mx-auto flex w-full max-w-content flex-col gap-10 px-3 py-8 tablet:px-4 desktop:px-6">
         {kits.length > 0 && (
           <Section id="kits" title={`Drum kits in the style of ${p.name}`} count={kits.length} note={styleNote}>
-            <ul aria-label="Drum kits" className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-3">
-              {kits.map((k) => (
-                <KitCard key={k.id} k={k} />
-              ))}
-            </ul>
+            <KitCards kits={kits} label="Drum kits" />
           </Section>
         )}
         {loops.length > 0 && (
