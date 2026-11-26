@@ -11510,5 +11510,29 @@
    "label": "Deezer, Sli'merre",
    "url": "https://www.deezer.com/album/95743662"
   }
+ },
+ "see you again|tyler, the creator feat. kali uchis": {
+  "file": "covers/see-you-again-tyler-the-creator-feat-kali-uchis.jpg",
+  "album": "Flower Boy",
+  "source": {
+   "label": "Deezer, Flower Boy",
+   "url": "https://www.deezer.com/album/44730061"
+  }
+ },
+ "sauce it up|lil uzi vert": {
+  "file": "covers/sauce-it-up-lil-uzi-vert.jpg",
+  "album": "Luv Is Rage 2",
+  "source": {
+   "label": "Deezer, Luv Is Rage 2",
+   "url": "https://www.deezer.com/album/46704442"
+  }
+ },
+ "veteran|destroy lonely feat. ken carson": {
+  "file": "covers/veteran-destroy-lonely-feat-ken-carson.jpg",
+  "album": "NO STYLIST",
+  "source": {
+   "label": "Deezer, NO STYLIST",
+   "url": "https://www.deezer.com/album/416793117"
+  }
  }
 }

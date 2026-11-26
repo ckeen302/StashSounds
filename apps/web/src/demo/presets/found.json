@@ -21499,5 +21499,50 @@
   "quote": "On screen: u-he TyrellN6, display \"PV - El Harpo\", window titled \"PV - El Harpo\" in the second segment; the creator-pinned comment names the songs as \"drake, partynextdoor - recognize young nudy, megan thee stallion - shotta\"",
   "quoteBy": "BLUE STEEL",
   "album": "Sli'merre"
+ },
+ {
+  "song": "See You Again",
+  "artist": "Tyler, the Creator feat. Kali Uchis",
+  "plugin": "Apple Logic Pro Sampler",
+  "preset": "French Horns Legato",
+  "role": "Horns",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #162: Tyler, The Creator Pt. 3 (BLUE STEEL), video frame of the first segment",
+   "url": "https://www.youtube.com/shorts/onscNPtu_v0"
+  },
+  "quote": "On screen: Logic Pro Sampler window titled \"French Horns Legato\" loaded (Compare not lit); songs named in a comment pinned by BLUE STEEL: \"Second is IFHY and the first is See you again\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Flower Boy"
+ },
+ {
+  "song": "Sauce It Up",
+  "artist": "Lil Uzi Vert",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Retro Bass Flute",
+  "role": "Lead",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #158: Lil Uzi Vert Pt. 5 (BLUE STEEL), video frame of the second segment",
+   "url": "https://www.youtube.com/shorts/dZ1b5nvAs34"
+  },
+  "quote": "On screen: Omnisphere patch \"Retro Bass Flute\" (Omnisphere Library Patch) loaded; songs listed in order in a comment pinned by BLUE STEEL: \"just wanna rock and sauce it up\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "Luv Is Rage 2"
+ },
+ {
+  "song": "VETERAN",
+  "artist": "Destroy Lonely feat. Ken Carson",
+  "plugin": "Spectrasonics Omnisphere",
+  "preset": "Accidental Magic",
+  "role": "Arp",
+  "confidence": "community",
+  "source": {
+   "label": "YouTube: FAMOUS PRESETS #112: Destroy Lonely Pt. 2 (BLUE STEEL), video frame of the second segment",
+   "url": "https://www.youtube.com/shorts/gzv9UKwNFUY"
+  },
+  "quote": "On screen: Omnisphere patch \"Accidental Magic\" (Spotlight - EDM Patch) loaded; songs listed in order in a comment pinned by BLUE STEEL: \"NOSTYLIST and VETERAN\"",
+  "quoteBy": "BLUE STEEL",
+  "album": "NO STYLIST"
  }
 ]
