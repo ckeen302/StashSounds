@@ -8,7 +8,10 @@ article with no such section, from its bulleted sample notes for tracks on its t
 the Wikipedia API, with the sampled record's year and genre from its own article or its artist's.
 A song article can stand in for an album: [song article, album, artist, year, [the song]], read from
 sentences whose subject is the song ("The song samples "X" by Y"), with the performer taken from
-the sampled record's own article when it has one.
+the sampled record's own article when it has one. A sampled record's article can stand in too:
+[record article, None, sampling artist, year, [[sampling song, "", [the record]]]], read from its
+Sampling section where the sentence says the record was sampled (or the list is introduced that way)
+and the sampling artist's own article lists hip hop or R&B.
 Nothing here comes from WhoSampled.
 
 YouTube videos come from Wikidata's "YouTube video ID" (P1651) on the song's own item, read for
