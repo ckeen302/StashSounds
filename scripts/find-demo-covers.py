@@ -23,8 +23,10 @@ match, the album the demo names is looked for among the artist's albums. When in
 without art (the page shows a fallback tile in the theme's colors) and goes in presets/cover-misses.json,
 so later runs skip it.
 
-Artwork is saved at the sprite-sheet tile size (240 px) in presets/covers/; covers.json gets the
-album and the Apple Music link as its source, like the rows that were there before.
+Artwork is saved at the sprite-sheet tile size (240 px) in presets/covers/. Presets and MIDI songs go in
+presets/covers.json with the album and the Apple Music link as their source, like the rows that were
+there before; Samples-tab songs and sampled records go in samples/covers.json, a compact row
+({f: file, a: album, by: Apple's artist credit, u: Apple Music link}) that loads only with that tab.
 """
 import json, os, re, sys, time, unicodedata, urllib.error, urllib.parse, urllib.request
 from io import BytesIO
@@ -32,6 +34,7 @@ from PIL import Image
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "apps/web/src/demo/presets")
 COVERS = os.path.join(ROOT, "covers.json")
+LAZY = os.path.join(ROOT, "..", "samples", "covers.json")  # the Samples tab's own, loaded with it
 MISSES = os.path.join(ROOT, "cover-misses.json")
 DIR = os.path.join(ROOT, "covers")
 TILE = 240
@@ -174,7 +177,7 @@ def slug(s: str) -> str:
 
 
 class Api:
-    """The iTunes Search API, paced: slower after every 403, a little faster after every 40 answers."""
+    """The iTunes Search API, paced: a pause and a slower pace after every 403, a little faster after every 10 answers."""
 
     def __init__(self, pace: float):
         self.pace, self.floor, self.last, self.calls, self.refused = pace, pace, 0.0, 0, 0
@@ -189,14 +192,14 @@ class Api:
             try:
                 with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=30) as r:
                     self.calls += 1
-                    if self.calls % 40 == 0:
-                        self.pace = max(self.floor, self.pace - 0.5)
+                    if self.calls % 10 == 0:
+                        self.pace = max(self.floor, self.pace - 0.25)
                     return json.loads(r.read())
             except urllib.error.HTTPError as e:
                 if e.code in (403, 429) or e.code >= 500:
                     self.refused += 1
-                    self.pace = min(15.0, self.pace + 1.0)
-                    back = min(180, 20 * (attempt + 1))
+                    self.pace = min(8.0, self.pace + 0.5)
+                    back = min(240, 30 * (attempt + 1))
                     print(f"  HTTP {e.code}: waiting {back}s, then one call every {self.pace:.1f}s", file=sys.stderr, flush=True)
                     time.sleep(back)
                     continue
@@ -230,6 +233,7 @@ def main():
     for k in ("artists", "songs", "albums"):
         cache.setdefault(k, {})
     covers = json.load(open(COVERS))
+    lazy = json.load(open(LAZY)) if os.path.exists(LAZY) else {}
     misses = json.load(open(MISSES)) if os.path.exists(MISSES) else {}
     files = set(os.listdir(DIR))
     by_art, added, done = {}, 0, 0
@@ -240,6 +244,7 @@ def main():
         if dry:
             return
         open(COVERS, "w").write(json.dumps(covers, indent=1, ensure_ascii=False) + "\n")
+        open(LAZY, "w").write("{\n" + ",\n".join(f"{json.dumps(k, ensure_ascii=False)}: {json.dumps(v, ensure_ascii=False)}" for k, v in lazy.items()) + "\n}\n")
         open(MISSES, "w").write(json.dumps(misses, indent=0, sort_keys=True, ensure_ascii=False) + "\n")
 
     def artist_id(credit: str):
@@ -269,7 +274,7 @@ def main():
     groups: dict = {}
     for row in queue:
         key = f"{row['song']}|{row['artist']}".lower()
-        if key in covers or key in misses:
+        if key in covers or key in lazy or key in misses:
             continue
         groups.setdefault(flat(lead_credit(row["artist"])), []).append(row)
     print(f"{sum(map(len, groups.values()))} songs by {len(groups)} artists to look up", file=sys.stderr, flush=True)
@@ -320,11 +325,12 @@ def main():
                 by_art[art] = fname
                 added += 1
             coll = hit.get("collectionName", "")
-            covers[key] = {
-                "file": f"covers/{fname}",
-                "album": coll,
-                "source": {"label": f"Apple Music, {coll} by {hit.get('artistName', '')}", "url": hit.get("collectionViewUrl", "").split("?")[0]},
-            }
+            url = hit.get("collectionViewUrl", "").split("?")[0]
+            if row.get("tab") in ("samples", "originals"):
+                # The Samples tab's covers load with that tab: a compact row (cover.tsx registerCovers).
+                lazy[key] = {"f": fname, "a": coll, "by": hit.get("artistName", ""), "u": url}
+            else:
+                covers[key] = {"file": f"covers/{fname}", "album": coll, "source": {"label": f"Apple Music, {coll} by {hit.get('artistName', '')}", "url": url}}
         if n % 10 == 0:
             save()
             print(f"[{n + 1}/{len(groups)} artists] {done} songs checked, {added} new cover files, {api.calls} calls, {api.refused} refused", file=sys.stderr, flush=True)

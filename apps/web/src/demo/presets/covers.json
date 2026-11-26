@@ -11558,5 +11558,85 @@
    "label": "Deezer, Indicud",
    "url": "https://www.deezer.com/album/6487903"
   }
+ },
+ "u remind me|usher": {
+  "file": "covers/u-remind-me-usher.jpg",
+  "album": "8701",
+  "source": {
+   "label": "Apple Music, 8701 by USHER",
+   "url": "https://music.apple.com/us/album/u-remind-me/268532446"
+  }
+ },
+ "u got it bad|usher": {
+  "file": "covers/u-remind-me-usher.jpg",
+  "album": "8701",
+  "source": {
+   "label": "Apple Music, 8701 by USHER",
+   "url": "https://music.apple.com/us/album/u-got-it-bad/268532446"
+  }
+ },
+ "climax|usher": {
+  "file": "covers/climax-usher.jpg",
+  "album": "Looking 4 Myself (Expanded Edition)",
+  "source": {
+   "label": "Apple Music, Looking 4 Myself (Expanded Edition) by USHER",
+   "url": "https://music.apple.com/us/album/climax/1448420461"
+  }
+ },
+ "there goes my baby|usher": {
+  "file": "covers/there-goes-my-baby-usher.jpg",
+  "album": "Raymond v Raymond (Expanded Edition)",
+  "source": {
+   "label": "Apple Music, Raymond v Raymond (Expanded Edition) by USHER",
+   "url": "https://music.apple.com/us/album/there-goes-my-baby/923691585"
+  }
+ },
+ "omg|usher ft. will.i.am": {
+  "file": "covers/there-goes-my-baby-usher.jpg",
+  "album": "Raymond v Raymond (Expanded Edition)",
+  "source": {
+   "label": "Apple Music, Raymond v Raymond (Expanded Edition) by USHER",
+   "url": "https://music.apple.com/us/album/omg-feat-will-i-am/923691585"
+  }
+ },
+ "dj got us fallin' in love|usher ft. pitbull": {
+  "file": "covers/there-goes-my-baby-usher.jpg",
+  "album": "Raymond v Raymond (Expanded Edition)",
+  "source": {
+   "label": "Apple Music, Raymond v Raymond (Expanded Edition) by USHER",
+   "url": "https://music.apple.com/us/album/dj-got-us-fallin-in-love-feat-pitbull/923691585"
+  }
+ },
+ "you make me wanna...|usher": {
+  "file": "covers/you-make-me-wanna-usher.jpg",
+  "album": "My Way",
+  "source": {
+   "label": "Apple Music, My Way by USHER",
+   "url": "https://music.apple.com/us/album/you-make-me-wanna/278845426"
+  }
+ },
+ "caught up|usher": {
+  "file": "covers/caught-up-usher.jpg",
+  "album": "Confessions (Expanded Edition)",
+  "source": {
+   "label": "Apple Music, Confessions (Expanded Edition) by USHER",
+   "url": "https://music.apple.com/us/album/caught-up/386153476"
+  }
+ },
+ "scream|usher": {
+  "file": "covers/climax-usher.jpg",
+  "album": "Looking 4 Myself (Expanded Edition)",
+  "source": {
+   "label": "Apple Music, Looking 4 Myself (Expanded Edition) by USHER",
+   "url": "https://music.apple.com/us/album/scream/1448420461"
+  }
+ },
+ "hey daddy (daddy's home)|usher": {
+  "file": "covers/there-goes-my-baby-usher.jpg",
+  "album": "Raymond v Raymond (Expanded Edition)",
+  "source": {
+   "label": "Apple Music, Raymond v Raymond (Expanded Edition) by USHER",
+   "url": "https://music.apple.com/us/album/hey-daddy-daddys-home/923691585"
+  }
  }
 }

@@ -14,7 +14,12 @@ type CoverRow = {
   album: string;
   source: { label: string; url: string };
 };
-const ROWS = COVERS as Record<string, CoverRow>;
+// Covers are packed onto sprite sheets (scripts/pack-demo-covers.py): each file is a tile on one.
+const SHEET = SHEETS as unknown as { grid: number; sheets: string[]; tiles: Record<string, [number, number, number]> };
+
+// A row whose file is on no sheet yet (found, not packed) is left out: the page would fetch a file
+// that is not published. scripts/qa-nightly.mjs flags such rows.
+const ROWS: Record<string, CoverRow> = Object.fromEntries(Object.entries(COVERS as Record<string, CoverRow>).filter(([, r]) => !!SHEET.tiles[r.file]));
 
 export function coverKey(song: string, artist: string): string {
   return `${song}|${artist}`.toLowerCase();
@@ -26,19 +31,33 @@ const loose = (song: string, artist: string) => {
   return `${flat(song)}|${flat(artist.split(/ feat\.? | ft\.? | x |,| & | \(/i)[0] ?? artist)}`;
 };
 const LOOSE = new Map<string, CoverRow>();
-for (const [k, row] of Object.entries(ROWS)) {
-  const [song = "", artist = ""] = k.split("|");
-  const lk = loose(song, artist);
-  if (!LOOSE.has(lk)) LOOSE.set(lk, row);
-}
-
 // Songs on the same album share its cover: one found cover covers every song on that album.
 const flatName = (x: string) => x.toLowerCase().replace(/\(.*?\)|deluxe|edition/g, "").replace(/[^a-z0-9]/g, "");
 const BY_ALBUM = new Map<string, CoverRow>();
-for (const [k, row] of Object.entries(ROWS)) {
-  const artist = k.split("|")[1] ?? "";
+function index(k: string, row: CoverRow) {
+  const [song = "", artist = ""] = k.split("|");
+  const lk = loose(song, artist);
+  if (!LOOSE.has(lk)) LOOSE.set(lk, row);
   const ak = `${flatName(row.album)}|${loose("", artist).split("|")[1]}`;
   if (row.album && !/^single$/i.test(row.album) && !BY_ALBUM.has(ak)) BY_ALBUM.set(ak, row);
+}
+for (const [k, row] of Object.entries(ROWS)) index(k, row);
+
+/** A compact cover row (samples/covers.json): file, album, Apple's artist credit, link, and its tile. */
+export type LazyCover = { f: string; a: string; by: string; u: string; t?: [number, number, number] };
+
+/**
+ * Adds covers that load with a tab of their own (the Samples tab's, which only it needs), so they
+ * stay off the first load. Rows already here win.
+ */
+export function registerCovers(rows: Record<string, LazyCover>) {
+  for (const [k, r] of Object.entries(rows)) {
+    if (ROWS[k] || !r.t) continue;
+    const row: CoverRow = { file: `covers/${r.f}`, album: r.a, source: { label: `Apple Music, ${r.a} by ${r.by}`, url: r.u } };
+    ROWS[k] = row;
+    index(k, row);
+    if (!SHEET.tiles[row.file]) SHEET.tiles[row.file] = r.t;
+  }
 }
 
 // The album each song is on, from the preset rows that name one.
@@ -57,8 +76,6 @@ export function coverFor(song: string, artist: string): CoverRow | null {
   return BY_ALBUM.get(`${flatName(album)}|${loose("", artist).split("|")[1]}`) ?? null;
 }
 
-// Covers are packed onto sprite sheets (scripts/pack-demo-covers.py): each file is a tile on one.
-const SHEET = SHEETS as unknown as { grid: number; sheets: string[]; tiles: Record<string, [number, number, number]> };
 
 export function tileStyle(file: string): CSSProperties {
   const t = SHEET.tiles[file];

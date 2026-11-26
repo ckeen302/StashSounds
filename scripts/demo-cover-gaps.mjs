@@ -5,7 +5,10 @@
 //   songs here first), 4. the sampled originals (most-sampled first).
 // It bundles the demo's own data modules, so the count is exactly what coverFor() resolves.
 //
-// Usage: node scripts/demo-cover-gaps.mjs [--queue out.json]
+// With --order <file> it writes the cover files in the order the tabs show them, for
+// scripts/pack-demo-covers.py to lay out the sheets by.
+//
+// Usage: node scripts/demo-cover-gaps.mjs [--queue out.json] [--order order.json]
 import { createRequire } from "node:module";
 import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -17,9 +20,12 @@ const demo = join(root, "apps/web/src/demo");
 const esbuild = createRequire(join(root, "package.json"))("esbuild");
 const q = process.argv.indexOf("--queue");
 const queue = q > 0 ? process.argv[q + 1] : "";
+const o = process.argv.indexOf("--order");
+const order = o > 0 ? process.argv[o + 1] : "";
 
 const entry = `
 import { ALL_SONGS } from ${JSON.stringify(join(demo, "presets/songs"))};
+import ${JSON.stringify(join(demo, "samples/covers"))};
 import { coverFor } from ${JSON.stringify(join(demo, "presets/cover"))};
 import { SONG_CHORDS } from ${JSON.stringify(join(demo, "midi/songs"))};
 import { SAMPLE_SONGS, ORIGINALS } from ${JSON.stringify(join(demo, "samples/data"))};
@@ -37,6 +43,18 @@ for (const [tab, rows] of Object.entries(tabs)) {
   counts[tab] = { items: rows.length, withoutCover: missing[tab].length, withCover: rows.length - missing[tab].length };
 }
 console.log(JSON.stringify(counts, null, 1));
+const orderOut = ${JSON.stringify(order)};
+if (orderOut) {
+  // Cover files in the order the tabs show them (the Presets tab's "best sourced first", the Samples
+  // tab's newest first, the most-sampled records first), so one screen of cards shares few sheets.
+  const files = [];
+  const add = (rows) => { for (const r of rows) { const c = coverFor(r.song, r.artist); if (c) files.push(c.file); } };
+  add([...ALL_SONGS].sort((a, b) => b.best - a.best || b.named - a.named || a.artist.localeCompare(b.artist)));
+  add(tabs.midi);
+  add([...tabs.samples].sort((a, b) => (b.year ?? 0) - (a.year ?? 0)));
+  add([...tabs.originals].sort((a, b) => b.weight - a.weight));
+  writeFileSync(orderOut, JSON.stringify([...new Set(files)]));
+}
 const out = ${JSON.stringify(queue)};
 if (out) {
   const lead = (a) => a.split(/ feat\\.? | ft\\.? | featuring | with |, | & | x /i)[0].toLowerCase();

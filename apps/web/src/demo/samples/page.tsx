@@ -10,6 +10,7 @@ import { useState, type ReactNode } from "react";
 import { CrateMenu } from "../explore";
 import { Comments } from "../social";
 import { songChordItems } from "../midi/catalog";
+import "./covers";
 import { albumOf, Cover, coverFor, tileStyle } from "../presets/cover";
 import { ALL_SONGS, songHref } from "../presets/songs";
 import {
