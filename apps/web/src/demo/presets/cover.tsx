@@ -5,7 +5,8 @@ import { PRESETS } from "./data";
 
 /**
  * The album cover beside a song. Real art comes from covers.json (the file is published next to the
- * page, since the page can't load images from other sites). Until a song has one, nothing is shown.
+ * page, since the page can't load images from other sites). Until a song has one, a placeholder tile in the
+ * theme's colors shows its initials (or nothing, where the caller asks for no placeholder).
  */
 
 type CoverRow = {
@@ -99,11 +100,36 @@ export function Cover({
       />
     );
   }
-  // No made-up art: a plain record tile holds the space until the real cover is in.
+  // No made-up art: a record tile in the theme's colors, with the song's initials, holds the space
+  // until the real cover is in. Its faint tint is one of the type tokens, picked by the title.
   if (!placeholder) return null;
   return (
-    <span aria-hidden="true" className={`${box} st-cover st-cover-empty shrink-0 rounded-control border border-border`}>
+    <span aria-hidden="true" className={`${box} st-cover st-cover-empty st-cover-hue-${hueOf(song)} shrink-0 rounded-control border border-border`}>
       <span className="st-cover-disc" />
+      <span className="st-cover-initials">{initials(song)}</span>
     </span>
   );
+}
+
+/** Up to two letters from the title's words ("Hotline Bling" is "HB"), skipping a leading "The"/"A". */
+export function initials(title: string): string {
+  const words = title
+    .replace(/\(.*?\)|\[.*?\]/g, "")
+    .normalize("NFKD")
+    .replace(/[̀-ͯ]/g, "")
+    .split(/[^A-Za-z0-9]+/)
+    .filter(Boolean);
+  const kept = words.length > 1 && /^(the|a|an)$/i.test(words[0]!) ? words.slice(1) : words;
+  return (
+    kept
+      .slice(0, 2)
+      .map((w) => w[0]!.toUpperCase())
+      .join("") || "?"
+  );
+}
+
+function hueOf(title: string): number {
+  let h = 0;
+  for (const c of title) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+  return h % 5;
 }
