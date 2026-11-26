@@ -7,7 +7,7 @@
 
 The Search API allows about 20 calls a minute from one address (and answers 403 past that), so the
 songs are looked up by artist: one artist search, then the artist's songs and albums (two lookups of
-up to 200 each) answer every queued song by that artist. Presets and MIDI songs the artist's lists
+up to 200 each) answer every queued song by that artist. MIDI songs the artist's lists
 miss get a search of their own. The pace slows on every 403 and recovers slowly; answers are cached
 in ~/.cache/stash-demo-covers.json, so a stopped run picks up where it was.
 
@@ -284,16 +284,18 @@ def main():
         try:
             aid = artist_id(lead_credit(rows[0]["artist"]))
             songs = lookup("songs", aid) if aid else []
-            # The album list only helps songs whose album the demo names.
-            albums = lookup("albums", aid) if aid and any(r.get("album") for r in rows) else []
+            # The album list only helps songs the song list misses and whose album the demo names.
+            need = aid and any(r.get("album") and not choose(r, songs) for r in rows)
+            albums = lookup("albums", aid) if need else []
         except Exception as e:  # noqa: BLE001 - one bad artist never stops the run
             print(f"  lookup failed for {rows[0]['artist']}: {e}", file=sys.stderr, flush=True)
             continue
         for row in rows:
             key = f"{row['song']}|{row['artist']}".lower()
             hit = choose(row, songs) or album_hit(row, albums)
-            if hit is None and row.get("tab") in ("presets", "midi"):
-                # The tabs that should be complete get a search for the song itself too.
+            if hit is None and row.get("tab") == "midi":
+                # MIDI song charts get a search for the song itself too. (The preset songs still
+                # missing were searched song by song when their covers were first found.)
                 title = re.sub(r"[\(\[].*?[\)\]]", "", row["song"]).strip() or row["song"]
                 try:
                     res = api.json("search", term=f"{title} {lead_credit(row['artist'])}", entity="song", limit=25, country="us")["results"]
