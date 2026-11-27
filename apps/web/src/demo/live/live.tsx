@@ -198,9 +198,11 @@ export function BeatPulse() {
       const strength = Math.min(1, 0.4 + f.level);
       for (const el of hit) {
         if (!el.isConnected || !el.getClientRects().length) continue;
+        // A key or a light kicks; a whole card only breathes, so the list stays calm to read.
+        const kick = el.getBoundingClientRect().width > 240 ? 0.008 : 0.05;
         el.animate(
           [
-            { transform: `scale(${1 + 0.05 * strength})`, filter: `brightness(${1 + 0.25 * strength})` },
+            { transform: `scale(${1 + kick * strength})`, filter: `brightness(${1 + 0.25 * strength})` },
             { transform: "scale(1)", filter: "brightness(1)" },
           ],
           { duration: 180, easing: "cubic-bezier(.2,.8,.3,1)" },

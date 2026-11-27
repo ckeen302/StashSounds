@@ -728,8 +728,8 @@ export function UploadPage({ embedded = false }: { embedded?: boolean } = {}) {
       >
         <div data-over={over || undefined} className="sp-lcd lib-drop">
         <div className="flex flex-col gap-1">
-          <p className="sp-lcd-text m-0">INSERT .MID&gt; <span className="sp-lcd-blink">_</span></p>
-          <p className="sp-lcd-small m-0">Drop a .mid file here. Up to 1 MB, 20,000 notes and five minutes.</p>
+          <p className="sp-lcd-text m-0">Drop a .mid file</p>
+          <p className="sp-lcd-small m-0">Or tap to choose one. Up to 1 MB, 20,000 notes and five minutes.</p>
         </div>
         <input
           ref={input}

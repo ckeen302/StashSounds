@@ -1,4 +1,5 @@
 import { lazy, Suspense, useMemo, useState, useSyncExternalStore, type ReactNode } from "react";
+import { Plate } from "../bank-head";
 import type { ItemRow } from "@stash/contracts";
 import { Button, ButtonLink, Check, EmptyState, FilterChip, SearchInput, UiLink, User, UserPlus, useToast } from "@stash/ui";
 import { has } from "../store";
@@ -371,13 +372,7 @@ export function ProducerPageView({ slug, rows, styleOf, renderLoops }: { slug: s
           </UiLink>
           <div className="sp-profile">
             <ProducerAvatar name={p.name} size="lg" />
-            <div className="sp-bezel min-w-0 flex-1">
-              <div className="sp-lcd flex flex-col gap-2">
-                <span className="sp-lcd-small">PRODUCER &gt; SOUND PROFILE</span>
-                <h1 className="sp-lcd-title st-song-title text-balance break-words">{p.name}</h1>
-                {artists.length > 0 && <p className="sp-lcd-text sp-lcd-caps">{`Songs for ${andList(artists)}`}</p>}
-              </div>
-            </div>
+            <Plate kicker="Producer · sound profile" title={p.name} blurb={artists.length > 0 ? `Songs for ${andList(artists)}` : undefined} className="flex-1" />
             <div className="sp-profile-side">
               <FollowButton p={p} />
             </div>

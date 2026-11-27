@@ -1,4 +1,5 @@
 import type { ItemRow, MusicalKey } from "@stash/contracts";
+import { Plate } from "./bank-head";
 import { compatibleKeys, formatKey } from "@stash/contracts/format";
 import {
   Avatar,
@@ -345,19 +346,16 @@ export function ProfilePage({ handle, catalog, rows, renderLoops, kits = null, k
             .map((w) => w[0]?.toUpperCase() ?? "")
             .join("")}
         </span>
-        <div className="sp-bezel min-w-0 flex-1">
-          <div className="sp-lcd flex flex-col gap-2">
-            <span className="sp-lcd-small">{`PRODUCER > @${p.handle.toUpperCase()}`}</span>
-            <h1 className="sp-lcd-title break-words">{p.displayName}</h1>
-            {(genres.length > 0 || bpms.length > 0) && (
-              <p className="sp-lcd-text sp-lcd-caps">
-                {[genres.length > 0 ? `Makes ${genres.join(", ")}` : "", bpms.length > 0 ? `${Math.min(...bpms)} to ${Math.max(...bpms)} BPM` : ""].filter(Boolean).join(" / ")}
-              </p>
-            )}
-            <hr className="sp-lcd-rule" />
+        <Plate
+          kicker={`Producer · @${p.handle}`}
+          title={p.displayName}
+          blurb={genres.length > 0 || bpms.length > 0 ? [genres.length > 0 ? `Makes ${genres.join(", ")}` : "", bpms.length > 0 ? `${Math.min(...bpms)} to ${Math.max(...bpms)} BPM` : ""].filter(Boolean).join(" · ") : undefined}
+          className="flex-1"
+        >
+          <div className="sp-bezel sp-strip sp-sig-screen" style={{ ["--sig" as string]: sigVar(sig.color) }}>
             <SigMessage handle={p.handle} className="sp-lcd-text" />
           </div>
-        </div>
+        </Plate>
         <div className="sp-profile-side flex flex-col gap-3">
           {own ? (
             <ButtonLink href="/upload" variant="primary" icon={Upload}>

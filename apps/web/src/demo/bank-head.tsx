@@ -3,9 +3,9 @@ import { useQuery } from "./search-ui";
 import { withoutToken } from "./smart-search";
 
 /**
- * The library pages' header in the Sampler look: the page is a bank on the machine, so its name, a
- * one-line note and its own search sit on the green screen (sampler.css: .sp-bezel, .sp-lcd).
- * Actions (an upload key, the filters key) sit on the panel beside the screen.
+ * The library pages' header in the Sampler look. The page's name is printed on the panel, calm, the
+ * way a machine labels its sections; the only screen in it is the search, a slim strip of green.
+ * Hardware is kept for the frame and for the page's one hero (heroes/), so the sounds stand out.
  */
 export function BankHead({
   kicker,
@@ -20,55 +20,66 @@ export function BankHead({
   blurb?: ReactNode;
   search?: ReactNode;
   actions?: ReactNode;
-  /** The page's one big moment (heroes/): an instrument to play, beside the screen. */
+  /** The page's one big moment (heroes/): an instrument to play, beside the name. */
   hero?: ReactNode;
 }) {
   if (hero)
     return (
       <header className="sp-hero">
-        <div className="sp-bezel sp-hero-screen min-w-0">
-          <div className="sp-lcd flex h-full flex-col gap-3">
-            <div className="flex min-w-0 flex-col gap-1">
-              <span className="sp-lcd-small">{kicker}</span>
-              <h1 className="sp-lcd-title sp-hero-title break-words">{title}</h1>
-              {blurb && <p className="sp-lcd-small m-0">{blurb}</p>}
-            </div>
-            {search && (
-              <div className="mt-auto flex flex-col gap-3">
-                <hr className="sp-lcd-rule" />
-                {search}
-              </div>
-            )}
-          </div>
-        </div>
+        <Plate kicker={kicker} title={title} blurb={blurb} search={search} className="sp-hero-screen" big />
         <div className="sp-hero-stage min-w-0">{hero}</div>
         {actions && <div className="sp-hero-actions flex flex-wrap gap-2">{actions}</div>}
       </header>
     );
   return (
-    <header className="flex flex-col gap-3 tablet:flex-row tablet:items-stretch">
-      <div className="sp-bezel min-w-0 flex-1">
-        <div className="sp-lcd flex flex-col gap-3">
-          <div className="flex min-w-0 flex-col gap-1">
-            <span className="sp-lcd-small">{kicker}</span>
-            <h1 className="sp-lcd-title break-words">{title}</h1>
-            {blurb && <p className="sp-lcd-small m-0">{blurb}</p>}
-          </div>
-          {search && (
-            <>
-              <hr className="sp-lcd-rule" />
-              {search}
-            </>
-          )}
-        </div>
-      </div>
-      {actions && (
-        <div className="lib-head-actions flex flex-wrap items-end gap-2 tablet:w-48 tablet:flex-col tablet:items-stretch">
-          <span aria-hidden="true" className="sp-grille hidden min-h-12 flex-1 tablet:block" />
-          {actions}
-        </div>
-      )}
+    <header className="flex flex-col gap-3 tablet:flex-row tablet:items-end">
+      <Plate kicker={kicker} title={title} blurb={blurb} search={search} className="flex-1" />
+      {actions && <div className="lib-head-actions flex flex-wrap items-end gap-2 tablet:w-48 tablet:flex-col tablet:items-stretch">{actions}</div>}
     </header>
+  );
+}
+
+/**
+ * A page's name printed on the panel: a small stencil label with the one orange light, the name in
+ * the wordmark's type, a quiet line, and, when there is one, the search on a slim screen.
+ */
+export function Plate({
+  kicker,
+  title,
+  blurb,
+  search,
+  className = "",
+  big = false,
+  children,
+}: {
+  kicker: ReactNode;
+  title: ReactNode;
+  blurb?: ReactNode;
+  search?: ReactNode;
+  className?: string;
+  big?: boolean;
+  children?: ReactNode;
+}) {
+  return (
+    <div className={`sp-plate min-w-0 ${className}`}>
+      <span className="sp-label sp-plate-kicker">
+        <span className="sp-plate-led sp-beat" aria-hidden="true" />
+        {kicker}
+      </span>
+      <h1 className={`sp-plate-title break-words ${big ? "sp-plate-title-big" : ""}`}>{title}</h1>
+      {blurb && <p className="sp-plate-blurb">{blurb}</p>}
+      {children}
+      {search && <LcdStrip>{search}</LcdStrip>}
+    </div>
+  );
+}
+
+/** A slim screen: one line of green on the dark bezel, for a search or a short readout. */
+export function LcdStrip({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return (
+    <div className={`sp-bezel sp-strip ${className}`}>
+      <div className="sp-lcd sp-strip-lcd">{children}</div>
+    </div>
   );
 }
 

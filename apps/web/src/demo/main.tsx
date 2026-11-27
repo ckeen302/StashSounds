@@ -1,5 +1,6 @@
 // First: every AudioContext created after this is metered (the screens and pads react to sound).
 import "./live/install";
+import { Plate } from "./bank-head";
 import {
   lazy,
   StrictMode,
@@ -976,13 +977,11 @@ function SearchResults() {
   return (
     <Page>
       <header className="flex flex-col gap-4">
-        <div className="sp-bezel">
-          <div className="sp-lcd flex flex-col gap-3">
-            <span className="sp-lcd-small">SEARCH &gt; EVERY BANK</span>
-            <h1 className="sp-lcd-title sp-search-title break-words">{query.trim() ? `Results for “${query.trim()}”` : "Search"}</h1>
+        <Plate kicker="Search every bank" title={query.trim() ? `Results for “${query.trim()}”` : "Search"}>
+          <div className="sp-plate-search">
             <SmartSearch value={query} onChange={setSearchQuery} examples={["god's plan", "carti", "dark 808", "bouncy", "omnisphere", "drill 140-145"]} placeholder="Try a song, an artist or a vibe" />
           </div>
-        </div>
+        </Plate>
         {kinds.length > 1 && (
           <div role="group" aria-label="Show" className="flex flex-wrap gap-2">
             <FilterChip selected={!active} onToggle={() => setKind("all")}>

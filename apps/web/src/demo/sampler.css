@@ -353,11 +353,6 @@ html[data-look="sampler"] section[aria-label="Player"] [role="slider"] { --color
 .sp-home-bank .sp-pad { min-height: 84px; }
 .sp-type-led { width: 8px; height: 8px; border-radius: 50%; box-shadow: 0 0 6px var(--t, var(--sp-hot)); }
 .sp-home-bank .sp-pad:hover .sp-type-led { box-shadow: 0 0 10px 2px var(--t, var(--sp-hot)); }
-.sp-home-bank [data-t="loop"] { --t: #5fb4ff; }
-.sp-home-bank [data-t="oneshot"] { --t: #ffb347; }
-.sp-home-bank [data-t="kit"] { --t: #ff5c7a; }
-.sp-home-bank [data-t="midi"] { --t: #b58cff; }
-.sp-home-bank [data-t="preset"] { --t: #4fe0a8; }
 .sp-home-knobs { display: flex; justify-content: space-around; padding-top: 8px; margin-top: auto; }
 .sp-home-cta { color: var(--sp-pad-text); }
 .sp-home-cta-title { margin: 0; font-family: var(--sp-font-lcd); font-weight: 400; font-size: clamp(36px, 5vw, 60px); line-height: 0.95; text-transform: uppercase; color: var(--sp-lcd); text-shadow: 0 0 18px rgb(169 194 122 / 0.35); }

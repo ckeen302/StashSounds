@@ -367,7 +367,7 @@ export function OneShotsPage() {
 
       <section aria-label="Post your one-shots" className="sp-bezel">
         <div data-over={over || undefined} className="sp-lcd lib-drop">
-        <p className="sp-lcd-text m-0">INSERT FILE&gt; <span className="sp-lcd-blink">_</span></p>
+        <p className="sp-lcd-text m-0">Drop one-shots to post them</p>
         <p className="sp-lcd-small m-0">Drop wav, mp3 or aiff one-shots anywhere on this page to post them.</p>
         <p className="sp-lcd-small m-0">Name them with the instrument and note, like Bell_F#4 or Rhodes Cm7, and they get sorted for you. Up to 8 MB and 15 seconds each. In the demo they stay in this browser. Drum hits go in a drum kit.</p>
         </div>

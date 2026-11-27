@@ -577,8 +577,8 @@ export function KitUploadPage({ embedded = false }: { embedded?: boolean } = {})
         className="sp-bezel"
       >
         <div data-over={over || undefined} className="sp-lcd lib-drop">
-        <p className="sp-lcd-text m-0">INSERT FILES&gt; <span className="sp-lcd-blink">_</span></p>
-        <p className="sp-lcd-small m-0">Drop wav, mp3 or aiff one-shots here</p>
+        <p className="sp-lcd-text m-0">Drop files to build a kit</p>
+        <p className="sp-lcd-small m-0">WAV, MP3 or AIFF one-shots, or tap to choose</p>
         <p className="sp-lcd-small m-0">{`Up to ${MAX_SOUNDS} sounds, 8 MB and 15 seconds each.`}</p>
         <div className="flex flex-wrap justify-center gap-2">
           <label className="sp-key focus-within:outline-2 focus-within:outline-offset-2">
