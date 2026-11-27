@@ -1,4 +1,5 @@
-import { Button, Check, ChevronDown, FilterChip, Menu, SearchInput, UiLink, type MenuEntry } from "@stash/ui";
+import { Button, Check, ChevronDown, Menu, UiLink, type MenuEntry } from "@stash/ui";
+import { BankHead, LcdSearch } from "../bank-head";
 import { useEffect, useMemo, useState } from "react";
 import { queryWords, textMatch } from "../text-match";
 import { albumOf, Cover, coverFor } from "./cover";
@@ -151,34 +152,35 @@ export function PresetsPage() {
     });
 
   return (
-    <main className="mx-auto flex w-full max-w-content flex-col gap-3 px-3 py-5 tablet:px-4 desktop:px-6">
+    <main className="mx-auto flex w-full max-w-content flex-col gap-5 px-3 py-5 tablet:px-4 desktop:px-6">
       {/* Title, one row of controls, then the songs: plugins, producers and sorting wait behind Filters. */}
-      <header className="flex flex-col gap-3">
-        <h1 className="text-title">Presets</h1>
-        <div className="flex items-start gap-2">
-          <SearchInput
+      <BankHead
+        kicker="PATCH LIBRARY"
+        title="Presets"
+        blurb="The synth, the bank and the patch behind the songs you're chasing."
+        search={
+          <LcdSearch
+            id="presets-q"
             label="Search songs, artists, producers, presets"
-            hideLabel
-            placeholder="Song, artist, plugin or preset"
-            shortcut=""
+            placeholder="song, artist, plugin or preset"
             value={q}
-            onChange={(e) => reset(() => setQ(e.target.value))}
-            onClear={() => reset(() => setQ(""))}
-            className="min-w-0 flex-1"
+            onChange={(v) => reset(() => setQ(v))}
           />
-          <Button variant={open ? "primary" : "secondary"} aria-expanded={open} onClick={() => setOpen(!open)}>
+        }
+        actions={
+          <button type="button" className="sp-key" aria-pressed={open} aria-expanded={open} onClick={() => setOpen(!open)}>
             {touched && !needle ? "Filters ·" : "Filters"}
-          </Button>
-        </div>
-      </header>
+          </button>
+        }
+      />
 
       {open && (
-      <div className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-3">
+      <div className="sp-panel-dark flex flex-col gap-4 p-4">
       {/* The plugin shelf: every VST with its count; tap one to see only its presets. */}
       <section aria-label="Plugins" className="flex flex-col gap-2">
-        <span className="text-label text-label-caps text-text-muted">Pick a plugin</span>
+        <h2 className="lib-label-dark">Pick a plugin</h2>
         <ul className="-mx-3 flex gap-2 overflow-x-auto px-3 pb-1 tablet:mx-0 tablet:px-0">
-          {[["All", PRESETS.length] as [string, number], ...families].map(([f, n]) => {
+          {[["All", PRESETS.length] as [string, number], ...families].map(([f]) => {
             const on = family === f;
             return (
               <li key={f} className="shrink-0">
@@ -186,10 +188,10 @@ export function PresetsPage() {
                   type="button"
                   aria-pressed={on}
                   onClick={() => reset(() => setFamily(on && f !== "All" ? "All" : f))}
-                  className={`flex st-box min-w-24 flex-col items-start gap-1 rounded-control border px-3 py-2 text-left transition-colors ${on ? "border-accent bg-raised" : "border-border bg-surface ui-hover:border-border-strong"}`}
+                  className="sp-pad lib-pad-chip"
                 >
-                  <span className={`text-small ${on ? "text-text" : "text-text-muted"}`}>{f === "All" ? "Every plugin" : f}</span>
-                  <span className={`font-mono text-body-strong tabular ${on ? "text-accent" : "text-text"}`}>{n}</span>
+                  <span className="sp-pad-code">{f === "All" ? "ALL" : "VST"}</span>
+                  <span className="sp-pad-label">{f === "All" ? "Every plugin" : f}</span>
                 </button>
               </li>
             );
@@ -199,15 +201,15 @@ export function PresetsPage() {
 
       {/* The producer shelf: the beatmakers with the most songs here; tap one to see only theirs. */}
       <section aria-label="Producers" className="flex flex-col gap-2">
-        <span className="text-label text-label-caps text-text-muted">By producer</span>
+        <h2 className="lib-label-dark">By producer</h2>
         <ul className="-mx-3 flex gap-2 overflow-x-auto px-3 pb-1 tablet:mx-0 tablet:px-0">
           {TOP_PRODUCERS.map(([name]) => {
             const on = who === name;
             return (
               <li key={name} className="shrink-0">
-                <FilterChip selected={on} onToggle={() => reset(() => setWho(on ? "All" : name))}>
+                <button type="button" className="sp-key sp-key-pill" aria-pressed={on} onClick={() => reset(() => setWho(on ? "All" : name))}>
                   {name}
-                </FilterChip>
+                </button>
               </li>
             );
           })}
@@ -251,15 +253,15 @@ export function PresetsPage() {
         </span>
       )}
 
-      <ul aria-label="Songs and their presets" className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-3">
+      <ul aria-label="Songs and their presets" className="lib-grid">
         {songs.slice(0, limit).map((s) => (
           <SongCard key={s.key} s={s} />
         ))}
       </ul>
       {songs.length > limit && (
-        <Button variant="secondary" className="self-center" onClick={() => setLimit(limit + PAGE)}>
+        <button type="button" className="sp-key self-center" onClick={() => setLimit(limit + PAGE)}>
           Show more
-        </Button>
+        </button>
       )}
       {songs.length === 0 && (
         <div className="flex flex-col items-start gap-2">
@@ -329,17 +331,19 @@ export function SongCard({ s }: { s: Song }) {
   const lead = s.entries.find((e) => e.preset) ?? s.entries[0]!;
   return (
     <li className="h-full">
-      <UiLink href={songHref(s.song, s.artist)} className="group flex h-full flex-col gap-4 rounded-panel border border-border bg-surface p-4 ui-hover:border-border-strong">
+      <UiLink href={songHref(s.song, s.artist)} className="sp-cart lib-cart group h-full">
         <span className="flex items-start gap-4">
-          <Cover song={s.song} artist={s.artist} placeholder />
-          <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-            <span className="truncate text-title text-text group-hover:underline">{s.song}</span>
-            <span className="truncate text-body-strong text-text">{s.artist}</span>
-            <span className="truncate text-small text-text-muted">{album}</span>
-            <span className="truncate text-small text-text-muted">{producer}</span>
+          <span className="sp-cover lib-cover">
+            <Cover song={s.song} artist={s.artist} size="fill" placeholder />
+          </span>
+          <span className="flex min-w-0 flex-1 flex-col gap-1">
+            <span className="lib-cart-title group-hover:underline">{s.song}</span>
+            <span className="lib-cart-line">{s.artist}</span>
+            <span className="lib-sub truncate">{album}</span>
+            <span className="lib-sub truncate">{producer}</span>
           </span>
         </span>
-        <ul className="flex flex-col">
+        <ul className="mt-auto flex flex-col">
           <PatchStrip e={lead} />
         </ul>
       </UiLink>
@@ -363,11 +367,11 @@ export function PatchStrip({ e, detail = false }: { e: PresetEntry; detail?: boo
   const { name, note } = presetParts(e.preset);
   if (!detail)
     return (
-      <li className="st-box flex items-center gap-3 rounded-control border border-border-strong bg-bg px-3 py-2">
-        <span className="w-16 shrink-0 text-label text-label-caps text-text-muted">{partOf(e.role)}</span>
+      <li className="sp-lcd lib-strip">
+        <span className="lib-strip-part">{partOf(e.role)}</span>
         <span className="flex min-w-0 flex-1 flex-col">
-          <span className="truncate font-mono text-small text-text-muted">{e.plugin}</span>
-          <span className="truncate font-mono text-body-strong text-accent">{name}</span>
+          <span className="sp-lcd-small truncate">{e.plugin}</span>
+          <span className="sp-lcd-text truncate">{name}</span>
         </span>
       </li>
     );

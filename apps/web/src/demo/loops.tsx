@@ -30,9 +30,10 @@ import { GENRES, producerByHandle, useCrateEntries } from "./explore";
 import { Dropdown } from "./presets/page";
 import { saveLoopRow } from "./save";
 import { PACK_WEEK, PACKS } from "./packs";
-import { Why, SmartSearch } from "./search-ui";
+import { Why, useQuery } from "./search-ui";
+import { BankHead, LcdSearch } from "./bank-head";
 import { loopProfile } from "./search-index";
-import { likeness, match, parseQuery, quality, type Profile } from "./smart-search";
+import { likeness, match, parseQuery, quality, withoutToken, type Profile } from "./smart-search";
 import { addPlay, plays, set } from "./store";
 import { CommentGlyph, Comments, commentCount, countOrNone, trendScore, useSocialVersion } from "./social";
 import { navigate } from "./router";
@@ -385,26 +386,28 @@ export function LoopsPage({
   return (
     <main className="mx-auto flex w-full max-w-content flex-col gap-3 px-3 py-5 tablet:px-4 desktop:px-6">
       {/* Title, one row of controls, then the loops: everything else waits behind Filters. */}
-      <header className="flex flex-col gap-3">
-        <h1 className="text-title">Free loops</h1>
-        <div className="flex flex-wrap items-start gap-2">
-          <div className="min-w-0 flex-1 basis-64">
-            <SmartSearch value={f.q} onChange={(v) => update({ q: v, like: null })} examples={[]} placeholder="Search loops: dark piano 140" />
-          </div>
-          <Button size="md" variant={filtersOpen ? "primary" : "secondary"} aria-expanded={filtersOpen} onClick={() => setFiltersOpen(!filtersOpen)}>
-            {filtersOn.length ? `Filters · ${filtersOn.length}` : "Filters"}
-          </Button>
-          {/* The Upload tab is one tap away in the nav on a phone. */}
-          <ButtonLink href="/upload" variant="secondary" size="md" className="st-wide-only">
-            Upload
-          </ButtonLink>
-        </div>
-      </header>
+      <BankHead
+        kicker="LOOP BANK"
+        title="Free loops"
+        blurb="Search by sound, tempo, key, genre or producer."
+        search={<LoopSearch value={f.q} onChange={(v) => update({ q: v, like: null })} />}
+        actions={
+          <>
+            <button type="button" className="sp-key" aria-pressed={filtersOpen} aria-expanded={filtersOpen} onClick={() => setFiltersOpen(!filtersOpen)}>
+              {filtersOn.length ? `Filters · ${filtersOn.length}` : "Filters"}
+            </button>
+            {/* The Upload tab is one tap away in the nav on a phone. */}
+            <UiLink href="/upload" className="sp-key sp-key-hot st-wide-only">
+              Upload
+            </UiLink>
+          </>
+        }
+      />
 
       {filtersOpen && (
       <section
         aria-label="Filters"
-        className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-3"
+        className="lib-tray flex flex-col gap-3"
       >
         <div className="flex flex-wrap items-center gap-2">
           <Dropdown
@@ -413,10 +416,7 @@ export function LoopsPage({
             selected={f.category}
             options={[
               ["all", "Any"],
-              ...categories.map((c): [string, string] => [
-                c,
-                `${c} ${loops.filter((l) => l.category === c).length}`,
-              ]),
+              ...categories.map((c): [string, string] => [c, c]),
             ]}
             onPick={(v) => update({ category: v })}
           />
@@ -426,10 +426,7 @@ export function LoopsPage({
             selected={f.genre}
             options={[
               ["all", "Any"],
-              ...genres.map((g): [string, string] => [
-                g,
-                `${g} ${loops.filter((l) => l.genre === g).length}`,
-              ]),
+              ...genres.map((g): [string, string] => [g, g]),
             ]}
             onPick={(v) => update({ genre: v })}
           />
@@ -569,7 +566,7 @@ export function LoopsPage({
       )}
 
       {likeOf && (
-        <div className="flex flex-wrap items-center justify-between gap-2 rounded-panel border border-accent bg-surface p-3">
+        <div className="sp-lcd flex flex-wrap items-center justify-between gap-2">
           <span className="text-body text-text">
             {"More like "}
             <UiLink href={likeOf.row.href} className="text-body-strong ui-hover:underline">
@@ -597,7 +594,7 @@ export function LoopsPage({
         <DawDragZone sources={onPage.map((l) => loopSource(l.row))}>
         <ul
           aria-label="Loops"
-          className="flex flex-col overflow-hidden rounded-panel border border-border bg-surface"
+          className="lib-loops"
         >
           {onPage.map((l, i) => (
             <LoopEntry
@@ -617,8 +614,8 @@ export function LoopsPage({
         </ul>
         </DawDragZone>
       ) : (
-        <div className="flex flex-col items-start gap-3 rounded-panel border border-border bg-surface p-4">
-          <p className="text-body text-text-muted">
+        <div className="sp-lcd flex flex-col items-start gap-3">
+          <p className="sp-lcd-small m-0">
             {f.q.trim()
               ? `Nothing here matches "${f.q.trim()}" yet. Try a sound, mood or tempo instead, like "dark piano 140", or clear the filters.`
               : "No loops match all of that. Try another tempo or clear the filters."}
@@ -651,27 +648,16 @@ function Pager({
 }) {
   if (pages <= 1) return null;
   return (
-    <nav aria-label="Pages" className="flex items-center gap-1">
+    <nav aria-label="Pages" className="lib-pager">
       {Array.from({ length: pages }, (_, i) => i + 1).map((p) => (
-        <Button
-          key={p}
-          size="sm"
-          variant={p === page ? "primary" : "ghost"}
-          aria-current={p === page ? "page" : undefined}
-          onClick={() => onPage(p)}
-        >
-          {String(p)}
-        </Button>
+        <button key={p} type="button" className="sp-key" aria-current={p === page ? "page" : undefined} onClick={() => onPage(p)}>
+          {String(p).padStart(2, "0")}
+        </button>
       ))}
       {page < pages && (
-        <Button
-          size="sm"
-          variant="ghost"
-          aria-label="Next page"
-          onClick={() => onPage(page + 1)}
-        >
+        <button type="button" className="sp-key" aria-label="Next page" onClick={() => onPage(page + 1)}>
           Next
-        </Button>
+        </button>
       )}
     </nav>
   );
@@ -740,7 +726,7 @@ function LoopEntry({
   return (
     <li
       data-playing={state === "playing" || undefined}
-      className={`flex flex-col gap-3 border-b border-border p-3 last:border-b-0 tablet:p-4 ${state === "playing" ? "bg-raised" : ""}`}
+      className="lib-loop flex flex-col gap-3 p-3 tablet:p-4"
     >
       <div className="flex flex-wrap items-start gap-x-3 gap-y-2">
         <UiLink
@@ -806,7 +792,7 @@ function LoopEntry({
 
       <div className="flex items-center gap-3">
         <PlayButton title={row.title} state={state} onClick={onPlay} />
-        <div data-loop-wave className="min-w-0 flex-1">
+        <div data-loop-wave className="lib-wave min-w-0 flex-1">
           <Waveform
             peaks={row.peaks}
             type="loop"
@@ -825,7 +811,7 @@ function LoopEntry({
             className="h-10 w-full"
           />
         </div>
-        <span className="shrink-0 font-mono text-numeric tabular text-text-muted">
+        <span className="lib-chip-lcd inline-flex shrink-0">
           {seconds(row.durationMs ?? 0)}
         </span>
       </div>
@@ -912,23 +898,43 @@ function LoopEntry({
 /** This week's hand-picked packs, as a row of cards above the list. */
 function PackStrip() {
   return (
-    <section aria-label="Packs" className="flex flex-col gap-2">
-      <div className="flex items-baseline justify-between gap-2">
-        <h2 className="text-body-strong text-text">{`Packs picked this week · ${PACK_WEEK}`}</h2>
+    <section aria-label="Packs" className="flex flex-col gap-3">
+      <div className="sp-head">
+        <h2 className="sp-label">{`Cartridges · packs picked this week · ${PACK_WEEK}`}</h2>
       </div>
       {/* A sideways row on a phone, so the loops stay near the top; a grid from tablet up. */}
-      <ul className="-mx-3 flex gap-2 overflow-x-auto px-3 pb-1 tablet:mx-0 tablet:grid tablet:grid-cols-2 tablet:overflow-visible tablet:px-0 desktop:grid-cols-3">
+      <ul className="-mx-3 flex gap-3 overflow-x-auto px-3 pb-1 tablet:mx-0 tablet:grid tablet:grid-cols-2 tablet:overflow-visible tablet:px-0 desktop:grid-cols-3">
         {PACKS.map((p) => (
           <li key={p.id} className="w-64 shrink-0 tablet:w-auto">
-            <UiLink href={`/pack/${p.id}`} className="flex h-full flex-col gap-1 rounded-panel border border-border bg-surface p-3 ui-hover:border-border-strong">
-              <span className="text-body-strong text-text">{p.name}</span>
-              <span className="line-clamp-2 text-small text-text-muted">{p.blurb}</span>
-              <span className="font-mono text-numeric tabular text-text-muted">Loops + MIDI</span>
+            <UiLink href={`/pack/${p.id}`} className="sp-cart lib-cart h-full">
+              <span className="lib-cart-title">{p.name}</span>
+              <span className="lib-sub line-clamp-2">{p.blurb}</span>
+              <span className="sp-pad-meta mt-auto">LOOPS + MIDI</span>
             </UiLink>
           </li>
         ))}
       </ul>
     </section>
+  );
+}
+
+/** The loop search on the bank's screen, with what it understood underneath (tap one to drop it). */
+function LoopSearch({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+  const q = useQuery(value);
+  return (
+    <div className="flex flex-col gap-2">
+      <LcdSearch id="loops-q" label="Search by sound, tempo, key, genre or producer" placeholder="dark piano 140" value={value} onChange={onChange} />
+      {!q.empty && (
+        <div role="group" aria-label="What the search understood" className="flex flex-wrap items-center gap-2">
+          <span className="sp-lcd-small">READS&gt;</span>
+          {q.tokens.map((t) => (
+            <button key={`${t.kind}-${t.raw}`} type="button" className="sp-lcd-row" data-on aria-label={`${t.label}. Remove`} onClick={() => onChange(withoutToken(value, t))}>
+              {t.label} ×
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
 

@@ -1,3 +1,4 @@
+import { BankHead, LcdSearch } from "../bank-head";
 import { DawDragZone } from "../daw-drag";
 import { kitSoundSource, shotSource } from "../daw-sources";
 import {
@@ -7,6 +8,7 @@ import {
   EmptyState,
   FilterChip,
   Heart,
+  Icon,
   IconButton,
   Menu,
   PlayButton,
@@ -148,36 +150,61 @@ function DrumSounds({ type, needle }: { type: Category; needle: string }) {
 export function KitCards({ kits, hidden = false, label = "Kits" }: { kits: Kit[]; hidden?: boolean; label?: string }) {
   const toast = useToast();
   return (
-  <ul aria-label={label} hidden={hidden} className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-3">
+  <ul aria-label={label} hidden={hidden} className="lib-grid">
     {kits.map((k) => (
-      <li key={k.id} className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-4">
+      <li key={k.id} className="sp-cart lib-cart">
         <div className="flex items-start gap-3">
           <PlayButton title={`a preview of ${k.name}`} state="paused" onPointerEnter={() => warmSounds(k.sounds)} onPointerDown={(e) => e.button === 0 && preview(k)} onClick={(e) => e.detail === 0 && preview(k)} />
-          <div className="flex min-w-0 flex-1 flex-col">
-            <UiLink href={`/kit/${k.id}`} className="truncate text-body-strong text-text ui-hover:underline">
+          <div className="flex min-w-0 flex-1 flex-col gap-1">
+            <UiLink href={`/kit/${k.id}`} className="lib-cart-title ui-hover:underline">
               {k.name}
             </UiLink>
-            <span className="truncate text-small text-text-muted">
+            <span className="lib-sub truncate">
               @{k.owner.handle} · {k.genre}
               {k.mine ? " · posted from this browser" : ""}
             </span>
           </div>
         </div>
-        <p className="text-small text-text-muted">{summary(k.sounds)}</p>
-        <div className="flex items-center justify-between gap-3 font-mono text-numeric tabular text-text-muted">
-          <span>
-            {!k.mine && k.downloads > 0 ? `${k.downloads.toLocaleString("en")} downloads` : ""}
-          </span>
-          <span className="flex items-center gap-2">
-            <CrateMenu itemId={`kit:${k.id}`} title={k.name} kind="Drum kit" href={`/kit/${k.id}`} by={k.owner.displayName} size="sm" />
-            <Button size="sm" variant="secondary" icon={Download} aria-label={`Download ${k.name}`} onClick={() => void saveKit(k, toast)}>
-              Download
-            </Button>
-          </span>
+        <KitBank k={k} />
+        <div className="mt-auto flex items-center justify-end gap-2">
+          <CrateMenu itemId={`kit:${k.id}`} title={k.name} kind="Drum kit" href={`/kit/${k.id}`} by={k.owner.displayName} size="sm" />
+          <button type="button" className="sp-key" aria-label={`Download ${k.name}`} onClick={() => void saveKit(k, toast)}>
+            <Icon icon={Download} />
+            Download
+          </button>
         </div>
       </li>
     ))}
   </ul>
+  );
+}
+
+/** The kit as a pad bank: one pad per drum type, tap one to hear that sound. A type the kit lacks is a dark pad. */
+function KitBank({ k }: { k: Kit }) {
+  return (
+    <div className="lib-deck">
+      <div role="group" aria-label={`Pads of ${k.name}`} className="lib-bank">
+        {SOUND_TYPES.map((c, i) => {
+          const s = k.sounds.find((x) => x.category === c);
+          const name = CATEGORIES.find((x) => x.id === c)!.label;
+          return (
+            <button
+              key={c}
+              type="button"
+              className="sp-pad"
+              disabled={!s}
+              aria-label={s ? `Play the ${name.toLowerCase()} from ${k.name}` : `${k.name} has no ${name.toLowerCase()}`}
+              onPointerEnter={() => warmSounds(k.sounds)}
+              onPointerDown={(e) => s && e.button === 0 && void play(s)}
+              onClick={(e) => s && e.detail === 0 && void play(s)}
+            >
+              <span className="sp-pad-code">{String(i + 1).padStart(2, "0")}</span>
+              <span className="sp-pad-label">{name}</span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
   );
 }
 
@@ -198,37 +225,44 @@ export function KitsPage() {
   const genres = ["All", ...GENRES.filter((g) => all.some((k) => k.genre === g))];
 
   return (
-    <main className="mx-auto flex w-full max-w-content flex-col gap-6 px-3 py-8 tablet:px-4 desktop:px-6">
-      <header className="flex flex-col gap-4 tablet:flex-row tablet:items-end tablet:justify-between">
-        <div className="flex flex-col gap-1">
-          <h1 className="text-title">Drums</h1>
+    <main className="mx-auto flex w-full max-w-content flex-col gap-6 px-3 py-5 tablet:px-4 desktop:px-6">
+      <BankHead
+        kicker="DRUM BANK"
+        title="Drums"
+        blurb="Whole kits and single hits. Tap a pad to hear it, grab the folder or one sound."
+        search={<LcdSearch id="kits-q" label="Search kits, producers, sounds" placeholder="kit, producer or sound" value={q} onChange={setQ} />}
+        actions={
+          <UiLink href="/kit-upload" className="sp-key sp-key-hot st-wide-only">
+            <Icon icon={Upload} />
+            Upload a kit
+          </UiLink>
+        }
+      />
+
+      <section aria-label="Browse drums" className="flex flex-col gap-3">
+        <div className="sp-head">
+          <h2 className="sp-label">Bank select</h2>
         </div>
-        <ButtonLink href="/kit-upload" variant="secondary" icon={Upload} className="st-wide-only">
-          Upload a kit
-        </ButtonLink>
-      </header>
-
-      <div role="group" aria-label="Drum type" className="flex flex-wrap gap-2">
-        <FilterChip selected={type === "kits"} onToggle={() => setType("kits")}>
-          Kits
-        </FilterChip>
-        {SOUND_TYPES.map((c) => (
-          <FilterChip key={c} selected={type === c} onToggle={() => setType(c)}>
-            {CATEGORIES.find((x) => x.id === c)!.plural}
-          </FilterChip>
-        ))}
-      </div>
-
-      <div className="flex flex-col gap-3 tablet:flex-row tablet:items-center tablet:justify-between">
-        <SearchInput label="Search kits, producers, sounds" hideLabel placeholder="Search kits, producers, sounds" shortcut="" value={q} onChange={(e) => setQ(e.target.value)} onClear={() => setQ("")} className="tablet:w-80" />
-        <div role="group" aria-label="Genre" className="flex flex-wrap gap-2" hidden={type !== "kits"}>
-          {genres.map((g) => (
-            <FilterChip key={g} selected={genre === g} onToggle={() => setGenre(g)}>
-              {g}
-            </FilterChip>
+        <div role="group" aria-label="Drum type" className="lib-shelf">
+          <button type="button" className="sp-pad lib-pad-chip" aria-pressed={type === "kits"} onClick={() => setType("kits")}>
+            <span className="sp-pad-code">A</span>
+            <span className="sp-pad-label">Kits</span>
+          </button>
+          {SOUND_TYPES.map((c, i) => (
+            <button key={c} type="button" className="sp-pad lib-pad-chip" aria-pressed={type === c} onClick={() => setType(c)}>
+              <span className="sp-pad-code">{`B${String(i + 1).padStart(2, "0")}`}</span>
+              <span className="sp-pad-label">{CATEGORIES.find((x) => x.id === c)!.plural}</span>
+            </button>
           ))}
         </div>
-      </div>
+        <div role="group" aria-label="Genre" className="flex flex-wrap gap-2" hidden={type !== "kits"}>
+          {genres.map((g) => (
+            <button key={g} type="button" className="sp-key sp-key-pill" aria-pressed={genre === g} onClick={() => setGenre(g)}>
+              {g}
+            </button>
+          ))}
+        </div>
+      </section>
 
       {type !== "kits" ? <DrumSounds type={type} needle={needle} /> : null}
       <KitCards kits={shown} hidden={type !== "kits"} />
