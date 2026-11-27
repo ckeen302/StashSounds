@@ -51,6 +51,7 @@ const SampleArtistPage = lazy(() => samplesPage().then((m) => ({ default: m.Samp
 const SampleProducerPage = lazy(() => samplesPage().then((m) => ({ default: m.SampleProducerPage })));
 import { has, set } from "./store";
 import { useCrates } from "./crates";
+import { useShortcuts } from "./shortcuts";
 import { loopPicks, newLoops, newSongs, songPicks, type FeedLoop, type FeedSong, type Signals } from "./feed";
 import { startLooks, useLook } from "./looks";
 import { midiItem, VIEWER, type MidiItem } from "./midi/catalog";
@@ -1627,6 +1628,7 @@ function Route() {
 }
 
 function App() {
+  useShortcuts();
   // Canvases (waveforms, the piano roll) read the theme when they mount: a new look remounts the page.
   const look = useLook();
   return (
@@ -1642,6 +1644,7 @@ function App() {
               </UiLink>
             }
             searchHint="Search songs, sounds, producers"
+            searchKey="/"
           >
             <DemoTabs />
             <Suspense fallback={null}>

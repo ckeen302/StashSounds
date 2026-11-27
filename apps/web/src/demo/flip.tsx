@@ -5,6 +5,7 @@ import { Button, Download, FilterChip, Pause, Play, RotateCcw, Slider, Stepper, 
 import { useEffect, useRef, useState } from "react";
 import { audioContext } from "./kits/store";
 import { midiPlayer } from "./midi/synth";
+import { usePageKeys } from "./shortcuts";
 
 /**
  * Flip it: chop a loop into slices, play them from the keyboard, put them in a new order, reverse
@@ -195,6 +196,8 @@ export function FlipPanel({ row }: { row: ItemRow }) {
   }, [playing, buf, rev, loopSeconds]);
 
   // Slice keys: 1-8, then Q-I for slices 9-16.
+  // The site-wide shortcuts stand aside for this page's own keys.
+  usePageKeys(KEYS);
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.repeat || e.metaKey || e.ctrlKey || e.altKey) return;

@@ -166,7 +166,7 @@ function TabBar({ pathname, viewer }: { pathname: string; viewer: ShellViewer | 
  * 56 px: search centred up to 560 px, notifications, then sign in or, once signed in, the viewer's
  * avatar linking to their profile. Phone, 48 px: logo, search, notifications.
  */
-function TopBar({ account, searchHint }: { account: ReactNode; searchHint: string }) {
+function TopBar({ account, searchHint, searchKey }: { account: ReactNode; searchHint: string; searchKey: string }) {
   return (
     <header className="flex h-12 shrink-0 items-center gap-2 border-b border-border bg-bg px-3 tablet:h-14 tablet:gap-4 tablet:px-4 desktop:px-6">
       <UiLink href="/" aria-label="Stash" className="flex h-10 items-center gap-2 rounded-control tablet:hidden">
@@ -175,7 +175,7 @@ function TopBar({ account, searchHint }: { account: ReactNode; searchHint: strin
       </UiLink>
       <div className="flex-1 tablet:hidden" />
       <form role="search" action="/search" className="hidden min-w-0 flex-1 justify-center tablet:flex">
-        <SearchInput name="q" size="sm" shortcut="" hideLabel placeholder={searchHint} className="w-full max-w-140" />
+        <SearchInput name="q" size="sm" shortcut={searchKey} aria-keyshortcuts={searchKey || undefined} hideLabel placeholder={searchHint} className="w-full max-w-140" />
       </form>
       <IconLink href="/search" icon={Search} label="Search" className="tablet:hidden" />
       <IconLink href="/notifications" icon={Bell} label="Notifications" />
@@ -205,11 +205,14 @@ export function AppShell({
   viewer = null,
   account,
   searchHint = "Search loops, kits, producers",
+  searchKey = "",
 }: {
   children: ReactNode;
   viewer?: ShellViewer | null;
   account?: ReactNode;
   searchHint?: string;
+  /** The key that jumps to search, shown in the box ("/"), when the page installs one. */
+  searchKey?: string;
 }) {
   const pathname = usePathname();
   return (
@@ -227,7 +230,7 @@ export function AppShell({
       <div className="flex min-h-0 flex-1">
         <Rail pathname={pathname} viewer={viewer} />
         <div className="flex min-w-0 flex-1 flex-col">
-          <TopBar account={viewer ? account : undefined} searchHint={searchHint} />
+          <TopBar account={viewer ? account : undefined} searchHint={searchHint} searchKey={searchKey} />
           <div className="relative min-h-0 flex-1">
             {/* After the skip link the content area shows the focus ring, drawn inside so nothing clips it. */}
             <div id="content" tabIndex={-1} className="h-full overflow-y-auto focus-visible:-outline-offset-2">

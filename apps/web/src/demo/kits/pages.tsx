@@ -29,6 +29,7 @@ import { styleLink } from "../producers/data";
 import { has, set } from "../store";
 import { allShots, saveShots } from "../oneshots/store";
 import { CATEGORIES, categoryOf, clipBuffer, cleanName, decode, labelOf, play, playSequence, postKit, removeKit, useKits, warmSounds, type Category, type Draft, type Kit, type KitSound } from "./store";
+import { usePageKeys } from "../shortcuts";
 
 /**
  * The drum kits screens: every kit, one kit's sounds, and posting a kit of your own one-shots.
@@ -255,6 +256,8 @@ export function KitPage({ id }: { id: string }) {
     if (k) warmSounds(k.sounds);
   }, [k]);
 
+  // The site-wide shortcuts stand aside for this page's own keys.
+  usePageKeys(["ArrowDown", "ArrowUp", " "]);
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const t = e.target as HTMLElement | null;

@@ -7,6 +7,7 @@ import { CommentToggle, RowThread } from "../social";
 import { categoryOf, cleanName, decode } from "../kits/store";
 import { fileName, INSTRUMENTS, instrumentOf, MELODIC, mineAsMelodic, NOTE_NAMES, peaksOf, playShot, saveMelodic, warmShots, type InstrumentId, type MelodicShot } from "./melodic";
 import { postShots, removeShot, useMineVersion, type ShotDraft } from "./store";
+import { usePageKeys } from "../shortcuts";
 
 /**
  * The One-shots tab: melodic one-shots. Single notes and chords from keys, bells, plucks, pads,
@@ -110,6 +111,8 @@ export function OneShotsPage() {
     warmShots(shots.slice(0, 4));
   });
 
+  // The site-wide shortcuts stand aside for this page's own keys.
+  usePageKeys(["ArrowDown", "ArrowUp", " ", "d"]);
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const t = e.target as HTMLElement | null;
