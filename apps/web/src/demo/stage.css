@@ -27,8 +27,13 @@
 .sp-plate-facts { display: flex; flex-wrap: wrap; gap: 10px 28px; margin: 4px 0 0; }
 .sp-plate-facts > div { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .sp-plate-facts dd { margin: 0; font-family: var(--sp-font-ui); font-weight: 700; font-size: 15px; color: var(--sp-ink); }
-.sp-hero-screen.sp-plate { justify-content: flex-end; padding-bottom: 2px; }
-@media (min-width: 1024px) { .sp-hero-screen.sp-plate { padding-top: 18px; } }
+/* Beside a hero, the name and its keys sit as one group, centred against the instrument, so the
+   space above and below them is even. */
+.sp-hero-screen.sp-plate { justify-content: center; }
+@media (min-width: 1024px) {
+  .sp-hero { grid-template-areas: "top stage" "screen stage" "actions stage" "bottom stage"; grid-template-rows: 1fr auto auto 1fr; row-gap: 0; align-items: center; }
+  .sp-hero > .sp-hero-actions { padding-top: 16px; }
+}
 
 /* The search on a slim screen: the one bit of green in a page's header. */
 .sp-strip { padding: 8px; border-radius: 12px; margin-top: 6px; }
