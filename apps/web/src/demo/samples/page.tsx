@@ -5,6 +5,7 @@ import {
   UiLink,
 } from "@stash/ui";
 import { BankHead, LcdSearch } from "../bank-head";
+import { daily } from "../heroes/daily";
 import { useState, type ReactNode } from "react";
 import { CrateMenu } from "../explore";
 import { Comments } from "../social";
@@ -145,6 +146,7 @@ export function SamplesPage() {
       <BankHead
         kicker="SAMPLE FINDER"
         title="Samples"
+        hero={<FlipHero />}
         blurb="Hip-hop and R&B songs and the records they sample. From Wikipedia's album credits and song articles, and MusicBrainz."
         search={
           <LcdSearch
@@ -378,6 +380,42 @@ export function SongCard({ s }: { s: SampleSong }) {
         </ul>
       </UiLink>
     </li>
+  );
+}
+
+/**
+ * The Samples page's hero: today's flip, big. The song's cover patched by a cable to the record it
+ * samples, with what was taken from it on the screen underneath.
+ */
+function FlipHero() {
+  const s = daily(
+    ORDERED.filter((x) => x.samples[0] && coverFor(x.song, x.artist) && coverFor(x.samples[0].title, x.samples[0].artist)),
+    9,
+  );
+  const u = s?.samples[0];
+  if (!s || !u) return null;
+  return (
+    <UiLink href={sampleHref(s)} className="sp-cart sp-hero-flip group">
+      <span className="sp-label sp-label-dark">Flip of the day</span>
+      <span className="lib-pair sp-hero-flip-pair">
+        <PairArt song={s.song} artist={s.artist} />
+        <span className="lib-cable" aria-hidden="true">
+          <span />
+        </span>
+        <PairArt song={u.title} artist={u.artist} />
+      </span>
+      <span className="flex min-w-0 flex-col">
+        <span className="sp-hero-name group-hover:underline">{s.song}</span>
+        <span className="truncate text-small text-text-muted">{s.artist}</span>
+      </span>
+      <span className="sp-lcd lib-strip">
+        <span className="lib-strip-part">{u.type === "sample" ? "Sample" : "Replay"}</span>
+        <span className="flex min-w-0 flex-1 flex-col">
+          <span className="sp-lcd-small truncate">{line(u.artist, u.year)}</span>
+          <span className="sp-lcd-text truncate">{u.title}</span>
+        </span>
+      </span>
+    </UiLink>
   );
 }
 
