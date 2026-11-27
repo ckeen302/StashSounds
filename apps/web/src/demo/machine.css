@@ -78,3 +78,68 @@ html[data-look="sampler"] section[aria-label="Player"] button:not([data-play-sta
 .sp-clk:focus-visible { outline: 3px solid var(--sp-ink); outline-offset: 2px; }
 html:not([data-look="sampler"]) .sp-clk { display: none; }
 @media (max-width: 639.98px) { .sp-clk { height: 40px; } }
+
+/* ---------- 3. One hero moment per page ---------- */
+
+/* The bank header with a hero: the screen and the instrument side by side, the actions under the screen. */
+.sp-hero { display: grid; gap: 14px; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 1024px) {
+  .sp-hero { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); grid-template-areas: "screen stage" "actions stage"; grid-template-rows: 1fr auto; gap: 14px 22px; align-items: stretch; }
+  .sp-hero-screen { grid-area: screen; }
+  .sp-hero-stage { grid-area: stage; }
+  .sp-hero-actions { grid-area: actions; }
+}
+.sp-hero-title { font-size: clamp(46px, 6.6vw, 92px); line-height: 0.88; }
+.sp-hero-actions:empty { display: none; }
+.sp-hero-deck { height: 100%; }
+.sp-hero-readout { padding: 6px 12px; font-size: 22px; line-height: 1.15; min-height: 38px; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sp-hero-name { font-family: var(--sp-font-mark); font-weight: 800; font-size: clamp(22px, 2.4vw, 30px); line-height: 1.05; letter-spacing: -0.02em; color: var(--sp-pad-text); text-decoration: none; }
+a.sp-hero-name:hover { text-decoration: underline; }
+.sp-hero-play { width: 64px; height: 64px; min-height: 64px; padding: 0; flex: none; border-radius: 14px; font-size: 22px; }
+.sp-hero-kbd { font: inherit; font-size: 11px; padding: 0 4px; border-radius: 3px; box-shadow: inset 0 0 0 1px var(--sp-pad-sub); }
+@media (hover: none) { .sp-hero-kbd { display: none; } }
+
+/* Pads: four by four (or four by two for the FX rack), big enough to drum on with a thumb. */
+.sp-hero-pads { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; flex: 1; }
+.sp-hero-pad { min-height: clamp(68px, 7.2vw, 96px); touch-action: manipulation; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+.sp-hero-pads-8 .sp-hero-pad { min-height: clamp(84px, 9vw, 124px); }
+.sp-hero-pad::after { content: ""; position: absolute; top: 12px; right: 12px; width: 7px; height: 7px; border-radius: 50%; background: var(--sp-led-off); }
+.sp-hero-pad:has(.sp-hero-kbd)::after { top: auto; bottom: 12px; }
+.sp-hero-pad[data-cat="kick"]::after, .sp-hero-pad[data-cat="808"]::after { background: var(--sp-hot); box-shadow: 0 0 6px var(--sp-hot); }
+.sp-hero-pad:is([data-cat="snare"], [data-cat="clap"])::after { background: var(--sp-gold); box-shadow: 0 0 6px var(--sp-gold); }
+.sp-hero-pad:is([data-cat="hat"], [data-cat="open hat"], [data-cat="cymbal"])::after { background: var(--sp-lcd); box-shadow: 0 0 6px var(--sp-lcd); }
+.sp-hero-pad:is([data-cat="perc"], [data-cat="fx"], [data-cat="vox"])::after { background: var(--sp-peach); box-shadow: 0 0 6px var(--sp-peach); }
+.sp-hero-pads-8 .sp-hero-pad::after { background: var(--sp-hot); box-shadow: 0 0 6px var(--sp-hot); }
+.sp-hero-pad:active { background: var(--sp-hot); color: var(--sp-ink); }
+.sp-hero-pad:active :is(.sp-pad-code, .sp-pad-meta) { color: var(--sp-ink); }
+@media (max-width: 639.98px) { .sp-hero-pads { gap: 8px; } .sp-hero-pad { padding: 8px; } .sp-hero-pad .sp-pad-label { font-size: 12px; } }
+
+/* The keyboard: one octave, white keys on the panel's plastic, black keys on the bench's dark. */
+.sp-hero-keys { position: relative; display: grid; grid-template-columns: repeat(14, minmax(0, 1fr)); grid-template-rows: 1fr; height: clamp(150px, 16vw, 210px); padding: 8px 8px 10px; border-radius: 10px; background: var(--sp-dark); box-shadow: inset 0 2px 0 var(--sp-dark-hi); flex: 1 0 auto; }
+.sp-hero-keys > button { grid-row: 1; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 10px; border: 0; cursor: pointer; font-family: var(--sp-font-ui); font-size: 12px; font-weight: 700; touch-action: manipulation; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+.sp-hero-white { margin: 0 2px; border-radius: 0 0 8px 8px; color: var(--sp-label); background: linear-gradient(180deg, var(--sp-panel-low), var(--sp-key) 18%); box-shadow: inset 0 -6px 0 var(--sp-key-edge), 0 2px 0 var(--sp-panel-edge); }
+.sp-hero-white:active, .sp-hero-white[data-pressed] { box-shadow: inset 0 -2px 0 var(--sp-key-edge); background: var(--sp-key-hover); }
+.sp-hero-black { z-index: 1; align-self: start; height: 60%; margin: 0 22%; border-radius: 0 0 6px 6px; color: var(--sp-pad-sub); background: linear-gradient(180deg, var(--sp-dark), var(--sp-pad)); box-shadow: inset 0 -5px 0 var(--sp-pad-edge), 0 3px 4px rgb(0 0 0 / 0.5); }
+.sp-hero-black:active, .sp-hero-black[data-pressed] { box-shadow: inset 0 -1px 0 var(--sp-pad-edge); background: var(--sp-hot); color: var(--sp-ink); }
+.sp-hero-keys > button:focus-visible { outline: 3px solid var(--sp-hot); outline-offset: -3px; }
+@media (hover: none) { .sp-hero-keys > button > span { visibility: hidden; } }
+
+/* The loop deck: a tall spectrum screen, then the loop, then its numbers as readouts. */
+.sp-hero-spectrum { height: clamp(110px, 12vw, 170px); padding: 10px 12px; }
+.sp-hero-readouts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 0; }
+.sp-hero-readouts > div { padding: 6px 10px; border-radius: 6px; background: var(--sp-lcd); box-shadow: inset 0 2px 0 rgb(0 0 0 / 0.16), inset 0 0 0 1px var(--sp-lcd-edge); color: var(--sp-lcd-ink); }
+.sp-hero-readouts dt { font-family: var(--sp-font-ui); font-size: 11px; font-weight: 700; letter-spacing: 0.14em; color: var(--sp-lcd-dim); }
+.sp-hero-readouts dd { margin: 0; font-family: var(--sp-font-lcd); font-size: clamp(28px, 3vw, 40px); line-height: 1; }
+
+/* The MIDI roll on the hero deck. */
+.sp-hero-roll { flex: 1; min-height: 180px; border-radius: 8px; overflow: hidden; }
+
+/* The cartridge of the day. */
+.sp-hero-cart { display: grid; grid-template-columns: minmax(0, 200px) minmax(0, 1fr); align-items: center; gap: 20px; height: 100%; padding: 30px 22px 22px; }
+.sp-hero-cart-cover { display: block; padding: 8px; border-radius: 10px; background: var(--sp-dark-hi); box-shadow: inset 0 2px 0 var(--sp-pad); }
+.sp-hero-patches { padding: 8px 12px; font-size: 19px; line-height: 1.2; }
+@media (max-width: 639.98px) { .sp-hero-cart { grid-template-columns: 112px minmax(0, 1fr); gap: 14px; padding: 26px 14px 14px; } .sp-hero-patches { font-size: 16px; } }
+/* Dark plastic re-points the text tokens, cartridges included. */
+.sp-cart { --color-text: var(--sp-pad-text); --color-text-muted: var(--sp-pad-sub); }
+/* The roll is drawn on a screen: its canvas reads these tokens. */
+.sp-hero-roll { --color-bg: var(--sp-lcd); --color-surface: var(--sp-lcd); --color-raised: var(--sp-lcd); --color-border: var(--sp-lcd-edge); --color-border-strong: var(--sp-lcd-dim); --color-text: var(--sp-lcd-ink); --color-text-muted: var(--sp-lcd-dim); --color-type-midi: var(--sp-lcd-ink); --color-accent: var(--sp-hot); background: var(--sp-lcd); box-shadow: inset 0 0 0 2px var(--sp-lcd-edge); }

@@ -1,4 +1,5 @@
 import { BankHead, LcdSearch } from "../bank-head";
+import { DrumPadsHero } from "../heroes/drum-pads";
 import { DawDragZone } from "../daw-drag";
 import { kitSoundSource, shotSource } from "../daw-sources";
 import {
@@ -230,6 +231,7 @@ export function KitsPage() {
         title="Drums"
         blurb="Whole kits and single hits. Tap a pad to hear it, grab the folder or one sound."
         search={<LcdSearch id="kits-q" label="Search kits, producers, sounds" placeholder="kit, producer or sound" value={q} onChange={setQ} />}
+        hero={<DrumPadsHero kits={all} />}
         actions={
           <UiLink href="/kit-upload" className="sp-key sp-key-hot st-wide-only">
             <Icon icon={Upload} />

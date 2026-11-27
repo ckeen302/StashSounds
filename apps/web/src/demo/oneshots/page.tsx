@@ -2,6 +2,7 @@ import { DawDragZone } from "../daw-drag";
 import { melodicSource } from "../daw-sources";
 import { Download, EmptyState, IconButton, PlayButton, Trash, Upload, useToast } from "@stash/ui";
 import { BankHead, LcdSearch } from "../bank-head";
+import { KeysHero } from "../heroes/keys";
 import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { CrateMenu } from "../explore";
 import { CommentToggle, RowThread } from "../social";
@@ -196,6 +197,7 @@ export function OneShotsPage() {
       <BankHead
         kicker="ONE-SHOT BANK"
         title="One-shots"
+        hero={<KeysHero />}
         blurb="Single notes and chords from keys, bells, plucks, pads, leads, guitars and 808s, in all 12 keys. Drop them in your sampler and play a melody without a heavy synth."
         search={
           <LcdSearch

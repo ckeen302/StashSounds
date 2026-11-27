@@ -1411,7 +1411,7 @@ function App() {
                 <div className="sp-topsearch sp-bezel hidden tablet:block">
                   <form role="search" action="/search" className="sp-lcd sp-lcd-search">
                     <label htmlFor="sp-q">SEARCH&gt;</label>
-                    <input id="sp-q" name="q" type="search" autoComplete="off" placeholder="carti, dark 808, like metro" />
+                    <input id="sp-q" name="q" type="search" autoComplete="off" placeholder="dark 808 like metro" />
                     <kbd aria-hidden="true">[ / ]</kbd>
                   </form>
                 </div>

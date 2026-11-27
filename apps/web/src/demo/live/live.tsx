@@ -61,7 +61,14 @@ export function Scope({ className, variant = "wave", rest = "line", style }: { c
         g.clearRect(0, 0, w, h);
         if (rest === "none") return;
         g.fillStyle = dim;
-        if (variant === "bars") for (let x = 0; x < w; x += 6) g.fillRect(x, h - 2, 4, 2);
+        if (variant === "bars") {
+          // At rest the bars sit low, like a meter bridge with the power on.
+          const bw = w / bars.length;
+          for (let i = 0; i < bars.length; i++) {
+            const segs = 1 + ((i * 7) % 3 === 0 ? 1 : 0);
+            for (let s = 0; s < segs; s++) g.fillRect(i * bw + 1, h - (s + 1) * 5 + 1, bw - 3, 3);
+          }
+        }
         else for (let x = 0; x < w; x += 6) g.fillRect(x, h / 2 - 1, 3, 2);
         return;
       }

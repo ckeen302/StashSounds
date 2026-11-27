@@ -13,13 +13,38 @@ export function BankHead({
   blurb,
   search,
   actions,
+  hero,
 }: {
   kicker: string;
   title: string;
   blurb?: ReactNode;
   search?: ReactNode;
   actions?: ReactNode;
+  /** The page's one big moment (heroes/): an instrument to play, beside the screen. */
+  hero?: ReactNode;
 }) {
+  if (hero)
+    return (
+      <header className="sp-hero">
+        <div className="sp-bezel sp-hero-screen min-w-0">
+          <div className="sp-lcd flex h-full flex-col gap-3">
+            <div className="flex min-w-0 flex-col gap-1">
+              <span className="sp-lcd-small">{kicker}</span>
+              <h1 className="sp-lcd-title sp-hero-title break-words">{title}</h1>
+              {blurb && <p className="sp-lcd-small m-0">{blurb}</p>}
+            </div>
+            {search && (
+              <div className="mt-auto flex flex-col gap-3">
+                <hr className="sp-lcd-rule" />
+                {search}
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="sp-hero-stage min-w-0">{hero}</div>
+        {actions && <div className="sp-hero-actions flex flex-wrap gap-2">{actions}</div>}
+      </header>
+    );
   return (
     <header className="flex flex-col gap-3 tablet:flex-row tablet:items-stretch">
       <div className="sp-bezel min-w-0 flex-1">

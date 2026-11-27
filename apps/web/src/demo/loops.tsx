@@ -32,6 +32,7 @@ import { saveLoopRow } from "./save";
 import { PACK_WEEK, PACKS } from "./packs";
 import { Why } from "./search-ui";
 import { BankHead, LcdSmartSearch } from "./bank-head";
+import { LoopDeckHero } from "./heroes/loop-deck";
 import { loopProfile } from "./search-index";
 import { likeness, match, parseQuery, quality, type Profile } from "./smart-search";
 import { addPlay, plays, set } from "./store";
@@ -391,6 +392,7 @@ export function LoopsPage({
         title="Free loops"
         blurb="Search by sound, tempo, key, genre or producer."
         search={<LcdSmartSearch id="loops-q" placeholder="dark piano 140" value={f.q} onChange={(v) => update({ q: v, like: null })} />}
+        hero={<LoopDeckHero rows={loops.map((l) => l.row)} />}
         actions={
           <>
             <button type="button" className="sp-key" aria-pressed={filtersOpen} aria-expanded={filtersOpen} onClick={() => setFiltersOpen(!filtersOpen)}>

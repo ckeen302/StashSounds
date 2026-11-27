@@ -1,5 +1,6 @@
 import { Button, Check, ChevronDown, Menu, UiLink, type MenuEntry } from "@stash/ui";
 import { BankHead, LcdSearch } from "../bank-head";
+import { CartridgeHero } from "../heroes/cartridge";
 import { useEffect, useMemo, useState } from "react";
 import { queryWords, textMatch } from "../text-match";
 import { albumOf, Cover, coverFor } from "./cover";
@@ -157,6 +158,7 @@ export function PresetsPage() {
       <BankHead
         kicker="PATCH LIBRARY"
         title="Presets"
+        hero={<CartridgeHero />}
         blurb="The synth, the bank and the patch behind the songs you're chasing."
         search={
           <LcdSearch
