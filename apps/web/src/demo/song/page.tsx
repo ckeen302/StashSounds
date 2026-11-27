@@ -1,6 +1,7 @@
 import { useEffect, type ReactNode } from "react";
 import { Button, ButtonLink, Download, EmptyState, PlayButton, UiLink, useToast } from "@stash/ui";
 import { CrateMenu } from "../explore";
+import { ShareButton } from "../share";
 import { Comments } from "../social";
 import { hrefForProducer } from "../producers/data";
 import { albumOf, Cover, coverFor, tileStyle } from "../presets/cover";
@@ -93,6 +94,7 @@ export function SongPage({ song: s, back }: { song: SongAll | null; back?: { hre
                 <ExtLink href={listenHref(s.song, s.artist, s.video)} variant="primary">
                   {listenLabel(s.video)}
                 </ExtLink>
+                <ShareButton path={songAllHref(s)} card={{ kind: "Song", title: s.song, subtitle: s.artist, line: parts.map((p) => PART_LABEL[p]).join(" · "), song: { song: s.song, artist: s.artist } }} />
                 <CrateMenu itemId={`song:${s.slug}`} title={`${s.song} · ${s.artist}`} kind="Song" href={songAllHref(s)} by={s.artist} size="sm" />
               </div>
             </div>

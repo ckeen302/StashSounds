@@ -22,6 +22,7 @@ import {
 } from "@stash/ui";
 import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { CrateMenu } from "../explore";
+import { ShareButton } from "../share";
 import { CommentToggle, Comments, RowThread } from "../social";
 import { navigate } from "../router";
 import { styleLink } from "../producers/data";
@@ -335,6 +336,12 @@ export function KitPage({ id }: { id: string }) {
             >
               {liked ? "Liked" : "Like"}
             </Button>
+            <ShareButton
+              path={`/kit/${k.id}`}
+              size="md"
+              className="col-span-2"
+              card={{ kind: "Drum kit", title: k.name.replace(/ \(inspired by .*\)$/, ""), subtitle: k.inspiredBy ? `In the style of ${k.inspiredBy}` : `by ${k.owner.displayName}`, line: `${k.genre} · Free on Stash` }}
+            />
             {k.mine && (
               <Button
                 variant="danger"

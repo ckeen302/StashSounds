@@ -150,3 +150,10 @@ function hueOf(title: string): number {
   for (const c of title) h = (h * 31 + c.charCodeAt(0)) >>> 0;
   return h % 5;
 }
+
+/** Where a cover sits on its sprite sheet, for drawing it on a canvas (the share card). */
+export function coverTile(file: string): { sheet: string; col: number; row: number; grid: number } | null {
+  const t = SHEET.tiles[file];
+  if (!t) return null;
+  return { sheet: SHEET.sheets[t[0]]!, col: t[1], row: t[2], grid: SHEET.grid };
+}
