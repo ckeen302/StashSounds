@@ -50,6 +50,8 @@ const OriginalPage = lazy(() => samplesPage().then((m) => ({ default: m.Original
 const SampleArtistPage = lazy(() => samplesPage().then((m) => ({ default: m.SampleArtistPage })));
 const SampleProducerPage = lazy(() => samplesPage().then((m) => ({ default: m.SampleProducerPage })));
 import { has, set } from "./store";
+import { useCrates } from "./crates";
+import { loopPicks, newLoops, newSongs, songPicks, type FeedLoop, type FeedSong, type Signals } from "./feed";
 import { startLooks, useLook } from "./looks";
 import { midiItem, VIEWER, type MidiItem } from "./midi/catalog";
 import { MidiList, MidiPage, useMidiItems, useMidiPlayer } from "./midi/pages";
@@ -359,6 +361,79 @@ function HeroEq() {
   );
 }
 
+/** A loop as the home feed reads it. */
+function feedLoop(r: ItemRow): FeedLoop {
+  const item = catalog.page(r.publicId)?.item;
+  return { id: r.id, title: r.title, ownerId: producerByHandle(r.owner.handle)?.id ?? r.owner.handle, bpm: r.bpm ?? null, tags: r.tags, genre: item?.genre ?? null, style: styleOf(r), publishedAt: r.publishedAt };
+}
+
+/** Song cards on the home page: cover, title, artist, and why it is there. */
+function SongShelf({ label, items }: { label: string; items: { slug: string; song: string; artist: string; because?: string }[] }) {
+  return (
+    <ul aria-label={label} className="st-shelf -mx-3 flex gap-4 overflow-x-auto px-3 pb-2 tablet:mx-0 tablet:px-0">
+      {items.map((s) => (
+        <li key={s.slug} className="w-40 shrink-0 tablet:w-44">
+          <UiLink href={`/song/${s.slug}`} className="group flex h-full flex-col gap-3 rounded-panel border border-border bg-surface p-3 ui-hover:border-border-strong">
+            <Cover song={s.song} artist={s.artist} size="fill" placeholder />
+            <span className="flex min-w-0 flex-col">
+              <span className="truncate text-body-strong text-text group-hover:underline">{s.song}</span>
+              <span className="truncate text-small text-text-muted">{s.artist}</span>
+              {s.because && <span className="line-clamp-2 text-small text-accent">{s.because}</span>}
+            </span>
+          </UiLink>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/**
+ * The part of the home page that changes with the person: picks from what they liked, saved and
+ * followed (shown once there is any), then what was added most recently.
+ */
+function HomeFeed({ rows, onChange }: { rows: ItemRow[]; onChange: () => void }) {
+  const songs = useSongData("idle");
+  const saved = useCrates();
+  const loops = useMemo(() => rows.map(feedLoop), [rows]);
+  const signals: Signals = {
+    liked: new Set(rows.filter((r) => has("likes", r.id) || has("downloads", r.id)).map((r) => r.id)),
+    followed: new Set(loops.filter((l) => has("follows", l.ownerId)).map((l) => l.ownerId)),
+    savedSongs: new Set(saved.flatMap((c) => c.items).filter((i) => i.startsWith("song:")).map((i) => i.slice(5))),
+  };
+  const songList: FeedSong[] = useMemo(() => (songs?.SONGS ?? []).map((s) => ({ slug: s.slug, song: s.song, artist: s.artist, producers: s.producers, year: s.year })), [songs]);
+  const picks = loopPicks(loops, signals);
+  const likedStyles = [...new Set(loops.filter((l) => signals.liked.has(l.id) && l.style).map((l) => l.style!))];
+  const songsForYou = songPicks(songList, signals, likedStyles);
+  const byId = new Map(rows.map((r) => [r.id, r]));
+  const reasons = [...new Set(picks.map((p) => p.because))];
+  const fresh = newLoops(loops).map((l) => byId.get(l.id)!);
+  const freshSongs = newSongs(songList);
+  return (
+    <>
+      <section aria-labelledby="for-you" className="-mt-6 flex flex-col gap-3">
+        <div id="for-you">
+          <SectionHead title="For you" sub={picks.length || songsForYou.length ? (reasons.length === 1 ? reasons[0] : reasons.length === 2 && reasons.every((x) => x.startsWith("Because you liked ")) ? `${reasons[0]} and ${reasons[1]!.slice("Because you liked ".length)}` : "From what you liked, saved and follow") : "Like a loop, save a song or follow a producer, and picks for it show up here."} />
+        </div>
+        {picks.length > 0 && <LoopList label="Loops for you" rows={picks.map((p) => byId.get(p.loop.id)!)} onChange={onChange} />}
+        {songsForYou.length > 0 && <SongShelf label="Songs for you" items={songsForYou.map((p) => ({ ...p.song, because: p.because }))} />}
+      </section>
+
+      <section aria-labelledby="just-added" className="flex flex-col gap-3">
+        <div id="just-added">
+          <SectionHead title="Just added" href="/loops" more="All loops" />
+        </div>
+        <LoopList label="Just added" rows={fresh} onChange={onChange} />
+        {freshSongs.length > 0 && (
+          <>
+            <h3 className="text-body-strong text-text">New songs on Stash</h3>
+            <SongShelf label="New songs on Stash" items={freshSongs} />
+          </>
+        )}
+      </section>
+    </>
+  );
+}
+
 function Home() {
   const [rows, refresh] = useRows();
   const midi = useMidiItems();
@@ -439,7 +514,9 @@ function Home() {
       </section>
 
       <Page>
-        <section aria-labelledby="trending" className="-mt-6 flex flex-col gap-3">
+        <HomeFeed rows={rows} onChange={refresh} />
+
+        <section aria-labelledby="trending" className="flex flex-col gap-3">
           <div id="trending">
             <SectionHead title="Trending now" href="/loops" more="All loops" />
           </div>
@@ -606,19 +683,24 @@ const KIND_ONE: Record<Exclude<SearchKind, "all">, string> = {
 /** The song index loads with the Samples catalog; search asks for it the first time it opens. */
 type SongData = typeof SongDataModule;
 let songData: SongData | null = null;
-function useSongData(): SongData | null {
+/** `idle`: wait until the page has shown and the browser is free (the home page, on a phone). */
+function useSongData(when: "now" | "idle" = "now"): SongData | null {
   const [d, setD] = useState(songData);
   useEffect(() => {
     if (d) return;
     let live = true;
-    void import("./song/data").then((m) => {
-      songData = m;
-      if (live) setD(m);
-    });
+    const load = () =>
+      void import("./song/data").then((m) => {
+        songData = m;
+        if (live) setD(m);
+      });
+    if (when === "now") load();
+    const idle = when === "idle" ? (window.requestIdleCallback?.(load, { timeout: 4000 }) ?? window.setTimeout(load, 2500)) : 0;
     return () => {
       live = false;
+      if (when === "idle") (window.cancelIdleCallback ?? window.clearTimeout)(idle);
     };
-  }, [d]);
+  }, [d, when]);
   return d;
 }
 
