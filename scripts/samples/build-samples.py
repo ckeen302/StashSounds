@@ -32,6 +32,10 @@ if os.path.exists(mb): raw += json.load(open(mb))
 wd = os.path.join(os.path.dirname(__file__), "wikidata-samples.json")
 if os.path.exists(wd): raw += json.load(open(wd))
 YT = json.load(open(os.path.join(os.path.dirname(__file__), "wikidata-youtube.json")))
+# Videos found removed or private (dead-youtube.json says how they were checked) are left out.
+DEAD = set(json.load(open(os.path.join(os.path.dirname(__file__), "dead-youtube.json")))["ids"])
+for side in ("songs", "originals"):
+    YT[side] = {k: v for k, v in YT[side].items() if v not in DEAD}
 out_path = os.path.join(os.path.dirname(__file__), "../../apps/web/src/demo/samples/samples.json")
 
 RULES = [

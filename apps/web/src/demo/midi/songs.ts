@@ -3,6 +3,7 @@ import { parseKey } from "@stash/contracts/format";
 import type { Producer } from "../data";
 import raw from "./song-chords.json" with { type: "json" };
 import { BATCHES } from "./song-batches/index";
+import { canonArtist } from "../artist-names";
 import { arrangeNotes, PRESET_HITS, type Arrangement } from "./arrange";
 import type { Timbre } from "./synth";
 
@@ -87,7 +88,7 @@ function fromBatch(b: BatchSong): SongChords {
 
 export const BATCH_SONGS: SongChords[] = (BATCHES.flat() as BatchSong[]).map(fromBatch);
 
-export const SONG_CHORDS: SongChords[] = [...(raw as unknown as SongChords[]), ...BATCH_SONGS];
+export const SONG_CHORDS: SongChords[] = [...(raw as unknown as SongChords[]), ...BATCH_SONGS].map((s) => ({ ...s, artist: canonArtist(s.artist) }));
 
 export const CHORDS_OWNER: Producer = { id: "00000000-0000-4000-8000-0000000000c0", handle: "stash_chords", displayName: "Stash chord charts", followers: 0 };
 

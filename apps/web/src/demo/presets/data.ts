@@ -1,4 +1,5 @@
 import found from "./found.json" with { type: "json" };
+import { canonArtist } from "../artist-names";
 
 /**
  * The presets tab: which synth (and, where anyone has said, which preset) is on a song. Researched
@@ -166,7 +167,7 @@ const complete = (p: PresetEntry) => !!p.preset?.trim() && !/not named|unknown|u
 // Some found rows name no producer: they read as "Unknown", like the hand rows that say so (the
 // search reads every row's producer and failed on the missing field).
 const foundRows: PresetEntry[] = (found as unknown as (Omit<PresetEntry, "producer"> & { producer?: string | null })[]).map((p) => ({ ...p, producer: p.producer ?? "Unknown" }));
-const unique: PresetEntry[] = [...HAND, ...foundRows].filter((p) => {
+const unique: PresetEntry[] = [...HAND, ...foundRows].map((p) => ({ ...p, artist: canonArtist(p.artist) })).filter((p) => {
   if (!complete(p)) return false;
   const k = keyOf(p);
   if (seen.has(k)) return false;
