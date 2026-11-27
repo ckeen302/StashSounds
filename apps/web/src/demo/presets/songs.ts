@@ -101,5 +101,5 @@ const BY_KEY = new Map(ALL_SONGS.map((s) => [s.key, s]));
 /** The page link for a song, by its title and artist as the rows spell them. */
 export function songHref(song: string, artist: string): string {
   const s = BY_KEY.get(songKey(song, artist));
-  return s ? `/presets/${s.slug}` : "/presets";
+  return s ? `/song/${s.slug}` : "/presets";
 }

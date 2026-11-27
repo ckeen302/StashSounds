@@ -37,6 +37,8 @@ export type SampleSong = {
   video: string | null;
   slug: string;
   key: string;
+  /** Its address on the one-page-per-song view, set by ../song/data. */
+  songSlug?: string;
 };
 
 /** A record that one or more songs here sample. */
@@ -258,7 +260,7 @@ export const asOriginal = (s: SampleSong) =>
 /** The same recording seen as a song here: what this sampled record itself samples. */
 export const asSong = (o: Original) => SONG_BY_OKEY.get(o.key) ?? null;
 
-export const sampleHref = (s: SampleSong) => `/samples/${s.slug}`;
+export const sampleHref = (s: SampleSong) => `/song/${s.songSlug ?? s.slug}`;
 export const originalHref = (o: Original) => `/sampled/${o.slug}`;
 export const artistHref = (a: SampleArtist) => `/samples-artist/${a.slug}`;
 export const producerHref = (p: SampleProducer) =>

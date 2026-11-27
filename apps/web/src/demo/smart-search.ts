@@ -1,6 +1,6 @@
 import type { MusicalKey } from "@stash/contracts";
 import { compatibleKeys, formatKey } from "@stash/contracts/format";
-import { fold, termHit, terms } from "./text-match";
+import { expandNicknames, fold, termHit, terms } from "./text-match";
 
 /**
  * Search the way producers type: "dark piano 140 like metro", "c minor bells", "drill 140-145",
@@ -108,7 +108,7 @@ const STYLES: { name: string; aliases: string[]; genres: Genre[]; sounds: string
   { name: "Drake", aliases: ["drake", "drizzy", "ovo"], genres: ["R&B", "Trap"], sounds: ["Pad", "Keys", "Piano"], moods: ["Chill", "Dreamy", "Sad"] },
   { name: "The Weeknd", aliases: ["the weeknd", "weeknd", "the weekend"], genres: ["R&B"], sounds: ["Synth", "Pad"], moods: ["Dark", "Dreamy"] },
   { name: "Juice WRLD", aliases: ["juice wrld", "juice world"], genres: ["Trap"], sounds: ["Guitar", "Piano", "Melody"], moods: ["Sad"] },
-  { name: "Kanye West", aliases: ["kanye west", "kanye"], genres: ["Soul", "Boom bap"], sounds: ["Choir", "Keys", "Piano"], moods: ["Dusty"] },
+  { name: "Kanye West", aliases: ["kanye west", "kanye", "yeezy", "ye"], genres: ["Soul", "Boom bap"], sounds: ["Choir", "Keys", "Piano"], moods: ["Dusty"] },
   { name: "Tyler, the Creator", aliases: ["tyler the creator", "tyler"], genres: ["Soul", "R&B"], sounds: ["Keys", "Synth", "Chords"], moods: ["Jazzy", "Bouncy"] },
   { name: "Kendrick Lamar", aliases: ["kendrick lamar", "kendrick"], genres: ["West Coast", "Boom bap"], sounds: ["Keys", "Piano", "Drums"], moods: ["Jazzy", "Hard"] },
 ];
@@ -257,7 +257,14 @@ export function parseQuery(input: string): Query {
         .filter((w) => w.length > 1 && !STOP.has(w)),
     ),
   ];
-  for (const w of words) tokens.push({ kind: "word", label: `“${w}”`, raw: w });
+  // A nickname ("hov", "weezy") searches as the name it stands for; its chip still removes what was typed.
+  const named: string[] = [];
+  for (const w of words) {
+    const name = expandNicknames(w);
+    tokens.push({ kind: "word", label: `“${name}”`, raw: w });
+    for (const x of name.split(" ")) if (!named.includes(x)) named.push(x);
+  }
+  words.splice(0, words.length, ...named);
 
   const order = { style: 0, genre: 1, sound: 2, mood: 3, bpm: 4, key: 5, word: 6 };
   tokens.sort((a, b) => order[a.kind] - order[b.kind]);
@@ -462,4 +469,28 @@ export function moreLike<T extends { profile: Profile }>(of: Profile, pool: T[],
 /** Ranks by downloads per play, with a prior so a sound with two plays and one download does not top the list. */
 export function quality(downloads: number, plays: number): number {
   return (downloads + 1) / (plays + 8);
+}
+
+// ---------------------------------------------------------------------------------------------
+// Vibes for things that have no tags of their own (songs, drum kits): the genres, moods and sounds
+// the artist or producer behind them is known for, by the same table "like metro" reads.
+
+const ALIASES_OF = new Map<string, string[]>([...GENRE_ALIASES, ...SOUND_ALIASES, ...MOOD_ALIASES].map(([n, as]) => [n as string, as]));
+
+/** The style labels ("Trap", "Dark", "808") of the artists and producers named. */
+export function vibeOf(names: string[]): string[] {
+  const out = new Set<string>();
+  for (const n of names) {
+    const k = fold(n);
+    if (!k) continue;
+    const st = STYLES.find((x) => fold(x.name) === k || x.aliases.some((a) => a.length > 4 && fold(a) === k));
+    if (!st) continue;
+    for (const l of [...st.genres, ...st.moods, ...st.sounds]) out.add(l);
+  }
+  return [...out];
+}
+
+/** Labels with every word producers use for them, as text to match a search against ("Dark" brings "evil", "eerie"...). */
+export function vibeText(labels: string[]): string {
+  return labels.flatMap((l) => [l, ...(ALIASES_OF.get(l) ?? [])]).join(" ");
 }

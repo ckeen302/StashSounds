@@ -47,7 +47,7 @@ function summary(sounds: { category: Category }[]): string {
 }
 
 /** Plays a few of the kit's sounds in a row: kick, snare or clap, hat, and an 808 if it has one. */
-function preview(k: Kit) {
+export function preview(k: Kit) {
   const pick = (cats: Category[]) => k.sounds.find((s) => cats.includes(s.category));
   const order = [pick(["kick", "808"]), pick(["hat"]), pick(["snare", "clap"]), pick(["hat"]), pick(["808", "kick"]), pick(["open hat", "hat"]), pick(["clap", "snare"])].filter(
     (s): s is KitSound => !!s,
@@ -62,7 +62,7 @@ function preview(k: Kit) {
 let previewSeq = 0;
 
 /** Saves every sound in the kit as one zip. */
-async function saveKit(k: Kit, toast: ReturnType<typeof useToast>) {
+export async function saveKit(k: Kit, toast: ReturnType<typeof useToast>) {
   const shots = allShots([k]).filter((s) => s.kit?.id === k.id);
   const { outcome, names } = await saveShots(shots, k.name, 200).catch(() => ({ outcome: "failed" as const, names: [] as string[] }));
   if (outcome === "saved") {

@@ -33,7 +33,7 @@ import { navItems } from "../app/_shell/nav";
 import { nowPlaying } from "../app/_shell/now-playing";
 import { ItemView } from "../app/_item/item-view";
 import { buildCatalog, type Catalog } from "./data";
-import { LICENSE_LABELS } from "@stash/contracts/format";
+import { formatKey, LICENSE_LABELS } from "@stash/contracts/format";
 import { HashLink } from "./hash-link";
 import { useProgressive } from "./progressive";
 import { navigate, startRouter, usePath } from "./router";
@@ -41,26 +41,32 @@ import { navigate, startRouter, usePath } from "./router";
 // first paint (prefetched once the page is idle, at the bottom), so the rest of the demo starts without it.
 const samplesPage = () => import("./samples/page");
 const SamplesPage = lazy(() => samplesPage().then((m) => ({ default: m.SamplesPage })));
-const SampleSongPage = lazy(() => samplesPage().then((m) => ({ default: m.SampleSongPage })));
+// One page per song pulls from every library, the Samples catalog included, so it loads with it.
+const songRoute = () => import("./song/route");
+const SongRoute = lazy(() => songRoute().then((m) => ({ default: m.SongRoute })));
+const PresetSongRoute = lazy(() => songRoute().then((m) => ({ default: m.PresetSongRoute })));
+const SampleSongRoute = lazy(() => songRoute().then((m) => ({ default: m.SampleSongRoute })));
 const OriginalPage = lazy(() => samplesPage().then((m) => ({ default: m.OriginalPage })));
 const SampleArtistPage = lazy(() => samplesPage().then((m) => ({ default: m.SampleArtistPage })));
 const SampleProducerPage = lazy(() => samplesPage().then((m) => ({ default: m.SampleProducerPage })));
 import { has, set } from "./store";
 import { startLooks, useLook } from "./looks";
 import { midiItem, type MidiItem } from "./midi/catalog";
-import { MidiList, MidiPage, useMidiItems } from "./midi/pages";
+import { MidiList, MidiPage, useMidiItems, useMidiPlayer } from "./midi/pages";
+import { midiPlayer } from "./midi/synth";
+import type * as SongDataModule from "./song/data";
 import { BATCH_SONGS, progressionOf } from "./midi/songs";
 import { CHORD_PACKS, PACK_PROGRESSIONS, TEMPO_BANDS } from "./midi/chord-packs";
 import { Dropdown } from "./presets/page";
 import { PresetsPage } from "./presets/page";
-import { PresetSongPage } from "./presets/song-page";
 import { SoundDesign } from "./sound-design";
 import { OneShotsPage } from "./oneshots/page";
-import { MELODIC } from "./oneshots/melodic";
+import { instrumentOf, MELODIC, mineAsMelodic, playShot } from "./oneshots/melodic";
 import { SfxPage } from "./sfx/page";
-import { SFX } from "./sfx/library";
+import { categoryName, playSfx, SFX, subName, usePlaying } from "./sfx/library";
 import { UploadHub } from "./upload/page";
 import {
+  ALL_PRODUCERS,
   BrowsePage,
   LibraryPage,
   NewCrateHost,
@@ -79,21 +85,20 @@ import { pack, PACK_WEEK } from "./packs";
 import { ALL_SONGS, madeBy, songHref, TOP_PRODUCERS } from "./presets/songs";
 import { PRESETS, type Confidence } from "./presets/data";
 import { Cover, coverFor } from "./presets/cover";
-import { kits, useKits } from "./kits/store";
+import { kits, labelOf, useKits, warmSounds } from "./kits/store";
 import { saveFiles, saveLoopRow } from "./save";
 import { SmartSearch, useQuery } from "./search-ui";
-import { KitHits, PresetHits, ProducerHits, rank, ShotHits, SfxHits, useOtherHits } from "./search-page";
-import { queryWords, textMatch } from "./text-match";
+import { queryWords, respell, terms, textMatch, vocabulary, type Field } from "./text-match";
 import { loopProfile, midiProfile } from "./search-index";
-import { match, moreLike } from "./smart-search";
+import { match, moreLike, vibeOf, vibeText } from "./smart-search";
 import { writeMidi } from "./midi/write";
-import { KitCards, KitPage, KitsPage, KitUploadPage } from "./kits/pages";
+import { KitCards, KitPage, KitsPage, KitUploadPage, preview as previewKit } from "./kits/pages";
 import { DawDragZone } from "./daw-drag";
 import { loopSource } from "./daw-sources";
 import { attachLoopStyles, allProducers, hrefForProducer, producerBySlug, producerNamed, producerPageHref } from "./producers/data";
 import { ProducerPageView, ProducersPage, summaryOf } from "./producers/page";
 import { SAMPLE_PRODUCER_NAMES } from "./samples/credits";
-import { Button, Download, FilterChip, IconLink, Library as LibraryIcon, SearchInput, UiLink } from "@stash/ui";
+import { Avatar, Button, Download, FilterChip, IconLink, Library as LibraryIcon, PlayButton, SearchInput, UiLink } from "@stash/ui";
 
 /**
  * The browser-only demo (ticket 137): the real shell, player bar, result rows, loop page and audio
@@ -576,81 +581,282 @@ function LibraryRoute() {
   );
 }
 
-type SearchKind = "all" | "loops" | "midi" | "presets" | "sfx" | "kits" | "shots" | "producers" | "pages";
+type SearchKind = "all" | "songs" | "loops" | "midi" | "kits" | "shots" | "sfx" | "producers";
 let searchKind: SearchKind = "all";
 
-/** Strict matches (every word of the query found) first; close matches only when there are none. */
-function rankSmart<T>(list: T[], prof: (x: T) => Parameters<typeof match>[0], q: ReturnType<typeof useQuery>): { items: T[]; close: boolean } {
-  const scored = list
-    .map((x) => ({ x, hit: match(prof(x), q) }))
-    .filter((r): r is { x: T; hit: NonNullable<ReturnType<typeof match>> } => !!r.hit)
-    .sort((a, b) => b.hit.score - a.hit.score);
-  const full = scored.filter((r) => r.hit.all !== false);
-  return full.length ? { items: full.map((r) => r.x), close: false } : { items: scored.map((r) => r.x), close: scored.length > 0 };
+const SEARCH_KIND: Record<Exclude<SearchKind, "all">, string> = {
+  songs: "Songs",
+  loops: "Loops",
+  midi: "MIDI",
+  kits: "Drum kits",
+  shots: "One-shots",
+  sfx: "SFX",
+  producers: "Producers",
+};
+const KIND_ONE: Record<Exclude<SearchKind, "all">, string> = {
+  songs: "Song",
+  loops: "Loop",
+  midi: "MIDI",
+  kits: "Drum kit",
+  shots: "One-shot",
+  sfx: "SFX",
+  producers: "Producer",
+};
+
+/** The song index loads with the Samples catalog; search asks for it the first time it opens. */
+type SongData = typeof SongDataModule;
+let songData: SongData | null = null;
+function useSongData(): SongData | null {
+  const [d, setD] = useState(songData);
+  useEffect(() => {
+    if (d) return;
+    let live = true;
+    void import("./song/data").then((m) => {
+      songData = m;
+      if (live) setD(m);
+    });
+    return () => {
+      live = false;
+    };
+  }, [d]);
+  return d;
 }
 
-/** Producer pages that match a search: name and what they have here. */
-function ProducerPageHits({ list }: { list: ReturnType<typeof allProducers> }) {
-  return (
-    <ul aria-label="Producer page results" className="flex flex-col overflow-hidden rounded-panel border border-border bg-surface">
-      {list.map((p) => (
-        <li key={p.slug} className="flex min-h-14 items-center gap-3 border-b border-border px-3 py-2 last:border-b-0">
-          <UiLink href={producerPageHref(p)} className="flex min-w-0 flex-1 flex-col ui-hover:underline">
-            <span className="truncate text-body-strong text-text">{p.name}</span>
-            <span className="truncate text-small text-text-muted">{summaryOf(p)}</span>
-          </UiLink>
-        </li>
-      ))}
-    </ul>
-  );
+const songVibes = new Map<string, string>();
+function songFields(s: SongData["SONGS"][number]): Field[] {
+  let vibe = songVibes.get(s.key);
+  if (vibe === undefined) {
+    const lead = s.artist.split(/ feat\.? | featuring | ft\.? | with |,| & | x /i)[0] || s.artist;
+    const labels = vibeOf([lead, ...s.producers]);
+    for (const m of s.chords) if (m.song?.genre) labels.push(m.song.genre);
+    if (s.sample) for (const u of s.sample.samples) if (u.genre !== "Other") labels.push(u.genre);
+    vibe = vibeText([...new Set(labels)]);
+    songVibes.set(s.key, vibe);
+  }
+  return [
+    { text: s.song, weight: 4 },
+    { text: s.artist, weight: 3 },
+    { text: s.producers.join(" "), weight: 2 },
+    { text: s.preset ? s.preset.entries.map((e) => `${e.plugin} ${e.preset ?? ""} ${e.role}`).join(" ") : "", weight: 2 },
+    { text: `${s.album ?? ""} ${s.sample ? s.sample.samples.map((u) => `${u.title} ${u.artist}`).join(" ") : ""}`, weight: 1 },
+    { text: vibe, weight: 1 },
+  ];
 }
 
+/** What a song has on its page, under its name in the results. */
+function songHas(s: SongData["SONGS"][number]): string {
+  return [s.sample ? "Samples" : "", s.preset ? "Presets" : "", s.chords.length ? "Chords" : "", "Drum kit"].filter(Boolean).join(" · ");
+}
+
+/** `quiet`: shown only under its own kind's chip (a song's chords, which its song row already covers). */
+type Hit = { id: string; kind: Exclude<SearchKind, "all">; all: boolean; score: number; quiet?: boolean; row: (i: number) => ReactNode };
+
+const PAGE_SIZE = 30;
+
+/**
+ * Search results as one list: songs, loops, MIDI, kits, one-shots, sound effects and producers
+ * ranked together, every word landing first, each row saying what it is. Chips narrow it to one kind.
+ */
 function SearchResults() {
-  const [rows, refresh] = useRows();
+  const [rows] = useRows();
   const query = useSearchQuery();
   const parsed = useQuery(query);
   const midi = useMidiItems();
+  const kitList = useKits();
+  const songs = useSongData();
+  const engine = getEngine();
+  const status = usePlayerState((s) => s.status);
+  const currentId = usePlayerState((s) => s.current?.id ?? null);
+  const midiState = useMidiPlayer();
+  const sfxPlaying = usePlaying();
   const [kind, setKindState] = useState<SearchKind>(searchKind);
+  // "Show more" counts pages for this query and kind; a new search starts at one page.
+  const [paged, setPaged] = useState({ at: "", n: 1 });
+  const more = paged.at === `${kind}|${query}` ? paged.n : 1;
+  const setMore = (f: (n: number) => number) => setPaged({ at: `${kind}|${query}`, n: f(more) });
   const setKind = (k: SearchKind) => {
     searchKind = k;
     setKindState(k);
     window.scrollTo({ top: 0 });
   };
-  const loops = rankSmart(rows, (r) => loopProfile(r, catalog), parsed);
-  const mids = rankSmart(midi, midiProfile, parsed);
-  const other = useOtherHits(query);
-  const words = queryWords(query);
-  // How squarely a group's best result names what was typed: orders the groups, so "kick" leads with
-  // one-shots and "god's plan" with the song's chords.
-  const lead = (name: string | undefined) => (name ? (textMatch([{ text: name, weight: 1 }], words)?.score ?? 0) : 0);
-  const pages = useMemo(() => rank(allProducers(), (p) => [{ text: p.name, weight: 4 }], words), [query]); // eslint-disable-line react-hooks/exhaustive-deps
-  const groups: { id: Exclude<SearchKind, "all">; name: string; n: number; close: boolean; top: number; lead: number; render: (all: boolean) => ReactNode }[] = [
-    { id: "pages", name: "Producer pages", n: pages.items.length, close: pages.close, top: 4, lead: lead(pages.items[0]?.name), render: (all) => <ProducerPageHits list={pages.items.slice(0, all ? 200 : 4)} /> },
-    { id: "presets", name: "Presets", n: other.presets.items.length, close: other.presets.close, top: 5, lead: lead(other.presets.items[0] && `${other.presets.items[0].song} ${other.presets.items[0].artist}`), render: (all) => <PresetHits songs={other.presets.items.slice(0, all ? 200 : 5)} query={query} /> },
-    { id: "loops", name: "Loops", n: loops.items.length, close: loops.close, top: 5, lead: lead(loops.items[0] && `${loops.items[0].title} ${loops.items[0].owner.displayName}`), render: (all) => <LoopList label="Loop results" rows={loops.items.slice(0, all ? 200 : 5)} onChange={refresh} /> },
-    { id: "midi", name: "MIDI", n: mids.items.length, close: mids.close, top: 6, lead: lead(mids.items[0] && `${mids.items[0].title} ${mids.items[0].song?.artist ?? ""}`), render: (all) => <MidiList label="MIDI results" items={mids.items.slice(0, all ? 200 : 6)} /> },
-    { id: "sfx", name: "SFX", n: other.sfx.items.length, close: other.sfx.close, top: 5, lead: lead(other.sfx.items[0]?.name), render: (all) => <SfxHits list={other.sfx.items.slice(0, all ? 200 : 5)} /> },
-    { id: "kits", name: "Drum kits", n: other.kits.items.length, close: other.kits.close, top: 4, lead: lead(other.kits.items[0]?.name), render: (all) => <KitHits list={other.kits.items.slice(0, all ? 200 : 4)} /> },
-    { id: "shots", name: "One-shots", n: other.shots.items.length, close: other.shots.close, top: 6, lead: lead(other.shots.items[0]?.name), render: (all) => <ShotHits list={other.shots.items.slice(0, all ? 200 : 6)} /> },
-    { id: "producers", name: "Producers", n: other.producers.items.length, close: other.producers.close, top: 5, lead: lead(other.producers.items[0] && `${other.producers.items[0].displayName} ${other.producers.items[0].handle}`), render: (all) => <ProducerHits list={other.producers.items.slice(0, all ? 200 : 5)} /> },
-  ];
-  // Exact answers lead; groups that only have close matches go last.
-  const shown = groups.filter((g) => g.n > 0).sort((a, b) => Number(a.close) - Number(b.close) || b.lead - a.lead);
-  const active = kind === "all" ? null : (shown.find((g) => g.id === kind) ?? null);
-  const empty = query.trim() !== "" && shown.length === 0;
+  const vocab = useMemo(
+    () =>
+      vocabulary(
+        (function* () {
+          for (const s of songs?.SONGS ?? []) yield `${s.song} ${s.artist} ${s.producers.join(" ")}`;
+          for (const r of rows) yield `${r.title} ${r.tags.join(" ")}`;
+          for (const m of midi) yield `${m.title} ${m.tags.join(" ")}`;
+          for (const k of kitList) yield `${k.name} ${k.genre} ${k.inspiredBy ?? ""}`;
+          for (const x of SFX) yield x.name;
+          yield vibeText(["Dark", "Sad", "Happy", "Bouncy", "Hard", "Chill", "Dreamy", "Jazzy", "Dusty", "Piano", "Keys", "Bells", "Pad", "Strings", "Guitar", "Pluck", "Lead", "Synth", "808", "Drums", "Choir", "Flute", "Brass", "Chords", "Melody"]);
+        })(),
+      ),
+    [songs, rows, midi, kitList],
+  );
+  const typed = queryWords(query);
+  const spelled = respell(typed, vocab);
+  const words = spelled.words;
+  const wordsKey = words.join(" ");
+
+  const hits = useMemo((): Hit[] => {
+    if (!words.length && parsed.empty) return [];
+    const out: Hit[] = [];
+    const text = (fields: Field[]) => textMatch(fields, words);
+    const push = (id: string, k: Hit["kind"], t: ReturnType<typeof textMatch>, extra: { all?: boolean; score?: number; bonus?: number; quiet?: boolean } | null, row: Hit["row"]) => {
+      if (!t && !extra) return;
+      // A loop or MIDI file that only fits the query's style ("carti" as a sound) ranks under things
+      // that name it outright: the artist's own songs, their page.
+      const score = (t ? t.score + (extra?.score ?? 0) / 3 : Math.min(extra?.score ?? 0, 2)) + (extra?.bonus ?? 0);
+      out.push({ id, kind: k, all: !!(t?.all || extra?.all), score, quiet: extra?.quiet, row });
+    };
+    // Songs: everything for one song on one page.
+    for (const s of songs?.SONGS ?? []) {
+      const t = text(songFields(s));
+      if (!t) continue;
+      const href = songs!.songAllHref(s);
+      // A song gathers everything for it, so it leads the things it gathers; an artist's name typed
+      // whole ("future") brings their own songs ahead of songs with the word in the title.
+      const byArtist = terms(s.artist.split(/ feat\.? | featuring | ft\.? | with |,| & | x /i)[0] || s.artist).join(" ") === wordsKey;
+      push(`song:${s.key}`, "songs", t, { bonus: byArtist ? 14 : 2 }, () => (
+        <>
+          <Cover song={s.song} artist={s.artist} size="sm" placeholder />
+          <UiLink href={href} className="flex min-w-0 flex-1 flex-col ui-hover:underline">
+            <span className="truncate text-body-strong text-text">{`${s.song} · ${s.artist}`}</span>
+            <span className="truncate text-small text-text-muted">{songHas(s)}</span>
+          </UiLink>
+        </>
+      ));
+    }
+    // Loops and MIDI read the query's tempo, key, genre and producer style too.
+    const loopHits = rows
+      .map((r) => ({ r, m: match(loopProfile(r, catalog), parsed) }))
+      .filter((x): x is { r: ItemRow; m: NonNullable<ReturnType<typeof match>> } => !!x.m);
+    const loopRows = loopHits.map((x) => x.r);
+    loopHits.forEach(({ r, m }, i) =>
+      push(`loop:${r.id}`, "loops", text([{ text: r.title, weight: 4 }, { text: r.owner.displayName, weight: 3 }, { text: r.tags.join(" "), weight: 1 }]), { all: m.all !== false, score: m.score * 3 }, () => (
+        <>
+          <PlayButton title={r.title} state={r.id !== currentId || status === "idle" ? "paused" : status} onPointerEnter={() => engine.preload(r.playable)} onClick={() => void nowPlaying().playFrom(engine, loopRows, i)} />
+          <UiLink href={r.href} className="flex min-w-0 flex-1 flex-col ui-hover:underline">
+            <span className="truncate text-body-strong text-text">{r.title}</span>
+            <span className="truncate text-small text-text-muted">{[r.owner.displayName, r.bpm ? `${r.bpm} BPM` : "", r.key ? formatKey(r.key) : ""].filter(Boolean).join(" · ")}</span>
+          </UiLink>
+        </>
+      )),
+    );
+    for (const mi of midi) {
+      const m = match(midiProfile(mi), parsed);
+      if (!m) continue;
+      const t = text([{ text: mi.title, weight: 4 }, { text: `${mi.song?.artist ?? ""} ${mi.owner.displayName}`, weight: 3 }, { text: mi.tags.join(" "), weight: 1 }]);
+      push(`midi:${mi.id}`, "midi", t, { all: m.all !== false, score: m.score * 3, quiet: !!(mi.song && songs) }, () => (
+        <>
+          <PlayButton
+            title={mi.title}
+            state={midiState.currentId === mi.id ? (midiState.status === "playing" ? "playing" : "paused") : "paused"}
+            onClick={() => midiPlayer().toggle(mi.id, mi.notes, mi.sound)}
+          />
+          <UiLink href={mi.href} className="flex min-w-0 flex-1 flex-col ui-hover:underline">
+            <span className="truncate text-body-strong text-text">{mi.title}</span>
+            <span className="truncate text-small text-text-muted">{[mi.song ? mi.song.artist : `@${mi.owner.handle}`, `${Math.round(mi.notes.bpm)} BPM`, mi.key ? formatKey(mi.key) : ""].filter(Boolean).join(" · ")}</span>
+          </UiLink>
+        </>
+      ));
+    }
+    for (const k of kitList) {
+      const vibe = vibeText([...vibeOf(k.inspiredBy ? [k.inspiredBy] : []), k.genre]);
+      const t = text([
+        { text: k.name, weight: 4 },
+        { text: `${k.inspiredBy ?? ""} ${k.owner.displayName} ${k.genre}`, weight: 3 },
+        { text: `${k.description} ${[...new Set(k.sounds.map((s) => labelOf(s.category)))].join(" ")} drums drum kit`, weight: 1 },
+        { text: vibe, weight: 1 },
+      ]);
+      push(`kit:${k.id}`, "kits", t, null, () => (
+        <>
+          <PlayButton title={`a preview of ${k.name}`} state="paused" onPointerEnter={() => warmSounds(k.sounds)} onClick={() => previewKit(k)} />
+          <UiLink href={`/kit/${k.id}`} className="flex min-w-0 flex-1 flex-col ui-hover:underline">
+            <span className="truncate text-body-strong text-text">{k.name}</span>
+            <span className="truncate text-small text-text-muted">{`${k.genre} · @${k.owner.handle}`}</span>
+          </UiLink>
+        </>
+      ));
+    }
+    for (const s of [...mineAsMelodic(), ...MELODIC]) {
+      const ins = instrumentOf(s.instrument);
+      const t = text([{ text: s.name, weight: 4 }, { text: `${ins.label} ${s.label} ${s.kind === "chord" ? "chord" : "note"}`, weight: 3 }, { text: `${s.spoken} ${ins.sound} one shot`, weight: 1 }]);
+      push(`shot:${s.id}`, "shots", t, null, () => (
+        <>
+          <PlayButton title={s.name} state="paused" onClick={() => void playShot(s)} />
+          <span className="flex min-w-0 flex-1 flex-col">
+            <span className="truncate text-body-strong text-text">{s.name}</span>
+            <span className="truncate text-small text-text-muted">{[ins.label, s.label, s.kind === "chord" ? "Chord" : "Note"].filter(Boolean).join(" · ")}</span>
+          </span>
+        </>
+      ));
+    }
+    for (const s of SFX) {
+      const t = text([{ text: s.name, weight: 4 }, { text: `${subName(s.cat, s.sub)} ${categoryName(s.cat)}`, weight: 2 }, { text: `${s.tags.join(" ")} sfx sound effect`, weight: 1 }]);
+      push(`sfx:${s.id}`, "sfx", t, null, () => (
+        <>
+          <PlayButton title={s.name} state={sfxPlaying.loading === s.id ? "loading" : sfxPlaying.id === s.id ? "playing" : "paused"} onClick={() => void playSfx(s)} />
+          <span className="flex min-w-0 flex-1 flex-col">
+            <span className="truncate text-body-strong text-text">{s.name}</span>
+            <span className="truncate text-small text-text-muted">{`${categoryName(s.cat)} · ${subName(s.cat, s.sub)} · ${s.duration.toFixed(1)} s`}</span>
+          </span>
+        </>
+      ));
+    }
+    for (const p of allProducers()) {
+      const t = text([{ text: p.name, weight: 4 }, { text: vibeText(vibeOf([p.name])), weight: 1 }]);
+      push(`page:${p.slug}`, "producers", t, null, () => (
+        <>
+          <Avatar name={p.name} src={null} size={32} />
+          <UiLink href={producerPageHref(p)} className="flex min-w-0 flex-1 flex-col ui-hover:underline">
+            <span className="truncate text-body-strong text-text">{p.name}</span>
+            <span className="truncate text-small text-text-muted">{summaryOf(p)}</span>
+          </UiLink>
+        </>
+      ));
+    }
+    for (const p of ALL_PRODUCERS) {
+      const t = text([{ text: p.displayName, weight: 4 }, { text: p.handle, weight: 4 }]);
+      push(`user:${p.id}`, "producers", t, null, () => (
+        <>
+          <Avatar name={p.displayName} src={null} size={32} />
+          <UiLink href={`/u/${p.handle}`} className="flex min-w-0 flex-1 flex-col ui-hover:underline">
+            <span className="truncate text-body-strong text-text">{p.displayName}</span>
+            <span className="truncate text-small text-text-muted">{`@${p.handle} · on Stash`}</span>
+          </UiLink>
+        </>
+      ));
+    }
+    // Every word landing first; then the stronger match. A song or producer named outright leads.
+    return out.sort((a, b) => Number(b.all) - Number(a.all) || b.score - a.score);
+    // The play states only change the rows' buttons, which read them when they render.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [wordsKey, parsed, rows, midi, kitList, songs]);
+
+  const strict = hits.filter((h) => h.all);
+  const pool = strict.length ? strict : hits;
+  const close = !strict.length && hits.length > 0;
+  const kinds = (Object.keys(SEARCH_KIND) as Exclude<SearchKind, "all">[]).filter((k) => pool.some((h) => h.kind === k));
+  const active = kind !== "all" && kinds.includes(kind) ? kind : null;
+  const list = active ? pool.filter((h) => h.kind === active) : pool.filter((h) => !h.quiet);
+  const shown = list.slice(0, PAGE_SIZE * more);
+  const empty = query.trim() !== "" && hits.length === 0 && !!songs;
+  void status;
+  void currentId;
   return (
     <Page>
       <header className="flex flex-col gap-3">
         <h1 className="text-title">{query.trim() ? `Results for “${query.trim()}”` : "Search"}</h1>
-        <SmartSearch value={query} onChange={setSearchQuery} examples={["dark piano 140", "omnisphere", "travis scott", "drill 140-145", "police siren", "c minor"]} />
-        {shown.length > 0 && (
+        <SmartSearch value={query} onChange={setSearchQuery} examples={["god's plan", "carti", "dark 808", "bouncy", "omnisphere", "drill 140-145"]} placeholder="Try a song, an artist or a vibe" />
+        {kinds.length > 1 && (
           <div role="group" aria-label="Show" className="flex flex-wrap gap-2">
             <FilterChip selected={!active} onToggle={() => setKind("all")}>
               All
             </FilterChip>
-            {shown.map((g) => (
-              <FilterChip key={g.id} selected={active?.id === g.id} onToggle={() => setKind(g.id)}>
-                {g.name}
+            {kinds.map((k) => (
+              <FilterChip key={k} selected={active === k} onToggle={() => setKind(k)}>
+                {SEARCH_KIND[k]}
               </FilterChip>
             ))}
           </div>
@@ -668,25 +874,26 @@ function SearchResults() {
         >
           Check the spelling or search fewer words, like “dark piano 140” or “carti type beat”.
         </EmptyState>
-      ) : active ? (
-        <section className="flex flex-col gap-3">
-          {active.close && <p className="text-small text-text-muted">No exact match. Closest:</p>}
-          {active.render(true)}
-        </section>
       ) : (
-        shown.map((g) => (
-          <section key={g.id} aria-label={g.name} className="flex flex-col gap-3">
-            <div className="flex items-baseline justify-between gap-2">
-              <h2 className="text-body-strong text-text">{g.close ? `${g.name} · close matches` : g.name}</h2>
-              {g.n > g.top && (
-                <Button size="sm" variant="ghost" onClick={() => setKind(g.id)}>
-                  See all
-                </Button>
-              )}
-            </div>
-            {g.render(false)}
-          </section>
-        ))
+        <section aria-label="Results" className="flex flex-col gap-3">
+          {spelled.changed && hits.length > 0 && <p className="text-small text-text-muted">{`Showing results for “${words.join(" ")}”`}</p>}
+          {close && <p className="text-small text-text-muted">No exact match. Closest:</p>}
+          {shown.length > 0 && (
+            <ul aria-label="Search results" className="overflow-hidden rounded-panel border border-border bg-surface">
+              {shown.map((h, i) => (
+                <li key={h.id} className="flex min-h-14 items-center gap-3 border-b border-border px-3 py-2 last:border-b-0">
+                  {h.row(i)}
+                  <span className="shrink-0 rounded-control border border-border px-2 py-0.5 text-label text-label-caps text-text-muted">{KIND_ONE[h.kind]}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+          {list.length > shown.length && (
+            <Button variant="secondary" size="sm" className="self-center" onClick={() => setMore((n) => n + 1)}>
+              Show more
+            </Button>
+          )}
+        </section>
       )}
     </Page>
   );
@@ -1283,10 +1490,10 @@ function Route() {
   if (path === "/sfx") return <SfxPage />;
   if (path === "/sound-design") return <SoundDesign />;
   if (path === "/presets") return <PresetsPage />;
-  if (path.startsWith("/presets/"))
-    return <PresetSongPage key={path} slug={path.slice(9)} />;
+  if (path.startsWith("/song/")) return <SongRoute key={path} slug={path.slice(6)} />;
+  if (path.startsWith("/presets/")) return <PresetSongRoute key={path} slug={path.slice(9)} />;
   if (path === "/samples") return <SamplesPage />;
-  if (path.startsWith("/samples/")) return <SampleSongPage key={path} slug={path.slice(9)} />;
+  if (path.startsWith("/samples/")) return <SampleSongRoute key={path} slug={path.slice(9)} />;
   if (path.startsWith("/sampled/")) return <OriginalPage key={path} slug={path.slice(9)} />;
   if (path.startsWith("/samples-artist/")) return <SampleArtistPage key={path} slug={path.slice(16)} />;
   if (path.startsWith("/samples-producer/")) {

@@ -19,6 +19,8 @@ export function nameFor(path: string): string {
   if (midi) return `midi-${midi[1]}`;
   const kit = /^\/kit\/([a-z0-9]+)$/.exec(clean);
   if (kit) return `kit-${kit[1]}`;
+  const so = /^\/song\/([a-z0-9-]+)$/.exec(clean);
+  if (so) return `song-${so[1]}`;
   const ps = /^\/presets\/([a-z0-9-]+)$/.exec(clean);
   if (ps) return `preset-${ps[1]}`;
   const sm = /^\/samples\/([a-z0-9-]+)$/.exec(clean);
@@ -50,6 +52,7 @@ export function pathFor(name: string, loopHref: (publicId: string) => string | n
   if (name === "browse") return "/browse/loops";
   if (name === "kit-upload") return "/kit-upload";
   if (name.startsWith("kit-")) return `/kit/${name.slice(4)}`;
+  if (name.startsWith("song-")) return `/song/${name.slice(5)}`;
   if (name.startsWith("preset-")) return `/presets/${name.slice(7)}`;
   if (name.startsWith("sample-")) return `/samples/${name.slice(7)}`;
   if (name.startsWith("sartist-")) return `/samples-artist/${name.slice(8)}`;
