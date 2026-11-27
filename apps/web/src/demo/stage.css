@@ -137,3 +137,9 @@ html[data-look="sampler"] .sp-song-cover > .st-cover { box-shadow: 0 1px 0 var(-
 .sp-song-cover { padding: 0; }
 .sp-song-cover .sp-cover-label { margin-top: 10px; text-align: left; }
 .lib-chip-lcd { background: var(--sp-ink); color: var(--sp-card); box-shadow: none; }
+
+/* Full screen for now: the machine fills the window with a thin edge of bench, and the pages use
+   its whole width. (The empty sides for ads come back later by setting --sp-col to a width.) */
+:root { --sp-col: calc(100% - 24px); }
+html[data-look="sampler"] #content .max-w-content { max-width: none; }
+@media (min-width: 1600px) { html[data-look="sampler"] #content .max-w-content { padding-inline: 40px; } }
