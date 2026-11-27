@@ -1634,7 +1634,15 @@ function App() {
       <TooltipProvider>
         <ToastProvider viewport={false}>
           {/* The demo treats its visitor as signed in, so the bar shows them, not "Sign in". */}
-          <AppShell viewer={{ handle: VIEWER.handle, name: VIEWER.displayName }} searchHint="Search songs, sounds, producers">
+          <AppShell
+            viewer={{ handle: VIEWER.handle, name: VIEWER.displayName }}
+            account={
+              <UiLink href={`/u/${VIEWER.handle}`} aria-label={`Your profile, ${VIEWER.displayName}`} className="flex size-10 items-center justify-center rounded-full">
+                <Avatar name={VIEWER.displayName} src={null} size={32} />
+              </UiLink>
+            }
+            searchHint="Search songs, sounds, producers"
+          >
             <DemoTabs />
             <Suspense fallback={null}>
               <Route key={look} />

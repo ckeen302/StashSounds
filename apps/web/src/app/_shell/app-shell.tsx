@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { useSyncExternalStore, type ReactNode } from "react";
-import { Avatar, Bell, ButtonLink, Icon, IconButton, IconLink, PanelLeftClose, PanelLeftOpen, Search, SearchInput, ToastViewport, Tooltip, UiLink } from "@stash/ui";
+import { Bell, ButtonLink, Icon, IconButton, IconLink, PanelLeftClose, PanelLeftOpen, Search, SearchInput, ToastViewport, Tooltip, UiLink } from "@stash/ui";
 import { LogoMark } from "../logo-mark";
 import { isCurrent, itemsFor, type ShellViewer } from "./nav";
 
@@ -166,7 +166,7 @@ function TabBar({ pathname, viewer }: { pathname: string; viewer: ShellViewer | 
  * 56 px: search centred up to 560 px, notifications, then sign in or, once signed in, the viewer's
  * avatar linking to their profile. Phone, 48 px: logo, search, notifications.
  */
-function TopBar({ viewer, searchHint }: { viewer: ShellViewer | null; searchHint: string }) {
+function TopBar({ account, searchHint }: { account: ReactNode; searchHint: string }) {
   return (
     <header className="flex h-12 shrink-0 items-center gap-2 border-b border-border bg-bg px-3 tablet:h-14 tablet:gap-4 tablet:px-4 desktop:px-6">
       <UiLink href="/" aria-label="Stash" className="flex h-10 items-center gap-2 rounded-control tablet:hidden">
@@ -181,11 +181,7 @@ function TopBar({ viewer, searchHint }: { viewer: ShellViewer | null; searchHint
       <IconLink href="/notifications" icon={Bell} label="Notifications" />
       {/* Phone: signing in, and the viewer's profile, are the Profile tab. */}
       <span className="hidden tablet:contents">
-        {viewer ? (
-          <UiLink href={`/u/${viewer.handle}`} aria-label={`Your profile, ${viewer.name}`} className="flex size-10 items-center justify-center rounded-full">
-            <Avatar name={viewer.name} src={null} size={32} />
-          </UiLink>
-        ) : (
+        {account ?? (
           <ButtonLink href="/login" size="sm">
             Sign in
           </ButtonLink>
@@ -200,7 +196,21 @@ function TopBar({ viewer, searchHint }: { viewer: ShellViewer | null; searchHint
  * content area, then the player and, on phone, the tab bar. It lives in the root layout, so a client
  * navigation swaps only the content and the player keeps playing.
  */
-export function AppShell({ children, viewer = null, searchHint = "Search loops, kits, producers" }: { children: ReactNode; viewer?: ShellViewer | null; searchHint?: string }) {
+/**
+ * `viewer` points Profile at the signed-in person's page; `account` is what the top bar shows in
+ * place of "Sign in" for them (their avatar link), passed in so pages without a viewer don't load it.
+ */
+export function AppShell({
+  children,
+  viewer = null,
+  account,
+  searchHint = "Search loops, kits, producers",
+}: {
+  children: ReactNode;
+  viewer?: ShellViewer | null;
+  account?: ReactNode;
+  searchHint?: string;
+}) {
   const pathname = usePathname();
   return (
     <div className="flex h-dvh flex-col overflow-hidden">
@@ -217,7 +227,7 @@ export function AppShell({ children, viewer = null, searchHint = "Search loops, 
       <div className="flex min-h-0 flex-1">
         <Rail pathname={pathname} viewer={viewer} />
         <div className="flex min-w-0 flex-1 flex-col">
-          <TopBar viewer={viewer} searchHint={searchHint} />
+          <TopBar account={viewer ? account : undefined} searchHint={searchHint} />
           <div className="relative min-h-0 flex-1">
             {/* After the skip link the content area shows the focus ring, drawn inside so nothing clips it. */}
             <div id="content" tabIndex={-1} className="h-full overflow-y-auto focus-visible:-outline-offset-2">
