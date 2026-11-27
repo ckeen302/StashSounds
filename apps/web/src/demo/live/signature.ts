@@ -44,7 +44,7 @@ function hash(s: string): number {
 /** The signature a producer starts with, from their handle: stable, and spread over the colours. */
 export function defaultSignature(handle: string): Signature {
   // Stash's own account wears the machine's one orange light.
-  if (handle.toLowerCase() === "stash") return { color: "hot", message: "MADE ON THE SP-1. FREE TO FLIP." };
+  if (handle.toLowerCase() === "stash") return { color: "hot", message: "FREE TO FLIP. MADE ON SP-1" };
   const h = hash(handle.toLowerCase());
   return { color: SIG_COLORS[h % SIG_COLORS.length]!.id, message: MESSAGES[(h >>> 8) % MESSAGES.length]! };
 }

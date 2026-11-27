@@ -60,6 +60,7 @@ import { BeatPulse, PlayerScope, Scope, useLiveBars, VuMeters } from "./live/liv
 import { Knob } from "./live/knob";
 import { dialed, KNOB_KEYS, KNOB_TEMPOS, KNOB_VIBES } from "./live/dial";
 import { ClickToggle, startTactile } from "./live/tactile";
+import { startPhoneControls } from "./live/phone";
 import { midiItem, VIEWER } from "./midi/catalog";
 import { MidiList, MidiPage, useMidiItems, useMidiPlayer } from "./midi/pages";
 import { midiPlayer } from "./midi/synth";
@@ -1450,6 +1451,7 @@ function App() {
 
 startLooks();
 startTactile();
+startPhoneControls();
 // iPhones mute Web Audio with the ring switch unless the page says it plays media (Safari 17+).
 try {
   const session = (navigator as { audioSession?: { type: string } })
