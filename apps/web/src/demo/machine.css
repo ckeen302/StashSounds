@@ -205,3 +205,19 @@ html[data-look="sampler"] section[aria-label="Player"][data-settling] > :not(div
   html[data-look="sampler"] section[aria-label="Player"] > div:first-of-type button:not([data-play-state]) { width: 52px; height: 54px; border-radius: 12px; }
   html[data-look="sampler"] section[aria-label="Player"] [data-player-progress] { bottom: 14px; }
 }
+
+/* ---------- 6. Page changes slide like switching modes ---------- */
+
+/* Only the content area moves; the top panel, the pad bank and the transport stay still. */
+html[data-look="sampler"] #content { view-transition-name: sp-page; }
+::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+::view-transition-group(sp-page) { animation-duration: 240ms; }
+::view-transition-old(sp-page) { animation: 200ms cubic-bezier(.4,0,1,1) both sp-mode-out; }
+::view-transition-new(sp-page) { animation: 240ms cubic-bezier(0,0,.2,1) both sp-mode-in; }
+html[data-slide="back"]::view-transition-old(sp-page) { animation-name: sp-mode-out-back; }
+html[data-slide="back"]::view-transition-new(sp-page) { animation-name: sp-mode-in-back; }
+@keyframes sp-mode-out { to { transform: translateX(-6%); opacity: 0; filter: brightness(1.2); } }
+@keyframes sp-mode-in { from { transform: translateX(8%); opacity: 0; filter: brightness(1.25) contrast(1.1); } }
+@keyframes sp-mode-out-back { to { transform: translateX(6%); opacity: 0; filter: brightness(1.2); } }
+@keyframes sp-mode-in-back { from { transform: translateX(-8%); opacity: 0; filter: brightness(1.25) contrast(1.1); } }
+@media (prefers-reduced-motion: reduce) { ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; } }

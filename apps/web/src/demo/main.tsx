@@ -38,7 +38,7 @@ import { buildCatalog, type Catalog } from "./data";
 import { formatKey, LICENSE_LABELS } from "@stash/contracts/format";
 import { HashLink } from "./hash-link";
 import { useProgressive } from "./progressive";
-import { currentPath, navigate, startRouter, usePath } from "./router";
+import { currentPath, navigate, setPageChange, startRouter, usePath } from "./router";
 // The Samples tab's catalog is about a third of the demo's script: it loads on its own, after the
 // first paint (prefetched once the page is idle, at the bottom), so the rest of the demo starts without it.
 const samplesPage = () => import("./samples/page");
@@ -61,6 +61,7 @@ import { Knob } from "./live/knob";
 import { dialed, KNOB_KEYS, KNOB_TEMPOS, KNOB_VIBES } from "./live/dial";
 import { ClickToggle, startTactile } from "./live/tactile";
 import { startPhoneControls } from "./live/phone";
+import { pageChange } from "./live/transition";
 import { midiItem, VIEWER } from "./midi/catalog";
 import { MidiList, MidiPage, useMidiItems, useMidiPlayer } from "./midi/pages";
 import { midiPlayer } from "./midi/synth";
@@ -1452,6 +1453,7 @@ function App() {
 startLooks();
 startTactile();
 startPhoneControls();
+setPageChange(pageChange);
 // iPhones mute Web Audio with the ring switch unless the page says it plays media (Safari 17+).
 try {
   const session = (navigator as { audioSession?: { type: string } })

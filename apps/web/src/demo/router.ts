@@ -86,21 +86,31 @@ export function startRouter(loopHref: (publicId: string) => string | null, midiH
   window.addEventListener("hashchange", () => {
     const next = pathFor(readHash(), resolveLoop, resolveMidi);
     if (next !== current) {
+      const from = current;
       current = next;
-      emit();
+      emit(from);
     }
   });
 }
 
-function emit() {
-  for (const l of listeners) l();
-  document.getElementById("content")?.scrollTo({ top: 0 });
+/** Wraps each change of page, so the app can animate it (main.tsx sets a view transition). */
+let wrap: (from: string, to: string, update: () => void) => void = (_from, _to, update) => update();
+export function setPageChange(fn: typeof wrap) {
+  wrap = fn;
+}
+
+function emit(from: string = current) {
+  wrap(from, current, () => {
+    for (const l of listeners) l();
+    document.getElementById("content")?.scrollTo({ top: 0 });
+  });
 }
 
 /** Goes to an app path. The hash is set when the frame allows it; navigation works either way. */
 export function navigate(path: string, opts: { replace?: boolean } = {}) {
   const target = path.split(/[?#]/)[0] || "/";
   if (target === current) return;
+  const from = current;
   current = target;
   const name = nameFor(target);
   try {
@@ -109,7 +119,7 @@ export function navigate(path: string, opts: { replace?: boolean } = {}) {
   } catch {
     // The frame refused: the in-page route still changes.
   }
-  emit();
+  emit(from);
 }
 
 /** The app path right now, outside React (read once the router has started). */
