@@ -51,7 +51,7 @@ const SampleArtistPage = lazy(() => samplesPage().then((m) => ({ default: m.Samp
 const SampleProducerPage = lazy(() => samplesPage().then((m) => ({ default: m.SampleProducerPage })));
 import { has, set } from "./store";
 import { startLooks, useLook } from "./looks";
-import { midiItem, type MidiItem } from "./midi/catalog";
+import { midiItem, VIEWER, type MidiItem } from "./midi/catalog";
 import { MidiList, MidiPage, useMidiItems, useMidiPlayer } from "./midi/pages";
 import { midiPlayer } from "./midi/synth";
 import type * as SongDataModule from "./song/data";
@@ -1540,7 +1540,8 @@ function App() {
     <LinkProvider component={HashLink}>
       <TooltipProvider>
         <ToastProvider viewport={false}>
-          <AppShell>
+          {/* The demo treats its visitor as signed in, so the bar shows them, not "Sign in". */}
+          <AppShell viewer={{ handle: VIEWER.handle, name: VIEWER.displayName }} searchHint="Search songs, sounds, producers">
             <DemoTabs />
             <Suspense fallback={null}>
               <Route key={look} />
