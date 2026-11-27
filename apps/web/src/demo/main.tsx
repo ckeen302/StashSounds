@@ -57,6 +57,9 @@ import { useShortcuts } from "./shortcuts";
 import { loopPicks, newLoops, newSongs, songPicks, type FeedLoop, type FeedSong, type Signals } from "./feed";
 import { startLooks, useLook } from "./looks";
 import { BeatPulse, PlayerScope, Scope, useLiveBars, VuMeters } from "./live/live";
+import { Knob } from "./live/knob";
+import { dialed, KNOB_KEYS, KNOB_TEMPOS, KNOB_VIBES } from "./live/dial";
+import { ClickToggle, startTactile } from "./live/tactile";
 import { midiItem, VIEWER } from "./midi/catalog";
 import { MidiList, MidiPage, useMidiItems, useMidiPlayer } from "./midi/pages";
 import { midiPlayer } from "./midi/synth";
@@ -362,6 +365,26 @@ function HeroEq() {
   );
 }
 
+/** Tempo, key and vibe: real knobs that dial a search onto the home screen as they turn. */
+function HomeKnobs({ onDial }: { onDial: (q: string) => void }) {
+  const [tempo, setTempo] = useState(0);
+  const [key, setKey] = useState(0);
+  const [vibe, setVibe] = useState(0);
+  const turn = (t: number, k: number, v: number) => {
+    setTempo(t);
+    setKey(k);
+    setVibe(v);
+    onDial(dialed(t, k, v));
+  };
+  return (
+    <div className="sp-home-knobs st-wide-only" role="group" aria-label="Dial a search">
+      <Knob label="Tempo" steps={KNOB_TEMPOS.length} index={tempo} hot onChange={(i) => turn(i, key, vibe)} valueText={tempo ? `${KNOB_TEMPOS[tempo]} BPM` : "ANY"} />
+      <Knob label="Key" steps={KNOB_KEYS.length} index={key} onChange={(i) => turn(tempo, i, vibe)} valueText={KNOB_KEYS[key]!} />
+      <Knob label="Vibe" steps={KNOB_VIBES.length} index={vibe} onChange={(i) => turn(tempo, key, i)} valueText={KNOB_VIBES[vibe]!.toUpperCase()} />
+    </div>
+  );
+}
+
 /** A loop as the home feed reads it. */
 function feedLoop(r: ItemRow): FeedLoop {
   const item = catalog.page(r.publicId)?.item;
@@ -513,18 +536,7 @@ function Home() {
               ))}
             </ul>
             <div className="sp-grille st-wide-only min-h-10 flex-1" aria-hidden="true" />
-            <div className="sp-home-knobs st-wide-only" aria-hidden="true">
-              {[
-                ["Tempo", "-35deg", true],
-                ["Key", "20deg", false],
-                ["Vibe", "60deg", false],
-              ].map(([n, turn, hot]) => (
-                <span key={n as string} className="flex flex-col items-center gap-2">
-                  <span className="sp-knob" style={{ ["--sp-turn" as string]: turn, ...(hot ? { ["--sp-knob-mark" as string]: "var(--sp-hot)" } : {}) }} />
-                  <span className="sp-label">{n}</span>
-                </span>
-              ))}
-            </div>
+            <HomeKnobs onDial={setQ} />
           </nav>
         </div>
       </section>
@@ -1409,6 +1421,7 @@ function App() {
                   </span>
                   <VuMeters />
                 </div>
+                <ClickToggle />
                 </>
               ) : (
                 <form role="search" action="/search" className="hidden min-w-0 flex-1 justify-center tablet:flex">
@@ -1436,6 +1449,7 @@ function App() {
 }
 
 startLooks();
+startTactile();
 // iPhones mute Web Audio with the ring switch unless the page says it plays media (Safari 17+).
 try {
   const session = (navigator as { audioSession?: { type: string } })

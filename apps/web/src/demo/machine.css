@@ -41,7 +41,40 @@ html[data-look="sampler"] section[aria-label="Player"]:not(:has(> p:not(.sr-only
 html[data-look="sampler"] section[aria-label="Player"] canvas { filter: grayscale(1) brightness(0.32); }
 @media (max-width: 639.98px) {
   html[data-look="sampler"] section[aria-label="Player"] > .sp-player-scope { top: 13px; bottom: 15px; width: 38%; opacity: 0.8; }
+  html[data-look="sampler"] section[aria-label="Player"] > p:not(.sr-only)::before { content: none; }
 }
 
 /* The home screen's equalizer: the real spectrum while anything sounds. */
 .st-eq[data-live] > span { animation: none; transition: transform 60ms linear; transform: scaleY(var(--live, 0.06)); }
+
+/* ---------- 2. Tactile feedback ---------- */
+
+/* A press shows for at least a beat, even on a quick tap (data-pressed is set on pointer down). */
+.sp-pad[data-pressed] { transform: translateY(2px); box-shadow: inset 0 -2px 0 var(--sp-pad-edge), 0 0 0 var(--sp-pad-lip); }
+.sp-pad:is([data-hot], [aria-pressed="true"], [aria-current="page"], [data-playing])[data-pressed] { box-shadow: inset 0 -2px 0 var(--sp-hot-edge), 0 0 0 var(--sp-pad-lip), 0 0 24px var(--sp-hot-glow); }
+.sp-key[data-pressed] { transform: translateY(2px); box-shadow: inset 0 -1px 0 var(--sp-key-edge); }
+.sp-cart[data-pressed] { transform: translateY(2px); box-shadow: 0 1px 0 var(--sp-panel-edge); }
+html[data-look="sampler"] nav[aria-label="Demo sections"] ul a[data-pressed] { transform: translateY(3px); box-shadow: inset 0 -1px 0 var(--sp-pad-edge), 0 0 0 var(--sp-pad-lip); }
+html[data-look="sampler"] nav[aria-label="Demo sections"] ul a[aria-current="page"][data-pressed] { box-shadow: inset 0 -1px 0 var(--sp-hot-edge), 0 0 24px var(--sp-hot-glow); }
+html[data-look="sampler"] :is(button, [role="button"]):not(.sp-pad, .sp-key, :disabled) { transition: transform 70ms ease, box-shadow 70ms ease, background-color 120ms ease; }
+html[data-look="sampler"] :is(button, [role="button"]):not(.sp-pad, .sp-key, :disabled)[data-pressed] { transform: translateY(2px); }
+html[data-look="sampler"] button[data-play-state][data-pressed] { box-shadow: inset 0 -1px 0 var(--sp-hot-edge), 0 0 0 var(--sp-panel-edge); }
+html[data-look="sampler"] section[aria-label="Player"] button:not([data-play-state], [aria-label="Open player"])[data-pressed] { box-shadow: inset 0 -1px 0 var(--sp-key-edge); }
+@media (prefers-reduced-motion: reduce) { [data-pressed] { transform: none !important; } }
+
+/* Knobs that turn: a grip ring, a focus ring, the value on a small screen under it. */
+.sp-knob-wrap { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.sp-knob-live { cursor: grab; touch-action: none; transition: box-shadow 120ms ease; }
+.sp-knob-live::after { transition: transform 90ms cubic-bezier(.3,1.4,.5,1); }
+.sp-knob-live::before { content: ""; position: absolute; inset: -7px; border-radius: 50%; background: repeating-conic-gradient(from -135deg, var(--sp-panel-edge) 0 2deg, transparent 2deg 15deg); -webkit-mask: radial-gradient(circle, transparent 31px, #000 32px); mask: radial-gradient(circle, transparent 31px, #000 32px); clip-path: polygon(50% 50%, 0 100%, 0 0, 100% 0, 100% 100%); }
+.sp-knob-live:hover { box-shadow: 0 3px 0 var(--sp-panel-edge), inset 0 0 0 3px var(--sp-dark), 0 0 0 2px var(--sp-key-edge); }
+.sp-knob-live[data-turning] { cursor: grabbing; box-shadow: 0 2px 0 var(--sp-panel-edge), inset 0 0 0 3px var(--sp-dark), 0 0 14px var(--sp-hot-glow); }
+.sp-knob-live:focus-visible { outline: 3px solid var(--sp-ink); outline-offset: 9px; }
+.sp-knob-value { min-width: 64px; padding: 1px 6px; border-radius: 4px; text-align: center; font-family: var(--sp-font-lcd); font-size: 18px; line-height: 1.1; color: var(--sp-lcd-ink); background: var(--sp-lcd); box-shadow: inset 0 2px 0 rgb(0 0 0 / 0.16), inset 0 0 0 1px var(--sp-lcd-edge); }
+
+/* The CLK key: the machine's clicks, with its LED. */
+.sp-clk { order: 9; flex: none; display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 10px; border: 0; border-radius: 8px; cursor: pointer; font-family: var(--sp-font-ui); font-size: 12px; font-weight: 700; letter-spacing: 0.12em; color: var(--sp-ink); background: var(--sp-key); box-shadow: inset 0 -3px 0 var(--sp-key-edge), 0 1px 0 var(--sp-panel-edge); }
+.sp-clk:hover { background: var(--sp-key-hover); }
+.sp-clk:focus-visible { outline: 3px solid var(--sp-ink); outline-offset: 2px; }
+html:not([data-look="sampler"]) .sp-clk { display: none; }
+@media (max-width: 639.98px) { .sp-clk { height: 40px; } }

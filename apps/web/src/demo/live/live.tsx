@@ -20,7 +20,7 @@ function cssVar(el: Element, name: string): string {
  * A scope: the waveform of whatever is sounding, drawn in LCD ink. Flat and dim when nothing is.
  * `variant="bars"` draws the spectrum as LCD segments instead.
  */
-export function Scope({ className, variant = "wave", style }: { className?: string; variant?: "wave" | "bars"; style?: CSSProperties }) {
+export function Scope({ className, variant = "wave", rest = "line", style }: { className?: string; variant?: "wave" | "bars"; rest?: "line" | "none"; style?: CSSProperties }) {
   const ref = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
     const canvas = ref.current;
@@ -45,6 +45,7 @@ export function Scope({ className, variant = "wave", style }: { className?: stri
     size();
     const ro = new ResizeObserver(() => {
       size();
+      wasOn = true; // Resizing cleared the canvas: draw the resting line again.
       draw(last);
     });
     ro.observe(canvas);
@@ -58,6 +59,7 @@ export function Scope({ className, variant = "wave", style }: { className?: stri
         if (!wasOn) return;
         wasOn = false;
         g.clearRect(0, 0, w, h);
+        if (rest === "none") return;
         g.fillStyle = dim;
         if (variant === "bars") for (let x = 0; x < w; x += 6) g.fillRect(x, h - 2, 4, 2);
         else for (let x = 0; x < w; x += 6) g.fillRect(x, h / 2 - 1, 3, 2);
@@ -106,7 +108,7 @@ export function Scope({ className, variant = "wave", style }: { className?: stri
       off();
       ro.disconnect();
     };
-  }, [variant]);
+  }, [variant, rest]);
   return <canvas ref={ref} aria-hidden="true" className={className} style={style} />;
 }
 
@@ -218,7 +220,7 @@ export function PlayerScope() {
   if (!host) return null;
   return createPortal(
     <span className="sp-player-scope" aria-hidden="true">
-      <Scope className="sp-player-scope-wave" />
+      <Scope className="sp-player-scope-wave" rest="none" />
     </span>,
     host,
   );
