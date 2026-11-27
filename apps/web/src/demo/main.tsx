@@ -54,7 +54,7 @@ import { useCrates } from "./crates";
 import { useShortcuts } from "./shortcuts";
 import { loopPicks, newLoops, newSongs, songPicks, type FeedLoop, type FeedSong, type Signals } from "./feed";
 import { startLooks, useLook } from "./looks";
-import { midiItem, VIEWER, type MidiItem } from "./midi/catalog";
+import { midiItem, VIEWER } from "./midi/catalog";
 import { MidiList, MidiPage, useMidiItems, useMidiPlayer } from "./midi/pages";
 import { midiPlayer } from "./midi/synth";
 import type * as SongDataModule from "./song/data";

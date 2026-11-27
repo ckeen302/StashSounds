@@ -1,4 +1,5 @@
 import { useProgressive } from "../progressive";
+import { BankHead } from "../bank-head";
 import { hrefForProducer } from "../producers/data";
 import { producersOf } from "../presets/songs";
 import { silenceOthers } from "../exclusive";
@@ -704,9 +705,11 @@ export function UploadPage({ embedded = false }: { embedded?: boolean } = {}) {
   const Wrap = embedded ? "div" : "main";
   return (
     <Wrap className={embedded ? "flex w-full flex-col gap-6" : "mx-auto flex w-full max-w-content flex-col gap-6 px-3 py-8 tablet:px-4 desktop:px-6"}>
-      <header className={embedded ? "sr-only" : "flex flex-col gap-1"}>
-        <h1 className="text-title">Post a MIDI file</h1>
-      </header>
+      {embedded ? (
+        <h1 className="sr-only">Post a MIDI file</h1>
+      ) : (
+        <BankHead kicker="LOAD · MIDI BANK" title="Post a MIDI file" blurb="Drop a .mid file, check what it reads, and post it." />
+      )}
 
       <section
         aria-label="Pick a MIDI file"
@@ -720,12 +723,12 @@ export function UploadPage({ embedded = false }: { embedded?: boolean } = {}) {
           setOver(false);
           void fromFile(e.dataTransfer.files[0]);
         }}
-        className={`flex flex-col items-center gap-4 rounded-panel border border-dashed p-8 text-center ${over ? "border-accent bg-raised" : "border-border-strong bg-surface"}`}
+        className="sp-bezel"
       >
-        <Upload className="size-8 text-text-muted" aria-hidden="true" />
+        <div data-over={over || undefined} className="sp-lcd lib-drop">
         <div className="flex flex-col gap-1">
-          <p className="text-body-strong text-text">Drop a .mid file here</p>
-          <p className="text-small text-text-muted">Up to 1 MB, 20,000 notes and five minutes.</p>
+          <p className="sp-lcd-text m-0">INSERT .MID&gt; <span className="sp-lcd-blink">_</span></p>
+          <p className="sp-lcd-small m-0">Drop a .mid file here. Up to 1 MB, 20,000 notes and five minutes.</p>
         </div>
         <input
           ref={input}
@@ -738,18 +741,19 @@ export function UploadPage({ embedded = false }: { embedded?: boolean } = {}) {
             e.target.value = "";
           }}
         />
-        <Button variant="secondary" loading={busy} onClick={() => input.current?.click()}>
-          Choose a file
-        </Button>
+        <button type="button" className="sp-key" disabled={busy} onClick={() => input.current?.click()}>
+          {busy ? "Reading..." : "Choose a file"}
+        </button>
         <div className="flex flex-col items-center gap-2">
-          <span className="text-label text-label-caps text-text-muted">No file handy? Try one</span>
+          <span className="sp-lcd-small">NO FILE HANDY? TRY ONE</span>
           <div className="flex flex-wrap justify-center gap-2">
             {SAMPLES.map((x) => (
-              <FilterChip key={x.file} selected={draft?.fileName === x.file} onToggle={() => void fromSample(x.file)}>
+              <button key={x.file} type="button" className="sp-key sp-key-pill" aria-pressed={draft?.fileName === x.file} onClick={() => void fromSample(x.file)}>
                 {x.label}
-              </FilterChip>
+              </button>
             ))}
           </div>
+        </div>
         </div>
       </section>
 

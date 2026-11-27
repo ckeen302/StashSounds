@@ -12,7 +12,6 @@ import {
   IconButton,
   Menu,
   PlayButton,
-  SearchInput,
   Stat,
   TextInput,
   Trash,
@@ -524,9 +523,11 @@ export function KitUploadPage({ embedded = false }: { embedded?: boolean } = {})
   const Wrap = embedded ? "div" : "main";
   return (
     <Wrap className={embedded ? "flex w-full flex-col gap-6" : "mx-auto flex w-full max-w-content flex-col gap-6 px-3 py-8 tablet:px-4 desktop:px-6"}>
-      <header className={embedded ? "sr-only" : "flex flex-col gap-1"}>
-        <h1 className="text-title">Post your drum kit</h1>
-      </header>
+      {embedded ? (
+        <h1 className="sr-only">Post your drum kit</h1>
+      ) : (
+        <BankHead kicker="LOAD · DRUM BANK" title="Post your drum kit" blurb="Drop the one-shots and name the kit. Each sound is sorted by type." />
+      )}
 
       <section
         aria-label="Add sounds"
@@ -540,21 +541,22 @@ export function KitUploadPage({ embedded = false }: { embedded?: boolean } = {})
           setOver(false);
           void add([...e.dataTransfer.files]);
         }}
-        data-over={over || undefined}
-        className="flex flex-col items-center gap-3 rounded-panel border-2 border-dashed border-border-strong bg-surface p-8 text-center data-over:border-accent"
+        className="sp-bezel"
       >
-        <Upload className="size-8 text-text-muted" aria-hidden="true" />
-        <p className="text-body text-text">Drop wav, mp3 or aiff one-shots here</p>
-        <p className="text-small text-text-muted">{`Up to ${MAX_SOUNDS} sounds, 8 MB and 15 seconds each.`}</p>
+        <div data-over={over || undefined} className="sp-lcd lib-drop">
+        <p className="sp-lcd-text m-0">INSERT FILES&gt; <span className="sp-lcd-blink">_</span></p>
+        <p className="sp-lcd-small m-0">Drop wav, mp3 or aiff one-shots here</p>
+        <p className="sp-lcd-small m-0">{`Up to ${MAX_SOUNDS} sounds, 8 MB and 15 seconds each.`}</p>
         <div className="flex flex-wrap justify-center gap-2">
-          <label className="cursor-pointer rounded-control border border-border-strong px-4 py-2 text-body-strong text-text ui-hover:border-text focus-within:outline-2 focus-within:outline-accent">
+          <label className="sp-key focus-within:outline-2 focus-within:outline-offset-2">
             Choose sounds
             <input type="file" accept="audio/*,.wav,.mp3,.aif,.aiff,.flac,.ogg" multiple className="sr-only" onChange={(e) => void add([...(e.target.files ?? [])])} />
           </label>
-          <label className="cursor-pointer rounded-control border border-border-strong px-4 py-2 text-body-strong text-text ui-hover:border-text focus-within:outline-2 focus-within:outline-accent">
+          <label className="sp-key focus-within:outline-2 focus-within:outline-offset-2">
             Choose a folder
             <input ref={folderRef} type="file" multiple className="sr-only" onChange={(e) => void add([...(e.target.files ?? [])])} />
           </label>
+        </div>
         </div>
       </section>
 
