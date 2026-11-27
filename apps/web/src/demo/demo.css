@@ -2,6 +2,7 @@
 @import "tailwindcss";
 @import "@stash/ui/theme.css";
 @import "@stash/ui/components.css";
+@import "./sampler.css";
 
 /*
  * Looks (demo only). Each one re-points the theme tokens, so every component and the piano roll
@@ -229,35 +230,6 @@ html[data-look="arcade"] body::after {
   background: repeating-linear-gradient(0deg, rgb(0 0 0 / 0.18) 0 1px, transparent 1px 3px);
   mix-blend-mode: multiply;
 }
-
-html[data-look="sampler"] {
-  color-scheme: light;
-  --color-bg: #e6dfd0;
-  --color-surface: #f2ede2;
-  --color-raised: #dcd3c0;
-  --color-border: #c6bba5;
-  --color-border-strong: #857a64;
-  --color-text: #1b1915;
-  --color-text-muted: #5c5548;
-  --color-accent: #c8361f;
-  --color-type-loop: #1c74a8;
-  --color-type-oneshot: #b8501a;
-  --color-type-kit: #b5174f;
-  --color-type-midi: #5d3bbd;
-  --color-type-preset: #0f7a5f;
-  --font-mono: "Space Mono", "JetBrains Mono Variable", ui-monospace, monospace;
-  --radius-control: 4px;
-  --radius-panel: 8px;
-}
-html[data-look="sampler"] .text-display,
-html[data-look="sampler"] .text-title {
-  font-family: "Space Grotesk", "Inter Variable", sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  text-transform: uppercase;
-}
-/* Hardware panels: a hard lower edge, like a pad on an old sampler. */
-html[data-look="sampler"] .rounded-panel.border { box-shadow: 0 3px 0 0 #c6bba5; }
 
 /* The demo navigates by its own tabs across the top: the app's side rail and phone tab bar are
    hidden, and the logo in the top bar shows at every width. */

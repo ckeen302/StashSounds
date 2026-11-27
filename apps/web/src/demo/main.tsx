@@ -1644,9 +1644,19 @@ function App() {
               </UiLink>
             }
             search={
-              <form role="search" action="/search" className="hidden min-w-0 flex-1 justify-center tablet:flex">
-                <SearchInput name="q" size="sm" shortcut="/" hideLabel placeholder="Search songs, sounds, producers" className="w-full max-w-140" />
-              </form>
+              look === "sampler" ? (
+                <div className="sp-topsearch sp-bezel hidden tablet:block">
+                  <form role="search" action="/search" className="sp-lcd sp-lcd-search">
+                    <label htmlFor="sp-q">SEARCH&gt;</label>
+                    <input id="sp-q" name="q" type="search" autoComplete="off" placeholder="carti, dark 808, in the style of metro" />
+                    <kbd aria-hidden="true">[ / ]</kbd>
+                  </form>
+                </div>
+              ) : (
+                <form role="search" action="/search" className="hidden min-w-0 flex-1 justify-center tablet:flex">
+                  <SearchInput name="q" size="sm" shortcut="/" hideLabel placeholder="Search songs, sounds, producers" className="w-full max-w-140" />
+                </form>
+              )
             }
           >
             <DemoTabs />

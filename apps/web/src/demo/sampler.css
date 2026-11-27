@@ -1,0 +1,341 @@
+/*
+ * The Sampler: Stash dressed as one piece of hardware (mock A). The page is a grey bench; the app is
+ * the machine standing on it, one centered column with clean empty sides (room for ads later).
+ * Top panel: the wordmark, the screen with search, and the pad bank that is the nav. Middle: the
+ * pages. Bottom: the transport, which is the player. On a phone it is the "pocket" model: the pad
+ * bank moves to a row of keys at the bottom.
+ *
+ * The kit (any page can use it, every color comes from the --sp-* tokens below):
+ *   .sp-panel / .sp-panel-dark        a machine panel; add .sp-screws for four corner screws
+ *   .sp-bezel                          the dark frame a screen sits in
+ *   .sp-lcd                            the green screen; text: .sp-lcd-title, .sp-lcd-text, .sp-lcd-small
+ *     .sp-lcd-row (+ data-on)          a list row on the screen, inverted when on
+ *     .sp-lcd-search                   a form: <label>SEARCH&gt;</label> <input> <kbd>
+ *     .sp-lcd-rule                     a dashed line on the screen
+ *   .sp-pad (button or a)              a rubber pad; children .sp-pad-code, .sp-pad-label, .sp-pad-meta
+ *     hot when data-hot, aria-pressed="true" or aria-current="page"; data-playing adds the glow
+ *   .sp-pads + .sp-cols-2/3/4/8        a pad grid (8 folds to 4, 4 to 2 on a phone)
+ *   .sp-key (button or a)              a light hardware key; lit when data-lit or aria-pressed="true"
+ *     .sp-key-pill (tags, producers), .sp-key-dark, .sp-key-hot (the one orange action)
+ *   .sp-steps > .sp-step               step lights; data-on lights one, data-now is the playhead
+ *   .sp-head                           stencil header: .sp-label first, a rule, then an action
+ *   .sp-label                          small stencil caps
+ *   .sp-cover (+ -sm/-md/-lg)          a bezel for album art; .sp-cover-label is its sticker strip
+ *   .sp-cart                           a cartridge card (dark, gold stripe on top)
+ *   .sp-knob (--sp-turn), .sp-grille, .sp-led (+ data-on), .sp-mark (the wordmark)
+ */
+
+:root {
+  --sp-bench: #8c867a;
+  --sp-bench-dot: #827c70;
+  --sp-panel: #cfc9bd;
+  --sp-panel-hi: #e8e3d8;
+  --sp-panel-edge: #6f6a60;
+  --sp-panel-low: #b9b2a4;
+  --sp-panel-low-edge: #a39c8e;
+  --sp-ink: #1b1a17;
+  --sp-label: #3b3830;
+  --sp-dark: #24231f;
+  --sp-dark-hi: #3a3833;
+  --sp-pad: #3a3833;
+  --sp-pad-edge: #24231f;
+  --sp-pad-hover: #45423c;
+  --sp-pad-text: #ece7dc;
+  --sp-pad-sub: #c9c3b6;
+  --sp-pad-lip: #9e978a;
+  --sp-hot: #f26b2a;
+  --sp-hot-edge: #b8461a;
+  --sp-hot-ink: #a8380f;
+  --sp-hot-glow: rgb(242 107 42 / 0.45);
+  --sp-key: #e8e3d8;
+  --sp-key-hover: #f2eee6;
+  --sp-key-edge: #b9b2a4;
+  --sp-lcd: #a9c27a;
+  --sp-lcd-edge: #7f9558;
+  --sp-lcd-ink: #17220c;
+  --sp-lcd-dim: #2c3d1a;
+  --sp-led-off: #5e5a50;
+  --sp-gold: #c9a24a;
+  --sp-peach: #f2a27a;
+  --sp-screw-hi: #e8e3d8;
+  --sp-font-ui: "Space Mono", "JetBrains Mono Variable", ui-monospace, monospace;
+  --sp-font-lcd: "VT323", "Space Mono", ui-monospace, monospace;
+  --sp-font-mark: "Bricolage Grotesque", "Inter Variable", sans-serif;
+  /* The machine's width: the column between the two empty sides. */
+  --sp-col: 1240px;
+}
+
+/* ---------- The kit ---------- */
+
+.sp-label { font-family: var(--sp-font-ui); font-size: 12px; line-height: 16px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--sp-label); }
+.sp-mark { font-family: var(--sp-font-mark); font-weight: 800; letter-spacing: -0.045em; line-height: 1; color: var(--sp-ink); }
+
+.sp-panel { position: relative; background: var(--sp-panel); color: var(--sp-ink); border-radius: 22px; box-shadow: 0 8px 0 var(--sp-panel-edge), 0 20px 40px rgb(0 0 0 / 0.3), inset 0 2px 0 var(--sp-panel-hi); }
+.sp-panel-dark { position: relative; background: var(--sp-dark); color: var(--sp-pad-text); border-radius: 16px; box-shadow: inset 0 2px 0 var(--sp-dark-hi), 0 3px 0 var(--sp-panel-edge); }
+.sp-screws { background-image:
+  radial-gradient(circle at 14px 14px, var(--sp-screw-hi) 0 2px, var(--sp-bench) 4px, var(--sp-panel-edge) 5px, transparent 5.5px),
+  radial-gradient(circle at calc(100% - 14px) 14px, var(--sp-screw-hi) 0 2px, var(--sp-bench) 4px, var(--sp-panel-edge) 5px, transparent 5.5px),
+  radial-gradient(circle at 14px calc(100% - 14px), var(--sp-screw-hi) 0 2px, var(--sp-bench) 4px, var(--sp-panel-edge) 5px, transparent 5.5px),
+  radial-gradient(circle at calc(100% - 14px) calc(100% - 14px), var(--sp-screw-hi) 0 2px, var(--sp-bench) 4px, var(--sp-panel-edge) 5px, transparent 5.5px); }
+
+.sp-bezel { background: var(--sp-dark); border-radius: 16px; padding: 14px; box-shadow: inset 0 2px 0 var(--sp-dark-hi), 0 2px 0 var(--sp-panel-hi); }
+.sp-lcd {
+  position: relative; border-radius: 8px; padding: 16px 20px; color: var(--sp-lcd-ink); font-family: var(--sp-font-lcd); font-size: 22px; line-height: 1.1;
+  background: repeating-linear-gradient(0deg, rgb(0 0 0 / 0.05) 0 1px, transparent 1px 3px), radial-gradient(120% 90% at 30% 0%, rgb(255 255 255 / 0.16), transparent 60%), var(--sp-lcd);
+  box-shadow: inset 0 3px 0 rgb(0 0 0 / 0.18), inset 0 0 0 2px var(--sp-lcd-edge);
+}
+.sp-lcd :is(a, button) { color: inherit; }
+.sp-lcd ::selection { background: var(--sp-lcd-ink); color: var(--sp-lcd); }
+.sp-lcd-title { font-family: var(--sp-font-lcd); font-weight: 400; font-size: clamp(34px, 4.4vw, 52px); line-height: 0.95; letter-spacing: 0.01em; text-transform: uppercase; margin: 0; }
+.sp-lcd-text { font-family: var(--sp-font-lcd); font-size: 24px; line-height: 1.1; }
+.sp-lcd-small { font-family: var(--sp-font-lcd); font-size: 20px; line-height: 1.1; color: var(--sp-lcd-dim); }
+.sp-lcd-rule { border: 0; border-top: 2px dashed var(--sp-lcd-dim); margin: 0; opacity: 0.8; }
+.sp-lcd-row { display: flex; align-items: center; gap: 14px; padding: 3px 10px; border-radius: 4px; text-decoration: none; }
+.sp-lcd-row:hover, .sp-lcd-row:focus-visible { background: rgb(23 34 12 / 0.12); }
+.sp-lcd-row[data-on] { background: var(--sp-lcd-ink); color: var(--sp-lcd); }
+.sp-lcd-search { display: flex; align-items: center; gap: 12px; margin: 0; font-family: var(--sp-font-lcd); font-size: 28px; }
+.sp-lcd-search > label { flex: none; }
+.sp-lcd-search input { flex: 1; min-width: 0; height: 40px; border: 0; padding: 0; background: transparent; outline: none; color: var(--sp-lcd-ink); font: inherit; caret-color: var(--sp-lcd-ink); }
+.sp-lcd-search input::placeholder { color: var(--sp-lcd-dim); opacity: 0.85; }
+.sp-lcd-search input::-webkit-search-cancel-button { filter: grayscale(1) brightness(0.3); }
+.sp-lcd-search:focus-within { box-shadow: 0 2px 0 0 var(--sp-lcd-ink); }
+.sp-lcd-search kbd { flex: none; font: inherit; font-size: 0.8em; color: var(--sp-lcd-dim); }
+.sp-lcd-blink { animation: sp-blink 1.1s steps(1) infinite; }
+@keyframes sp-blink { 50% { opacity: 0; } }
+
+.sp-pad {
+  position: relative; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; gap: 6px; min-height: 88px; padding: 12px;
+  border: 0; border-radius: 12px; text-align: left; text-decoration: none; cursor: pointer; font-family: var(--sp-font-ui); color: var(--sp-pad-text);
+  background: var(--sp-pad); box-shadow: inset 0 -4px 0 var(--sp-pad-edge), 0 2px 0 var(--sp-pad-lip);
+  transition: background-color 120ms ease, transform 80ms ease, box-shadow 120ms ease;
+}
+.sp-pad:hover { background: var(--sp-pad-hover); color: var(--sp-pad-text); }
+.sp-pad:active { transform: translateY(2px); box-shadow: inset 0 -2px 0 var(--sp-pad-edge), 0 0 0 var(--sp-pad-lip); }
+.sp-pad:focus-visible { outline: 3px solid var(--sp-ink); outline-offset: 2px; }
+.sp-pad-code { font-size: 12px; line-height: 1; color: var(--sp-pad-sub); }
+.sp-pad-label { font-weight: 700; font-size: 15px; line-height: 1.2; letter-spacing: 0.04em; text-transform: uppercase; overflow-wrap: anywhere; }
+.sp-pad-meta { font-size: 12px; line-height: 1.2; color: var(--sp-pad-sub); }
+.sp-pad:is([data-hot], [aria-pressed="true"], [aria-current="page"]) { background: var(--sp-hot); color: var(--sp-ink); box-shadow: inset 0 -4px 0 var(--sp-hot-edge), 0 2px 0 var(--sp-pad-lip), 0 0 18px var(--sp-hot-glow); }
+.sp-pad:is([data-hot], [aria-pressed="true"], [aria-current="page"]) :is(.sp-pad-code, .sp-pad-meta) { color: var(--sp-ink); }
+.sp-pad[data-playing] { background: var(--sp-hot); color: var(--sp-ink); animation: sp-glow 1.2s ease-in-out infinite alternate; }
+.sp-pad[data-playing] :is(.sp-pad-code, .sp-pad-meta) { color: var(--sp-ink); }
+@keyframes sp-glow { from { box-shadow: inset 0 -4px 0 var(--sp-hot-edge), 0 2px 0 var(--sp-pad-lip), 0 0 8px var(--sp-hot-glow); } to { box-shadow: inset 0 -4px 0 var(--sp-hot-edge), 0 2px 0 var(--sp-pad-lip), 0 0 26px var(--sp-hot-glow); } }
+@media (prefers-reduced-motion: reduce) { .sp-pad[data-playing], .sp-lcd-blink { animation: none; } }
+
+.sp-pads { display: grid; gap: 12px; grid-template-columns: repeat(var(--sp-cols, 4), minmax(0, 1fr)); }
+.sp-cols-2 { --sp-cols: 2; }
+.sp-cols-3 { --sp-cols: 3; }
+.sp-cols-4 { --sp-cols: 4; }
+.sp-cols-8 { --sp-cols: 8; }
+@media (max-width: 1023.98px) { .sp-cols-8 { --sp-cols: 4; } }
+@media (max-width: 639.98px) { .sp-pads { gap: 10px; } .sp-cols-4, .sp-cols-8 { --sp-cols: 2; } .sp-pad { min-height: 76px; padding: 10px; } .sp-pad-label { font-size: 13px; } }
+
+.sp-key {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 16px; border: 0; border-radius: 10px; cursor: pointer; text-decoration: none;
+  font-family: var(--sp-font-ui); font-weight: 700; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sp-ink);
+  background: var(--sp-key); box-shadow: inset 0 -3px 0 var(--sp-key-edge), 0 1px 0 var(--sp-panel-edge);
+  transition: background-color 120ms ease, transform 80ms ease;
+}
+.sp-key:hover { background: var(--sp-key-hover); color: var(--sp-ink); }
+.sp-key:active { transform: translateY(1px); box-shadow: inset 0 -1px 0 var(--sp-key-edge); }
+.sp-key:focus-visible { outline: 3px solid var(--sp-ink); outline-offset: 2px; }
+.sp-key:disabled { cursor: not-allowed; opacity: 0.55; }
+.sp-key:is([data-lit], [aria-pressed="true"], [aria-current="page"]), .sp-key-hot { background: var(--sp-hot); box-shadow: inset 0 -3px 0 var(--sp-hot-edge), 0 1px 0 var(--sp-panel-edge); }
+.sp-key-pill { border-radius: 9999px; min-height: 36px; padding: 0 14px; font-size: 12px; letter-spacing: 0.06em; }
+.sp-key-dark { background: var(--sp-pad); color: var(--sp-pad-text); box-shadow: inset 0 -3px 0 var(--sp-pad-edge), 0 1px 0 var(--sp-panel-edge); }
+.sp-key-dark:hover { background: var(--sp-pad-hover); color: var(--sp-pad-text); }
+
+.sp-steps { display: flex; gap: 6px; align-items: center; }
+.sp-step { flex: 1; min-width: 8px; height: 10px; border-radius: 3px; background: var(--sp-led-off); box-shadow: inset 0 1px 0 rgb(0 0 0 / 0.35); }
+.sp-step[data-on] { background: var(--sp-hot); box-shadow: 0 0 8px var(--sp-hot-glow); }
+.sp-step[data-now] { background: var(--sp-lcd); box-shadow: 0 0 10px var(--sp-lcd); }
+
+.sp-head { display: flex; align-items: center; gap: 12px; }
+.sp-head::after { content: ""; order: 1; flex: 1; height: 2px; background: var(--sp-key-edge); }
+.sp-head > :not(:first-child) { order: 2; }
+.sp-head > :first-child { margin: 0; }
+.sp-head a { font-family: var(--sp-font-ui); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--sp-label); }
+.sp-head a:hover { color: var(--sp-ink); }
+
+.sp-cover { position: relative; display: block; flex: none; padding: 6px; border-radius: 12px; background: var(--sp-dark); box-shadow: inset 0 2px 0 var(--sp-dark-hi), 0 3px 0 var(--sp-panel-edge); }
+.sp-cover > :first-child { display: block; width: 100%; aspect-ratio: 1; border-radius: 6px; overflow: hidden; }
+.sp-cover::after { content: ""; position: absolute; inset: 6px; border-radius: 6px; pointer-events: none; background: repeating-linear-gradient(0deg, rgb(0 0 0 / 0.07) 0 1px, transparent 1px 3px), linear-gradient(160deg, rgb(255 255 255 / 0.14), transparent 40%); }
+.sp-cover-sm { width: 56px; padding: 3px; border-radius: 8px; }
+.sp-cover-sm::after { inset: 3px; border-radius: 5px; }
+.sp-cover-sm > :first-child { border-radius: 5px; }
+.sp-cover-md { width: 140px; }
+.sp-cover-lg { width: min(100%, 280px); padding: 10px; border-radius: 16px; }
+.sp-cover-lg::after { inset: 10px; }
+.sp-cover-label { display: block; margin-top: 6px; padding: 4px 8px; border-radius: 4px; background: var(--sp-key); color: var(--sp-ink); font-family: var(--sp-font-ui); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.sp-cart { position: relative; display: flex; flex-direction: column; gap: 6px; padding: 18px 16px 14px; border-radius: 6px 6px 14px 14px; background: var(--sp-dark); color: var(--sp-pad-text); text-decoration: none; box-shadow: 0 3px 0 var(--sp-panel-edge); font-family: var(--sp-font-ui); }
+.sp-cart::before { content: ""; position: absolute; top: 8px; left: 16px; right: 16px; height: 6px; background: repeating-linear-gradient(90deg, var(--sp-gold) 0 6px, transparent 6px 10px); }
+.sp-cart:hover { color: var(--sp-pad-text); background: var(--sp-dark-hi); }
+
+.sp-knob { position: relative; width: 56px; height: 56px; border-radius: 50%; background: radial-gradient(circle at 40% 35%, var(--sp-dark-hi), var(--sp-dark) 70%); box-shadow: 0 3px 0 var(--sp-panel-edge), inset 0 0 0 3px var(--sp-dark); }
+.sp-knob::after { content: ""; position: absolute; left: calc(50% - 2px); top: 6px; width: 4px; height: 16px; border-radius: 2px; background: var(--sp-knob-mark, var(--sp-pad-text)); transform: rotate(var(--sp-turn, 0deg)); transform-origin: 2px 22px; }
+.sp-grille { background-image: radial-gradient(circle, var(--sp-dark-hi) 1.6px, transparent 1.8px); background-size: 9px 9px; border-radius: 8px; }
+.sp-led { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--sp-led-off); flex: none; }
+.sp-led[data-on] { background: var(--sp-hot); box-shadow: 0 0 8px var(--sp-hot); }
+
+/* ---------- The machine: the app's frame in the Sampler look ---------- */
+
+html[data-look="sampler"] {
+  color-scheme: light;
+  --color-bg: var(--sp-panel);
+  --color-surface: #dcd6ca;
+  --color-raised: var(--sp-key);
+  --color-border: var(--sp-key-edge);
+  --color-border-strong: var(--sp-panel-edge);
+  --color-text: var(--sp-ink);
+  --color-text-muted: #4a463e;
+  --color-accent: var(--sp-hot);
+  --color-type-loop: #1f5f8b;
+  --color-type-oneshot: #9a4a12;
+  --color-type-kit: #a3173f;
+  --color-type-midi: #5a37b0;
+  --color-type-preset: #0f6b52;
+  --font-sans: var(--sp-font-ui);
+  --font-mono: var(--sp-font-ui);
+  --font-display: var(--sp-font-mark);
+  --radius-control: 10px;
+  --radius-panel: 14px;
+}
+html[data-look="sampler"] body {
+  background-color: var(--sp-bench);
+  background-image: radial-gradient(circle at 1px 1px, var(--sp-bench-dot) 1px, transparent 1.5px);
+  background-size: 6px 6px;
+}
+html[data-look="sampler"] ::selection { background: var(--sp-hot); color: var(--sp-ink); }
+html[data-look="sampler"] .text-accent { color: var(--sp-hot-ink); }
+html[data-look="sampler"] :is(button, a).bg-accent.text-bg { color: var(--sp-ink); box-shadow: inset 0 -3px 0 var(--sp-hot-edge), 0 1px 0 var(--sp-panel-edge); }
+html[data-look="sampler"] .text-label-caps { font-family: var(--sp-font-ui); font-weight: 700; letter-spacing: 0.16em; }
+html[data-look="sampler"] .text-display,
+html[data-look="sampler"] .text-title { font-family: var(--sp-font-ui); font-weight: 700; letter-spacing: 0.02em; text-transform: uppercase; }
+html[data-look="sampler"] main h1.text-display,
+html[data-look="sampler"] main h1.text-title { font-size: clamp(26px, 3vw, 36px); line-height: 1.08; }
+html[data-look="sampler"] main h2.text-title { font-size: 16px; line-height: 22px; letter-spacing: 0.14em; }
+
+/* The bench shows on both sides of the machine; the machine is one column down the middle. */
+html[data-look="sampler"] #root > div { background: transparent; }
+html[data-look="sampler"] #root > div > div:has(> div > #content),
+html[data-look="sampler"] #root > div > div:has(#content) { width: 100%; max-width: var(--sp-col); margin-inline: auto; }
+html[data-look="sampler"] #content { background: var(--sp-panel); box-shadow: inset 2px 0 0 var(--sp-panel-hi), inset -2px 0 0 var(--sp-panel-low); }
+
+/* Top panel: wordmark, model name, grille, the screen with search, notifications and you. */
+html[data-look="sampler"] header.border-b {
+  height: auto; min-height: 76px; margin-top: 14px; padding: 14px 24px 12px; gap: 18px; border: 0;
+  border-radius: 22px 22px 0 0; background-color: var(--sp-panel); box-shadow: inset 0 2px 0 var(--sp-panel-hi), inset 2px 0 0 var(--sp-panel-hi), inset -2px 0 0 var(--sp-panel-low);
+  background-image:
+    radial-gradient(circle at 12px 12px, var(--sp-screw-hi) 0 2px, var(--sp-bench) 4px, var(--sp-panel-edge) 5px, transparent 5.5px),
+    radial-gradient(circle at calc(100% - 12px) 12px, var(--sp-screw-hi) 0 2px, var(--sp-bench) 4px, var(--sp-panel-edge) 5px, transparent 5.5px);
+}
+html[data-look="sampler"] header > a[aria-label="Stash"] { height: auto; gap: 12px; align-items: baseline; flex: none; }
+html[data-look="sampler"] header > a[aria-label="Stash"] > :first-child { display: none; }
+html[data-look="sampler"] header > a[aria-label="Stash"] > :last-child { font-family: var(--sp-font-mark); font-weight: 800; font-size: 40px; letter-spacing: -0.05em; line-height: 1; color: var(--sp-ink); text-transform: none; }
+html[data-look="sampler"] header > a[aria-label="Stash"]::after { content: "SOUND STATION \00B7  SP-1"; font-family: var(--sp-font-ui); font-size: 11px; font-weight: 700; letter-spacing: 3px; color: var(--sp-label); white-space: nowrap; }
+html[data-look="sampler"] header > :is(a, span, button):not([aria-label="Stash"]) { flex: none; }
+html[data-look="sampler"] header a[aria-label="Notifications"],
+html[data-look="sampler"] header a[aria-label="Search"] { width: 44px; height: 44px; border: 0; border-radius: 10px; background: var(--sp-key); color: var(--sp-ink); box-shadow: inset 0 -3px 0 var(--sp-key-edge), 0 1px 0 var(--sp-panel-edge); }
+html[data-look="sampler"] header a[aria-label^="Your profile"] { width: 48px; height: 48px; border-radius: 50%; background: var(--sp-dark); box-shadow: 0 3px 0 var(--sp-panel-edge), inset 0 0 0 3px var(--sp-dark); }
+/* The screen in the top panel: search, in a bezel. */
+.sp-topsearch { flex: 1; min-width: 0; max-width: 620px; margin-inline: auto; padding: 8px; border-radius: 12px; }
+.sp-topsearch .sp-lcd { padding: 4px 14px; border-radius: 6px; }
+.sp-topsearch .sp-lcd-search { font-size: 24px; gap: 10px; }
+.sp-topsearch .sp-lcd-search input { height: 34px; }
+.sp-topsearch-led { display: none; }
+@media (min-width: 1024px) {
+  html[data-look="sampler"] header.border-b::after { content: ""; order: 9; width: 84px; height: 34px; flex: none; background-image: radial-gradient(circle, var(--sp-dark-hi) 1.6px, transparent 1.8px); background-size: 9px 9px; border-radius: 8px; }
+  html[data-look="sampler"] header.border-b > :last-child { order: 10; }
+}
+
+/* The pad bank: the sections as pads, numbered like a sampler's bank, under the screen. */
+html[data-look="sampler"] nav[aria-label="Demo sections"] {
+  position: sticky; top: 0; z-index: 20; border: 0; padding: 4px 0 14px; background: var(--sp-panel);
+  box-shadow: 0 2px 0 var(--sp-panel-low), 0 3px 0 var(--sp-panel-hi);
+}
+html[data-look="sampler"] nav[aria-label="Demo sections"] > div { max-width: none; padding-inline: 24px; gap: 12px; }
+html[data-look="sampler"] nav[aria-label="Demo sections"] ul { gap: 10px; padding: 6px 4px 6px; counter-reset: sp-pad; justify-content: flex-start; }
+html[data-look="sampler"] nav[aria-label="Demo sections"] li { counter-increment: sp-pad; flex: 1 0 auto; }
+html[data-look="sampler"] nav[aria-label="Demo sections"] ul a {
+  height: 58px; min-width: 92px; padding: 8px 12px; border: 0; border-radius: 10px; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between;
+  font-family: var(--sp-font-ui); font-weight: 700; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;
+  background: var(--sp-pad); color: var(--sp-pad-text); box-shadow: inset 0 -4px 0 var(--sp-pad-edge), 0 2px 0 var(--sp-pad-lip);
+  transition: background-color 120ms ease, transform 80ms ease;
+}
+html[data-look="sampler"] nav[aria-label="Demo sections"] ul a::before { content: "A" counter(sp-pad, decimal-leading-zero); font-size: 11px; font-weight: 400; letter-spacing: 0.04em; color: var(--sp-pad-sub); }
+html[data-look="sampler"] nav[aria-label="Demo sections"] ul a:hover { background: var(--sp-pad-hover); color: var(--sp-pad-text); }
+html[data-look="sampler"] nav[aria-label="Demo sections"] ul a:active { transform: translateY(2px); }
+html[data-look="sampler"] nav[aria-label="Demo sections"] ul a[aria-current="page"] { background: var(--sp-hot); color: var(--sp-ink); box-shadow: inset 0 -4px 0 var(--sp-hot-edge), 0 2px 0 var(--sp-pad-lip), 0 0 18px var(--sp-hot-glow); }
+html[data-look="sampler"] nav[aria-label="Demo sections"] ul a[aria-current="page"]::before { color: var(--sp-ink); }
+html[data-look="sampler"] nav[aria-label="Demo sections"] > div > a { width: 58px; height: 58px; border: 0; border-radius: 10px; background: var(--sp-key); color: var(--sp-ink); box-shadow: inset 0 -3px 0 var(--sp-key-edge), 0 1px 0 var(--sp-panel-edge); }
+html[data-look="sampler"] nav[aria-label="Demo sections"] > div > a[aria-current="page"] { background: var(--sp-hot); box-shadow: inset 0 -3px 0 var(--sp-hot-edge); }
+html[data-look="sampler"] .demo-tabs { mask-image: none !important; }
+
+/* Every play button is the hot key; everything else that is a control reads as a light key. */
+html[data-look="sampler"] button[data-play-state] { border: 0; color: var(--sp-ink); background: var(--sp-hot); box-shadow: inset 0 -3px 0 var(--sp-hot-edge), 0 1px 0 var(--sp-panel-edge); }
+html[data-look="sampler"] button[data-play-state]:disabled { background: var(--sp-key); color: var(--sp-led-off); box-shadow: inset 0 -3px 0 var(--sp-key-edge); }
+html[data-look="sampler"] button[data-play-state="playing"] { box-shadow: inset 0 -3px 0 var(--sp-hot-edge), 0 0 16px var(--sp-hot-glow); }
+
+/* Panels and cards: light keys with a hard lower edge, the way the machine's own plastic is cut. */
+html[data-look="sampler"] .rounded-panel.border { border-color: var(--sp-key-edge); box-shadow: 0 3px 0 var(--sp-panel-low); }
+html[data-look="sampler"] a.rounded-panel:hover,
+html[data-look="sampler"] li.rounded-panel:hover { border-color: var(--sp-panel-edge); }
+html[data-look="sampler"] .bg-surface { background-color: var(--color-surface); }
+
+/* The transport: the player is the machine's bottom strip, a recessed rail with a screen in it. */
+html[data-look="sampler"] section[aria-label="Player"] {
+  width: 100%; max-width: var(--sp-col); margin-inline: auto; margin-bottom: 14px; height: 76px; padding-inline: 20px; gap: 14px; border: 0;
+  border-radius: 0 0 22px 22px; background: var(--sp-panel-low);
+  box-shadow: inset 0 3px 0 var(--sp-panel-low-edge), 0 8px 0 var(--sp-panel-edge), 0 20px 40px rgb(0 0 0 / 0.3);
+}
+html[data-look="sampler"] section[aria-label="Player"] button:not([data-play-state], [aria-label="Open player"]) { border: 0; width: 48px; height: 44px; border-radius: 8px; background: var(--sp-key); color: var(--sp-ink); box-shadow: inset 0 -3px 0 var(--sp-key-edge), 0 1px 0 var(--sp-panel-edge); }
+html[data-look="sampler"] section[aria-label="Player"] button:not([data-play-state], [aria-label="Open player"]):disabled { color: var(--sp-led-off); }
+html[data-look="sampler"] section[aria-label="Player"] button[data-play-state] { width: 60px; height: 44px; border-radius: 8px; }
+html[data-look="sampler"] section[aria-label="Player"] > div:first-of-type { gap: 8px; }
+/* The screen in the transport: one green strip between the keys and the volume, under whatever is playing. */
+html[data-look="sampler"] section[aria-label="Player"] {
+  --color-text: var(--sp-lcd-ink); --color-text-muted: var(--sp-lcd-dim); --color-type-loop: var(--sp-lcd-ink); --color-type-oneshot: var(--sp-lcd-ink); --color-type-kit: var(--sp-lcd-ink); --color-type-midi: var(--sp-lcd-ink); --color-type-preset: var(--sp-lcd-ink); --sp-lcd-l: 198px; --sp-lcd-r: 196px;
+}
+html[data-look="sampler"] section[aria-label="Player"]::before {
+  content: ""; position: absolute; top: 12px; bottom: 12px; left: var(--sp-lcd-l); right: var(--sp-lcd-r); border-radius: 6px;
+  background: repeating-linear-gradient(0deg, rgb(0 0 0 / 0.05) 0 1px, transparent 1px 3px), var(--sp-lcd);
+  box-shadow: inset 0 3px 0 rgb(0 0 0 / 0.18), inset 0 0 0 2px var(--sp-lcd-edge);
+}
+html[data-look="sampler"] section[aria-label="Player"] > :not([data-player-progress], .sr-only) { position: relative; }
+html[data-look="sampler"] section[aria-label="Player"] > div:first-of-type { margin-right: 8px; }
+html[data-look="sampler"] section[aria-label="Player"] > div:last-child { margin-left: 14px; }
+html[data-look="sampler"] section[aria-label="Player"] > p:not(.sr-only) { font-family: var(--sp-font-lcd); font-size: 24px; text-transform: uppercase; }
+html[data-look="sampler"] section[aria-label="Player"] > p:not(.sr-only)::before { content: "STANDBY \00B7  "; }
+html[data-look="sampler"] section[aria-label="Player"] a { font-family: var(--sp-font-lcd); font-size: 22px; text-transform: uppercase; }
+html[data-look="sampler"] section[aria-label="Player"] [data-player-progress] { display: block; left: calc(var(--sp-lcd-l) + 8px); right: calc(var(--sp-lcd-r) + 8px); top: auto; bottom: 16px; height: 2px; background: var(--sp-lcd-edge); }
+html[data-look="sampler"] section[aria-label="Player"] [data-player-progress] > span { background: var(--sp-lcd-ink); }
+html[data-look="sampler"] section[aria-label="Player"] [role="slider"] { --color-text: var(--sp-ink); }
+
+/* The pocket model (phone): a slimmer top panel, the pad bank becomes a key row at the bottom. */
+@media (max-width: 639.98px) {
+  html[data-look="sampler"] #root > div { padding-bottom: calc(70px + env(safe-area-inset-bottom)); }
+  html[data-look="sampler"] header.border-b { margin-top: 0; min-height: 60px; padding: 10px 14px 8px; gap: 10px; border-radius: 0; background-image: none; }
+  html[data-look="sampler"] header > a[aria-label="Stash"] > :last-child { font-size: 30px; }
+  html[data-look="sampler"] header > a[aria-label="Stash"]::after { content: "SP-1 POCKET"; font-size: 10px; letter-spacing: 2px; }
+  html[data-look="sampler"] nav[aria-label="Demo sections"] {
+    position: fixed; top: auto; left: 0; right: 0; bottom: 0; z-index: 40; padding: 8px 0 calc(10px + env(safe-area-inset-bottom));
+    background: var(--sp-panel-low); box-shadow: inset 0 3px 0 var(--sp-panel-low-edge);
+  }
+  html[data-look="sampler"] nav[aria-label="Demo sections"] > div { padding-inline: 10px; gap: 8px; }
+  html[data-look="sampler"] nav[aria-label="Demo sections"] ul { gap: 6px; padding: 2px; }
+  html[data-look="sampler"] nav[aria-label="Demo sections"] li { flex: 0 0 auto; }
+  html[data-look="sampler"] nav[aria-label="Demo sections"] ul a { height: 50px; min-width: 66px; padding: 6px 8px; font-size: 11px; letter-spacing: 0.04em; background: var(--sp-key); color: var(--sp-ink); box-shadow: inset 0 -3px 0 var(--sp-key-edge); }
+  html[data-look="sampler"] nav[aria-label="Demo sections"] ul a::before { color: var(--sp-label); font-size: 10px; }
+  html[data-look="sampler"] nav[aria-label="Demo sections"] ul a:hover { background: var(--sp-key-hover); color: var(--sp-ink); }
+  html[data-look="sampler"] nav[aria-label="Demo sections"] ul a[aria-current="page"] { box-shadow: inset 0 -3px 0 var(--sp-hot-edge); }
+  html[data-look="sampler"] nav[aria-label="Demo sections"] > div > a { width: 50px; height: 50px; }
+  html[data-look="sampler"] .demo-tabs[data-after="true"] { mask-image: linear-gradient(to right, black calc(100% - 24px), transparent) !important; }
+  html[data-look="sampler"] section[aria-label="Player"] { margin-bottom: 0; height: 64px; padding-inline: 10px; gap: 10px; border-radius: 0; box-shadow: inset 0 3px 0 var(--sp-panel-low-edge); }
+  html[data-look="sampler"] section[aria-label="Player"] { --sp-lcd-l: 78px; --sp-lcd-r: 10px; }
+  html[data-look="sampler"] section[aria-label="Player"]::before { top: 10px; bottom: 10px; }
+  html[data-look="sampler"] section[aria-label="Player"] > p:not(.sr-only) { font-size: 22px; }
+  html[data-look="sampler"] section[aria-label="Player"] button[aria-label="Open player"] { padding-left: 8px; }
+  html[data-look="sampler"] section[aria-label="Player"] button[aria-label="Open player"] span { font-family: var(--sp-font-lcd); font-size: 20px; line-height: 1; text-transform: uppercase; }
+  html[data-look="sampler"] #content { box-shadow: none; }
+}
