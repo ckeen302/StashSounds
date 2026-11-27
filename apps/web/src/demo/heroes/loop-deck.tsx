@@ -5,6 +5,7 @@ import { UiLink } from "@stash/ui";
 import { nowPlaying } from "../../app/_shell/now-playing";
 import { Scope } from "../live/live";
 import { daily } from "./daily";
+import { SigLed, SigMessage } from "../live/sig";
 
 /**
  * The Loops page's hero: today's loop on a deck of its own, with a big spectrum screen that comes
@@ -20,8 +21,9 @@ export function LoopDeckHero({ rows }: { rows: ItemRow[] }) {
   const state = mine ? (status === "playing" ? "playing" : status === "loading" ? "loading" : "paused") : "idle";
   return (
     <div className="sp-panel-dark sp-hero-deck flex flex-col gap-3 p-3 tablet:p-4">
-      <div className="sp-lcd sp-hero-spectrum">
-        <Scope variant="bars" className="block h-full w-full" />
+      <div className="sp-lcd sp-hero-spectrum flex flex-col gap-1">
+        <SigMessage handle={row.owner.handle} className="sp-lcd-small" />
+        <Scope variant="bars" className="block min-h-0 w-full flex-1" />
       </div>
       <div className="flex items-center gap-3">
         <button
@@ -39,7 +41,9 @@ export function LoopDeckHero({ rows }: { rows: ItemRow[] }) {
           <UiLink href={row.href} className="sp-hero-name truncate">
             {row.title}
           </UiLink>
-          <span className="truncate text-small text-text-muted">@{row.owner.handle}</span>
+          <span className="truncate text-small text-text-muted">
+            <SigLed handle={row.owner.handle} />@{row.owner.handle}
+          </span>
         </div>
       </div>
       <dl className="sp-hero-readouts">

@@ -148,3 +148,35 @@ a.sp-hero-name:hover { text-decoration: underline; }
 .sp-hero-flip-pair .lib-cover-pair { max-width: 220px; }
 .sp-hero-flip-pair { justify-content: center; }
 @media (max-width: 639.98px) { .sp-hero-flip-pair .lib-cover-pair { max-width: 132px; } }
+
+/* ---------- 4. A producer's signature: pad colour and screen line ---------- */
+
+:root {
+  --sp-sig-hot: var(--sp-hot);
+  --sp-sig-red: #e0383e;
+  --sp-sig-pink: #ff5fa2;
+  --sp-sig-violet: #9b6bff;
+  --sp-sig-blue: #3d8bff;
+  --sp-sig-cyan: #28c8d8;
+  --sp-sig-lime: #a6e04a;
+  --sp-sig-gold: var(--sp-gold);
+}
+.sp-sig-led { display: inline-block; width: 8px; height: 8px; margin-right: 6px; border-radius: 50%; vertical-align: 1px; background: var(--sig, var(--sp-led-off)); box-shadow: 0 0 6px var(--sig, transparent); }
+/* Everything a producer posts carries their colour: a cartridge's label stripe, a loop's edge. */
+.sp-cart[data-sig]::before { background: repeating-linear-gradient(90deg, var(--sig) 0 6px, transparent 6px 10px); }
+html[data-look="sampler"] .lib-loop[data-sig] { box-shadow: inset 4px 0 0 var(--sig); }
+.sp-profile-face[data-sig] { box-shadow: 0 4px 0 var(--sp-panel-edge), inset 0 0 0 4px var(--sp-dark), inset 0 0 0 7px var(--sig), 0 0 22px var(--sig); }
+/* The line on a screen: scrolls like a marquee, unless the visitor asks for less motion. */
+.sp-sig-msg { position: relative; display: block; overflow: hidden; white-space: nowrap; -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); }
+.sp-sig-track { display: inline-flex; gap: 3em; padding-left: 100%; animation: sp-marquee 14s linear infinite; }
+.sp-sig-track > :last-child { display: none; }
+@keyframes sp-marquee { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+@media (prefers-reduced-motion: reduce) { .sp-sig-track { animation: none; padding-left: 0; } }
+.sp-sig-msg::before { content: ""; position: absolute; left: 0; top: 50%; width: 8px; height: 8px; margin-top: -4px; border-radius: 50%; background: var(--sig); box-shadow: 0 0 6px var(--sig); }
+.sp-sig-msg { padding-left: 16px; }
+/* The editor: eight pads to pick from, the one picked lit and pressed. */
+.sp-sig-pads { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 639.98px) { .sp-sig-pads { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.sp-sig-pad { height: 52px; border: 0; border-radius: 10px; cursor: pointer; background: var(--sig); box-shadow: inset 0 -4px 0 rgb(0 0 0 / 0.3), 0 2px 0 var(--sp-pad-edge); }
+.sp-sig-pad[aria-checked="true"] { transform: translateY(2px); box-shadow: inset 0 -2px 0 rgb(0 0 0 / 0.3), 0 0 0 3px var(--sp-pad-text), 0 0 18px var(--sig); }
+.sp-sig-pad:focus-visible { outline: 3px solid var(--sp-pad-text); outline-offset: 3px; }

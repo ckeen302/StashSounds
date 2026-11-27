@@ -33,6 +33,8 @@ import { extra, VIEWER, type MidiItem } from "./midi/catalog";
 import { MidiList, useMidiItems } from "./midi/pages";
 import { CHORDS_OWNER } from "./midi/songs";
 import { follow as shareFollow, followerCount } from "./comments-store";
+import { SigEditor, SigMessage, useSignature } from "./live/sig";
+import { sigVar } from "./live/signature";
 import { useSocialVersion } from "./social";
 import { has, set } from "./store";
 import { creditTag, deleteReceipt, receiptText, useReceipts, type Receipt } from "./receipts";
@@ -315,6 +317,7 @@ export function ProfilePage({ handle, catalog, rows, renderLoops, kits = null, k
   useFollowTick();
   useSocialVersion();
   const p = producerByHandle(handle);
+  const sig = useSignature(handle);
   const all = useSounds(catalog, rows).filter((s) => s.handle === handle);
   if (!p) {
     return (
@@ -329,15 +332,13 @@ export function ProfilePage({ handle, catalog, rows, renderLoops, kits = null, k
   const following = has("follows", p.id);
   const loops = all.filter((s) => s.row).sort(SORTS.new.by).map((s) => s.row!);
   const midi = all.filter((s) => s.item).sort(SORTS.new.by).map((s) => s.item!);
-  const downloads = all.reduce((n, s) => n + s.downloads, 0);
-  const likes = all.reduce((n, s) => n + s.likes, 0);
   const genres = [...new Set(all.flatMap((s) => s.genres))];
   const bpms = all.map((s) => s.bpm).filter((b): b is number => b !== null);
 
   return (
     <main className="mx-auto flex w-full max-w-content flex-col gap-6 px-3 py-8 tablet:px-4 desktop:px-6">
       <section aria-label="Producer" className="sp-profile">
-        <span className="sp-avatar sp-profile-face flex shrink-0 items-center justify-center rounded-full" aria-hidden="true">
+        <span className="sp-avatar sp-profile-face flex shrink-0 items-center justify-center rounded-full" data-sig="" style={{ ["--sig" as string]: sigVar(sig.color) }} aria-hidden="true">
           {p.displayName
             .split(/\s+/)
             .slice(0, 2)
@@ -354,20 +355,7 @@ export function ProfilePage({ handle, catalog, rows, renderLoops, kits = null, k
               </p>
             )}
             <hr className="sp-lcd-rule" />
-            <dl className="flex flex-wrap gap-x-8 gap-y-1">
-              {(
-                [
-                  ["Followers", p.followers + followerCount(p.id)],
-                  ["Downloads", downloads],
-                  ["Likes", likes],
-                ] as const
-              ).map(([k, v]) => (
-                <div key={k} className="flex items-baseline gap-2">
-                  <dt className="sp-lcd-small">{`${k.toUpperCase()}>`}</dt>
-                  <dd className="sp-lcd-text">{v.toLocaleString("en")}</dd>
-                </div>
-              ))}
-            </dl>
+            <SigMessage handle={p.handle} className="sp-lcd-text" />
           </div>
         </div>
         <div className="sp-profile-side flex flex-col gap-3">
@@ -380,9 +368,11 @@ export function ProfilePage({ handle, catalog, rows, renderLoops, kits = null, k
               {following ? "Following" : "Follow"}
             </Button>
           )}
-          <p className="text-small text-text-muted">{own ? "This is you in the demo. What you post stays in this browser." : p.handle === "stash" ? "Stash's own account: the loops, patterns and kits made for this demo. Counts start at zero." : "A producer posting their own sounds. Counts start at zero."}</p>
+          <p className="text-small text-text-muted">{own ? "This is you in the demo. What you post stays in this browser." : p.handle === "stash" ? "Stash's own account: the loops, patterns and kits made for this demo." : "A producer posting their own sounds."}</p>
         </div>
       </section>
+
+      {own && <SigEditor />}
 
       {loops.length > 0 && (
         <section className="flex flex-col gap-3">

@@ -33,6 +33,8 @@ import { PACK_WEEK, PACKS } from "./packs";
 import { Why } from "./search-ui";
 import { BankHead, LcdSmartSearch } from "./bank-head";
 import { LoopDeckHero } from "./heroes/loop-deck";
+import { SigLed, signatureOf } from "./live/sig";
+import { sigVar } from "./live/signature";
 import { loopProfile } from "./search-index";
 import { likeness, match, parseQuery, quality, type Profile } from "./smart-search";
 import { addPlay, plays, set } from "./store";
@@ -729,6 +731,8 @@ function LoopEntry({
     <li
       data-playing={state === "playing" || undefined}
       className="lib-loop flex flex-col gap-3 p-3 tablet:p-4"
+      data-sig=""
+      style={{ ["--sig" as string]: sigVar(signatureOf(row.owner.handle).color) }}
     >
       <div className="flex flex-wrap items-start gap-x-3 gap-y-2">
         <UiLink
@@ -751,6 +755,7 @@ function LoopEntry({
           </UiLink>
           <span className="text-small text-text-muted">
             {"by "}
+            <SigLed handle={row.owner.handle} />
             <UiLink
               href={`/u/${row.owner.handle}`}
               className="text-text ui-hover:underline"

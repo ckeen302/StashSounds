@@ -1,5 +1,7 @@
 import { BankHead, LcdSearch } from "../bank-head";
 import { DrumPadsHero } from "../heroes/drum-pads";
+import { SigLed, signatureOf } from "../live/sig";
+import { sigVar } from "../live/signature";
 import { DawDragZone } from "../daw-drag";
 import { kitSoundSource, shotSource } from "../daw-sources";
 import {
@@ -152,7 +154,7 @@ export function KitCards({ kits, hidden = false, label = "Kits" }: { kits: Kit[]
   return (
   <ul aria-label={label} hidden={hidden} className="lib-grid">
     {kits.map((k) => (
-      <li key={k.id} className="sp-cart lib-cart">
+      <li key={k.id} className="sp-cart lib-cart" data-sig="" style={{ ["--sig" as string]: sigVar(signatureOf(k.owner.handle).color) }}>
         <div className="flex items-start gap-3">
           <PlayButton title={`a preview of ${k.name}`} state="paused" onPointerEnter={() => warmSounds(k.sounds)} onPointerDown={(e) => e.button === 0 && preview(k)} onClick={(e) => e.detail === 0 && preview(k)} />
           <div className="flex min-w-0 flex-1 flex-col gap-1">
@@ -160,7 +162,7 @@ export function KitCards({ kits, hidden = false, label = "Kits" }: { kits: Kit[]
               {k.name}
             </UiLink>
             <span className="lib-sub truncate">
-              @{k.owner.handle} · {k.genre}
+              <SigLed handle={k.owner.handle} />@{k.owner.handle} · {k.genre}
               {k.mine ? " · posted from this browser" : ""}
             </span>
           </div>

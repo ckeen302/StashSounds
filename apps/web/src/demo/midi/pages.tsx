@@ -38,6 +38,7 @@ import { midiItem, midiItems, midiVersion, postUpload, removeUpload, slugify, su
 import { MidiError, parseMidi, SOUND_FOR, type MidiAnalysis } from "./parse";
 import { DRUM_PART_LABEL, guessDrumPart, setDrumPart, type DrumPart } from "./drum-parts";
 import { PianoRoll } from "./piano-roll";
+import { SigLed } from "../live/sig";
 import { saveFiles } from "../save";
 import { DawDragZone } from "../daw-drag";
 import { midiSource } from "../daw-sources";
@@ -163,7 +164,7 @@ export function MidiList({ label, items }: { label: string; items: MidiItem[] })
                 <UiLink href={m.href} className="-my-3 truncate rounded-control py-3 text-body-strong text-text ui-hover:underline">
                   {m.title}
                 </UiLink>
-                <span className="truncate text-small text-text-muted">@{m.owner.handle}{m.mine ? " · posted from this browser" : ""}</span>
+                <span className="truncate text-small text-text-muted"><SigLed handle={m.owner.handle} />@{m.owner.handle}{m.mine ? " · posted from this browser" : ""}</span>
               </div>
               <div className="hidden w-20 shrink-0 text-small text-text tablet:block">{m.part ? DRUM_PART_LABEL[m.part] : KIND_LABEL[m.kind]}</div>
               <div className={`hidden w-14 shrink-0 tablet:block ${cell}`}>{keyLabel(m) || "—"}</div>
