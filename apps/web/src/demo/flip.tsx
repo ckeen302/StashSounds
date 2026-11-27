@@ -5,6 +5,7 @@ import { Button, Download, FilterChip, Pause, Play, RotateCcw, Slider, Stepper, 
 import { useEffect, useRef, useState } from "react";
 import { audioContext } from "./kits/store";
 import { midiPlayer } from "./midi/synth";
+import { usePageKeys } from "./shortcuts";
 
 /**
  * Flip it: chop a loop into slices, play them from the keyboard, put them in a new order, reverse
@@ -195,6 +196,8 @@ export function FlipPanel({ row }: { row: ItemRow }) {
   }, [playing, buf, rev, loopSeconds]);
 
   // Slice keys: 1-8, then Q-I for slices 9-16.
+  // The site-wide shortcuts stand aside for this page's own keys.
+  usePageKeys(KEYS);
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.repeat || e.metaKey || e.ctrlKey || e.altKey) return;
@@ -305,7 +308,11 @@ export function FlipPanel({ row }: { row: ItemRow }) {
                   type="button"
                   aria-label={`Step ${i + 1}: ${v === REST ? "rest" : `slice ${v + 1}`}`}
                   data-now={step === i || undefined}
-                  onClick={() => update({ order: s.order.map((x, j) => (j === i ? armed : x)) })}
+                  onClick={() => {
+                    update({ order: s.order.map((x, j) => (j === i ? armed : x)) });
+                    // Hear what the step now holds, so a tap always answers (even when it already held it).
+                    if (armed !== REST) hit(armed);
+                  }}
                   className="flex h-10 w-full items-center justify-center rounded-control border border-border bg-bg font-mono text-small text-text data-now:border-accent data-now:text-accent"
                 >
                   {v === REST ? "–" : v + 1}
@@ -320,18 +327,24 @@ export function FlipPanel({ row }: { row: ItemRow }) {
             <Button
               size="sm"
               variant="secondary"
+              // Nothing to shuffle when every step holds the same slice.
+              disabled={new Set(s.order).size < 2}
               onClick={() => {
-                const o = [...s.order];
-                for (let i = o.length - 1; i > 0; i--) {
-                  const j = Math.floor(Math.random() * (i + 1));
-                  [o[i], o[j]] = [o[j]!, o[i]!];
+                // A shuffle that lands on the same order would look like a dead button: shuffle again.
+                let o = [...s.order];
+                for (let tries = 0; tries < 8 && o.join() === s.order.join(); tries++) {
+                  o = [...s.order];
+                  for (let i = o.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [o[i], o[j]] = [o[j]!, o[i]!];
+                  }
                 }
                 update({ order: o });
               }}
             >
               Shuffle
             </Button>
-            <Button size="sm" variant="ghost" icon={RotateCcw} onClick={() => update({ order: initial(s.slices) })}>
+            <Button size="sm" variant="ghost" icon={RotateCcw} disabled={s.order.join() === initial(s.slices).join()} onClick={() => update({ order: initial(s.slices) })}>
               Back in order
             </Button>
           </div>

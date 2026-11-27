@@ -22,12 +22,14 @@ import {
 } from "@stash/ui";
 import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { CrateMenu } from "../explore";
+import { ShareButton } from "../share";
 import { CommentToggle, Comments, RowThread } from "../social";
 import { navigate } from "../router";
 import { styleLink } from "../producers/data";
 import { has, set } from "../store";
 import { allShots, saveShots } from "../oneshots/store";
 import { CATEGORIES, categoryOf, clipBuffer, cleanName, decode, labelOf, play, playSequence, postKit, removeKit, useKits, warmSounds, type Category, type Draft, type Kit, type KitSound } from "./store";
+import { usePageKeys } from "../shortcuts";
 
 /**
  * The drum kits screens: every kit, one kit's sounds, and posting a kit of your own one-shots.
@@ -47,7 +49,7 @@ function summary(sounds: { category: Category }[]): string {
 }
 
 /** Plays a few of the kit's sounds in a row: kick, snare or clap, hat, and an 808 if it has one. */
-function preview(k: Kit) {
+export function preview(k: Kit) {
   const pick = (cats: Category[]) => k.sounds.find((s) => cats.includes(s.category));
   const order = [pick(["kick", "808"]), pick(["hat"]), pick(["snare", "clap"]), pick(["hat"]), pick(["808", "kick"]), pick(["open hat", "hat"]), pick(["clap", "snare"])].filter(
     (s): s is KitSound => !!s,
@@ -62,7 +64,7 @@ function preview(k: Kit) {
 let previewSeq = 0;
 
 /** Saves every sound in the kit as one zip. */
-async function saveKit(k: Kit, toast: ReturnType<typeof useToast>) {
+export async function saveKit(k: Kit, toast: ReturnType<typeof useToast>) {
   const shots = allShots([k]).filter((s) => s.kit?.id === k.id);
   const { outcome, names } = await saveShots(shots, k.name, 200).catch(() => ({ outcome: "failed" as const, names: [] as string[] }));
   if (outcome === "saved") {
@@ -254,6 +256,8 @@ export function KitPage({ id }: { id: string }) {
     if (k) warmSounds(k.sounds);
   }, [k]);
 
+  // The site-wide shortcuts stand aside for this page's own keys.
+  usePageKeys(["ArrowDown", "ArrowUp", " "]);
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const t = e.target as HTMLElement | null;
@@ -335,6 +339,12 @@ export function KitPage({ id }: { id: string }) {
             >
               {liked ? "Liked" : "Like"}
             </Button>
+            <ShareButton
+              path={`/kit/${k.id}`}
+              size="md"
+              className="col-span-2"
+              card={{ kind: "Drum kit", title: k.name.replace(/ \(inspired by .*\)$/, ""), subtitle: k.inspiredBy ? `In the style of ${k.inspiredBy}` : `by ${k.owner.displayName}`, line: `${k.genre} · Free on Stash` }}
+            />
             {k.mine && (
               <Button
                 variant="danger"

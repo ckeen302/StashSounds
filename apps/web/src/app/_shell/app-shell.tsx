@@ -4,7 +4,9 @@ import { usePathname } from "next/navigation";
 import { useSyncExternalStore, type ReactNode } from "react";
 import { Bell, ButtonLink, Icon, IconButton, IconLink, PanelLeftClose, PanelLeftOpen, Search, SearchInput, ToastViewport, Tooltip, UiLink } from "@stash/ui";
 import { LogoMark } from "../logo-mark";
-import { isCurrent, navItems } from "./nav";
+import { isCurrent, itemsFor, type ShellViewer } from "./nav";
+
+export type { ShellViewer };
 import { PlayerDock } from "./player-dock";
 
 const RAIL_KEY = "stash.rail";
@@ -76,7 +78,7 @@ function Wordmark() {
 }
 
 /** Tablet and desktop: the left rail. 232 px with labels on desktop, collapsible to 64; icons only on tablet. */
-function Rail({ pathname }: { pathname: string }) {
+function Rail({ pathname, viewer }: { pathname: string; viewer?: ShellViewer | null }) {
   const collapsed = useCollapsed();
   const iconOnly = useIconOnly(collapsed);
   const toggle = () => writeCollapsed(!collapsed);
@@ -95,7 +97,7 @@ function Rail({ pathname }: { pathname: string }) {
         </UiLink>
       </div>
       <ul className="flex flex-1 flex-col gap-1 px-3 py-2">
-        {navItems.map((item) => {
+        {itemsFor(viewer).map((item) => {
           const current = isCurrent(pathname, item);
           const link = (
             <UiLink href={item.href} aria-current={current ? "page" : undefined} data-current={current || undefined} className={railLink}>
@@ -130,11 +132,11 @@ function Rail({ pathname }: { pathname: string }) {
 }
 
 /** Phone: the bottom tab bar, 56 px, five destinations. */
-function TabBar({ pathname }: { pathname: string }) {
+function TabBar({ pathname, viewer }: { pathname: string; viewer?: ShellViewer | null }) {
   return (
     <nav aria-label="Tabs" className="h-14 shrink-0 border-t border-border bg-bg tablet:hidden">
       <ul className="flex h-full">
-        {navItems.map((item) => {
+        {itemsFor(viewer).map((item) => {
           const current = isCurrent(pathname, item);
           return (
             <li key={item.href} className="flex flex-1">
@@ -160,8 +162,11 @@ function TabBar({ pathname }: { pathname: string }) {
   );
 }
 
-/** 56 px: search centred up to 560 px, notifications, sign in. Phone, 48 px: logo, search, notifications. */
-function TopBar() {
+/**
+ * 56 px: search centred up to 560 px, notifications, then sign in or, once signed in, the viewer's
+ * avatar linking to their profile. Phone, 48 px: logo, search, notifications.
+ */
+function TopBar({ account, search }: { account: ReactNode; search: ReactNode }) {
   return (
     <header className="flex h-12 shrink-0 items-center gap-2 border-b border-border bg-bg px-3 tablet:h-14 tablet:gap-4 tablet:px-4 desktop:px-6">
       <UiLink href="/" aria-label="Stash" className="flex h-10 items-center gap-2 rounded-control tablet:hidden">
@@ -169,16 +174,20 @@ function TopBar() {
         <Wordmark />
       </UiLink>
       <div className="flex-1 tablet:hidden" />
-      <form role="search" action="/search" className="hidden min-w-0 flex-1 justify-center tablet:flex">
-        <SearchInput name="q" size="sm" shortcut="" hideLabel placeholder="Search loops, kits, producers" className="w-full max-w-140" />
-      </form>
+      {search ?? (
+        <form role="search" action="/search" className="hidden min-w-0 flex-1 justify-center tablet:flex">
+          <SearchInput name="q" size="sm" shortcut="" hideLabel placeholder="Search loops, kits, producers" className="w-full max-w-140" />
+        </form>
+      )}
       <IconLink href="/search" icon={Search} label="Search" className="tablet:hidden" />
       <IconLink href="/notifications" icon={Bell} label="Notifications" />
-      {/* Phone: signing in is the Profile tab. */}
+      {/* Phone: signing in, and the viewer's profile, are the Profile tab. */}
       <span className="hidden tablet:contents">
-        <ButtonLink href="/login" size="sm">
-          Sign in
-        </ButtonLink>
+        {account ?? (
+          <ButtonLink href="/login" size="sm">
+            Sign in
+          </ButtonLink>
+        )}
       </span>
     </header>
   );
@@ -189,7 +198,22 @@ function TopBar() {
  * content area, then the player and, on phone, the tab bar. It lives in the root layout, so a client
  * navigation swaps only the content and the player keeps playing.
  */
-export function AppShell({ children }: { children: ReactNode }) {
+/**
+ * `viewer` points Profile at the signed-in person's page; `account` is what the top bar shows in
+ * place of "Sign in" (their avatar link), passed only with a viewer so other pages don't load it.
+ */
+export function AppShell({
+  children,
+  viewer,
+  account,
+  search,
+}: {
+  children: ReactNode;
+  viewer?: ShellViewer | null;
+  account?: ReactNode;
+  /** The top bar's search, when the page brings its own (a different hint, a key to reach it). */
+  search?: ReactNode;
+}) {
   const pathname = usePathname();
   return (
     <div className="flex h-dvh flex-col overflow-hidden">
@@ -204,9 +228,9 @@ export function AppShell({ children }: { children: ReactNode }) {
         Skip to content
       </a>
       <div className="flex min-h-0 flex-1">
-        <Rail pathname={pathname} />
+        <Rail pathname={pathname} viewer={viewer} />
         <div className="flex min-w-0 flex-1 flex-col">
-          <TopBar />
+          <TopBar account={account} search={search} />
           <div className="relative min-h-0 flex-1">
             {/* After the skip link the content area shows the focus ring, drawn inside so nothing clips it. */}
             <div id="content" tabIndex={-1} className="h-full overflow-y-auto focus-visible:-outline-offset-2">
@@ -217,7 +241,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
       </div>
       <PlayerDock />
-      <TabBar pathname={pathname} />
+      <TabBar pathname={pathname} viewer={viewer} />
     </div>
   );
 }

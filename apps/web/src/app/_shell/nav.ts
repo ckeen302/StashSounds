@@ -20,3 +20,11 @@ export function isCurrent(pathname: string, item: Pick<NavItem, "match">): boole
   const m = item.match.endsWith("/") ? item.match.slice(0, -1) : item.match;
   return pathname === m || pathname.startsWith(`${m}/`);
 }
+
+/** Who is signed in, as the shell shows them: a handle for their profile and a name for their avatar. */
+export type ShellViewer = { handle: string; name: string };
+
+/** The destinations, with Profile pointing at the viewer's own page once someone is signed in. */
+export function itemsFor(viewer?: ShellViewer | null): NavItem[] {
+  return viewer ? navItems.map((i) => (i.href === "/login" ? { ...i, href: `/u/${viewer.handle}` } : i)) : navItems;
+}

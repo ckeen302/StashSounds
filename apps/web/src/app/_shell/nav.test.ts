@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { isCurrent, navItems } from "./nav";
+import { isCurrent, itemsFor, navItems } from "./nav";
 
 const item = (label: string) => navItems.find((i) => i.label === label)!;
 
@@ -20,5 +20,15 @@ describe("navigation", () => {
     expect(isCurrent("/u/kilo_beats", item("Profile"))).toBe(true);
     expect(isCurrent("/upload", item("Profile"))).toBe(false);
     expect(isCurrent("/upload", item("Upload"))).toBe(true);
+  });
+});
+
+describe("itemsFor", () => {
+  it("sends Profile to sign-in when nobody is signed in", () => {
+    expect(itemsFor(null).find((i) => i.label === "Profile")?.href).toBe("/login");
+  });
+  it("sends Profile to the viewer's own page once signed in", () => {
+    expect(itemsFor({ handle: "you", name: "You" }).find((i) => i.label === "Profile")?.href).toBe("/u/you");
+    expect(navItems.find((i) => i.label === "Profile")?.href).toBe("/login");
   });
 });

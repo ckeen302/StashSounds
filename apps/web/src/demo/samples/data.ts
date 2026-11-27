@@ -1,4 +1,5 @@
 import RAW from "./samples.json";
+import { canonArtist } from "../artist-names";
 import { slugify, songKey } from "../presets/songs";
 
 /**
@@ -37,6 +38,8 @@ export type SampleSong = {
   video: string | null;
   slug: string;
   key: string;
+  /** Its address on the one-page-per-song view, set by ../song/data. */
+  songSlug?: string;
 };
 
 /** A record that one or more songs here sample. */
@@ -114,12 +117,22 @@ function uniqueSlugs<T extends { slug: string }>(
   }
 }
 
+/**
+ * Rows from different sources are the same song when the title matches (any case, any punctuation)
+ * and the lead artist does: "luther" by "Kendrick Lamar with SZA" is "Luther" by "Kendrick Lamar".
+ * A bracketed part still tells songs apart ("Morning Dew (Donk)" is its own song).
+ */
+export function sameSong(song: string, artist: string): string {
+  const lead = artist.split(/ feat\.? | featuring | ft\.? | with | and | & | x |, /i)[0] ?? artist;
+  return `${flat(song)}|${flat(lead)}`;
+}
+
 /** Reads the compact rows and merges rows for the same song (an album and its deluxe edition). */
 function build(): SampleSong[] {
   const by = new Map<string, SampleSong>();
   for (const [
     song,
-    artist,
+    credit,
     year,
     album,
     credited,
@@ -127,6 +140,7 @@ function build(): SampleSong[] {
     uses,
     video,
   ] of RAW as Row[]) {
+    const artist = canonArtist(credit);
     // Some credits keep their wiki link markup: "[[Metro Boomin]]", "[[Doughboy (producer)|Doughboy]]".
     const producers = credited
       .map((n) =>
@@ -140,7 +154,7 @@ function build(): SampleSong[] {
       .filter(Boolean);
     const samples: SampleUse[] = uses.map(([t, a, y, g, replayed, p, v]) => ({
       title: t,
-      artist: a,
+      artist: canonArtist(a),
       year: y,
       genre: g,
       type: replayed ? "interpolation" : "sample",
@@ -156,9 +170,12 @@ function build(): SampleSong[] {
           : `Wikipedia: ${decodeURIComponent(page).replace(/_/g, " ")}`,
       url: sourceUrl(page),
     };
-    const key = songKey(song, artist);
-    const had = by.get(key);
+    const same = sameSong(song, artist);
+    const had = by.get(same);
     if (had) {
+      // "Philly" by "Playboi Carti and Travis Scott" and "PHILLY" by "Playboi Carti & Travis Scott":
+      // the fuller credit wins.
+      if (artist.length > had.artist.length) had.artist = artist;
       for (const u of samples)
         if (
           !had.samples.some(
@@ -175,7 +192,7 @@ function build(): SampleSong[] {
       if (!had.producers.length) had.producers = producers;
       continue;
     }
-    by.set(key, {
+    by.set(same, {
       song,
       artist,
       year,
@@ -184,7 +201,7 @@ function build(): SampleSong[] {
       samples,
       sources: [source],
       video: video || null,
-      key,
+      key: songKey(song, artist),
       slug: "",
     });
   }
@@ -258,7 +275,7 @@ export const asOriginal = (s: SampleSong) =>
 /** The same recording seen as a song here: what this sampled record itself samples. */
 export const asSong = (o: Original) => SONG_BY_OKEY.get(o.key) ?? null;
 
-export const sampleHref = (s: SampleSong) => `/samples/${s.slug}`;
+export const sampleHref = (s: SampleSong) => `/song/${s.songSlug ?? s.slug}`;
 export const originalHref = (o: Original) => `/sampled/${o.slug}`;
 export const artistHref = (a: SampleArtist) => `/samples-artist/${a.slug}`;
 export const producerHref = (p: SampleProducer) =>

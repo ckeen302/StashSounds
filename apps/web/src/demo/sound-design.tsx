@@ -4,6 +4,7 @@ import { midiItems, type MidiItem } from "./midi/catalog";
 import { useMidiPlayer } from "./midi/pages";
 import { FACTORY, type Patch, type Wave } from "./midi/patch";
 import { midiPlayer } from "./midi/synth";
+import { usePageKeys } from "./shortcuts";
 
 /**
  * Sound design: shape a patch on the demo's synth, play it from the screen or the computer keys,
@@ -237,6 +238,8 @@ export function SoundDesign() {
   };
 
   // Computer keys play the keyboard.
+  // The site-wide shortcuts stand aside for this page's own keys.
+  usePageKeys([...Object.keys(KEYMAP), "z", "x"]);
   useEffect(() => {
     const held = new Map<string, number>();
     const kd = (e: KeyboardEvent) => {

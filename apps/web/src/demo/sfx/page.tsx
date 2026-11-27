@@ -7,6 +7,7 @@ import { CommentToggle, RowThread } from "../social";
 import {
   categoryName, downloadSfx, fileName, haystack, licenseLabel, playSfx, position, SFX, SFX_CATEGORIES, sourceLine, stop, subName, usePlaying, warm, type Sfx,
 } from "./library";
+import { usePageKeys } from "../shortcuts";
 
 /**
  * The SFX tab: a deep library of sound effects, browsed by category and subcategory (Animals >
@@ -121,6 +122,8 @@ export function SfxPage() {
     }
   };
 
+  // The site-wide shortcuts stand aside for this page's own keys.
+  usePageKeys(["ArrowDown", "ArrowUp", " ", "d"]);
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const t = e.target as HTMLElement | null;

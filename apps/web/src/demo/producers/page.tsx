@@ -81,7 +81,7 @@ function ProducerAvatar({ name, size }: { name: string; size: "md" | "lg" }) {
     <span
       data-hue={hueOf(name)}
       aria-hidden="true"
-      className={`st-avatar st-hero-title flex shrink-0 items-center justify-center rounded-full ${size === "lg" ? "size-24 text-display tablet:size-32" : "size-16 text-title"}`}
+      className={`st-avatar sp-avatar flex shrink-0 items-center justify-center rounded-full ${size === "lg" ? "sp-profile-face" : "size-16"}`}
     >
       {initialsOf(name)}
     </span>
@@ -229,9 +229,9 @@ export function ProducersPage() {
 function Section({ id, title, note, children }: { id: string; title: string; note?: string; children: ReactNode }) {
   return (
     <section id={id} aria-labelledby={`${id}-h`} className="flex scroll-mt-4 flex-col gap-3">
-      <div className="flex flex-col gap-1">
-        <div className="flex items-baseline gap-2">
-          <h2 id={`${id}-h`} className="text-title text-text">
+      <div className="flex flex-col gap-1.5">
+        <div className="sp-head">
+          <h2 id={`${id}-h`} className="sp-label">
             {title}
           </h2>
         </div>
@@ -363,29 +363,32 @@ export function ProducerPageView({ slug, rows, styleOf, renderLoops }: { slug: s
   const styleNote = `Original Stash sounds made in this style. ${p.name} did not make or endorse them.`;
   return (
     <main className="flex w-full flex-col">
-      <header className="st-song-hero relative overflow-hidden border-b border-border">
+      <header className="st-song-hero sp-song-hero relative overflow-hidden">
         {cover && <span aria-hidden="true" className="st-song-backdrop" style={tileStyle(cover.file)} />}
         <div className="relative mx-auto flex w-full max-w-content flex-col gap-4 px-3 pt-6 pb-8 tablet:px-4 tablet:pt-8 desktop:px-6">
           <UiLink href="/producers" className="self-start text-small text-text-muted ui-hover:text-text">
             ← Producers
           </UiLink>
-          <div className="flex flex-col gap-4 tablet:flex-row tablet:items-center tablet:gap-6">
+          <div className="sp-profile">
             <ProducerAvatar name={p.name} size="lg" />
-            <div className="flex min-w-0 flex-1 flex-col gap-1">
-              <span className="text-label text-label-caps text-text-muted">Producer</span>
-              <h1 className="st-hero-title st-song-title text-balance break-words text-text">{p.name}</h1>
-              {artists.length > 0 && <p className="text-body text-text-muted">{`Songs for ${andList(artists)}`}</p>}
+            <div className="sp-bezel min-w-0 flex-1">
+              <div className="sp-lcd flex flex-col gap-2">
+                <span className="sp-lcd-small">PRODUCER &gt; SOUND PROFILE</span>
+                <h1 className="sp-lcd-title st-song-title text-balance break-words">{p.name}</h1>
+                {artists.length > 0 && <p className="sp-lcd-text sp-lcd-caps">{`Songs for ${andList(artists)}`}</p>}
+              </div>
             </div>
-            <div className="shrink-0">
+            <div className="sp-profile-side">
               <FollowButton p={p} />
             </div>
           </div>
           {sections.length > 0 && (
-            <nav aria-label={`${p.name} on Stash`} className="flex flex-wrap gap-2">
-              {sections.map((s) => (
-                <Button key={s.id} variant="secondary" size="sm" onClick={() => document.getElementById(s.id)?.scrollIntoView({ behavior: "smooth", block: "start" })}>
-                  {s.name}
-                </Button>
+            <nav aria-label={`${p.name} on Stash`} className="sp-pads sp-song-parts">
+              {sections.map((s, i) => (
+                <button key={s.id} type="button" className="sp-pad" onClick={() => document.getElementById(s.id)?.scrollIntoView({ behavior: "smooth", block: "start" })}>
+                  <span className="sp-pad-code">{`P0${i + 1}`}</span>
+                  <span className="sp-pad-label">{s.name}</span>
+                </button>
               ))}
             </nav>
           )}

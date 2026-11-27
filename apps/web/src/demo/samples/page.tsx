@@ -9,10 +9,9 @@ import {
 import { useState, type ReactNode } from "react";
 import { CrateMenu } from "../explore";
 import { Comments } from "../social";
-import { songChordItems } from "../midi/catalog";
 import "./covers";
-import { albumOf, Cover, coverFor, tileStyle } from "../presets/cover";
-import { ALL_SONGS, songHref } from "../presets/songs";
+import "../song/data";
+import { Cover, coverFor } from "../presets/cover";
 import {
   ARTISTS,
   artistBySlug,
@@ -34,7 +33,6 @@ import {
   PRODUCERS,
   SAMPLE_SONGS,
   sampleHref,
-  sampleSongBySlug,
   type Original,
   type SampleArtist,
   type SampleProducer,
@@ -317,7 +315,7 @@ const EXT = {
 };
 
 /** A link that leaves the demo (YouTube, an article): opens in a new tab, styled as a small button. */
-function ExtLink({
+export function ExtLink({
   href,
   variant,
   children,
@@ -470,12 +468,6 @@ function RecordRow({ o, n }: { o: Original; n: number }) {
   );
 }
 
-function lead(artist: string): string {
-  return (artist.split(/ feat\.? | ft\.? |,| & | and | x /i)[0] ?? artist)
-    .trim()
-    .toLowerCase();
-}
-
 function Missing({ what }: { what: string }) {
   return (
     <main className="mx-auto flex w-full max-w-content flex-col gap-5 px-3 py-8 tablet:px-4 desktop:px-6">
@@ -508,7 +500,7 @@ function Facts({ facts }: { facts: [string, ReactNode][] }) {
 }
 
 /** An artist's name that links to their page when they have one. */
-function ArtistLink({
+export function ArtistLink({
   name,
   className = "",
 }: {
@@ -525,7 +517,7 @@ function ArtistLink({
   );
 }
 
-function ProducerList({ names }: { names: string[] }) {
+export function ProducerList({ names }: { names: string[] }) {
   if (!names.length) return <>Not credited</>;
   return (
     <>
@@ -570,134 +562,13 @@ function Section({
 }
 
 /** One song: the cover over a blurred copy, the facts, each record it samples side by side with it, and who sampled it. */
-export function SampleSongPage({ slug }: { slug: string }) {
-  const s = sampleSongBySlug(slug);
-  if (!s) return <Missing what="song" />;
-  const cover = coverFor(s.song, s.artist);
-  const preset = ALL_SONGS.find((x) => x.key === s.key);
-  const chords = songChordItems().find(
-    (m) =>
-      m.song &&
-      m.song.song.toLowerCase() === s.song.toLowerCase() &&
-      lead(m.song.artist) === lead(s.artist),
-  );
-  const sampledBy = asOriginal(s)?.uses ?? [];
-  const more = SAMPLE_SONGS.filter(
-    (x) => x !== s && x.album && x.album === s.album && x.artist === s.artist,
-  );
-
-  return (
-    <main className="flex w-full flex-col">
-      <header className="st-song-hero relative overflow-hidden border-b border-border">
-        {cover && (
-          <span
-            aria-hidden="true"
-            className="st-song-backdrop"
-            style={tileStyle(cover.file)}
-          />
-        )}
-        <div className="relative mx-auto flex w-full max-w-content flex-col gap-6 px-3 pt-6 pb-8 tablet:px-4 tablet:pt-8 desktop:px-6 desktop:pb-10">
-          <UiLink
-            href="/samples"
-            className="self-start text-small text-text-muted ui-hover:text-text"
-          >
-            ← Samples
-          </UiLink>
-          <div className="flex flex-col gap-6 tablet:flex-row tablet:items-end tablet:gap-8">
-            <span className="st-song-cover block w-48 shrink-0 tablet:w-56 desktop:w-64">
-              <Cover song={s.song} artist={s.artist} size="fill" placeholder />
-            </span>
-            <div className="flex min-w-0 flex-col gap-3">
-              <h1 className="st-hero-title st-song-title text-balance break-words text-text">
-                {s.song}
-              </h1>
-              <ArtistLink name={s.artist} className="text-title text-text" />
-              <Facts
-                facts={[
-                  [
-                    "Album",
-                    s.album ?? albumOf(s.song, s.artist) ?? "Not listed",
-                  ],
-                  ["Year", s.year ? String(s.year) : "Not listed"],
-                  ["Produced by", <ProducerList key="p" names={s.producers} />],
-                ]}
-              />
-              <div className="mt-2 flex flex-wrap gap-2">
-                <ExtLink
-                  href={listenHref(s.song, s.artist, s.video)}
-                  variant="primary"
-                >
-                  {listenLabel(s.video)}
-                </ExtLink>
-                {preset && (
-                  <ButtonLink
-                    href={songHref(preset.song, preset.artist)}
-                    variant="secondary"
-                    size="sm"
-                  >
-                    The presets
-                  </ButtonLink>
-                )}
-                {chords && (
-                  <ButtonLink href={chords.href} variant="secondary" size="sm">
-                    Play the chords
-                  </ButtonLink>
-                )}
-                <CrateMenu
-                  itemId={`sample:${s.slug}`}
-                  title={s.song}
-                  kind="Sample"
-                  href={sampleHref(s)}
-                  by={s.artist}
-                  size="sm"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <div className="mx-auto flex w-full max-w-content flex-col gap-10 px-3 py-8 tablet:px-4 desktop:px-6">
-        <Section id="contains" title="Contains samples of">
-          <ol className="flex flex-col gap-4">
-            {s.samples.map((u) => (
-              <Pair key={`${u.title}|${u.artist}`} u={u} song={s} />
-            ))}
-          </ol>
-        </Section>
-
-        {sampledBy.length > 0 && (
-          <Section id="sampled-in" title="Was sampled in">
-            <ul className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-3">
-              {sampledBy.map((x) => (
-                <SongCard key={x.song.key} s={x.song} />
-              ))}
-            </ul>
-          </Section>
-        )}
-
-        {more.length > 0 && (
-          <SongShelf title={`More samples on ${s.album}`} songs={more} />
-        )}
-
-        <Comments
-          itemId={`sample:${s.slug}`}
-          title={`${s.song} by ${s.artist}`}
-        />
-
-        <Sources sources={s.sources} />
-      </div>
-    </main>
-  );
-}
-
 /**
  * The song and one record it samples, side by side, each with a way to hear it: play one, then the
  * other, and listen for the part that carried over. YouTube can't be framed inside the demo's host page,
  * so each side opens the recording on YouTube (its own video when Wikidata names one, otherwise a
  * search); the credits name no timestamps, so neither side jumps.
  */
-function Pair({ u, song }: { u: SampleUse; song: SampleSong }) {
+export function Pair({ u, song }: { u: SampleUse; song: SampleSong }) {
   const o = originalOf(u);
   const others = o.uses.filter((x) => x.song !== song);
   const deeper = asSong(o);
@@ -848,7 +719,7 @@ function Side({
   );
 }
 
-function Sources({ sources }: { sources: { label: string; url: string }[] }) {
+export function Sources({ sources }: { sources: { label: string; url: string }[] }) {
   return (
     <section aria-label="Source" className="flex flex-col gap-1">
       <span className="text-label text-label-caps text-text-muted">Source</span>
@@ -1066,35 +937,3 @@ function ProducerBody({ p }: { p: SampleProducer }) {
   );
 }
 
-function SongShelf({ title, songs }: { title: string; songs: SampleSong[] }) {
-  return (
-    <section aria-label={title} className="flex flex-col gap-2">
-      <div className="flex items-baseline gap-2">
-        <h2 className="text-title text-text">{title}</h2>
-        <span className="font-mono text-numeric tabular text-text-muted">
-          {songs.length}
-        </span>
-      </div>
-      <ul className="-mx-3 flex gap-3 overflow-x-auto px-3 pb-1 tablet:mx-0 tablet:px-0">
-        {songs.slice(0, 12).map((x) => (
-          <li key={x.key} className="w-36 shrink-0 tablet:w-40">
-            <UiLink
-              href={sampleHref(x)}
-              className="group flex h-full flex-col gap-2 rounded-panel border border-border bg-surface p-2 ui-hover:border-border-strong"
-            >
-              <Cover song={x.song} artist={x.artist} size="fill" placeholder />
-              <span className="flex min-w-0 flex-col px-1 pb-1">
-                <span className="truncate text-small text-text group-hover:underline">
-                  {x.song}
-                </span>
-                <span className="truncate text-small text-text-muted">
-                  {x.samples[0]?.title}
-                </span>
-              </span>
-            </UiLink>
-          </li>
-        ))}
-      </ul>
-    </section>
-  );
-}

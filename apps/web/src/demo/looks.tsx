@@ -6,18 +6,18 @@ import { useSyncExternalStore } from "react";
  * the design spec's own; the others are directions to react to. The pick is kept in this browser.
  */
 export const LOOKS = [
+  { id: "sampler", name: "Sampler", blurb: "The machine: a beige sampler with a green screen, rubber pads and one orange light." },
   { id: "stash", name: "Stash", blurb: "Modern and social: near black, one hot pink, artwork and people up front." },
   { id: "console", name: "Console", blurb: "Fantasy games console: 16 colours, pixel type, loot rarity." },
   { id: "studio", name: "Studio", blurb: "The spec: ink black, one lime light." },
   { id: "tape", name: "Tape", blurb: "70s cassette: warm brown, orange, italic serif." },
   { id: "arcade", name: "Arcade", blurb: "90s CRT: pixel type, magenta glow, scanlines." },
-  { id: "sampler", name: "Sampler", blurb: "Beige hardware: cream panels, red keys, bold caps." },
 ] as const;
 export type LookId = (typeof LOOKS)[number]["id"];
 
-const KEY = "stash.demo.look.v4";
+const KEY = "stash.demo.look.v5";
 const listeners = new Set<() => void>();
-let current: LookId = "stash";
+let current: LookId = "sampler";
 
 function apply(id: LookId) {
   current = id;
@@ -33,10 +33,10 @@ export function startLooks() {
   try {
     saved = window.localStorage.getItem(KEY);
   } catch {
-    // Storage blocked: start on Stash.
+    // Storage blocked: start on the Sampler.
   }
   const found = LOOKS.find((l) => l.id === saved);
-  apply(found ? found.id : "stash");
+  apply(found ? found.id : "sampler");
 }
 
 export function setLook(id: LookId) {
@@ -55,7 +55,7 @@ export function useLook(): LookId {
       return () => listeners.delete(l);
     },
     () => current,
-    () => "stash",
+    () => "sampler",
   );
 }
 

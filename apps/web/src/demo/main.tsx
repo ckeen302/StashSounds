@@ -33,34 +33,43 @@ import { navItems } from "../app/_shell/nav";
 import { nowPlaying } from "../app/_shell/now-playing";
 import { ItemView } from "../app/_item/item-view";
 import { buildCatalog, type Catalog } from "./data";
-import { LICENSE_LABELS } from "@stash/contracts/format";
+import { formatKey, LICENSE_LABELS } from "@stash/contracts/format";
 import { HashLink } from "./hash-link";
 import { useProgressive } from "./progressive";
-import { navigate, startRouter, usePath } from "./router";
+import { currentPath, navigate, startRouter, usePath } from "./router";
 // The Samples tab's catalog is about a third of the demo's script: it loads on its own, after the
 // first paint (prefetched once the page is idle, at the bottom), so the rest of the demo starts without it.
 const samplesPage = () => import("./samples/page");
 const SamplesPage = lazy(() => samplesPage().then((m) => ({ default: m.SamplesPage })));
-const SampleSongPage = lazy(() => samplesPage().then((m) => ({ default: m.SampleSongPage })));
+// One page per song pulls from every library, the Samples catalog included, so it loads with it.
+const songRoute = () => import("./song/route");
+const SongRoute = lazy(() => songRoute().then((m) => ({ default: m.SongRoute })));
+const PresetSongRoute = lazy(() => songRoute().then((m) => ({ default: m.PresetSongRoute })));
+const SampleSongRoute = lazy(() => songRoute().then((m) => ({ default: m.SampleSongRoute })));
 const OriginalPage = lazy(() => samplesPage().then((m) => ({ default: m.OriginalPage })));
 const SampleArtistPage = lazy(() => samplesPage().then((m) => ({ default: m.SampleArtistPage })));
 const SampleProducerPage = lazy(() => samplesPage().then((m) => ({ default: m.SampleProducerPage })));
 import { has, set } from "./store";
+import { useCrates } from "./crates";
+import { useShortcuts } from "./shortcuts";
+import { loopPicks, newLoops, newSongs, songPicks, type FeedLoop, type FeedSong, type Signals } from "./feed";
 import { startLooks, useLook } from "./looks";
-import { midiItem, type MidiItem } from "./midi/catalog";
-import { MidiList, MidiPage, useMidiItems } from "./midi/pages";
+import { midiItem, VIEWER, type MidiItem } from "./midi/catalog";
+import { MidiList, MidiPage, useMidiItems, useMidiPlayer } from "./midi/pages";
+import { midiPlayer } from "./midi/synth";
+import type * as SongDataModule from "./song/data";
 import { BATCH_SONGS, progressionOf } from "./midi/songs";
 import { CHORD_PACKS, PACK_PROGRESSIONS, TEMPO_BANDS } from "./midi/chord-packs";
 import { Dropdown } from "./presets/page";
 import { PresetsPage } from "./presets/page";
-import { PresetSongPage } from "./presets/song-page";
 import { SoundDesign } from "./sound-design";
 import { OneShotsPage } from "./oneshots/page";
-import { MELODIC } from "./oneshots/melodic";
+import { instrumentOf, MELODIC, mineAsMelodic, playShot } from "./oneshots/melodic";
 import { SfxPage } from "./sfx/page";
-import { SFX } from "./sfx/library";
+import { categoryName, playSfx, SFX, subName, usePlaying } from "./sfx/library";
 import { UploadHub } from "./upload/page";
 import {
+  ALL_PRODUCERS,
   BrowsePage,
   LibraryPage,
   NewCrateHost,
@@ -79,21 +88,20 @@ import { pack, PACK_WEEK } from "./packs";
 import { ALL_SONGS, madeBy, songHref, TOP_PRODUCERS } from "./presets/songs";
 import { PRESETS, type Confidence } from "./presets/data";
 import { Cover, coverFor } from "./presets/cover";
-import { kits, useKits } from "./kits/store";
+import { kits, labelOf, useKits, warmSounds } from "./kits/store";
 import { saveFiles, saveLoopRow } from "./save";
 import { SmartSearch, useQuery } from "./search-ui";
-import { KitHits, PresetHits, ProducerHits, rank, ShotHits, SfxHits, useOtherHits } from "./search-page";
-import { queryWords, textMatch } from "./text-match";
+import { queryWords, respell, terms, textMatch, vocabulary, type Field } from "./text-match";
 import { loopProfile, midiProfile } from "./search-index";
-import { match, moreLike } from "./smart-search";
+import { match, moreLike, vibeOf, vibeText } from "./smart-search";
 import { writeMidi } from "./midi/write";
-import { KitCards, KitPage, KitsPage, KitUploadPage } from "./kits/pages";
+import { KitCards, KitPage, KitsPage, KitUploadPage, preview as previewKit } from "./kits/pages";
 import { DawDragZone } from "./daw-drag";
 import { loopSource } from "./daw-sources";
 import { attachLoopStyles, allProducers, hrefForProducer, producerBySlug, producerNamed, producerPageHref } from "./producers/data";
 import { ProducerPageView, ProducersPage, summaryOf } from "./producers/page";
 import { SAMPLE_PRODUCER_NAMES } from "./samples/credits";
-import { Button, Download, FilterChip, IconLink, Library as LibraryIcon, SearchInput, UiLink } from "@stash/ui";
+import { Avatar, Button, Download, FilterChip, IconLink, Library as LibraryIcon, PlayButton, SearchInput, UiLink } from "@stash/ui";
 
 /**
  * The browser-only demo (ticket 137): the real shell, player bar, result rows, loop page and audio
@@ -325,16 +333,12 @@ function initialsOf(name: string): string {
 
 function SectionHead({ title, sub, href, more }: { title: string; sub?: string; href?: string; more?: string }) {
   return (
-    <div className="flex items-end justify-between gap-3">
-      <div className="flex min-w-0 flex-col gap-1">
-        <h2 className="text-title">{title}</h2>
-        {sub && <p className="text-small text-text-muted">{sub}</p>}
+    <div className="flex min-w-0 flex-col gap-1.5">
+      <div className="sp-head">
+        <h2 className="sp-label">{title}</h2>
+        {href && more && <UiLink href={href}>{more}</UiLink>}
       </div>
-      {href && more && (
-        <ButtonLink href={href} variant="ghost" size="sm">
-          {more}
-        </ButtonLink>
-      )}
+      {sub && <p className="text-small text-text-muted">{sub}</p>}
     </div>
   );
 }
@@ -351,6 +355,79 @@ function HeroEq() {
         <span key={i} style={{ ["--h" as string]: h, ["--d" as string]: `${(i % 7) * 90}ms` }} />
       ))}
     </div>
+  );
+}
+
+/** A loop as the home feed reads it. */
+function feedLoop(r: ItemRow): FeedLoop {
+  const item = catalog.page(r.publicId)?.item;
+  return { id: r.id, title: r.title, ownerId: producerByHandle(r.owner.handle)?.id ?? r.owner.handle, bpm: r.bpm ?? null, tags: r.tags, genre: item?.genre ?? null, style: styleOf(r), publishedAt: r.publishedAt };
+}
+
+/** Song cards on the home page: cover, title, artist, and why it is there. */
+function SongShelf({ label, items }: { label: string; items: { slug: string; song: string; artist: string; because?: string }[] }) {
+  return (
+    <ul aria-label={label} className="st-shelf -mx-3 flex gap-4 overflow-x-auto px-3 pb-2 tablet:mx-0 tablet:px-0">
+      {items.map((s) => (
+        <li key={s.slug} className="w-40 shrink-0 tablet:w-44">
+          <UiLink href={`/song/${s.slug}`} className="group flex h-full flex-col gap-3 rounded-panel border border-border bg-surface p-3 ui-hover:border-border-strong">
+            <Cover song={s.song} artist={s.artist} size="fill" placeholder />
+            <span className="flex min-w-0 flex-col">
+              <span className="truncate text-body-strong text-text group-hover:underline">{s.song}</span>
+              <span className="truncate text-small text-text-muted">{s.artist}</span>
+              {s.because && <span className="line-clamp-2 text-small text-accent">{s.because}</span>}
+            </span>
+          </UiLink>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/**
+ * The part of the home page that changes with the person: picks from what they liked, saved and
+ * followed (shown once there is any), then what was added most recently.
+ */
+function HomeFeed({ rows, onChange }: { rows: ItemRow[]; onChange: () => void }) {
+  const songs = useSongData("idle");
+  const saved = useCrates();
+  const loops = useMemo(() => rows.map(feedLoop), [rows]);
+  const signals: Signals = {
+    liked: new Set(rows.filter((r) => has("likes", r.id) || has("downloads", r.id)).map((r) => r.id)),
+    followed: new Set(loops.filter((l) => has("follows", l.ownerId)).map((l) => l.ownerId)),
+    savedSongs: new Set(saved.flatMap((c) => c.items).filter((i) => i.startsWith("song:")).map((i) => i.slice(5))),
+  };
+  const songList: FeedSong[] = useMemo(() => (songs?.SONGS ?? []).map((s) => ({ slug: s.slug, song: s.song, artist: s.artist, producers: s.producers, year: s.year })), [songs]);
+  const picks = loopPicks(loops, signals);
+  const likedStyles = [...new Set(loops.filter((l) => signals.liked.has(l.id) && l.style).map((l) => l.style!))];
+  const songsForYou = songPicks(songList, signals, likedStyles);
+  const byId = new Map(rows.map((r) => [r.id, r]));
+  const reasons = [...new Set(picks.map((p) => p.because))];
+  const fresh = newLoops(loops).map((l) => byId.get(l.id)!);
+  const freshSongs = newSongs(songList);
+  return (
+    <>
+      <section aria-labelledby="for-you" className="-mt-6 flex flex-col gap-3">
+        <div id="for-you">
+          <SectionHead title="For you" sub={picks.length || songsForYou.length ? (reasons.length === 1 ? reasons[0] : reasons.length === 2 && reasons.every((x) => x.startsWith("Because you liked ")) ? `${reasons[0]} and ${reasons[1]!.slice("Because you liked ".length)}` : "From what you liked, saved and follow") : "Like a loop, save a song or follow a producer, and picks for it show up here."} />
+        </div>
+        {picks.length > 0 && <LoopList label="Loops for you" rows={picks.map((p) => byId.get(p.loop.id)!)} onChange={onChange} />}
+        {songsForYou.length > 0 && <SongShelf label="Songs for you" items={songsForYou.map((p) => ({ ...p.song, because: p.because }))} />}
+      </section>
+
+      <section aria-labelledby="just-added" className="flex flex-col gap-3">
+        <div id="just-added">
+          <SectionHead title="Just added" href="/loops" more="All loops" />
+        </div>
+        <LoopList label="Just added" rows={fresh} onChange={onChange} />
+        {freshSongs.length > 0 && (
+          <>
+            <h3 className="text-body-strong text-text">New songs on Stash</h3>
+            <SongShelf label="New songs on Stash" items={freshSongs} />
+          </>
+        )}
+      </section>
+    </>
   );
 }
 
@@ -380,61 +457,78 @@ function Home() {
   };
   return (
     <div className="flex flex-col">
-      <section className="st-home-hero relative overflow-hidden">
-        <HeroEq />
-        <div className="relative mx-auto flex w-full max-w-content flex-col gap-5 px-3 pt-6 pb-6 tablet:px-4 tablet:pt-12 desktop:px-6 desktop:pt-14">
-          <h1 className="st-hero-title st-home-h1 max-w-4xl text-balance">
-            Free sounds that <span className="st-grad">actually hit.</span>
-          </h1>
-          <ul aria-label="The deal" className="flex flex-wrap gap-x-5 gap-y-1 text-small text-text-muted">
-            {["Free. No credits, no trials", "Plays on first click", "Original files"].map((x) => (
-              <li key={x} className="inline-flex items-center gap-2">
-                <span className="st-check" aria-hidden="true" />
-                {x}
-              </li>
-            ))}
-          </ul>
-          <form
-            role="search"
-            className="flex w-full max-w-2xl gap-2"
-            onSubmit={(e) => {
-              e.preventDefault();
-              search(q);
-            }}
-          >
-            <SearchInput
-              label="Search sounds"
-              hideLabel
-              shortcut=""
-              placeholder="Try dark piano 140 like metro"
-              value={q}
-              onChange={(e) => setQ(e.target.value)}
-              onClear={() => setQ("")}
-              className="min-w-0 flex-1"
-            />
-            <Button type="submit" variant="primary">
-              Search
-            </Button>
-          </form>
-          <ul aria-label="Sound types" className="st-shelf -mx-3 flex gap-2 overflow-x-auto px-3 tablet:mx-0 tablet:flex-wrap tablet:px-0">
-            {types.map((t) => (
-              <li key={t.href} className="shrink-0">
-                <UiLink
-                  href={t.href}
-                  data-t={t.t}
-                  className="st-type flex h-11 items-center gap-2.5 rounded-control border border-border bg-surface px-4 ui-hover:border-border-strong"
-                >
-                  <span className="st-dot size-2.5 rounded-full" aria-hidden="true" />
-                  <span className="text-body-strong text-text">{t.name}</span>
-                </UiLink>
-              </li>
-            ))}
-          </ul>
+      <section className="st-home-hero mx-auto w-full max-w-content px-3 pt-5 tablet:px-4 tablet:pt-8 desktop:px-6">
+        <div className="sp-home-deck">
+          <div className="sp-bezel min-w-0 flex-1">
+            <div className="sp-lcd flex flex-col gap-3 tablet:gap-4">
+              <form
+                role="search"
+                className="sp-lcd-search"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  search(q);
+                }}
+              >
+                <label htmlFor="home-q">SEARCH&gt;</label>
+                <input id="home-q" name="q" type="search" autoComplete="off" placeholder="dark piano 140 like metro" value={q} onChange={(e) => setQ(e.target.value)} />
+                <button type="submit" className="sp-lcd-enter">[ENTER]</button>
+              </form>
+              <hr className="sp-lcd-rule" />
+              <h1 className="sp-lcd-title sp-home-title">
+                Free sounds that actually hit<span className="sp-lcd-blink" aria-hidden="true">_</span>
+              </h1>
+              <ul aria-label="The deal" className="sp-lcd-small flex flex-wrap gap-x-4 gap-y-0">
+                {["Free. No credits, no trials", "Plays on first click", "Original files"].map((x) => (
+                  <li key={x}>&gt; {x.toUpperCase()}</li>
+                ))}
+              </ul>
+              <HeroEq />
+              <hr className="sp-lcd-rule st-wide-only" />
+              <p className="sp-lcd-small st-wide-only flex flex-wrap gap-x-6">
+                <span>[SPACE] PLAY</span>
+                <span>[&#8593;&#8595;] MOVE</span>
+                <span>[L] LIKE</span>
+                <span>[/] SEARCH</span>
+              </p>
+            </div>
+          </div>
+          <nav aria-label="Sound types" className="sp-home-bank flex flex-col gap-3">
+            <span className="sp-label">Bank B &middot; Sounds</span>
+            <ul className="sp-pads sp-cols-3">
+              {types.map((t, i) => (
+                <li key={t.href} className="flex">
+                  <UiLink href={t.href} data-t={t.t} className="sp-pad flex-1">
+                    <span className="sp-pad-code flex w-full items-center justify-between">
+                      B0{i + 1}
+                      <span className="st-dot sp-type-led" aria-hidden="true" />
+                    </span>
+                    <span className="sp-pad-label">{t.name}</span>
+                  </UiLink>
+                </li>
+              ))}
+            </ul>
+            <div className="sp-grille st-wide-only min-h-10 flex-1" aria-hidden="true" />
+            <div className="sp-home-knobs st-wide-only" aria-hidden="true">
+              {[
+                ["Tempo", "-35deg", true],
+                ["Key", "20deg", false],
+                ["Vibe", "60deg", false],
+              ].map(([n, turn, hot]) => (
+                <span key={n as string} className="flex flex-col items-center gap-2">
+                  <span className="sp-knob" style={{ ["--sp-turn" as string]: turn, ...(hot ? { ["--sp-knob-mark" as string]: "var(--sp-hot)" } : {}) }} />
+                  <span className="sp-label">{n}</span>
+                </span>
+              ))}
+            </div>
+          </nav>
         </div>
       </section>
 
       <Page>
-        <section aria-labelledby="trending" className="-mt-6 flex flex-col gap-3">
+        <HomeFeed rows={rows} onChange={refresh} />
+
+        <section aria-labelledby="trending" className="flex flex-col gap-3">
           <div id="trending">
             <SectionHead title="Trending now" href="/loops" more="All loops" />
           </div>
@@ -449,7 +543,7 @@ function Home() {
                   type="button"
                   tabIndex={i >= GENRES.length ? -1 : undefined}
                   onClick={() => search(g)}
-                  className="st-hero-title st-ticker-item rounded-control border border-border px-5 py-2 text-title text-text-muted ui-hover:border-border-strong ui-hover:text-text"
+                  className="sp-key sp-key-pill whitespace-nowrap"
                 >
                   {g}
                 </button>
@@ -491,7 +585,7 @@ function Home() {
               return (
                 <li key={name} className="w-24 shrink-0 tablet:w-28">
                   <UiLink href={hrefForProducer(name) ?? (first ? songHref(first.song, first.artist) : "/presets")} className="group flex flex-col items-center gap-2 text-center">
-                    <span data-hue={hueOf(name)} className="st-avatar st-hero-title flex size-24 items-center justify-center rounded-full text-title tablet:size-28" aria-hidden="true">
+                    <span data-hue={hueOf(name)} className="st-avatar sp-avatar flex size-24 items-center justify-center rounded-full tablet:size-28" aria-hidden="true">
                       {initialsOf(name)}
                     </span>
                     <span className="w-full truncate text-body-strong text-text group-hover:underline">{name}</span>
@@ -509,9 +603,13 @@ function Home() {
           </section>
         )}
 
-        <section aria-labelledby="post" className="st-cta flex flex-col gap-4 rounded-panel p-6 tablet:flex-row tablet:items-center tablet:justify-between tablet:p-10">
+        <section aria-labelledby="post" className="sp-panel-dark sp-screws sp-home-cta flex flex-col gap-5 p-6 tablet:flex-row tablet:items-center tablet:justify-between tablet:p-10">
           <div className="flex flex-col gap-2">
-            <h2 id="post" className="st-hero-title text-display">Post a sound. Get followed.</h2>
+            <span className="sp-label sp-label-dark flex items-center gap-2">
+              <span className="sp-led" data-on="" aria-hidden="true" />
+              Rec
+            </span>
+            <h2 id="post" className="sp-home-cta-title">Post a sound. Get followed.</h2>
             <p className="max-w-prose text-body">Heard in one tap. Credited on every download.</p>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -519,8 +617,8 @@ function Home() {
               ["/upload", "Upload a loop"],
               ["/kit-upload", "Post a kit"],
               ["/one-shots", "Post one-shots"],
-            ].map(([href, label]) => (
-              <UiLink key={href} href={href!} className="inline-flex h-10 items-center rounded-control bg-bg px-4 text-body-strong text-text ui-hover:bg-raised">
+            ].map(([href, label], i) => (
+              <UiLink key={href} href={href!} className={i === 0 ? "sp-key sp-key-hot" : "sp-key"}>
                 {label}
               </UiLink>
             ))}
@@ -576,81 +674,303 @@ function LibraryRoute() {
   );
 }
 
-type SearchKind = "all" | "loops" | "midi" | "presets" | "sfx" | "kits" | "shots" | "producers" | "pages";
+type SearchKind = "all" | "songs" | "loops" | "midi" | "kits" | "shots" | "sfx" | "producers";
 let searchKind: SearchKind = "all";
 
-/** Strict matches (every word of the query found) first; close matches only when there are none. */
-function rankSmart<T>(list: T[], prof: (x: T) => Parameters<typeof match>[0], q: ReturnType<typeof useQuery>): { items: T[]; close: boolean } {
-  const scored = list
-    .map((x) => ({ x, hit: match(prof(x), q) }))
-    .filter((r): r is { x: T; hit: NonNullable<ReturnType<typeof match>> } => !!r.hit)
-    .sort((a, b) => b.hit.score - a.hit.score);
-  const full = scored.filter((r) => r.hit.all !== false);
-  return full.length ? { items: full.map((r) => r.x), close: false } : { items: scored.map((r) => r.x), close: scored.length > 0 };
+const SEARCH_KIND: Record<Exclude<SearchKind, "all">, string> = {
+  songs: "Songs",
+  loops: "Loops",
+  midi: "MIDI",
+  kits: "Drum kits",
+  shots: "One-shots",
+  sfx: "SFX",
+  producers: "Producers",
+};
+const KIND_ONE: Record<Exclude<SearchKind, "all">, string> = {
+  songs: "Song",
+  loops: "Loop",
+  midi: "MIDI",
+  kits: "Drum kit",
+  shots: "One-shot",
+  sfx: "SFX",
+  producers: "Producer",
+};
+
+/** The song index loads with the Samples catalog; search asks for it the first time it opens. */
+type SongData = typeof SongDataModule;
+let songData: SongData | null = null;
+/** `idle`: wait until the page has shown and the browser is free (the home page, on a phone). */
+function useSongData(when: "now" | "idle" = "now"): SongData | null {
+  const [d, setD] = useState(songData);
+  useEffect(() => {
+    if (d) return;
+    let live = true;
+    const load = () =>
+      void import("./song/data").then((m) => {
+        songData = m;
+        if (live) setD(m);
+      });
+    if (when === "now") load();
+    const idle = when === "idle" ? (window.requestIdleCallback?.(load, { timeout: 4000 }) ?? window.setTimeout(load, 2500)) : 0;
+    return () => {
+      live = false;
+      if (when === "idle") (window.cancelIdleCallback ?? window.clearTimeout)(idle);
+    };
+  }, [d, when]);
+  return d;
 }
 
-/** Producer pages that match a search: name and what they have here. */
-function ProducerPageHits({ list }: { list: ReturnType<typeof allProducers> }) {
-  return (
-    <ul aria-label="Producer page results" className="flex flex-col overflow-hidden rounded-panel border border-border bg-surface">
-      {list.map((p) => (
-        <li key={p.slug} className="flex min-h-14 items-center gap-3 border-b border-border px-3 py-2 last:border-b-0">
-          <UiLink href={producerPageHref(p)} className="flex min-w-0 flex-1 flex-col ui-hover:underline">
-            <span className="truncate text-body-strong text-text">{p.name}</span>
-            <span className="truncate text-small text-text-muted">{summaryOf(p)}</span>
-          </UiLink>
-        </li>
-      ))}
-    </ul>
-  );
+const songVibes = new Map<string, string>();
+// One fields list per song, kept, so the search splits each song into words once.
+const songFieldCache = new WeakMap<SongData["SONGS"][number], Field[]>();
+function songFields(s: SongData["SONGS"][number]): Field[] {
+  const had = songFieldCache.get(s);
+  if (had) return had;
+  const f = songFieldsOf(s);
+  songFieldCache.set(s, f);
+  return f;
+}
+function songFieldsOf(s: SongData["SONGS"][number]): Field[] {
+  let vibe = songVibes.get(s.key);
+  if (vibe === undefined) {
+    const lead = s.artist.split(/ feat\.? | featuring | ft\.? | with |,| & | x /i)[0] || s.artist;
+    const labels = vibeOf([lead, ...s.producers]);
+    for (const m of s.chords) if (m.song?.genre) labels.push(m.song.genre);
+    if (s.sample) for (const u of s.sample.samples) if (u.genre !== "Other") labels.push(u.genre);
+    vibe = vibeText([...new Set(labels)]);
+    songVibes.set(s.key, vibe);
+  }
+  return [
+    { text: s.song, weight: 4 },
+    { text: s.artist, weight: 3 },
+    { text: s.producers.join(" "), weight: 2 },
+    { text: s.preset ? s.preset.entries.map((e) => `${e.plugin} ${e.preset ?? ""} ${e.role}`).join(" ") : "", weight: 2 },
+    { text: `${s.album ?? ""} ${s.sample ? s.sample.samples.map((u) => `${u.title} ${u.artist}`).join(" ") : ""}`, weight: 1 },
+    { text: vibe, weight: 1 },
+  ];
 }
 
+/** What a song has on its page, under its name in the results. */
+function songHas(s: SongData["SONGS"][number]): string {
+  return [s.sample ? "Samples" : "", s.preset ? "Presets" : "", s.chords.length ? "Chords" : "", "Drum kit"].filter(Boolean).join(" · ");
+}
+
+/** `quiet`: shown only under its own kind's chip (a song's chords, which its song row already covers). */
+type Hit = { id: string; kind: Exclude<SearchKind, "all">; all: boolean; score: number; quiet?: boolean; row: (i: number) => ReactNode };
+
+const PAGE_SIZE = 30;
+
+/**
+ * Search results as one list: songs, loops, MIDI, kits, one-shots, sound effects and producers
+ * ranked together, every word landing first, each row saying what it is. Chips narrow it to one kind.
+ */
 function SearchResults() {
-  const [rows, refresh] = useRows();
+  const [rows] = useRows();
   const query = useSearchQuery();
   const parsed = useQuery(query);
   const midi = useMidiItems();
+  const kitList = useKits();
+  const songs = useSongData();
+  const engine = getEngine();
+  const status = usePlayerState((s) => s.status);
+  const currentId = usePlayerState((s) => s.current?.id ?? null);
+  const midiState = useMidiPlayer();
+  const sfxPlaying = usePlaying();
   const [kind, setKindState] = useState<SearchKind>(searchKind);
+  // "Show more" counts pages for this query and kind; a new search starts at one page.
+  const [paged, setPaged] = useState({ at: "", n: 1 });
+  const more = paged.at === `${kind}|${query}` ? paged.n : 1;
+  const setMore = (f: (n: number) => number) => setPaged({ at: `${kind}|${query}`, n: f(more) });
   const setKind = (k: SearchKind) => {
     searchKind = k;
     setKindState(k);
     window.scrollTo({ top: 0 });
   };
-  const loops = rankSmart(rows, (r) => loopProfile(r, catalog), parsed);
-  const mids = rankSmart(midi, midiProfile, parsed);
-  const other = useOtherHits(query);
-  const words = queryWords(query);
-  // How squarely a group's best result names what was typed: orders the groups, so "kick" leads with
-  // one-shots and "god's plan" with the song's chords.
-  const lead = (name: string | undefined) => (name ? (textMatch([{ text: name, weight: 1 }], words)?.score ?? 0) : 0);
-  const pages = useMemo(() => rank(allProducers(), (p) => [{ text: p.name, weight: 4 }], words), [query]); // eslint-disable-line react-hooks/exhaustive-deps
-  const groups: { id: Exclude<SearchKind, "all">; name: string; n: number; close: boolean; top: number; lead: number; render: (all: boolean) => ReactNode }[] = [
-    { id: "pages", name: "Producer pages", n: pages.items.length, close: pages.close, top: 4, lead: lead(pages.items[0]?.name), render: (all) => <ProducerPageHits list={pages.items.slice(0, all ? 200 : 4)} /> },
-    { id: "presets", name: "Presets", n: other.presets.items.length, close: other.presets.close, top: 5, lead: lead(other.presets.items[0] && `${other.presets.items[0].song} ${other.presets.items[0].artist}`), render: (all) => <PresetHits songs={other.presets.items.slice(0, all ? 200 : 5)} query={query} /> },
-    { id: "loops", name: "Loops", n: loops.items.length, close: loops.close, top: 5, lead: lead(loops.items[0] && `${loops.items[0].title} ${loops.items[0].owner.displayName}`), render: (all) => <LoopList label="Loop results" rows={loops.items.slice(0, all ? 200 : 5)} onChange={refresh} /> },
-    { id: "midi", name: "MIDI", n: mids.items.length, close: mids.close, top: 6, lead: lead(mids.items[0] && `${mids.items[0].title} ${mids.items[0].song?.artist ?? ""}`), render: (all) => <MidiList label="MIDI results" items={mids.items.slice(0, all ? 200 : 6)} /> },
-    { id: "sfx", name: "SFX", n: other.sfx.items.length, close: other.sfx.close, top: 5, lead: lead(other.sfx.items[0]?.name), render: (all) => <SfxHits list={other.sfx.items.slice(0, all ? 200 : 5)} /> },
-    { id: "kits", name: "Drum kits", n: other.kits.items.length, close: other.kits.close, top: 4, lead: lead(other.kits.items[0]?.name), render: (all) => <KitHits list={other.kits.items.slice(0, all ? 200 : 4)} /> },
-    { id: "shots", name: "One-shots", n: other.shots.items.length, close: other.shots.close, top: 6, lead: lead(other.shots.items[0]?.name), render: (all) => <ShotHits list={other.shots.items.slice(0, all ? 200 : 6)} /> },
-    { id: "producers", name: "Producers", n: other.producers.items.length, close: other.producers.close, top: 5, lead: lead(other.producers.items[0] && `${other.producers.items[0].displayName} ${other.producers.items[0].handle}`), render: (all) => <ProducerHits list={other.producers.items.slice(0, all ? 200 : 5)} /> },
-  ];
-  // Exact answers lead; groups that only have close matches go last.
-  const shown = groups.filter((g) => g.n > 0).sort((a, b) => Number(a.close) - Number(b.close) || b.lead - a.lead);
-  const active = kind === "all" ? null : (shown.find((g) => g.id === kind) ?? null);
-  const empty = query.trim() !== "" && shown.length === 0;
+  const vocab = useMemo(
+    () =>
+      vocabulary(
+        (function* () {
+          for (const s of songs?.SONGS ?? []) yield `${s.song} ${s.artist} ${s.producers.join(" ")}`;
+          for (const r of rows) yield `${r.title} ${r.tags.join(" ")}`;
+          for (const m of midi) yield `${m.title} ${m.tags.join(" ")}`;
+          for (const k of kitList) yield `${k.name} ${k.genre} ${k.inspiredBy ?? ""}`;
+          for (const x of SFX) yield x.name;
+          yield vibeText(["Dark", "Sad", "Happy", "Bouncy", "Hard", "Chill", "Dreamy", "Jazzy", "Dusty", "Piano", "Keys", "Bells", "Pad", "Strings", "Guitar", "Pluck", "Lead", "Synth", "808", "Drums", "Choir", "Flute", "Brass", "Chords", "Melody"]);
+        })(),
+      ),
+    // By size: the lists come back as new arrays on a render, and the words only change with them.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [songs, rows.length, midi.length, kitList.length],
+  );
+  const typed = queryWords(query);
+  const spelled = respell(typed, vocab);
+  const words = spelled.words;
+  const wordsKey = words.join(" ");
+
+  const hits = useMemo((): Hit[] => {
+    if (!words.length && parsed.empty) return [];
+    const out: Hit[] = [];
+    const text = (fields: Field[]) => textMatch(fields, words);
+    const push = (id: string, k: Hit["kind"], t: ReturnType<typeof textMatch>, extra: { all?: boolean; score?: number; bonus?: number; quiet?: boolean } | null, row: Hit["row"]) => {
+      if (!t && !extra) return;
+      // A loop or MIDI file that only fits the query's style ("carti" as a sound) ranks under things
+      // that name it outright: the artist's own songs, their page.
+      const score = (t ? t.score + (extra?.score ?? 0) / 3 : Math.min(extra?.score ?? 0, 2)) + (extra?.bonus ?? 0);
+      out.push({ id, kind: k, all: !!(t?.all || extra?.all), score, quiet: extra?.quiet, row });
+    };
+    // Songs: everything for one song on one page.
+    for (const s of songs?.SONGS ?? []) {
+      const t = text(songFields(s));
+      if (!t) continue;
+      const href = songs!.songAllHref(s);
+      // A song gathers everything for it, so it leads the things it gathers; an artist's name typed
+      // whole ("future") brings their own songs ahead of songs with the word in the title.
+      const byArtist = terms(s.artist.split(/ feat\.? | featuring | ft\.? | with |,| & | x /i)[0] || s.artist).join(" ") === wordsKey;
+      push(`song:${s.key}`, "songs", t, { bonus: byArtist ? 14 : 2 }, () => (
+        <>
+          <Cover song={s.song} artist={s.artist} size="sm" placeholder />
+          <UiLink href={href} className="flex min-w-0 flex-1 flex-col ui-hover:underline">
+            <span className="truncate text-body-strong text-text">{`${s.song} · ${s.artist}`}</span>
+            <span className="truncate text-small text-text-muted">{songHas(s)}</span>
+          </UiLink>
+        </>
+      ));
+    }
+    // Loops and MIDI read the query's tempo, key, genre and producer style too.
+    const loopHits = rows
+      .map((r) => ({ r, m: match(loopProfile(r, catalog), parsed) }))
+      .filter((x): x is { r: ItemRow; m: NonNullable<ReturnType<typeof match>> } => !!x.m);
+    const loopRows = loopHits.map((x) => x.r);
+    loopHits.forEach(({ r, m }, i) =>
+      push(`loop:${r.id}`, "loops", text([{ text: r.title, weight: 4 }, { text: r.owner.displayName, weight: 3 }, { text: r.tags.join(" "), weight: 1 }]), { all: m.all !== false, score: m.score * 3 }, () => (
+        <>
+          <PlayButton title={r.title} state={r.id !== currentId || status === "idle" ? "paused" : status} onPointerEnter={() => engine.preload(r.playable)} onClick={() => void nowPlaying().playFrom(engine, loopRows, i)} />
+          <UiLink href={r.href} className="flex min-w-0 flex-1 flex-col ui-hover:underline">
+            <span className="truncate text-body-strong text-text">{r.title}</span>
+            <span className="truncate text-small text-text-muted">{[r.owner.displayName, r.bpm ? `${r.bpm} BPM` : "", r.key ? formatKey(r.key) : ""].filter(Boolean).join(" · ")}</span>
+          </UiLink>
+        </>
+      )),
+    );
+    for (const mi of midi) {
+      const m = match(midiProfile(mi), parsed);
+      if (!m) continue;
+      const t = text([{ text: mi.title, weight: 4 }, { text: `${mi.song?.artist ?? ""} ${mi.owner.displayName}`, weight: 3 }, { text: mi.tags.join(" "), weight: 1 }]);
+      push(`midi:${mi.id}`, "midi", t, { all: m.all !== false, score: m.score * 3, quiet: !!(mi.song && songs) }, () => (
+        <>
+          <PlayButton
+            title={mi.title}
+            state={midiState.currentId === mi.id ? (midiState.status === "playing" ? "playing" : "paused") : "paused"}
+            onClick={() => midiPlayer().toggle(mi.id, mi.notes, mi.sound)}
+          />
+          <UiLink href={mi.href} className="flex min-w-0 flex-1 flex-col ui-hover:underline">
+            <span className="truncate text-body-strong text-text">{mi.title}</span>
+            <span className="truncate text-small text-text-muted">{[mi.song ? mi.song.artist : `@${mi.owner.handle}`, `${Math.round(mi.notes.bpm)} BPM`, mi.key ? formatKey(mi.key) : ""].filter(Boolean).join(" · ")}</span>
+          </UiLink>
+        </>
+      ));
+    }
+    for (const k of kitList) {
+      const vibe = vibeText([...vibeOf(k.inspiredBy ? [k.inspiredBy] : []), k.genre]);
+      const t = text([
+        { text: k.name, weight: 4 },
+        { text: `${k.inspiredBy ?? ""} ${k.owner.displayName} ${k.genre}`, weight: 3 },
+        { text: `${k.description} ${[...new Set(k.sounds.map((s) => labelOf(s.category)))].join(" ")} drums drum kit`, weight: 1 },
+        { text: vibe, weight: 1 },
+      ]);
+      push(`kit:${k.id}`, "kits", t, null, () => (
+        <>
+          <PlayButton title={`a preview of ${k.name}`} state="paused" onPointerEnter={() => warmSounds(k.sounds)} onClick={() => previewKit(k)} />
+          <UiLink href={`/kit/${k.id}`} className="flex min-w-0 flex-1 flex-col ui-hover:underline">
+            <span className="truncate text-body-strong text-text">{k.name}</span>
+            <span className="truncate text-small text-text-muted">{`${k.genre} · @${k.owner.handle}`}</span>
+          </UiLink>
+        </>
+      ));
+    }
+    for (const s of [...mineAsMelodic(), ...MELODIC]) {
+      const ins = instrumentOf(s.instrument);
+      const t = text([{ text: s.name, weight: 4 }, { text: `${ins.label} ${s.label} ${s.kind === "chord" ? "chord" : "note"}`, weight: 3 }, { text: `${s.spoken} ${ins.sound} one shot`, weight: 1 }]);
+      push(`shot:${s.id}`, "shots", t, null, () => (
+        <>
+          <PlayButton title={s.name} state="paused" onClick={() => void playShot(s)} />
+          <span className="flex min-w-0 flex-1 flex-col">
+            <span className="truncate text-body-strong text-text">{s.name}</span>
+            <span className="truncate text-small text-text-muted">{[ins.label, s.label, s.kind === "chord" ? "Chord" : "Note"].filter(Boolean).join(" · ")}</span>
+          </span>
+        </>
+      ));
+    }
+    for (const s of SFX) {
+      const t = text([{ text: s.name, weight: 4 }, { text: `${subName(s.cat, s.sub)} ${categoryName(s.cat)}`, weight: 2 }, { text: `${s.tags.join(" ")} sfx sound effect`, weight: 1 }]);
+      push(`sfx:${s.id}`, "sfx", t, null, () => (
+        <>
+          <PlayButton title={s.name} state={sfxPlaying.loading === s.id ? "loading" : sfxPlaying.id === s.id ? "playing" : "paused"} onClick={() => void playSfx(s)} />
+          <span className="flex min-w-0 flex-1 flex-col">
+            <span className="truncate text-body-strong text-text">{s.name}</span>
+            <span className="truncate text-small text-text-muted">{`${categoryName(s.cat)} · ${subName(s.cat, s.sub)} · ${s.duration.toFixed(1)} s`}</span>
+          </span>
+        </>
+      ));
+    }
+    for (const p of allProducers()) {
+      const t = text([{ text: p.name, weight: 4 }, { text: vibeText(vibeOf([p.name])), weight: 1 }]);
+      push(`page:${p.slug}`, "producers", t, null, () => (
+        <>
+          <Avatar name={p.name} src={null} size={32} />
+          <UiLink href={producerPageHref(p)} className="flex min-w-0 flex-1 flex-col ui-hover:underline">
+            <span className="truncate text-body-strong text-text">{p.name}</span>
+            <span className="truncate text-small text-text-muted">{summaryOf(p)}</span>
+          </UiLink>
+        </>
+      ));
+    }
+    for (const p of ALL_PRODUCERS) {
+      const t = text([{ text: p.displayName, weight: 4 }, { text: p.handle, weight: 4 }]);
+      push(`user:${p.id}`, "producers", t, null, () => (
+        <>
+          <Avatar name={p.displayName} src={null} size={32} />
+          <UiLink href={`/u/${p.handle}`} className="flex min-w-0 flex-1 flex-col ui-hover:underline">
+            <span className="truncate text-body-strong text-text">{p.displayName}</span>
+            <span className="truncate text-small text-text-muted">{`@${p.handle} · on Stash`}</span>
+          </UiLink>
+        </>
+      ));
+    }
+    // Every word landing first; then the stronger match. A song or producer named outright leads.
+    return out.sort((a, b) => Number(b.all) - Number(a.all) || b.score - a.score);
+    // The play states only change the rows' buttons, which read them when they render.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [wordsKey, parsed, rows, midi, kitList, songs]);
+
+  const strict = hits.filter((h) => h.all);
+  const pool = strict.length ? strict : hits;
+  const close = !strict.length && hits.length > 0;
+  const kinds = (Object.keys(SEARCH_KIND) as Exclude<SearchKind, "all">[]).filter((k) => pool.some((h) => h.kind === k));
+  const active = kind !== "all" && kinds.includes(kind) ? kind : null;
+  const list = active ? pool.filter((h) => h.kind === active) : pool.filter((h) => !h.quiet);
+  const shown = list.slice(0, PAGE_SIZE * more);
+  const empty = query.trim() !== "" && hits.length === 0 && !!songs;
+  void status;
+  void currentId;
   return (
     <Page>
-      <header className="flex flex-col gap-3">
-        <h1 className="text-title">{query.trim() ? `Results for “${query.trim()}”` : "Search"}</h1>
-        <SmartSearch value={query} onChange={setSearchQuery} examples={["dark piano 140", "omnisphere", "travis scott", "drill 140-145", "police siren", "c minor"]} />
-        {shown.length > 0 && (
+      <header className="flex flex-col gap-4">
+        <div className="sp-bezel">
+          <div className="sp-lcd flex flex-col gap-3">
+            <span className="sp-lcd-small">SEARCH &gt; EVERY BANK</span>
+            <h1 className="sp-lcd-title sp-search-title break-words">{query.trim() ? `Results for “${query.trim()}”` : "Search"}</h1>
+            <SmartSearch value={query} onChange={setSearchQuery} examples={["god's plan", "carti", "dark 808", "bouncy", "omnisphere", "drill 140-145"]} placeholder="Try a song, an artist or a vibe" />
+          </div>
+        </div>
+        {kinds.length > 1 && (
           <div role="group" aria-label="Show" className="flex flex-wrap gap-2">
             <FilterChip selected={!active} onToggle={() => setKind("all")}>
               All
             </FilterChip>
-            {shown.map((g) => (
-              <FilterChip key={g.id} selected={active?.id === g.id} onToggle={() => setKind(g.id)}>
-                {g.name}
+            {kinds.map((k) => (
+              <FilterChip key={k} selected={active === k} onToggle={() => setKind(k)}>
+                {SEARCH_KIND[k]}
               </FilterChip>
             ))}
           </div>
@@ -668,25 +988,26 @@ function SearchResults() {
         >
           Check the spelling or search fewer words, like “dark piano 140” or “carti type beat”.
         </EmptyState>
-      ) : active ? (
-        <section className="flex flex-col gap-3">
-          {active.close && <p className="text-small text-text-muted">No exact match. Closest:</p>}
-          {active.render(true)}
-        </section>
       ) : (
-        shown.map((g) => (
-          <section key={g.id} aria-label={g.name} className="flex flex-col gap-3">
-            <div className="flex items-baseline justify-between gap-2">
-              <h2 className="text-body-strong text-text">{g.close ? `${g.name} · close matches` : g.name}</h2>
-              {g.n > g.top && (
-                <Button size="sm" variant="ghost" onClick={() => setKind(g.id)}>
-                  See all
-                </Button>
-              )}
-            </div>
-            {g.render(false)}
-          </section>
-        ))
+        <section aria-label="Results" className="flex flex-col gap-3">
+          {spelled.changed && hits.length > 0 && <p className="text-small text-text-muted">{`Showing results for “${words.join(" ")}”`}</p>}
+          {close && <p className="text-small text-text-muted">No exact match. Closest:</p>}
+          {shown.length > 0 && (
+            <ul aria-label="Search results" className="overflow-hidden rounded-panel border border-border bg-surface">
+              {shown.map((h, i) => (
+                <li key={h.id} className="flex min-h-14 items-center gap-3 border-b border-border px-3 py-2 last:border-b-0">
+                  {h.row(i)}
+                  <span className="sp-tag">{KIND_ONE[h.kind]}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+          {list.length > shown.length && (
+            <Button variant="secondary" size="sm" className="self-center" onClick={() => setMore((n) => n + 1)}>
+              Show more
+            </Button>
+          )}
+        </section>
       )}
     </Page>
   );
@@ -1283,10 +1604,10 @@ function Route() {
   if (path === "/sfx") return <SfxPage />;
   if (path === "/sound-design") return <SoundDesign />;
   if (path === "/presets") return <PresetsPage />;
-  if (path.startsWith("/presets/"))
-    return <PresetSongPage key={path} slug={path.slice(9)} />;
+  if (path.startsWith("/song/")) return <SongRoute key={path} slug={path.slice(6)} />;
+  if (path.startsWith("/presets/")) return <PresetSongRoute key={path} slug={path.slice(9)} />;
   if (path === "/samples") return <SamplesPage />;
-  if (path.startsWith("/samples/")) return <SampleSongPage key={path} slug={path.slice(9)} />;
+  if (path.startsWith("/samples/")) return <SampleSongRoute key={path} slug={path.slice(9)} />;
   if (path.startsWith("/sampled/")) return <OriginalPage key={path} slug={path.slice(9)} />;
   if (path.startsWith("/samples-artist/")) return <SampleArtistPage key={path} slug={path.slice(16)} />;
   if (path.startsWith("/samples-producer/")) {
@@ -1327,13 +1648,37 @@ function Route() {
 }
 
 function App() {
+  useShortcuts();
   // Canvases (waveforms, the piano roll) read the theme when they mount: a new look remounts the page.
   const look = useLook();
   return (
     <LinkProvider component={HashLink}>
       <TooltipProvider>
         <ToastProvider viewport={false}>
-          <AppShell>
+          {/* The demo treats its visitor as signed in, so the bar shows them, not "Sign in". */}
+          <AppShell
+            viewer={{ handle: VIEWER.handle, name: VIEWER.displayName }}
+            account={
+              <UiLink href={`/u/${VIEWER.handle}`} aria-label={`Your profile, ${VIEWER.displayName}`} className="flex size-10 items-center justify-center rounded-full">
+                <Avatar name={VIEWER.displayName} src={null} size={32} />
+              </UiLink>
+            }
+            search={
+              look === "sampler" ? (
+                <div className="sp-topsearch sp-bezel hidden tablet:block">
+                  <form role="search" action="/search" className="sp-lcd sp-lcd-search">
+                    <label htmlFor="sp-q">SEARCH&gt;</label>
+                    <input id="sp-q" name="q" type="search" autoComplete="off" placeholder="carti, dark 808, in the style of metro" />
+                    <kbd aria-hidden="true">[ / ]</kbd>
+                  </form>
+                </div>
+              ) : (
+                <form role="search" action="/search" className="hidden min-w-0 flex-1 justify-center tablet:flex">
+                  <SearchInput name="q" size="sm" shortcut="/" hideLabel placeholder="Search songs, sounds, producers" className="w-full max-w-140" />
+                </form>
+              )
+            }
+          >
             <DemoTabs />
             <Suspense fallback={null}>
               <Route key={look} />
@@ -1356,6 +1701,9 @@ try {
   // Older Safari: nothing to set.
 }
 startRouter(catalog.hrefOf, (id) => midiItem(id)?.href ?? null);
+// Opened straight onto the Samples tab: start its chunk downloading now, while the shell boots,
+// rather than after the first render asks for it (request 137, item 3).
+if (/^\/(samples|sampled\/|samples-artist\/|samples-producer\/)/.test(currentPath())) void samplesPage();
 
 // Any app link that is not a packages/ui link (plain anchors) stays in the page.
 document.addEventListener("click", (e) => {

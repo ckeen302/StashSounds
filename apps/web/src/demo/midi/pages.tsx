@@ -47,6 +47,7 @@ import { follow as shareFollow, followerCount } from "../comments-store";
 import { Comments } from "../social";
 import { albumOf, Cover } from "../presets/cover";
 import { midiPlayer, TIMBRES, type MidiPlayerState, type Timbre } from "./synth";
+import { usePageKeys } from "../shortcuts";
 
 const player = midiPlayer();
 // One thing plays at a time: a MIDI item pauses the loop engine, and a loop pauses the MIDI.
@@ -360,6 +361,8 @@ export function MidiPage({ publicId }: { publicId: string }) {
   }, [item]);
 
   // Space plays and pauses; [ ] shift the key; - = nudge the tempo.
+  // The site-wide shortcuts stand aside for this page's own keys.
+  usePageKeys([" ", "[", "]", "-", "="]);
   useEffect(() => {
     if (!item) return;
     const onKey = (e: KeyboardEvent) => {
