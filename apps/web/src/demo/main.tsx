@@ -62,6 +62,8 @@ import { dialed, KNOB_KEYS, KNOB_TEMPOS, KNOB_VIBES } from "./live/dial";
 import { ClickToggle, startTactile } from "./live/tactile";
 import { startPhoneControls } from "./live/phone";
 import { pageChange } from "./live/transition";
+import { relaxations } from "./live/relax";
+import { BootScreen, NoSignal } from "./live/states";
 import { midiItem, VIEWER } from "./midi/catalog";
 import { MidiList, MidiPage, useMidiItems, useMidiPlayer } from "./midi/pages";
 import { midiPlayer } from "./midi/synth";
@@ -995,17 +997,9 @@ function SearchResults() {
         )}
       </header>
       {empty ? (
-        <EmptyState
-          icon={Search}
-          title="No match"
-          action={
-            <ButtonLink href="/loops" variant="secondary">
-              See every loop
-            </ButtonLink>
-          }
-        >
-          Check the spelling or search fewer words, like “dark piano 140” or “carti type beat”.
-        </EmptyState>
+        <NoSignal title={`Nothing for “${query.trim()}”`} tries={relaxations(query, 6).filter((t) => queryWords(t).every((w) => vocab.has(w) || /\d/.test(w))).slice(0, 4)} onTry={setSearchQuery} more={<LoopList label="Trending loops instead" rows={trending(rows).slice(0, 5)} onChange={() => undefined} />}>
+          Check the spelling or search fewer words. These usually land:
+        </NoSignal>
       ) : (
         <section aria-label="Results" className="flex flex-col gap-3">
           {spelled.changed && hits.length > 0 && <p className="text-small text-text-muted">{`Showing results for “${words.join(" ")}”`}</p>}
@@ -1433,7 +1427,7 @@ function App() {
             }
           >
             <DemoTabs />
-            <Suspense fallback={null}>
+            <Suspense fallback={<BootScreen />}>
               <Route key={look} />
             </Suspense>
             <NewCrateHost />

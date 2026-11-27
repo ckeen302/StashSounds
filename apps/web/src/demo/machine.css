@@ -221,3 +221,32 @@ html[data-slide="back"]::view-transition-new(sp-page) { animation-name: sp-mode-
 @keyframes sp-mode-out-back { to { transform: translateX(6%); opacity: 0; filter: brightness(1.2); } }
 @keyframes sp-mode-in-back { from { transform: translateX(-8%); opacity: 0; filter: brightness(1.25) contrast(1.1); } }
 @media (prefers-reduced-motion: reduce) { ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; } }
+
+/* Step 7: the screen booting while a page loads, and the screen with no signal when nothing matches. */
+.sp-boot { min-height: 60vh; display: flex; align-items: flex-start; }
+.sp-boot > .sp-bezel { width: 100%; }
+.sp-boot-screen { min-height: 148px; justify-content: center; }
+.sp-boot-line { display: flex; align-items: baseline; gap: 2px; }
+.sp-lcd-blink { animation: px-blink 1s steps(1) infinite; }
+.sp-boot-steps { display: grid; grid-template-columns: repeat(16, minmax(0, 1fr)); gap: 4px; max-width: 360px; }
+.sp-boot-steps > span { height: 8px; border-radius: 1.5px; background: var(--sp-lcd-edge); animation: sp-boot-step 1.12s steps(1) infinite; }
+@keyframes sp-boot-step { 0% { background: var(--sp-lcd-ink); } 20%, 100% { background: var(--sp-lcd-edge); } }
+
+.sp-nosignal { position: relative; overflow: hidden; isolation: isolate; }
+.sp-nosignal > :not(.sp-nosignal-noise) { position: relative; z-index: 1; }
+.sp-nosignal-noise { position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0.16;
+  background: repeating-linear-gradient(0deg, var(--sp-lcd-ink) 0 1px, transparent 1px 3px);
+  animation: sp-noise 2.4s steps(6) infinite; }
+@keyframes sp-noise { 0% { transform: translateY(0); } 100% { transform: translateY(-18px); } }
+.sp-nosignal .sp-nosignal-try { display: inline-flex; align-items: center; min-height: 36px; padding: 2px 10px; border: 0; border-radius: 4px; cursor: pointer;
+  background: var(--sp-lcd-ink); color: var(--sp-lcd); font-family: var(--sp-font-lcd); font-size: 20px; line-height: 1;
+  box-shadow: 0 2px 0 var(--sp-lcd-dim); transition: transform 70ms ease-out, box-shadow 70ms ease-out; }
+.sp-nosignal .sp-nosignal-try:hover { background: var(--sp-lcd-dim); }
+.sp-nosignal .sp-nosignal-try:active, .sp-nosignal .sp-nosignal-try[data-pressed] { transform: translateY(2px); box-shadow: 0 0 0 var(--sp-lcd-dim); }
+.sp-nosignal .sp-nosignal-try:focus-visible { outline: 2px solid var(--sp-lcd-ink); outline-offset: 2px; }
+.sp-nosignal .sp-nosignal-clear { background: transparent; color: var(--sp-lcd-ink); box-shadow: inset 0 0 0 2px var(--sp-lcd-ink); }
+.sp-nosignal .sp-nosignal-clear:hover { background: var(--sp-lcd-edge); }
+@media (prefers-reduced-motion: reduce) {
+  .sp-boot-steps > span, .sp-nosignal-noise, .sp-lcd-blink { animation: none; }
+  .sp-boot-steps > span { background: var(--sp-lcd-dim); }
+}

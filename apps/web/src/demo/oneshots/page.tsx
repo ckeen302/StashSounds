@@ -1,6 +1,8 @@
 import { DawDragZone } from "../daw-drag";
+import { wordsThatHit } from "../live/relax";
+import { NoSignal } from "../live/states";
 import { melodicSource } from "../daw-sources";
-import { Download, EmptyState, IconButton, PlayButton, Trash, Upload, useToast } from "@stash/ui";
+import { Download, IconButton, PlayButton, Trash, Upload, useToast } from "@stash/ui";
 import { BankHead, LcdSearch } from "../bank-head";
 import { KeysHero } from "../heroes/keys";
 import { Fragment, useEffect, useMemo, useRef, useState } from "react";
@@ -336,9 +338,23 @@ export function OneShotsPage() {
           </ul>
         </DawDragZone>
       ) : (
-        <EmptyState icon={Upload} title="Nothing matches">
+        <NoSignal
+          title={needle ? `Nothing for “${needle}”` : "Nothing in that key"}
+          tries={wordsThatHit(needle, (w) => all.some((s) => [s.name, s.label, s.spoken, instrumentOf(s.instrument).label].some((x) => x.toLowerCase().includes(w))))}
+          onTry={(t) => {
+            setQ(t);
+            reset();
+          }}
+          onClear={() => {
+            setQ("");
+            setRoot("all");
+            setKind("all");
+            setInst("all");
+            reset();
+          }}
+        >
           Try another key, clear the search, or drop your own one-shots on this page to post them.
-        </EmptyState>
+        </NoSignal>
       )}
 
       {problems.length > 0 && (

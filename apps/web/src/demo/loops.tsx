@@ -1,4 +1,6 @@
 import { DawDragZone } from "./daw-drag";
+import { relaxations } from "./live/relax";
+import { NoSignal } from "./live/states";
 import { loopSource } from "./daw-sources";
 import { getEngine, usePlayerState } from "@stash/audio";
 import type { ItemRow, MusicalKey } from "@stash/contracts";
@@ -618,16 +620,18 @@ export function LoopsPage({
         </ul>
         </DawDragZone>
       ) : (
-        <div className="sp-lcd flex flex-col items-start gap-3">
-          <p className="sp-lcd-small m-0">
-            {f.q.trim()
-              ? `Nothing here matches "${f.q.trim()}" yet. Try a sound, mood or tempo instead, like "dark piano 140", or clear the filters.`
-              : "No loops match all of that. Try another tempo or clear the filters."}
-          </p>
-          <Button size="sm" variant="secondary" onClick={() => update(DEFAULT)}>
-            Clear filters
-          </Button>
-        </div>
+        <NoSignal
+          title={f.q.trim() ? `Nothing for “${f.q.trim()}”` : "No loops match all of that"}
+          tries={f.q.trim() ? relaxations(f.q) : []}
+          onTry={(q) => update({ ...DEFAULT, q })}
+          more={
+            <Button size="sm" variant="secondary" className="self-start" onClick={() => update(DEFAULT)}>
+              Clear filters
+            </Button>
+          }
+        >
+          {f.q.trim() ? "Search fewer words, or try one of these." : "Try another tempo or clear the filters."}
+        </NoSignal>
       )}
 
       {pages > 1 && (

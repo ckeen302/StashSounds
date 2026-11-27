@@ -2,6 +2,8 @@ import { BankHead, LcdSearch } from "../bank-head";
 import { DrumPadsHero } from "../heroes/drum-pads";
 import { SigLed, signatureOf } from "../live/sig";
 import { sigVar } from "../live/signature";
+import { wordsThatHit } from "../live/relax";
+import { NoSignal } from "../live/states";
 import { DawDragZone } from "../daw-drag";
 import { kitSoundSource, shotSource } from "../daw-sources";
 import {
@@ -82,18 +84,31 @@ export async function saveKit(k: Kit, toast: ReturnType<typeof useToast>) {
 const SOUND_TYPES: Category[] = ["808", "kick", "snare", "clap", "hat", "open hat", "perc", "cymbal"];
 
 /** Single drum sounds of one type, from every kit and from posts of single sounds. */
-function DrumSounds({ type, needle }: { type: Category; needle: string }) {
+const shotText = (s: ReturnType<typeof allShots>[number]) => [s.name, s.kit?.name ?? "", (s.kit?.name ?? "").replace(/['’]/g, ""), s.owner.handle, s.genre];
+const kitText = (k: Kit) => [k.name, k.name.replace(/['’]/g, ""), k.owner.displayName, k.owner.handle, k.genre, ...k.sounds.map((s) => s.name)];
+const hasText = (texts: string[], needle: string) => texts.some((x) => x.toLowerCase().includes(needle));
+
+function DrumSounds({ type, needle, onSearch }: { type: Category; needle: string; onSearch: (q: string) => void }) {
   const toast = useToast();
   const all = useKits();
   const [talk, setTalk] = useState<string | null>(null);
-  const sounds = allShots(all).filter(
-    (s) => s.category === type && (!needle || [s.name, s.kit?.name ?? "", (s.kit?.name ?? "").replace(/['’]/g, ""), s.owner.handle, s.genre].some((x) => x.toLowerCase().includes(needle))),
-  );
+  const ofType = allShots(all).filter((s) => s.category === type);
+  const sounds = ofType.filter((s) => !needle || hasText(shotText(s), needle));
   if (sounds.length === 0)
     return (
-      <EmptyState icon={Upload} title="No sounds match" action={<ButtonLink href="/kit-upload" variant="secondary">Upload sounds</ButtonLink>}>
+      <NoSignal
+        title={`No ${CATEGORIES.find((c) => c.id === type)!.plural.toLowerCase()} for “${needle}”`}
+        tries={wordsThatHit(needle, (w) => ofType.some((s) => hasText(shotText(s), w)))}
+        onTry={onSearch}
+        onClear={() => onSearch("")}
+        more={
+          <ButtonLink href="/kit-upload" variant="secondary" size="sm" className="self-start">
+            Upload sounds
+          </ButtonLink>
+        }
+      >
         Clear the search, or post the first one.
-      </EmptyState>
+      </NoSignal>
     );
   return (
     <DawDragZone sources={sounds.map(shotSource)} className="overflow-hidden rounded-panel border border-border bg-surface">
@@ -216,9 +231,7 @@ export function KitsPage() {
   const [genre, setGenre] = useState("All");
   const [q, setQ] = useState("");
   const needle = q.trim().toLowerCase();
-  const shown = all.filter(
-    (k) => (genre === "All" || k.genre === genre) && (!needle || [k.name, k.name.replace(/['’]/g, ""), k.owner.displayName, k.owner.handle, k.genre, ...k.sounds.map((s) => s.name)].some((s) => s.toLowerCase().includes(needle))),
-  );
+  const shown = all.filter((k) => (genre === "All" || k.genre === genre) && (!needle || hasText(kitText(k), needle)));
   // Phones have no hover to warm a kit before its tap: fetch the first kits on screen now.
   const firstKits = shown.slice(0, 2);
   useEffect(() => {
@@ -267,12 +280,28 @@ export function KitsPage() {
         </div>
       </section>
 
-      {type !== "kits" ? <DrumSounds type={type} needle={needle} /> : null}
+      {type !== "kits" ? <DrumSounds type={type} needle={needle} onSearch={setQ} /> : null}
       <KitCards kits={shown} hidden={type !== "kits"} />
       {type === "kits" && shown.length === 0 && (
-        <EmptyState icon={Upload} title="No kits match" action={<ButtonLink href="/kit-upload" variant="secondary">Upload a kit</ButtonLink>}>
+        <NoSignal
+          title={needle ? `No kits for “${needle}”` : "No kits match"}
+          tries={wordsThatHit(needle, (w) => all.some((k) => hasText(kitText(k), w)))}
+          onTry={(t) => {
+            setGenre("All");
+            setQ(t);
+          }}
+          onClear={() => {
+            setGenre("All");
+            setQ("");
+          }}
+          more={
+            <ButtonLink href="/kit-upload" variant="secondary" size="sm" className="self-start">
+              Upload a kit
+            </ButtonLink>
+          }
+        >
           Clear the search, or post the first one.
-        </EmptyState>
+        </NoSignal>
       )}
     </main>
   );
