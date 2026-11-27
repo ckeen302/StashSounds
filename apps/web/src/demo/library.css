@@ -1,0 +1,131 @@
+/*
+ * The library pages in the Sampler look (Presets, Samples, Loops, MIDI, Drums, One-shots, Upload).
+ * Only compositions of the kit in sampler.css: every color is a --sp-* token, nothing new is drawn.
+ *
+ *   .lib-grid                 the card grid (3 across on desktop, 2 on tablet, 1 on a phone)
+ *   .lib-cart                 a cartridge card (on .sp-cart) laid out as a column
+ *   .lib-cart-title / -line   a cartridge's title and its first line, light on dark
+ *   .lib-sub                  a quieter line on a dark panel
+ *   .lib-label-dark           the stencil label, on a dark panel
+ *   .lib-cover                the album bezel inside a card (on .sp-cover)
+ *   .lib-strip                a small screen strip: part on the left, plugin and patch on the right
+ *   .lib-pad-chip             a pad used as a filter on a shelf (fixed width, short)
+ *   .lib-cable                the patch cable between a song and the record it samples
+ *   .lib-deck                 a dark deck that holds a pad bank inside a card
+ *   .lib-drop                 the upload drop zone: a big screen waiting for a file
+ */
+
+.lib-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 1023.98px) { .lib-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 639.98px) { .lib-grid { grid-template-columns: minmax(0, 1fr); gap: 14px; } }
+
+.lib-cart { gap: 14px; padding: 24px 16px 16px; }
+.lib-cart-title { font-family: var(--sp-font-ui); font-weight: 700; font-size: 17px; line-height: 1.2; letter-spacing: 0.04em; text-transform: uppercase; color: var(--sp-pad-text); overflow-wrap: anywhere; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.lib-cart-line { font-family: var(--sp-font-ui); font-weight: 700; font-size: 13px; line-height: 1.3; color: var(--sp-pad-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lib-sub { font-family: var(--sp-font-ui); font-size: 12px; line-height: 1.35; color: var(--sp-pad-sub); }
+.lib-label-dark { margin: 0; font-family: var(--sp-font-ui); font-size: 12px; line-height: 16px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--sp-peach); }
+
+.lib-cover { width: 104px; }
+@media (max-width: 639.98px) { .lib-cover { width: 88px; } }
+
+.lib-strip { list-style: none; display: flex; align-items: center; gap: 12px; padding: 8px 12px; border-radius: 6px; }
+.lib-strip-part { flex: none; min-width: 56px; padding: 2px 6px; border-radius: 3px; background: var(--sp-lcd-ink); color: var(--sp-lcd); font-family: var(--sp-font-lcd); font-size: 18px; line-height: 1; text-align: center; text-transform: uppercase; }
+.lib-strip .sp-lcd-text { font-size: 26px; line-height: 1; text-transform: uppercase; }
+.lib-strip .sp-lcd-small { font-size: 18px; }
+
+.lib-pad-chip { min-height: 64px; width: 132px; padding: 10px 12px; }
+.lib-pad-chip .sp-pad-label { font-size: 13px; }
+
+.lib-deck { background: var(--sp-dark); border-radius: 12px; padding: 10px; box-shadow: inset 0 2px 0 var(--sp-dark-hi); }
+
+.lib-cable { position: relative; display: flex; align-items: center; justify-content: center; flex: none; width: 44px; align-self: center; }
+.lib-cable::before { content: ""; position: absolute; left: -6px; right: -6px; top: 50%; height: 6px; margin-top: -3px; border-radius: 3px; background: var(--sp-hot); box-shadow: inset 0 -2px 0 var(--sp-hot-edge); }
+.lib-cable > span { position: relative; width: 16px; height: 16px; border-radius: 50%; background: var(--sp-dark); box-shadow: inset 0 0 0 4px var(--sp-pad-sub); }
+
+.lib-drop { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; min-height: 220px; text-align: center; cursor: pointer; }
+.lib-drop[data-over] { box-shadow: inset 0 0 0 4px var(--sp-lcd-ink); }
+
+/* Inside a dark cartridge the app's own text tokens read light, so @stash/ui pieces stay legible. */
+.lib-cart { --color-text: var(--sp-pad-text); --color-text-muted: var(--sp-pad-sub); }
+.lib-cart .sp-key { --color-text: var(--sp-ink); }
+
+/* A row of pads used as a selector; it scrolls sideways on a phone instead of wrapping. */
+.lib-shelf { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); }
+.lib-shelf .lib-pad-chip { width: auto; }
+@media (max-width: 639.98px) { .lib-shelf { display: flex; flex-wrap: nowrap; overflow-x: auto; margin-inline: -12px; padding: 4px 12px 8px; scrollbar-width: none; } .lib-shelf > * { flex: none; } .lib-shelf .lib-pad-chip { width: 120px; } }
+
+/* A kit's pads: four across at every size, short, so a card stays a card. */
+.lib-bank { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.lib-bank .sp-pad { min-height: 56px; padding: 8px; border-radius: 9px; }
+.lib-bank .sp-pad-label { font-size: 11px; letter-spacing: 0.02em; }
+.lib-bank .sp-pad-code { font-size: 10px; }
+.lib-bank .sp-pad:disabled { cursor: default; opacity: 0.35; transform: none; }
+.lib-bank .sp-pad:disabled:hover { background: var(--sp-pad); }
+.lib-bank .sp-pad:not(:disabled):active { background: var(--sp-hot); color: var(--sp-ink); }
+.lib-bank .sp-pad:not(:disabled):active .sp-pad-code { color: var(--sp-ink); }
+
+/* A rack of rows: the list sits in a recessed tray, each row a strip of the machine; the selected row is lit like the screen. */
+.lib-rack { border-radius: 14px; padding: 6px; background: var(--sp-panel-low); box-shadow: inset 0 3px 0 var(--sp-panel-low-edge); }
+.lib-rack > ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.lib-row { border-radius: 10px; background: var(--sp-panel); box-shadow: inset 0 2px 0 var(--sp-panel-hi), 0 1px 0 var(--sp-panel-edge); }
+.lib-row:hover { background: var(--sp-key); }
+.lib-row[data-selected] { background: var(--sp-lcd); box-shadow: inset 0 2px 0 var(--sp-lcd-edge), 0 1px 0 var(--sp-panel-edge); --color-text: var(--sp-lcd-ink); --color-text-muted: var(--sp-lcd-dim); --color-accent: var(--sp-lcd-ink); }
+.lib-row[data-selected] .os-wave rect { fill: var(--sp-lcd-ink); }
+.lib-chip-lcd { text-transform: uppercase; align-items: center; justify-content: center; min-width: 52px; height: 30px; padding: 0 8px; border-radius: 5px; background: var(--sp-dark); color: var(--sp-lcd); font-family: var(--sp-font-lcd); font-size: 22px; line-height: 1; box-shadow: inset 0 2px 0 var(--sp-dark-hi); }
+@media (max-width: 639.98px) { .lib-rack { margin-inline: -6px; padding: 4px; } }
+
+/* The key filter as a keyboard: naturals are light keys, sharps dark ones. */
+.lib-keys { display: flex; gap: 4px; overflow-x: auto; padding: 2px 2px 6px; scrollbar-width: none; }
+.lib-key { flex: none; min-width: 46px; padding: 0 8px; font-size: 14px; letter-spacing: 0; text-transform: none; }
+.lib-key.sp-key-dark { min-width: 42px; }
+.lib-key.sp-key-dark[aria-pressed="true"] { color: var(--sp-ink); }
+.lib-key-any { flex: none; margin-right: 6px; }
+.lib-head-actions .sp-key { white-space: nowrap; letter-spacing: 0.06em; }
+
+/* A recessed tray for filters and other controls that sit on the machine's own plastic. */
+.lib-tray { border-radius: 14px; padding: 16px; background: var(--sp-panel-low); box-shadow: inset 0 3px 0 var(--sp-panel-low-edge); }
+
+/* Loops: a stack of strips, each with its waveform on its own little screen; the one playing glows. */
+.lib-loops { list-style: none; margin: 0; padding: 6px; display: flex; flex-direction: column; gap: 6px; border-radius: 16px; background: var(--sp-panel-low); box-shadow: inset 0 3px 0 var(--sp-panel-low-edge); }
+.lib-loop { border-radius: 12px; background: var(--sp-panel); box-shadow: inset 0 2px 0 var(--sp-panel-hi), 0 2px 0 var(--sp-panel-edge); transition: box-shadow 160ms ease; }
+.lib-loop[data-playing] { box-shadow: inset 0 2px 0 var(--sp-panel-hi), 0 2px 0 var(--sp-hot-edge), 0 0 0 2px var(--sp-hot), 0 0 22px var(--sp-hot-glow); }
+.lib-wave { padding: 6px; border-radius: 10px; background: var(--sp-dark); box-shadow: inset 0 2px 0 var(--sp-dark-hi); }
+.lib-wave > * { border-radius: 5px; background: var(--sp-lcd); box-shadow: inset 0 2px 0 var(--sp-lcd-edge); --color-type-loop: var(--sp-lcd-ink); --color-text-muted: var(--sp-lcd-dim); --color-border: var(--sp-lcd-edge); --color-text: var(--sp-lcd-ink); --color-accent: var(--sp-lcd-ink); }
+@media (max-width: 639.98px) { .lib-loops { margin-inline: -6px; padding: 4px; } }
+
+/* Paging: a row of numbered keys; the page you're on is lit. */
+.lib-pager { display: flex; flex-wrap: wrap; gap: 6px; }
+.lib-pager .sp-key { min-width: 52px; padding: 0 12px; }
+/* The waveform is drawn on a canvas in the loop's type color; on the screen it reads as the screen's own ink. */
+.lib-wave canvas { filter: brightness(0); }
+@media (max-width: 639.98px) { .lib-pager { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; } .lib-pager .sp-key { flex: none; min-width: 46px; } }
+
+/* A sentence about a section, on the panel. */
+.lib-note { margin: 0; font-family: var(--sp-font-ui); font-size: 13px; line-height: 1.5; color: var(--sp-label); }
+
+/* Cartridges that are buttons (chord packs, progressions): the picked one lights its edge. */
+.lib-cart-btn { border: 0; cursor: pointer; align-items: flex-start; }
+.lib-cart-btn:focus-visible { outline: 3px solid var(--sp-ink); outline-offset: 2px; }
+.lib-cart-btn[aria-pressed="true"] { box-shadow: 0 3px 0 var(--sp-hot-edge), 0 0 0 3px var(--sp-hot), 0 0 22px var(--sp-hot-glow); }
+.lib-chip-lcd-lg { text-transform: none; height: 38px; font-size: 28px; padding: 0 10px; }
+
+/* MIDI rows: the column labels in stencil, and each mini piano roll drawn on its own small screen. */
+.lib-rack-head > span { font-family: var(--sp-font-ui); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--sp-label); }
+.lib-roll { padding: 3px; border-radius: 8px; background: var(--sp-dark); box-shadow: inset 0 2px 0 var(--sp-dark-hi); --color-bg: var(--sp-lcd); --color-surface: var(--sp-lcd); --color-raised: var(--sp-lcd-edge); --color-border: var(--sp-lcd-edge); --color-border-strong: var(--sp-lcd-dim); --color-text: var(--sp-lcd-ink); --color-text-muted: var(--sp-lcd-dim); --color-type-midi: var(--sp-lcd-dim); --color-accent: var(--sp-lcd-ink); }
+.lib-roll > * { border-radius: 5px; }
+
+/* Samples: the song and the record it samples, two covers patched together. */
+.lib-pair { display: flex; align-items: center; }
+.lib-cover-pair { flex: 1 1 0; min-width: 0; max-width: 150px; }
+.lib-pair > .lib-cable { flex: 1 0 28px; width: auto; max-width: 64px; }
+
+/* Ranked lists (records, artists, producers): rows in a tray, the place on a small screen. */
+.lib-rank { list-style: none; margin: 0; }
+.lib-rank > li > a { text-decoration: none; }
+.lib-cover-blank { display: flex !important; align-items: flex-end; padding: 8px; box-sizing: border-box; background: var(--sp-lcd); color: var(--sp-lcd-ink); font-family: var(--sp-font-lcd); font-size: 20px; line-height: 0.95; text-transform: uppercase; overflow-wrap: anywhere; }
+.lib-cover-blank > span { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+@media (max-width: 639.98px) { .lib-cover-pair { max-width: 120px; } }
+
+/* Upload: a checked file is a strip; a refused one has a hot edge. The post key is the big one. */
+.lib-report[data-rejected] { box-shadow: inset 0 2px 0 var(--sp-panel-hi), 0 2px 0 var(--sp-hot-edge), 0 0 0 2px var(--sp-hot-ink); }
+.lib-post { min-height: 56px; padding: 0 26px; font-size: 15px; }

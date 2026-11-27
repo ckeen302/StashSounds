@@ -1,3 +1,4 @@
+import { BankHead } from "../bank-head";
 import { limits } from "@stash/contracts";
 import {
   Button,
@@ -263,26 +264,46 @@ export function UploadHub() {
   };
 
   return (
-    <main className="mx-auto flex w-full max-w-prose flex-col gap-5 px-3 py-8 tablet:px-4">
-      <h1 className="text-title">Upload</h1>
+    <main className="mx-auto flex w-full max-w-prose flex-col gap-6 px-3 py-5 tablet:px-4">
+      <BankHead
+        kicker="LOAD · RENDER TO STASH"
+        title="Upload"
+        blurb={audio ? specOf(kind) : "Pick what you're posting, then load the file."}
+      />
 
-      <div className="flex flex-col gap-2">
-        <div role="radiogroup" aria-label="What are you posting?" className="flex flex-wrap gap-2">
-          {KINDS.map((k) => (
-            <FilterChip
-              key={k.id}
-              role="radio"
-              selected={kind === k.id}
-              onToggle={() => {
-                setKind(k.id);
-                setReports([]);
-              }}
-            >
-              {k.name}
-            </FilterChip>
-          ))}
+      <section aria-label="Steps" className="flex flex-col gap-2">
+        <div className="sp-steps" aria-hidden="true">
+          <span className="sp-step" data-on="" />
+          <span className="sp-step" data-on={reports.length > 0 || !audio ? "" : undefined} />
+          <span className="sp-step" data-on={accepted.length > 0 ? "" : undefined} />
+          <span className="sp-step" />
         </div>
-        {audio && <p className="text-small text-text-muted">{specOf(kind)}</p>}
+        <div className="grid grid-cols-4 gap-2 sp-label" aria-hidden="true">
+          <span>01 Pick</span>
+          <span>02 Load</span>
+          <span>03 Check</span>
+          <span>04 Post</span>
+        </div>
+      </section>
+
+      <div role="radiogroup" aria-label="What are you posting?" className="sp-pads sp-cols-4">
+        {KINDS.map((k, i) => (
+          <button
+            key={k.id}
+            type="button"
+            role="radio"
+            aria-checked={kind === k.id}
+            data-hot={kind === k.id || undefined}
+            className="sp-pad"
+            onClick={() => {
+              setKind(k.id);
+              setReports([]);
+            }}
+          >
+            <span className="sp-pad-code">{`L0${i + 1}`}</span>
+            <span className="sp-pad-label">{k.name}</span>
+          </button>
+        ))}
       </div>
 
       {kind === "midi" && <MidiUpload embedded />}
@@ -303,11 +324,12 @@ export function UploadHub() {
                 setOver(false);
                 void add([...e.dataTransfer.files]);
               }}
-              data-over={over || undefined}
-              className="flex flex-col items-center gap-3 rounded-panel border-2 border-dashed border-border-strong bg-surface p-6 text-center data-over:border-accent data-over:bg-raised"
+              className="sp-bezel"
             >
-              <p className="text-body-strong text-text">{checking ? "Checking…" : kind === "loop" ? "Drop your loop here" : "Drop your one-shots here"}</p>
-              <label className="cursor-pointer rounded-control border border-border-strong px-4 py-2 text-body-strong text-text ui-hover:border-text focus-within:outline-2 focus-within:outline-accent">
+              <div data-over={over || undefined} className="sp-lcd lib-drop">
+              <p className="sp-lcd-text m-0">{checking ? "CHECKING..." : <>INSERT FILE&gt; <span className="sp-lcd-blink">_</span></>}</p>
+              <p className="sp-lcd-small m-0">{kind === "loop" ? "Drop your loop here" : "Drop your one-shots here"}</p>
+              <label className="sp-key focus-within:outline-2 focus-within:outline-offset-2">
                 Choose file
                 <input
                   type="file"
@@ -320,19 +342,21 @@ export function UploadHub() {
                   }}
                 />
               </label>
+              </div>
             </section>
           )}
 
           {reports.length > 0 && (
             <section aria-label="Your file" className="flex flex-col gap-3">
               {kind === "oneshot" && accepted.length > 0 && (
-                <Button variant="primary" icon={Upload} onClick={() => void postHits()} className="self-start">
+                <button type="button" className="sp-key sp-key-hot lib-post self-start" onClick={() => void postHits()}>
+                  <Upload className="size-5" aria-hidden="true" />
                   {`Post ${accepted.length} ${accepted.length === 1 ? "one-shot" : "one-shots"}`}
-                </Button>
+                </button>
               )}
               <ul className="flex flex-col gap-3">
                 {reports.map((r) => (
-                  <li key={r.id} data-rejected={!r.accepted || undefined} className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-4 data-rejected:border-type-kit">
+                  <li key={r.id} data-rejected={!r.accepted || undefined} className="lib-loop lib-report flex flex-col gap-3 p-4">
                     <div className="flex items-center gap-3">
                       {r.accepted && r.data ? (
                         <PlayButton title={r.fileName} state="paused" onClick={() => void play({ name: r.fileName, category: "other", durationMs: r.durationMs, data: r.data! }, r.id)} />
@@ -354,10 +378,12 @@ export function UploadHub() {
 
           {kind === "loop" && mine.length > 0 && (
             <section aria-label="Your loops" className="flex flex-col gap-3">
-              <h2 className="text-body-strong text-text">Your loops</h2>
-              <ul className="overflow-hidden rounded-panel border border-border bg-surface">
+              <div className="sp-head">
+                <h2 className="sp-label">Your loops</h2>
+              </div>
+              <ul className="lib-loops">
                 {mine.map((l) => (
-                  <li key={l.id} className="flex min-h-16 items-center gap-3 border-b border-border px-3 py-2 last:border-b-0">
+                  <li key={l.id} className="lib-row flex min-h-16 items-center gap-3 px-3 py-2">
                     <PlayButton title={l.title} state="paused" onClick={() => void play(asSound(l))} />
                     <span className="min-w-0 flex-1">
                       <span className="block truncate text-body-strong text-text">{l.title}</span>
