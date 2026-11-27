@@ -327,18 +327,24 @@ export function FlipPanel({ row }: { row: ItemRow }) {
             <Button
               size="sm"
               variant="secondary"
+              // Nothing to shuffle when every step holds the same slice.
+              disabled={new Set(s.order).size < 2}
               onClick={() => {
-                const o = [...s.order];
-                for (let i = o.length - 1; i > 0; i--) {
-                  const j = Math.floor(Math.random() * (i + 1));
-                  [o[i], o[j]] = [o[j]!, o[i]!];
+                // A shuffle that lands on the same order would look like a dead button: shuffle again.
+                let o = [...s.order];
+                for (let tries = 0; tries < 8 && o.join() === s.order.join(); tries++) {
+                  o = [...s.order];
+                  for (let i = o.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [o[i], o[j]] = [o[j]!, o[i]!];
+                  }
                 }
                 update({ order: o });
               }}
             >
               Shuffle
             </Button>
-            <Button size="sm" variant="ghost" icon={RotateCcw} onClick={() => update({ order: initial(s.slices) })}>
+            <Button size="sm" variant="ghost" icon={RotateCcw} disabled={s.order.join() === initial(s.slices).join()} onClick={() => update({ order: initial(s.slices) })}>
               Back in order
             </Button>
           </div>
