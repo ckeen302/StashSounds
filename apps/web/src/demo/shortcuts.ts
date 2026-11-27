@@ -90,7 +90,7 @@ function run(s: Shortcut): boolean {
     case "search": {
       // The page's own search box (Loops, Search) first, then the one in the top bar.
       const all = [...document.querySelectorAll<HTMLInputElement>('input[type="search"]')].filter(visible);
-      const box = all.find((x) => !x.hasAttribute("aria-keyshortcuts")) ?? all[0];
+      const box = all.find((x) => !x.closest("header form[role=search]")) ?? all[0];
       if (box) {
         box.focus();
         box.select();

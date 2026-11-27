@@ -1643,8 +1643,11 @@ function App() {
                 <Avatar name={VIEWER.displayName} src={null} size={32} />
               </UiLink>
             }
-            searchHint="Search songs, sounds, producers"
-            searchKey="/"
+            search={
+              <form role="search" action="/search" className="hidden min-w-0 flex-1 justify-center tablet:flex">
+                <SearchInput name="q" size="sm" shortcut="/" hideLabel placeholder="Search songs, sounds, producers" className="w-full max-w-140" />
+              </form>
+            }
           >
             <DemoTabs />
             <Suspense fallback={null}>
