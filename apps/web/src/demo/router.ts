@@ -112,6 +112,11 @@ export function navigate(path: string, opts: { replace?: boolean } = {}) {
   emit();
 }
 
+/** The app path right now, outside React (read once the router has started). */
+export function currentPath(): string {
+  return current;
+}
+
 export function usePath(): string {
   return useSyncExternalStore(
     (l) => {
