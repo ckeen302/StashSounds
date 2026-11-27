@@ -78,7 +78,7 @@ function Wordmark() {
 }
 
 /** Tablet and desktop: the left rail. 232 px with labels on desktop, collapsible to 64; icons only on tablet. */
-function Rail({ pathname, viewer }: { pathname: string; viewer: ShellViewer | null }) {
+function Rail({ pathname, viewer }: { pathname: string; viewer?: ShellViewer | null }) {
   const collapsed = useCollapsed();
   const iconOnly = useIconOnly(collapsed);
   const toggle = () => writeCollapsed(!collapsed);
@@ -132,7 +132,7 @@ function Rail({ pathname, viewer }: { pathname: string; viewer: ShellViewer | nu
 }
 
 /** Phone: the bottom tab bar, 56 px, five destinations. */
-function TabBar({ pathname, viewer }: { pathname: string; viewer: ShellViewer | null }) {
+function TabBar({ pathname, viewer }: { pathname: string; viewer?: ShellViewer | null }) {
   return (
     <nav aria-label="Tabs" className="h-14 shrink-0 border-t border-border bg-bg tablet:hidden">
       <ul className="flex h-full">
@@ -200,11 +200,11 @@ function TopBar({ account, search }: { account: ReactNode; search: ReactNode }) 
  */
 /**
  * `viewer` points Profile at the signed-in person's page; `account` is what the top bar shows in
- * place of "Sign in" for them (their avatar link), passed in so pages without a viewer don't load it.
+ * place of "Sign in" (their avatar link), passed only with a viewer so other pages don't load it.
  */
 export function AppShell({
   children,
-  viewer = null,
+  viewer,
   account,
   search,
 }: {
@@ -230,7 +230,7 @@ export function AppShell({
       <div className="flex min-h-0 flex-1">
         <Rail pathname={pathname} viewer={viewer} />
         <div className="flex min-w-0 flex-1 flex-col">
-          <TopBar account={viewer ? account : undefined} search={search} />
+          <TopBar account={account} search={search} />
           <div className="relative min-h-0 flex-1">
             {/* After the skip link the content area shows the focus ring, drawn inside so nothing clips it. */}
             <div id="content" tabIndex={-1} className="h-full overflow-y-auto focus-visible:-outline-offset-2">

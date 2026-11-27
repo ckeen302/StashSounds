@@ -25,6 +25,6 @@ export function isCurrent(pathname: string, item: Pick<NavItem, "match">): boole
 export type ShellViewer = { handle: string; name: string };
 
 /** The destinations, with Profile pointing at the viewer's own page once someone is signed in. */
-export function itemsFor(viewer: ShellViewer | null): NavItem[] {
+export function itemsFor(viewer?: ShellViewer | null): NavItem[] {
   return viewer ? navItems.map((i) => (i.href === "/login" ? { ...i, href: `/u/${viewer.handle}` } : i)) : navItems;
 }
