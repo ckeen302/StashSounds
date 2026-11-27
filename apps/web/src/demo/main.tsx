@@ -36,7 +36,7 @@ import { buildCatalog, type Catalog } from "./data";
 import { formatKey, LICENSE_LABELS } from "@stash/contracts/format";
 import { HashLink } from "./hash-link";
 import { useProgressive } from "./progressive";
-import { navigate, startRouter, usePath } from "./router";
+import { currentPath, navigate, startRouter, usePath } from "./router";
 // The Samples tab's catalog is about a third of the demo's script: it loads on its own, after the
 // first paint (prefetched once the page is idle, at the bottom), so the rest of the demo starts without it.
 const samplesPage = () => import("./samples/page");
@@ -1425,6 +1425,9 @@ try {
   // Older Safari: nothing to set.
 }
 startRouter(catalog.hrefOf, (id) => midiItem(id)?.href ?? null);
+// Opened straight onto the Samples tab: start its chunk downloading now, while the shell boots,
+// rather than after the first render asks for it (request 137, item 3).
+if (/^\/(samples|sampled\/|samples-artist\/|samples-producer\/)/.test(currentPath())) void samplesPage();
 
 // Any app link that is not a packages/ui link (plain anchors) stays in the page.
 document.addEventListener("click", (e) => {
