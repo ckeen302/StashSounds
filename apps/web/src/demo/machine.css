@@ -1,0 +1,47 @@
+/*
+ * The machine comes alive (machine polish, steps 1 to 8). Composes the Sampler kit's --sp-* tokens
+ * from sampler.css; the few new tokens are declared here, at the top, and nowhere else.
+ */
+
+:root {
+  /* VU meter zones: green, then amber, then the one red light at the top. */
+  --sp-vu-hot: #e8b13a;
+  --sp-vu-peak: #e5432a;
+}
+
+/* ---------- 1. The machine reacts to sound ---------- */
+
+/* VU meters in the top panel, where the grille was. */
+html[data-look="sampler"] header.border-b::after { content: none; }
+.sp-monitor { order: 9; flex: none; align-items: center; gap: 8px; padding: 6px; border-radius: 10px; background: var(--sp-dark); box-shadow: inset 0 2px 0 var(--sp-dark-hi), 0 2px 0 var(--sp-panel-hi); }
+.sp-monitor-screen { display: block; width: 112px; height: 36px; border-radius: 5px; padding: 3px 4px; background: repeating-linear-gradient(0deg, rgb(0 0 0 / 0.05) 0 1px, transparent 1px 3px), var(--sp-lcd); box-shadow: inset 0 2px 0 rgb(0 0 0 / 0.18), inset 0 0 0 1px var(--sp-lcd-edge); }
+.sp-monitor-wave { display: block; width: 100%; height: 100%; }
+.sp-monitor .sp-vu { padding: 2px 4px 2px 0; background: none; box-shadow: none; }
+.sp-vu { flex: none; display: flex; flex-direction: column; justify-content: center; gap: 5px; padding: 7px 9px; border-radius: 8px; background: var(--sp-dark); box-shadow: inset 0 2px 0 var(--sp-dark-hi), 0 2px 0 var(--sp-panel-hi); }
+html[data-look="sampler"] header.border-b > :last-child { order: 10; }
+.sp-vu-row { display: flex; align-items: center; gap: 6px; }
+.sp-vu-ch { font-family: var(--sp-font-ui); font-size: 10px; line-height: 1; font-weight: 700; color: var(--sp-pad-sub); width: 8px; }
+.sp-vu-leds { display: flex; gap: 3px; }
+.sp-vu-led { width: 6px; height: 9px; border-radius: 1.5px; background: var(--sp-led-off); box-shadow: inset 0 1px 0 rgb(0 0 0 / 0.35); transition: background-color 90ms linear, box-shadow 90ms linear; }
+.sp-vu-led[data-on] { background: var(--sp-lcd); box-shadow: 0 0 6px var(--sp-lcd); }
+.sp-vu-led[data-on][data-zone="hot"] { background: var(--sp-vu-hot); box-shadow: 0 0 6px var(--sp-vu-hot); }
+.sp-vu-led[data-on][data-zone="peak"] { background: var(--sp-vu-peak); box-shadow: 0 0 8px var(--sp-vu-peak); }
+
+/* The scope on the transport's screen, at its right end, fading in from the title's side. */
+html[data-look="sampler"] section[aria-label="Player"] > .sp-player-scope {
+  position: absolute; top: 15px; bottom: 19px; right: calc(var(--sp-lcd-r) + 12px); width: min(34%, 340px); pointer-events: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 28%); mask-image: linear-gradient(90deg, transparent, #000 28%);
+}
+.sp-player-scope-wave { display: block; width: 100%; height: 100%; }
+html:not([data-look="sampler"]) .sp-player-scope { display: none; }
+/* While the transport plays a loop its screen shows that loop's waveform: the scope steps aside. It
+   shows when the pads, a chord or an SFX are sounding and the transport is on standby. */
+html[data-look="sampler"] section[aria-label="Player"]:not(:has(> p:not(.sr-only))) > .sp-player-scope { display: none; }
+/* The transport's own waveform, in screen ink rather than the loop colour. */
+html[data-look="sampler"] section[aria-label="Player"] canvas { filter: grayscale(1) brightness(0.32); }
+@media (max-width: 639.98px) {
+  html[data-look="sampler"] section[aria-label="Player"] > .sp-player-scope { top: 13px; bottom: 15px; width: 38%; opacity: 0.8; }
+}
+
+/* The home screen's equalizer: the real spectrum while anything sounds. */
+.st-eq[data-live] > span { animation: none; transition: transform 60ms linear; transform: scaleY(var(--live, 0.06)); }

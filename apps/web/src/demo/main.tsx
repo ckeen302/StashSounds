@@ -1,3 +1,5 @@
+// First: every AudioContext created after this is metered (the screens and pads react to sound).
+import "./live/install";
 import {
   lazy,
   StrictMode,
@@ -54,6 +56,7 @@ import { useCrates } from "./crates";
 import { useShortcuts } from "./shortcuts";
 import { loopPicks, newLoops, newSongs, songPicks, type FeedLoop, type FeedSong, type Signals } from "./feed";
 import { startLooks, useLook } from "./looks";
+import { BeatPulse, PlayerScope, Scope, useLiveBars, VuMeters } from "./live/live";
 import { midiItem, VIEWER } from "./midi/catalog";
 import { MidiList, MidiPage, useMidiItems, useMidiPlayer } from "./midi/pages";
 import { midiPlayer } from "./midi/synth";
@@ -347,8 +350,11 @@ const GENRES = ["Trap", "Drill", "Pluggnb", "Boom bap", "Rage", "Phonk", "Jersey
 const EQ = Array.from({ length: 48 }, (_, i) => 16 + Math.round(76 * Math.abs(Math.sin(i * 0.55) * Math.cos(i * 0.21))));
 function HeroEq() {
   const status = usePlayerState((s) => s.status);
+  const ref = useRef<HTMLDivElement>(null);
+  // While anything sounds (a loop, a pad, a chord), the bars are the real spectrum.
+  useLiveBars(ref);
   return (
-    <div className="st-eq" data-on={status === "playing" || undefined} aria-hidden="true">
+    <div ref={ref} className="st-eq" data-on={status === "playing" || undefined} aria-hidden="true">
       {EQ.map((h, i) => (
         <span key={i} style={{ ["--h" as string]: h, ["--d" as string]: `${(i % 7) * 90}ms` }} />
       ))}
@@ -1389,13 +1395,21 @@ function App() {
             }
             search={
               look === "sampler" ? (
+                <>
                 <div className="sp-topsearch sp-bezel hidden tablet:block">
                   <form role="search" action="/search" className="sp-lcd sp-lcd-search">
                     <label htmlFor="sp-q">SEARCH&gt;</label>
-                    <input id="sp-q" name="q" type="search" autoComplete="off" placeholder="carti, dark 808, in the style of metro" />
+                    <input id="sp-q" name="q" type="search" autoComplete="off" placeholder="carti, dark 808, like metro" />
                     <kbd aria-hidden="true">[ / ]</kbd>
                   </form>
                 </div>
+                <div className="sp-monitor hidden desktop:flex" aria-hidden="true">
+                  <span className="sp-monitor-screen">
+                    <Scope className="sp-monitor-wave" />
+                  </span>
+                  <VuMeters />
+                </div>
+                </>
               ) : (
                 <form role="search" action="/search" className="hidden min-w-0 flex-1 justify-center tablet:flex">
                   <SearchInput name="q" size="sm" shortcut="/" hideLabel placeholder="Search songs, sounds, producers" className="w-full max-w-140" />
@@ -1408,6 +1422,12 @@ function App() {
               <Route key={look} />
             </Suspense>
             <NewCrateHost />
+            {look === "sampler" && (
+              <>
+                <PlayerScope />
+                <BeatPulse />
+              </>
+            )}
           </AppShell>
         </ToastProvider>
       </TooltipProvider>
