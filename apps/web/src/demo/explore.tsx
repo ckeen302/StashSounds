@@ -17,7 +17,6 @@ import {
   Plus,
   SearchInput,
   Slider,
-  Stat,
   TextInput,
   Trash,
   UiLink,
@@ -271,13 +270,13 @@ export function BrowsePage({ catalog, rows, renderLoops, only }: { catalog: Cata
 
       {loops.length > 0 && (
         <section className="flex flex-col gap-3">
-          <h2 className="text-title">Loops</h2>
+          <div className="sp-head"><h2 className="sp-label">Loops</h2></div>
           {renderLoops("Loops", loops)}
         </section>
       )}
       {midi.length > 0 && (
         <section className="flex flex-col gap-3">
-          <h2 className="text-title">{`MIDI ${midi.length}`}</h2>
+          <div className="sp-head"><h2 className="sp-label">MIDI</h2></div>
           <MidiList label="MIDI" items={midi} />
         </section>
       )}
@@ -337,15 +336,41 @@ export function ProfilePage({ handle, catalog, rows, renderLoops, kits = null, k
 
   return (
     <main className="mx-auto flex w-full max-w-content flex-col gap-6 px-3 py-8 tablet:px-4 desktop:px-6">
-      <section aria-label="Producer" className="flex flex-col gap-4 rounded-panel border border-border bg-surface p-6">
-        <div className="flex flex-col gap-4 tablet:flex-row tablet:items-center tablet:justify-between">
-          <div className="flex items-center gap-4">
-            <Avatar name={p.displayName} src={null} size={64} />
-            <div className="flex min-w-0 flex-col">
-              <h1 className="truncate text-title">{p.displayName}</h1>
-              <span className="text-body text-text-muted">@{p.handle}</span>
-            </div>
+      <section aria-label="Producer" className="sp-profile">
+        <span className="sp-avatar sp-profile-face flex shrink-0 items-center justify-center rounded-full" aria-hidden="true">
+          {p.displayName
+            .split(/\s+/)
+            .slice(0, 2)
+            .map((w) => w[0]?.toUpperCase() ?? "")
+            .join("")}
+        </span>
+        <div className="sp-bezel min-w-0 flex-1">
+          <div className="sp-lcd flex flex-col gap-2">
+            <span className="sp-lcd-small">{`PRODUCER > @${p.handle.toUpperCase()}`}</span>
+            <h1 className="sp-lcd-title break-words">{p.displayName}</h1>
+            {(genres.length > 0 || bpms.length > 0) && (
+              <p className="sp-lcd-text sp-lcd-caps">
+                {[genres.length > 0 ? `Makes ${genres.join(", ")}` : "", bpms.length > 0 ? `${Math.min(...bpms)} to ${Math.max(...bpms)} BPM` : ""].filter(Boolean).join(" / ")}
+              </p>
+            )}
+            <hr className="sp-lcd-rule" />
+            <dl className="flex flex-wrap gap-x-8 gap-y-1">
+              {(
+                [
+                  ["Followers", p.followers + followerCount(p.id)],
+                  ["Downloads", downloads],
+                  ["Likes", likes],
+                ] as const
+              ).map(([k, v]) => (
+                <div key={k} className="flex items-baseline gap-2">
+                  <dt className="sp-lcd-small">{`${k.toUpperCase()}>`}</dt>
+                  <dd className="sp-lcd-text">{v.toLocaleString("en")}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
+        </div>
+        <div className="sp-profile-side flex flex-col gap-3">
           {own ? (
             <ButtonLink href="/upload" variant="primary" icon={Upload}>
               Post a MIDI file
@@ -355,36 +380,25 @@ export function ProfilePage({ handle, catalog, rows, renderLoops, kits = null, k
               {following ? "Following" : "Follow"}
             </Button>
           )}
+          <p className="text-small text-text-muted">{own ? "This is you in the demo. What you post stays in this browser." : p.handle === "stash" ? "Stash's own account: the loops, patterns and kits made for this demo. Counts start at zero." : "A producer posting their own sounds. Counts start at zero."}</p>
         </div>
-        <div className="grid grid-cols-2 gap-4 tablet:grid-cols-4">
-          <Stat label="Followers" value={p.followers + followerCount(p.id)} />
-          <Stat label="Sounds" value={all.length + kitCount} />
-          <Stat label="Downloads" value={downloads} />
-          <Stat label="Likes" value={likes} />
-        </div>
-        {(genres.length > 0 || bpms.length > 0) && (
-          <p className="text-small text-text-muted">
-            {[genres.length > 0 ? `Makes ${genres.join(", ")}` : "", bpms.length > 0 ? `${Math.min(...bpms)} to ${Math.max(...bpms)} BPM` : ""].filter(Boolean).join(" · ")}
-          </p>
-        )}
-        <p className="text-small text-text-muted">{own ? "This is you in the demo. What you post stays in this browser." : p.handle === "stash" ? "Stash's own account: the loops, patterns and kits made for this demo. Counts start at zero." : "A producer posting their own sounds. Counts start at zero."}</p>
       </section>
 
       {loops.length > 0 && (
         <section className="flex flex-col gap-3">
-          <h2 className="text-title">Loops</h2>
+          <div className="sp-head"><h2 className="sp-label">Loops</h2></div>
           {renderLoops(`Loops by ${p.displayName}`, loops)}
         </section>
       )}
       {midi.length > 0 && (
         <section className="flex flex-col gap-3">
-          <h2 className="text-title">{`MIDI ${midi.length}`}</h2>
+          <div className="sp-head"><h2 className="sp-label">MIDI</h2></div>
           <MidiList label={`MIDI by ${p.displayName}`} items={midi} />
         </section>
       )}
       {kitCount > 0 && (
         <section className="flex flex-col gap-3">
-          <h2 className="text-title">{`Drum kits ${kitCount}`}</h2>
+          <div className="sp-head"><h2 className="sp-label">Drum kits</h2></div>
           {kits}
         </section>
       )}
