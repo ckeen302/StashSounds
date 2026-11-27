@@ -58,7 +58,7 @@
 .lib-bank { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
 .lib-bank .sp-pad { min-height: 56px; padding: 8px; border-radius: 9px; }
 .lib-bank .sp-pad-label { font-size: 11px; letter-spacing: 0.02em; }
-.lib-bank .sp-pad-code { font-size: 10px; }
+.lib-bank .sp-pad-code { font-size: 11px; }
 .lib-bank .sp-pad:disabled { cursor: default; opacity: 0.35; transform: none; }
 .lib-bank .sp-pad:disabled:hover { background: var(--sp-pad); }
 .lib-bank .sp-pad:not(:disabled):active { background: var(--sp-hot); color: var(--sp-ink); }
@@ -110,7 +110,7 @@
 .lib-chip-lcd-lg { text-transform: none; height: 38px; font-size: 28px; padding: 0 10px; }
 
 /* MIDI rows: the column labels in stencil, and each mini piano roll drawn on its own small screen. */
-.lib-rack-head > span { font-family: var(--sp-font-ui); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--sp-label); }
+.lib-rack-head > span { font-family: var(--sp-font-ui); font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--sp-label); }
 .lib-roll { padding: 3px; border-radius: 8px; background: var(--sp-dark); box-shadow: inset 0 2px 0 var(--sp-dark-hi); --color-bg: var(--sp-lcd); --color-surface: var(--sp-lcd); --color-raised: var(--sp-lcd-edge); --color-border: var(--sp-lcd-edge); --color-border-strong: var(--sp-lcd-dim); --color-text: var(--sp-lcd-ink); --color-text-muted: var(--sp-lcd-dim); --color-type-midi: var(--sp-lcd-dim); --color-accent: var(--sp-lcd-ink); }
 .lib-roll > * { border-radius: 5px; }
 

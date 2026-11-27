@@ -45,7 +45,7 @@
   --sp-pad-lip: #9e978a;
   --sp-hot: #f26b2a;
   --sp-hot-edge: #b8461a;
-  --sp-hot-ink: #a8380f;
+  --sp-hot-ink: #8f2e0a;
   --sp-hot-glow: rgb(242 107 42 / 0.45);
   --sp-key: #e8e3d8;
   --sp-key-hover: #f2eee6;
@@ -166,7 +166,7 @@
 .sp-cover-md { width: 140px; }
 .sp-cover-lg { width: min(100%, 280px); padding: 10px; border-radius: 16px; }
 .sp-cover-lg::after { inset: 10px; }
-.sp-cover-label { display: block; margin-top: 6px; padding: 4px 8px; border-radius: 4px; background: var(--sp-key); color: var(--sp-ink); font-family: var(--sp-font-ui); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sp-cover-label { display: block; margin-top: 6px; padding: 4px 8px; border-radius: 4px; background: var(--sp-key); color: var(--sp-ink); font-family: var(--sp-font-ui); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 .sp-cart { position: relative; display: flex; flex-direction: column; gap: 6px; padding: 18px 16px 14px; border-radius: 6px 6px 14px 14px; background: var(--sp-dark); color: var(--sp-pad-text); text-decoration: none; box-shadow: 0 3px 0 var(--sp-panel-edge); font-family: var(--sp-font-ui); }
 .sp-cart::before { content: ""; position: absolute; top: 8px; left: 16px; right: 16px; height: 6px; background: repeating-linear-gradient(90deg, var(--sp-gold) 0 6px, transparent 6px 10px); }
@@ -190,11 +190,11 @@ html[data-look="sampler"] {
   --color-text: var(--sp-ink);
   --color-text-muted: #4a463e;
   --color-accent: var(--sp-hot);
-  --color-type-loop: #1f5f8b;
-  --color-type-oneshot: #9a4a12;
+  --color-type-loop: #18527c;
+  --color-type-oneshot: #7d3c0e;
   --color-type-kit: #a3173f;
   --color-type-midi: #5a37b0;
-  --color-type-preset: #0f6b52;
+  --color-type-preset: #0b5944;
   --font-sans: var(--sp-font-ui);
   --font-mono: var(--sp-font-ui);
   --font-display: var(--sp-font-mark);
@@ -317,7 +317,7 @@ html[data-look="sampler"] section[aria-label="Player"] [role="slider"] { --color
   html[data-look="sampler"] #root > div { padding-bottom: calc(70px + env(safe-area-inset-bottom)); }
   html[data-look="sampler"] header.border-b { margin-top: 0; min-height: 60px; padding: 10px 14px 8px; gap: 10px; border-radius: 0; background-image: none; box-shadow: none; }
   html[data-look="sampler"] header > a[aria-label="Stash"] > :last-child { font-size: 30px; }
-  html[data-look="sampler"] header > a[aria-label="Stash"]::after { content: "SP-1 POCKET"; font-size: 10px; letter-spacing: 2px; }
+  html[data-look="sampler"] header > a[aria-label="Stash"]::after { content: "SP-1 POCKET"; font-size: 11px; letter-spacing: 2px; }
   html[data-look="sampler"] nav[aria-label="Demo sections"] {
     position: fixed; top: auto; left: 0; right: 0; bottom: 0; z-index: 40; padding: 8px 0 calc(10px + env(safe-area-inset-bottom));
     background: var(--sp-panel-low); box-shadow: inset 0 3px 0 var(--sp-panel-low-edge);
@@ -326,7 +326,7 @@ html[data-look="sampler"] section[aria-label="Player"] [role="slider"] { --color
   html[data-look="sampler"] nav[aria-label="Demo sections"] ul { gap: 6px; padding: 2px; }
   html[data-look="sampler"] nav[aria-label="Demo sections"] li { flex: 0 0 auto; }
   html[data-look="sampler"] nav[aria-label="Demo sections"] ul a { height: 50px; min-width: 66px; padding: 6px 8px; font-size: 11px; letter-spacing: 0.04em; background: var(--sp-key); color: var(--sp-ink); box-shadow: inset 0 -3px 0 var(--sp-key-edge); }
-  html[data-look="sampler"] nav[aria-label="Demo sections"] ul a::before { color: var(--sp-label); font-size: 10px; }
+  html[data-look="sampler"] nav[aria-label="Demo sections"] ul a::before { color: var(--sp-label); font-size: 11px; }
   html[data-look="sampler"] nav[aria-label="Demo sections"] ul a:hover { background: var(--sp-key-hover); color: var(--sp-ink); }
   html[data-look="sampler"] nav[aria-label="Demo sections"] ul a[aria-current="page"] { box-shadow: inset 0 -3px 0 var(--sp-hot-edge); }
   html[data-look="sampler"] nav[aria-label="Demo sections"] > div > a { width: 50px; height: 50px; }
@@ -379,7 +379,7 @@ html[data-look="sampler"] .st-ticker-item { background: var(--sp-key); }
 .sp-panel-dark { --color-text: var(--sp-pad-text); --color-text-muted: var(--sp-pad-sub); --color-raised: var(--sp-pad-hover); --color-surface: var(--sp-dark-hi); --color-border: var(--sp-dark-hi); --color-border-strong: var(--sp-led-off); }
 .sp-lcd-caps { text-transform: uppercase; }
 .sp-lcd-caps a { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
-.sp-tag { flex: none; display: inline-flex; align-items: center; height: 24px; padding: 0 8px; border-radius: 4px; background: var(--sp-key); color: var(--sp-label); box-shadow: inset 0 -2px 0 var(--sp-key-edge); font-family: var(--sp-font-ui); font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+.sp-tag { flex: none; display: inline-flex; align-items: center; height: 24px; padding: 0 8px; border-radius: 4px; background: var(--sp-key); color: var(--sp-label); box-shadow: inset 0 -2px 0 var(--sp-key-edge); font-family: var(--sp-font-ui); font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
 
 /* Song page: the cover in its bezel beside the screen, the parts as a pad row. */
 html[data-look="sampler"] .sp-song-hero .st-song-backdrop,
