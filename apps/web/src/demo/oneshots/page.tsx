@@ -1,7 +1,10 @@
 import { DawDragZone } from "../daw-drag";
+import { wordsThatHit } from "../live/relax";
+import { NoSignal } from "../live/states";
 import { melodicSource } from "../daw-sources";
-import { Download, EmptyState, IconButton, PlayButton, Trash, Upload, useToast } from "@stash/ui";
+import { Download, IconButton, PlayButton, Trash, Upload, useToast } from "@stash/ui";
 import { BankHead, LcdSearch } from "../bank-head";
+import { KeysHero } from "../heroes/keys";
 import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { CrateMenu } from "../explore";
 import { CommentToggle, RowThread } from "../social";
@@ -196,6 +199,7 @@ export function OneShotsPage() {
       <BankHead
         kicker="ONE-SHOT BANK"
         title="One-shots"
+        hero={<KeysHero />}
         blurb="Single notes and chords from keys, bells, plucks, pads, leads, guitars and 808s, in all 12 keys. Drop them in your sampler and play a melody without a heavy synth."
         search={
           <LcdSearch
@@ -334,9 +338,23 @@ export function OneShotsPage() {
           </ul>
         </DawDragZone>
       ) : (
-        <EmptyState icon={Upload} title="Nothing matches">
+        <NoSignal
+          title={needle ? `Nothing for “${needle}”` : "Nothing in that key"}
+          tries={wordsThatHit(needle, (w) => all.some((s) => [s.name, s.label, s.spoken, instrumentOf(s.instrument).label].some((x) => x.toLowerCase().includes(w))))}
+          onTry={(t) => {
+            setQ(t);
+            reset();
+          }}
+          onClear={() => {
+            setQ("");
+            setRoot("all");
+            setKind("all");
+            setInst("all");
+            reset();
+          }}
+        >
           Try another key, clear the search, or drop your own one-shots on this page to post them.
-        </EmptyState>
+        </NoSignal>
       )}
 
       {problems.length > 0 && (
@@ -349,7 +367,7 @@ export function OneShotsPage() {
 
       <section aria-label="Post your one-shots" className="sp-bezel">
         <div data-over={over || undefined} className="sp-lcd lib-drop">
-        <p className="sp-lcd-text m-0">INSERT FILE&gt; <span className="sp-lcd-blink">_</span></p>
+        <p className="sp-lcd-text m-0">Drop one-shots to post them</p>
         <p className="sp-lcd-small m-0">Drop wav, mp3 or aiff one-shots anywhere on this page to post them.</p>
         <p className="sp-lcd-small m-0">Name them with the instrument and note, like Bell_F#4 or Rhodes Cm7, and they get sorted for you. Up to 8 MB and 15 seconds each. In the demo they stay in this browser. Drum hits go in a drum kit.</p>
         </div>

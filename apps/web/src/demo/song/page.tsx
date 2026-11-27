@@ -1,4 +1,5 @@
 import { useEffect, type ReactNode } from "react";
+import { Plate } from "../bank-head";
 import { Button, ButtonLink, Download, EmptyState, PlayButton, UiLink, useToast } from "@stash/ui";
 import { CrateMenu } from "../explore";
 import { ShareButton } from "../share";
@@ -81,22 +82,16 @@ export function SongPage({ song: s, back }: { song: SongAll | null; back?: { hre
               <span className="sp-cover-label">{s.year ? `Loaded \u00b7 ${s.year}` : "Loaded"}</span>
             </span>
             <div className="flex min-w-0 flex-1 flex-col gap-4">
-              <div className="sp-bezel">
-                <div className="sp-lcd flex flex-col gap-2">
-                  <span className="sp-lcd-small">SONG &gt; EVERYTHING ON ONE SCREEN</span>
-                  <h1 className="sp-lcd-title st-song-title text-balance break-words">{s.song}</h1>
-                  <p className="sp-lcd-text">{`BY ${s.artist.toUpperCase()}`}</p>
-                  <hr className="sp-lcd-rule" />
-                  <dl className="flex flex-wrap gap-x-8 gap-y-1">
-                    {facts.map(([k, v]) => (
-                      <div key={k} className="flex min-w-0 items-baseline gap-2">
-                        <dt className="sp-lcd-small">{`${k.toUpperCase()}>`}</dt>
-                        <dd className="sp-lcd-text sp-lcd-caps">{v}</dd>
-                      </div>
-                    ))}
-                  </dl>
-                </div>
-              </div>
+              <Plate kicker="Song · everything in one place" title={s.song} blurb={`By ${s.artist}`} big>
+                <dl className="sp-plate-facts">
+                  {facts.map(([k, v]) => (
+                    <div key={k}>
+                      <dt className="sp-label">{k}</dt>
+                      <dd>{v}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </Plate>
               <div className="flex flex-wrap gap-2">
                 <ExtLink href={listenHref(s.song, s.artist, s.video)} variant="primary">
                   {listenLabel(s.video)}

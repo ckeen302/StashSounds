@@ -4,6 +4,8 @@
 @import "@stash/ui/components.css";
 @import "./sampler.css";
 @import "./library.css";
+@import "./machine.css";
+@import "./stage.css";
 
 /*
  * Looks (demo only). Each one re-points the theme tokens, so every component and the piano roll

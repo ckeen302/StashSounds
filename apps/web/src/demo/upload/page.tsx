@@ -327,8 +327,8 @@ export function UploadHub() {
               className="sp-bezel"
             >
               <div data-over={over || undefined} className="sp-lcd lib-drop">
-              <p className="sp-lcd-text m-0">{checking ? "CHECKING..." : <>INSERT FILE&gt; <span className="sp-lcd-blink">_</span></>}</p>
-              <p className="sp-lcd-small m-0">{kind === "loop" ? "Drop your loop here" : "Drop your one-shots here"}</p>
+              <p className="sp-lcd-text m-0">{checking ? "Checking…" : "Drop a file to post it"}</p>
+              <p className="sp-lcd-small m-0">{kind === "loop" ? "WAV, AIFF, FLAC or MP3, or tap to choose" : "Drop your one-shots, or tap to choose"}</p>
               <label className="sp-key focus-within:outline-2 focus-within:outline-offset-2">
                 Choose file
                 <input

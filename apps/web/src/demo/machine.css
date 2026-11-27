@@ -1,0 +1,252 @@
+/*
+ * The machine comes alive (machine polish, steps 1 to 8). Composes the Sampler kit's --sp-* tokens
+ * from sampler.css; the few new tokens are declared here, at the top, and nowhere else.
+ */
+
+:root {
+  /* VU meter zones: green, then amber, then the one red light at the top. */
+  --sp-vu-hot: #e8b13a;
+  --sp-vu-peak: #e5432a;
+}
+
+/* ---------- 1. The machine reacts to sound ---------- */
+
+/* VU meters in the top panel, where the grille was. */
+html[data-look="sampler"] header.border-b::after { content: none; }
+.sp-monitor { order: 9; flex: none; align-items: center; gap: 8px; padding: 6px; border-radius: 10px; background: var(--sp-dark); box-shadow: inset 0 2px 0 var(--sp-dark-hi), 0 2px 0 var(--sp-panel-hi); }
+.sp-monitor-screen { display: block; width: 112px; height: 36px; border-radius: 5px; padding: 3px 4px; background: repeating-linear-gradient(0deg, rgb(0 0 0 / 0.05) 0 1px, transparent 1px 3px), var(--sp-lcd); box-shadow: inset 0 2px 0 rgb(0 0 0 / 0.18), inset 0 0 0 1px var(--sp-lcd-edge); }
+.sp-monitor-wave { display: block; width: 100%; height: 100%; }
+.sp-monitor .sp-vu { padding: 2px 4px 2px 0; background: none; box-shadow: none; }
+.sp-vu { flex: none; display: flex; flex-direction: column; justify-content: center; gap: 5px; padding: 7px 9px; border-radius: 8px; background: var(--sp-dark); box-shadow: inset 0 2px 0 var(--sp-dark-hi), 0 2px 0 var(--sp-panel-hi); }
+html[data-look="sampler"] header.border-b > :last-child { order: 10; }
+.sp-vu-row { display: flex; align-items: center; gap: 6px; }
+.sp-vu-ch { font-family: var(--sp-font-ui); font-size: 11px; line-height: 1; font-weight: 700; color: var(--sp-pad-sub); width: 8px; }
+.sp-vu-leds { display: flex; gap: 3px; }
+.sp-vu-led { width: 6px; height: 9px; border-radius: 1.5px; background: var(--sp-led-off); box-shadow: inset 0 1px 0 rgb(0 0 0 / 0.35); transition: background-color 90ms linear, box-shadow 90ms linear; }
+.sp-vu-led[data-on] { background: var(--sp-lcd); box-shadow: 0 0 6px var(--sp-lcd); }
+.sp-vu-led[data-on][data-zone="hot"] { background: var(--sp-vu-hot); box-shadow: 0 0 6px var(--sp-vu-hot); }
+.sp-vu-led[data-on][data-zone="peak"] { background: var(--sp-vu-peak); box-shadow: 0 0 8px var(--sp-vu-peak); }
+
+/* The scope on the transport's screen, at its right end, fading in from the title's side. */
+html[data-look="sampler"] section[aria-label="Player"] > .sp-player-scope {
+  position: absolute; top: 15px; bottom: 19px; right: calc(var(--sp-lcd-r) + 12px); width: min(34%, 340px); pointer-events: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 28%); mask-image: linear-gradient(90deg, transparent, #000 28%);
+}
+.sp-player-scope-wave { display: block; width: 100%; height: 100%; }
+html:not([data-look="sampler"]) .sp-player-scope { display: none; }
+/* While the transport plays a loop its screen shows that loop's waveform: the scope steps aside. It
+   shows when the pads, a chord or an SFX are sounding and the transport is on standby. */
+html[data-look="sampler"] section[aria-label="Player"]:not(:has(> p:not(.sr-only))) > .sp-player-scope { display: none; }
+/* The transport's own waveform, in screen ink rather than the loop colour. */
+html[data-look="sampler"] section[aria-label="Player"] canvas { filter: grayscale(1) brightness(0.32); }
+@media (max-width: 639.98px) {
+  html[data-look="sampler"] section[aria-label="Player"] > .sp-player-scope { top: 13px; bottom: 15px; width: 38%; opacity: 0.8; }
+  html[data-look="sampler"] section[aria-label="Player"] > p:not(.sr-only)::before { content: none; }
+}
+
+/* The home screen's equalizer: the real spectrum while anything sounds. */
+.st-eq[data-live] > span { animation: none; transition: transform 60ms linear; transform: scaleY(var(--live, 0.06)); }
+
+/* ---------- 2. Tactile feedback ---------- */
+
+/* A press shows for at least a beat, even on a quick tap (data-pressed is set on pointer down). */
+.sp-pad[data-pressed] { transform: translateY(2px); box-shadow: inset 0 -2px 0 var(--sp-pad-edge), 0 0 0 var(--sp-pad-lip); }
+.sp-pad:is([data-hot], [aria-pressed="true"], [aria-current="page"], [data-playing])[data-pressed] { box-shadow: inset 0 -2px 0 var(--sp-hot-edge), 0 0 0 var(--sp-pad-lip), 0 0 24px var(--sp-hot-glow); }
+.sp-key[data-pressed] { transform: translateY(2px); box-shadow: inset 0 -1px 0 var(--sp-key-edge); }
+.sp-cart[data-pressed] { transform: translateY(2px); box-shadow: 0 1px 0 var(--sp-panel-edge); }
+html[data-look="sampler"] nav[aria-label="Demo sections"] ul a[data-pressed] { transform: translateY(3px); box-shadow: inset 0 -1px 0 var(--sp-pad-edge), 0 0 0 var(--sp-pad-lip); }
+html[data-look="sampler"] nav[aria-label="Demo sections"] ul a[aria-current="page"][data-pressed] { box-shadow: inset 0 -1px 0 var(--sp-hot-edge), 0 0 24px var(--sp-hot-glow); }
+html[data-look="sampler"] :is(button, [role="button"]):not(.sp-pad, .sp-key, :disabled) { transition: transform 70ms ease, box-shadow 70ms ease, background-color 120ms ease; }
+html[data-look="sampler"] :is(button, [role="button"]):not(.sp-pad, .sp-key, :disabled)[data-pressed] { transform: translateY(2px); }
+html[data-look="sampler"] button[data-play-state][data-pressed] { box-shadow: inset 0 -1px 0 var(--sp-hot-edge), 0 0 0 var(--sp-panel-edge); }
+html[data-look="sampler"] section[aria-label="Player"] button:not([data-play-state], [aria-label="Open player"])[data-pressed] { box-shadow: inset 0 -1px 0 var(--sp-key-edge); }
+@media (prefers-reduced-motion: reduce) { [data-pressed] { transform: none !important; } }
+
+/* Knobs that turn: a grip ring, a focus ring, the value on a small screen under it. */
+.sp-knob-wrap { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.sp-knob-live { cursor: grab; touch-action: none; transition: box-shadow 120ms ease; }
+.sp-knob-live::after { transition: transform 90ms cubic-bezier(.3,1.4,.5,1); }
+.sp-knob-live::before { content: ""; position: absolute; inset: -7px; border-radius: 50%; background: repeating-conic-gradient(from -135deg, var(--sp-panel-edge) 0 2deg, transparent 2deg 15deg); -webkit-mask: radial-gradient(circle, transparent 31px, #000 32px); mask: radial-gradient(circle, transparent 31px, #000 32px); clip-path: polygon(50% 50%, 0 100%, 0 0, 100% 0, 100% 100%); }
+.sp-knob-live:hover { box-shadow: 0 3px 0 var(--sp-panel-edge), inset 0 0 0 3px var(--sp-dark), 0 0 0 2px var(--sp-key-edge); }
+.sp-knob-live[data-turning] { cursor: grabbing; box-shadow: 0 2px 0 var(--sp-panel-edge), inset 0 0 0 3px var(--sp-dark), 0 0 14px var(--sp-hot-glow); }
+.sp-knob-live:focus-visible { outline: 3px solid var(--sp-ink); outline-offset: 9px; }
+.sp-knob-value { min-width: 64px; padding: 1px 6px; border-radius: 4px; text-align: center; font-family: var(--sp-font-lcd); font-size: 18px; line-height: 1.1; color: var(--sp-lcd-ink); background: var(--sp-lcd); box-shadow: inset 0 2px 0 rgb(0 0 0 / 0.16), inset 0 0 0 1px var(--sp-lcd-edge); }
+
+/* The CLK key: the machine's clicks, with its LED. */
+.sp-clk { order: 9; flex: none; display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 10px; border: 0; border-radius: 8px; cursor: pointer; font-family: var(--sp-font-ui); font-size: 12px; font-weight: 700; letter-spacing: 0.12em; color: var(--sp-ink); background: var(--sp-key); box-shadow: inset 0 -3px 0 var(--sp-key-edge), 0 1px 0 var(--sp-panel-edge); }
+.sp-clk:hover { background: var(--sp-key-hover); }
+.sp-clk:focus-visible { outline: 3px solid var(--sp-ink); outline-offset: 2px; }
+html:not([data-look="sampler"]) .sp-clk { display: none; }
+@media (max-width: 639.98px) { .sp-clk { height: 40px; } }
+
+/* ---------- 3. One hero moment per page ---------- */
+
+/* The bank header with a hero: the screen and the instrument side by side, the actions under the screen. */
+.sp-hero { display: grid; gap: 14px; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 1024px) {
+  .sp-hero { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); grid-template-areas: "screen stage" "actions stage"; grid-template-rows: 1fr auto; gap: 14px 22px; align-items: stretch; }
+  .sp-hero-screen { grid-area: screen; }
+  .sp-hero-stage { grid-area: stage; }
+  .sp-hero-actions { grid-area: actions; }
+}
+.sp-hero-title { font-size: clamp(46px, 6.6vw, 92px); line-height: 0.88; }
+.sp-hero-actions:empty { display: none; }
+.sp-hero-deck { height: 100%; }
+.sp-hero-readout { padding: 6px 12px; font-size: 22px; line-height: 1.15; min-height: 38px; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sp-hero-name { font-family: var(--sp-font-mark); font-weight: 800; font-size: clamp(22px, 2.4vw, 30px); line-height: 1.05; letter-spacing: -0.02em; color: var(--sp-pad-text); text-decoration: none; }
+a.sp-hero-name:hover { text-decoration: underline; }
+.sp-hero-play { width: 64px; height: 64px; min-height: 64px; padding: 0; flex: none; border-radius: 14px; font-size: 22px; }
+.sp-hero-kbd { font: inherit; font-size: 12px; padding: 0 4px; border-radius: 3px; box-shadow: inset 0 0 0 1px var(--sp-pad-sub); }
+@media (hover: none) { .sp-hero-kbd { display: none; } }
+
+/* Pads: four by four (or four by two for the FX rack), big enough to drum on with a thumb. */
+.sp-hero-pads { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; flex: 1; }
+.sp-hero-pad { min-height: clamp(68px, 7.2vw, 96px); touch-action: manipulation; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+.sp-hero-pads-8 .sp-hero-pad { min-height: clamp(84px, 9vw, 124px); }
+.sp-hero-pad::after { content: ""; position: absolute; top: 12px; right: 12px; width: 7px; height: 7px; border-radius: 50%; background: var(--sp-led-off); }
+.sp-hero-pad:has(.sp-hero-kbd)::after { top: auto; bottom: 12px; }
+.sp-hero-pad[data-cat="kick"]::after, .sp-hero-pad[data-cat="808"]::after { background: var(--sp-hot); box-shadow: 0 0 6px var(--sp-hot); }
+.sp-hero-pad:is([data-cat="snare"], [data-cat="clap"])::after { background: var(--sp-gold); box-shadow: 0 0 6px var(--sp-gold); }
+.sp-hero-pad:is([data-cat="hat"], [data-cat="open hat"], [data-cat="cymbal"])::after { background: var(--sp-lcd); box-shadow: 0 0 6px var(--sp-lcd); }
+.sp-hero-pad:is([data-cat="perc"], [data-cat="fx"], [data-cat="vox"])::after { background: var(--sp-peach); box-shadow: 0 0 6px var(--sp-peach); }
+.sp-hero-pads-8 .sp-hero-pad::after { background: var(--sp-hot); box-shadow: 0 0 6px var(--sp-hot); }
+.sp-hero-pad:active { background: var(--sp-hot); color: var(--sp-ink); }
+.sp-hero-pad:active :is(.sp-pad-code, .sp-pad-meta) { color: var(--sp-ink); }
+@media (max-width: 639.98px) { .sp-hero-pads { gap: 8px; } .sp-hero-pad { padding: 8px; } .sp-hero-pad .sp-pad-label { font-size: 12px; } }
+
+/* The keyboard: one octave, white keys on the panel's plastic, black keys on the bench's dark. */
+.sp-hero-keys { position: relative; display: grid; grid-template-columns: repeat(14, minmax(0, 1fr)); grid-template-rows: 1fr; height: clamp(150px, 16vw, 210px); padding: 8px 8px 10px; border-radius: 10px; background: var(--sp-dark); box-shadow: inset 0 2px 0 var(--sp-dark-hi); flex: 1 0 auto; }
+.sp-hero-keys > button { grid-row: 1; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 10px; border: 0; cursor: pointer; font-family: var(--sp-font-ui); font-size: 12px; font-weight: 700; touch-action: manipulation; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+.sp-hero-white { margin: 0 2px; border-radius: 0 0 8px 8px; color: var(--sp-label); background: linear-gradient(180deg, var(--sp-panel-low), var(--sp-key) 18%); box-shadow: inset 0 -6px 0 var(--sp-key-edge), 0 2px 0 var(--sp-panel-edge); }
+.sp-hero-white:active, .sp-hero-white[data-pressed] { box-shadow: inset 0 -2px 0 var(--sp-key-edge); background: var(--sp-key-hover); }
+.sp-hero-black { z-index: 1; align-self: start; height: 60%; margin: 0 22%; border-radius: 0 0 6px 6px; color: var(--sp-pad-sub); background: linear-gradient(180deg, var(--sp-dark), var(--sp-pad)); box-shadow: inset 0 -5px 0 var(--sp-pad-edge), 0 3px 4px rgb(0 0 0 / 0.5); }
+.sp-hero-black:active, .sp-hero-black[data-pressed] { box-shadow: inset 0 -1px 0 var(--sp-pad-edge); background: var(--sp-hot); color: var(--sp-ink); }
+.sp-hero-keys > button:focus-visible { outline: 3px solid var(--sp-hot); outline-offset: -3px; }
+@media (hover: none) { .sp-hero-keys > button > span { visibility: hidden; } }
+
+/* The loop deck: a tall spectrum screen, then the loop, then its numbers as readouts. */
+.sp-hero-spectrum { height: clamp(110px, 12vw, 170px); padding: 10px 12px; }
+.sp-hero-readouts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 0; }
+.sp-hero-readouts > div { padding: 6px 10px; border-radius: 6px; background: var(--sp-lcd); box-shadow: inset 0 2px 0 rgb(0 0 0 / 0.16), inset 0 0 0 1px var(--sp-lcd-edge); color: var(--sp-lcd-ink); }
+.sp-hero-readouts dt { font-family: var(--sp-font-ui); font-size: 12px; font-weight: 700; letter-spacing: 0.14em; color: var(--sp-lcd-dim); }
+.sp-hero-readouts dd { margin: 0; font-family: var(--sp-font-lcd); font-size: clamp(28px, 3vw, 40px); line-height: 1; }
+
+/* The MIDI roll on the hero deck. */
+.sp-hero-roll { flex: 1; min-height: 180px; border-radius: 8px; overflow: hidden; }
+
+/* The cartridge of the day. */
+.sp-hero-cart { display: grid; grid-template-columns: minmax(0, 200px) minmax(0, 1fr); align-items: center; gap: 20px; height: 100%; padding: 30px 22px 22px; }
+.sp-hero-cart-cover { display: block; padding: 8px; border-radius: 10px; background: var(--sp-dark-hi); box-shadow: inset 0 2px 0 var(--sp-pad); }
+.sp-hero-patches { padding: 8px 12px; font-size: 19px; line-height: 1.2; }
+@media (max-width: 639.98px) { .sp-hero-cart { grid-template-columns: 112px minmax(0, 1fr); gap: 14px; padding: 26px 14px 14px; } .sp-hero-patches { font-size: 16px; } }
+/* Dark plastic re-points the text tokens, cartridges included. */
+.sp-cart { --color-text: var(--sp-pad-text); --color-text-muted: var(--sp-pad-sub); }
+/* The roll is drawn on a screen: its canvas reads these tokens. */
+.sp-hero-roll { --color-bg: var(--sp-lcd); --color-surface: var(--sp-lcd); --color-raised: var(--sp-lcd); --color-border: var(--sp-lcd-edge); --color-border-strong: var(--sp-lcd-dim); --color-text: var(--sp-lcd-ink); --color-text-muted: var(--sp-lcd-dim); --color-type-midi: var(--sp-lcd-ink); --color-accent: var(--sp-hot); background: var(--sp-lcd); box-shadow: inset 0 0 0 2px var(--sp-lcd-edge); }
+/* The flip of the day: both covers big, the cable between them. */
+.sp-hero-flip { height: 100%; gap: 14px; padding: 28px 20px 20px; }
+.sp-hero-flip-pair .lib-cover-pair { max-width: 220px; }
+.sp-hero-flip-pair { justify-content: center; }
+@media (max-width: 639.98px) { .sp-hero-flip-pair .lib-cover-pair { max-width: 132px; } }
+
+/* ---------- 4. A producer's signature: pad colour and screen line ---------- */
+
+:root {
+  --sp-sig-hot: var(--sp-hot);
+  --sp-sig-red: #e0383e;
+  --sp-sig-pink: #ff5fa2;
+  --sp-sig-violet: #9b6bff;
+  --sp-sig-blue: #3d8bff;
+  --sp-sig-cyan: #28c8d8;
+  --sp-sig-lime: #a6e04a;
+  --sp-sig-gold: var(--sp-gold);
+}
+.sp-sig-led { display: inline-block; width: 8px; height: 8px; margin-right: 6px; border-radius: 50%; vertical-align: 1px; background: var(--sig, var(--sp-led-off)); box-shadow: 0 0 6px var(--sig, transparent); }
+/* Everything a producer posts carries their colour: a cartridge's label stripe, a loop's edge. */
+.sp-cart[data-sig]::before { background: repeating-linear-gradient(90deg, var(--sig) 0 6px, transparent 6px 10px); }
+html[data-look="sampler"] .lib-loop[data-sig] { box-shadow: inset 4px 0 0 var(--sig); }
+.sp-profile-face[data-sig] { box-shadow: 0 4px 0 var(--sp-panel-edge), inset 0 0 0 4px var(--sp-dark), inset 0 0 0 7px var(--sig), 0 0 22px var(--sig); }
+/* The line on a screen: scrolls like a marquee, unless the visitor asks for less motion. */
+.sp-sig-msg { position: relative; display: block; overflow: hidden; white-space: nowrap; -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); }
+.sp-sig-track { display: inline-flex; gap: 3em; padding-left: 100%; animation: sp-marquee 14s linear infinite; }
+.sp-sig-track > :last-child { display: none; }
+@keyframes sp-marquee { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+@media (prefers-reduced-motion: reduce) { .sp-sig-track { animation: none; padding-left: 0; } }
+.sp-sig-msg::before { content: ""; position: absolute; left: 0; top: 50%; width: 8px; height: 8px; margin-top: -4px; border-radius: 50%; background: var(--sig); box-shadow: 0 0 6px var(--sig); }
+.sp-sig-msg { padding-left: 16px; }
+/* The editor: eight pads to pick from, the one picked lit and pressed. */
+.sp-sig-pads { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 639.98px) { .sp-sig-pads { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.sp-sig-pad { height: 52px; border: 0; border-radius: 10px; cursor: pointer; background: var(--sig); box-shadow: inset 0 -4px 0 rgb(0 0 0 / 0.3), 0 2px 0 var(--sp-pad-edge); }
+.sp-sig-pad[aria-checked="true"] { transform: translateY(2px); box-shadow: inset 0 -2px 0 rgb(0 0 0 / 0.3), 0 0 0 3px var(--sp-pad-text), 0 0 18px var(--sig); }
+.sp-sig-pad:focus-visible { outline: 3px solid var(--sp-pad-text); outline-offset: 3px; }
+
+/* ---------- 5. The pocket model's controls ---------- */
+
+/* The transport's screen follows a swipe, and springs back. */
+html[data-look="sampler"] section[aria-label="Player"] { touch-action: pan-y; }
+html[data-look="sampler"] section[aria-label="Player"] > :not(div:first-of-type, [data-player-progress], .sr-only, .sp-player-scope) { transform: translateX(var(--sp-swipe, 0px)); }
+html[data-look="sampler"] section[aria-label="Player"][data-settling] > :not(div:first-of-type, [data-player-progress], .sr-only, .sp-player-scope) { transition: transform 200ms cubic-bezier(.2,.9,.3,1.2); }
+
+/* A row held under a finger plays: it lights like a held pad. */
+[data-holding] { position: relative; z-index: 1; outline: 3px solid var(--sp-hot); outline-offset: -3px; box-shadow: 0 0 24px var(--sp-hot-glow); }
+@media (hover: none) {
+  main li:has([data-play-state]), main .sp-cart:has([data-play-state]) { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+}
+
+/* A thumb-sized transport: a big play key and the next key in reach, the screen beside them. */
+@media (max-width: 639.98px) {
+  html[data-look="sampler"] section[aria-label="Player"] { height: 74px; --sp-lcd-l: 142px; }
+  html[data-look="sampler"] section[aria-label="Player"]::before { top: 11px; bottom: 11px; }
+  html[data-look="sampler"] section[aria-label="Player"] > div:first-of-type { gap: 6px; margin-right: 6px; }
+  html[data-look="sampler"] section[aria-label="Player"] > div:first-of-type > span:last-child { display: contents; }
+  html[data-look="sampler"] section[aria-label="Player"] button[data-play-state] { width: 70px; height: 54px; border-radius: 12px; }
+  html[data-look="sampler"] section[aria-label="Player"] button[data-play-state] svg { width: 26px; height: 26px; }
+  html[data-look="sampler"] section[aria-label="Player"] > div:first-of-type button:not([data-play-state]) { width: 52px; height: 54px; border-radius: 12px; }
+  html[data-look="sampler"] section[aria-label="Player"] [data-player-progress] { bottom: 14px; }
+}
+
+/* ---------- 6. Page changes slide like switching modes ---------- */
+
+/* Only the content area moves; the top panel, the pad bank and the transport stay still. */
+html[data-look="sampler"] #content { view-transition-name: sp-page; }
+::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+::view-transition-group(sp-page) { animation-duration: 240ms; }
+::view-transition-old(sp-page) { animation: 200ms cubic-bezier(.4,0,1,1) both sp-mode-out; }
+::view-transition-new(sp-page) { animation: 240ms cubic-bezier(0,0,.2,1) both sp-mode-in; }
+html[data-slide="back"]::view-transition-old(sp-page) { animation-name: sp-mode-out-back; }
+html[data-slide="back"]::view-transition-new(sp-page) { animation-name: sp-mode-in-back; }
+@keyframes sp-mode-out { to { transform: translateX(-6%); opacity: 0; filter: brightness(1.2); } }
+@keyframes sp-mode-in { from { transform: translateX(8%); opacity: 0; filter: brightness(1.25) contrast(1.1); } }
+@keyframes sp-mode-out-back { to { transform: translateX(6%); opacity: 0; filter: brightness(1.2); } }
+@keyframes sp-mode-in-back { from { transform: translateX(-8%); opacity: 0; filter: brightness(1.25) contrast(1.1); } }
+@media (prefers-reduced-motion: reduce) { ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; } }
+
+/* Step 7: the screen booting while a page loads, and the screen with no signal when nothing matches. */
+.sp-boot { min-height: 60vh; display: flex; align-items: flex-start; }
+.sp-boot > .sp-bezel { width: 100%; }
+.sp-boot-screen { min-height: 148px; justify-content: center; }
+.sp-boot-line { display: flex; align-items: baseline; gap: 2px; }
+.sp-lcd-blink { animation: px-blink 1s steps(1) infinite; }
+.sp-boot-steps { display: grid; grid-template-columns: repeat(16, minmax(0, 1fr)); gap: 4px; max-width: 360px; }
+.sp-boot-steps > span { height: 8px; border-radius: 1.5px; background: var(--sp-lcd-edge); animation: sp-boot-step 1.12s steps(1) infinite; }
+@keyframes sp-boot-step { 0% { background: var(--sp-lcd-ink); } 20%, 100% { background: var(--sp-lcd-edge); } }
+
+.sp-nosignal { position: relative; overflow: hidden; isolation: isolate; }
+.sp-nosignal > :not(.sp-nosignal-noise) { position: relative; z-index: 1; }
+.sp-nosignal-noise { position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0.16;
+  background: repeating-linear-gradient(0deg, var(--sp-lcd-ink) 0 1px, transparent 1px 3px);
+  animation: sp-noise 2.4s steps(6) infinite; }
+@keyframes sp-noise { 0% { transform: translateY(0); } 100% { transform: translateY(-18px); } }
+.sp-nosignal .sp-nosignal-try { display: inline-flex; align-items: center; min-height: 36px; padding: 2px 10px; border: 0; border-radius: 4px; cursor: pointer;
+  background: var(--sp-lcd-ink); color: var(--sp-lcd); font-family: var(--sp-font-lcd); font-size: 20px; line-height: 1;
+  box-shadow: 0 2px 0 var(--sp-lcd-dim); transition: transform 70ms ease-out, box-shadow 70ms ease-out; }
+.sp-nosignal .sp-nosignal-try:hover { background: var(--sp-lcd-dim); }
+.sp-nosignal .sp-nosignal-try:active, .sp-nosignal .sp-nosignal-try[data-pressed] { transform: translateY(2px); box-shadow: 0 0 0 var(--sp-lcd-dim); }
+.sp-nosignal .sp-nosignal-try:focus-visible { outline: 2px solid var(--sp-lcd-ink); outline-offset: 2px; }
+.sp-nosignal .sp-nosignal-clear { background: transparent; color: var(--sp-lcd-ink); box-shadow: inset 0 0 0 2px var(--sp-lcd-ink); }
+.sp-nosignal .sp-nosignal-clear:hover { background: var(--sp-lcd-edge); }
+@media (prefers-reduced-motion: reduce) {
+  .sp-boot-steps > span, .sp-nosignal-noise, .sp-lcd-blink { animation: none; }
+  .sp-boot-steps > span { background: var(--sp-lcd-dim); }
+}

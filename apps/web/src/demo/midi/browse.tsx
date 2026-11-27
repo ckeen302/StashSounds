@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { Dropdown } from "../presets/page";
 import { useQuery } from "../search-ui";
 import { BankHead, LcdSmartSearch } from "../bank-head";
+import { RollHero } from "../heroes/roll";
 import { midiProfile } from "../search-index";
 import { match } from "../smart-search";
 import type { MidiItem } from "./catalog";
@@ -117,6 +118,7 @@ export function AllMidi() {
         title="MIDI"
         blurb="Chord packs, progressions from songs and producers' patterns. Hear one, change the key, drag it into your DAW."
         search={<LcdSmartSearch id="midi-q" value={q} onChange={setQ} placeholder="c minor 140 like metro" />}
+        hero={<RollHero items={all} />}
       />
       <div role="group" aria-label="Where it comes from" className="flex flex-wrap gap-2">
         {(Object.keys(ORIGIN_NAME) as Origin[]).map((o) => (

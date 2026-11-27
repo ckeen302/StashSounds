@@ -1,6 +1,10 @@
 import { DawDragZone } from "../daw-drag";
+import { relaxations } from "../live/relax";
+import { NoSignal } from "../live/states";
+import { BankHead, LcdSearch } from "../bank-head";
+import { FxPadsHero } from "../heroes/fx-pads";
 import { sfxSource } from "../daw-sources";
-import { Button, Download, EmptyState, FilterChip, IconButton, PlayButton, Search, SearchInput, TagChip, useToast } from "@stash/ui";
+import { Button, Download, FilterChip, IconButton, PlayButton, TagChip, useToast } from "@stash/ui";
 import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { CrateMenu } from "../explore";
 import { CommentToggle, RowThread } from "../social";
@@ -152,23 +156,25 @@ export function SfxPage() {
 
   return (
     <main className="mx-auto flex w-full max-w-content flex-col gap-3 px-3 py-4 tablet:px-4 desktop:px-6">
-      <div className="flex flex-col gap-3 tablet:flex-row tablet:items-center tablet:justify-between">
-        <h1 className="text-title">Sound effects</h1>
-        <SearchInput
-          label="Search sound effects"
-          hideLabel
-          placeholder="Search: lion, siren, voicemail, lambo..."
-          shortcut=""
-          value={q}
-          onChange={(e) => {
-            setQ(e.target.value);
-            setShown(PAGE);
-            setSelected(0);
-          }}
-          onClear={() => setQ("")}
-          className="tablet:w-96"
-        />
-      </div>
+      <BankHead
+        kicker="FX BANK"
+        title="Sound effects"
+        blurb="Air horns, sirens, risers, phones, animals and more, each with its license."
+        search={
+          <LcdSearch
+            id="sfx-q"
+            label="Search sound effects"
+            placeholder="lion, siren, voicemail, lambo"
+            value={q}
+            onChange={(v) => {
+              setQ(v);
+              setShown(PAGE);
+              setSelected(0);
+            }}
+          />
+        }
+        hero={<FxPadsHero />}
+      />
 
       <div className="flex flex-col gap-2">
         <nav aria-label="SFX categories" className="-mx-3 flex gap-2 overflow-x-auto px-3 tablet:mx-0 tablet:flex-wrap tablet:px-0">
@@ -278,9 +284,22 @@ export function SfxPage() {
           )}
         </DawDragZone>
       ) : (
-        <EmptyState icon={Search} title="No sound effects match">
-          Try a simpler word, like roar, siren, phone or boom, or pick a category above.
-        </EmptyState>
+        <NoSignal
+          title={needle ? `No sound effects for “${needle}”` : "No sound effects match"}
+          tries={relaxations(needle, 4, ["roar", "siren", "phone", "boom"]).filter((t) => SFX.some((s) => t.split(" ").every((w) => haystack(s).includes(w))))}
+          onTry={(t) => {
+            setCat(null);
+            setSub(null);
+            setQ(t);
+          }}
+          onClear={() => {
+            setCat(null);
+            setSub(null);
+            setQ("");
+          }}
+        >
+          Try a simpler word, or pick a category above.
+        </NoSignal>
       )}
 
       <p className="text-small text-text-muted">

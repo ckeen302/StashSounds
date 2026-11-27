@@ -1,3 +1,6 @@
+// First: every AudioContext created after this is metered (the screens and pads react to sound).
+import "./live/install";
+import { Plate } from "./bank-head";
 import {
   lazy,
   StrictMode,
@@ -36,7 +39,7 @@ import { buildCatalog, type Catalog } from "./data";
 import { formatKey, LICENSE_LABELS } from "@stash/contracts/format";
 import { HashLink } from "./hash-link";
 import { useProgressive } from "./progressive";
-import { currentPath, navigate, startRouter, usePath } from "./router";
+import { currentPath, navigate, setPageChange, startRouter, usePath } from "./router";
 // The Samples tab's catalog is about a third of the demo's script: it loads on its own, after the
 // first paint (prefetched once the page is idle, at the bottom), so the rest of the demo starts without it.
 const samplesPage = () => import("./samples/page");
@@ -54,6 +57,14 @@ import { useCrates } from "./crates";
 import { useShortcuts } from "./shortcuts";
 import { loopPicks, newLoops, newSongs, songPicks, type FeedLoop, type FeedSong, type Signals } from "./feed";
 import { startLooks, useLook } from "./looks";
+import { BeatPulse, PlayerScope, Scope, useLiveBars, VuMeters } from "./live/live";
+import { Knob } from "./live/knob";
+import { dialed, KNOB_KEYS, KNOB_TEMPOS, KNOB_VIBES } from "./live/dial";
+import { ClickToggle, startTactile } from "./live/tactile";
+import { startPhoneControls } from "./live/phone";
+import { pageChange } from "./live/transition";
+import { relaxations } from "./live/relax";
+import { BootScreen, NoSignal } from "./live/states";
 import { midiItem, VIEWER } from "./midi/catalog";
 import { MidiList, MidiPage, useMidiItems, useMidiPlayer } from "./midi/pages";
 import { midiPlayer } from "./midi/synth";
@@ -347,11 +358,34 @@ const GENRES = ["Trap", "Drill", "Pluggnb", "Boom bap", "Rage", "Phonk", "Jersey
 const EQ = Array.from({ length: 48 }, (_, i) => 16 + Math.round(76 * Math.abs(Math.sin(i * 0.55) * Math.cos(i * 0.21))));
 function HeroEq() {
   const status = usePlayerState((s) => s.status);
+  const ref = useRef<HTMLDivElement>(null);
+  // While anything sounds (a loop, a pad, a chord), the bars are the real spectrum.
+  useLiveBars(ref);
   return (
-    <div className="st-eq" data-on={status === "playing" || undefined} aria-hidden="true">
+    <div ref={ref} className="st-eq" data-on={status === "playing" || undefined} aria-hidden="true">
       {EQ.map((h, i) => (
         <span key={i} style={{ ["--h" as string]: h, ["--d" as string]: `${(i % 7) * 90}ms` }} />
       ))}
+    </div>
+  );
+}
+
+/** Tempo, key and vibe: real knobs that dial a search onto the home screen as they turn. */
+function HomeKnobs({ onDial }: { onDial: (q: string) => void }) {
+  const [tempo, setTempo] = useState(0);
+  const [key, setKey] = useState(0);
+  const [vibe, setVibe] = useState(0);
+  const turn = (t: number, k: number, v: number) => {
+    setTempo(t);
+    setKey(k);
+    setVibe(v);
+    onDial(dialed(t, k, v));
+  };
+  return (
+    <div className="sp-home-knobs st-wide-only" role="group" aria-label="Dial a search">
+      <Knob label="Tempo" steps={KNOB_TEMPOS.length} index={tempo} hot onChange={(i) => turn(i, key, vibe)} valueText={tempo ? `${KNOB_TEMPOS[tempo]} BPM` : "ANY"} />
+      <Knob label="Key" steps={KNOB_KEYS.length} index={key} onChange={(i) => turn(tempo, i, vibe)} valueText={KNOB_KEYS[key]!} />
+      <Knob label="Vibe" steps={KNOB_VIBES.length} index={vibe} onChange={(i) => turn(tempo, key, i)} valueText={KNOB_VIBES[vibe]!.toUpperCase()} />
     </div>
   );
 }
@@ -507,18 +541,7 @@ function Home() {
               ))}
             </ul>
             <div className="sp-grille st-wide-only min-h-10 flex-1" aria-hidden="true" />
-            <div className="sp-home-knobs st-wide-only" aria-hidden="true">
-              {[
-                ["Tempo", "-35deg", true],
-                ["Key", "20deg", false],
-                ["Vibe", "60deg", false],
-              ].map(([n, turn, hot]) => (
-                <span key={n as string} className="flex flex-col items-center gap-2">
-                  <span className="sp-knob" style={{ ["--sp-turn" as string]: turn, ...(hot ? { ["--sp-knob-mark" as string]: "var(--sp-hot)" } : {}) }} />
-                  <span className="sp-label">{n}</span>
-                </span>
-              ))}
-            </div>
+            <HomeKnobs onDial={setQ} />
           </nav>
         </div>
       </section>
@@ -954,13 +977,11 @@ function SearchResults() {
   return (
     <Page>
       <header className="flex flex-col gap-4">
-        <div className="sp-bezel">
-          <div className="sp-lcd flex flex-col gap-3">
-            <span className="sp-lcd-small">SEARCH &gt; EVERY BANK</span>
-            <h1 className="sp-lcd-title sp-search-title break-words">{query.trim() ? `Results for “${query.trim()}”` : "Search"}</h1>
+        <Plate kicker="Search every bank" title={query.trim() ? `Results for “${query.trim()}”` : "Search"}>
+          <div className="sp-plate-search">
             <SmartSearch value={query} onChange={setSearchQuery} examples={["god's plan", "carti", "dark 808", "bouncy", "omnisphere", "drill 140-145"]} placeholder="Try a song, an artist or a vibe" />
           </div>
-        </div>
+        </Plate>
         {kinds.length > 1 && (
           <div role="group" aria-label="Show" className="flex flex-wrap gap-2">
             <FilterChip selected={!active} onToggle={() => setKind("all")}>
@@ -975,17 +996,9 @@ function SearchResults() {
         )}
       </header>
       {empty ? (
-        <EmptyState
-          icon={Search}
-          title="No match"
-          action={
-            <ButtonLink href="/loops" variant="secondary">
-              See every loop
-            </ButtonLink>
-          }
-        >
-          Check the spelling or search fewer words, like “dark piano 140” or “carti type beat”.
-        </EmptyState>
+        <NoSignal title={`Nothing for “${query.trim()}”`} tries={relaxations(query, 6).filter((t) => queryWords(t).every((w) => vocab.has(w) || /\d/.test(w))).slice(0, 4)} onTry={setSearchQuery} more={<LoopList label="Trending loops instead" rows={trending(rows).slice(0, 5)} onChange={() => undefined} />}>
+          Check the spelling or search fewer words. These usually land:
+        </NoSignal>
       ) : (
         <section aria-label="Results" className="flex flex-col gap-3">
           {spelled.changed && hits.length > 0 && <p className="text-small text-text-muted">{`Showing results for “${words.join(" ")}”`}</p>}
@@ -1389,13 +1402,22 @@ function App() {
             }
             search={
               look === "sampler" ? (
+                <>
                 <div className="sp-topsearch sp-bezel hidden tablet:block">
                   <form role="search" action="/search" className="sp-lcd sp-lcd-search">
                     <label htmlFor="sp-q">SEARCH&gt;</label>
-                    <input id="sp-q" name="q" type="search" autoComplete="off" placeholder="carti, dark 808, in the style of metro" />
+                    <input id="sp-q" name="q" type="search" autoComplete="off" placeholder="dark 808 like metro" />
                     <kbd aria-hidden="true">[ / ]</kbd>
                   </form>
                 </div>
+                <div className="sp-monitor hidden desktop:flex" aria-hidden="true">
+                  <span className="sp-monitor-screen">
+                    <Scope className="sp-monitor-wave" />
+                  </span>
+                  <VuMeters />
+                </div>
+                <ClickToggle />
+                </>
               ) : (
                 <form role="search" action="/search" className="hidden min-w-0 flex-1 justify-center tablet:flex">
                   <SearchInput name="q" size="sm" shortcut="/" hideLabel placeholder="Search songs, sounds, producers" className="w-full max-w-140" />
@@ -1404,10 +1426,16 @@ function App() {
             }
           >
             <DemoTabs />
-            <Suspense fallback={null}>
+            <Suspense fallback={<BootScreen />}>
               <Route key={look} />
             </Suspense>
             <NewCrateHost />
+            {look === "sampler" && (
+              <>
+                <PlayerScope />
+                <BeatPulse />
+              </>
+            )}
           </AppShell>
         </ToastProvider>
       </TooltipProvider>
@@ -1416,6 +1444,9 @@ function App() {
 }
 
 startLooks();
+startTactile();
+startPhoneControls();
+setPageChange(pageChange);
 // iPhones mute Web Audio with the ring switch unless the page says it plays media (Safari 17+).
 try {
   const session = (navigator as { audioSession?: { type: string } })

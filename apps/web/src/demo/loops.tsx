@@ -1,4 +1,6 @@
 import { DawDragZone } from "./daw-drag";
+import { relaxations } from "./live/relax";
+import { NoSignal } from "./live/states";
 import { loopSource } from "./daw-sources";
 import { getEngine, usePlayerState } from "@stash/audio";
 import type { ItemRow, MusicalKey } from "@stash/contracts";
@@ -32,6 +34,9 @@ import { saveLoopRow } from "./save";
 import { PACK_WEEK, PACKS } from "./packs";
 import { Why } from "./search-ui";
 import { BankHead, LcdSmartSearch } from "./bank-head";
+import { LoopDeckHero } from "./heroes/loop-deck";
+import { SigLed, signatureOf } from "./live/sig";
+import { sigVar } from "./live/signature";
 import { loopProfile } from "./search-index";
 import { likeness, match, parseQuery, quality, type Profile } from "./smart-search";
 import { addPlay, plays, set } from "./store";
@@ -391,6 +396,7 @@ export function LoopsPage({
         title="Free loops"
         blurb="Search by sound, tempo, key, genre or producer."
         search={<LcdSmartSearch id="loops-q" placeholder="dark piano 140" value={f.q} onChange={(v) => update({ q: v, like: null })} />}
+        hero={<LoopDeckHero rows={loops.map((l) => l.row)} />}
         actions={
           <>
             <button type="button" className="sp-key" aria-pressed={filtersOpen} aria-expanded={filtersOpen} onClick={() => setFiltersOpen(!filtersOpen)}>
@@ -614,16 +620,18 @@ export function LoopsPage({
         </ul>
         </DawDragZone>
       ) : (
-        <div className="sp-lcd flex flex-col items-start gap-3">
-          <p className="sp-lcd-small m-0">
-            {f.q.trim()
-              ? `Nothing here matches "${f.q.trim()}" yet. Try a sound, mood or tempo instead, like "dark piano 140", or clear the filters.`
-              : "No loops match all of that. Try another tempo or clear the filters."}
-          </p>
-          <Button size="sm" variant="secondary" onClick={() => update(DEFAULT)}>
-            Clear filters
-          </Button>
-        </div>
+        <NoSignal
+          title={f.q.trim() ? `Nothing for “${f.q.trim()}”` : "No loops match all of that"}
+          tries={f.q.trim() ? relaxations(f.q) : []}
+          onTry={(q) => update({ ...DEFAULT, q })}
+          more={
+            <Button size="sm" variant="secondary" className="self-start" onClick={() => update(DEFAULT)}>
+              Clear filters
+            </Button>
+          }
+        >
+          {f.q.trim() ? "Search fewer words, or try one of these." : "Try another tempo or clear the filters."}
+        </NoSignal>
       )}
 
       {pages > 1 && (
@@ -727,6 +735,8 @@ function LoopEntry({
     <li
       data-playing={state === "playing" || undefined}
       className="lib-loop flex flex-col gap-3 p-3 tablet:p-4"
+      data-sig=""
+      style={{ ["--sig" as string]: sigVar(signatureOf(row.owner.handle).color) }}
     >
       <div className="flex flex-wrap items-start gap-x-3 gap-y-2">
         <UiLink
@@ -749,6 +759,7 @@ function LoopEntry({
           </UiLink>
           <span className="text-small text-text-muted">
             {"by "}
+            <SigLed handle={row.owner.handle} />
             <UiLink
               href={`/u/${row.owner.handle}`}
               className="text-text ui-hover:underline"

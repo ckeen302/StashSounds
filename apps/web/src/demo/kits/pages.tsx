@@ -1,4 +1,9 @@
 import { BankHead, LcdSearch } from "../bank-head";
+import { DrumPadsHero } from "../heroes/drum-pads";
+import { SigLed, signatureOf } from "../live/sig";
+import { sigVar } from "../live/signature";
+import { wordsThatHit } from "../live/relax";
+import { NoSignal } from "../live/states";
 import { DawDragZone } from "../daw-drag";
 import { kitSoundSource, shotSource } from "../daw-sources";
 import {
@@ -79,18 +84,31 @@ export async function saveKit(k: Kit, toast: ReturnType<typeof useToast>) {
 const SOUND_TYPES: Category[] = ["808", "kick", "snare", "clap", "hat", "open hat", "perc", "cymbal"];
 
 /** Single drum sounds of one type, from every kit and from posts of single sounds. */
-function DrumSounds({ type, needle }: { type: Category; needle: string }) {
+const shotText = (s: ReturnType<typeof allShots>[number]) => [s.name, s.kit?.name ?? "", (s.kit?.name ?? "").replace(/['’]/g, ""), s.owner.handle, s.genre];
+const kitText = (k: Kit) => [k.name, k.name.replace(/['’]/g, ""), k.owner.displayName, k.owner.handle, k.genre, ...k.sounds.map((s) => s.name)];
+const hasText = (texts: string[], needle: string) => texts.some((x) => x.toLowerCase().includes(needle));
+
+function DrumSounds({ type, needle, onSearch }: { type: Category; needle: string; onSearch: (q: string) => void }) {
   const toast = useToast();
   const all = useKits();
   const [talk, setTalk] = useState<string | null>(null);
-  const sounds = allShots(all).filter(
-    (s) => s.category === type && (!needle || [s.name, s.kit?.name ?? "", (s.kit?.name ?? "").replace(/['’]/g, ""), s.owner.handle, s.genre].some((x) => x.toLowerCase().includes(needle))),
-  );
+  const ofType = allShots(all).filter((s) => s.category === type);
+  const sounds = ofType.filter((s) => !needle || hasText(shotText(s), needle));
   if (sounds.length === 0)
     return (
-      <EmptyState icon={Upload} title="No sounds match" action={<ButtonLink href="/kit-upload" variant="secondary">Upload sounds</ButtonLink>}>
+      <NoSignal
+        title={`No ${CATEGORIES.find((c) => c.id === type)!.plural.toLowerCase()} for “${needle}”`}
+        tries={wordsThatHit(needle, (w) => ofType.some((s) => hasText(shotText(s), w)))}
+        onTry={onSearch}
+        onClear={() => onSearch("")}
+        more={
+          <ButtonLink href="/kit-upload" variant="secondary" size="sm" className="self-start">
+            Upload sounds
+          </ButtonLink>
+        }
+      >
         Clear the search, or post the first one.
-      </EmptyState>
+      </NoSignal>
     );
   return (
     <DawDragZone sources={sounds.map(shotSource)} className="overflow-hidden rounded-panel border border-border bg-surface">
@@ -151,7 +169,7 @@ export function KitCards({ kits, hidden = false, label = "Kits" }: { kits: Kit[]
   return (
   <ul aria-label={label} hidden={hidden} className="lib-grid">
     {kits.map((k) => (
-      <li key={k.id} className="sp-cart lib-cart">
+      <li key={k.id} className="sp-cart lib-cart" data-sig="" style={{ ["--sig" as string]: sigVar(signatureOf(k.owner.handle).color) }}>
         <div className="flex items-start gap-3">
           <PlayButton title={`a preview of ${k.name}`} state="paused" onPointerEnter={() => warmSounds(k.sounds)} onPointerDown={(e) => e.button === 0 && preview(k)} onClick={(e) => e.detail === 0 && preview(k)} />
           <div className="flex min-w-0 flex-1 flex-col gap-1">
@@ -159,7 +177,7 @@ export function KitCards({ kits, hidden = false, label = "Kits" }: { kits: Kit[]
               {k.name}
             </UiLink>
             <span className="lib-sub truncate">
-              @{k.owner.handle} · {k.genre}
+              <SigLed handle={k.owner.handle} />@{k.owner.handle} · {k.genre}
               {k.mine ? " · posted from this browser" : ""}
             </span>
           </div>
@@ -213,9 +231,7 @@ export function KitsPage() {
   const [genre, setGenre] = useState("All");
   const [q, setQ] = useState("");
   const needle = q.trim().toLowerCase();
-  const shown = all.filter(
-    (k) => (genre === "All" || k.genre === genre) && (!needle || [k.name, k.name.replace(/['’]/g, ""), k.owner.displayName, k.owner.handle, k.genre, ...k.sounds.map((s) => s.name)].some((s) => s.toLowerCase().includes(needle))),
-  );
+  const shown = all.filter((k) => (genre === "All" || k.genre === genre) && (!needle || hasText(kitText(k), needle)));
   // Phones have no hover to warm a kit before its tap: fetch the first kits on screen now.
   const firstKits = shown.slice(0, 2);
   useEffect(() => {
@@ -230,6 +246,7 @@ export function KitsPage() {
         title="Drums"
         blurb="Whole kits and single hits. Tap a pad to hear it, grab the folder or one sound."
         search={<LcdSearch id="kits-q" label="Search kits, producers, sounds" placeholder="kit, producer or sound" value={q} onChange={setQ} />}
+        hero={<DrumPadsHero kits={all} />}
         actions={
           <UiLink href="/kit-upload" className="sp-key sp-key-hot st-wide-only">
             <Icon icon={Upload} />
@@ -263,12 +280,28 @@ export function KitsPage() {
         </div>
       </section>
 
-      {type !== "kits" ? <DrumSounds type={type} needle={needle} /> : null}
+      {type !== "kits" ? <DrumSounds type={type} needle={needle} onSearch={setQ} /> : null}
       <KitCards kits={shown} hidden={type !== "kits"} />
       {type === "kits" && shown.length === 0 && (
-        <EmptyState icon={Upload} title="No kits match" action={<ButtonLink href="/kit-upload" variant="secondary">Upload a kit</ButtonLink>}>
+        <NoSignal
+          title={needle ? `No kits for “${needle}”` : "No kits match"}
+          tries={wordsThatHit(needle, (w) => all.some((k) => hasText(kitText(k), w)))}
+          onTry={(t) => {
+            setGenre("All");
+            setQ(t);
+          }}
+          onClear={() => {
+            setGenre("All");
+            setQ("");
+          }}
+          more={
+            <ButtonLink href="/kit-upload" variant="secondary" size="sm" className="self-start">
+              Upload a kit
+            </ButtonLink>
+          }
+        >
           Clear the search, or post the first one.
-        </EmptyState>
+        </NoSignal>
       )}
     </main>
   );
@@ -544,8 +577,8 @@ export function KitUploadPage({ embedded = false }: { embedded?: boolean } = {})
         className="sp-bezel"
       >
         <div data-over={over || undefined} className="sp-lcd lib-drop">
-        <p className="sp-lcd-text m-0">INSERT FILES&gt; <span className="sp-lcd-blink">_</span></p>
-        <p className="sp-lcd-small m-0">Drop wav, mp3 or aiff one-shots here</p>
+        <p className="sp-lcd-text m-0">Drop files to build a kit</p>
+        <p className="sp-lcd-small m-0">WAV, MP3 or AIFF one-shots, or tap to choose</p>
         <p className="sp-lcd-small m-0">{`Up to ${MAX_SOUNDS} sounds, 8 MB and 15 seconds each.`}</p>
         <div className="flex flex-wrap justify-center gap-2">
           <label className="sp-key focus-within:outline-2 focus-within:outline-offset-2">

@@ -1,0 +1,145 @@
+/*
+ * The machine is the stage, the sounds are the show.
+ *
+ * Hardware is kept for the frame: the top panel, the nav pads, the transport, the home screen and
+ * each page's one hero instrument. Everything a producer posted (lists, cards, covers, upload
+ * screens) sits on calm, flat surfaces so the cover art, the waveform and the producer's own colour
+ * are what the eye lands on. One accent: the orange light. The green is the screen, and only the
+ * frame has screens.
+ */
+
+:root {
+  --sp-card: #dfd9cd;
+  --sp-card-line: #c3bcae;
+  --sp-card-hover: #e6e1d6;
+  --sp-well: #d3cdc1;
+}
+
+/* ---------- A page's name, printed on the panel ---------- */
+
+.sp-plate { display: flex; flex-direction: column; gap: 10px; padding: 4px 2px; }
+.sp-plate-kicker { display: inline-flex; align-items: center; gap: 10px; }
+.sp-plate-led { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--sp-hot); box-shadow: 0 0 8px var(--sp-hot-glow); }
+.sp-plate-title { margin: 0; font-family: var(--sp-font-mark); font-weight: 800; letter-spacing: -0.035em; line-height: 0.95; color: var(--sp-ink); font-size: clamp(36px, 4.6vw, 60px); text-wrap: balance; }
+.sp-plate-title-big { font-size: clamp(44px, 6vw, 84px); line-height: 0.9; }
+.sp-plate-blurb { margin: 0; max-width: 60ch; font-family: var(--sp-font-ui); font-size: 14px; line-height: 1.55; color: var(--color-text-muted); }
+.sp-plate-search { max-width: 760px; }
+.sp-plate-facts { display: flex; flex-wrap: wrap; gap: 10px 28px; margin: 4px 0 0; }
+.sp-plate-facts > div { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.sp-plate-facts dd { margin: 0; font-family: var(--sp-font-ui); font-weight: 700; font-size: 15px; color: var(--sp-ink); }
+/* Beside a hero, the name and its keys sit as one group, centred against the instrument, so the
+   space above and below them is even. */
+.sp-hero-screen.sp-plate { justify-content: center; }
+@media (min-width: 1024px) {
+  .sp-hero { grid-template-areas: "top stage" "screen stage" "actions stage" "bottom stage"; grid-template-rows: 1fr auto auto 1fr; row-gap: 0; align-items: center; }
+  .sp-hero > .sp-hero-actions { padding-top: 16px; }
+}
+
+/* The search on a slim screen: the one bit of green in a page's header. */
+.sp-strip { padding: 8px; border-radius: 12px; margin-top: 6px; }
+.sp-strip-lcd { padding: 6px 14px; border-radius: 6px; }
+.sp-strip-lcd .sp-lcd-search { font-size: 24px; }
+.sp-strip-lcd .sp-lcd-search input { height: 34px; }
+.sp-strip-lcd > .flex { gap: 6px; }
+
+/* A producer's line on their own little display, lit in their colour. */
+.sp-sig-screen { padding: 10px 14px; }
+.sp-sig-screen .sp-sig-msg { color: var(--sig); font-size: 26px; line-height: 1.1; text-shadow: 0 0 10px var(--sig); -webkit-mask-image: none; mask-image: none; }
+.sp-sig-screen .sp-sig-track { animation: none; padding-left: 0; }
+.sp-sig-screen .sp-sig-track > span { overflow: hidden; text-overflow: ellipsis; }
+
+/* ---------- Cards and lists: flat, quiet, the content on top ---------- */
+
+.sp-cart.lib-cart { background: var(--sp-card); color: var(--sp-ink); border-radius: 14px; box-shadow: inset 0 0 0 1px var(--sp-card-line); --color-text: var(--sp-ink); --color-text-muted: var(--sp-label); }
+.sp-cart.lib-cart:hover { background: var(--sp-card-hover); color: var(--sp-ink); }
+.sp-cart.lib-cart::before { top: 0; left: 0; right: 0; height: 4px; border-radius: 14px 14px 0 0; background: var(--sp-card-line); }
+.sp-cart.lib-cart[data-sig]::before { background: var(--sig); }
+.sp-cart.lib-cart[data-pressed] { transform: translateY(1px); box-shadow: inset 0 0 0 1px var(--sp-card-line); }
+.lib-cart { --color-text: var(--sp-ink); --color-text-muted: var(--sp-label); }
+.lib-cart .lib-cart-title, .lib-cart .lib-cart-line { color: var(--sp-ink); }
+.lib-cart .lib-sub { color: var(--sp-label); }
+.lib-cart .lib-label-dark { color: var(--sp-label); }
+.lib-cart-btn[aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--sp-hot); }
+.sp-cart.lib-cart .sp-label-dark { color: var(--sp-label); }
+
+/* Label strips inside a card read as printed text, not as another screen. */
+.lib-cart .sp-lcd.lib-strip { background: var(--sp-well); box-shadow: none; color: var(--sp-ink); font-family: var(--sp-font-ui); }
+.lib-cart .sp-lcd.lib-strip .sp-lcd-text { font-family: var(--sp-font-ui); font-weight: 700; font-size: 14px; letter-spacing: 0.04em; color: var(--sp-ink); }
+.lib-cart .sp-lcd.lib-strip .sp-lcd-small { font-family: var(--sp-font-ui); font-size: 12px; color: var(--sp-label); }
+.lib-cart .lib-strip-part { background: var(--sp-ink); color: var(--sp-card); font-family: var(--sp-font-ui); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; padding: 3px 6px; }
+
+/* Covers are the colour on the page: no bezel or scanlines over the art. */
+.sp-cover { padding: 0; background: none; box-shadow: 0 1px 0 var(--sp-card-line), 0 6px 16px rgb(0 0 0 / 0.16); border-radius: 8px; }
+.sp-cover::after { display: none; }
+.sp-cover > :first-child, .sp-cover-sm > :first-child { border-radius: 8px; }
+.sp-cover-sm { padding: 0; border-radius: 6px; }
+.sp-cover-sm > :first-child { border-radius: 6px; }
+.sp-cover-lg { padding: 0; border-radius: 12px; }
+.sp-cover-lg > :first-child { border-radius: 12px; }
+.sp-cover-label { background: transparent; padding: 6px 0 0; color: var(--sp-label); }
+
+/* Loop cards: a flat card, the waveform in ink on a quiet well, the producer's colour on the edge. */
+.lib-loop { background: var(--sp-card); box-shadow: inset 0 0 0 1px var(--sp-card-line); }
+html[data-look="sampler"] .lib-loop[data-sig] { box-shadow: inset 0 0 0 1px var(--sp-card-line), inset 4px 0 0 var(--sig); }
+.lib-loop[data-playing], html[data-look="sampler"] .lib-loop[data-playing] { box-shadow: inset 0 0 0 2px var(--sp-hot), 0 6px 20px var(--sp-hot-glow); }
+.lib-wave { padding: 0; background: none; box-shadow: none; }
+.lib-wave > * { background: var(--sp-well); box-shadow: none; --color-type-loop: var(--sp-ink); --color-text-muted: var(--sp-label); --color-border: var(--sp-card-line); --color-text: var(--sp-ink); --color-accent: var(--sp-hot); }
+
+/* One accent: the kinds of sound are told apart by their words, not by five more colours. */
+html[data-look="sampler"] {
+  --color-type-loop: var(--sp-ink);
+  --color-type-oneshot: var(--sp-ink);
+  --color-type-kit: var(--sp-ink);
+  --color-type-midi: var(--sp-ink);
+  --color-type-preset: var(--sp-ink);
+}
+
+/* Home bank: the lights stay dark until a pad is touched, then glow the one orange. */
+.sp-home-bank .sp-type-led { background: var(--sp-led-off); box-shadow: none; transition: background-color 120ms ease, box-shadow 120ms ease; }
+.sp-home-bank .sp-pad:is(:hover, :focus-visible) .sp-type-led { background: var(--sp-hot); box-shadow: 0 0 8px var(--sp-hot-glow); }
+
+/* Textures that only decorated: gone. */
+.sp-grille { display: none; }
+.sp-hero-pad:is([data-cat="snare"], [data-cat="clap"])::after { background: var(--sp-led-off); box-shadow: none; }
+
+/* Upload screens: a calm drop area on the panel, the dashed edge lighting up when a file is over it. */
+.sp-bezel:has(> .lib-drop) { background: none; padding: 0; box-shadow: none; }
+.sp-lcd.lib-drop { background: var(--sp-well); color: var(--sp-ink); font-family: var(--sp-font-ui); box-shadow: none; border: 2px dashed var(--sp-card-line); border-radius: 14px; transition: border-color 120ms ease, background-color 120ms ease; }
+.sp-lcd.lib-drop:hover { border-color: var(--sp-label); }
+.sp-lcd.lib-drop[data-over] { border-color: var(--sp-hot); background: var(--sp-card-hover); box-shadow: none; }
+.sp-lcd.lib-drop .sp-lcd-text { font-family: var(--sp-font-mark); font-weight: 800; font-size: 26px; letter-spacing: -0.02em; text-transform: none; color: var(--sp-ink); }
+.sp-lcd.lib-drop .sp-lcd-small { font-family: var(--sp-font-ui); font-size: 14px; color: var(--sp-label); }
+.sp-lcd.lib-drop .sp-lcd-blink { display: none; }
+
+/* The profile face takes the producer's colour; the panel around it stays plain. */
+.sp-profile { align-items: flex-start; }
+@media (min-width: 640px) { .sp-profile { align-items: center; } }
+:root .sp-profile-face[data-sig] { background: var(--sig); color: var(--sp-ink); font-family: var(--sp-font-mark); font-weight: 800; letter-spacing: -0.04em; text-shadow: none; box-shadow: 0 4px 0 var(--sp-panel-edge), 0 10px 30px rgb(0 0 0 / 0.18); }
+
+/* Inside a card, a kit's pads are light keys on a quiet well, not a second machine. */
+.lib-cart .lib-deck { background: var(--sp-well); box-shadow: none; }
+.lib-cart .lib-deck .sp-pad { background: var(--sp-key); color: var(--sp-ink); box-shadow: inset 0 -2px 0 var(--sp-key-edge); }
+.lib-cart .lib-deck .sp-pad:hover { background: var(--sp-key-hover); color: var(--sp-ink); }
+.lib-cart .lib-deck .sp-pad :is(.sp-pad-code, .sp-pad-meta) { color: var(--sp-label); }
+.lib-cart .lib-deck .sp-pad:is([data-hot], [data-playing], [aria-pressed="true"]) { background: var(--sp-hot); color: var(--sp-ink); }
+
+/* Small tags in cards: printed ink, not screens. */
+.lib-cart .lib-chip-lcd { background: var(--sp-ink); color: var(--sp-card); box-shadow: none; font-family: var(--sp-font-ui); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; height: 24px; min-width: 0; padding: 0 8px; border-radius: 4px; }
+
+/* A missing cover is a plain ink card with the title, so real art stays the only colour. */
+.lib-cover-blank { background: var(--sp-ink); color: var(--sp-card); font-family: var(--sp-font-mark); font-weight: 800; font-size: 18px; letter-spacing: -0.02em; text-transform: none; }
+
+/* The notes preview in a MIDI row: ink on a quiet well. */
+.lib-roll { background: var(--sp-well); box-shadow: none; --color-bg: var(--sp-well); --color-surface: var(--sp-well); --color-raised: var(--sp-card-line); --color-border: var(--sp-card-line); --color-border-strong: var(--sp-label); --color-text: var(--sp-ink); --color-text-muted: var(--sp-label); --color-type-midi: var(--sp-ink); --color-accent: var(--sp-hot); }
+
+/* A song's cover, full and unframed: the art is the page. */
+html[data-look="sampler"] .sp-song-cover > .st-cover { box-shadow: 0 1px 0 var(--sp-card-line), 0 14px 34px rgb(0 0 0 / 0.22); border-radius: 12px; overflow: hidden; }
+.sp-song-cover { padding: 0; }
+.sp-song-cover .sp-cover-label { margin-top: 10px; text-align: left; }
+.lib-chip-lcd { background: var(--sp-ink); color: var(--sp-card); box-shadow: none; }
+
+/* Full screen for now: the machine fills the window with a thin edge of bench, and the pages use
+   its whole width. (The empty sides for ads come back later by setting --sp-col to a width.) */
+:root { --sp-col: calc(100% - 24px); }
+html[data-look="sampler"] #content .max-w-content { max-width: none; }
+@media (min-width: 1600px) { html[data-look="sampler"] #content .max-w-content { padding-inline: 40px; } }
