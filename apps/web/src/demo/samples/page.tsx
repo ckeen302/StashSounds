@@ -2,10 +2,9 @@ import {
   Button,
   ButtonLink,
   EmptyState,
-  FilterChip,
-  SearchInput,
   UiLink,
 } from "@stash/ui";
+import { BankHead, LcdSearch } from "../bank-head";
 import { useState, type ReactNode } from "react";
 import { CrateMenu } from "../explore";
 import { Comments } from "../social";
@@ -143,30 +142,25 @@ export function SamplesPage() {
 
   return (
     <main className="mx-auto flex w-full max-w-content flex-col gap-4 px-3 py-5 tablet:px-4 desktop:px-6">
-      <header className="flex flex-col gap-3">
-        <div className="flex flex-col gap-1">
-          <h1 className="text-title">Samples</h1>
-          <p className="text-body text-text-muted">
-            {
-              "Hip-hop and R&B songs and the records they sample. From Wikipedia's album credits and song articles, and MusicBrainz."
-            }
-          </p>
-        </div>
-        <SearchInput
-          label="Search songs, artists, producers and sampled records"
-          hideLabel
-          placeholder="Song, artist, producer or the record it samples"
-          shortcut=""
-          value={q}
-          onChange={(e) => reset(() => setQ(e.target.value))}
-          onClear={() => reset(() => setQ(""))}
-        />
-      </header>
+      <BankHead
+        kicker="SAMPLE FINDER"
+        title="Samples"
+        blurb="Hip-hop and R&B songs and the records they sample. From Wikipedia's album credits and song articles, and MusicBrainz."
+        search={
+          <LcdSearch
+            id="samples-q"
+            label="Search songs, artists, producers and sampled records"
+            placeholder="song, artist, producer or the record it samples"
+            value={q}
+            onChange={(v) => reset(() => setQ(v))}
+          />
+        }
+      />
 
       <div
         role="tablist"
         aria-label="Browse by"
-        className="-mx-3 flex gap-1 overflow-x-auto border-b border-border px-3 tablet:mx-0 tablet:px-0"
+        className="lib-shelf"
       >
         {VIEWS.map(([v, label]) => (
           <button
@@ -175,41 +169,35 @@ export function SamplesPage() {
             role="tab"
             aria-selected={view === v}
             onClick={() => reset(() => setView(v))}
-            className={`-mb-px flex h-11 shrink-0 items-center border-b-2 px-3 text-body-strong ${view === v ? "border-accent text-text" : "border-transparent text-text-muted ui-hover:text-text"}`}
+            data-hot={view === v || undefined}
+            className="sp-pad lib-pad-chip"
           >
-            {label}
+            <span className="sp-pad-code">VIEW</span>
+            <span className="sp-pad-label">{label}</span>
           </button>
         ))}
       </div>
 
       {filtered && (
-        <section aria-label="Filters" className="flex flex-col gap-2">
-          <span className="text-label text-label-caps text-text-muted">
-            Sampled from
-          </span>
+        <section aria-label="Filters" className="flex flex-col gap-3">
+          <div className="sp-head">
+            <h2 className="sp-label">Sampled from</h2>
+          </div>
           <ul className="-mx-3 flex gap-2 overflow-x-auto px-3 pb-1 tablet:mx-0 tablet:flex-wrap tablet:px-0">
             {GENRES.filter(([g]) => known(g)).map(([g]) => (
               <li key={g} className="shrink-0">
-                <FilterChip
-                  selected={genre === g}
-                  onToggle={() => reset(() => setGenre(genre === g ? null : g))}
-                >
+                <button type="button" className="sp-key sp-key-pill" aria-pressed={genre === g} onClick={() => reset(() => setGenre(genre === g ? null : g))}>
                   {g}
-                </FilterChip>
+                </button>
               </li>
             ))}
           </ul>
           <ul className="-mx-3 flex gap-2 overflow-x-auto px-3 pb-1 tablet:mx-0 tablet:px-0">
             {DECADES.map((d) => (
               <li key={d} className="shrink-0">
-                <FilterChip
-                  selected={decade === d}
-                  onToggle={() =>
-                    reset(() => setDecade(decade === d ? null : d))
-                  }
-                >
+                <button type="button" className="sp-key sp-key-dark sp-key-pill" aria-pressed={decade === d} onClick={() => reset(() => setDecade(decade === d ? null : d))}>
                   {d}
-                </FilterChip>
+                </button>
               </li>
             ))}
           </ul>
@@ -240,7 +228,7 @@ export function SamplesPage() {
       {view === "songs" && (
         <ul
           aria-label="Songs and what they sample"
-          className="grid grid-cols-1 gap-3 tablet:grid-cols-2 desktop:grid-cols-3"
+          className="lib-grid"
         >
           {songs.slice(0, limit).map((s) => (
             <SongCard key={s.key} s={s} />
@@ -248,7 +236,7 @@ export function SamplesPage() {
         </ul>
       )}
       {view === "records" && (
-        <ol aria-label="Most sampled records" className="flex flex-col gap-2">
+        <ol aria-label="Most sampled records" className="lib-rack lib-rank flex flex-col gap-1">
           {records.slice(0, limit).map((o, i) => (
             <RecordRow key={o.key} o={o} n={i + 1} />
           ))}
@@ -257,7 +245,7 @@ export function SamplesPage() {
       {view === "artists" && (
         <ol
           aria-label="Most sampled artists"
-          className="grid grid-cols-1 gap-2 tablet:grid-cols-2"
+          className="lib-rack lib-rank grid grid-cols-1 gap-1 tablet:grid-cols-2"
         >
           {artists.slice(0, limit).map((a, i) => (
             <RankRow
@@ -274,7 +262,7 @@ export function SamplesPage() {
       {view === "producers" && (
         <ol
           aria-label="Producers who sample"
-          className="grid grid-cols-1 gap-2 tablet:grid-cols-2"
+          className="lib-rack lib-rank grid grid-cols-1 gap-1 tablet:grid-cols-2"
         >
           {producers.slice(0, limit).map((p, i) => (
             <RankRow
@@ -291,16 +279,12 @@ export function SamplesPage() {
         </ol>
       )}
       {shown > limit && (
-        <Button
-          variant="secondary"
-          className="self-center"
-          onClick={() => setLimit(limit + PAGE)}
-        >
+        <button type="button" className="sp-key self-center" onClick={() => setLimit(limit + PAGE)}>
           Show more
-        </Button>
+        </button>
       )}
       {shown === 0 && (
-        <p className="text-body text-text-muted">
+        <p className="sp-lcd sp-lcd-small m-0">
           Nothing matches. Clear the search or pick another genre.
         </p>
       )}
@@ -358,63 +342,57 @@ function UseBadge({ u }: { u: SampleUse }) {
 
 export function SongCard({ s }: { s: SampleSong }) {
   const sampledIn = asOriginal(s)?.uses.length ?? 0;
+  const first = s.samples[0];
   return (
     <li className="h-full">
-      <UiLink
-        href={sampleHref(s)}
-        className="group flex h-full flex-col gap-4 rounded-panel border border-border bg-surface p-4 ui-hover:border-border-strong"
-      >
-        <span className="flex items-start gap-4">
-          <Cover song={s.song} artist={s.artist} placeholder />
-          <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-            <span className="truncate text-title text-text group-hover:underline">
-              {s.song}
-            </span>
-            <span className="truncate text-body-strong text-text">
-              {s.artist}
-            </span>
-            <span className="truncate text-small text-text-muted">
-              {line(s.year, s.album)}
-            </span>
-            {s.producers.length > 0 && (
-              <span className="truncate text-small text-text-muted">{`prod. ${s.producers.join(", ")}`}</span>
-            )}
-          </span>
+      <UiLink href={sampleHref(s)} className="sp-cart lib-cart group h-full">
+        <span className="lib-pair">
+          <PairArt song={s.song} artist={s.artist} />
+          {first && (
+            <>
+              <span className="lib-cable" aria-hidden="true">
+                <span />
+              </span>
+              <PairArt song={first.title} artist={first.artist} />
+            </>
+          )}
         </span>
-        <ul className="flex flex-col gap-2 border-t border-border pt-3">
+        <span className="flex min-w-0 flex-col gap-1">
+          <span className="lib-cart-title group-hover:underline">{s.song}</span>
+          <span className="lib-cart-line">{s.artist}</span>
+          <span className="lib-sub truncate">{line(s.year, s.album)}</span>
+          {s.producers.length > 0 && <span className="lib-sub truncate">{`prod. ${s.producers.join(", ")}`}</span>}
+        </span>
+        <ul className="mt-auto flex flex-col gap-2">
           {s.samples.slice(0, 3).map((u) => (
-            <li
-              key={`${u.title}|${u.artist}`}
-              className="flex items-start gap-2"
-            >
-              <span
-                aria-hidden="true"
-                className="pt-0.5 text-small text-accent"
-              >
-                ↳
-              </span>
+            <li key={`${u.title}|${u.artist}`} className="sp-lcd lib-strip">
+              <span className="lib-strip-part">{u.type === "sample" ? "Sample" : "Replay"}</span>
               <span className="flex min-w-0 flex-1 flex-col">
-                <span className="truncate text-body-strong text-text">
-                  {u.title}
-                </span>
-                <span className="truncate text-small text-text-muted">
-                  {line(u.artist, u.year, known(u.genre) && u.genre)}
-                </span>
+                <span className="sp-lcd-small truncate">{line(u.artist, u.year, known(u.genre) && u.genre)}</span>
+                <span className="sp-lcd-text truncate">{u.title}</span>
               </span>
-              <UseBadge u={u} />
             </li>
           ))}
-          {s.samples.length > 3 && (
-            <li className="text-small text-text-muted">{`and ${s.samples.length - 3} more`}</li>
-          )}
-          {sampledIn > 0 && (
-            <li className="text-small text-accent">
-              {"Sampled in other songs here"}
-            </li>
-          )}
+          {s.samples.length > 3 && <li className="lib-sub">and more</li>}
+          {sampledIn > 0 && <li className="lib-label-dark">Sampled in other songs here</li>}
         </ul>
       </UiLink>
     </li>
+  );
+}
+
+/** A cover in its bezel; a record with no art yet shows its title on a small screen instead. */
+function PairArt({ song, artist }: { song: string; artist: string }) {
+  return (
+    <span className="sp-cover lib-cover-pair">
+      {coverFor(song, artist) ? (
+        <Cover song={song} artist={artist} size="fill" />
+      ) : (
+        <span aria-hidden="true" className="lib-cover-blank">
+          <span>{song}</span>
+        </span>
+      )}
+    </span>
   );
 }
 
@@ -435,13 +413,13 @@ function RankRow({
     <li>
       <UiLink
         href={href}
-        className="group flex items-center gap-4 rounded-panel border border-border bg-surface p-4 ui-hover:border-border-strong"
+        className="lib-row group flex items-center gap-4 p-3"
       >
-        <span className="hidden w-10 shrink-0 font-mono text-numeric tabular text-text-muted tablet:block">
+        <span className="lib-chip-lcd hidden shrink-0 tablet:inline-flex">
           {String(n).padStart(2, "0")}
         </span>
         <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-          <span className="truncate text-title text-text group-hover:underline">
+          <span className="truncate text-body-strong text-text uppercase tracking-wide group-hover:underline">
             {title}
           </span>
           <span className="truncate text-small text-text-muted">{sub}</span>

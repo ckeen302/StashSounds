@@ -71,7 +71,7 @@
 .lib-row:hover { background: var(--sp-key); }
 .lib-row[data-selected] { background: var(--sp-lcd); box-shadow: inset 0 2px 0 var(--sp-lcd-edge), 0 1px 0 var(--sp-panel-edge); --color-text: var(--sp-lcd-ink); --color-text-muted: var(--sp-lcd-dim); --color-accent: var(--sp-lcd-ink); }
 .lib-row[data-selected] .os-wave rect { fill: var(--sp-lcd-ink); }
-.lib-chip-lcd { align-items: center; justify-content: center; min-width: 52px; height: 30px; padding: 0 8px; border-radius: 5px; background: var(--sp-dark); color: var(--sp-lcd); font-family: var(--sp-font-lcd); font-size: 22px; line-height: 1; box-shadow: inset 0 2px 0 var(--sp-dark-hi); }
+.lib-chip-lcd { text-transform: uppercase; align-items: center; justify-content: center; min-width: 52px; height: 30px; padding: 0 8px; border-radius: 5px; background: var(--sp-dark); color: var(--sp-lcd); font-family: var(--sp-font-lcd); font-size: 22px; line-height: 1; box-shadow: inset 0 2px 0 var(--sp-dark-hi); }
 @media (max-width: 639.98px) { .lib-rack { margin-inline: -6px; padding: 4px; } }
 
 /* The key filter as a keyboard: naturals are light keys, sharps dark ones. */
@@ -99,3 +99,29 @@
 /* The waveform is drawn on a canvas in the loop's type color; on the screen it reads as the screen's own ink. */
 .lib-wave canvas { filter: brightness(0); }
 @media (max-width: 639.98px) { .lib-pager { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; } .lib-pager .sp-key { flex: none; min-width: 46px; } }
+
+/* A sentence about a section, on the panel. */
+.lib-note { margin: 0; font-family: var(--sp-font-ui); font-size: 13px; line-height: 1.5; color: var(--sp-label); }
+
+/* Cartridges that are buttons (chord packs, progressions): the picked one lights its edge. */
+.lib-cart-btn { border: 0; cursor: pointer; align-items: flex-start; }
+.lib-cart-btn:focus-visible { outline: 3px solid var(--sp-ink); outline-offset: 2px; }
+.lib-cart-btn[aria-pressed="true"] { box-shadow: 0 3px 0 var(--sp-hot-edge), 0 0 0 3px var(--sp-hot), 0 0 22px var(--sp-hot-glow); }
+.lib-chip-lcd-lg { text-transform: none; height: 38px; font-size: 28px; padding: 0 10px; }
+
+/* MIDI rows: the column labels in stencil, and each mini piano roll drawn on its own small screen. */
+.lib-rack-head > span { font-family: var(--sp-font-ui); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--sp-label); }
+.lib-roll { padding: 3px; border-radius: 8px; background: var(--sp-dark); box-shadow: inset 0 2px 0 var(--sp-dark-hi); --color-bg: var(--sp-lcd); --color-surface: var(--sp-lcd); --color-raised: var(--sp-lcd-edge); --color-border: var(--sp-lcd-edge); --color-border-strong: var(--sp-lcd-dim); --color-text: var(--sp-lcd-ink); --color-text-muted: var(--sp-lcd-dim); --color-type-midi: var(--sp-lcd-dim); --color-accent: var(--sp-lcd-ink); }
+.lib-roll > * { border-radius: 5px; }
+
+/* Samples: the song and the record it samples, two covers patched together. */
+.lib-pair { display: flex; align-items: center; }
+.lib-cover-pair { flex: 1 1 0; min-width: 0; max-width: 150px; }
+.lib-pair > .lib-cable { flex: 1 0 28px; width: auto; max-width: 64px; }
+
+/* Ranked lists (records, artists, producers): rows in a tray, the place on a small screen. */
+.lib-rank { list-style: none; margin: 0; }
+.lib-rank > li > a { text-decoration: none; }
+.lib-cover-blank { display: flex !important; align-items: flex-end; padding: 8px; box-sizing: border-box; background: var(--sp-lcd); color: var(--sp-lcd-ink); font-family: var(--sp-font-lcd); font-size: 20px; line-height: 0.95; text-transform: uppercase; overflow-wrap: anywhere; }
+.lib-cover-blank > span { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+@media (max-width: 639.98px) { .lib-cover-pair { max-width: 120px; } }

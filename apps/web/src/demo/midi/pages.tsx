@@ -135,8 +135,8 @@ export function MidiList({ label, items }: { label: string; items: MidiItem[] })
   const cell = "font-mono text-numeric tabular text-text";
   const { shown, sentinel } = useProgressive(items);
   return (
-    <DawDragZone sources={items.map(midiSource)} className="overflow-hidden rounded-panel border border-border bg-surface">
-      <div aria-hidden="true" className="flex h-8 items-center gap-3 border-b border-border px-3">
+    <DawDragZone sources={items.map(midiSource)} className="lib-rack">
+      <div aria-hidden="true" className="lib-rack-head flex h-8 items-center gap-3 px-3">
         <span className="w-10 shrink-0" />
         <span className="hidden w-50 shrink-0 text-label text-label-caps text-text-muted tablet:block">Notes</span>
         <span className="min-w-24 flex-1 text-label text-label-caps text-text-muted">Title</span>
@@ -151,11 +151,11 @@ export function MidiList({ label, items }: { label: string; items: MidiItem[] })
           const playing = s.currentId === m.id && s.status === "playing";
           const current = s.currentId === m.id;
           return (
-            <li key={m.id} data-playing={playing || undefined} className={`flex h-16 items-center gap-3 border-b border-border px-3 last:border-b-0 tablet:h-14 ${playing ? "bg-raised" : "bg-surface ui-hover:bg-raised"}`}>
+            <li key={m.id} data-playing={playing || undefined} data-selected={playing || undefined} className="lib-row flex h-16 items-center gap-3 px-3 tablet:h-14">
               <div className="w-10 shrink-0">
                 <PlayButton title={m.title} state={playStateOf(s, m.id)} onClick={() => player.toggle(m.id, m.notes, m.sound)} />
               </div>
-              <div className="hidden w-50 shrink-0 tablet:block">
+              <div className="lib-roll hidden w-50 shrink-0 tablet:block">
                 <PianoRoll variant="mini" notes={m.notes} label={rollLabel(m)} getBeat={current ? player.getBeat : undefined} playing={playing} transpose={current ? s.transpose : 0} />
               </div>
               <div className="flex min-w-24 flex-1 flex-col">

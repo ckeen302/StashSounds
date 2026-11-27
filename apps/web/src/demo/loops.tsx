@@ -30,10 +30,10 @@ import { GENRES, producerByHandle, useCrateEntries } from "./explore";
 import { Dropdown } from "./presets/page";
 import { saveLoopRow } from "./save";
 import { PACK_WEEK, PACKS } from "./packs";
-import { Why, useQuery } from "./search-ui";
-import { BankHead, LcdSearch } from "./bank-head";
+import { Why } from "./search-ui";
+import { BankHead, LcdSmartSearch } from "./bank-head";
 import { loopProfile } from "./search-index";
-import { likeness, match, parseQuery, quality, withoutToken, type Profile } from "./smart-search";
+import { likeness, match, parseQuery, quality, type Profile } from "./smart-search";
 import { addPlay, plays, set } from "./store";
 import { CommentGlyph, Comments, commentCount, countOrNone, trendScore, useSocialVersion } from "./social";
 import { navigate } from "./router";
@@ -390,7 +390,7 @@ export function LoopsPage({
         kicker="LOOP BANK"
         title="Free loops"
         blurb="Search by sound, tempo, key, genre or producer."
-        search={<LoopSearch value={f.q} onChange={(v) => update({ q: v, like: null })} />}
+        search={<LcdSmartSearch id="loops-q" placeholder="dark piano 140" value={f.q} onChange={(v) => update({ q: v, like: null })} />}
         actions={
           <>
             <button type="button" className="sp-key" aria-pressed={filtersOpen} aria-expanded={filtersOpen} onClick={() => setFiltersOpen(!filtersOpen)}>
@@ -915,26 +915,6 @@ function PackStrip() {
         ))}
       </ul>
     </section>
-  );
-}
-
-/** The loop search on the bank's screen, with what it understood underneath (tap one to drop it). */
-function LoopSearch({ value, onChange }: { value: string; onChange: (v: string) => void }) {
-  const q = useQuery(value);
-  return (
-    <div className="flex flex-col gap-2">
-      <LcdSearch id="loops-q" label="Search by sound, tempo, key, genre or producer" placeholder="dark piano 140" value={value} onChange={onChange} />
-      {!q.empty && (
-        <div role="group" aria-label="What the search understood" className="flex flex-wrap items-center gap-2">
-          <span className="sp-lcd-small">READS&gt;</span>
-          {q.tokens.map((t) => (
-            <button key={`${t.kind}-${t.raw}`} type="button" className="sp-lcd-row" data-on aria-label={`${t.label}. Remove`} onClick={() => onChange(withoutToken(value, t))}>
-              {t.label} ×
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
   );
 }
 

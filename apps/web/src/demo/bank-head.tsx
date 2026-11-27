@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+import { useQuery } from "./search-ui";
+import { withoutToken } from "./smart-search";
 
 /**
  * The library pages' header in the Sampler look: the page is a bank on the machine, so its name, a
@@ -75,5 +77,37 @@ export function LcdSearch({
         onChange={(e) => onChange(e.target.value)}
       />
     </form>
+  );
+}
+
+/** The smart search on the screen: what it understood shows underneath, and tapping a word drops it. */
+export function LcdSmartSearch({
+  id,
+  value,
+  onChange,
+  placeholder,
+  label = "Search by sound, tempo, key, genre or producer",
+}: {
+  id: string;
+  value: string;
+  onChange: (v: string) => void;
+  placeholder: string;
+  label?: string;
+}) {
+  const q = useQuery(value);
+  return (
+    <div className="flex flex-col gap-2">
+      <LcdSearch id={id} label={label} placeholder={placeholder} value={value} onChange={onChange} />
+      {!q.empty && (
+        <div role="group" aria-label="What the search understood" className="flex flex-wrap items-center gap-2">
+          <span className="sp-lcd-small">READS&gt;</span>
+          {q.tokens.map((t) => (
+            <button key={`${t.kind}-${t.raw}`} type="button" className="sp-lcd-row" data-on aria-label={`${t.label}. Remove`} onClick={() => onChange(withoutToken(value, t))}>
+              {`${t.label} ×`}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
