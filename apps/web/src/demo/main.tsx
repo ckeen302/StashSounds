@@ -333,16 +333,12 @@ function initialsOf(name: string): string {
 
 function SectionHead({ title, sub, href, more }: { title: string; sub?: string; href?: string; more?: string }) {
   return (
-    <div className="flex items-end justify-between gap-3">
-      <div className="flex min-w-0 flex-col gap-1">
-        <h2 className="text-title">{title}</h2>
-        {sub && <p className="text-small text-text-muted">{sub}</p>}
+    <div className="flex min-w-0 flex-col gap-1.5">
+      <div className="sp-head">
+        <h2 className="sp-label">{title}</h2>
+        {href && more && <UiLink href={href}>{more}</UiLink>}
       </div>
-      {href && more && (
-        <ButtonLink href={href} variant="ghost" size="sm">
-          {more}
-        </ButtonLink>
-      )}
+      {sub && <p className="text-small text-text-muted">{sub}</p>}
     </div>
   );
 }
@@ -461,56 +457,71 @@ function Home() {
   };
   return (
     <div className="flex flex-col">
-      <section className="st-home-hero relative overflow-hidden">
-        <HeroEq />
-        <div className="relative mx-auto flex w-full max-w-content flex-col gap-5 px-3 pt-6 pb-6 tablet:px-4 tablet:pt-12 desktop:px-6 desktop:pt-14">
-          <h1 className="st-hero-title st-home-h1 max-w-4xl text-balance">
-            Free sounds that <span className="st-grad">actually hit.</span>
-          </h1>
-          <ul aria-label="The deal" className="flex flex-wrap gap-x-5 gap-y-1 text-small text-text-muted">
-            {["Free. No credits, no trials", "Plays on first click", "Original files"].map((x) => (
-              <li key={x} className="inline-flex items-center gap-2">
-                <span className="st-check" aria-hidden="true" />
-                {x}
-              </li>
-            ))}
-          </ul>
-          <form
-            role="search"
-            className="flex w-full max-w-2xl gap-2"
-            onSubmit={(e) => {
-              e.preventDefault();
-              search(q);
-            }}
-          >
-            <SearchInput
-              label="Search sounds"
-              hideLabel
-              shortcut=""
-              placeholder="Try dark piano 140 like metro"
-              value={q}
-              onChange={(e) => setQ(e.target.value)}
-              onClear={() => setQ("")}
-              className="min-w-0 flex-1"
-            />
-            <Button type="submit" variant="primary">
-              Search
-            </Button>
-          </form>
-          <ul aria-label="Sound types" className="st-shelf -mx-3 flex gap-2 overflow-x-auto px-3 tablet:mx-0 tablet:flex-wrap tablet:px-0">
-            {types.map((t) => (
-              <li key={t.href} className="shrink-0">
-                <UiLink
-                  href={t.href}
-                  data-t={t.t}
-                  className="st-type flex h-11 items-center gap-2.5 rounded-control border border-border bg-surface px-4 ui-hover:border-border-strong"
-                >
-                  <span className="st-dot size-2.5 rounded-full" aria-hidden="true" />
-                  <span className="text-body-strong text-text">{t.name}</span>
-                </UiLink>
-              </li>
-            ))}
-          </ul>
+      <section className="st-home-hero mx-auto w-full max-w-content px-3 pt-5 tablet:px-4 tablet:pt-8 desktop:px-6">
+        <div className="sp-home-deck">
+          <div className="sp-bezel min-w-0 flex-1">
+            <div className="sp-lcd flex flex-col gap-3 tablet:gap-4">
+              <form
+                role="search"
+                className="sp-lcd-search"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  search(q);
+                }}
+              >
+                <label htmlFor="home-q">SEARCH&gt;</label>
+                <input id="home-q" name="q" type="search" autoComplete="off" placeholder="dark piano 140 like metro" value={q} onChange={(e) => setQ(e.target.value)} />
+                <button type="submit" className="sp-lcd-enter">[ENTER]</button>
+              </form>
+              <hr className="sp-lcd-rule" />
+              <h1 className="sp-lcd-title sp-home-title">
+                Free sounds that actually hit<span className="sp-lcd-blink" aria-hidden="true">_</span>
+              </h1>
+              <ul aria-label="The deal" className="sp-lcd-small flex flex-wrap gap-x-4 gap-y-0">
+                {["Free. No credits, no trials", "Plays on first click", "Original files"].map((x) => (
+                  <li key={x}>&gt; {x.toUpperCase()}</li>
+                ))}
+              </ul>
+              <HeroEq />
+              <hr className="sp-lcd-rule st-wide-only" />
+              <p className="sp-lcd-small st-wide-only flex flex-wrap gap-x-6">
+                <span>[SPACE] PLAY</span>
+                <span>[&#8593;&#8595;] MOVE</span>
+                <span>[L] LIKE</span>
+                <span>[/] SEARCH</span>
+              </p>
+            </div>
+          </div>
+          <nav aria-label="Sound types" className="sp-home-bank flex flex-col gap-3">
+            <span className="sp-label">Bank B &middot; Sounds</span>
+            <ul className="sp-pads sp-cols-3">
+              {types.map((t, i) => (
+                <li key={t.href} className="flex">
+                  <UiLink href={t.href} data-t={t.t} className="sp-pad flex-1">
+                    <span className="sp-pad-code flex w-full items-center justify-between">
+                      B0{i + 1}
+                      <span className="st-dot sp-type-led" aria-hidden="true" />
+                    </span>
+                    <span className="sp-pad-label">{t.name}</span>
+                  </UiLink>
+                </li>
+              ))}
+            </ul>
+            <div className="sp-grille st-wide-only min-h-10 flex-1" aria-hidden="true" />
+            <div className="sp-home-knobs st-wide-only" aria-hidden="true">
+              {[
+                ["Tempo", "-35deg", true],
+                ["Key", "20deg", false],
+                ["Vibe", "60deg", false],
+              ].map(([n, turn, hot]) => (
+                <span key={n as string} className="flex flex-col items-center gap-2">
+                  <span className="sp-knob" style={{ ["--sp-turn" as string]: turn, ...(hot ? { ["--sp-knob-mark" as string]: "var(--sp-hot)" } : {}) }} />
+                  <span className="sp-label">{n}</span>
+                </span>
+              ))}
+            </div>
+          </nav>
         </div>
       </section>
 
@@ -532,7 +543,7 @@ function Home() {
                   type="button"
                   tabIndex={i >= GENRES.length ? -1 : undefined}
                   onClick={() => search(g)}
-                  className="st-hero-title st-ticker-item rounded-control border border-border px-5 py-2 text-title text-text-muted ui-hover:border-border-strong ui-hover:text-text"
+                  className="sp-key sp-key-pill whitespace-nowrap"
                 >
                   {g}
                 </button>
@@ -574,7 +585,7 @@ function Home() {
               return (
                 <li key={name} className="w-24 shrink-0 tablet:w-28">
                   <UiLink href={hrefForProducer(name) ?? (first ? songHref(first.song, first.artist) : "/presets")} className="group flex flex-col items-center gap-2 text-center">
-                    <span data-hue={hueOf(name)} className="st-avatar st-hero-title flex size-24 items-center justify-center rounded-full text-title tablet:size-28" aria-hidden="true">
+                    <span data-hue={hueOf(name)} className="st-avatar sp-avatar flex size-24 items-center justify-center rounded-full tablet:size-28" aria-hidden="true">
                       {initialsOf(name)}
                     </span>
                     <span className="w-full truncate text-body-strong text-text group-hover:underline">{name}</span>
@@ -592,9 +603,13 @@ function Home() {
           </section>
         )}
 
-        <section aria-labelledby="post" className="st-cta flex flex-col gap-4 rounded-panel p-6 tablet:flex-row tablet:items-center tablet:justify-between tablet:p-10">
+        <section aria-labelledby="post" className="sp-panel-dark sp-screws sp-home-cta flex flex-col gap-5 p-6 tablet:flex-row tablet:items-center tablet:justify-between tablet:p-10">
           <div className="flex flex-col gap-2">
-            <h2 id="post" className="st-hero-title text-display">Post a sound. Get followed.</h2>
+            <span className="sp-label sp-label-dark flex items-center gap-2">
+              <span className="sp-led" data-on="" aria-hidden="true" />
+              Rec
+            </span>
+            <h2 id="post" className="sp-home-cta-title">Post a sound. Get followed.</h2>
             <p className="max-w-prose text-body">Heard in one tap. Credited on every download.</p>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -602,8 +617,8 @@ function Home() {
               ["/upload", "Upload a loop"],
               ["/kit-upload", "Post a kit"],
               ["/one-shots", "Post one-shots"],
-            ].map(([href, label]) => (
-              <UiLink key={href} href={href!} className="inline-flex h-10 items-center rounded-control bg-bg px-4 text-body-strong text-text ui-hover:bg-raised">
+            ].map(([href, label], i) => (
+              <UiLink key={href} href={href!} className={i === 0 ? "sp-key sp-key-hot" : "sp-key"}>
                 {label}
               </UiLink>
             ))}
@@ -940,9 +955,14 @@ function SearchResults() {
   void currentId;
   return (
     <Page>
-      <header className="flex flex-col gap-3">
-        <h1 className="text-title">{query.trim() ? `Results for “${query.trim()}”` : "Search"}</h1>
-        <SmartSearch value={query} onChange={setSearchQuery} examples={["god's plan", "carti", "dark 808", "bouncy", "omnisphere", "drill 140-145"]} placeholder="Try a song, an artist or a vibe" />
+      <header className="flex flex-col gap-4">
+        <div className="sp-bezel">
+          <div className="sp-lcd flex flex-col gap-3">
+            <span className="sp-lcd-small">SEARCH &gt; EVERY BANK</span>
+            <h1 className="sp-lcd-title sp-search-title break-words">{query.trim() ? `Results for “${query.trim()}”` : "Search"}</h1>
+            <SmartSearch value={query} onChange={setSearchQuery} examples={["god's plan", "carti", "dark 808", "bouncy", "omnisphere", "drill 140-145"]} placeholder="Try a song, an artist or a vibe" />
+          </div>
+        </div>
         {kinds.length > 1 && (
           <div role="group" aria-label="Show" className="flex flex-wrap gap-2">
             <FilterChip selected={!active} onToggle={() => setKind("all")}>
@@ -977,7 +997,7 @@ function SearchResults() {
               {shown.map((h, i) => (
                 <li key={h.id} className="flex min-h-14 items-center gap-3 border-b border-border px-3 py-2 last:border-b-0">
                   {h.row(i)}
-                  <span className="shrink-0 rounded-control border border-border px-2 py-0.5 text-label text-label-caps text-text-muted">{KIND_ONE[h.kind]}</span>
+                  <span className="sp-tag">{KIND_ONE[h.kind]}</span>
                 </li>
               ))}
             </ul>

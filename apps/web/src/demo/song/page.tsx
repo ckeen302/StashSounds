@@ -67,7 +67,7 @@ export function SongPage({ song: s, back }: { song: SongAll | null; back?: { hre
 
   return (
     <main className="flex w-full flex-col">
-      <header className="st-song-hero relative overflow-hidden border-b border-border">
+      <header className="st-song-hero sp-song-hero relative overflow-hidden">
         {cover && <span aria-hidden="true" className="st-song-backdrop" style={tileStyle(cover.file)} />}
         <div className="relative mx-auto flex w-full max-w-content flex-col gap-6 px-3 pt-6 pb-8 tablet:px-4 tablet:pt-8 desktop:px-6 desktop:pb-10">
           {back && (
@@ -75,22 +75,29 @@ export function SongPage({ song: s, back }: { song: SongAll | null; back?: { hre
               {`← ${back.label}`}
             </UiLink>
           )}
-          <div className="flex flex-col gap-6 tablet:flex-row tablet:items-end tablet:gap-8">
-            <span className="st-song-cover block w-40 shrink-0 tablet:w-56 desktop:w-64">
+          <div className="flex flex-col gap-6 tablet:flex-row tablet:items-stretch tablet:gap-8">
+            <span className="st-song-cover sp-song-cover block w-40 shrink-0 tablet:w-56 desktop:w-64">
               <Cover song={s.song} artist={s.artist} size="fill" placeholder />
+              <span className="sp-cover-label">{s.year ? `Loaded \u00b7 ${s.year}` : "Loaded"}</span>
             </span>
-            <div className="flex min-w-0 flex-col gap-3">
-              <h1 className="st-hero-title st-song-title text-balance break-words text-text">{s.song}</h1>
-              <p className="text-title text-text">{s.artist}</p>
-              <dl className="flex flex-wrap gap-x-8 gap-y-3 pt-1">
-                {facts.map(([k, v]) => (
-                  <div key={k} className="flex min-w-0 flex-col gap-0.5">
-                    <dt className="text-label text-label-caps text-text-muted">{k}</dt>
-                    <dd className="text-body-strong text-text">{v}</dd>
-                  </div>
-                ))}
-              </dl>
-              <div className="mt-2 flex flex-wrap gap-2">
+            <div className="flex min-w-0 flex-1 flex-col gap-4">
+              <div className="sp-bezel">
+                <div className="sp-lcd flex flex-col gap-2">
+                  <span className="sp-lcd-small">SONG &gt; EVERYTHING ON ONE SCREEN</span>
+                  <h1 className="sp-lcd-title st-song-title text-balance break-words">{s.song}</h1>
+                  <p className="sp-lcd-text">{`BY ${s.artist.toUpperCase()}`}</p>
+                  <hr className="sp-lcd-rule" />
+                  <dl className="flex flex-wrap gap-x-8 gap-y-1">
+                    {facts.map(([k, v]) => (
+                      <div key={k} className="flex min-w-0 items-baseline gap-2">
+                        <dt className="sp-lcd-small">{`${k.toUpperCase()}>`}</dt>
+                        <dd className="sp-lcd-text sp-lcd-caps">{v}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-2">
                 <ExtLink href={listenHref(s.song, s.artist, s.video)} variant="primary">
                   {listenLabel(s.video)}
                 </ExtLink>
@@ -99,8 +106,8 @@ export function SongPage({ song: s, back }: { song: SongAll | null; back?: { hre
               </div>
             </div>
           </div>
-          <nav aria-label="On this page" className="flex flex-wrap gap-2">
-            {parts.map((p) => (
+          <nav aria-label="On this page" className="sp-pads sp-song-parts">
+            {parts.map((p, i) => (
               <a
                 key={p}
                 href={`#${p}`}
@@ -109,9 +116,10 @@ export function SongPage({ song: s, back }: { song: SongAll | null; back?: { hre
                   e.preventDefault();
                   document.getElementById(p)?.scrollIntoView({ behavior: "smooth", block: "start" });
                 }}
-                className="inline-flex h-8 items-center rounded-control border border-border-strong bg-surface px-3 text-small text-text ui-hover:bg-raised pointer-coarse:h-10"
+                className="sp-pad"
               >
-                {PART_LABEL[p]}
+                <span className="sp-pad-code">{`C0${i + 1}`}</span>
+                <span className="sp-pad-label">{PART_LABEL[p]}</span>
               </a>
             ))}
           </nav>
@@ -133,10 +141,12 @@ export function SongPage({ song: s, back }: { song: SongAll | null; back?: { hre
 function Part({ id, title, note, children }: { id: string; title: string; note?: string; children: ReactNode }) {
   return (
     <section aria-labelledby={`${id}-title`} id={id} className="flex scroll-mt-20 flex-col gap-3">
-      <div className="flex flex-col gap-1">
-        <h2 id={`${id}-title`} className="text-title text-text">
-          {title}
-        </h2>
+      <div className="flex flex-col gap-1.5">
+        <div className="sp-head">
+          <h2 id={`${id}-title`} className="sp-label">
+            {title}
+          </h2>
+        </div>
         {note && <p className="text-small text-text-muted">{note}</p>}
       </div>
       {children}
@@ -201,9 +211,9 @@ function ChordsPart({ s }: { s: SongAll }) {
     <Part id="chords" title="Chords" note={`${first.key} · ${first.bpm} BPM${prog ? ` · ${prog.label}` : ""}. Play it here or drag the MIDI into your DAW.`}>
       <ul aria-label="The chords in order" className="flex flex-wrap gap-2">
         {first.chords.map(([c, beats], i) => (
-          <li key={`${c}-${i}`} className="inline-flex items-baseline gap-1 rounded-control border border-border-strong bg-surface px-3 py-1">
-            <span className="font-mono text-body-strong text-text">{c}</span>
-            {beats !== 4 && <span className="font-mono text-small text-text-muted">{`${beats}b`}</span>}
+          <li key={`${c}-${i}`} className="sp-chord">
+            <span>{c}</span>
+            {beats !== 4 && <span className="sp-chord-beats">{`${beats}b`}</span>}
           </li>
         ))}
       </ul>
@@ -228,7 +238,7 @@ function DrumsPart({ s }: { s: SongAll }) {
   const pads = PADS.map((c) => k.sounds.find((x) => x.category === c)).filter((x): x is KitSound => !!x);
   return (
     <Part id="drums" title="Drum kit" note={pick.why}>
-      <div className="flex flex-col gap-4 rounded-panel border border-border bg-surface p-4">
+      <div className="sp-panel-dark flex flex-col gap-4 p-4 tablet:p-5">
         <div className="flex items-center gap-3">
           <PlayButton title={`a groove on ${k.name}`} state="paused" onClick={() => preview(k)} />
           <span className="flex min-w-0 flex-1 flex-col">
@@ -241,22 +251,22 @@ function DrumsPart({ s }: { s: SongAll }) {
             Download
           </Button>
         </div>
-        <ul aria-label="Tap a sound" className="grid grid-cols-3 gap-2 tablet:grid-cols-6">
-          {pads.map((x) => (
+        <ul aria-label="Tap a sound" className="sp-pads sp-cols-3 tablet:grid-cols-6">
+          {pads.map((x, i) => (
             <li key={x.id}>
               <button
                 type="button"
                 onPointerDown={(e) => e.button === 0 && void play(x)}
                 onClick={(e) => e.detail === 0 && void play(x)}
-                className="flex h-14 w-full flex-col items-center justify-center rounded-control border border-border-strong bg-raised px-2 text-small text-text ui-hover:border-accent active:bg-accent active:text-bg"
+                className="sp-pad sp-pad-drum w-full"
               >
-                <span className="text-label text-label-caps">{labelOf(x.category)}</span>
-                <span className="w-full truncate text-center text-small text-text-muted">{x.name}</span>
+                <span className="sp-pad-code">{`D0${i + 1} \u00b7 ${labelOf(x.category).toUpperCase()}`}</span>
+                <span className="sp-pad-meta w-full truncate">{x.name}</span>
               </button>
             </li>
           ))}
         </ul>
-        <UiLink href={`/kit/${k.id}`} className="self-start text-small text-accent ui-hover:underline">
+        <UiLink href={`/kit/${k.id}`} className="sp-key self-start">
           {"Every sound in the kit →"}
         </UiLink>
       </div>

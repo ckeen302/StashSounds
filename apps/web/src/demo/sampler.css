@@ -233,7 +233,7 @@ html[data-look="sampler"] header.border-b {
 html[data-look="sampler"] header > a[aria-label="Stash"] { height: auto; gap: 12px; align-items: baseline; flex: none; }
 html[data-look="sampler"] header > a[aria-label="Stash"] > :first-child { display: none; }
 html[data-look="sampler"] header > a[aria-label="Stash"] > :last-child { font-family: var(--sp-font-mark); font-weight: 800; font-size: 40px; letter-spacing: -0.05em; line-height: 1; color: var(--sp-ink); text-transform: none; }
-html[data-look="sampler"] header > a[aria-label="Stash"]::after { content: "SOUND STATION \00B7  SP-1"; font-family: var(--sp-font-ui); font-size: 11px; font-weight: 700; letter-spacing: 3px; color: var(--sp-label); white-space: nowrap; }
+html[data-look="sampler"] header > a[aria-label="Stash"]::after { content: "SOUND STATION  /  SP-1"; font-family: var(--sp-font-ui); font-size: 11px; font-weight: 700; letter-spacing: 3px; color: var(--sp-label); white-space: nowrap; }
 html[data-look="sampler"] header > :is(a, span, button):not([aria-label="Stash"]) { flex: none; }
 html[data-look="sampler"] header a[aria-label="Notifications"],
 html[data-look="sampler"] header a[aria-label="Search"] { width: 44px; height: 44px; border: 0; border-radius: 10px; background: var(--sp-key); color: var(--sp-ink); box-shadow: inset 0 -3px 0 var(--sp-key-edge), 0 1px 0 var(--sp-panel-edge); }
@@ -306,7 +306,7 @@ html[data-look="sampler"] section[aria-label="Player"] > :not([data-player-progr
 html[data-look="sampler"] section[aria-label="Player"] > div:first-of-type { margin-right: 8px; }
 html[data-look="sampler"] section[aria-label="Player"] > div:last-child { margin-left: 14px; }
 html[data-look="sampler"] section[aria-label="Player"] > p:not(.sr-only) { font-family: var(--sp-font-lcd); font-size: 24px; text-transform: uppercase; }
-html[data-look="sampler"] section[aria-label="Player"] > p:not(.sr-only)::before { content: "STANDBY \00B7  "; }
+html[data-look="sampler"] section[aria-label="Player"] > p:not(.sr-only)::before { content: "STANDBY  /  "; }
 html[data-look="sampler"] section[aria-label="Player"] a { font-family: var(--sp-font-lcd); font-size: 22px; text-transform: uppercase; }
 html[data-look="sampler"] section[aria-label="Player"] [data-player-progress] { display: block; left: calc(var(--sp-lcd-l) + 8px); right: calc(var(--sp-lcd-r) + 8px); top: auto; bottom: 16px; height: 2px; background: var(--sp-lcd-edge); }
 html[data-look="sampler"] section[aria-label="Player"] [data-player-progress] > span { background: var(--sp-lcd-ink); }
@@ -315,7 +315,7 @@ html[data-look="sampler"] section[aria-label="Player"] [role="slider"] { --color
 /* The pocket model (phone): a slimmer top panel, the pad bank becomes a key row at the bottom. */
 @media (max-width: 639.98px) {
   html[data-look="sampler"] #root > div { padding-bottom: calc(70px + env(safe-area-inset-bottom)); }
-  html[data-look="sampler"] header.border-b { margin-top: 0; min-height: 60px; padding: 10px 14px 8px; gap: 10px; border-radius: 0; background-image: none; }
+  html[data-look="sampler"] header.border-b { margin-top: 0; min-height: 60px; padding: 10px 14px 8px; gap: 10px; border-radius: 0; background-image: none; box-shadow: none; }
   html[data-look="sampler"] header > a[aria-label="Stash"] > :last-child { font-size: 30px; }
   html[data-look="sampler"] header > a[aria-label="Stash"]::after { content: "SP-1 POCKET"; font-size: 10px; letter-spacing: 2px; }
   html[data-look="sampler"] nav[aria-label="Demo sections"] {
@@ -339,3 +339,84 @@ html[data-look="sampler"] section[aria-label="Player"] [role="slider"] { --color
   html[data-look="sampler"] section[aria-label="Player"] button[aria-label="Open player"] span { font-family: var(--sp-font-lcd); font-size: 20px; line-height: 1; text-transform: uppercase; }
   html[data-look="sampler"] #content { box-shadow: none; }
 }
+
+/* ---------- Pages ---------- */
+
+/* Home: the big screen beside the sound bank, then the shelves. */
+.sp-home-deck { display: flex; flex-direction: column; gap: 20px; }
+@media (min-width: 1024px) { .sp-home-deck { flex-direction: row; align-items: stretch; gap: 24px; } .sp-home-bank { width: 360px; flex: none; } }
+.sp-home-title { font-size: clamp(40px, 5.2vw, 72px); line-height: 0.9; }
+.sp-lcd-enter { flex: none; border: 0; background: none; padding: 0 2px; font: inherit; font-size: 0.8em; color: var(--sp-lcd-ink); cursor: pointer; }
+.sp-lcd-enter:hover { background: var(--sp-lcd-ink); color: var(--sp-lcd); }
+.sp-lcd .st-eq { position: relative; inset: auto; width: 100%; height: 56px; padding: 0; gap: 4px; opacity: 1; -webkit-mask-image: none; mask-image: none; }
+.sp-lcd .st-eq > span { border-radius: 1px; background: repeating-linear-gradient(0deg, var(--sp-lcd-ink) 0 4px, transparent 4px 6px); }
+.sp-home-bank .sp-pad { min-height: 84px; }
+.sp-type-led { width: 8px; height: 8px; border-radius: 50%; box-shadow: 0 0 6px var(--t, var(--sp-hot)); }
+.sp-home-bank .sp-pad:hover .sp-type-led { box-shadow: 0 0 10px 2px var(--t, var(--sp-hot)); }
+.sp-home-bank [data-t="loop"] { --t: #5fb4ff; }
+.sp-home-bank [data-t="oneshot"] { --t: #ffb347; }
+.sp-home-bank [data-t="kit"] { --t: #ff5c7a; }
+.sp-home-bank [data-t="midi"] { --t: #b58cff; }
+.sp-home-bank [data-t="preset"] { --t: #4fe0a8; }
+.sp-home-knobs { display: flex; justify-content: space-around; padding-top: 8px; margin-top: auto; }
+.sp-home-cta { color: var(--sp-pad-text); }
+.sp-home-cta-title { margin: 0; font-family: var(--sp-font-lcd); font-weight: 400; font-size: clamp(36px, 5vw, 60px); line-height: 0.95; text-transform: uppercase; color: var(--sp-lcd); text-shadow: 0 0 18px rgb(169 194 122 / 0.35); }
+.sp-label-dark { color: var(--sp-pad-sub); }
+:root .sp-avatar { font-family: var(--sp-font-lcd); font-size: 40px; color: var(--sp-lcd); background: radial-gradient(circle at 40% 35%, var(--sp-dark-hi), var(--sp-dark) 70%); box-shadow: 0 4px 0 var(--sp-panel-edge), inset 0 0 0 4px var(--sp-dark), inset 0 0 0 6px var(--sp-dark-hi); text-shadow: 0 0 10px rgb(169 194 122 / 0.5); }
+:root a:hover .sp-avatar { color: var(--sp-hot); text-shadow: 0 0 12px var(--sp-hot-glow); }
+
+/* Album covers, everywhere: each one sits in a screen bezel. A missing cover is the screen, lit. */
+html[data-look="sampler"] .st-cover { position: relative; border: 0; border-radius: 4px; box-shadow: 0 0 0 4px var(--sp-dark), 0 0 0 5px var(--sp-dark-hi), 0 5px 0 4px var(--sp-panel-edge); }
+html[data-look="sampler"] .st-cover::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: repeating-linear-gradient(0deg, rgb(0 0 0 / 0.07) 0 1px, transparent 1px 3px), linear-gradient(160deg, rgb(255 255 255 / 0.16), transparent 40%); }
+html[data-look="sampler"] .st-cover-empty { background: repeating-linear-gradient(0deg, rgb(0 0 0 / 0.05) 0 1px, transparent 1px 3px), var(--sp-lcd); }
+html[data-look="sampler"] .st-cover-disc { display: none; }
+html[data-look="sampler"] .st-cover-initials { font-family: var(--sp-font-lcd); font-weight: 400; font-size: 46cqw; color: var(--sp-lcd-ink); opacity: 1; text-shadow: none; }
+html[data-look="sampler"] .st-shelf { padding-top: 6px; padding-bottom: 10px; }
+html[data-look="sampler"] .st-shelf > li > a.rounded-panel { padding: 12px; gap: 14px; }
+html[data-look="sampler"] .st-ticker-item { background: var(--sp-key); }
+
+/* Dark panels re-point the text tokens, so app text and buttons inside read light on dark. */
+.sp-panel-dark { --color-text: var(--sp-pad-text); --color-text-muted: var(--sp-pad-sub); --color-raised: var(--sp-pad-hover); --color-surface: var(--sp-dark-hi); --color-border: var(--sp-dark-hi); --color-border-strong: var(--sp-led-off); }
+.sp-lcd-caps { text-transform: uppercase; }
+.sp-lcd-caps a { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.sp-tag { flex: none; display: inline-flex; align-items: center; height: 24px; padding: 0 8px; border-radius: 4px; background: var(--sp-key); color: var(--sp-label); box-shadow: inset 0 -2px 0 var(--sp-key-edge); font-family: var(--sp-font-ui); font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+
+/* Song page: the cover in its bezel beside the screen, the parts as a pad row. */
+html[data-look="sampler"] .sp-song-hero .st-song-backdrop,
+html[data-look="sampler"] .sp-song-hero::after { display: none; }
+html[data-look="sampler"] .sp-song-cover > .st-cover { box-shadow: 0 0 0 8px var(--sp-dark), 0 0 0 9px var(--sp-dark-hi), 0 9px 0 8px var(--sp-panel-edge); border-radius: 6px; }
+.sp-song-cover { padding: 8px; }
+.sp-song-cover .sp-cover-label { margin-top: 22px; text-align: center; }
+html[data-look="sampler"] main h1.st-song-title { font-size: clamp(40px, 5.6vw, 76px); line-height: 0.9; font-weight: 400; letter-spacing: 0.01em; }
+.sp-song-parts { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+.sp-song-parts .sp-pad { min-height: 68px; }
+.sp-chord { display: inline-flex; align-items: baseline; gap: 4px; padding: 4px 12px; border-radius: 6px; font-family: var(--sp-font-lcd); font-size: 26px; line-height: 1; color: var(--sp-lcd-ink); background: var(--sp-lcd); box-shadow: inset 0 2px 0 rgb(0 0 0 / 0.16), inset 0 0 0 2px var(--sp-lcd-edge), 0 0 0 3px var(--sp-dark); }
+.sp-chord-beats { font-size: 18px; color: var(--sp-lcd-dim); }
+.sp-pad-drum { min-height: 72px; touch-action: manipulation; }
+.sp-pad-drum:active { background: var(--sp-hot); color: var(--sp-ink); box-shadow: inset 0 -2px 0 var(--sp-hot-edge), 0 0 22px var(--sp-hot-glow); }
+.sp-pad-drum:active :is(.sp-pad-code, .sp-pad-meta) { color: var(--sp-ink); }
+@media (min-width: 640px) { .sp-pads.tablet\:grid-cols-6 { --sp-cols: 6; } }
+
+/* Every search box is a little screen; filter chips are keys, lit when on. */
+html[data-look="sampler"] div:has(> input[type="search"]):not(.sp-lcd-search) { border: 0; background: repeating-linear-gradient(0deg, rgb(0 0 0 / 0.05) 0 1px, transparent 1px 3px), var(--sp-lcd); box-shadow: inset 0 3px 0 rgb(0 0 0 / 0.18), inset 0 0 0 2px var(--sp-lcd-edge), 0 0 0 5px var(--sp-dark), 0 3px 0 5px var(--sp-panel-edge); border-radius: 6px; margin: 5px; }
+html[data-look="sampler"] div:has(> input[type="search"]):not(.sp-lcd-search) > input { font-family: var(--sp-font-lcd); font-size: 22px; color: var(--sp-lcd-ink); }
+html[data-look="sampler"] div:has(> input[type="search"]):not(.sp-lcd-search) > input::placeholder { color: var(--sp-lcd-dim); }
+html[data-look="sampler"] div:has(> input[type="search"]):not(.sp-lcd-search) :is(svg, button) { color: var(--sp-lcd-ink); }
+html[data-look="sampler"] button.h-8.rounded-control.border,
+html[data-look="sampler"] button.h-6.rounded-control { border: 0; background: var(--sp-key); color: var(--sp-ink); box-shadow: inset 0 -3px 0 var(--sp-key-edge), 0 1px 0 var(--sp-panel-edge); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; font-size: 12px; }
+html[data-look="sampler"] button.h-8.rounded-control.border:hover,
+html[data-look="sampler"] button.h-6.rounded-control:hover { background: var(--sp-key-hover); }
+html[data-look="sampler"] button.h-8.rounded-control.border:is([aria-pressed="true"], [aria-label^="Remove filter"]) { background: var(--sp-hot); box-shadow: inset 0 -3px 0 var(--sp-hot-edge), 0 1px 0 var(--sp-panel-edge); }
+.sp-lcd button.h-6.rounded-control { background: transparent; box-shadow: inset 0 0 0 1px var(--sp-lcd-dim); color: var(--sp-lcd-ink); font-family: var(--sp-font-lcd); font-size: 18px; font-weight: 400; }
+.sp-lcd button.h-6.rounded-control:hover { background: var(--sp-lcd-ink); color: var(--sp-lcd); }
+.sp-lcd div:has(> input[type="search"]) { margin: 0 !important; box-shadow: none !important; background: rgb(23 34 12 / 0.06) !important; border-bottom: 2px dashed var(--sp-lcd-dim) !important; border-radius: 0 !important; }
+.sp-lcd .text-label-caps, .sp-lcd .text-small, .sp-lcd .text-accent { color: var(--sp-lcd-dim); font-family: var(--sp-font-lcd); font-size: 18px; letter-spacing: 0.04em; }
+.sp-search-title { font-size: clamp(32px, 4vw, 52px); }
+
+/* Profiles: the face as a lit knob, the name on the screen, follow beside it. */
+.sp-profile { display: flex; flex-direction: column; gap: 18px; }
+@media (min-width: 640px) { .sp-profile { flex-direction: row; align-items: center; gap: 24px; } }
+.sp-profile-face { width: 104px; height: 104px; font-size: 52px; flex: none; }
+@media (min-width: 1024px) { .sp-profile-face { width: 136px; height: 136px; font-size: 66px; } }
+.sp-profile-side { flex: none; max-width: 260px; }
+html[data-look="sampler"] :is(button, a).bg-accent.text-bg { font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: 13px; }
