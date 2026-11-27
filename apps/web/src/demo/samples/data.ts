@@ -75,7 +75,14 @@ const WIKI = "https://en.wikipedia.org/wiki/";
 const sourceUrl = (page: string) =>
   page.startsWith("https://") ? page : WIKI + page;
 
-const flat = (x: string) =>
+// The same names and titles come round thousands of times while the indexes are built: fold each once.
+const FLAT = new Map<string, string>();
+const flat = (x: string) => {
+  let f = FLAT.get(x);
+  if (f === undefined) FLAT.set(x, (f = fold(x)));
+  return f;
+};
+const fold = (x: string) =>
   x
     .toLowerCase()
     .normalize("NFKD")
@@ -88,8 +95,12 @@ const flat = (x: string) =>
 export const leadArtist = (artist: string) =>
   (artist.split(/ feat\.? | featuring | ft\.? | with /i)[0] ?? artist).trim();
 
+const OKEY = new Map<string, string>();
 export function originalKey(title: string, artist: string): string {
-  return `${flat(title.replace(/\(.*?\)/g, ""))}|${flat(leadArtist(artist))}`;
+  const id = `${title}\u0000${artist}`;
+  let k = OKEY.get(id);
+  if (k === undefined) OKEY.set(id, (k = `${flat(title.replace(/\(.*?\)/g, ""))}|${flat(leadArtist(artist))}`));
+  return k;
 }
 
 type Row = [

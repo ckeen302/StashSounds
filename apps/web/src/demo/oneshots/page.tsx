@@ -9,6 +9,7 @@ import { categoryOf, cleanName, decode } from "../kits/store";
 import { fileName, INSTRUMENTS, instrumentOf, MELODIC, mineAsMelodic, NOTE_NAMES, peaksOf, playShot, saveMelodic, warmShots, type InstrumentId, type MelodicShot } from "./melodic";
 import { postShots, removeShot, useMineVersion, type ShotDraft } from "./store";
 import { usePageKeys } from "../shortcuts";
+import { useProgressive } from "../progressive";
 
 /**
  * The One-shots tab: melodic one-shots. Single notes and chords from keys, bells, plucks, pads,
@@ -82,6 +83,8 @@ export function OneShotsPage() {
   );
   const shots = inst === "all" ? matching : matching.filter((s) => s.instrument === inst);
   const current = shots[Math.min(selected, Math.max(0, shots.length - 1))];
+  // Hundreds of rows, each with a waveform: mount them as they come near the screen, not all at once.
+  const { shown, sentinel } = useProgressive(shots, { atLeast: selected });
   const reset = () => setSelected(0);
 
   const grab = async (list: MelodicShot[], zipName: string) => {
@@ -294,7 +297,7 @@ export function OneShotsPage() {
       {shots.length > 0 ? (
         <DawDragZone sources={shots.map(melodicSource)} className="lib-rack">
           <ul ref={listRef} aria-label="One-shots">
-            {shots.map((s, i) => {
+            {shown.map((s, i) => {
               const ins = instrumentOf(s.instrument);
               const cid = `oneshot:${s.id}`;
               return (
@@ -327,6 +330,7 @@ export function OneShotsPage() {
                 </Fragment>
               );
             })}
+            {sentinel}
           </ul>
         </DawDragZone>
       ) : (
