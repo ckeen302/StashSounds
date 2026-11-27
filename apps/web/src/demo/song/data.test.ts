@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { SAMPLE_SONGS, sampleHref } from "../samples/data";
 import { kitFor, matchKey, partsOf, songAllBySlug, songAllOf, songFromPreset, SONGS } from "./data";
 
 describe("one page per song", () => {
@@ -31,5 +32,10 @@ describe("one page per song", () => {
     const carti = SONGS.find((s) => /^Playboi Carti/.test(s.artist) && !s.producers.some((p) => /bourne|f1lthy/i.test(p)))!;
     expect(kitFor(carti)!.kit.inspiredBy).toBe("Pi'erre Bourne");
     expect(SONGS.every((s) => kitFor(s) !== null)).toBe(true);
+  });
+  it("sends every version of a song to its one page", () => {
+    for (const x of SAMPLE_SONGS) expect(songAllBySlug(sampleHref(x).slice("/song/".length)), x.slug).not.toBeNull();
+    const ride = songAllOf("Let Me Ride (Extended Club Mix)", "Dr. Dre");
+    expect(ride?.song).toBe("Let Me Ride");
   });
 });

@@ -623,7 +623,16 @@ function useSongData(): SongData | null {
 }
 
 const songVibes = new Map<string, string>();
+// One fields list per song, kept, so the search splits each song into words once.
+const songFieldCache = new WeakMap<SongData["SONGS"][number], Field[]>();
 function songFields(s: SongData["SONGS"][number]): Field[] {
+  const had = songFieldCache.get(s);
+  if (had) return had;
+  const f = songFieldsOf(s);
+  songFieldCache.set(s, f);
+  return f;
+}
+function songFieldsOf(s: SongData["SONGS"][number]): Field[] {
   let vibe = songVibes.get(s.key);
   if (vibe === undefined) {
     const lead = s.artist.split(/ feat\.? | featuring | ft\.? | with |,| & | x /i)[0] || s.artist;
@@ -691,7 +700,9 @@ function SearchResults() {
           yield vibeText(["Dark", "Sad", "Happy", "Bouncy", "Hard", "Chill", "Dreamy", "Jazzy", "Dusty", "Piano", "Keys", "Bells", "Pad", "Strings", "Guitar", "Pluck", "Lead", "Synth", "808", "Drums", "Choir", "Flute", "Brass", "Chords", "Melody"]);
         })(),
       ),
-    [songs, rows, midi, kitList],
+    // By size: the lists come back as new arrays on a render, and the words only change with them.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [songs, rows.length, midi.length, kitList.length],
   );
   const typed = queryWords(query);
   const spelled = respell(typed, vocab);

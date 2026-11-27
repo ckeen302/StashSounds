@@ -305,7 +305,11 @@ export function FlipPanel({ row }: { row: ItemRow }) {
                   type="button"
                   aria-label={`Step ${i + 1}: ${v === REST ? "rest" : `slice ${v + 1}`}`}
                   data-now={step === i || undefined}
-                  onClick={() => update({ order: s.order.map((x, j) => (j === i ? armed : x)) })}
+                  onClick={() => {
+                    update({ order: s.order.map((x, j) => (j === i ? armed : x)) });
+                    // Hear what the step now holds, so a tap always answers (even when it already held it).
+                    if (armed !== REST) hit(armed);
+                  }}
                   className="flex h-10 w-full items-center justify-center rounded-control border border-border bg-bg font-mono text-small text-text data-now:border-accent data-now:text-accent"
                 >
                   {v === REST ? "–" : v + 1}

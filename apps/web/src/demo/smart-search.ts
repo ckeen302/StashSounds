@@ -477,13 +477,23 @@ export function quality(downloads: number, plays: number): number {
 
 const ALIASES_OF = new Map<string, string[]>([...GENRE_ALIASES, ...SOUND_ALIASES, ...MOOD_ALIASES].map(([n, as]) => [n as string, as]));
 
+// Every style by its folded name and its longer aliases, built once (the search asks per song).
+let STYLE_BY_NAME: Map<string, (typeof STYLES)[number]> | null = null;
+function styleByName() {
+  if (STYLE_BY_NAME) return STYLE_BY_NAME;
+  const m = new Map<string, (typeof STYLES)[number]>();
+  for (const x of STYLES) if (!m.has(fold(x.name))) m.set(fold(x.name), x);
+  for (const x of STYLES) for (const a of x.aliases) if (a.length > 4 && !m.has(fold(a))) m.set(fold(a), x);
+  return (STYLE_BY_NAME = m);
+}
+
 /** The style labels ("Trap", "Dark", "808") of the artists and producers named. */
 export function vibeOf(names: string[]): string[] {
   const out = new Set<string>();
   for (const n of names) {
     const k = fold(n);
     if (!k) continue;
-    const st = STYLES.find((x) => fold(x.name) === k || x.aliases.some((a) => a.length > 4 && fold(a) === k));
+    const st = styleByName().get(k);
     if (!st) continue;
     for (const l of [...st.genres, ...st.moods, ...st.sounds]) out.add(l);
   }

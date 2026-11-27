@@ -66,15 +66,22 @@ for (const p of ALL_SONGS) {
   s.album ??= p.album && p.album !== "Single" ? p.album : null;
   addProducers(s, producersOf(p.producer));
 }
+// Versions of one song ("Let Me Ride", "Let Me Ride (Extended Club Mix)") are one page: the plain
+// title leads, and every version's address and the songs that sample it land there.
+const VERSIONS = new Map<SongAll, SampleSong[]>();
+const bracketed = (t: string) => /[([]/.test(t);
 for (const x of SAMPLE_SONGS) {
   const s = entry(x.song, x.artist);
-  s.sample ??= x;
-  if (!s.preset) s.song = x.song;
+  VERSIONS.set(s, [...(VERSIONS.get(s) ?? []), x]);
+  if (!s.sample || (bracketed(s.sample.song) && !bracketed(x.song))) {
+    s.sample = x;
+    if (!s.preset) s.song = x.song;
+  }
   s.album ??= x.album;
   s.year ??= x.year;
   s.video ??= x.video;
   addProducers(s, x.producers.filter((n) => canonicalName(n, "credit")));
-  s.sampledIn = asOriginal(x)?.uses ?? [];
+  for (const u of asOriginal(x)?.uses ?? []) if (!s.sampledIn.some((y) => y.song === u.song)) s.sampledIn.push(u);
 }
 for (const m of songChordItems()) {
   if (!m.song) continue;
@@ -101,10 +108,10 @@ for (const s of ALL) {
   BY_SLUG.set(slug, s);
 }
 for (const s of ALL) {
-  for (const a of [s.sample?.slug, songSlug(s.song, s.artist)]) if (a && !BY_SLUG.has(a) && !ALIAS.has(a)) ALIAS.set(a, s);
+  const versions = VERSIONS.get(s) ?? [];
+  for (const a of [...versions.map((x) => x.slug), songSlug(s.song, s.artist)]) if (a && !BY_SLUG.has(a) && !ALIAS.has(a)) ALIAS.set(a, s);
+  for (const x of versions) x.songSlug = s.slug;
 }
-
-for (const s of ALL) if (s.sample) s.sample.songSlug = s.slug;
 
 export const SONGS: SongAll[] = ALL;
 

@@ -39,3 +39,19 @@
   the finder before packing: both write `samples/covers.json`). A cover row whose file is on no sheet
   is ignored by the page and flagged by the QA. The QA's dead-button check skips chips and tabs that
   are already chosen, and reports an element it cannot click as a warning, not a failure.
+
+## Update, 2026-11-27: phone size, lag and fixing
+
+- The nightly check also visits the tabs and half of each day's detail pages at phone size (390 by
+  844, touch, the CPU slowed 4x) and flags a page that scrolls sideways there. Song pages
+  (`/song/<slug>`) are a detail type of their own.
+- It times every page until its content shows (budget 3 s desktop, 5 s phone; an over-budget page is
+  timed again on its own before it counts, since several load at once), every click until it answers,
+  and the main thread's long tasks while loading. The report has a lag table and the slowest pages.
+- Flows: typed searches ("carti", "kayne", "dark 808") must show the right results within budget
+  (the first, which loads the song index, gets the page budget; after that 1 s on phone, 0.5 s on
+  desktop), and the search must reach a song page with its parts and drum kit.
+- The scheduled task (8:17 UTC daily) now runs the check, fixes what failed in a branch, re-runs it,
+  and opens a pull request into `lane/demo-137` with the report; it never merges or publishes.
+- Its first run found search taking 1.6 s per query on a phone and 5 links from sampled records to
+  versions of a song ("Let Me Ride (Extended Club Mix)") with no page; both are fixed.

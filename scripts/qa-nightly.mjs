@@ -18,6 +18,12 @@
 //   (c) buttons: each visible, enabled button is clicked; one that changes no DOM, navigates nowhere,
 //       starts no audio, shows no toast and saves or copies nothing is flagged as dead. Page errors and
 //       console errors are flagged too.
+//   (d) phone: the tabs and half of each day's detail pages are visited again at phone size (390x844,
+//       touch, 4x slower CPU); a page wider than the screen is flagged.
+//   (e) lag: how long each page takes to show its content and each click to answer, and the main
+//       thread's long tasks while loading. A page over budget (3 s desktop, 5 s phone) is flagged; the
+//       slowest pages and clicks are listed in the report.
+//   (f) flows: search (typed queries reach results and a song page), a song page's parts, share.
 // Static checks also run: every cover row points at a tile on a sheet, every sheet exists, and the
 // output stays within the Artifact's file limits.
 //
@@ -44,6 +50,10 @@ const PER_TYPE = Number(arg("per-type", 12));
 const CLICKS = Number(arg("clicks", 24));
 const WORKERS = Number(arg("workers", 3));
 const DAY = Number(arg("day", Math.floor(Date.now() / 86400000)));
+const DESKTOP_BUDGET_MS = Number(arg("budget", 3000));
+const PHONE_BUDGET_MS = Number(arg("phone-budget", 5000));
+const PHONE_CPU = Number(arg("phone-cpu", 4));
+const SEARCH_BUDGET_MS = 1000; // phone, after the first search; half that on desktop
 const log = (...a) => console.error(`[qa ${((Date.now() - started) / 1000).toFixed(0)}s]`, ...a);
 
 const failures = []; // { kind, page?, detail }
@@ -68,6 +78,7 @@ import { SAMPLE_SONGS, ORIGINALS, ARTISTS, PRODUCERS, sampleSongBySlug, original
 import { midiItems, midiItem } from ${JSON.stringify(join(demo, "midi/catalog"))};
 import { kits, kit } from ${JSON.stringify(join(demo, "kits/store"))};
 import { PACKS, pack } from ${JSON.stringify(join(demo, "packs"))};
+import { SONGS, songAllBySlug } from ${JSON.stringify(join(demo, "song/data"))};
 import { buildCatalog } from ${JSON.stringify(join(demo, "data"))};
 import { nameFor, pathFor } from ${JSON.stringify(join(demo, "router"))};
 import { allProducers, producerBySlug as producerPage, producerPageHref } from ${JSON.stringify(join(demo, "producers/data"))};
@@ -77,6 +88,7 @@ import LAZY_COVERS from ${JSON.stringify(join(demo, "samples/covers.json"))};
 const catalog = buildCatalog("http://localhost/");
 const midiId = (p) => /^\\/midi\\/(?:.*-)?([a-z0-9]+)$/.exec(p)?.[1];
 export const pages = {
+  song: SONGS.map((s) => "/song/" + s.slug),
   "preset song": ALL_SONGS.map((s) => "/presets/" + s.slug),
   "sample song": SAMPLE_SONGS.map(sampleHref),
   "sampled record": ORIGINALS.map(originalHref),
@@ -95,6 +107,7 @@ export function resolves(path) {
   let x;
   if ((x = /^\\/loop\\/(?:.*-)?([a-z0-9]+)$/.exec(path)?.[1])) return !!catalog.page(x);
   if ((x = midiId(path))) return !!midiItem(x);
+  if ((x = m(/^\\/song\\/(.+)$/))) return !!songAllBySlug(x);
   if ((x = m(/^\\/presets\\/(.+)$/))) return !!songBySlug(x);
   if ((x = m(/^\\/samples\\/(.+)$/))) return !!sampleSongBySlug(x);
   if ((x = m(/^\\/sampled\\/(.+)$/))) return !!originalBySlug(x);
@@ -208,7 +221,8 @@ const shuffle = (xs, seed) => {
   }
   return a;
 };
-const visits = TABS.map((p) => ({ type: "tab", path: p }));
+const PHONE_SHARE = Number(arg("phone-share", 0.5)); // of each type's daily pages, also visited at phone size
+const visits = TABS.map((p) => ({ type: "tab", path: p, device: "desktop" }));
 const coverage = {};
 for (const [type, all] of Object.entries(data.pages)) {
   const uniq = [...new Set(all)];
@@ -217,16 +231,19 @@ for (const [type, all] of Object.entries(data.pages)) {
   const start = (DAY * n) % Math.max(1, uniq.length);
   const pick = uniq.length <= PER_TYPE ? uniq : Array.from({ length: n }, (_, i) => order[(start + i) % order.length]);
   coverage[type] = { total: uniq.length, visited: pick.length, fullCycleDays: Math.ceil(uniq.length / Math.max(1, n)) };
-  for (const p of pick) visits.push({ type, path: p });
+  for (const p of pick) visits.push({ type, path: p, device: "desktop" });
 }
+const phoneVisits = visits.filter((v, i, all) => v.type === "tab" || all.filter((w) => w.type === v.type).indexOf(v) < Math.ceil(PER_TYPE * PHONE_SHARE)).map((v) => ({ ...v, device: "phone" }));
+visits.push(...phoneVisits);
 log(`${visits.length} pages to visit`);
 
 // 7. Visit them.
 const { chromium } = req("playwright");
 // Muted: the check clicks every play button, and nothing should reach a speaker.
 const browser = await chromium.launch({ args: ["--mute-audio"] });
-const NOT_FOUND = /isn['’]t here|isn['’]t in the (presets|samples) yet|No producer by that name|No page for that producer yet/i;
+const NOT_FOUND = /isn['’]t here|isn['’]t on Stash yet|isn['’]t in the (presets|samples) yet|No producer by that name|No page for that producer yet/i;
 const pageResults = [];
+const slow = []; // visits over their time budget, to time again alone
 const hrefs = new Map(); // href -> first page it was seen on
 const fetched = new Map(); // url -> status
 
@@ -276,6 +293,16 @@ const HOOKS = () => {
     w.__qa.saves++;
     return null;
   };
+  w.__qa.longTasks = 0;
+  w.__qa.blocking = 0;
+  try {
+    new PerformanceObserver((l) => {
+      for (const e of l.getEntries()) {
+        w.__qa.longTasks++;
+        w.__qa.blocking += Math.max(0, e.duration - 50);
+      }
+    }).observe({ type: "longtask", buffered: true });
+  } catch {}
   document.addEventListener("DOMContentLoaded", () => {
     new MutationObserver((m) => (w.__qa.mutations += m.length)).observe(document.documentElement, { subtree: true, childList: true, attributes: true, characterData: true });
   });
@@ -302,16 +329,31 @@ async function visit(ctx, v) {
   page.on("popup", (p) => p.close().catch(() => {}));
   page.on("download", (d) => d.cancel().catch(() => {}));
   const url = `${base}#${data.nameFor(v.path)}`;
-  const result = { ...v, ok: true, notFound: false, buttons: 0, dead: [], errors };
+  const result = { ...v, ok: true, notFound: false, buttons: 0, dead: [], errors, readyMs: 0, blockingMs: 0, clicks: [] };
+  const tag = v.device === "phone" ? " [phone]" : "";
   try {
+    const t0 = Date.now();
     await page.goto(url, { waitUntil: "load", timeout: 30000 });
-    await page.waitForFunction(() => document.querySelector("#root")?.children.length > 0, null, { timeout: 15000 });
+    // Ready: the page's own content is on screen (a heading or a main with text), not the shell alone.
+    await page.waitForFunction(() => (document.querySelector("main")?.innerText.trim().length ?? 0) > 20 || document.querySelector("main h1, main h2"), null, { timeout: 15000 }).catch(() =>
+      page.waitForFunction(() => document.querySelector("#root")?.children.length > 0, null, { timeout: 15000 }),
+    );
+    result.readyMs = Date.now() - t0;
+    const budget = v.device === "phone" ? PHONE_BUDGET_MS : DESKTOP_BUDGET_MS;
+    // Several pages load at once here, so an over-budget time is timed again alone before it counts.
+    if (result.readyMs > budget && !v.retime) slow.push(v);
+    else if (result.readyMs > budget) fail("slow page", `${v.path}${tag} took ${(result.readyMs / 1000).toFixed(1)} s to show its content on its own (budget ${budget / 1000} s)`, v.path);
     await page.waitForLoadState("networkidle", { timeout: 8000 }).catch(() => {});
     await page.waitForTimeout(300);
+    result.blockingMs = Math.round(await page.evaluate(() => window.__qa.blocking));
     const text = await page.evaluate(() => document.querySelector("main")?.innerText ?? document.body.innerText);
     if (NOT_FOUND.test(text)) {
       result.notFound = true;
-      fail("not found", `${v.path} (a ${v.type} page from the data) renders a not-found page`, v.path);
+      fail("not found", `${v.path}${tag} (a ${v.type} page from the data) renders a not-found page`, v.path);
+    }
+    if (v.device === "phone") {
+      const wide = await page.evaluate(() => ({ w: document.documentElement.scrollWidth, view: window.innerWidth }));
+      if (wide.w > wide.view + 1) fail("phone layout", `${v.path} is ${wide.w}px wide on a ${wide.view}px phone screen (it scrolls sideways)`, v.path);
     }
     // App links ("/path" or "#name"); a "#id" that names an element on this page is an in-page anchor.
     const links = await page.$$eval("a[href]", (as) =>
@@ -352,6 +394,7 @@ async function visit(ctx, v) {
         });
       const before = await state();
       acting = b.label || "an unlabelled button";
+      const c0 = Date.now();
       try {
         await loc.click({ timeout: 2000, noWaitAfter: true });
       } catch {
@@ -364,8 +407,15 @@ async function visit(ctx, v) {
         }
       }
       const changed = (a) => a.hash !== before.hash || a.mutations !== before.mutations || a.audio !== before.audio || a.saves !== before.saves || a.copies !== before.copies || a.jumps !== before.jumps || a.html !== before.html || a.scroll !== before.scroll;
-      await page.waitForTimeout(250);
+      // Poll so the time to the first visible answer is known, not just whether there was one.
       let after = await state();
+      while (!changed(after) && Date.now() - c0 < 250) {
+        await page.waitForTimeout(16);
+        after = await state();
+      }
+      const answeredMs = changed(after) ? Date.now() - c0 : null;
+      await page.waitForTimeout(Math.max(0, 250 - (Date.now() - c0)));
+      after = await state();
       // Audio that has to be fetched and decoded first starts later: give it a moment more.
       if (!changed(after)) {
         await page.waitForTimeout(1500);
@@ -373,6 +423,7 @@ async function visit(ctx, v) {
       }
       result.buttons++;
       const did = changed(after);
+      if (did) result.clicks.push({ label: b.label, ms: answeredMs ?? Date.now() - c0, audio: after.audio !== before.audio });
       if (!did) result.dead.push(b.label || `(unlabelled button #${b.i})`);
       // Undo what the click opened or where it went.
       await page.keyboard.press("Escape").catch(() => {});
@@ -382,29 +433,114 @@ async function visit(ctx, v) {
         await page.$$eval('button, [role="button"]', (bs) => bs.forEach((x, i) => x.setAttribute("data-qa-i", String(i)))).catch(() => {});
       }
     }
-    for (const d of result.dead) fail("dead button", `"${d}" did nothing when clicked`, v.path);
+    for (const d of result.dead) fail("dead button", `"${d}" did nothing when clicked${tag}`, v.path);
   } catch (e) {
     result.ok = false;
-    fail("page failed", `${v.path}: ${String(e.message).split("\n")[0]}`, v.path);
+    fail("page failed", `${v.path}${tag}: ${String(e.message).split("\n")[0]}`, v.path);
   }
-  for (const e of errors) fail(e.startsWith("page") ? "page error" : "console error", e, v.path);
+  for (const e of errors) fail(e.startsWith("page") ? "page error" : "console error", `${e}${tag}`, v.path);
   await page.close().catch(() => {});
   pageResults.push(result);
 }
 
+// Reduced motion stops the genre ticker, so its chips scroll into view and click like any other.
+const DEVICES = {
+  desktop: { viewport: { width: 1280, height: 900 }, reducedMotion: "reduce" },
+  phone: { viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true, reducedMotion: "reduce", userAgent: "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1" },
+};
+const contexts = {};
+async function contextFor(device) {
+  if (contexts[device]) return contexts[device];
+  const ctx = await browser.newContext(DEVICES[device]);
+  await ctx.addInitScript(HOOKS);
+  // A phone's CPU is slower than this machine's: every phone page runs at a quarter of the speed.
+  if (device === "phone") ctx.on("page", (p) => ctx.newCDPSession(p).then((c) => c.send("Emulation.setCPUThrottlingRate", { rate: PHONE_CPU })).catch(() => {}));
+  return (contexts[device] = ctx);
+}
 const queue = [...visits];
 await Promise.all(
   Array.from({ length: WORKERS }, async () => {
-    // Reduced motion stops the genre ticker, so its chips scroll into view and click like any other.
-    const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 }, reducedMotion: "reduce" });
-    await ctx.addInitScript(HOOKS);
     for (let v; (v = queue.shift()); ) {
-      await visit(ctx, v);
+      await visit(await contextFor(v.device), v);
       if (pageResults.length % 10 === 0) log(`${pageResults.length}/${visits.length} pages`);
     }
-    await ctx.close();
   }),
 );
+
+// Pages over budget, timed again one at a time (no clicks).
+for (const v of slow.slice(0, 20)) {
+  const again = { ...v, retime: true };
+  const page = await (await contextFor(v.device)).newPage();
+  const t0 = Date.now();
+  await page.goto(`${base}#${data.nameFor(v.path)}`, { waitUntil: "load", timeout: 30000 }).catch(() => {});
+  await page.waitForFunction(() => (document.querySelector("main")?.innerText.trim().length ?? 0) > 20 || document.querySelector("main h1, main h2"), null, { timeout: 15000 }).catch(() => {});
+  const ms = Date.now() - t0;
+  await page.close().catch(() => {});
+  const budget = v.device === "phone" ? PHONE_BUDGET_MS : DESKTOP_BUDGET_MS;
+  const row = pageResults.find((x) => x.path === v.path && x.device === v.device);
+  if (row) row.readyAloneMs = ms;
+  if (ms > budget) fail("slow page", `${again.path}${v.device === "phone" ? " [phone]" : ""} took ${(ms / 1000).toFixed(1)} s to show its content on its own (budget ${budget / 1000} s)`, v.path);
+}
+
+// 7b. Flows: what a producer does end to end, on both sizes.
+async function flow(device, name, steps) {
+  const page = await (await contextFor(device)).newPage();
+  const errs = [];
+  page.on("pageerror", (e) => errs.push(e.message.split("\n")[0]));
+  page.on("dialog", (d) => d.dismiss().catch(() => {}));
+  page.on("popup", (p) => p.close().catch(() => {}));
+  const t0 = Date.now();
+  try {
+    await steps(page);
+    flows.push({ device, name, ok: true, ms: Date.now() - t0 });
+  } catch (e) {
+    flows.push({ device, name, ok: false, ms: Date.now() - t0, error: String(e.message).split("\n")[0] });
+    fail("broken flow", `${name} [${device}]: ${String(e.message).split("\n")[0]}`);
+  }
+  for (const e of errs) fail("page error", `${e} (during the ${name} flow) [${device}]`);
+  await page.close().catch(() => {});
+}
+const flows = [];
+const searches = [];
+const SEARCHES = [
+  ["carti", /Playboi Carti/i],
+  ["kayne", /Kanye/i],
+  ["dark 808", /./],
+];
+for (const device of Object.keys(DEVICES)) {
+  await flow(device, "search to a song page", async (page) => {
+    for (const [q, want] of SEARCHES) {
+      await page.goto(`${base}#${data.nameFor("/search")}`, { waitUntil: "load" });
+      const box = page.locator('main input[type="search"]').first();
+      await box.waitFor({ timeout: 10000 });
+      const t = Date.now();
+      await box.fill(q);
+      await page.waitForFunction((src) => new RegExp(src, "i").test(document.querySelector("main")?.innerText ?? ""), want.source, { timeout: 8000 }).catch(() => {
+        throw new Error(`searching "${q}" never showed a result matching ${want}`);
+      });
+      const ms = Date.now() - t;
+      // The first search also loads the song index; after that each one should answer as you type.
+      const budget = q === SEARCHES[0][0] ? (device === "phone" ? PHONE_BUDGET_MS : DESKTOP_BUDGET_MS) : device === "phone" ? SEARCH_BUDGET_MS : SEARCH_BUDGET_MS / 2;
+      searches.push({ device, q, ms });
+      if (ms > budget) fail("slow search", `"${q}" took ${(ms / 1000).toFixed(1)} s to show results (budget ${budget / 1000} s) [${device}]`);
+    }
+    const song = page.locator('main a[href*="song"]').first();
+    if (await song.count()) {
+      await song.click();
+      await page.waitForFunction(() => location.hash.includes("song-"), null, { timeout: 8000 });
+      await page.locator("main h1").first().waitFor({ timeout: 8000 });
+    } else throw new Error(`no song in the results for "${SEARCHES.at(-1)[0]}"`);
+  });
+  await flow(device, "song page parts", async (page) => {
+    const s = data.pages.song.find((p) => /playboi-carti|kanye/.test(p)) ?? data.pages.song[0];
+    await page.goto(`${base}#${data.nameFor(s)}`, { waitUntil: "load" });
+    await page.locator("main h1").first().waitFor({ timeout: 10000 });
+    const jumps = await page.locator('nav[aria-label="On this page"] a').count();
+    if (!jumps) throw new Error(`${s} shows no parts to jump to`);
+    if (!(await page.locator("#drums").count())) throw new Error(`${s} has no drum kit part`);
+  });
+}
+for (const ctx of Object.values(contexts)) await ctx.close();
 
 // 8. Links: resolve every href seen against the data; open the ones the data cannot decide.
 log(`${hrefs.size} distinct internal links`);
@@ -462,6 +598,25 @@ rmSync(tmp, { recursive: true, force: true });
 for (const [u, status] of fetched) if (status !== 200 && status !== 304 && status !== 206) fail("bad fetch", `${u.slice(base.length)} answered ${status === -1 ? "nothing (request failed)" : status}`);
 
 // 9. Report.
+const pct = (xs, q) => (xs.length ? [...xs].sort((a, b) => a - b)[Math.min(xs.length - 1, Math.floor(q * xs.length))] : 0);
+function lagOf(rows) {
+  const out = {};
+  for (const d of Object.keys(DEVICES)) {
+    const r = rows.filter((x) => x.device === d && x.ok);
+    const ready = r.map((x) => x.readyMs);
+    const clicks = r.flatMap((x) => x.clicks.filter((c) => !c.audio).map((c) => c.ms));
+    out[d] = {
+      pages: r.length,
+      readyMedianMs: pct(ready, 0.5),
+      readyP95Ms: pct(ready, 0.95),
+      clickMedianMs: pct(clicks, 0.5),
+      clickP95Ms: pct(clicks, 0.95),
+      blockingP95Ms: pct(r.map((x) => x.blockingMs), 0.95),
+      slowest: [...r].sort((a, b) => b.readyMs - a.readyMs).slice(0, 5).map((x) => ({ path: x.path, ms: x.readyMs })),
+    };
+  }
+  return out;
+}
 mkdirSync(reportDir, { recursive: true });
 const byKind = {};
 for (const f of failures) byKind[f.kind] = (byKind[f.kind] ?? 0) + 1;
@@ -476,6 +631,9 @@ const summary = {
   filesFetched: fetched.size,
   mp3sDecoded: media.length,
   coverage,
+  lag: lagOf(pageResults),
+  flows,
+  searches,
   failures: failures.length,
   failuresByKind: byKind,
   warnings: warnings.length,
@@ -487,6 +645,17 @@ const md = [
   `${failures.length === 0 ? "PASS" : "FAIL"}: ${failures.length} failures, ${warnings.length} warnings, in ${summary.seconds} s.`,
   "",
   `Visited ${summary.pagesVisited} pages, clicked ${summary.buttonsClicked} buttons, checked ${summary.linksChecked} internal links and ${summary.filesFetched} fetched files, decoded ${summary.mp3sDecoded} mp3s. Output: ${summary.output.files} files, ${summary.output.megabytes} MB.`,
+  "",
+  "## Lag",
+  "",
+  "| Device | Pages | Content shown (median / p95) | Click answered (median / p95) | Main thread blocked while loading (p95) | Slowest page |",
+  "|---|---|---|---|---|---|",
+  ...Object.entries(summary.lag).map(([d, l]) => `| ${d} | ${l.pages} | ${l.readyMedianMs} / ${l.readyP95Ms} ms | ${l.clickMedianMs} / ${l.clickP95Ms} ms | ${l.blockingP95Ms} ms | ${l.slowest[0] ? `\`${l.slowest[0].path}\` ${l.slowest[0].ms} ms` : ""} |`),
+  "",
+  "## Flows",
+  "",
+  ...flows.map((f) => `- ${f.ok ? "ok" : "FAILED"}: ${f.name} [${f.device}], ${(f.ms / 1000).toFixed(1)} s${f.error ? `: ${f.error}` : ""}`),
+  ...(searches.length ? ["", `Search answered in: ${searches.map((x) => `"${x.q}" ${x.ms} ms [${x.device}]`).join(", ")}.`] : []),
   "",
   "## Coverage (rotation day " + DAY + ")",
   "",
